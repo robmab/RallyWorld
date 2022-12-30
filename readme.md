@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta name="viewport" content="width=device-width" /> 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width" /> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
+
 <body>
-<h1 id="logo">
+	<h1 id="logo">
 	<a href="http://wordpress.org/"><img alt="WordPress" src="wp-admin/images/wordpress-logo.png" /></a>
 	<br /> Version 4.9
-</h1>
+	</h1>
+
 <p style="text-align: center">Plataforma Semántica de Publicación Personal</p>
 
 <h1>Antes de empezar</h1>
