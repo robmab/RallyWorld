@@ -1,0 +1,247 @@
+# Translation of Plugins - List category posts - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - List category posts - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-10-11 09:04:31+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - List category posts - Stable (latest release)\n"
+
+#: include/lcp-utils.php:25
+msgid "ID"
+msgstr "ID"
+
+#: include/lcp-widget-form.php:250
+msgid "Yes"
+msgstr "Sí"
+
+#: include/lcp-widget-form.php:247
+msgid "No"
+msgstr "No"
+
+#: include/lcp-widget-form.php:242
+msgid "Tags as class"
+msgstr "Etiquetas como clase"
+
+#: include/lcp-options.php:62 include/lcp-widget-form.php:188
+msgid "Pagination"
+msgstr "Paginación"
+
+#: include/lcp-options.php:29
+msgid "These are general default options for List Category Posts. The idea in general will be that you can override them using the corresponding parameters in your shortcodes."
+msgstr "Éstas son las opciones generales para List Category Posts. La idea general es que puedas sobreescribirlas usando los parámetros correspondientes en tus shortcodes."
+
+#. Author URI of the plugin/theme
+msgid "http://fernandobriano.com"
+msgstr "http://fernandobriano.com"
+
+#. Author of the plugin/theme
+msgid "Fernando Briano"
+msgstr "Fernando Briano"
+
+#. Description of the plugin/theme
+msgid "List Category Posts allows you to list posts by category in a post/page using the [catlist] shortcode. This shortcode accepts a category name or id, the order in which you want the posts to display, the number of posts to display and many more parameters. You can use [catlist] as many times as needed with different arguments. Usage: [catlist argument1=value1 argument2=value2]."
+msgstr "List Category Posts te permite listar entradas por categoría en una entrada o página usando el shortcode [catlist]. Este shortcode acepta el nombre o id de una categoría, el orden en el cual quieres mostrar las entradas, la cantidad de entradas a mostrar y muchos parámetros más. Puedes usar [catlist] tantas veces como sea necesario con diferentes argumentos. Uso: [catlist argumento1=valor1 argumento2=valor2]."
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/picandocodigo/List-Category-Posts"
+msgstr "https://github.com/picandocodigo/List-Category-Posts"
+
+#. Plugin Name of the plugin/theme
+msgid "List category posts"
+msgstr "List category posts"
+
+#: list-category-posts.php:180
+msgid "Fork on Github"
+msgstr "Forkear en Github"
+
+#: list-category-posts.php:179
+msgid "Donate"
+msgstr "Donar"
+
+#: list-category-posts.php:178
+msgid "How to use"
+msgstr "Cómo usarlo"
+
+#: include/lcp-widget.php:12
+msgid "List Category Posts"
+msgstr "List Category Posts"
+
+#: include/lcp-widget.php:11
+msgid "List posts from a specified category"
+msgstr "Listar posts de una categoría especificada"
+
+#: include/lcp-widget-form.php:257
+msgid "Template"
+msgstr "Plantilla"
+
+#: include/lcp-widget-form.php:233
+msgid "More link"
+msgstr "Enlace a más"
+
+#: include/lcp-widget-form.php:224
+msgid "Excerpt size"
+msgstr "Tamaño del extracto\t"
+
+#: include/lcp-widget-form.php:220
+msgid "Excerpt"
+msgstr "Extracto"
+
+#: include/lcp-widget-form.php:214
+msgid "Link to category (use 'catlink' on the title field if you want the title of this widget to be a link to the category)"
+msgstr "Enlace a categoría (usar 'catlink' en el campo de título si quieres que el título de este widget sea un enlace a la categoría)"
+
+#: include/lcp-widget-form.php:173
+msgid "Thumbnail - size"
+msgstr "Vista previa - tamaño"
+
+#: include/lcp-widget-form.php:171
+msgid "Show"
+msgstr "Mostrar"
+
+#: include/lcp-widget-form.php:161
+msgid "Exclude posts (id's)"
+msgstr "Excluir posts (id's)"
+
+#: include/lcp-widget-form.php:151
+msgid "Exclude categories (id's)"
+msgstr "Excluir categorías (id's)"
+
+#: include/lcp-options.php:111 include/lcp-widget-form.php:144
+msgid "Ascending"
+msgstr "Ascendiente"
+
+#: include/lcp-options.php:108 include/lcp-widget-form.php:141
+msgid "Descending"
+msgstr "Descendiente"
+
+#: include/lcp-options.php:101 include/lcp-widget-form.php:135
+msgid "Order"
+msgstr "Orden"
+
+#: include/lcp-utils.php:26
+msgid "Random"
+msgstr "Al azar"
+
+#: include/lcp-utils.php:24 include/lcp-widget-form.php:208
+msgid "Author"
+msgstr "Autor"
+
+#: include/lcp-utils.php:23
+msgid "Post title"
+msgstr "Título del post"
+
+#: include/lcp-utils.php:22 include/lcp-widget-form.php:202
+msgid "Modified Date"
+msgstr "Fecha de modificación"
+
+#: include/lcp-utils.php:21 include/lcp-widget-form.php:195
+msgid "Date"
+msgstr "Fecha"
+
+#: include/lcp-options.php:76 include/lcp-widget-form.php:114
+msgid "Order by"
+msgstr "Ordenar por"
+
+#: include/lcp-widget-form.php:105
+msgid "Offset"
+msgstr "Offset"
+
+#: include/lcp-widget-form.php:95
+msgid "Number of posts"
+msgstr "Cantidad de posts"
+
+#: include/lcp-widget-form.php:66
+msgid "Category"
+msgstr "Categoría"
+
+#: include/lcp-widget-form.php:56
+msgid "Title"
+msgstr "Título"
+
+#: include/lcp-options.php:142
+msgid ""
+"If you've found the plugin useful, consider making\n"
+"      a <a href='http://picandocodigo.net/programacion/wordpress/list-category-posts-wordpress-plugin-english/'\n"
+"      title='Donate via PayPal' rel='nofollow'>donation via PayPal</a>\n"
+"      or visit my Amazon Wishlist\n"
+"      for <a href='http://www.amazon.com/gp/registry/wishlist/2HU1JYOF7DX5Q/ref=wl_web'\n"
+"      title='Amazon Wishlist' rel='nofollow'>books</a>\n"
+"      or <a href='http://www.amazon.com/registry/wishlist/1LVYAOJAZQOI0/ref=cm_wl_rlist_go_o'\n"
+"      rel='nofollow'>comic books</a> :)."
+msgstr ""
+"Si has encontrado útil el plugin, considera hacer una\n"
+"      a <a href='http://picandocodigo.net/programacion/wordpress/list-category-posts-wordpress-plugin-english/'\n"
+"      title='Donate via PayPal' rel='nofollow'>donación via PayPal</a>\n"
+"      o visita mi Wishlist de Amazon\n"
+"      para <a href='http://www.amazon.com/gp/registry/wishlist/2HU1JYOF7DX5Q/ref=wl_web'\n"
+"      title='Amazon Wishlist' rel='nofollow'>libros</a>\n"
+"      o <a href='http://www.amazon.com/registry/wishlist/1LVYAOJAZQOI0/ref=cm_wl_rlist_go_o'\n"
+"      rel='nofollow'>comics</a> :)."
+
+#: include/lcp-options.php:134
+msgid ""
+"Please post <strong>new feature requests, Bug fixes,\n"
+"      enhancements</strong>\n"
+"      to <a href='https://github.com/picandocodigo/List-Category-Posts/issues'>GitHub\n"
+"      Issues</a> and check out the\n"
+"      the <a href='https://github.com/picandocodigo/List-Category-Posts'>GitHub\n"
+"      repo</a> if you want to contribute code."
+msgstr ""
+"Por favor publica <strong>pedidos de nuevas características, errores,\n"
+"mejoras</strong>\n"
+"en <a href='https://github.com/picandocodigo/List-Category-Posts/issues'>GitHub\n"
+"Issues</a> y revisa el <a href='https://github.com/picandocodigo/List-Category-Posts'>repo en GitHub\n"
+"</a> si quieres contribuir código"
+
+#: include/lcp-options.php:123
+msgid ""
+"If you need help with the plugin, please visit\n"
+"      the <a href='http://wordpress.org/support/plugin/list-category-posts'>WordPress\n"
+"      support forum</a>. Make sure\n"
+"      you <a href='http://wordpress.org/extend/plugins/list-category-posts/other_notes/'>read\n"
+"      the instructions</a> to be aware of all the things you can do\n"
+"      with List Category Posts and <a href='https://github.com/picandocodigo/List-Category-Posts/blob/master/doc/FAQ.md#frequently-asked-questions'>check out the FAQ</a>."
+msgstr ""
+"Si necesitas ayuda con el plugin, por favor visita\n"
+"      el <a href='http://wordpress.org/support/plugin/list-category-posts'>foro de soporte\n"
+"      de WordPress</a>. Asegúrate\n"
+"      de <a href='http://wordpress.org/extend/plugins/list-category-posts/other_notes/'>leer\n"
+"      las instrucciones</a> para estar al tanto de todo lo que puedes hacer\n"
+"      con List Category Posts y <a href='https://github.com/picandocodigo/List-Category-Posts/blob/master/doc/FAQ.md#frequently-asked-questions'>revisa el FAQ</a>."
+
+#: include/lcp-options.php:122
+msgid "Thanks for using List Category Posts."
+msgstr "Gracias por usar List Category Posts."
+
+#: include/lcp-options.php:53
+msgid "-1 - displays ALL THE POSTS (no limit)"
+msgstr "-1 - muestra TODOS LOS POSTS (sin límite)"
+
+#: include/lcp-options.php:52
+msgid "0 - displays the max number of posts per page"
+msgstr "0 - muestra la cantidad máxima de posts por página"
+
+#: include/lcp-options.php:50
+msgid "Default number of posts (overriden using <code>numberposts</code> parameter on each shortcode)."
+msgstr "Cantidad de posts por defecto (se pasa por arriba usando el parámetro <code>numberposts</code> en cada llamada al shortcode)."
+
+#: include/lcp-options.php:42
+msgid "Number of Posts"
+msgstr "Número de Publicaciones"
+
+#: include/lcp-options.php:23
+msgid "You do not have sufficient permissions to access this page."
+msgstr "No tienes suficientes permisos para acceder a esta página."
+
+#: include/lcp-catlist.php:354
+msgid "Continue reading &rarr;"
+msgstr "Seguir leyendo &rarr;"
+
+#: include/lcp-category.php:66
+msgid "Empty Term."
+msgstr "Término vacío."

@@ -1,0 +1,31 @@
+a:hover {
+  color: #489dc7;
+}
+
+a {
+  color: #3c7aad;
+}
+
+.read-more {
+  color: #4782B1;
+}
+
+.nav-links .numbers-navigation span.current {
+  background-color: #4782B1;
+}
+
+ul.dropdown-menu.simple-menu-items>.current-menu-item>a {
+  color: #51abf5;
+}
+
+.wpforms-form button[type=submit].wpforms-submit.color1:hover {
+  background-color: #69bcff;
+}
+
+.wpforms-form button[type=submit].wpforms-submit.color1 {
+  background-color: #4782B1;
+}
+
+.nav-links .next-navigation a i {
+  color: #4782B1;
+}

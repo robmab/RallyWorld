@@ -1,0 +1,1054 @@
+# Translation of Plugins - Mesmerize Companion - Development (trunk) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Mesmerize Companion - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-07-11 07:36:41+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Mesmerize Companion - Development (trunk)\n"
+
+#. Author of the plugin/theme
+msgid "Horea Radu"
+msgstr "Horea Radu"
+
+#. Plugin Name of the plugin/theme
+msgid "Mesmerize Companion"
+msgstr "Mesmerize Companion"
+
+#: theme-data/mesmerize/options/overlap.php:30
+msgid "Overlap with"
+msgstr "Superposición con"
+
+#: theme-data/mesmerize/options/overlap.php:19
+msgid "Allow content to overlap header"
+msgstr "Permite que el contenido se superponga al encabezado"
+
+#: theme-data/mesmerize/functions.php:377
+msgid "Call to action"
+msgstr "Llamada a la acción"
+
+#: theme-data/mesmerize/functions.php:373
+msgid "Latest News"
+msgstr "Las últimas noticias"
+
+#: src/Customizer/Translations.php:886
+msgid "yellow"
+msgstr "Amarillo"
+
+#: src/Customizer/Translations.php:882
+msgid "white text"
+msgstr "texto blanco"
+
+#: src/Customizer/Translations.php:878
+msgid "use existing color"
+msgstr "usar el color existente"
+
+#: src/Customizer/Translations.php:874
+msgid "transparent"
+msgstr "transparente"
+
+#: src/Customizer/Translations.php:870
+msgid "transparent ( link button )"
+msgstr "transparente (botón de enlace)"
+
+#: src/Customizer/Translations.php:866
+msgid "top"
+msgstr "arriba"
+
+#: src/Customizer/Translations.php:862
+msgid "square"
+msgstr "cuadrado"
+
+#: src/Customizer/Translations.php:858
+msgid "square round"
+msgstr "cuadrado redondo"
+
+#: src/Customizer/Translations.php:854
+msgid "square round outline"
+msgstr "contorno cuadrado redondo"
+
+#: src/Customizer/Translations.php:850
+msgid "square outline"
+msgstr "contorno cuadrado"
+
+#: src/Customizer/Translations.php:846
+msgid "small"
+msgstr "pequeño"
+
+#: src/Customizer/Translations.php:842
+msgid "show shadow"
+msgstr "mostrar la sombra"
+
+#: src/Customizer/Translations.php:838
+msgid "separator"
+msgstr "separador"
+
+#: src/Customizer/Translations.php:834
+msgid "separator type"
+msgstr "tipo de separador"
+
+#: src/Customizer/Translations.php:830
+msgid "separator color"
+msgstr "color del separador"
+
+#: src/Customizer/Translations.php:822
+msgid "separator Height"
+msgstr "altura del separador"
+
+#: src/Customizer/Translations.php:818
+msgid "select image"
+msgstr "seleccionar una imagen"
+
+#: src/Customizer/Translations.php:814
+msgid "round"
+msgstr "redondo"
+
+#: src/Customizer/Translations.php:810
+msgid "round outline"
+msgstr "contorno redondo"
+
+#: src/Customizer/Translations.php:806
+msgid "rating"
+msgstr "puntuación"
+
+#: src/Customizer/Translations.php:802
+msgid "random"
+msgstr "aleatorio"
+
+#: src/Customizer/Translations.php:798
+msgid "purple"
+msgstr "morado"
+
+#: src/Customizer/Translations.php:794
+msgid "price"
+msgstr "precio"
+
+#: src/Customizer/Translations.php:790
+msgid "popularity"
+msgstr "popularidad"
+
+#: src/Customizer/Translations.php:786
+msgid "paragraph"
+msgstr "párrafo"
+
+#: src/Customizer/Translations.php:782
+msgid "outline"
+msgstr "contorno"
+
+#: src/Customizer/Translations.php:778
+msgid "orange"
+msgstr "naranja"
+
+#: src/Customizer/Translations.php:774
+msgid "normal"
+msgstr "normal"
+
+#: src/Customizer/Translations.php:770
+msgid "no shadow"
+msgstr "sin sombra"
+
+#: src/Customizer/Translations.php:766
+msgid "new link"
+msgstr "nuevo enlace"
+
+#: src/Customizer/Translations.php:762
+msgid "new button"
+msgstr "botón nuevo"
+
+#: src/Customizer/Translations.php:758
+msgid "link"
+msgstr "enlace"
+
+#: src/Customizer/Translations.php:754
+msgid "lead"
+msgstr "principal"
+
+#: src/Customizer/Translations.php:750
+msgid "image"
+msgstr "imagen"
+
+#: src/Customizer/Translations.php:746
+msgid "heading"
+msgstr "título"
+
+#: src/Customizer/Translations.php:742
+msgid "green"
+msgstr "verde"
+
+#: src/Customizer/Translations.php:738
+msgid "edit theme colors"
+msgstr "editar los colores del tema"
+
+#: src/Customizer/Translations.php:734
+msgid "default"
+msgstr "por defecto"
+
+#: src/Customizer/Translations.php:730
+msgid "date"
+msgstr "fecha"
+
+#: src/Customizer/Translations.php:722
+msgid "columns"
+msgstr "columnas"
+
+#: src/Customizer/Translations.php:718
+msgid "column"
+msgstr "columna"
+
+#: src/Customizer/Translations.php:714
+msgid "button"
+msgstr "botón"
+
+#: src/Customizer/Translations.php:710
+msgid "bottom"
+msgstr "parte inferior"
+
+#: src/Customizer/Translations.php:706
+msgid "border"
+msgstr "borde"
+
+#: src/Customizer/Translations.php:702
+msgid "blue"
+msgstr "azul"
+
+#: src/Customizer/Translations.php:698
+msgid "big"
+msgstr "grande"
+
+#: src/Customizer/Translations.php:694
+msgid "background"
+msgstr "fondo"
+
+#: src/Customizer/Translations.php:690
+msgid "add theme color"
+msgstr "añadir el color del tema"
+
+#: src/Customizer/Translations.php:686
+msgid "Zoom"
+msgstr "Zoom"
+
+#: src/Customizer/Translations.php:682
+msgid "WooCommerce Section Options"
+msgstr "Opciones de la sección WooCommerce"
+
+#: src/Customizer/Translations.php:678
+msgid "Width"
+msgstr "Anchura"
+
+#: src/Customizer/Translations.php:674
+msgid "Widgets Area"
+msgstr "Zona widgets"
+
+#: src/Customizer/Translations.php:670
+msgid "White text"
+msgstr "Texto blanco"
+
+#: src/Customizer/Translations.php:666
+msgid "What Our Clients Say"
+msgstr "Qué dicen nuestros clientes"
+
+#: src/Customizer/Translations.php:658
+msgid "Video Popup Button"
+msgstr "Botón popup video"
+
+#: src/Customizer/Translations.php:654
+msgid "Use this field for 3rd party maps plugins. The fields above will be ignored in this case."
+msgstr "Usar este campo para los plugins de terceros. En este caso, los campos anteriores serán ignorados."
+
+#: src/Customizer/Translations.php:650
+msgid "Use custom selection"
+msgstr "Usar selección personalizada"
+
+#: src/Customizer/Translations.php:646
+msgid "Use Transparent Color"
+msgstr "Usar color transparente"
+
+#: src/Customizer/Translations.php:642
+msgid "Use Masonry to display the gallery"
+msgstr "Usar Masonry para mostrar la galería"
+
+#: src/Customizer/Translations.php:634
+msgid "Upgrade to PRO"
+msgstr "Actualización a PRO"
+
+#: src/Customizer/Translations.php:630
+msgid "Type"
+msgstr "Tipo"
+
+#: src/Customizer/Translations.php:626
+msgid "Transparent"
+msgstr "Transparente"
+
+#: src/Customizer/Translations.php:622
+msgid "Toggle visibility in primary menu"
+msgstr "Cambiar la visibilidad en el menú principal"
+
+#: src/Customizer/Translations.php:618
+msgid "This section has a custom background color"
+msgstr "Esta sección tiene un color de fondo personalizado"
+
+#: src/Customizer/Translations.php:614
+msgid "This item requires PRO theme"
+msgstr "Este elemento requiere el tema PRO"
+
+#: src/Customizer/Translations.php:610
+msgid "This item is available only in the PRO version"
+msgstr "Este elemento sólo está disponible en la versión PRO"
+
+#: src/Customizer/Translations.php:602
+msgid "Text"
+msgstr "Texto"
+
+#: src/Customizer/Translations.php:598
+msgid "Text Options"
+msgstr "Opciones de texto"
+
+#: src/Customizer/Translations.php:594
+msgid "Text Color"
+msgstr "Color de texto"
+
+#: src/Customizer/Translations.php:590
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: src/Customizer/Translations.php:586
+msgid "Swap columns position on mobile"
+msgstr "Cambiar la posición de las columnas en el móvil"
+
+#: src/Customizer/Translations.php:582
+msgid "Suffix ( text after the number )"
+msgstr "Sufijo (texto después del número)"
+
+#: src/Customizer/Translations.php:578
+msgid "Stop circle at value"
+msgstr "Detener el círculo al valor"
+
+#: src/Customizer/Translations.php:574
+msgid "Start counter from"
+msgstr "Iniciar el conteo desde"
+
+#: src/Customizer/Translations.php:570
+msgid "Small"
+msgstr "Pequeño"
+
+#: src/Customizer/Translations.php:566
+msgid "Show form controls on one column"
+msgstr "Mostrar los controles del formulario en una sola columna"
+
+#: src/Customizer/Translations.php:562
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: src/Customizer/Translations.php:558
+msgid "Set the shortcode"
+msgstr "Ajustar shortcode"
+
+#: src/Customizer/Translations.php:554
+msgid "Select"
+msgstr "Seleccionar"
+
+#: src/Customizer/Translations.php:550
+msgid "Select a Widgets Area"
+msgstr "Seleccionar una zona widgets"
+
+#: src/Customizer/Translations.php:546
+msgid "Select Products to display"
+msgstr "Seleccionar productos para la visualización"
+
+#: src/Customizer/Translations.php:542
+msgid "Select Image"
+msgstr "Seleccionar una imagen"
+
+#: src/Customizer/Translations.php:538
+msgid "Section"
+msgstr "Sección"
+
+#: src/Customizer/Translations.php:534
+msgid "Section Spacing"
+msgstr "Espaciado de sección"
+
+#: src/Customizer/Translations.php:530
+msgid "Section Settings"
+msgstr "Ajustes de la sección"
+
+#: src/Customizer/Translations.php:522
+msgid "Section Options"
+msgstr "Opciones de la sección"
+
+#: src/Customizer/Translations.php:518
+msgid "Section Dimensions"
+msgstr "Dimensiones de la sección"
+
+#: src/Customizer/Translations.php:514
+msgid "Section Background"
+msgstr "Fondo de la sección"
+
+#: src/Customizer/Translations.php:506
+msgid "Rounded background"
+msgstr "Fondo redondeado"
+
+#: src/Customizer/Translations.php:502
+msgid "Right"
+msgstr "Derecha"
+
+#: src/Customizer/Translations.php:498
+msgid "Reorder Items"
+msgstr "Reordenar los elementos"
+
+#: src/Customizer/Translations.php:494
+msgid "Remove"
+msgstr "Eliminar"
+
+#: src/Customizer/Translations.php:490
+msgid "Remove Item"
+msgstr "Eliminar elemento"
+
+#: src/Customizer/Translations.php:486
+msgid "Rating"
+msgstr "Puntuación"
+
+#: src/Customizer/Translations.php:482
+msgid "Random"
+msgstr "Aleatorio"
+
+#: src/Customizer/Translations.php:478
+msgid "Price"
+msgstr "Precio"
+
+#: src/Customizer/Translations.php:474
+msgid "Prefix ( text in front of the number )"
+msgstr "Prefijo (texto delante del número)"
+
+#: src/Customizer/Translations.php:470
+msgid "Popularity"
+msgstr "Popularidad"
+
+#: src/Customizer/Translations.php:462
+msgid "Overlay color"
+msgstr "Color superpuesto"
+
+#: src/Customizer/Translations.php:458
+msgid "Order"
+msgstr "Ordenar"
+
+#: src/Customizer/Translations.php:450
+msgid "Open images in Lightbox"
+msgstr "Abrir las imágenes en Lightbox"
+
+#: src/Customizer/Translations.php:446
+msgid "Offset Y"
+msgstr "Desviación Y"
+
+#: src/Customizer/Translations.php:442
+msgid "Offset X"
+msgstr "Desviación X"
+
+#: src/Customizer/Translations.php:438
+msgid "OK"
+msgstr "OK"
+
+#: src/Customizer/Translations.php:426
+msgid "Normal"
+msgstr "Normal"
+
+#: src/Customizer/Translations.php:418
+msgid "Move element"
+msgstr "Mover elemento"
+
+#: src/Customizer/Translations.php:402
+msgid "Manage Options"
+msgstr "Gestionar opciones"
+
+#: src/Customizer/Translations.php:398
+msgid "Manage Content"
+msgstr "Gestionar contenido"
+
+#: src/Customizer/Translations.php:390
+msgid "Make Centered"
+msgstr "Centrar"
+
+#: src/Customizer/Translations.php:386
+msgid "Main Menu"
+msgstr "Menú principal"
+
+#: src/Customizer/Translations.php:378
+msgid "List"
+msgstr "Lista"
+
+#: src/Customizer/Translations.php:362
+msgid "Left"
+msgstr "Izquierda"
+
+#: src/Customizer/Translations.php:350
+msgid "Large"
+msgstr "Grande"
+
+#: src/Customizer/Translations.php:346
+msgid "Items position"
+msgstr "Posición de elementos"
+
+#: src/Customizer/Translations.php:342
+msgid "Items align"
+msgstr "Alineación de elementos"
+
+#: src/Customizer/Translations.php:334
+msgid "Item"
+msgstr "Elemento"
+
+#: src/Customizer/Translations.php:326
+msgid "Image"
+msgstr "Imagen"
+
+#: src/Customizer/Translations.php:314
+msgid "Icon Color"
+msgstr "Color de icono"
+
+#: src/Customizer/Translations.php:302
+msgid "Height"
+msgstr "Altura"
+
+#: src/Customizer/Translations.php:286
+msgid "Gallery Settings"
+msgstr "Ajustes de la galería"
+
+#: src/Customizer/Translations.php:282
+msgid "Frame Settings"
+msgstr "Ajustes del marco"
+
+#: src/Customizer/Translations.php:270
+msgid "Extra Large"
+msgstr "Muy grande"
+
+#: src/Customizer/Translations.php:262
+msgid "Edit"
+msgstr "Editar"
+
+#: src/Customizer/Translations.php:258
+msgid "Edit section settings"
+msgstr "Editar los ajustes de la sección"
+
+#: src/Customizer/Translations.php:254
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: src/Customizer/Translations.php:250
+msgid "Display"
+msgstr "Visualización"
+
+#: src/Customizer/Translations.php:236
+msgid "Delete item"
+msgstr "Eliminar artículo"
+
+#: src/Customizer/Translations.php:232
+msgid "Delete element"
+msgstr "Eliminar elemento"
+
+#: src/Customizer/Translations.php:228
+msgid "Default"
+msgstr "Por defecto"
+
+#: src/Customizer/Translations.php:224
+msgid "Date"
+msgstr "Fecha"
+
+#: src/Customizer/Translations.php:216
+msgid "Custom shortcode"
+msgstr "Shortcode personalizado"
+
+#: src/Customizer/Translations.php:183
+msgid "Columns"
+msgstr "Columnas"
+
+#: src/Customizer/Translations.php:175
+msgid "Column"
+msgstr "Columna"
+
+#: src/Customizer/Translations.php:171
+msgid "Color"
+msgstr "Color"
+
+#: src/Customizer/Translations.php:159
+msgid "Choose Images"
+msgstr "Elegir imágenes"
+
+#: src/Customizer/Translations.php:155
+msgid "Choose Icon"
+msgstr "Elegir icono"
+
+#: src/Customizer/Translations.php:143
+msgid "Change"
+msgstr "Cambiar"
+
+#: src/Customizer/Translations.php:139
+msgid "Change background"
+msgstr "Cambiar el fondo"
+
+#: src/Customizer/Translations.php:135
+msgid "Change background Image"
+msgstr "Cambiar la imagen de fondo"
+
+#: src/Customizer/Translations.php:131
+msgid "Change Page Background Image"
+msgstr "Cambiar la imagen de fondo de la página"
+
+#: src/Customizer/Translations.php:127
+msgid "Change Font Awesome Icon"
+msgstr "Cambiar el icono Font Awesome"
+
+#: src/Customizer/Translations.php:123
+msgid "Center"
+msgstr "Centro"
+
+#: src/Customizer/Translations.php:119
+msgid "Categories"
+msgstr "Categorías"
+
+#: src/Customizer/Translations.php:115
+msgid "Card Border Color"
+msgstr "Color del borde de la tarjeta"
+
+#: src/Customizer/Translations.php:107
+msgid "Button"
+msgstr "Botón"
+
+#: src/Customizer/Translations.php:79
+msgid "Bordered"
+msgstr "Enmarcado"
+
+#: src/Customizer/Translations.php:75
+msgid "Border Color"
+msgstr "Color del borde"
+
+#: src/Customizer/Translations.php:71
+msgid "Blog Section Options"
+msgstr "Opciones de la sección blog"
+
+#: src/Customizer/Translations.php:63
+msgid "Background Type"
+msgstr "Tipo de fondo"
+
+#: src/Customizer/Translations.php:59
+msgid "Background Overlay"
+msgstr "Superposición de fondo"
+
+#: src/Customizer/Translations.php:55
+msgid "Background Image"
+msgstr "Imagen de fondo"
+
+#: src/Customizer/Translations.php:51
+msgid "Background Color"
+msgstr "Color de fondo"
+
+#: src/Customizer/Translations.php:47
+msgid "Api key"
+msgstr "Clave Api"
+
+#: src/Customizer/Translations.php:43
+msgid "Address"
+msgstr "Dirección"
+
+#: src/Customizer/Translations.php:35
+msgid "Add item"
+msgstr "Añadir artículo"
+
+#: src/Customizer/Translations.php:31
+msgid "Add element"
+msgstr "Añadir elemento"
+
+#: src/Customizer/Panels/HeaderPanel.php:93
+msgid "Change Header"
+msgstr "Cambiar la cabecera"
+
+#: src/Customizer/Panels/FooterPanel.php:56
+msgid "Change Footer"
+msgstr "Cambiar el pie de página"
+
+#: src/Customizer/Panels/ContentPanel.php:355
+msgid "No section added"
+msgstr "No se han añadido secciones"
+
+#: src/Customizer/Panels/ContentPanel.php:353
+msgid "Manage page sections"
+msgstr "Gestionar secciones de la página"
+
+#: src/Customizer/Panels/ContentPanel.php:295
+#: src/Customizer/Translations.php:322
+msgid "Icon Style"
+msgstr "Estilo del icono"
+
+#: src/Customizer/Panels/ContentPanel.php:264
+#: src/Customizer/Panels/ContentPanel.php:291
+msgid "Browse Icon"
+msgstr "Buscar icono"
+
+#: src/Customizer/Panels/ContentPanel.php:247
+#: src/Customizer/Translations.php:366
+msgid "Link"
+msgstr "Enlace"
+
+#: src/Customizer/Panels/ContentPanel.php:241
+#: src/Customizer/Panels/ContentPanel.php:284
+#: src/Customizer/Translations.php:662
+msgid "Visible"
+msgstr "Visible"
+
+#: src/Customizer/Panels/ContentPanel.php:223
+msgid "Browse Image"
+msgstr "Buscar imagen"
+
+#: src/Customizer/Panels/ContentPanel.php:202
+#: src/Customizer/Translations.php:23
+msgid "Add Item"
+msgstr "Añadir elemento"
+
+#: src/Customizer/Panels/ContentPanel.php:197
+msgid "Delete section from page"
+msgstr "Eliminar la sección de la página"
+
+#: src/Customizer/Panels/ContentPanel.php:175
+#: src/Customizer/Panels/ContentPanel.php:255
+msgid "New tab"
+msgstr "Nueva pestaña"
+
+#: src/Customizer/Panels/ContentPanel.php:172
+#: src/Customizer/Panels/ContentPanel.php:252
+msgid "Target"
+msgstr "Objetivo"
+
+#: src/Customizer/Panels/ContentPanel.php:96
+msgid "Apply Changes"
+msgstr "Aplicar cambios"
+
+#: src/Customizer/Panels/ContentPanel.php:95
+#: src/Customizer/Translations.php:111
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/Customizer/Panels/ContentPanel.php:49
+#: src/Customizer/Panels/ContentPanel.php:347
+#: src/Customizer/Panels/ContentPanel.php:358
+msgid "Add Section"
+msgstr "Añadir sección"
+
+#: src/Customizer/Panels/ContentPanel.php:21
+msgid "Reorder and remove sections"
+msgstr "Reordenar y eliminar secciones"
+
+#: src/Customizer/Controls/MultiImageControl.php:19
+msgid "Add New Image"
+msgstr "Añadir nueva imagen"
+
+#: src/Customizer/Controls/ContentSectionsListControl.php:64
+msgid "Available in PRO"
+msgstr "Disponible en PRO"
+
+#. Description of the plugin/theme
+msgid "The Mesmerize Companion plugin adds drag and drop page builder functionality to the Mesmerize theme."
+msgstr "El plugin Mesmerize Companion añade funcionalidad de constructor de páginas de arrastrar y soltar para el tema de Mesmerize."
+
+#: theme-data/mesmerize/functions.php:160
+msgid "Contact form will be displayed here. To activate it you have to set the \"contact form shortcode\" parameter in Customizer."
+msgstr "El formulario de contacto aparecerá aquí. Para activarlo, debes ajustar el parámetro \"shortcode formulario de contacto” en el personalizador."
+
+#: src/Customizer/Translations.php:726
+msgid "dark text"
+msgstr "texto oscuro"
+
+#: src/Customizer/Translations.php:638
+msgid "Use 3rd party shortcode"
+msgstr "Usar shortcode de terceros"
+
+#: src/Customizer/Translations.php:606
+msgid "The quick brown fox jumps over the lazy dog"
+msgstr "El veloz murciélago hindú comía feliz cardillo y kiwi"
+
+#: src/Customizer/Translations.php:526
+msgid "Section Separators"
+msgstr "Separadores de sección"
+
+#: src/Customizer/Translations.php:510
+msgid "Search for specific products to display"
+msgstr "Buscar productos específicos que mostrar"
+
+#: src/Customizer/Translations.php:466
+msgid "Please upgrade to the PRO version to use this item and many others."
+msgstr "Por favor, actualiza a la versión PRO para usar este elemento y muchos más."
+
+#: src/Customizer/Translations.php:454
+msgid "Order By"
+msgstr "Ordenar por"
+
+#: src/Customizer/Translations.php:434
+msgid "Number of products to display"
+msgstr "Número de productos que mostrar"
+
+#: src/Customizer/Translations.php:430
+msgid "Number of posts to display"
+msgstr "Número de publicaciones que mostrar"
+
+#: src/Customizer/Translations.php:422
+msgid "No Widgets Area Selected"
+msgstr "No se ha seleccionado ninguna zona de widgets"
+
+#: src/Customizer/Translations.php:414
+msgid "More section design options available in PRO"
+msgstr "Hay más opciones de diseño disponibles en la versión PRO"
+
+#: src/Customizer/Translations.php:410
+msgid "Manage web fonts"
+msgstr "Gestionar las fuentes web"
+
+#: src/Customizer/Translations.php:406
+msgid "Manage Widgets Areas"
+msgstr "Gestionar las zonas de widgets"
+
+#: src/Customizer/Translations.php:394
+msgid "Make full width"
+msgstr "Hacerlo de ancho completo"
+
+#: src/Customizer/Translations.php:374
+msgid "List items"
+msgstr "Listar elementos"
+
+#: src/Customizer/Translations.php:382
+msgid "Lng (optional)"
+msgstr "Longitud (opcional)"
+
+#: src/Customizer/Translations.php:370
+msgid "List item"
+msgstr "Elemento de lista"
+
+#: src/Customizer/Translations.php:358
+msgid "Latest News Settings"
+msgstr "Ajustes de últimas noticias"
+
+#: src/Customizer/Translations.php:354
+msgid "Lat (optional)"
+msgstr "Latitud (opcional)"
+
+#: src/Customizer/Translations.php:338
+msgid "Items Options"
+msgstr "Opciones de los elementos"
+
+#: src/Customizer/Translations.php:826
+msgid "separator colo"
+msgstr "color del separador"
+
+#: src/Customizer/Translations.php:330
+msgid "Item content align"
+msgstr "Alineación del contenido del elemento"
+
+#: src/Companion.php:878
+msgid "Set a name for the new page"
+msgstr "Asignar un nombre para la nueva página"
+
+#: src/Companion.php:880
+msgid "Set Page Name"
+msgstr "Asignar nombre de la página"
+
+#: src/Companion.php:842
+msgid "Enter title here"
+msgstr "Escribe el título aquí"
+
+#: src/Companion.php:807
+msgid "Edit In Customizer"
+msgstr "Editar en el personalizador"
+
+#: src/Customizer/Panels/ContentPanel.php:177
+#: src/Customizer/Panels/ContentPanel.php:257
+msgid "Lightbox"
+msgstr "Mesa de luz"
+
+#: src/Customizer/Panels/ContentPanel.php:174
+#: src/Customizer/Panels/ContentPanel.php:254
+msgid "Same tab"
+msgstr "Misma pestaña"
+
+#: src/Customizer/Panels/ContentPanel.php:27
+msgid "Add sections into page"
+msgstr "Añadir secciones a la página"
+
+#: src/Customizer/Customizer.php:307
+msgid "Make this product editable in customizer"
+msgstr "Hacer este producto editable en el personalizador"
+
+#: src/Customizer/Customizer.php:306
+msgid "This product page is not marked as editable in Customizer"
+msgstr "Esta página de producto no está marcada como editable en el personalizador"
+
+#: src/Customizer/Customizer.php:299 src/Customizer/Customizer.php:308
+msgid "A page revision will be created so you can go back if the button was pressed by mistake"
+msgstr "Se creará una revisión de la página para que puedas volver atrás si presionaste el botón accidentalmente"
+
+#: src/Customizer/Customizer.php:298
+msgid "Make this page editable in customizer"
+msgstr "Hacer esta página editable en el personalizador"
+
+#: src/Customizer/Customizer.php:297
+msgid "This page is not marked as editable in Customizer"
+msgstr "Esta página no está marcada como editable en el personalizador"
+
+#: src/Customizer/Customizer.php:245
+msgid "Please wait,<br/>this might take a little while"
+msgstr "Espera, por favor, <br/>esto puede tardar un poco"
+
+#: src/Customizer/Controls/MultiImageControl.php:21
+msgid "changeImage"
+msgstr "changeImage"
+
+#: src/Customizer/Controls/MultiImageControl.php:20
+msgid "Delete image from slideshow"
+msgstr "Eliminar imagen de la presentación"
+
+#: src/Companion.php:905
+msgid "Page needs to be published before editing it in customizer"
+msgstr "La página debe publicarse antes de editarlas en el personalizador"
+
+#: src/Customizer/Translations.php:310
+msgid "Highlight item"
+msgstr "Resaltar elemento"
+
+#: src/Customizer/Translations.php:306
+msgid "Hide on mobile"
+msgstr "Ocultar en móvil"
+
+#: src/Customizer/Translations.php:298
+msgid "Heading"
+msgstr "Encabezado"
+
+#: src/Customizer/Translations.php:294
+msgid "Gradient"
+msgstr "Degradado"
+
+#: src/Customizer/Translations.php:290
+msgid "Get your api key here"
+msgstr "Obtener aquí la clave de api"
+
+#: src/Customizer/Translations.php:278
+msgid "Font Weight"
+msgstr "Grosor de la fuente"
+
+#: src/Customizer/Translations.php:274
+msgid "Font Awesome Icon"
+msgstr "Icono de Font Awesome"
+
+#: src/Customizer/Translations.php:266
+msgid "End counter to"
+msgstr "Terminar la cuenta en"
+
+#: src/Customizer/Translations.php:246
+msgid "Display section title area"
+msgstr "Mostrar la sección del área del título"
+
+#: src/Customizer/Translations.php:220
+msgid "Dark text"
+msgstr "Texto oscuro"
+
+#: src/Customizer/Translations.php:212
+msgid "Counter duration ( in milliseconds )"
+msgstr "Duración del contador (en milisegundos)"
+
+#: src/Customizer/Translations.php:208
+msgid "Content align"
+msgstr "Alineación del contenido"
+
+#: src/Customizer/Translations.php:204
+msgid "Content Column Options"
+msgstr "Opciones de columna del contenido"
+
+#: src/Customizer/Translations.php:200
+msgid "Content Column Color"
+msgstr "Color de columna de contenido"
+
+#: src/Customizer/Translations.php:196
+msgid "Content Column Bg. Color"
+msgstr "Color de fondo de columna de contenido"
+
+#: src/Customizer/Translations.php:192
+msgid "Content Align"
+msgstr "Alineación del contenido"
+
+#: src/Customizer/Translations.php:187
+msgid "Contact Form 7 Options"
+msgstr "Opciones de Contact Form 7"
+
+#: src/Customizer/Translations.php:179
+msgid "Columns per row"
+msgstr "Columnas por fila"
+
+#: src/Customizer/Translations.php:167
+msgid "Color item"
+msgstr "Elemento de color"
+
+#: src/Customizer/Translations.php:163
+msgid "Close Panel"
+msgstr "Cerrar panel"
+
+#: src/Customizer/Translations.php:151
+msgid "Choose Gradient"
+msgstr "Elegir degradado"
+
+#: src/Customizer/Translations.php:147
+msgid "Check all PRO features"
+msgstr "Mira todas las funciones de PRO"
+
+#: src/Customizer/Translations.php:103
+msgid "Button Text Color"
+msgstr "Color de texto del botón"
+
+#: src/Customizer/Translations.php:99
+msgid "Button Size"
+msgstr "Tamaño del botón"
+
+#: src/Customizer/Translations.php:95
+msgid "Button Shadow"
+msgstr "Sombra del botón"
+
+#: src/Customizer/Translations.php:91
+msgid "Button Preset"
+msgstr "Preajuste del botón"
+
+#: src/Customizer/Translations.php:87
+msgid "Button Icon"
+msgstr "Icono del botón"
+
+#: src/Customizer/Translations.php:83
+msgid "Button Color"
+msgstr "Color del botón"
+
+#: src/Customizer/Translations.php:67
+msgid "Background can be changed in PRO"
+msgstr "El fondo se puede cambiar en PRO"
+
+#: src/Customizer/Translations.php:39
+msgid "Add web font"
+msgstr "Añadir fuente web"
+
+#: src/Customizer/Translations.php:27
+msgid "Add WebFont"
+msgstr "Añadir WebFont"
+
+#: src/Customizer/Translations.php:19
+msgid "3rd party shortcode (optional)"
+msgstr "Shortcode de terceros (opcional)"
+
+#: src/Customizer/Translations.php:15
+msgid "3rd party form shortcode"
+msgstr "Shortcode de formulario de terceros"
+
+#: src/Customizer/Panels/HeaderPanel.php:94
+msgid "Header Settings"
+msgstr "Ajustes de la cabecera"
+
+#: src/Customizer/Panels/ContentPanel.php:348
+msgid "Page Settings"
+msgstr "Ajustes de página"
+
+#: src/Customizer/Panels/ContentPanel.php:312
+#: src/Customizer/Translations.php:318
+msgid "Icon Size"
+msgstr "Tamaño del icono"

@@ -1,0 +1,44 @@
+
+---Downloaded files---
+The import files for: Personal were successfully downloaded!
+Initial max execution time = 30
+Files info:
+Site URL = http://localhost/RallyWorld
+Data file = C:/xampp/htdocs/RallyWorld/wp-content/uploads/2018/11/mesmerize-ocdi/demo-content-import-file_2018-11-05__18-47-25.xml
+Widget file = C:/xampp/htdocs/RallyWorld/wp-content/uploads/2018/11/mesmerize-ocdi/demo-widgets-import-file_2018-11-05__18-47-25.json
+Customizer file = C:/xampp/htdocs/RallyWorld/wp-content/uploads/2018/11/mesmerize-ocdi/demo-customizer-import-file_2018-11-05__18-47-25.dat
+Redux files:
+not defined!
+
+---pt-ocdi/before_content_import---
+
+
+------
+New AJAX call!
+
+
+---Importing widgets---
+Área de widget de la barra lateral : 
+
+Imagen - Hey! I&#039;m John Doe! - Imported
+Buscar - No Title - Widget already exists
+Entradas recientes - No Title - Widget already exists
+Comentarios recientes - No Title - Widget already exists
+Archivos - No Title - Widget already exists
+Categorías - No Title - Imported
+Nube de etiquetas - Tags - Imported
+Meta - No Title - Widget already exists
+
+Pages Sidebar : 
+
+Buscar - Search - Imported
+Páginas - Pages - Imported
+Texto - Text Box - Imported
+
+
+
+---Importing customizer settings---
+Customizer settings import finished!
+
+---pt-ocdi/after_import---
+

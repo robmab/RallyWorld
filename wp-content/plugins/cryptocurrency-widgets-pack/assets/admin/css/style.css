@@ -1,0 +1,888 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+body.post-type-mcwp .inside, body.post-type-mcwp #post-body-content {
+	padding: 0;
+    margin: 0 !important;
+}
+.crypto-edit {
+	font-size: 0;
+	font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+	position: relative;
+	padding: 30px 0;
+}
+.crypto-edit *, .crypto-edit *:before, .crypto-edit *:after {
+	box-sizing: border-box;
+}
+.crypto-edit .crypto-options, .crypto-edit .crypto-preview {
+	font-size: 16px;
+	width: 44%;
+	display: inline-block;
+	vertical-align: top;
+	-webkit-transition: margin 0.4s;
+	transition: margin 0.4s;
+}
+.crypto-edit .crypto-bunch {
+	font-size: 14px;
+	margin: 10px 0 0;
+}
+.crypto-edit .crypto-cols.disable {
+	position: relative;
+}
+.crypto-edit .crypto-cols.disable:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+}
+.crypto-edit .crypto-options {
+	padding: 6px;
+	border: 1px solid #eee;
+	border-radius: 5px;
+	margin: 0 2%;
+    background: #ffffff;
+    box-shadow: 0 6px 15px rgba(92, 121, 143, 0.3), 0 0 5px rgba(92, 121, 143, 0.22);
+	position: relative;
+	left: 0;
+	top: 0;
+	max-width: 420px;
+}
+.crypto-edit .crypto-preview {
+	background: #fafafa;
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 52%;
+    padding: 30px;
+	text-align: center;
+    overflow: auto;
+}
+.crypto-edit .crypto-preview .crypto-notice {
+    padding: 0 0 60px;
+    color: #aaa;
+}
+@media (max-width: 1300px) {
+	.crypto-edit .widget-type .crypto-cols:last-child > label, .crypto-edit .crypto-options, .crypto-edit .crypto-preview {
+		width: 100%;
+	}
+}
+@media (min-width: 1450px){
+	.crypto-edit .crypto-options {
+		width: 30%;
+	}
+	
+	.crypto-edit .crypto-preview {
+		width: 66%;
+	}
+}
+.crypto-edit .crypto-rows {
+	font-size: 0;
+	padding: 15px;
+	border-top: 1px solid #d7d7d7;
+}
+.crypto-edit .crypto-options > *:first-child {
+	border-top: 0 none;
+}
+.crypto-edit .crypto-cols {
+    font-size: 16px;
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+}
+.crypto-edit .crypto-cols.crypto-labels {
+    width: 100%;
+    margin-bottom: 20px;
+	text-transform: uppercase;
+	font-size: 14px;
+}
+.crypto-edit .widget-type .crypto-cols:last-child > label {
+	width: 30%;
+}
+.crypto-edit label {
+	margin-right: 10px;
+}
+.crypto-edit .ticker-position .crypto-cols > div.ticker-header {
+	width: 30%;
+	float: left;
+	margin: 0 1.6666%;
+	text-align: center;
+}
+.crypto-edit .ticker-position .crypto-cols > div.ticker-header img {
+	max-width: 100%;
+}
+.crypto-edit .cc-hide {
+	display: none;
+}
+.crypto-edit .crypto-cols.no-padding label {
+	padding: 0;
+}
+.crypto-edit .card-position .crypto-cols > div {
+	width: 30%;
+	float: left;
+	margin: 0 1.6666%;
+	text-align: center;
+}
+.crypto-edit .card-position .crypto-cols > div img {
+	max-width: 100%;
+}
+.crypto-edit #mcwp_crypto_widget_box .crypto-options h2 {
+    font-size: 20px;
+    font-weight: bold;
+    background: rgba(0,0,0,0.1);
+    margin: 0 -10px 0 -6px;
+}
+.crypto-edit #select-beast+.selectize-control .selectize-input {
+    max-height: 108px;
+    overflow: auto;
+}
+.crypto-edit #select-beast+.selectize-control .selectize-input input {
+    width: 100% !important;
+}
+
+.crypto-edit .selectize-select {
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+			appearance: none;
+	width: 100%;
+    padding: 5px 10px;
+    line-height: 20px;
+    height: 35px;
+    outline: 0;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+    border: 1px solid #ddd;
+    border-radius: 3px;
+	background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'%3E%3Cpath%20fill='%23667189'%20d='M2%200L0%202h4zm0%205L0%203h4z'/%3E%3C/svg%3E") no-repeat right 12px center/6.4px 8px;
+	background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'%3E%3Cpath%20fill='%23667189'%20d='M2%200L0%202h4zm0%205L0%203h4z'/%3E%3C/svg%3E") no-repeat right .75rem center/.4rem .5rem;
+	background-size: 10px;
+}
+.crypto-edit .form-switch input, .crypto-edit .form-radio input {
+	opacity: 0;
+	position: absolute;
+}
+.crypto-edit .form-switch {
+    padding-left: 32px;
+    padding-left: 2rem;
+}
+.crypto-edit .form-radio, .crypto-edit .form-switch {
+    display: inline-block;
+    line-height: 16px;
+    line-height: 1rem;
+    margin: 3.2px 0;
+    margin: .2rem 0;
+    min-height: 19.2px;
+    min-height: 1.2rem;
+    position: relative;
+}
+.crypto-edit .form-switch {
+	padding: 4.8px 8px 4.8px 44.8px;
+	padding: .3rem .5rem .3rem 2.8rem;
+}
+.crypto-edit .form-radio {
+	padding: 3.2px 0 3.2px 36.8px;
+	padding: .2rem 0 .2rem 2.3rem;
+}
+.crypto-edit .form-radio input:checked+.form-icon, .crypto-edit .form-switch input:checked+.form-icon {
+	background: #2c3e50;
+	border-color: #2c3e50;
+}
+.crypto-edit .form-switch .form-icon {
+    background: #e7e9ed;
+    background-clip: padding-box;
+    border-radius: .95rem;
+    height: 19.36px;
+    height: 1.21rem;
+    left: 1px;
+    top: 4px;
+    top: .25rem;
+    width: 33.44px;
+    width: 2.09rem;
+}
+.crypto-edit .form-radio .form-icon, .crypto-edit .form-switch .form-icon {
+    border: 0.8px solid #caced7;
+    border: .05rem solid #caced7;
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.crypto-edit .form-switch input:checked+.form-icon:before {
+    left: 15px;
+}
+.crypto-edit .form-switch .form-icon:before {
+    background: #fff;
+    border-radius: 50%;
+    content: "";
+    display: block;
+    height: 16px;
+    height: 1rem;
+    left: 0;
+    position: absolute;
+    top: 0.8px;
+    top: 0.05rem;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+    width: 16px;
+    width: 1rem;
+}
+.crypto-edit .form-radio .form-icon {
+    border-radius: 50%;
+}
+.crypto-edit .form-radio .form-icon {
+	background: #fff;
+	height: 17.6px;
+	height: 1.1rem;
+	left: 8px;
+	left: 0.5rem;
+	top: 1.6px;
+	top: 0.1rem;
+	width: 17.6px;
+	width: 1.1rem;
+}
+.crypto-edit .form-radio input:checked+.form-icon:before {
+    background: #fff;
+    border-radius: 50%;
+    content: "";
+    height: 8px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+    width: 8px;
+}
+.crypto-edit .range-slider__range {
+  -webkit-appearance: none;
+  width: calc(100% - (73px));
+  height: 10px;
+  border-radius: 5px;
+  background: #d7dcdf;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+.crypto-edit .range-slider__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #2c3e50;
+  cursor: pointer;
+  -webkit-transition: background .15s ease-in-out;
+  transition: background .15s ease-in-out;
+}
+.crypto-edit .range-slider__range:active::-webkit-slider-thumb {
+  background: #2c3e50;
+}
+.crypto-edit .range-slider__range::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+	border: 1px solid #2c3e50;
+  cursor: pointer;
+  -webkit-transition: background .15s ease-in-out;
+  transition: background .15s ease-in-out;
+}
+.crypto-edit .range-slider__range:active::-moz-range-thumb {
+  background: #2c3e50;
+}
+.crypto-edit .range-slider__value {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  color: #fff;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 3px;
+  background: #2c3e50;
+  padding: 5px 10px;
+  margin-left: 8px;
+}
+.crypto-edit .range-slider__value:after {
+  position: absolute;
+  top: 8px;
+  left: -7px;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-right: 7px solid #2c3e50;
+  border-bottom: 7px solid transparent;
+  content: '';
+}
+.crypto-edit *::-moz-range-track {
+  background: #d7dcdf;
+  border: 0;
+}
+.crypto-edit input::-moz-focus-inner,.crypto-edit input::-moz-focus-outer {
+  border: 0;
+}
+.crypto-edit .crypto-radio input {
+	opacity: 0;
+	position: absolute;
+}
+.crypto-edit .crypto-radio label span {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	border: 2px solid #2c3e50;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	box-sizing: content-box;
+}
+.crypto-edit .crypto-radio label span:after {
+	content: '';
+	position: absolute;
+	left: 7px;
+	top: 7px;
+	width: 18px;
+	height: 18px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	opacity: 0;
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3c?xml version='1.0' ?%3e%3c!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3e%3csvg enable-background='new 0 0 32 32' height='32px' id='Layer_1' version='1.1' viewBox='0 0 32 32' width='32px' xml:space='preserve' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cpath d='M30.171,6.131l-0.858-0.858c-0.944-0.945-2.489-0.945-3.433,0L11.294,19.859l-5.175-5.174 c-0.943-0.944-2.489-0.944-3.432,0.001l-0.858,0.857c-0.943,0.944-0.943,2.489,0,3.433l7.744,7.75c0.944,0.945,2.489,0.945,3.433,0 L30.171,9.564C31.112,8.62,31.112,7.075,30.171,6.131z' fill='%23fff'/%3e%3c/svg%3e");
+}
+.crypto-edit .crypto-radio label.dark-check span:after {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3c?xml version='1.0' ?%3e%3c!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3e%3csvg enable-background='new 0 0 32 32' height='32px' id='Layer_1' version='1.1' viewBox='0 0 32 32' width='32px' xml:space='preserve' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cpath d='M30.171,6.131l-0.858-0.858c-0.944-0.945-2.489-0.945-3.433,0L11.294,19.859l-5.175-5.174 c-0.943-0.944-2.489-0.944-3.432,0.001l-0.858,0.857c-0.943,0.944-0.943,2.489,0,3.433l7.744,7.75c0.944,0.945,2.489,0.945,3.433,0 L30.171,9.564C31.112,8.62,31.112,7.075,30.171,6.131z' fill='%23000'/%3e%3c/svg%3e");
+}
+.crypto-edit .crypto-radio label.custom-color span {
+	background-image: url('../img/gradient.jpg');
+}
+.crypto-edit .crypto-radio label.cc-active span:after {
+	opacity: 1;
+}
+.crypto-edit .wp-picker-container, .crypto-edit .wp-picker-container .wp-color-result.button {
+	width: 100%;
+}
+.crypto-edit .wp-picker-container .wp-color-result.button {
+	border-color: #2c3e50 !important;
+	height: 34px !important;
+	font-size: 13px;
+}
+.crypto-edit .wp-picker-container .wp-color-result.button span {
+	border-left: 1px solid #2c3e50;
+}
+.crypto-edit .wp-picker-container .wp-color-result.button span {
+	line-height: 32px !important;
+}
+.crypto-edit .wp-picker-container .iris-picker {
+	width: 375px !important;
+}
+.crypto-edit .iris-picker .iris-square {
+	width: 300px !important;
+	margin-right: 10px !important;
+}
+.crypto-edit .iris-picker .iris-strip {
+	width: 12.5% !important;
+	margin-right: 0 !important;
+}
+.crypto-edit .cryptoboxes .mcwp-converter.mcwp-converter-two .mcwp-input-group input.mcwp-field {
+	line-height: 23px;
+}
+.crypto-edit .mcwp-hide {
+	display: none;
+}
+.crypto-edit [data-tooltip] {
+    position: relative;
+}
+.crypto-edit [data-tooltip]:before, [data-tooltip]:after {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transition: all 0.15s cubic-bezier(0.5, 1, 0.25, 1);
+    transition: all 0.15s cubic-bezier(0.5, 1, 0.25, 1);
+    z-index: 1;
+}
+.crypto-edit [data-tooltip]:before {
+    padding: 5px 8px;
+    border-radius: 3px;
+    background: #000;
+    color: #fff;
+    content: attr(data-tooltip);
+    text-align: center;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.2;
+    white-space: nowrap;
+    top: 100%;
+    left: 50%;
+    margin-top: 5px;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+.crypto-edit [data-tooltip]:after {
+    border: 8px solid transparent;
+    width: 0;
+    content: "";
+    font-size: 0;
+    line-height: 0;
+    top: 100%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    border-bottom: 8px solid #000;
+    border-top: none;
+}
+.crypto-edit [data-tooltip]:hover:before, .crypto-edit [data-tooltip]:hover:after {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: translateX(-50%) translateY(5px);
+            transform: translateX(-50%) translateY(5px);
+}
+.crypto-edit .img-pro {
+	position: relative;
+	overflow: hidden;
+	margin: 0 -14px;
+}
+.crypto-edit .img-pro a {
+	font-size: 12px;
+	position: absolute;
+    z-index: 1;
+    right: 0;
+    top: 0;
+    color: #10c95e;
+	text-decoration: none;
+}
+.crypto-edit .img-pro img {
+	width: 100%;
+	-webkit-filter: grayscale(1);
+			filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0" /></filter></svg>#filter');
+			filter: grayscale(1);
+    opacity: 0.5;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	     -o-user-select: none;
+			-ms-user-select: none;
+	    user-select: none;
+}
+.crypto-edit .img-pro.prodemo {
+	overflow: visible;
+}
+.crypto-edit .img-pro.prodemo a {
+	top: auto;
+    bottom: -10px;
+    text-align: center;
+    left: 32px;
+    right: auto;
+	box-shadow: none;
+}
+.mcwp-update {
+	width: 90%;
+    padding: 10px;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+    margin: 0 0 20px 0;
+	box-sizing: border-box;
+}
+
+.mcwp-shortcode {
+	padding: 20px;
+	text-align: center;
+}
+.mcwp-shortcode div {
+    padding: 5px;
+    color: white;
+    background: #acacac;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.mcwp-shortcode div::-moz-selection, .type-mcwp .column-shortcode code::-moz-selection {
+	color: white;
+    background: #f38016;
+}
+.mcwp-shortcode div::selection, .type-mcwp .column-shortcode code::selection {
+	color: white;
+    background: #f38016;
+}
+.mcwp-pro-add {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.mcwp-pro-add a {
+    text-decoration: none;
+    padding: 7px 10px;
+    background-color: #ED4264;
+    color: #FFEDBC;
+    box-shadow: none;
+    font-family: 'lato',sans-serif;
+}
+.mcwp-pro-add a:hover {
+    background-color: #DC2424;
+}
+.mcwp-pro {
+    padding: 10px;
+}
+.mcwp-pro h4 {
+	margin: 0;
+}
+.mcwp-pro ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+.mcwp-imgpro {
+	padding: 20px 2%;
+}
+.mcwp-imgpro h3, .mcwp-pro h3 {
+    font-size: 20px;
+    margin: 10px 0 20px;
+    line-height: 1;
+}
+.mcwp-imgpro img {
+    max-width: 100%;
+}
+.mcwp-pro .buy a {
+    background-color: #0085ba;
+    box-shadow: 0 1px 0 #006799;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    margin: 10px 0 5px;
+    display: inline-block;
+}
+.mcwp-pro .buy a:hover {
+    background-color: #139dd4;
+}
+.mcwp-pro p, .mcwp-pro li {
+    font-size: 13px;
+}
+.mcwp-pro .mcwp-anime {
+    text-align: center;
+}
+.mcwp-pro .mcwp-anime {
+    color: transparent;
+}
+.mcwp-pro .mcwp-anime a {
+    color: transparent;
+    outline: 0 none;
+    box-shadow: none;
+}
+.mcwp-pro .mcwp-anime a span {
+    -webkit-transition: all 1s;
+    transition: all 1s;
+}
+.mcwp-pro .mcwp-anime:hover a span {
+    -webkit-transition: all 1s;
+    transition: all 1s;
+    -webkit-animation: step-end;
+    animation: step-end;
+    -webkit-transform: scale(1.4);
+            transform: scale(1.4);
+}
+.mcwp-pro .mcwp-anime span {
+    width: 24px;
+    margin: 0 3px;
+    display: inline-block;
+    -webkit-animation: anime 5s ease 1.5s;
+            animation: anime 5s ease 1.5s;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+}
+.mcwp-pro .mcwp-anime span:nth-child(2) {
+    -webkit-animation-delay: 1600ms;
+            animation-delay: 1600ms;
+}
+.mcwp-pro .mcwp-anime span:nth-child(3) {
+    -webkit-animation-delay: 1700ms;
+            animation-delay: 1700ms;
+}
+.mcwp-pro .mcwp-anime span:nth-child(4) {
+    -webkit-animation-delay: 1800ms;
+            animation-delay: 1800ms;
+}
+.mcwp-pro .mcwp-anime span:nth-child(5) {
+    -webkit-animation-delay: 1900ms;
+            animation-delay: 1900ms;
+}
+.mcwp-pro .mcwp-anime span img {
+    max-width: 100%;
+}
+@-webkit-keyframes anime {
+    0% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+    12% {
+        -webkit-transform: scale(1.4);
+                transform: scale(1.4);
+    }
+    25% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+    100% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+}
+@keyframes anime {
+    0% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+    12% {
+        -webkit-transform: scale(1.4);
+                transform: scale(1.4);
+    }
+    25% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+    100% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+}
+
+.crypto-edit .mcwp-rate {
+    display: none;
+    background-color: rgb(71, 74, 86);
+    color: white;
+    padding: 25px 10px 20px;
+    line-height: 1.75;
+    text-align: center;
+    margin: -1px -7px;
+    font-size: 16px;
+    font-family: 'lato',sans-serif;
+    width: auto;
+    border: 0 none;
+    position: relative;
+}
+.crypto-edit .mcwp-rate.mcwp-hidefull {
+    display: none !important;
+}
+.crypto-edit .mcwp-rate .crypto-cols.crypto-labels {
+    font-size: 18px;
+    margin-bottom: 0;
+    text-transform: capitalize;
+}
+.mcwp-rate-button {
+    margin-top: 10px;
+}
+.mcwp-rate-button > * {
+    padding: 5px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    cursor: pointer;
+    min-width: 150px;
+    display: inline-block;
+    font-size: 14px;
+}
+.mcwp-rate-button span {
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    font-weight: lighter;
+    opacity: 0.4;
+}
+.mcwp-rate-button span:hover {
+    opacity: 0.6;
+}
+
+.mcwp-rate-button a {
+    background-color: white;
+    color: rgb(71, 74, 86);
+    font-weight: bold;
+}
+
+.mcwp-notice {
+    padding-bottom: 10px;
+    min-height: 86px;
+    background: rgb(71, 74, 86);
+    color: white;
+    box-shadow: 0 10px 30px 0 rgba(71, 74, 86,0.5);
+    border: 0 none;
+    margin-left: 0;
+}
+
+.mcwp-notice .mcwp-done {
+    position: absolute;
+    top: 9px;
+    right: 35px;
+    cursor: pointer;
+    color: white;
+}
+
+.mcwp-notice .mcwp-iconimg {
+    float: left;
+    margin: 10px 10px 10px 0;
+    max-width: 68px;
+    border: 3px solid #eaeaea;
+    border-radius: 5px;
+}
+
+#mcwp-container {
+	width: 90%;
+}
+#mcwp-container a {
+	font-size: 18px;
+	font-family:'Open Sans';
+    text-decoration: none;
+    display: block;
+}
+
+#mcwp-container input:focus,#mcwp-container textarea:focus,#mcwp-container select:focus{
+  border:1px solid #fafafa;
+  box-shadow:0 0 5px #007eff;
+  outline: none;
+}
+
+#mcwp-container sup{
+	font-size: 20px;
+}
+#mcwp-container table {
+	width: 100%;
+    border-collapse: collapse;
+}
+#mcwp-container tbody {
+	list-style: none;
+	font-size: 15px;
+	font-family:'Open Sans';
+	color: #6f6f6f;
+	padding: 0px;
+	margin: 0px;
+}
+#mcwp-container tr {
+    margin: 0px;
+    text-align: center;
+    line-height: 52px;
+    background: white;
+}
+#mcwp-container tr td {
+	border: 1px solid #d7d7d7;
+    padding: 5px 10px;
+}
+#mcwp-container tr:nth-child(even){
+	background-color: #f1f1f1;
+}
+#mcwp-container tr td:last-child {
+	color: #333 !important;
+}
+#mcwp-container .mcwpwhole:first-child tr {
+	line-height: 26px;
+	text-align: left;
+}
+#mcwp-container tr b, #mcwp-container tr p {
+    display: block;
+	margin: 0;
+}
+#mcwp-container th b {
+    color: white;
+    text-align: center;
+    background: #ca4a1f;
+    margin: -2px -11px;
+    position: relative;
+	padding: 5px;
+}
+#mcwp-container tr td i.dashicons {
+	font-size: 30px;
+    width: 30px;
+    height: 30px;
+}
+#mcwp-container .mcwptype {
+	background-color: #ffffff;
+}
+#mcwp-container .mcwptype p {
+    font-family: 'Open Sans';
+    font-weight: 300;
+    font-size: 29px;
+    text-transform: capitalize;
+    color: #2cee71;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+}
+
+#mcwp-container .mcwpwhole .mcwpplan {
+	width: 100%;
+}
+
+#mcwp-container tr td:not(:first-child) {
+	min-width: 300px;
+	border-radius: 0px 0px 5px 5px;
+	color: #a2a2a2;
+    font-family:'Open Sans';
+    font-style:condensed;
+    font-size: 40px;
+    line-height: 1.25;
+    text-align: center;
+	width: 20%;
+}
+
+#mcwp-container table colgroup:nth-child(2) {
+    border: 1px solid #cccccc;
+}
+
+#mcwp-container table colgroup:nth-child(3) {
+    border: 10px solid #2ECC71;
+}
+
+#mcwp-container .mcwpheader {
+	border: 1px solid #d7d7d7;
+    background: white;
+}
+
+#mcwp-container .mcwpheader span {
+	font-size: 32px;
+}
+
+#mcwp-container .mcwpprice {
+    border: 1px solid #d7d7d7;
+    background: #f94213;
+    max-width: 180px;
+    margin: 10px auto;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+#mcwp-container .mcwpprice a {
+    padding: 10px 20px;
+}
+
+#mcwp-container .mcwpprice:hover {
+	opacity: 0.8;
+}
+
+#mcwp-container .mcwpcart {
+  position: relative;
+  font-size: 16px;
+  color: white;
+}
+#mcwp-container .mcwpprice-disabled .mcwpcart {
+    background: rgb(185, 185, 185);
+    border-radius: 5px;
+    color: white;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    vertical-align: middle;
+    padding: 12px 20px;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}

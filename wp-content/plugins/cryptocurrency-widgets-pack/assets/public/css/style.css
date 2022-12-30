@@ -1,0 +1,844 @@
+/*---FONTS---*/
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+@font-face {
+  font-family: "massive-crypto";
+  src:url("../fonts/massive-crypto.eot");
+  src:url("../fonts/massive-crypto.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/massive-crypto.woff") format("woff"),
+    url("../fonts/massive-crypto.ttf") format("truetype"),
+    url("../fonts/massive-crypto.svg#massive-crypto") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-icon]:before {
+  font-family: "massive-crypto" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  line-height: 1;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="micon-"]:before,
+[class*=" micon-"]:before {
+  font-family: "massive-crypto" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  line-height: 1;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.micon-arrow-up:before {
+  content: "\61";
+  line-height: 15px;
+}
+.micon-arrow-down:before {
+  content: "\62";
+  line-height: 15px;
+}
+.micon-up:before {
+  content: "\63";
+}
+.micon-down:before {
+  content: "\64";
+}
+.micon-arrow-circle-o-left:before {
+  content: "\65";
+}
+.micon-arrow-circle-o-right:before {
+  content: "\66";
+}
+.micon-sort:before {
+  content: "\67";
+}
+.micon-info-circled:before {
+  content: "\68";
+}
+
+.cryptoboxes div, .cryptoboxes span, .cryptoboxes applet, .cryptoboxes object, .cryptoboxes iframe, .cryptoboxes h1, .cryptoboxes h2, .cryptoboxes h3, .cryptoboxes h4, .cryptoboxes h5, .cryptoboxes h6, .cryptoboxes p, .cryptoboxes blockquote, .cryptoboxes pre, .cryptoboxes a, .cryptoboxes abbr, .cryptoboxes acronym, .cryptoboxes address, .cryptoboxes big, .cryptoboxes cite, .cryptoboxes code, .cryptoboxes del, .cryptoboxes dfn, .cryptoboxes em, .cryptoboxes img, .cryptoboxes ins, .cryptoboxes kbd, .cryptoboxes q, .cryptoboxes s, .cryptoboxes samp, .cryptoboxes small, .cryptoboxes strike, .cryptoboxes strong, .cryptoboxes sub, .cryptoboxes sup, .cryptoboxes tt, .cryptoboxes var, .cryptoboxes b, .cryptoboxes u, .cryptoboxes i, .cryptoboxes center, .cryptoboxes dl, .cryptoboxes dt, .cryptoboxes dd, .cryptoboxes ol, .cryptoboxes ul, .cryptoboxes li, .cryptoboxes fieldset, .cryptoboxes form, .cryptoboxes label, .cryptoboxes legend, .cryptoboxes table, .cryptoboxes caption, .cryptoboxes tbody, .cryptoboxes tfoot, .cryptoboxes thead, .cryptoboxes tr, .cryptoboxes th, .cryptoboxes td, .cryptoboxes article, .cryptoboxes aside, .cryptoboxes canvas, .cryptoboxes details, .cryptoboxes embed, .cryptoboxes  .cryptoboxes figure, .cryptoboxes figcaption, .cryptoboxes footer, .cryptoboxes header, .cryptoboxes hgroup, .cryptoboxes  .cryptoboxes menu, .cryptoboxes nav, .cryptoboxes output, .cryptoboxes ruby, .cryptoboxes section, .cryptoboxes summary, .cryptoboxes time, .cryptoboxes mark, .cryptoboxes audio, .cryptoboxes video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: inherit;
+	font: inherit;
+	font-family: 'Lato',sans-serif;
+	vertical-align: baseline;
+	line-height: 1.5;
+	-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+}
+.cryptoboxes span:not([class*="mcwp"]) {
+	padding: 2px 8px 2px 6px;
+}
+/* HTML5 display-role reset for older browsers */
+.cryptoboxes article, .cryptoboxes aside, .cryptoboxes details, .cryptoboxes figcaption, .cryptoboxes figure, .cryptoboxes footer, .cryptoboxes header, .cryptoboxes hgroup, .cryptoboxes menu, .cryptoboxes nav, .cryptoboxes section {
+	display: block;
+}
+.cryptoboxes ol, .cryptoboxes ul {
+	list-style: none !important;
+}
+.cryptoboxes blockquote, .cryptoboxes q {
+	quotes: none;
+}
+.cryptoboxes blockquote:before, .cryptoboxes blockquote:after, .cryptoboxes q:before, .cryptoboxes q:after {
+	content: '';
+	content: none;
+}
+.cryptoboxes .invert-act img.invertable {
+	-webkit-filter: invert(100%);
+	        filter: invert(100%);
+}
+.cryptoboxes .invert-act .bg img.invertable {
+	-webkit-filter: grayscale(100%) invert(100%);
+	        filter: grayscale(100%) invert(100%);
+}
+
+/*---TICKER STYLES----*/
+.cryptoboxes .mcwp-ticker {
+	overflow: hidden;
+	opacity: 0;
+	-webkit-transition: all 1s;
+	transition: all 1s;
+}
+.cryptoboxes .mcwp-ticker.mcwp-header, .cryptoboxes .mcwp-ticker.mcwp-footer {
+    width: 100%;
+    position: fixed;
+	left: 0;
+	z-index: 100000;
+}
+.cryptoboxes .mcwp-ticker.mcwp-header {
+	top: 0;
+}
+.cryptoboxes .mcwp-ticker.mcwp-footer {
+	bottom: 0;
+}
+.cryptoboxes .cc-ticker {
+	border: 0 none;
+}
+.cryptoboxes .cc-ticker-round {
+	border-radius: 5px;
+}
+.cryptoboxes ul.cc-stats {
+    margin: 0 !important;
+    padding: 0 !important;
+	border: 0 none !important;
+    white-space: nowrap;
+	list-style: none !important;
+}
+.cryptoboxes ul.cc-stats li.cc-coin {
+    padding: 10px 8px !important;
+    display: inline-block;
+    margin: 0 !important;
+	border: 0 none !important;
+}
+.cryptoboxes ul.cc-stats li.cc-coin div b {
+	font-weight: bold;
+	text-align: center;
+}
+.cryptoboxes ul.cc-stats li.cc-coin div b div {
+	display: inline;
+	font-size: 80%;
+}
+.cryptoboxes ul.cc-stats li.cc-coin div b div + span {
+	font-weight: normal;
+}
+.cryptoboxes [data-live-price] {
+	display: inline-block;
+	padding: 2px 4px;
+    border-radius: 4px;
+	white-space: nowrap;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.cryptoboxes .cc-coin > div {
+	position: relative;
+}
+.cryptoboxes .cc-coin svg {
+    width: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+.cryptoboxes li.cc-coin:before {
+	display: none;
+}
+.cryptoboxes .cc-coin span.mcwpdown {
+	color: #FF0033;
+}
+.cryptoboxes .cc-coin span.mcwpup {
+	color: #85B000;
+}
+.cryptoboxes .cc-white-color {
+	background: #fff;
+}
+.cryptoboxes span.mcwpup, 
+.cryptoboxes span.mcwpdown {
+	padding-left: 18px;
+    position: relative;
+}
+.cryptoboxes span.mcwpup:before, 
+.cryptoboxes span.mcwpdown:before {
+	font-family: 'massive-crypto';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.cryptoboxes .mcwp-ticker span.mcwpup, 
+.cryptoboxes .mcwp-ticker span.mcwpdown {
+	padding-left: 10px;
+}
+.cryptoboxes .mcwp-ticker span.mcwpup:before,
+.cryptoboxes .mcwp-ticker span.mcwpdown:before {
+    height: 18px;
+	top: 0;
+	font-size: 13px;
+}
+.cryptoboxes span.mcwpup:before {
+	content: '\61';
+}
+.cryptoboxes span.mcwpdown:before {
+	content: '\62';
+}
+
+/*--web ticker---*/
+.cryptoboxes .cc-stats {
+	font-size: 14px !important;
+}
+.cryptoboxes .cc-stats {
+	position:relative;
+	width:100%;
+	-webkit-animation: ticker 0s linear infinite 0s normal;
+	   -moz-animation: ticker 0s linear infinite 0s normal;
+			animation: ticker 0s linear infinite 0s normal;
+}
+.cryptoboxes:hover .cc-stats {
+	-webkit-animation-play-state: paused;
+	   -moz-animation-play-state: paused;
+			animation-play-state: paused;
+}
+.cryptoboxes .cc-stats .cc-dup {
+	display: inline;
+}
+@-webkit-keyframes ticker {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  100% {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes ticker {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  100% {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+
+.cryptoboxes .mcwp-card-head > div {
+	position: relative;
+	display: inline-block;
+}
+.cryptoboxes .cc-coin img, .cryptoboxes .mcwp-card-head img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto !important;
+	max-width: 24px;
+}
+.cryptoboxes .mcwp-card-head p, .cryptoboxes .cc-coin b {
+	line-height: 24px;
+	padding: 0 0 0 29px !important;
+	margin: 0 !important;
+}
+
+
+/*---CARDS---*/
+.cryptoboxes .mcwp-card {
+	overflow: hidden;
+	margin-bottom: 20px;
+	width: 100%;
+	-webkit-box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 1px 0 rgba(0, 0, 0, 0.1) !important;
+			box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 1px 0 rgba(0, 0, 0, 0.1) !important;
+	-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+}
+.cryptoboxes .mcwp-card * {
+	color: #fff;
+}
+.cryptoboxes .cc-card-col {
+	width: 100%;
+	vertical-align: top;
+	display: inline-block;
+	margin-right: 20px;
+	max-width: 360px;
+}
+.cryptoboxes .cc-label-col {
+	vertical-align: top;
+	display: inline-block;
+	margin-right: 20px;
+}
+
+.cryptoboxes .mcwp-card-white {
+	border: 1px solid #ccc;
+	background-color: #ffffff;
+}
+.cryptoboxes .mcwp-card-dark {
+	background-color: #202328;
+}
+.cryptoboxes .mcwp-card-info {
+	background-color: #1e9ff2;
+}
+.cryptoboxes .mcwp-card-warning {
+	background-color: #ff9149;
+}
+.cryptoboxes .mcwp-card-danger {
+	background-color: #ff4961;
+}
+.cryptoboxes .mcwp-card-success {
+	background-color: #28d094;
+}
+
+.cryptoboxes .mcwp-card .mcwp-pricelabel {
+	margin-top: 30px;
+}
+.cryptoboxes .mcwp-card .mcwp-price {
+	font-size: 220%;
+	padding: 4px;
+	display: inline-block;
+}
+.cryptoboxes .mcwp-card-dark h2, .cryptoboxes .mcwp-card-dark th {
+	color: #fff;
+}
+.cryptoboxes .mcwp-card span.mcwpup, .cryptoboxes .mcwp-card span.mcwpdown {
+	position: relative;
+}
+.cryptoboxes .mcwp-card span.mcwpup {
+	color: #28D094;
+}
+.cryptoboxes .mcwp-card span.mcwpdown {
+	color: #FF4961;
+}
+.cryptoboxes .mcwp-card.mcwp-card-warning span.mcwpup, .cryptoboxes .mcwp-card.mcwp-card-success span.mcwpup {
+	color: #1a8e06;
+}
+.cryptoboxes .mcwp-card.mcwp-card-info span.mcwpdown, .cryptoboxes .mcwp-card.mcwp-card-danger span.mcwpdown {
+	color: #78281F;
+}
+
+.cryptoboxes .mcwp-card.mcwp-card-white * {
+	color: #000;
+}
+
+/*---Card Designs---*/
+/*-card 1&2 design-*/
+.cryptoboxes .mcwp-card-1 {
+	position: relative;
+	padding: 20px 20px 10px 20px;
+	text-align: left;
+}
+.cryptoboxes .mcwp-card.mcwp-card-rounded {
+	border-radius: 10px;
+}
+.cryptoboxes .mcwp-card-1 .bg {
+	position: absolute;
+	height: 100%;
+	right: 0;
+	top: 20px;
+}
+.cryptoboxes .mcwp-card-1 .bg img {
+    display: block;
+    max-width: 100%;
+	height: 100%;
+	opacity: 0.1;
+	-webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+	background: none;
+	border: none;
+}
+.cryptoboxes .mcwp-card-1 .mcwp-price {
+	padding: 4px;
+	display: inline;
+}
+.cryptoboxes .mcwp-card-2 {
+	padding: 20px;
+	text-align: center;
+}
+.cryptoboxes .mcwp-card-2 .mcwp-price {
+	font-weight: bold;
+    display: inline;
+}
+.cryptoboxes .mcwp-card-2 .mcwp-card-head {
+	margin-top: 5px;
+}
+
+/*-card 3 design-*/
+.cryptoboxes .mcwp-card-3 {
+	position: relative;
+}
+.cryptoboxes .mcwp-card-3 .mcwp-dn3-head > div,
+.cryptoboxes .mcwp-card-3 .mcwp-dn3-body > div {
+	display: inline-block;
+	vertical-align: top;
+	padding: 20px;
+	text-align: left;
+	width: 50%;
+}
+.cryptoboxes .mcwp-card-3 .mcwp-dn3-head > div:first-child,
+.cryptoboxes .mcwp-card-3 .mcwp-dn3-body > div:first-child {
+	width: 50%;
+}
+.cryptoboxes .mcwp-card-3 .mcwp-card-symbol {
+	font-size: 85%;
+}
+.cryptoboxes .mcwp-card-3 .mcwp-card-name,
+.cryptoboxes .mcwp-card-3 .mcwp-price {
+	font-size: 140%;
+	text-align: left !important;
+	display: inline;
+}
+.cryptoboxes .mcwp-card-3 .mcwp-pricelabel {
+	margin: 0;
+}
+
+.cryptoboxes .mcwp-card-3 .mcwp-dn3-body {
+    background: rgba(255,255,255,0.2);
+}
+/*-card 4 design-*/
+.cryptoboxes .mcwp-card-4 {
+	padding: 20px;
+	text-align: center;
+}
+.cryptoboxes .mcwp-card-4 .mcwp-header {
+	padding: 20px;
+	border-bottom: 1px solid rgba(255,255,255,0.2);
+	background: rgba(255,255,255,0.1);
+}
+.cryptoboxes .mcwp-card-4.mcwp-card-white .mcwp-header {
+	background: rgba(0,0,0,0.1);
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.cryptoboxes .mcwp-card-4 .mcwp-price {
+    padding: 0 4px;
+    display: inline;
+    margin-right: 10px;
+}
+.cryptoboxes .mcwp-card-5 {
+	padding: 20px;
+	text-align: center;
+	position: relative;
+}
+.cryptoboxes .mcwp-card-5 .mcwp-header {
+	padding: 10px 0 20px 0;
+}
+.cryptoboxes .mcwp-card-5 .mcwp-card-marketcap {
+	margin: 10px -20px;
+	padding: 5px;
+	background: rgba(255,255,255,0.2);
+}
+.cryptoboxes .mcwp-card-5 .mcwp-price {
+	padding: 0 4px;
+    display: inline;
+    margin: 0 10px 0 0;
+}
+.cryptoboxes .mcwp-card-5.mcwp-card-white .mcwp-card-marketcap {
+	background: rgba(0,0,0,0.1);
+}
+.cryptoboxes .mcwp-card-6 {
+	padding: 10px;
+	text-align: center;
+}
+.cryptoboxes .mcwp-card-6 .mcwp-dn6-head,
+.cryptoboxes .mcwp-card-6 .mcwp-dn6-body {
+	padding: 10px;
+}
+.cryptoboxes .mcwp-card-6 .mcwp-dn6-body > div > div {
+	display: inline-block;
+	vertical-align: top;
+    width: 30%;
+    margin: 0 1.5%;
+    box-sizing: border-box;
+}
+.cryptoboxes .mcwp-card-6 table th, .cryptoboxes .mcwp-card-6 table td {
+	padding: 5px;
+}
+
+/*---LABEL---*/
+.cryptoboxes .mcwp-label {
+	overflow: hidden;
+	padding: 20px;
+	width: 100%;
+	margin-bottom: 20px;
+	-webkit-box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 1px 0 rgba(0, 0, 0, 0.1) !important;
+			box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 1px 0 rgba(0, 0, 0, 0.1) !important;
+	-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+}
+
+.cryptoboxes .mcwp-label.mcwp-label-rounded {
+	border-radius: 5px;
+}
+.cryptoboxes .mcwp-label-info,
+.cryptoboxes .mcwp-label-success,
+.cryptoboxes .mcwp-label-warning,
+.cryptoboxes .mcwp-label-danger {
+	color: #fff;
+}
+.cryptoboxes .mcwp-label-white {
+	color: #000;
+	background: #fff;
+}
+.cryptoboxes .mcwp-label-dark {
+	color: #fff;
+	background: #202328;
+}
+.cryptoboxes .mcwp-label-info {
+	background: #1E9FF2;
+}
+.cryptoboxes .mcwp-label-warning {
+  background: #FF9149;
+}
+.cryptoboxes .mcwp-label-danger {
+	background: #FF4961;
+}
+.cryptoboxes .mcwp-label-success {
+	background: #28D094;
+}
+
+.cryptoboxes .mcwp-label .mcwp-label-dn1-head, .cryptoboxes .mcwp-label .mcwp-label-dn1-body {
+    display: inline-block;
+    vertical-align: middle;
+}
+.cryptoboxes .mcwp-label .mcwp-label-dn1-head {
+	float: left;
+}
+.cryptoboxes .mcwp-label .mcwp-label-dn1-body {
+	float: right;
+}
+.cryptoboxes .mcwp-label .mcwp-label-dn2 {
+	width:25%;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+.cryptoboxes .mcwp-label .mcwp-label-dn2:first-child {
+	text-align: left;
+}
+.cryptoboxes .mcwp-label .mcwp-label-dn2 > div:not(.mcwp-card-head) {
+	padding: 5px;
+}
+.cryptoboxes .mcwp-label > p {
+	margin: 16px 0 !important;
+}
+.cryptoboxes .mcwp-label b {
+	font-weight: bold !important;
+	line-height: 24px;
+	padding: 4px 0;
+    border-radius: 4px;
+	margin: 0 0 0 10px;
+}
+
+.cryptoboxes .mcwp-label span.mcwpup, .cryptoboxes .mcwp-label span.mcwpdown {
+	display: inline-block;
+	position: relative;
+}
+.cryptoboxes .mcwp-label span.mcwpup {
+	color: #28D094;
+}
+.cryptoboxes .mcwp-label span.mcwpdown {
+	color: #FF4961;
+}
+.cryptoboxes .mcwp-label.mcwp-label-warning span.mcwpup, .cryptoboxes .mcwp-label.mcwp-label-success span.mcwpup {
+	color: #1a8e06;
+}
+.cryptoboxes .mcwp-label.mcwp-label-info span.mcwpdown, .cryptoboxes .mcwp-label.mcwp-label-danger span.mcwpdown {
+	color: #78281F;
+}
+
+
+/*---ICONS---*/
+.cryptoboxes .cc-crimson-color {
+	background: #FF0033;
+	color: #fff;
+}
+.cryptoboxes .cc-crimson-color .cc-coin span.mcwpdown {
+	color: #78281F;
+}
+.cryptoboxes .cc-midnight-color {
+	background: #04040C;
+	color: #fff;
+}
+.cryptoboxes .cc-green-color {
+	background: #85B000;
+	color: #fff;
+}
+.cryptoboxes .cc-green-color .cc-coin span.mcwpup {
+	color: #186A3B;
+}
+.cryptoboxes .cc-blue-color {
+	background: #1B52A4;
+	color: #fff;
+}
+.cryptoboxes .cc-blue-color .cc-coin span.mcwpdown {
+	color: #E74C3C;
+}
+
+/*---CHARTS---*/
+.cryptoboxes .mcwp-chart {
+    height: 400px;
+    padding: 10px;
+    border-radius: 5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0);
+}
+
+
+/*---Converter---*/
+.cryptoboxes .mcwp-converter {
+	width: 100%;
+	padding: 20px;
+	border-radius: 5px;
+	font-family: 'Lato', sans-serif;
+	text-align: left;
+}
+.cryptoboxes .mcwp-converter .mcwp-form-group {
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-box-align: center;
+	   -ms-flex-align: center;
+	      align-items: center;
+}
+.cryptoboxes .mcwp-converter .mcwp-form-control {
+	position: relative;
+	width: 100%;
+	min-height: 1px;
+	-ms-flex-preferred-size: 0;
+	flex-basis: 0;
+	-ms-flex-positive: 1;
+	-webkit-box-flex: 5;
+		   flex-grow: 5;
+	margin: 0 auto;
+}
+.cryptoboxes .mcwp-converter.mcwp-converter-two .mcwp-form-control:first-child {
+	margin: 10px 0 20px;
+}
+.cryptoboxes .mcwp-converter .selectize-control {
+	width: 100%;
+}
+.cryptoboxes .mcwp-converter .selectize-input {
+	padding: 14px 10px;
+	line-height: 25px;
+}
+.cryptoboxes .mcwp-converter .selectize-input, .mcwp-converter .selectize-dropdown {
+	font-weight: bold;
+	color: #50596c !important;
+}
+.cryptoboxes .mcwp-converter .mcwp-input-group {
+	position: relative;
+	display: block;
+}
+.cryptoboxes .mcwp-converter .mcwp-input-group input {
+	outline: none;
+	text-transform: uppercase;
+}
+.cryptoboxes .mcwp-converter.mcwp-converter-two .mcwp-input-group input.mcwp-field {
+	z-index: 1;
+	width: calc(100% - 130px);
+	position: absolute;
+	right: 0;
+	top: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	border-radius: 0 5px 5px 0;
+	text-align: right;
+	line-height: 26px;
+}
+.cryptoboxes .mcwp-converter .mcwp-input-container {
+	margin: 0 auto;
+}
+.cryptoboxes .mcwp-converter .selectize-input {
+	padding: 14px 10px;
+	line-height: 25px;
+}
+.cryptoboxes .mcwp-converter .selectize-input, .mcwp-converter .selectize-dropdown {
+	font-weight: bold;
+	color: #50596c !important;
+}
+.cryptoboxes .mcwp-converter .mcwp-form-control input.mcwp-field {
+	padding: 14px 10px;
+	background: #f8f8f8;
+	border: .05rem solid #caced7;
+	color: #50596c;
+	line-height: 25px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	outline: none;
+}
+.cryptoboxes .mcwp-converter-one .mcwp-form-control input.mcwp-field {
+	-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+	width: 100%;
+	border-radius: 5px;
+	margin: 10px 0 0;
+}
+.cryptoboxes .mcwp-converter.mcwp-converter-two .selectize-control.single .selectize-input:after {
+	left: 85px;
+}
+.cryptoboxes .mcwp-converter-two .mcwp-form-group input.mcwp-field {
+	z-index: 1;
+	width: calc(100% - 130px);
+	position: absolute;
+	right: 0;
+	top: 0;
+	border-radius: 0 5px 5px 0;
+	text-align: right;
+}
+.cryptoboxes .mcwp-converter-one button {
+	width: 100%;
+	background: -webkit-gradient(linear, left bottom, left top, from(#ECE9E6), to(#fff));
+	background: -webkit-linear-gradient(bottom, #ECE9E6, #fff);
+	background: -o-linear-gradient(bottom, #ECE9E6, #fff);
+	background: linear-gradient(to top, #ECE9E6, #fff);
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	border: none;
+	border-radius: 5px;
+	color: #fff;
+	margin-top: 15px;
+	padding: 20px;
+	cursor: pointer;
+	border: 1px solid #a6a6a6;
+	color: #50596c;
+	outline: 0;
+}
+.cryptoboxes .mcwp-converter-one button:active {
+	background: -webkit-gradient(linear, left top, left bottom, from(#ECE9E6), to(#fff));
+	background: -webkit-linear-gradient(top, #ECE9E6, #fff);
+	background: -o-linear-gradient(top, #ECE9E6, #fff);
+	background: linear-gradient(to bottom, #ECE9E6, #fff);
+}
+.cryptoboxes .mcwp-converter-one img {
+	margin: auto;
+	box-shadow: none;
+	background: none;
+	border: none;
+}
+.cryptoboxes .mcwp-converter-two .selectize-control.single .selectize-input:after {
+	left: 85px;
+}
+.cryptoboxes .mcwp-converter-two .mcwp-form-group {
+	position: relative;
+}
+.cryptoboxes .mcwp-animated {
+	-webkit-animation-duration: 1s;
+			animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+			animation-fill-mode: both;
+}
+.cryptoboxes .mcwp-animated.infinite {
+	-webkit-animation-iteration-count: infinite;
+			animation-iteration-count: infinite;
+}
+.cryptoboxes .liveup {
+    animation-name: liveup;
+	-webkit-animation-name: liveup;
+    animation-duration: 500;
+	-webkit-animation-duration: 500;
+}
+.cryptoboxes .livedown {
+    animation-name: livedown;
+	-webkit-animation-name: livedown;
+    animation-duration: 500;
+	-webkit-animation-duration: 500;
+}
+@-webkit-keyframes liveup {
+    0%  { background:rgba(0,255,0,0.3);}
+    50%  { background:rgba(0,255,0,0.6);}
+    100%  { background:rgba(0,255,0,0.3);}
+}
+@-moz-keyframes liveup {
+    0%  { background:rgba(0,255,0,0.3);}
+    50%  { background:rgba(0,255,0,0.6);}
+    100%  { background:rgba(0,255,0,0.3);}
+}
+@keyframes liveup {
+    0%  { background:rgba(0,255,0,0.3);}
+    50%  { background:rgba(0,255,0,0.6);}
+    100%  { background:rgba(0,255,0,0.3);}
+}
+
+@-webkit-keyframes livedown {
+    0%  { background:rgba(255,0,0,0.3);}
+    50%  { background:rgba(255,0,0,0.6);}
+    100%  { background:rgba(255,0,0,0.3);}
+}
+@-moz-keyframes livedown {
+    0%  { background:rgba(255,0,0,0.3);}
+    50%  { background:rgba(255,0,0,0.6);}
+    100%  { background:rgba(255,0,0,0.3);}
+}
+@keyframes livedown {
+    0%  { background:rgba(255,0,0,0.3);}
+    50%  { background:rgba(255,0,0,0.6);}
+    100%  { background:rgba(255,0,0,0.3);}
+}
+.crypto-404 {
+    text-align: center;
+    font-size: 150%;
+    padding: 30px 0;
+    position: relative;
+	z-index: 1;
+	background-color: white;
+}
+.crypto-404:before {
+    position: absolute;
+    content: '';
+    border-bottom: 1px solid #d7d7d7;
+    height: 1px;
+    width: 80%;
+    top: 50%;
+    left: 0;
+    z-index: -1;
+    margin: auto;
+    text-align: center;
+    right: 0;
+}
+.crypto-404:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 30%;
+    height: 100%;
+    z-index: -1;
+    background: white;
+}
