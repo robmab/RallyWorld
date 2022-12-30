@@ -8,7 +8,7 @@
 
 <body>
 	<h1 id="logo">
-	<a href="http://wordpress.org/"><img alt="WordPress" src="wp-admin/images/logo.png" /></a>
+	<a href="http://wordpress.org/"><img alt="WordPress" src="wp-admin/images/portada.jpg" /></a>
 	<br /> Version 4.9
 	</h1>
 
