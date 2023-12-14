@@ -51,7 +51,9 @@ if ( ! class_exists( 'Kirki_Scripts_Registry' ) ) {
 		 * Instantiates secondary classes.
 		 */
 		public function __construct() {
-
+			if ( ! Kirki::should_run() ) {
+				return;
+			}
 			$this->dependencies = new Kirki_Enqueue();
 			$this->tooltips     = new Kirki_Scripts_Tooltips();
 			$this->icons        = new Kirki_Scripts_Icons();

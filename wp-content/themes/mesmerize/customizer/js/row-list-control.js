@@ -82,7 +82,9 @@
         $.getJSON(ajaxurl, {
             action: 'cp_load_data',
             filter: filter,
-            mesmerize_skip_customize_register: true
+            cache_key: window.CP_Customizer ? CP_Customizer.options('request_cache_key'): window.mesmerize_customize_settings.cache_key,
+            mesmerize_skip_customize_register: true,
+
         }, function (data) {
 
             if (data.error) {
@@ -104,12 +106,14 @@
 
         if (window.CP_Customizer) {
             CP_Customizer.one("PREVIEW_LOADED", function () {
-                _loadData(control);
+                _.delay(function () {
+                    _loadData(control);
+                }, 10);
             });
         } else {
             _.delay(function () {
                 _loadData(control)
-            }, 500);
+            }, 10);
         }
 
     }

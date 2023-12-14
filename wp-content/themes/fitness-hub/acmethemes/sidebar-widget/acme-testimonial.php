@@ -162,7 +162,7 @@ if ( ! class_exists( 'Fitness_Hub_Testimonial' ) ) {
 			        $fitness_hub_about_content_from = fitness_hub_content_from();
 			        foreach ( $fitness_hub_about_content_from as $key => $value ) {
 				        ?>
-                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $content_from ); ?>><?php echo esc_attr( $value ); ?></option>
+                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $content_from ); ?>><?php echo esc_html( $value ); ?></option>
 				        <?php
 			        }
 			        ?>
@@ -183,7 +183,7 @@ if ( ! class_exists( 'Fitness_Hub_Testimonial' ) ) {
                     $fitness_hub_testimonial_column_numbers = fitness_hub_widget_column_number();
                     foreach ( $fitness_hub_testimonial_column_numbers as $key => $value ){
                         ?>
-                        <option value="<?php echo esc_attr( $key )?>" <?php selected( $key, $column_number ); ?>><?php echo esc_attr( $value );?></option>
+                        <option value="<?php echo esc_attr( $key )?>" <?php selected( $key, $column_number ); ?>><?php echo esc_html( $value );?></option>
                         <?php
                     }
                     ?>

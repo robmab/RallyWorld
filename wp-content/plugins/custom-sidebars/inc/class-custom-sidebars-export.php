@@ -63,7 +63,7 @@ class CustomSidebarsExport extends CustomSidebars {
 	 */
 	public function widget_header() {
 		?>
-		<a href="#" class="cs-action btn-export"><?php _e( 'Import / Export Sidebars', 'custom-sidebars' ); ?></a>
+		<a href="#" class="cs-action btn-export"><?php esc_html_e( 'Import / Export Sidebars', 'custom-sidebars' ); ?></a>
 		<?php
 	}
 
@@ -162,7 +162,7 @@ class CustomSidebarsExport extends CustomSidebars {
 			'csb_version' => $csb_info['Version'],
 			'theme_name' => $theme->get( 'Name' ),
 			'theme_version' => $theme->get( 'Version' ),
-			'description' => htmlspecialchars( @$_POST['export-description'] ),
+			'description' => sanitize_text_field( @$_POST['export-description'] ),
 		);
 
 		// Export the custom sidebars.
@@ -303,12 +303,7 @@ class CustomSidebarsExport extends CustomSidebars {
 		 */
 		$version = phpversion();
 		$compare = version_compare( $version, '5.3', '<' );
-		if ( $compare ) {
-			$content = json_encode( $data );
-		} else {
-			$option = defined( 'JSON_PRETTY_PRINT' )? JSON_PRETTY_PRINT : null;
-			$content = json_encode( $data, $option );
-		}
+
 		// Send the download headers.
 		header( 'Pragma: public' );
 		header( 'Expires: 0' );
@@ -317,11 +312,11 @@ class CustomSidebarsExport extends CustomSidebars {
 		header( 'Content-type: application/json' );
 		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
 		header( 'Content-Transfer-Encoding: binary' );
-		header( 'Content-Length: ' . strlen( $content ) );
+		header( 'Content-Length: ' . strlen( wp_json_encode($data) ) );
 		/**
 		 * Finally send the export-file content.
 		 */
-		echo $content;
+		echo wp_json_encode($data);
 		exit;
 	}
 
@@ -476,7 +471,7 @@ class CustomSidebarsExport extends CustomSidebars {
 			self::json_response( $req );
 		}
 
-		$data = json_decode( base64_decode( @$_POST['import_data'] ), true );
+		$data = json_decode( base64_decode( @sanitize_textarea_field($_POST['import_data']) ), true );
 
 		if (
 			is_array( $data['meta'] ) &&
@@ -750,7 +745,9 @@ class CustomSidebarsExport extends CustomSidebars {
 		// =====================================================================
 		// Import widgets
 		$widget_count = 0;
-		$def_sidebars = wp_get_sidebars_widgets();
+		$def_sidebars = get_option( 'sidebars_widgets', array() );
+        
+
 		$widget_list = array();
 		$orig_POST = $_POST;
 		/**

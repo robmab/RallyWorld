@@ -4,29 +4,50 @@
  *
  * Displays the Contact Page Template of the theme.
  *
- * @package ThemeGrill
- * @subpackage ColorMag
- * @since ColorMag 1.0
+ * @package    ColorMag
+ *
+ * @since      ColorMag 1.0.0
  */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+get_header();
 ?>
 
-<?php get_header(); ?>
+<div class="cm-row">
+	<?php
 
-	<?php do_action( 'colormag_before_body_content' ); ?>
+	/**
+	 * Hook: colormag_before_body_content.
+	 */
+	do_action( 'colormag_before_body_content' );
+	?>
 
-	<div id="primary">
-		<div id="content" class="clearfix">
-			<?php while ( have_posts() ) : the_post(); ?>
+		<div id="cm-primary" class="cm-primary">
+			<div class="cm-posts" class="clearfix">
+				<?php
+				while ( have_posts() ) :
+					the_post();
 
-				<?php get_template_part( 'content', 'page' ); ?>
+					get_template_part( '/template-parts/content', 'page' );
+				endwhile;
+				?>
+			</div><!-- .cm-posts -->
+		</div><!-- .cm-primary -->
 
-			<?php endwhile; ?>
+	<?php
 
-		</div><!-- #content -->
-	</div><!-- #primary -->
+	colormag_sidebar_select();
 
-	<?php colormag_sidebar_select(); ?>
+	/**
+	 * Hook: colormag_after_body_content.
+	 */
+	do_action( 'colormag_after_body_content' );
+	?>
+</div>
 
-	<?php do_action( 'colormag_after_body_content' ); ?>
-
-<?php get_footer(); ?>
+<?php
+get_footer();

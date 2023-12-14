@@ -1,821 +1,414 @@
-/*! elementor - v2.3.2 - 17-11-2018 */
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 178);
-/******/ })
-/************************************************************************/
-/******/ ({
+/*! elementor - v3.18.0 - 08-12-2023 */
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
-/***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "../assets/dev/js/admin/new-template/behaviors/lock-pro.js":
+/*!*****************************************************************!*\
+  !*** ../assets/dev/js/admin/new-template/behaviors/lock-pro.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js"));
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js"));
+var LockPro = /*#__PURE__*/function () {
+  function LockPro(elements) {
+    (0, _classCallCheck2.default)(this, LockPro);
+    this.elements = elements;
+  }
+  (0, _createClass2.default)(LockPro, [{
+    key: "bindEvents",
+    value: function bindEvents() {
+      var _this$elements = this.elements,
+        form = _this$elements.form,
+        templateType = _this$elements.templateType;
+      form.addEventListener('submit', this.onFormSubmit.bind(this));
+      templateType.addEventListener('change', this.onTemplateTypeChange.bind(this));
 
-var Module = function Module() {
-	var $ = jQuery,
-	    instanceParams = arguments,
-	    self = this,
-	    events = {};
-
-	var settings = void 0;
-
-	var ensureClosureMethods = function ensureClosureMethods() {
-		$.each(self, function (methodName) {
-			var oldMethod = self[methodName];
-
-			if ('function' !== typeof oldMethod) {
-				return;
-			}
-
-			self[methodName] = function () {
-				return oldMethod.apply(self, arguments);
-			};
-		});
-	};
-
-	var initSettings = function initSettings() {
-		settings = self.getDefaultSettings();
-
-		var instanceSettings = instanceParams[0];
-
-		if (instanceSettings) {
-			$.extend(settings, instanceSettings);
-		}
-	};
-
-	var init = function init() {
-		self.__construct.apply(self, instanceParams);
-
-		ensureClosureMethods();
-
-		initSettings();
-
-		self.trigger('init');
-	};
-
-	this.getItems = function (items, itemKey) {
-		if (itemKey) {
-			var keyStack = itemKey.split('.'),
-			    currentKey = keyStack.splice(0, 1);
-
-			if (!keyStack.length) {
-				return items[currentKey];
-			}
-
-			if (!items[currentKey]) {
-				return;
-			}
-
-			return this.getItems(items[currentKey], keyStack.join('.'));
-		}
-
-		return items;
-	};
-
-	this.getSettings = function (setting) {
-		return this.getItems(settings, setting);
-	};
-
-	this.setSettings = function (settingKey, value, settingsContainer) {
-		if (!settingsContainer) {
-			settingsContainer = settings;
-		}
-
-		if ('object' === (typeof settingKey === 'undefined' ? 'undefined' : _typeof(settingKey))) {
-			$.extend(settingsContainer, settingKey);
-
-			return self;
-		}
-
-		var keyStack = settingKey.split('.'),
-		    currentKey = keyStack.splice(0, 1);
-
-		if (!keyStack.length) {
-			settingsContainer[currentKey] = value;
-
-			return self;
-		}
-
-		if (!settingsContainer[currentKey]) {
-			settingsContainer[currentKey] = {};
-		}
-
-		return self.setSettings(keyStack.join('.'), value, settingsContainer[currentKey]);
-	};
-
-	this.forceMethodImplementation = function (methodArguments) {
-		var functionName = methodArguments.callee.name;
-
-		throw new ReferenceError('The method ' + functionName + ' must to be implemented in the inheritor child.');
-	};
-
-	this.on = function (eventName, callback) {
-		if ('object' === (typeof eventName === 'undefined' ? 'undefined' : _typeof(eventName))) {
-			$.each(eventName, function (singleEventName) {
-				self.on(singleEventName, this);
-			});
-
-			return self;
-		}
-
-		var eventNames = eventName.split(' ');
-
-		eventNames.forEach(function (singleEventName) {
-			if (!events[singleEventName]) {
-				events[singleEventName] = [];
-			}
-
-			events[singleEventName].push(callback);
-		});
-
-		return self;
-	};
-
-	this.off = function (eventName, callback) {
-		if (!events[eventName]) {
-			return self;
-		}
-
-		if (!callback) {
-			delete events[eventName];
-
-			return self;
-		}
-
-		var callbackIndex = events[eventName].indexOf(callback);
-
-		if (-1 !== callbackIndex) {
-			delete events[eventName][callbackIndex];
-		}
-
-		return self;
-	};
-
-	this.trigger = function (eventName) {
-		var methodName = 'on' + eventName[0].toUpperCase() + eventName.slice(1),
-		    params = Array.prototype.slice.call(arguments, 1);
-
-		if (self[methodName]) {
-			self[methodName].apply(self, params);
-		}
-
-		var callbacks = events[eventName];
-
-		if (!callbacks) {
-			return self;
-		}
-
-		$.each(callbacks, function (index, callback) {
-			callback.apply(self, params);
-		});
-
-		return self;
-	};
-
-	init();
-};
-
-Module.prototype.__construct = function () {};
-
-Module.prototype.getDefaultSettings = function () {
-	return {};
-};
-
-Module.extendsCount = 0;
-
-Module.extend = function (properties) {
-	var $ = jQuery,
-	    parent = this;
-
-	var child = function child() {
-		return parent.apply(this, arguments);
-	};
-
-	$.extend(child, parent);
-
-	child.prototype = Object.create($.extend({}, parent.prototype, properties));
-
-	child.prototype.constructor = child;
-
-	/*
-  * Constructor ID is used to set an unique ID
-     * to every extend of the Module.
-     *
-  * It's useful in some cases such as unique
-  * listener for frontend handlers.
-  */
-	var constructorID = ++Module.extendsCount;
-
-	child.prototype.getConstructorID = function () {
-		return constructorID;
-	};
-
-	child.__super__ = parent.prototype;
-
-	return child;
-};
-
-module.exports = Module;
+      // Force checking on render, to make sure that default values are also checked.
+      this.onTemplateTypeChange();
+    }
+  }, {
+    key: "onFormSubmit",
+    value: function onFormSubmit(e) {
+      var lockOptions = this.getCurrentLockOptions();
+      if (lockOptions.is_locked) {
+        e.preventDefault();
+      }
+    }
+  }, {
+    key: "onTemplateTypeChange",
+    value: function onTemplateTypeChange() {
+      var lockOptions = this.getCurrentLockOptions();
+      if (lockOptions.is_locked) {
+        this.lock(lockOptions);
+      } else {
+        this.unlock();
+      }
+    }
+  }, {
+    key: "getCurrentLockOptions",
+    value: function getCurrentLockOptions() {
+      var templateType = this.elements.templateType,
+        currentOption = templateType.options[templateType.selectedIndex];
+      return JSON.parse(currentOption.dataset.lock || '{}');
+    }
+  }, {
+    key: "lock",
+    value: function lock(lockOptions) {
+      this.showLockBadge(lockOptions.badge);
+      this.showLockButton(lockOptions.button);
+      this.hideSubmitButton();
+    }
+  }, {
+    key: "unlock",
+    value: function unlock() {
+      this.hideLockBadge();
+      this.hideLockButton();
+      this.showSubmitButton();
+    }
+  }, {
+    key: "showLockBadge",
+    value: function showLockBadge(badgeConfig) {
+      var _this$elements2 = this.elements,
+        lockBadge = _this$elements2.lockBadge,
+        lockBadgeText = _this$elements2.lockBadgeText,
+        lockBadgeIcon = _this$elements2.lockBadgeIcon;
+      lockBadgeText.innerText = badgeConfig.text;
+      lockBadgeIcon.className = badgeConfig.icon;
+      lockBadge.classList.remove('e-hidden');
+    }
+  }, {
+    key: "hideLockBadge",
+    value: function hideLockBadge() {
+      this.elements.lockBadge.classList.add('e-hidden');
+    }
+  }, {
+    key: "showLockButton",
+    value: function showLockButton(buttonConfig) {
+      var lockButton = this.elements.lockButton;
+      lockButton.href = this.replaceLockLinkPlaceholders(buttonConfig.url);
+      lockButton.innerText = buttonConfig.text;
+      lockButton.classList.remove('e-hidden');
+    }
+  }, {
+    key: "hideLockButton",
+    value: function hideLockButton() {
+      this.elements.lockButton.classList.add('e-hidden');
+    }
+  }, {
+    key: "showSubmitButton",
+    value: function showSubmitButton() {
+      this.elements.submitButton.classList.remove('e-hidden');
+    }
+  }, {
+    key: "hideSubmitButton",
+    value: function hideSubmitButton() {
+      this.elements.submitButton.classList.add('e-hidden');
+    }
+  }, {
+    key: "replaceLockLinkPlaceholders",
+    value: function replaceLockLinkPlaceholders(link) {
+      return link.replace(/%%utm_source%%/g, 'wp-add-new').replace(/%%utm_medium%%/g, 'wp-dash');
+    }
+  }]);
+  return LockPro;
+}();
+exports["default"] = LockPro;
 
 /***/ }),
 
-/***/ 1:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "../assets/dev/js/admin/new-template/layout.js":
+/*!*****************************************************!*\
+  !*** ../assets/dev/js/admin/new-template/layout.js ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
+/* provided dependency */ var __ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n")["__"];
 
 
-var Module = __webpack_require__(0),
-    ViewModule;
-
-ViewModule = Module.extend({
-	elements: null,
-
-	getDefaultElements: function getDefaultElements() {
-		return {};
-	},
-
-	bindEvents: function bindEvents() {},
-
-	onInit: function onInit() {
-		this.initElements();
-
-		this.bindEvents();
-	},
-
-	initElements: function initElements() {
-		this.elements = this.getDefaultElements();
-	}
-});
-
-module.exports = ViewModule;
-
-/***/ }),
-
-/***/ 10:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _class = function (_Marionette$ItemView) {
-	_inherits(_class, _Marionette$ItemView);
-
-	function _class() {
-		_classCallCheck(this, _class);
-
-		return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-	}
-
-	_createClass(_class, [{
-		key: 'id',
-		value: function id() {
-			return 'elementor-template-library-loading';
-		}
-	}, {
-		key: 'getTemplate',
-		value: function getTemplate() {
-			return '#tmpl-elementor-template-library-loading';
-		}
-	}]);
-
-	return _class;
-}(Marionette.ItemView);
-
-exports.default = _class;
-
-/***/ }),
-
-/***/ 178:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var ViewModule = __webpack_require__(1),
-    NewTemplateLayout = __webpack_require__(179);
-
-var NewTemplateModule = ViewModule.extend({
-
-	getDefaultSettings: function getDefaultSettings() {
-		return {
-			selectors: {
-				addButton: '.page-title-action:first, #elementor-template-library-add-new'
-			}
-		};
-	},
-
-	getDefaultElements: function getDefaultElements() {
-		var selectors = this.getSettings('selectors');
-
-		return {
-			$addButton: jQuery(selectors.addButton)
-		};
-	},
-
-	bindEvents: function bindEvents() {
-		this.elements.$addButton.on('click', this.onAddButtonClick);
-	},
-
-	onInit: function onInit() {
-		ViewModule.prototype.onInit.apply(this, arguments);
-
-		this.layout = new NewTemplateLayout();
-
-		if ('#add_new' === location.hash) {
-			this.layout.showModal();
-		}
-	},
-
-	onAddButtonClick: function onAddButtonClick(event) {
-		event.preventDefault();
-
-		this.layout.showModal();
-	}
-});
-
-jQuery(function () {
-	window.elementorNewTemplate = new NewTemplateModule();
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _lockPro = _interopRequireDefault(__webpack_require__(/*! ./behaviors/lock-pro */ "../assets/dev/js/admin/new-template/behaviors/lock-pro.js"));
+var NewTemplateView = __webpack_require__(/*! elementor-admin/new-template/view */ "../assets/dev/js/admin/new-template/view.js");
+module.exports = elementorModules.common.views.modal.Layout.extend({
+  getModalOptions: function getModalOptions() {
+    return {
+      id: 'elementor-new-template-modal'
+    };
+  },
+  getLogoOptions: function getLogoOptions() {
+    return {
+      title: __('New Template', 'elementor')
+    };
+  },
+  initialize: function initialize() {
+    elementorModules.common.views.modal.Layout.prototype.initialize.apply(this, arguments);
+    var lookupControlIdPrefix = 'elementor-new-template__form__';
+    var templateTypeSelectId = "".concat(lookupControlIdPrefix, "template-type");
+    this.showLogo();
+    this.showContentView();
+    this.initElements();
+    this.lockProBehavior = new _lockPro.default(this.elements);
+    this.lockProBehavior.bindEvents();
+    var dynamicControlsVisibilityListener = function dynamicControlsVisibilityListener() {
+      elementorAdmin.templateControls.setDynamicControlsVisibility(lookupControlIdPrefix, elementor_new_template_form_controls);
+    };
+    this.getModal().onShow = function () {
+      dynamicControlsVisibilityListener();
+      document.getElementById(templateTypeSelectId).addEventListener('change', dynamicControlsVisibilityListener);
+    };
+    this.getModal().onHide = function () {
+      document.getElementById(templateTypeSelectId).removeEventListener('change', dynamicControlsVisibilityListener);
+    };
+  },
+  initElements: function initElements() {
+    var container = this.$el[0],
+      root = '#elementor-new-template__form';
+    this.elements = {
+      form: container.querySelector(root),
+      submitButton: container.querySelector("".concat(root, "__submit")),
+      lockButton: container.querySelector("".concat(root, "__lock_button")),
+      templateType: container.querySelector("".concat(root, "__template-type")),
+      lockBadge: container.querySelector("".concat(root, "__template-type-badge")),
+      lockBadgeText: container.querySelector("".concat(root, "__template-type-badge__text")),
+      lockBadgeIcon: container.querySelector("".concat(root, "__template-type-badge__icon"))
+    };
+  },
+  showContentView: function showContentView() {
+    this.modalContent.show(new NewTemplateView());
+  }
 });
 
 /***/ }),
 
-/***/ 179:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _layout = __webpack_require__(5);
-
-var _layout2 = _interopRequireDefault(_layout);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var NewTemplateView = __webpack_require__(180);
-
-module.exports = _layout2.default.extend({
-
-	getModalOptions: function getModalOptions() {
-		return {
-			id: 'elementor-new-template-modal'
-		};
-	},
-
-	getLogoOptions: function getLogoOptions() {
-		return {
-			title: elementorAdmin.translate('new_template')
-		};
-	},
-
-	initialize: function initialize() {
-		_layout2.default.prototype.initialize.apply(this, arguments);
-
-		this.showLogo();
-
-		this.showContentView();
-	},
-
-	showContentView: function showContentView() {
-		this.modalContent.show(new NewTemplateView());
-	}
-});
-
-/***/ }),
-
-/***/ 180:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "../assets/dev/js/admin/new-template/view.js":
+/*!***************************************************!*\
+  !*** ../assets/dev/js/admin/new-template/view.js ***!
+  \***************************************************/
+/***/ ((module) => {
 
 "use strict";
 
 
 module.exports = Marionette.ItemView.extend({
-
-	id: 'elementor-new-template-dialog-content',
-
-	template: '#tmpl-elementor-new-template',
-
-	ui: {},
-
-	events: {},
-
-	onRender: function onRender() {}
+  id: 'elementor-new-template-dialog-content',
+  template: '#tmpl-elementor-new-template',
+  ui: {},
+  events: {},
+  onRender: function onRender() {}
 });
 
 /***/ }),
 
-/***/ 5:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "@wordpress/i18n":
+/*!**************************!*\
+  !*** external "wp.i18n" ***!
+  \**************************/
+/***/ ((module) => {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _header = __webpack_require__(9);
-
-var _header2 = _interopRequireDefault(_header);
-
-var _logo = __webpack_require__(8);
-
-var _logo2 = _interopRequireDefault(_logo);
-
-var _loading = __webpack_require__(10);
-
-var _loading2 = _interopRequireDefault(_loading);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _class = function (_Marionette$LayoutVie) {
-	_inherits(_class, _Marionette$LayoutVie);
-
-	function _class() {
-		_classCallCheck(this, _class);
-
-		return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-	}
-
-	_createClass(_class, [{
-		key: 'el',
-		value: function el() {
-			return this.getModal().getElements('widget');
-		}
-	}, {
-		key: 'regions',
-		value: function regions() {
-			return {
-				modalHeader: '.dialog-header',
-				modalContent: '.dialog-lightbox-content',
-				modalLoading: '.dialog-lightbox-loading'
-			};
-		}
-	}, {
-		key: 'initialize',
-		value: function initialize() {
-			this.modalHeader.show(new _header2.default(this.getHeaderOptions()));
-		}
-	}, {
-		key: 'getModal',
-		value: function getModal() {
-			if (!this.modal) {
-				this.initModal();
-			}
-
-			return this.modal;
-		}
-	}, {
-		key: 'initModal',
-		value: function initModal() {
-			var modalOptions = {
-				className: 'elementor-templates-modal',
-				closeButton: false,
-				draggable: false,
-				hide: {
-					onOutsideClick: false
-				}
-			};
-
-			jQuery.extend(true, modalOptions, this.getModalOptions());
-
-			this.modal = elementorCommon.dialogsManager.createWidget('lightbox', modalOptions);
-
-			this.modal.getElements('message').append(this.modal.addElement('content'), this.modal.addElement('loading'));
-
-			if (modalOptions.draggable) {
-				this.draggableModal();
-			}
-		}
-	}, {
-		key: 'showModal',
-		value: function showModal() {
-			this.getModal().show();
-		}
-	}, {
-		key: 'hideModal',
-		value: function hideModal() {
-			this.getModal().hide();
-		}
-	}, {
-		key: 'draggableModal',
-		value: function draggableModal() {
-			var $modalWidgetContent = this.getModal().getElements('widgetContent');
-
-			$modalWidgetContent.draggable({
-				containment: 'parent',
-				stop: function stop() {
-					$modalWidgetContent.height('');
-				}
-			});
-
-			$modalWidgetContent.css('position', 'absolute');
-		}
-	}, {
-		key: 'getModalOptions',
-		value: function getModalOptions() {
-			return {};
-		}
-	}, {
-		key: 'getLogoOptions',
-		value: function getLogoOptions() {
-			return {};
-		}
-	}, {
-		key: 'getHeaderOptions',
-		value: function getHeaderOptions() {
-			return {
-				closeType: 'normal'
-			};
-		}
-	}, {
-		key: 'getHeaderView',
-		value: function getHeaderView() {
-			return this.modalHeader.currentView;
-		}
-	}, {
-		key: 'showLoadingView',
-		value: function showLoadingView() {
-			this.modalLoading.show(new _loading2.default());
-
-			this.modalLoading.$el.show();
-
-			this.modalContent.$el.hide();
-		}
-	}, {
-		key: 'hideLoadingView',
-		value: function hideLoadingView() {
-			this.modalContent.$el.show();
-
-			this.modalLoading.$el.hide();
-		}
-	}, {
-		key: 'showLogo',
-		value: function showLogo() {
-			this.getHeaderView().logoArea.show(new _logo2.default(this.getLogoOptions()));
-		}
-	}]);
-
-	return _class;
-}(Marionette.LayoutView);
-
-exports.default = _class;
+module.exports = wp.i18n;
 
 /***/ }),
 
-/***/ 8:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "../node_modules/@babel/runtime/helpers/classCallCheck.js":
+/*!****************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/classCallCheck.js ***!
+  \****************************************************************/
+/***/ ((module) => {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _class = function (_Marionette$ItemView) {
-	_inherits(_class, _Marionette$ItemView);
-
-	function _class() {
-		_classCallCheck(this, _class);
-
-		return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-	}
-
-	_createClass(_class, [{
-		key: 'getTemplate',
-		value: function getTemplate() {
-			return '#tmpl-elementor-templates-modal__header__logo';
-		}
-	}, {
-		key: 'className',
-		value: function className() {
-			return 'elementor-templates-modal__header__logo';
-		}
-	}, {
-		key: 'events',
-		value: function events() {
-			return {
-				click: 'onClick'
-			};
-		}
-	}, {
-		key: 'templateHelpers',
-		value: function templateHelpers() {
-			return {
-				title: this.getOption('title')
-			};
-		}
-	}, {
-		key: 'onClick',
-		value: function onClick() {
-			var clickCallback = this.getOption('click');
-
-			if (clickCallback) {
-				clickCallback();
-			}
-		}
-	}]);
-
-	return _class;
-}(Marionette.ItemView);
-
-exports.default = _class;
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+module.exports = _classCallCheck, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
-/***/ 9:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "../node_modules/@babel/runtime/helpers/createClass.js":
+/*!*************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/createClass.js ***!
+  \*************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
+var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "../node_modules/@babel/runtime/helpers/toPropertyKey.js");
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, toPropertyKey(descriptor.key), descriptor);
+  }
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  Object.defineProperty(Constructor, "prototype", {
+    writable: false
+  });
+  return Constructor;
+}
+module.exports = _createClass, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
+/***/ }),
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
+/***/ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js":
+/*!***********************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
+  \***********************************************************************/
+/***/ ((module) => {
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+/***/ }),
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+/***/ "../node_modules/@babel/runtime/helpers/toPrimitive.js":
+/*!*************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/toPrimitive.js ***!
+  \*************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _typeof = (__webpack_require__(/*! ./typeof.js */ "../node_modules/@babel/runtime/helpers/typeof.js")["default"]);
+function _toPrimitive(input, hint) {
+  if (_typeof(input) !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (_typeof(res) !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
-var _class = function (_Marionette$LayoutVie) {
-	_inherits(_class, _Marionette$LayoutVie);
+/***/ }),
 
-	function _class() {
-		_classCallCheck(this, _class);
+/***/ "../node_modules/@babel/runtime/helpers/toPropertyKey.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/toPropertyKey.js ***!
+  \***************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-		return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-	}
+var _typeof = (__webpack_require__(/*! ./typeof.js */ "../node_modules/@babel/runtime/helpers/typeof.js")["default"]);
+var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ "../node_modules/@babel/runtime/helpers/toPrimitive.js");
+function _toPropertyKey(arg) {
+  var key = toPrimitive(arg, "string");
+  return _typeof(key) === "symbol" ? key : String(key);
+}
+module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
-	_createClass(_class, [{
-		key: 'className',
-		value: function className() {
-			return 'elementor-templates-modal__header';
-		}
-	}, {
-		key: 'getTemplate',
-		value: function getTemplate() {
-			return '#tmpl-elementor-templates-modal__header';
-		}
-	}, {
-		key: 'regions',
-		value: function regions() {
-			return {
-				logoArea: '.elementor-templates-modal__header__logo-area',
-				tools: '#elementor-template-library-header-tools',
-				menuArea: '.elementor-templates-modal__header__menu-area'
-			};
-		}
-	}, {
-		key: 'ui',
-		value: function ui() {
-			return {
-				closeModal: '.elementor-templates-modal__header__close'
-			};
-		}
-	}, {
-		key: 'events',
-		value: function events() {
-			return {
-				'click @ui.closeModal': 'onCloseModalClick'
-			};
-		}
-	}, {
-		key: 'templateHelpers',
-		value: function templateHelpers() {
-			return {
-				closeType: this.getOption('closeType')
-			};
-		}
-	}, {
-		key: 'onCloseModalClick',
-		value: function onCloseModalClick() {
-			this._parent._parent._parent.hideModal();
-		}
-	}]);
+/***/ }),
 
-	return _class;
-}(Marionette.LayoutView);
+/***/ "../node_modules/@babel/runtime/helpers/typeof.js":
+/*!********************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/typeof.js ***!
+  \********************************************************/
+/***/ ((module) => {
 
-exports.default = _class;
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
+}
+module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!***********************************************************!*\
+  !*** ../assets/dev/js/admin/new-template/new-template.js ***!
+  \***********************************************************/
+
+
+var NewTemplateLayout = __webpack_require__(/*! elementor-admin/new-template/layout */ "../assets/dev/js/admin/new-template/layout.js");
+var NewTemplateModule = elementorModules.ViewModule.extend({
+  getDefaultSettings: function getDefaultSettings() {
+    return {
+      selectors: {
+        addButton: '.page-title-action:first, #elementor-template-library-add-new'
+      }
+    };
+  },
+  getDefaultElements: function getDefaultElements() {
+    var selectors = this.getSettings('selectors');
+    return {
+      $addButton: jQuery(selectors.addButton)
+    };
+  },
+  bindEvents: function bindEvents() {
+    this.elements.$addButton.on('click', this.onAddButtonClick);
+    elementorCommon.elements.$window.on('hashchange', this.showModalByHash.bind(this));
+  },
+  showModalByHash: function showModalByHash() {
+    if ('#add_new' === location.hash) {
+      this.layout.showModal();
+      location.hash = '';
+    }
+  },
+  onInit: function onInit() {
+    elementorModules.ViewModule.prototype.onInit.apply(this, arguments);
+    this.layout = new NewTemplateLayout();
+    this.showModalByHash();
+  },
+  onAddButtonClick: function onAddButtonClick(event) {
+    event.preventDefault();
+    this.layout.showModal();
+  }
+});
+jQuery(function () {
+  window.elementorNewTemplate = new NewTemplateModule();
+});
+})();
+
+/******/ })()
+;
 //# sourceMappingURL=new-template.js.map

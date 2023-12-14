@@ -3,7 +3,7 @@
  * Addons Page
  *
  * @package EverestForms/Admin
- * @version 1.1.1
+ * @version 1.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -19,17 +19,13 @@ class EVF_Admin_Addons {
 	 * @return array of objects
 	 */
 	public static function get_sections() {
-		$addon_sections = get_transient( 'evf_addons_sections' );
+		$addon_sections = get_transient( 'evf_addons_sections_list' );
 
 		if ( false === $addon_sections ) {
-			$raw_sections = wp_safe_remote_get( 'https://raw.githubusercontent.com/wpeverest/extensions-json/master/everest-forms/addon-sections.json' );
+			$addon_sections = evf_get_json_file_contents( 'assets/extensions-json/addon-sections.json' );
 
-			if ( ! is_wp_error( $raw_sections ) ) {
-				$addon_sections = json_decode( wp_remote_retrieve_body( $raw_sections ) );
-
-				if ( $addon_sections ) {
-					set_transient( 'evf_addons_sections', $addon_sections, WEEK_IN_SECONDS );
-				}
+			if ( $addon_sections ) {
+				set_transient( 'evf_addons_sections_list', $addon_sections, WEEK_IN_SECONDS );
 			}
 		}
 
@@ -39,22 +35,15 @@ class EVF_Admin_Addons {
 	/**
 	 * Get section content for the extensions screen.
 	 *
-	 * @param  string $category
-	 * @param  string $term
 	 * @return array
 	 */
 	public static function get_extension_data() {
-		$extension_data = get_transient( 'evf_extensions_section' );
-
+		$extension_data = get_transient( 'evf_extensions_section_list' );
 		if ( false === $extension_data ) {
-			$raw_extensions = wp_safe_remote_get( 'https://raw.githubusercontent.com/wpeverest/extensions-json/master/everest-forms/sections/all_extensions.json' );
+			$extension_data = evf_get_json_file_contents( 'assets/extensions-json/sections/all_extensions.json' );
 
-			if ( ! is_wp_error( $raw_extensions ) ) {
-				$extension_data = json_decode( wp_remote_retrieve_body( $raw_extensions ) );
-
-				if ( ! empty( $extension_data->products ) ) {
-					set_transient( 'evf_extensions_section', $extension_data, WEEK_IN_SECONDS );
-				}
+			if ( ! empty( $extension_data->products ) ) {
+				set_transient( 'evf_extensions_section_list', $extension_data, WEEK_IN_SECONDS );
 			}
 		}
 
@@ -72,13 +61,14 @@ class EVF_Admin_Addons {
 				'page'             => 'evf-addons',
 				'action'           => 'evf-addons-refresh',
 				'evf-addons-nonce' => wp_create_nonce( 'refresh' ),
-			), admin_url( 'admin.php' )
+			),
+			admin_url( 'admin.php' )
 		);
 		$license_plan    = evf_get_license_plan();
-		$current_section = isset( $_GET['section'] ) ? sanitize_text_field( $_GET['section'] ) : '_all';
+		$current_section = isset( $_GET['section'] ) ? sanitize_text_field( wp_unslash( $_GET['section'] ) ) : '_all'; // phpcs:ignore WordPress.Security.NonceVerification
 
 		if ( '_featured' !== $current_section ) {
-			$category = isset( $_GET['section'] ) ? $_GET['section'] : null;
+			$category = isset( $_GET['section'] ) ? sanitize_text_field( wp_unslash( $_GET['section'] ) ) : null; // phpcs:ignore WordPress.Security.NonceVerification
 			$addons   = self::get_extension_data( $category );
 		}
 
@@ -90,6 +80,6 @@ class EVF_Admin_Addons {
 		 * @uses $refresh_url
 		 * @uses $current_section
 		 */
-		include_once dirname( __FILE__ ) . '/views/html-admin-page-addons.php';
+		include_once dirname( __FILE__ ) . '/views/html-admin-page-addons.php'; // phpcs:ignore
 	}
 }

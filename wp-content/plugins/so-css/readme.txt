@@ -1,18 +1,18 @@
 === SiteOrigin CSS ===
-Tags: css, design, edit, customize
+Tags: css, visual css, css editor, design, customize
 Requires at least: 3.9
-Tested up to: 4.9
-Stable tag: 1.2.3
-Build time: 2018-06-25T09:47:44+02:00
+Tested up to: 6.4
+Stable tag: 1.5.9
+Build time: 2023-11-11T12:48:57+00:00
 License: GPLv2 or later
-Contributors: gpriday
-Donate link: https://siteorigin.com/downloads/contribution/
+Contributors: gpriday, alexgso
+Donate link: https://siteorigin.com/downloads/premium/
 
-SiteOrigin CSS is the simple, yet powerful CSS editor for WordPress. It gives you visual controls that let you edit the look and feel of your site in real-time.
+SiteOrigin CSS is the simple yet powerful CSS editor for WordPress. It gives you visual controls that let you edit the look and feel of your site in real-time.
 
 == Description ==
 
-SiteOrigin CSS is the simple, yet powerful CSS editor for WordPress. It gives you visual controls that let you edit the look and feel of your site in real-time.
+SiteOrigin CSS is the simple yet powerful CSS editor for WordPress. It gives you visual controls that let you edit the look and feel of your site in real-time.
 
 We've created a site editing experience that will suit both beginners and advanced users alike. Beginners will love the simple visual controls and real-time preview. Advanced users will love the code autocompletion that makes writing CSS faster than ever.
 
@@ -20,25 +20,25 @@ We've created a site editing experience that will suit both beginners and advanc
 
 = Inspector =
 
-The hardest part of editing your site's design using CSS is usually finding the correct selector to use. The powerful inspector that comes with SiteOrigin CSS makes this easy. While viewing a full preview of your site, just click on an element and it'll help you identify the best selector to use to target that element.
+The hardest part of editing your site's design using CSS is usually finding the correct selector to use. The powerful inspector that comes with SiteOrigin CSS makes this easy. While viewing a full preview of your site, just click on an element, and it'll help you identify the best selector to use to target that element.
 
-The Inspector will help you even if you have no idea what a CSS selector is.
+The inspector will help you even if you have no idea what a CSS selector is.
 
 = Visual Editor =
 
-Don't like playing around with code? No problem. SiteOrigin CSS has a set of simple controls that make it easy to choose colors, styles and measurements. Combined with the Inspector, you'll be able to make changes in just a few clicks.
+Don't like playing around with code? No problem. SiteOrigin CSS has a set of simple controls that make it easy to choose colors, styles, and measurements. Combined with the inspector, you'll be able to make changes in just a few clicks.
 
 = CSS Editor =
 
-SiteOrigin CSS has a powerful CSS editor, the likes of which you'd usually only expect from high-end IDEs. It has autocompletion for both CSS selectors and attributes. It also features very useful CSS linting that'll help you identify issues in your code before you publish your changes.
+SiteOrigin CSS has a powerful CSS editor, the likes of which you'd usually only expect from high-end IDEs. It has autocompletion for both CSS selectors and attributes. It also features very useful CSS linting to help you identify issues in your code before you publish your changes.
 
 = It's Free =
 
-We're committed to keeping SiteOrigin CSS, free. You can install it on as many sites as you like without ever worrying about licensing. All future updates and upgrades will be free, and we even offer free support over on our friendly support forums.
+We're committed to keeping SiteOrigin CSS free. You can install it on as many sites as you like without ever worrying about licensing. All future updates and upgrades will be free, and we even offer free support over on our friendly support forums.
 
 = Works With Any Theme =
 
-There's an ever-growing collection of awesome WordPress themes, and now with SiteOrigin CSS you can edit every single one of them to your heart's content. No matter what theme you're using, SiteOrigin CSS will work perfectly.
+There's an ever-growing collection of awesome WordPress themes, and now with SiteOrigin CSS, you can edit every single one of them to your heart's content. No matter what theme you're using, SiteOrigin CSS will work perfectly.
 
 = Actively Developed =
 
@@ -51,7 +51,7 @@ We're actively developing SiteOrigin CSS. Keep track of what's happening over on
 
 == Screenshots ==
 1. Inspector for finding elements on your site.
-2. Simple visual controls including a background image uploader.
+2. Simple visual controls, including a background image uploader.
 3. A full CSS editor that works in real-time with a preview of your site.
 4. Code completion for all your theme's selectors.
 
@@ -61,9 +61,120 @@ We're actively developing SiteOrigin CSS. Keep track of what's happening over on
 
 == Support ==
 
-We offer free support on the [SiteOrigin support forums](https://siteorigin.com/thread/).
+Free support is available on the [SiteOrigin support forums](https://siteorigin.com/thread/).
+
+== SiteOrigin Premium ==
+
+[SiteOrigin Premium](https://siteorigin.com/downloads/premium/) enhances SiteOrigin CSS with a Google Web Font Selector. Choose from hundreds of beautiful web fonts right in the visual editor.
+
+SiteOrigin Premium includes access to our professional email support service, perfect for those times when you need fast and effective technical support. We're standing by to assist you in any way we can.
 
 == Changelog ==
+
+= 1.5.9 - 11 November 2023 =
+* Updated Tested up to tag.
+* Updated SiteOrigin Installer.
+
+= 1.5.8 - 11 August 2023 =
+* Updated the SiteOrigin Installer submodule.
+
+= 1.5.7 - 09 August 2023 =
+* Updated the expand/compress title depending on the state in the visual editor.
+* Updated the "Tested up to" version in the readme.txt file from 6.2 to 6.3, indicating compatibility with WordPress version 6.3.
+* Added SiteOrigin Installer submodule and functionality to handle the installer link and status in the editor and page templates.
+
+= 1.5.6 - 07 April 2023 =
+* WordPress PHP Coding Standards improvements.
+* Updated `Tested up to` tag.
+
+= 1.5.5 - 30 September 2022 =
+* Added a check to ensure WP Filesystem is setup. 
+
+= 1.5.4 - 28 September 2022 =
+* Developer: Introduced definable Custom CSS file name and location using `siteorigin_custom_css_file` and `siteorigin_css_enqueue_css`.
+
+= 1.5.3 - 25 May 2022 =
+* Updated WordPress `Tested up to` tag.
+
+= 1.5.2 - 27 January 2022 =
+* Updated `Tested up to` tag to `5.9`.
+
+= 1.5.1 - 30 December 2021 =
+* Basic Editor Theme Setting: Updated field to show selected option.
+
+= 1.5.0 - 16 December 2021 =
+* Basic Editor: Added a dark theme option.
+* Ajax Saving: Resolved unintended slashes added during escaping.
+
+= 1.4.3 - 29 November 2021 =
+* Restored editor scrollbar.
+* Added a fixed editor height.
+
+= 1.4.2 - 08 November 2021 =
+* Fixed string translation functions.
+
+= 1.4.1 - 02 November 2021 =
+* Removed Save button rounding.
+* Fixed Visual Editor `Navigate To` link functionality.
+
+= 1.4.0 - 11 October 2021 =
+* Added Ajax saving. Users can now save in the expanded and visual editors without exiting to basic editor.
+* Expanded/Visual toolbar buttons re-ordered for consistency between modes.
+* Removed Font Awesome. Icons are now added via a custom font.
+
+= 1.3.2 - 20 July 2021 =
+* Updated `Tested up to` tag.
+
+= 1.3.1 - 10 July 2021 =
+* Updated the Plugins page action link list.
+
+= 1.3.0 - 14 June 2021 =
+* Inspector: Added a new Border Radius setting to the Decoration tab.
+* Allowed for right-clicking anywhere in the Basic Editor.
+
+= 1.2.14 - 26 April 2021 =
+* Resolved Photo Gallery by 10Web plugin conflict.
+
+= 1.2.13 - 01 February 2021 =
+* Inspector: Added support for WooCommerce single product tabs.
+* Inspector: Highlight important classes when element with class is selected.
+* Restored the scrollbar in the Custom CSS content field.
+* Developer: Further changes for jQuery 3.5.
+* Developer: For WP 4.9+ use the WordPress version of CodeMirror if available.
+* Developer: Removed `socss-codemirror-show-hint` as a dependency. The script can now be removed to disable hints.
+
+= 1.2.12 - 12 December 2020 =
+* Developer: jQuery updates for WordPress 5.6.
+
+= 1.2.11 - 21 October 2020 =
+* Fixed Background image setting writing to CSS.
+
+= 1.2.10 - 09 September 2020 =
+* Increased the specificity of the Save CSS button styling to prevent plugin conflicts.
+
+= 1.2.9 - 29 July 2020 =
+* Resolved Font Family field output.
+
+= 1.2.8 - 22 May 2020 =
+* Renamed `custom_css` textarea to prevent conflicts.
+
+= 1.2.7 - 19 May 2020 =
+* Restored `Save` button functionality.
+
+= 1.2.6 - 15 May 2020 =
+* Minor visual editor form styling fixes.
+* Resolved PHP 7.4 `preg_replace()` warning.
+* Moved the basic editor Save button to the sidebar.
+
+= 1.2.5 - 05 February 2020 =
+* Removed `themeCSS` localized script to prevent `preg_replace()` warning.
+* Minor form styling fixes.
+* Updated CSS NPM library.
+* Rebuilt minified files using new build script.
+
+= 1.2.4 - 17 January 2019 =
+* Prefix so-css for all codemirror assets.
+* Prevent JS error when attempting to set active element to null.
 
 = 1.2.3 - 25 June 2018 =
 * Add preview iframe 'load' event listener in `render` function.

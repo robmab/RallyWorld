@@ -1,23 +1,37 @@
 <?php
 
+namespace Code_Snippets;
+
+use WP_User;
+
 /**
  * Manages upgrade tasks such as deleting and updating options
  */
-class Code_Snippets_Upgrade {
+class Upgrade {
 
 	/**
 	 * Instance of database class
-	 * @var Code_Snippets_DB
+	 *
+	 * @var DB
 	 */
 	private $db;
 
 	/**
+	 * The current plugin version number
+	 *
+	 * @var string
+	 */
+	private $current_version;
+
+	/**
 	 * Class constructor
 	 *
-	 * @param Code_Snippets_DB $db Instance of database class
+	 * @param string $version Current plugin version.
+	 * @param DB     $db      Instance of database class.
 	 */
-	public function __construct( Code_Snippets_DB $db ) {
+	public function __construct( string $version, DB $db ) {
 		$this->db = $db;
+		$this->current_version = $version;
 	}
 
 	/**
@@ -25,7 +39,7 @@ class Code_Snippets_Upgrade {
 	 */
 	public function run() {
 
-		/* Always run multisite upgrades, even if not on the main site, as subsites depend on the network snippet table */
+		// Always run multisite upgrades, even if not on the main site, as sub-sites depend on the network snippet table.
 		if ( is_multisite() ) {
 			$this->do_multisite_upgrades();
 		}
@@ -40,34 +54,55 @@ class Code_Snippets_Upgrade {
 		$table_name = $this->db->table;
 		$prev_version = get_option( 'code_snippets_version' );
 
-		/* Do nothing if the plugin has not been updated or installed */
-		if ( ! version_compare( $prev_version, CODE_SNIPPETS_VERSION, '<' ) ) {
+		// Do nothing if the plugin has not just been updated or installed.
+		if ( ! version_compare( $prev_version, $this->current_version, '<' ) ) {
 			return;
 		}
 
-		$this->db->create_table( $table_name );
+		// Update the plugin version stored in the database.
+		$updated = update_option( 'code_snippets_version', $this->current_version );
 
-		if ( false !== $prev_version ) {
-			$this->db->create_missing_columns( $table_name );
+		if ( ! $updated ) {
+			return; // Bail if the data was not successfully saved to prevent this process from repeating.
 		}
 
-		/* Update the plugin version stored in the database */
-		update_option( 'code_snippets_version', CODE_SNIPPETS_VERSION );
+		$sample_snippets = $this->get_sample_content();
+		$this->db->create_table( $table_name );
 
-		/* Update the scope column of the database */
+		// Remove outdated user meta.
+		if ( version_compare( $prev_version, '2.14.1', '<' ) ) {
+			global $wpdb;
+
+			$prefix = $wpdb->get_blog_prefix();
+			$menu_slug = code_snippets()->get_menu_slug();
+			$option_name = "{$prefix}managetoplevel_page_{$menu_slug}columnshidden";
+
+			// Loop through each user ID and remove all matching user meta.
+			foreach ( get_users( array( 'fields' => 'ID' ) ) as $user_id ) {
+				delete_metadata( 'user', $user_id, $option_name, '', true );
+			}
+		}
+
+		// Update the scope column of the database.
 		if ( version_compare( $prev_version, '2.10.0', '<' ) ) {
 			$this->migrate_scope_data( $table_name );
 		}
 
-		/* Custom capabilities were removed after version 2.9.5 */
+		// Custom capabilities were removed after version 2.9.5.
 		if ( version_compare( $prev_version, '2.9.5', '<=' ) ) {
 			$role = get_role( apply_filters( 'code_snippets_role', 'administrator' ) );
 			$role->remove_cap( apply_filters( 'code_snippets_cap', 'manage_snippets' ) );
 		}
 
 		if ( false === $prev_version ) {
-			$this->create_sample_content();
+			if ( apply_filters( 'code_snippets/create_sample_content', true ) ) {
+				foreach ( $sample_snippets as $sample_snippet ) {
+					save_snippet( $sample_snippet );
+				}
+			}
 		}
+
+		clean_snippets_cache( $table_name );
 	}
 
 	/**
@@ -77,28 +112,23 @@ class Code_Snippets_Upgrade {
 		$table_name = $this->db->ms_table;
 		$prev_version = get_site_option( 'code_snippets_version' );
 
-		/* Do nothing if the plugin has not been updated or installed */
-		if ( ! version_compare( $prev_version, CODE_SNIPPETS_VERSION, '<' ) ) {
+		// Do nothing if the plugin has not been updated or installed.
+		if ( ! version_compare( $prev_version, $this->current_version, '<' ) ) {
 			return;
 		}
 
-		/* Always attempt to create or upgrade the database tables */
+		// Always attempt to create or upgrade the database tables.
 		$this->db->create_table( $table_name );
 
-		/* If the plugin has been upgraded, also attempt to create the new columns */
-		if ( false !== $prev_version ) {
-			$this->db->create_missing_columns( $table_name );
-		}
+		// Update the plugin version stored in the database.
+		update_site_option( 'code_snippets_version', $this->current_version );
 
-		/* Update the plugin version stored in the database */
-		update_site_option( 'code_snippets_version', CODE_SNIPPETS_VERSION );
-
-		/* Update the scope column of the database */
+		// Update the scope column of the database.
 		if ( version_compare( $prev_version, '2.10.0', '<' ) ) {
 			$this->migrate_scope_data( $table_name );
 		}
 
-		/* Custom capabilities were removed after version 2.9.5 */
+		// Custom capabilities were removed after version 2.9.5.
 		if ( version_compare( $prev_version, '2.9.5', '<=' ) ) {
 			$network_cap = apply_filters( 'code_snippets_network_cap', 'manage_network_snippets' );
 
@@ -107,14 +137,16 @@ class Code_Snippets_Upgrade {
 				$user->remove_cap( $network_cap );
 			}
 		}
+
+		clean_snippets_cache( $table_name );
 	}
 
 	/**
 	 * Migrate data from the old integer method of storing scopes to the new string method
 	 *
-	 * @param string $table_name
+	 * @param string $table_name Name of database table.
 	 */
-	private function migrate_scope_data( $table_name ) {
+	private function migrate_scope_data( string $table_name ) {
 		global $wpdb;
 
 		$scopes = array(
@@ -124,61 +156,60 @@ class Code_Snippets_Upgrade {
 		);
 
 		foreach ( $scopes as $scope_number => $scope_name ) {
-			$wpdb->query( sprintf(
-				"UPDATE %s SET scope = '%s' WHERE scope = %d",
-				$table_name, $scope_name, $scope_number
-			) );
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching, will flush at end of process.
+			$wpdb->query(
+				$wpdb->prepare(
+					"UPDATE $table_name SET scope = %s WHERE scope = %d",
+					$scope_name,
+					$scope_number
+				)
+			);
 		}
 	}
 
 	/**
-	 * Add sample snippet content to the database
+	 * Build a collection of sample snippets for new users to try out.
+	 *
+	 * @return array<string, Snippet> List of Snippet objects.
 	 */
-	public function create_sample_content() {
+	private function get_sample_content(): array {
+		$tag = "\n\n" . esc_html__( 'This is a sample snippet. Feel free to use it, edit it, or remove it.', 'code-snippets' );
 
-		if ( ! apply_filters( 'code_snippets/create_sample_content', true ) ) {
-			return;
-		}
-
-		$snippets = array(
-
+		$snippets_data = array(
 			array(
-				'name' => __( 'Example HTML shortcode', 'code-snippets' ),
-				'code' => sprintf(
-					"\nadd_shortcode( 'shortcode_name', function () { ?>\n\n\t<p>%s</p>\n\n<?php } );",
-					strip_tags( __( 'write your HTML shortcode content here', 'code-snippets' ) )
-				),
-				'desc' => __( 'This is an example snippet for demonstrating how to add an HTML shortcode.', 'code-snippets' ),
-				'tags' => array( 'shortcode' ),
+				'name' => esc_html__( 'Make upload filenames lowercase', 'code-snippets' ),
+				'code' => "add_filter( 'sanitize_file_name', 'mb_strtolower' );",
+				'desc' => esc_html__( 'Makes sure that image and file uploads have lowercase filenames.', 'code-snippets' ) . $tag,
+				'tags' => array( 'sample', 'media' ),
 			),
-
 			array(
-				'name'  => __( 'Example CSS snippet', 'code-snippets' ),
-				'code'  => sprintf(
-					"\nadd_action( 'wp_head', function () { ?>\n\t<style>\n\n\t\t/* %s */\n\n\t</style>\n<?php } );\n",
-					strip_tags( __( 'write your CSS code here', 'code-snippets' ) )
-				),
-				'desc'  => __( 'This is an example snippet for demonstrating how to add custom CSS code to your website.', 'code-snippets' ),
-				'tags'  => array( 'css' ),
+				'name'  => esc_html__( 'Disable admin bar', 'code-snippets' ),
+				'code'  => "add_action( 'wp', function () {\n\tif ( ! current_user_can( 'manage_options' ) ) {\n\t\tshow_admin_bar( false );\n\t}\n} );",
+				'desc'  => esc_html__( 'Turns off the WordPress admin bar for everyone except administrators.', 'code-snippets' ) . $tag,
+				'tags'  => array( 'sample', 'admin-bar' ),
 				'scope' => 'front-end',
 			),
-
 			array(
-				'name'  => __( 'Example JavaScript snippet', 'code-snippets' ),
-				'code'  => sprintf(
-					"\nadd_action( 'wp_head', function () { ?>\n\t<script>\n\n\t\t/* %s */\n\n\t</script>\n<?php } );\n",
-					strip_tags( __( 'write your JavaScript code here', 'code-snippets' ) )
-				),
-				'desc'  => __( 'This is an example snippet for demonstrating how to add custom JavaScript code to your website.', 'code-snippets' ),
-				'tags'  => array( 'javascript' ),
-				'scope' => 'front-end',
+				'name' => esc_html__( 'Allow smilies', 'code-snippets' ),
+				'code' => "add_filter( 'widget_text', 'convert_smilies' );\nadd_filter( 'the_title', 'convert_smilies' );\nadd_filter( 'wp_title', 'convert_smilies' );\nadd_filter( 'get_bloginfo', 'convert_smilies' );",
+				'desc' => esc_html__( 'Allows smiley conversion in obscure places.', 'code-snippets' ) . $tag,
+				'tags' => array( 'sample' ),
+			),
+			array(
+				'name'  => esc_html__( 'Current year', 'code-snippets' ),
+				'code'  => "<?php echo date( 'Y' ); ?>",
+				'desc'  => esc_html__( 'Shortcode for inserting the current year into a post or page..', 'code-snippets' ) . $tag,
+				'tags'  => array( 'sample', 'dates' ),
+				'scope' => 'content',
 			),
 		);
 
-		foreach ( $snippets as $snippet ) {
-			$snippet = new Code_Snippet( $snippet );
-			$snippet->desc .= ' ' . __( 'You can remove it, or edit it to add your own content.', 'code-snippets' );
-			save_snippet( $snippet );
+		$snippets = array();
+
+		foreach ( $snippets_data as $sample_name => $snippet_data ) {
+			$snippets[ $sample_name ] = new Snippet( $snippet_data );
 		}
+
+		return $snippets;
 	}
 }

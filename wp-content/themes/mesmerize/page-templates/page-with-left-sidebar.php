@@ -5,7 +5,7 @@ Template Name: Page With Left Sidebar
 
 mesmerize_get_header();
 ?>
-    <div class="page-content">
+    <div id='page-content' class="page-content">
         <div class="gridContainer">
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-3 page-sidebar-column">

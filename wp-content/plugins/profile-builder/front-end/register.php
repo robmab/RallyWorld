@@ -1,17 +1,17 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 /**
  * Function that changes the auto generated password with the one selected by the user.
  */
 function wppb_signup_password_random_password_filter( $password ) {
 	global $wpdb;
 
-	$key = ( !empty( $_GET['key'] ) ? $_GET['key'] : null );
-	$key = ( !empty( $_POST['key'] ) ? $_POST['key'] : $key );
-	if( !empty( $key ) )
-		$key = sanitize_text_field( $key );
+	$key = ( !empty( $_GET['key'] ) ? sanitize_text_field( $_GET['key'] ) : null );
+	$key = ( !empty( $_POST['key'] ) ? sanitize_text_field( $_POST['key'] ) : $key );
 
-	if ( !empty( $_POST['user_pass'] ) )
-		$password = $_POST['user_pass'];
+	if ( !empty( $_POST['user_pass'] ) )// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		$password = $_POST['user_pass'];// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 	elseif ( !is_null( $key ) ) {
 		$signup = ( is_multisite() ? $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . $wpdb->signups . " WHERE activation_key = %s", $key ) ) : $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . $wpdb->base_prefix . "signups WHERE activation_key = %s", $key ) ) );
 		
@@ -42,13 +42,18 @@ function wppb_activate_signup( $key ) {
 	$bloginfo = get_bloginfo( 'name' );
 	$wppb_general_settings = get_option( 'wppb_general_settings' );
 
+    $login_after_register = ( isset( $wppb_general_settings['automaticallyLogIn'] ) ? $wppb_general_settings['automaticallyLogIn'] : apply_filters( 'wppb_automatically_login_after_register', 'No' ) );
+
 	$signup = ( is_multisite() ? $wpdb->get_row( $wpdb->prepare("SELECT * FROM $wpdb->signups WHERE activation_key = %s", $key) ) : $wpdb->get_row( $wpdb->prepare( "SELECT * FROM ".$wpdb->base_prefix."signups WHERE activation_key = %s", $key ) ) );
+
+	if( empty( $signup ) )
+		return apply_filters( 'wppb_register_activate_user_error_message6', '<p class="error">'.__( 'Could not find registration. Contact administrator.', 'profile-builder' ).'</p>');
 
     $user_login = ( ( isset( $wppb_general_settings['loginWith'] ) && ( $wppb_general_settings['loginWith'] == 'email' ) ) ? trim( $signup->user_email ) : trim( $signup->user_login ) );
 
     $user_email = esc_sql( $signup->user_email );
     /* the password is in hashed form in the signup table so we will add it later */
-    $password = NULL;
+    $password = '';
 
     $user_id = username_exists( $user_login );
 
@@ -57,10 +62,18 @@ function wppb_activate_signup( $key ) {
 
 	if ( $signup->active )
 		if ( empty( $signup->domain ) )
-			return apply_filters( 'wppb_register_activate_user_error_message2', '<p class="error">'.__( 'This username is now active!', 'profile-builder' ).'</p>', $user_id );
+			return apply_filters( 'wppb_register_activate_user_error_message2', '<p class="wppb-success">'.__( 'This username is now active!', 'profile-builder' ).'</p>', $user_id );
 
 	$meta = unserialize( $signup->meta );
 
+    if( strcasecmp($login_after_register, 'Yes') === 0 ) {
+        $login_after_register = true;
+    } elseif( isset( $meta [ 'wppb_login_after_register_'.$meta['user_login'] ] ) ) {
+        $login_after_register = $meta [ 'wppb_login_after_register_'.$meta['user_login'] ];
+        unset( $meta [ 'wppb_login_after_register_'.$meta['user_login'] ] );
+    } else {
+        $login_after_register = false;
+    }
 
 	if ( !$user_id )
 		$user_id = wppb_create_user( $user_login, $password, $user_email );
@@ -78,24 +91,10 @@ function wppb_activate_signup( $key ) {
 
 		wppb_add_meta_to_user_on_activation( $user_id, '', $meta );
 		
-		// if admin approval is activated, then block the user untill he gets approved
+		// if admin approval is activated, then block the user until he gets approved
 		$wppb_generalSettings = get_option('wppb_general_settings');
-		if( isset( $wppb_generalSettings['adminApproval'] ) && ( $wppb_generalSettings['adminApproval'] == 'yes' ) ){
-			$user_data = get_userdata( $user_id );
-
-			if( $wppb_generalSettings != 'not_found' && ! empty( $wppb_generalSettings['adminApprovalOnUserRole'] ) ) {
-				foreach( $user_data->roles as $role ) {
-					if( in_array( $role, $wppb_generalSettings['adminApprovalOnUserRole'] ) ) {
-						wp_set_object_terms( $user_id, array( 'unapproved' ), 'user_status', false);
-						clean_object_term_cache( $user_id, 'user_status' );
-					} else {
-						add_filter( 'wppb_register_success_message', 'wppb_noAdminApproval_successMessage' );
-					}
-				}
-			} else {
-				wp_set_object_terms( $user_id, array( 'unapproved' ), 'user_status', false);
-				clean_object_term_cache( $user_id, 'user_status' );
-			}
+		if( wppb_get_admin_approval_option_value() === 'yes' ){
+            wppb_update_user_status_to_pending( $user_id, $wppb_generalSettings );
 		}
 
         if ( !isset( $wppb_generalSettings['adminApproval'] ) )
@@ -111,22 +110,24 @@ function wppb_activate_signup( $key ) {
 			wp_cache_delete( $user_id, 'users' );
         }
 
-		wppb_notify_user_registration_email($bloginfo, $user_login, $user_email, 'sending', $password, $wppb_generalSettings['adminApproval']);
+		wppb_notify_user_registration_email($bloginfo, $user_login, $user_email, 'sending', $password, wppb_get_admin_approval_option_value() );
 
 		do_action( 'wppb_activate_user', $user_id, $password, $meta );
 
 		if( $inserted_user ) {
             // CHECK FOR REDIRECT
             $redirect_url = wppb_get_redirect_url( 'normal', 'after_success_email_confirmation', '', $user_login );
+
             $redirect_delay = apply_filters( 'wppb_success_email_confirmation_redirect_delay', 3, $user_id );
             $redirect_message = wppb_build_redirect( $redirect_url, $redirect_delay, 'after_success_email_confirmation' );
+			$redirect_message = apply_filters( 'wppb_ec_sucess_message_redirect', $redirect_message, $meta );
 
 			$success_message = apply_filters( 'wppb_success_email_confirmation', '<p class="wppb-success">' . __( 'Your email was successfully confirmed.', 'profile-builder' ) . '</p><!-- .success -->', $user_id );
             $admin_approval_message = apply_filters( 'wppb_email_confirmation_with_admin_approval', '<p class="alert">' . __( 'Before you can access your account, an administrator needs to approve it. You will be notified via email.', 'profile-builder' ) . '</p>', $user_id );
 
             $wppb_general_settings = get_option( 'wppb_general_settings', 'false' );
 
-            if ( !empty( $wppb_general_settings['adminApproval'] ) && $wppb_general_settings['adminApproval'] == 'yes' ){
+            if ( wppb_get_admin_approval_option_value() === 'yes' ){
 				$user_data = get_userdata( $user_id );
 
 				if( $wppb_general_settings != 'not_found' && ! empty( $wppb_general_settings['adminApprovalOnUserRole'] ) ) {
@@ -136,6 +137,13 @@ function wppb_activate_signup( $key ) {
 						} else {
 							wp_set_object_terms( $user_id, NULL, 'user_status' );
 							clean_object_term_cache( $user_id, 'user_status' );
+
+                            if( $login_after_register ) {
+                                if( empty( $redirect_url ) ) {
+                                    $redirect_url = wppb_curpageurl();
+                                }
+                                $redirect_message = wppb_activate_signup_autologin_redirect_url($user_id, $redirect_url, $redirect_delay);
+                            }
 
 							return $success_message . ( ! empty ( $redirect_message ) ? $redirect_message : '' );
 						}
@@ -147,6 +155,13 @@ function wppb_activate_signup( $key ) {
 				wp_set_object_terms( $user_id, NULL, 'user_status' );
 				clean_object_term_cache( $user_id, 'user_status' );
 
+                if( $login_after_register ) {
+                    if( empty( $redirect_url ) ) {
+                        $redirect_url = wppb_curpageurl();
+                    }
+                    $redirect_message = wppb_activate_signup_autologin_redirect_url($user_id, $redirect_url, $redirect_delay);
+                }
+
                 return $success_message . ( ! empty ( $redirect_message ) ? $redirect_message : '' );
             }
         } else {
@@ -155,18 +170,29 @@ function wppb_activate_signup( $key ) {
 	}		
 }
 
+//function that generates the redirect message when the user should be automatically logged in
+function wppb_activate_signup_autologin_redirect_url( $user_id, $redirect_url, $redirect_delay ){
+    $nonce = wp_create_nonce( 'autologin-'. $user_id .'-'. (int)( time() / 60 ) );
+
+    $redirect_url = remove_query_arg( 'activation_key' ,$redirect_url );
+
+    $redirect_url = apply_filters( 'wppb_login_after_reg_redirect_url', $redirect_url );
+    $redirect_url = add_query_arg( array( 'autologin' => 'true', 'uid' => $user_id, '_wpnonce' => $nonce ), $redirect_url );
+
+    return wppb_build_redirect( $redirect_url, $redirect_delay, 'after_success_email_confirmation' );
+}
+
 //function to display the registration page
 function wppb_front_end_register( $atts ){
-	extract( shortcode_atts( array( 'role' => get_option( 'default_role' ), 'form_name' => 'unspecified', 'redirect_url' => '', 'logout_redirect_url' => '', 'redirect_priority' => 'normal' ), $atts, 'wppb-register' ) );	
+	extract( shortcode_atts( array( 'role' => get_option( 'default_role' ), 'form_name' => 'unspecified', 'redirect_url' => '', 'logout_redirect_url' => '', 'automatic_login' => '', 'redirect_priority' => 'normal' ), $atts, 'wppb-register' ) );
 	
-    $form = new Profile_Builder_Form_Creator( array( 'form_type' => 'register', 'form_name' => $form_name, 'role' => ( is_object( get_role( $role ) ) ? $role : get_option( 'default_role' ) ) , 'redirect_url' => $redirect_url, 'logout_redirect_url' => $logout_redirect_url, 'redirect_priority' => $redirect_priority ) );
+    $form = new Profile_Builder_Form_Creator( array( 'form_type' => 'register', 'form_name' => $form_name, 'role' => ( is_object( get_role( $role ) ) ? $role : get_option( 'default_role' ) ) , 'redirect_url' => $redirect_url, 'logout_redirect_url' => $logout_redirect_url, 'automatic_login' => $automatic_login, 'redirect_priority' => $redirect_priority ) );
 
     return $form;
 }
 
 // function to choose whether to display the registration page or the validation message
 function wppb_front_end_register_handler( $atts ){
-
 	return ( isset( $_GET['activation_key'] ) ? wppb_activate_signup ( sanitize_text_field( $_GET['activation_key'] ) ) : wppb_front_end_register( $atts ) );
 }
 
@@ -199,8 +225,8 @@ function wppb_default_registration_redirect( $user_id ) {
     $user_data = get_userdata( $user_id );
 
     // CHECK FOR REDIRECT
-    $_POST['redirect_to'] = wppb_get_redirect_url( 'normal', 'after_registration', $_POST['redirect_to'], $user_data );
-    $_POST['redirect_to'] = apply_filters( 'wppb_after_registration_redirect_url', $_POST['redirect_to'] );
+    if( isset( $_POST['redirect_to']  ) )
+        $_POST['redirect_to'] = apply_filters( 'wppb_after_registration_redirect_url', wppb_get_redirect_url( 'normal', 'after_registration', esc_url_raw( $_POST['redirect_to'] ), $user_data ) );
 
 }
 add_action( 'register_new_user', 'wppb_default_registration_redirect' );

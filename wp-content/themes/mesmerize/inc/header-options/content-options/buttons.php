@@ -18,6 +18,29 @@ function mesmerize_header_buttons_defaults()
     );
 }
 
+function mesmerize_header_buttons_defaults_loggedout()
+{
+    
+    $latest_posts = wp_get_recent_posts(array('numberposts' => 2, 'post_status' => 'publish'));
+    $result       = array();
+    $classes      = array(
+        'button big color1 round',
+        'button big color-white round outline',
+    );
+    
+    foreach ($latest_posts as $id => $post) {
+        $result[] = array(
+            'label'  => get_the_title($post['ID']),
+            'url'    => get_post_permalink($post['ID']),
+            'target' => '_self',
+            'class'  => $classes[$id],
+        );
+    }
+    
+    return $result;
+}
+
+
 function mesmerize_front_page_header_buttons_options($section, $prefix, $priority)
 {
     mesmerize_add_kirki_field(array(
@@ -141,6 +164,8 @@ add_action("mesmerize_print_header_content", function () {
         $default = array();
         if (mesmerize_can_show_demo_content()) {
             $default = mesmerize_header_buttons_defaults();
+        } else {
+            $default = mesmerize_header_buttons_defaults_loggedout();
         }
         
         mesmerize_print_buttons_list("header_content_buttons", $default);
@@ -184,7 +209,7 @@ function mesmerize_print_buttons_list($setting, $default = array())
         try {
             $buttons = json_decode($buttons, true);
         } catch (Exception $e) {
-        
+	        $buttons = array();
         }
     }
     

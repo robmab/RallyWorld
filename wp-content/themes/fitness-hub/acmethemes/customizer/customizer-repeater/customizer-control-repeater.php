@@ -238,6 +238,7 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Fitness_Hub_Repe
 									case 'select':
 										$options = $field['options'];
 										echo '<select  data-default="' . esc_attr( $default ) . '"  data-name="' . esc_attr( $key ) . '">';
+                                        $new_value = is_numeric($new_value) || is_string($new_value)?$new_value:'';
 										foreach ( $options as $option => $val ) {
 											printf( '<option value="%s" %s>%s</option>', esc_attr( $option ), selected( $new_value, $option, false ), esc_html( $val ) );
 										}
@@ -355,6 +356,7 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Fitness_Hub_Repe
 										case 'select':
 											$options = $field['options'];
 											echo '<select  data-default="' . esc_attr( $default ) . '"  data-name="' . esc_attr( $key ) . '">';
+                                            $new_value = is_numeric($new_value) || is_string($new_value)?$new_value:'';
 											foreach ( $options as $option => $val ) {
 												printf( '<option value="%s" %s>%s</option>', esc_attr( $option ), selected( $new_value, $option, false ), esc_html( $val ) );
 											}

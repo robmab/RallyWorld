@@ -1,5 +1,5 @@
 <?php mesmerize_get_header(); ?>
-    <div class="content post-page">
+    <div id='page-content' class="content post-page">
         <div class="gridContainer">
             <div class="row">
                 <div class="col-xs-12 <?php mesmerize_posts_wrapper_class(); ?>">

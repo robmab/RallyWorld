@@ -2,85 +2,75 @@
 
 namespace Mesmerize\Customizer;
 
-class BasePanel extends \WP_Customize_Panel
-{
-    protected $cpData = null;
+class BasePanel extends \WP_Customize_Panel {
 
-    public function __construct($manager, $id, $cpData = array())
-    {
-        $this->cpData = $cpData;
+	protected $cpData = null;
 
-        $args       = (isset($this->cpData['wp_data'])) ? $this->cpData['wp_data'] : array();
-        $args = \Mesmerize\Companion::translateArgs($args);
-        $this->type = $this->companion()->customizer()->removeNamespace("\\".get_class($this));
+	public function __construct( $manager, $id, $cpData = array() ) {
+		$this->cpData = $cpData;
 
-        parent::__construct($manager, $id, $args);
+		$args       = ( isset( $this->cpData['wp_data'] ) ) ? $this->cpData['wp_data'] : array();
+		$args       = \Mesmerize\Companion::translateArgs( $args );
+		$this->type = $this->companion()->customizer()->removeNamespace( '\\' . get_class( $this ) );
 
-        if (!$this->isClassic()) {
-            $this->manager->register_panel_type("\\".get_class($this));
-        }
+		parent::__construct( $manager, $id, $args );
 
+		if ( ! $this->isClassic() ) {
+			$this->manager->register_panel_type( '\\' . get_class( $this ) );
+		}
 
-        $this->init();
-    }
+		$this->init();
+	}
 
-    protected function init()
-    {
-        return true;
-    }
+	protected function init() {
+		return true;
+	}
 
-    final protected function companion()
-    {
-        return \Mesmerize\Companion::instance();
-    }
+	final protected function companion() {
+		return \Mesmerize\Companion::instance();
+	}
 
-    public function active_callback()
-    {
-        return !$this->isDisabled();
-    }
+	public function active_callback() {
+		return ! $this->isDisabled();
+	}
 
-    public function addSections($data)
-    {
-        if ($this->isDisabled()) {
-            return;
-        }
-        
-        
-        $customizerData = $this->companion()->customizer()->cpData['customizer'];
+	public function addSections( $data ) {
+		if ( $this->isDisabled() ) {
+			return;
+		}
 
-        if (!isset($customizerData['sections'])) {
-            $customizerData['sections'] = array();
-        }
-        
-        $customizerData['sections'] =  \Mesmerize\Utils\Utils::mergeArrays($data, $customizerData['sections']);
+		$customizerData = $this->companion()->customizer()->cpData['customizer'];
 
-        $this->companion()->customizer()->cpData['customizer'] = $customizerData;
-    }
+		if ( ! isset( $customizerData['sections'] ) ) {
+			$customizerData['sections'] = array();
+		}
 
-    public function addSettings($data)
-    {
-        if ($this->isDisabled()) {
-            return;
-        }
+		$customizerData['sections'] = \Mesmerize\Utils\Utils::mergeArrays( $data, $customizerData['sections'] );
 
-        $customizerData = $this->companion()->customizer()->cpData['customizer'];
+		$this->companion()->customizer()->cpData['customizer'] = $customizerData;
+	}
 
-        if (!isset($customizerData['settings'])) {
-            $customizerData['settings'] = array();
-        }
-        
-        $customizerData['settings'] = \Mesmerize\Utils\Utils::mergeArrays($data, $customizerData['settings']);
+	public function addSettings( $data ) {
+		if ( $this->isDisabled() ) {
+			return;
+		}
 
-        $this->companion()->customizer()->cpData['customizer'] = $customizerData;
-    }
+		$customizerData = $this->companion()->customizer()->cpData['customizer'];
 
-    public function isClassic()
-    {
-        return (isset($this->cpData['mode']) && $this->cpData['mode'] === "classic");
-    }
+		if ( ! isset( $customizerData['settings'] ) ) {
+			$customizerData['settings'] = array();
+		}
 
-    public function isDisabled()
-    {
-        return (isset($this->cpData['disabled']) && $this->cpData['disabled'] === true);
-    }
+		$customizerData['settings'] = \Mesmerize\Utils\Utils::mergeArrays( $data, $customizerData['settings'] );
+
+		$this->companion()->customizer()->cpData['customizer'] = $customizerData;
+	}
+
+	public function isClassic() {
+		return ( isset( $this->cpData['mode'] ) && $this->cpData['mode'] === 'classic' );
+	}
+
+	public function isDisabled() {
+		return ( isset( $this->cpData['disabled'] ) && $this->cpData['disabled'] === true );
+	}
 }

@@ -1,17 +1,7 @@
 jQuery(document).ready(function(){
 	$ = jQuery.noConflict();
 
-	$('#crypto_custom_css').each(function(e) {
-		while($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))) {
-			$(this).height($(this).height()+1);
-		};
-	}).css('overflow','hidden');
-
-	$('#crypto_custom_css').keyup(function(e) {
-		while($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))) {
-			$(this).height($(this).height()+1);
-		};
-	});
+	autosize($('#crypto_custom_css'));
 
 	function select_all(el) {
         if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
@@ -78,7 +68,7 @@ jQuery(document).ready(function(){
 			$(".selectize-select").val($(".selectize-select option:first").val());
 			control.clear();
 		});
-		
+
 		$('.form-radio .img-pro').click(function(){
 			$('.prodemo img').each(function(){
 				var imgsrc = $(this).attr('src');
@@ -90,7 +80,7 @@ jQuery(document).ready(function(){
 			$('.'+$.trim($(this).find('img').data('name'))+'-position').removeClass('cc-hide');
 		});
 		$('.crypto-edit input[type=radio][name=crypto_ticker]').change(function() {
-			$('.crypto-rows[class*=position]').addClass('cc-hide');
+			$('.crypto-rows[class*=position],.crypto-cols[class*=position]').addClass('cc-hide');
 			$('label[for="crypto_background_color"]').hide();
 			
 			if(this.value != 'chart') {
@@ -98,7 +88,7 @@ jQuery(document).ready(function(){
 			} else {
 				$('label[for="crypto_background_color"]:first-child').show();
 			}
-			
+
 			if (this.value == 'ticker') {
 				$('.ticker-position').removeClass('cc-hide');
 			} else if (this.value == 'table') {
@@ -121,21 +111,21 @@ jQuery(document).ready(function(){
 			} else if (this.value == 'text') {
 				$('.text-position').removeClass('cc-hide');
 			}
-			
+
 			$('.prodemo img').each(function(){
 				var imgsrc = $(this).attr('src');
 				imgsrc = imgsrc.replace('-checked','-unchecked');
 				$(this).attr('src',imgsrc);
 			});
 		});
-		
+
 		$('.crypto-edit input[type=radio][name=crypto_ticker_position]').change(function() {
 			$('.crypto-edit input[type=radio][name=crypto_ticker_position]').each(function(){
 				allimgsrc = $(this).closest('label').find('img').attr('src');
 				allimgsrc = allimgsrc.replace('.png','').replace('hover','') + '.png';
 				$(this).closest('label').find('img').attr('src',allimgsrc);
 			});
-			
+
 			var curimg = $(this).closest('label').find('img').attr('src');
 			curimg = curimg.replace('.png','') + 'hover' + '.png';
 			$(this).closest('label').find('img').attr('src',curimg);
@@ -205,6 +195,7 @@ jQuery(document).ready(function(){
 			}
 		})
 	});
+
 	$(document).on('click', '.mcwp-notice .notice-dismiss, .mcwp-notice .mcwp-done', function() {
 		var $mcwprate = $(this).closest('.mcwp-notice');
 		

@@ -60,7 +60,7 @@ function mesmerize_footer_settings()
 
     mesmerize_add_kirki_field(array(
         'type'     => 'checkbox',
-        'settings' => 'footer_paralax',
+        'settings' => 'footer_parallax',
         'label'    => esc_html__('Use footer parallax', 'mesmerize'),
         'section'  => $section,
         'default'  => false,
@@ -425,9 +425,9 @@ function mesmerize_print_widget($id)
 }
 
 add_filter("mesmerize_footer_container_atts", function ($attrs) {
-    $paralax = get_theme_mod("footer_paralax", false);
-    if ($paralax) {
-        $attrs['class'] .= " paralax ";
+    $parallax = get_theme_mod("footer_parallax", false);
+    if ($parallax) {
+        $attrs['class'] .= " parallax ";
     }
 
     return $attrs;

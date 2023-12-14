@@ -2,104 +2,147 @@
 /**
  * Template to show the front page.
  *
- * @package    ThemeGrill
- * @subpackage ColorMag
- * @since      ColorMag 1.0
+ * @package ColorMag
+ *
+ * @since   ColorMag 1.0.0
  */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 get_header();
 
-// Do not display the front pages sidebar areas when the Page Builder Template is activated
-if ( is_front_page() && ! is_page_template( 'page-templates/page-builder.php' ) ) : ?>
-	<div class="front-page-top-section clearfix">
-		<div class="widget_slider_area">
+// Do not display the front pages sidebar areas when the Page Builder Template is activated.
+if ( is_front_page() && ! is_page_template( 'page-templates/page-builder.php' ) && ( is_active_sidebar( 'colormag_front_page_area_beside_slider' ) ) && ( is_active_sidebar( 'colormag_front_page_slider_area' ) ) ) :
+	?>
+	<div class="cm-front-page-top-section">
+		<div class="cm-slider-area">
 			<?php
-			if ( is_active_sidebar( 'colormag_front_page_slider_area' ) ) {
-				if ( ! dynamic_sidebar( 'colormag_front_page_slider_area' ) ):
-				endif;
-			}
+				dynamic_sidebar( 'colormag_front_page_slider_area' );
 			?>
 		</div>
 
-		<div class="widget_beside_slider">
+		<div class="cm-beside-slider-widget">
 			<?php
-			if ( is_active_sidebar( 'colormag_front_page_area_beside_slider' ) ) {
-				if ( ! dynamic_sidebar( 'colormag_front_page_area_beside_slider' ) ):
-				endif;
-			}
+				dynamic_sidebar( 'colormag_front_page_area_beside_slider' );
 			?>
 		</div>
 	</div>
 <?php endif; ?>
 
-	<div class="main-content-section clearfix">
-		<div id="primary">
-			<div id="content" class="clearfix">
+<div class="cm-row">
+	<?php
+
+	$grid_layout = 'layout-2';
+
+	$style = 'cm-layout-2-style-1';
+
+	$col = 'col-2';
+
+	/**
+	 * Hook: colormag_before_body_content.
+	 */
+	do_action( 'colormag_before_body_content' );
+	?>
+
+	<div id="cm-primary" class="cm-primary">
+
+		<?php
+		// Do not display the front pages sidebar areas when the Page Builder Template is activated.
+		if ( is_front_page() && ! is_page_template( 'page-templates/page-builder.php' ) ) :
+
+			if ( is_active_sidebar( 'colormag_front_page_content_top_section' ) ) {
+				dynamic_sidebar( 'colormag_front_page_content_top_section' );
+			}
+
+			if ( is_active_sidebar( 'colormag_front_page_content_middle_left_section' ) || is_active_sidebar( 'colormag_front_page_content_middle_right_section' ) ) {
+				?>
+			<div class="cm-column-half">
+				<div class="cm-one-half">
+					<?php
+					dynamic_sidebar( 'colormag_front_page_content_middle_left_section' );
+					?>
+				</div>
+
+				<div class="cm-one-half cm-one-half-last">
+					<?php
+					dynamic_sidebar( 'colormag_front_page_content_middle_right_section' );
+					?>
+				</div>
+			</div>
 
 				<?php
-				// Do not display the front pages sidebar areas when the Page Builder Template is activated
-				if ( is_front_page() && ! is_page_template( 'page-templates/page-builder.php' ) ) :
+			}
 
-					if ( is_active_sidebar( 'colormag_front_page_content_top_section' ) ) {
-						if ( ! dynamic_sidebar( 'colormag_front_page_content_top_section' ) ):
-						endif;
-					}
+			if ( is_active_sidebar( 'colormag_front_page_content_bottom_section' ) ) {
+				dynamic_sidebar( 'colormag_front_page_content_bottom_section' );
+			}
 
-					if ( is_active_sidebar( 'colormag_front_page_content_middle_left_section' ) || is_active_sidebar( 'colormag_front_page_content_middle_right_section' ) ) {
-						?>
-						<div class="tg-one-half">
-							<?php
-							if ( ! dynamic_sidebar( 'colormag_front_page_content_middle_left_section' ) ):
-							endif;
-							?>
-						</div>
+		endif; // Do not display the front pages sidebar areas when the Page Builder Template is activated.
 
-						<div class="tg-one-half tg-one-half-last">
-							<?php
-							if ( ! dynamic_sidebar( 'colormag_front_page_content_middle_right_section' ) ):
-							endif;
-							?>
-						</div>
+		$hide_blog_front = get_theme_mod( 'colormag_hide_blog_static_page_post', false );
 
-						<div class="clearfix"></div>
-						<?php
-					}
+		if ( ! $hide_blog_front ) :
 
-					if ( is_active_sidebar( 'colormag_front_page_content_bottom_section' ) ) {
-						if ( ! dynamic_sidebar( 'colormag_front_page_content_bottom_section' ) ):
-						endif;
-					}
+			$pagination_enable = get_theme_mod( 'colormag_enable_pagination', 1 );
+			$pagination_type   = get_theme_mod( 'colormag_pagination_type', 'default' );
+			?>
 
-				endif; // Do not display the front pages sidebar areas when the Page Builder Template is activated
+			<div class="cm-posts <?php echo esc_attr( 'cm-' . $grid_layout . ' ' . $style . ' ' . $col ); ?>" >
+				<?php
+				if ( have_posts() ) :
 
-				if ( get_theme_mod( 'colormag_hide_blog_front', 0 ) == 0 ): ?>
+					/**
+					 * Hook: colormag_before_front_page_loop.
+					 */
+					do_action( 'colormag_before_front_page_loop' );
 
-					<div class="article-container">
-						<?php if ( have_posts() ) : ?>
+					while ( have_posts() ) :
+						the_post();
 
-							<?php while ( have_posts() ) : the_post(); ?>
+						if ( is_front_page() && is_home() ) {
+							get_template_part( 'template-parts/content', '' );
+						} elseif ( is_front_page() ) {
+							get_template_part( 'template-parts/content', 'page' );
+						}
 
-								<?php
-								if ( is_front_page() && is_home() ) {
-									get_template_part( 'content', '' );
-								} else if ( is_front_page() ) {
-									get_template_part( 'content', 'page' );
-								}
-								?>
+					endwhile;
 
-							<?php endwhile; ?>
+					/**
+					 * Hook: colormag_after_front_page_loop.
+					 */
+					do_action( 'colormag_after_front_page_loop' );
 
-							<?php get_template_part( 'navigation', 'none' ); ?>
-
-						<?php else : ?>
-
-							<?php get_template_part( 'no-results', 'none' ); ?>
-
-						<?php endif; ?>
-					</div>
-				<?php endif; ?>
+				else :
+					if ( true === apply_filters( 'colormag_front_page_no_results_filter', true ) ) :
+						get_template_part( 'template-parts/no-results', 'none' );
+					endif;
+				endif;
+				?>
 			</div>
-		</div>
-		<?php colormag_sidebar_select(); ?>
+
+			<?php
+			if ( 1 == $pagination_enable ) {
+				colormag_pagination();
+			}
+			?>
+
+		<?php endif; ?>
 	</div>
 
-<?php get_footer(); ?>
+
+	<?php
+	colormag_sidebar_select();
+
+	/**
+	 * Hook: colormag_after_body_content.
+	 */
+	do_action( 'colormag_after_body_content' );
+	?>
+
+</div>
+
+<?php
+get_footer();

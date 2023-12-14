@@ -6,7 +6,11 @@ var wppb_re_capabilities_to_delete = {};
 
 jQuery( document ).ready( function() {
     // Disable Enter key
-    jQuery( window ).keydown( function( e ) {
+    jQuery( window ).on( 'keydown', function( e ) {
+
+        if( typeof e.target.id !== "undefined" && e.target.id === 'post-search-input' )
+            return true;
+
         if( e.keyCode == 13 ) {
             event.preventDefault();
             return false;
@@ -27,7 +31,7 @@ jQuery( document ).ready( function() {
     }
 
     // Dynamically change value of the Role Slug field
-    jQuery( '.post-type-wppb-roles-editor #titlewrap' ).find( '#title' ).change( function() {
+    jQuery( '.post-type-wppb-roles-editor #titlewrap' ).find( '#title' ).on('change', function() {
         if( ! jQuery( '.post-type-wppb-roles-editor #wppb-role-slug' ).val() ) {
             jQuery( '.post-type-wppb-roles-editor #wppb-role-slug' ).val( jQuery( this ).val().toLowerCase() );
         }
@@ -105,11 +109,11 @@ jQuery( document ).ready( function() {
     } );
 
     // Change between select2 with all existing capabilities and input to add a new capability
-    jQuery( '.post-type-wppb-roles-editor a.wppb-add-new-cap-link' ).click( function() {
+    jQuery( '.post-type-wppb-roles-editor a.wppb-add-new-cap-link' ).on( 'click', function() {
         wppb_re_change_select_to_input();
     } );
 
-    jQuery( '.post-type-wppb-roles-editor .wppb-role-editor-tab' ).click( function() {
+    jQuery( '.post-type-wppb-roles-editor .wppb-role-editor-tab' ).on( 'click', function() {
         wppb_re_tabs_handler( jQuery( this ) );
     } );
 
@@ -128,7 +132,7 @@ jQuery( document ).ready( function() {
             window.alert( wppb_roles_editor_data.role_name_required_error_text );
             jQuery( '.post-type-wppb-roles-editor #major-publishing-actions .spinner' ).hide();
             jQuery( '.post-type-wppb-roles-editor #major-publishing-actions' ).find( ':button, :submit, a.submitdelete, #post-preview' ).removeClass( 'disabled' );
-            jQuery( '.post-type-wppb-roles-editor #title' ).focus();
+            jQuery( '.post-type-wppb-roles-editor #title' ).trigger( 'focus' );
 
             wppb_re_form_submit();
 
@@ -140,7 +144,7 @@ jQuery( document ).ready( function() {
 } );
 
 function wppb_re_form_submit() {
-    jQuery( '.post-type-wppb-roles-editor #publishing-action #publish' ).unbind( 'click' ).one( 'click', function( e ) {
+    jQuery( '.post-type-wppb-roles-editor #publishing-action #publish' ).off( 'click' ).one( 'click', function( e ) {
         e.preventDefault();
         jQuery( this ).addClass( 'disabled' );
         jQuery( this ).siblings( '.spinner' ).addClass( 'is-active' );

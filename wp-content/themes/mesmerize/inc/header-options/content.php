@@ -179,7 +179,7 @@ add_action("mesmerize_print_header_media", function ($mediaType) {
             $extraClasses .= " round";
         }
         
-        $image = get_theme_mod('header_content_image', get_template_directory_uri() . "/assets/images/media-image-default.jpg");
+        $image = get_theme_mod('header_content_image', apply_filters('mesmerize_assets_url', get_template_directory_uri() , '/') . "/assets/images/media-image-default.jpg");
         
         $customizerLink = "";
         
@@ -263,7 +263,7 @@ function mesmerize_get_header_top_spacing_script()
 add_action('wp_enqueue_scripts', 'mesmerize_enqueue_header_top_spacing_script', 40);
 function mesmerize_enqueue_header_top_spacing_script()
 {
-    wp_add_inline_script('jquery-core', mesmerize_get_header_top_spacing_script());
+    wp_add_inline_script('jquery', mesmerize_get_header_top_spacing_script());
 }
 
 function mesmerize_print_default_after_header_content()
@@ -271,7 +271,9 @@ function mesmerize_print_default_after_header_content()
     //  execute top spacing script as soon as possible to prevent repositioning flicker
     ?>
     <script>
-        window.mesmerizeSetHeaderTopSpacing();
+		if (window.mesmerizeSetHeaderTopSpacing) {
+			window.mesmerizeSetHeaderTopSpacing();
+		}
     </script>
     <?php
 }
@@ -281,12 +283,16 @@ add_action('wp_head', 'mesmerize_print_background_content_color', PHP_INT_MAX);
 
 function mesmerize_print_background_content_color()
 {
+    $background_color = '#' . str_replace("#", "", (get_background_color() ? get_background_color() : 'F5FAFD'));
+	$background_image  = get_background_image();
+	//if page has background image do not set page background to not hide it
+    if ($background_image) $background_color = 'transparent';
     ?>
     <style data-name="background-content-colors">
         .mesmerize-inner-page .page-content,
         .mesmerize-inner-page .content,
         .mesmerize-front-page.mesmerize-content-padding .page-content {
-            background-color: #<?php echo str_replace("#", "", (get_background_color() ? get_background_color() : 'F5FAFD'));  ?>;
+            background-color: <?php echo $background_color;?>;
         }
     </style>
     <?php

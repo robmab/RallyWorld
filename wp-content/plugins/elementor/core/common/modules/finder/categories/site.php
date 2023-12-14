@@ -2,8 +2,6 @@
 namespace Elementor\Core\Common\Modules\Finder\Categories;
 
 use Elementor\Core\Common\Modules\Finder\Base_Category;
-use Elementor\Core\RoleManager\Role_Manager;
-use Elementor\TemplateLibrary\Source_Local;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -19,17 +17,23 @@ class Site extends Base_Category {
 	/**
 	 * Get title.
 	 *
+	 * @since 2.3.0
 	 * @access public
 	 *
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Site', 'elementor' );
+		return esc_html__( 'Site', 'elementor' );
+	}
+
+	public function get_id() {
+		return 'site';
 	}
 
 	/**
 	 * Get category items.
 	 *
+	 * @since 2.3.0
 	 * @access public
 	 *
 	 * @param array $options
@@ -39,37 +43,43 @@ class Site extends Base_Category {
 	public function get_category_items( array $options = [] ) {
 		return [
 			'homepage' => [
-				'title' => __( 'Homepage', 'elementor' ),
+				'title' => esc_html__( 'Homepage', 'elementor' ),
 				'url' => home_url(),
 				'icon' => 'home-heart',
 				'keywords' => [ 'home', 'page' ],
 			],
 			'wordpress-dashboard' => [
-				'title' => __( 'Dashboard', 'elementor' ),
+				'title' => esc_html__( 'Dashboard', 'elementor' ),
 				'icon' => 'dashboard',
 				'url' => admin_url(),
 				'keywords' => [ 'dashboard', 'wordpress' ],
 			],
 			'wordpress-menus' => [
-				'title' => __( 'Menus', 'elementor' ),
+				'title' => esc_html__( 'Menus', 'elementor' ),
 				'icon' => 'wordpress',
 				'url' => admin_url( 'nav-menus.php' ),
 				'keywords' => [ 'menu', 'wordpress' ],
 			],
+			'wordpress-themes' => [
+				'title' => esc_html__( 'Themes', 'elementor' ),
+				'icon' => 'wordpress',
+				'url' => admin_url( 'themes.php' ),
+				'keywords' => [ 'themes', 'wordpress' ],
+			],
 			'wordpress-customizer' => [
-				'title' => __( 'Customizer', 'elementor' ),
+				'title' => esc_html__( 'Customizer', 'elementor' ),
 				'icon' => 'wordpress',
 				'url' => admin_url( 'customize.php' ),
 				'keywords' => [ 'customizer', 'wordpress' ],
 			],
 			'wordpress-plugins' => [
-				'title' => __( 'Plugins', 'elementor' ),
+				'title' => esc_html__( 'Plugins', 'elementor' ),
 				'icon' => 'wordpress',
 				'url' => admin_url( 'plugins.php' ),
 				'keywords' => [ 'plugins', 'wordpress' ],
 			],
 			'wordpress-users' => [
-				'title' => __( 'Users', 'elementor' ),
+				'title' => esc_html__( 'Users', 'elementor' ),
 				'icon' => 'wordpress',
 				'url' => admin_url( 'users.php' ),
 				'keywords' => [ 'users', 'profile', 'wordpress' ],

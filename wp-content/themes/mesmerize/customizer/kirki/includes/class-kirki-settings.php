@@ -65,7 +65,7 @@ if ( ! class_exists( 'Kirki_Settings' ) ) {
 		 * @access private
 		 * @param array $args The field definition as sanitized in Kirki_Field.
 		 */
-		final private function add_settings( $args = array() ) {
+		private function add_settings( $args = array() ) {
 
 			// Get the classname we'll be using to create our setting(s).
 			if ( ! isset( $args['type'] ) || ! array_key_exists( $args['type'], $this->setting_types ) ) {
@@ -103,7 +103,7 @@ if ( ! class_exists( 'Kirki_Settings' ) ) {
 		 * @param string       $transport           Use refresh|postMessage.
 		 * @param string|array $sanitize_callback   A callable sanitization function or method.
 		 */
-		final private function add_setting( $classname, $setting, $default, $type, $capability, $transport, $sanitize_callback ) {
+		private function add_setting( $classname, $setting, $default, $type, $capability, $transport, $sanitize_callback ) {
 
 			$this->wp_customize->add_setting( new $classname( $this->wp_customize, $setting, array(
 				'default'           => $default,
@@ -121,7 +121,7 @@ if ( ! class_exists( 'Kirki_Settings' ) ) {
 		 * and that the defined classes actually exist.
 		 * If a defined class does not exist, it is removed.
 		 */
-		final private function set_setting_types() {
+		private function set_setting_types() {
 
 			// Apply the kirki/setting_types filter.
 			$this->setting_types = apply_filters( 'kirki/setting_types', array(

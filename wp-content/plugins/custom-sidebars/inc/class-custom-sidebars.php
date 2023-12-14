@@ -20,37 +20,42 @@ class CustomSidebars {
 	/**
 	 * Prefix used for the sidebar-ID of custom sidebars. This is also used to
 	 * distinguish theme sidebars from custom sidebars.
+	 *
 	 * @var  string
 	 */
-	static protected $sidebar_prefix = 'cs-';
+	protected static $sidebar_prefix = 'cs-';
 
 	/**
 	 * Capability required to use *any* of the plugin features. If user does not
 	 * have this capability then he will not see any change on admin dashboard.
+	 *
 	 * @var  string
 	 */
-	static protected $cap_required = 'edit_theme_options';
-
-	/**
-	 * URL to the documentation/info page of the pro plugin
-	 * @var  string
-	 */
-	static public $pro_url = 'https://premium.wpmudev.org/project/custom-sidebars-pro/';
+	protected static $cap_required = 'edit_theme_options';
 
 	/**
 	 * Flag that specifies if the page is loaded in accessibility mode.
 	 * This plugin does not support accessibility mode!
+	 *
 	 * @var   bool
 	 * @since 2.0.9
 	 */
-	static protected $accessibility_mode = false;
+	protected static $accessibility_mode = false;
+
+	/**
+	 * Flag that specifies if the current user can see the retirement notice.
+	 *
+	 * @var   bool
+	 * @since 3.2.4
+	 */
+	private $user_can_see_notice = null;
 
 	/**
 	 * Returns the singleton instance of the custom sidebars class.
 	 *
 	 * @since  2.0
 	 */
-	static public function instance() {
+	public static function instance() {
 		static $Inst = null;
 
 		// We can initialize the plugin once we know the current user:
@@ -74,13 +79,138 @@ class CustomSidebars {
 	private function __construct() {
 		add_action( 'init', array( $this, 'integrations' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
-		// Extensions use this hook to initialize themselfs.
+		// Extensions use this hook to initialize themselves.
 		do_action( 'cs_init' );
 		/**
 		 * Add version to media files
 		 */
 		add_filter( 'wpmu_style_version', array( $this, 'wp_enqueue_add_version' ), 10, 2 );
 		add_filter( 'wpmu_script_version', array( $this, 'wp_enqueue_add_version' ), 10, 2 );
+
+		/**
+		 * Add retirement notice for Block Based Widget Screen
+		 */
+		add_action( 'admin_notices', array( $this, 'retirement_admin_notice' ) );
+		add_action( 'wp_ajax_custom_sidebars_retirement_notice_dismiss', array( $this, 'dismiss_retirement_notice' ) );
+    add_action( 'admin_enqueue_scripts', array( $this, 'dismiss_retirement_notice_js' ) );
+  }
+
+	/**
+	 * Add retirement admin notice
+	 *
+	 * @since 3.2.4
+	 */
+	public function retirement_admin_notice() {
+		if ( ! $this->can_user_see_notice() ) {
+			return;
+		}
+
+		$post_link = 'https://premium.wpmudev.org/blog/retiring-custom-sidebars/';
+		?>
+		<div id="wpmudev-cs-retirement-notice" class="notice notice-warning is-dismissible">
+			<p>
+				<?php
+				printf(
+					esc_html__(
+						'%1$sCustom Sidebars Notice %2$sStarting from version 5.7, WordPress will be using Gutenberg\'s block-based Widget Screen. Custom Sidebars is not compatible due to the fact that once Full Site Editing is in place, such plugins will not be required anymore. Therefore Custom Sidebars has been discontinued. If you have existing sidebars that you need to modify, you can switch back to a legacy Widgets screen by adding %3$s in your theme\'s functions.php file. You can read more about this %4$shere%5$s.',
+						'custom-sidebars'
+					),
+					'<strong>',
+					'</strong><br />',
+					"<code>remove_theme_support( 'widgets-block-editor' );</code>",
+					"<a href=\"" . esc_url($post_link) . "\" target=\"_blank\">",
+					'</a>'
+				);
+				?>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Dismiss the retirement notice per user
+	 *
+	 * @since 3.2.4
+	 */
+	public function dismiss_retirement_notice() {
+		$user_id = filter_input( INPUT_POST, 'user_id', FILTER_VALIDATE_INT );
+
+		if (
+			! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wpmudev_sc_dismissed_notice' ) ||
+			$user_id !== get_current_user_id()
+		) {
+
+			wp_send_json(
+				array(
+					'success' => false,
+					'message' => __( 'Unauthorized', 'custom-sidebars' ),
+				)
+			);
+		}
+
+		update_user_meta( $user_id, 'wpmudev_sc_dismissed_notice', true );
+
+		$return = array(
+			'success' => true,
+			'message' => sprintf( esc_html__( 'Notice dismissed for user %d', 'custom-sidebars' ), $user_id ),
+		);
+
+		wp_send_json( $return );
+	}
+
+	/**
+	 * Enqueue js to dismiss the retirement notice
+	 *
+	 * @since 3.2.4
+	 */
+	public function dismiss_retirement_notice_js() {
+		if ( ! $this->can_user_see_notice() ) {
+			return;
+		}
+
+		$file = 'retirement-admin-notice.js';
+		$csb_info = get_plugin_data( CSB_PLUGIN );
+		$version = $csb_info['Version'];
+		$script_vars = array(
+			'nonce'   => wp_create_nonce( "wpmudev_sc_dismissed_notice" ),
+			'user_id' => get_current_user_id(),
+		);
+
+		if ( defined( 'WDEV_UNMINIFIED' ) && WDEV_UNMINIFIED ){
+			$file = str_replace( '.min.js', '.js', $file );
+			$version = time();
+		}
+		wp_enqueue_script(
+			'customsidebars-retirement-notice',
+			CSB_JS_URL . $file,
+			array(),
+			$version,
+			true
+		);
+
+		wp_localize_script( 'customsidebars-retirement-notice', 'CS_Notice', $script_vars );
+	}
+
+	/**
+	 * Should the notice be visible or not
+	 *
+	 * @since 3.2.4
+	 */
+	public function can_user_see_notice() {
+    // for now we don't need this because WP 5.7 is not out
+    return false;
+
+		if ( is_null( $this->user_can_see_notice ) ) {
+			$this->user_can_see_notice = true;
+
+			if (
+				! current_user_can( 'edit_theme_options' ) ||
+				get_user_meta( get_current_user_id(), 'wpmudev_sc_dismissed_notice', true ) )
+			{
+				$this->user_can_see_notice = false;
+			}
+		}
+		return $this->user_can_see_notice;
 	}
 
 	/**
@@ -90,7 +220,7 @@ class CustomSidebars {
 	 */
 	public function wp_enqueue_add_version( $version, $handle ) {
 		if ( preg_match( '/^wpmu\-cs\-/', $handle ) ) {
-			return '3.2.2';
+			return '3.2.4';
 		}
 		return $version;
 	}
@@ -101,8 +231,9 @@ class CustomSidebars {
 	 * @since 3.0.5
 	 */
 	public function admin_init() {
-		$plugin_title = 'Custom Sidebars';
-		
+		$plugin_title = 'Custom Sidebars';/*
+		end:free */
+
 		/**
 		 * ID of the WP-Pointer used to introduce the plugin upon activation
 		 *
@@ -114,7 +245,7 @@ class CustomSidebars {
 		 * -------------------------------------------------------------------------
 		 */
 
-		$user_id = get_current_user_id();
+		$user_id               = get_current_user_id();
 		$dismissed_wp_pointers = get_user_meta( $user_id, 'dismissed_wp_pointers', true );
 		$dismissed_wp_pointers = explode( ',', $dismissed_wp_pointers );
 
@@ -123,21 +254,22 @@ class CustomSidebars {
 		} else {
 			lib3()->ui->add( 'core' );
 			lib3()->html->pointer(
-				'wpmudcs1',							   // Internal Pointer-ID
-				'#menu-appearance',					   // Point at
+				'wpmudcs1',                            // Internal Pointer-ID
+				'#menu-appearance',                    // Point at
 				$plugin_title,
 				sprintf(
 					__(
 						'Now you can create and edit custom sidebars in your ' .
-						'<a href="%1$s">Widgets screen</a>!', 'custom-sidebars'
+						'<a href="%1$s">Widgets screen</a>!',
+						'custom-sidebars'
 					),
 					admin_url( 'widgets.php' )
-				)										 // Body
+				)                                        // Body
 			);
 		}
 
 		// Find out if the page is loaded in accessibility mode.
-		$flag = isset( $_GET['widgets-access'] ) ? $_GET['widgets-access'] : get_user_setting( 'widgets_access' );
+		$flag                     = isset( $_GET['widgets-access'] ) ? sanitize_text_field($_GET['widgets-access']) : get_user_setting( 'widgets_access' );
 		self::$accessibility_mode = ( 'on' == $flag );
 
 		// We don't support accessibility mode. Display a note to the user.
@@ -152,7 +284,7 @@ class CustomSidebars {
 						'custom-sidebars'
 					),
 					$plugin_title,
-					admin_url( 'widgets.php?widgets-access=off&_wpnonce='.urlencode( $nonce ) )
+					admin_url( 'widgets.php?widgets-access=off&_wpnonce=' . urlencode( $nonce ) )
 				),
 				'err',
 				'widgets'
@@ -176,17 +308,17 @@ class CustomSidebars {
 
 			// Display a message after import.
 			if ( ! empty( $_GET['cs-msg'] ) ) {
-				$msg = base64_decode( $_GET['cs-msg'] );
+				$msg = base64_decode( sanitize_text_field($_GET['cs-msg']) );
 
 				// Prevent XSS attacks...
 				$kses_args = array(
-					'br' => array(),
-					'b' => array(),
+					'br'     => array(),
+					'b'      => array(),
 					'strong' => array(),
-					'i' => array(),
-					'em' => array(),
+					'i'      => array(),
+					'em'     => array(),
 				);
-				$msg = wp_kses( $msg, $kses_args );
+				$msg       = wp_kses( $msg, $kses_args );
 
 				if ( ! empty( $msg ) ) {
 					lib3()->ui->admin_message( $msg );
@@ -294,7 +426,7 @@ class CustomSidebars {
 	 * @param  mixed $val2 Optional, Second value that maybe is an array.
 	 * @return array
 	 */
-	static public function get_array( $val1, $val2 = array() ) {
+	public static function get_array( $val1, $val2 = array() ) {
 		if ( is_array( $val1 ) ) {
 			return $val1;
 		} elseif ( is_array( $val2 ) ) {
@@ -310,9 +442,9 @@ class CustomSidebars {
 	 *
 	 * Option-Key: 'cs_modifiable' (1)
 	 */
-	static public function get_options( $key = null ) {
+	public static function get_options( $key = null ) {
 		static $Options = null;
-		$need_update = false;
+		$need_update    = false;
 
 		if ( null === $Options ) {
 			$Options = get_option( 'cs_modifiable', array() );
@@ -323,9 +455,9 @@ class CustomSidebars {
 			// List of modifiable sidebars.
 			if ( ! isset( $Options['modifiable'] ) || ! is_array( $Options['modifiable'] ) ) {
 				// By default we make ALL theme sidebars replaceable:
-				$all = self::get_sidebars( 'theme' );
+				$all                   = self::get_sidebars( 'theme' );
 				$Options['modifiable'] = array_keys( $all );
-				$need_update = true;
+				$need_update           = true;
 			}
 
 			/**
@@ -361,7 +493,7 @@ class CustomSidebars {
 			}
 
 			// Single/Archive pages - new names
-			$Options['post_type_single'] = self::get_array(
+			$Options['post_type_single']  = self::get_array(
 				$Options['post_type_single'], // new name
 				$Options['defaults']          // old name
 			);
@@ -369,11 +501,11 @@ class CustomSidebars {
 				$Options['post_type_archive'], // new name
 				$Options['post_type_pages']    // old name
 			);
-			$Options['category_single'] = self::get_array(
+			$Options['category_single']   = self::get_array(
 				$Options['category_single'], // new name
 				$Options['category_posts']   // old name
 			);
-			$Options['category_archive'] = self::get_array(
+			$Options['category_archive']  = self::get_array(
 				$Options['category_archive'], // new name
 				$Options['category_pages']    // old name
 			);
@@ -412,7 +544,7 @@ class CustomSidebars {
 			}
 		}
 		if ( ! empty( $key ) ) {
-			return isset( $Options[ $key ] )? $Options[ $key ] : null;
+			return isset( $Options[ $key ] ) ? $Options[ $key ] : null;
 		} else {
 			return $Options;
 		}
@@ -422,10 +554,11 @@ class CustomSidebars {
 	 * Saves the sidebar options to DB.
 	 *
 	 * Option-Key: 'cs_modifiable' (1)
+	 *
 	 * @since  2.0
 	 * @param  array $value The options array.
 	 */
-	static public function set_options( $value ) {
+	public static function set_options( $value ) {
 		// Permission check.
 		if ( ! current_user_can( self::$cap_required ) ) {
 			return;
@@ -441,18 +574,18 @@ class CustomSidebars {
 	 * @param  array $data This array will be validated and returned.
 	 * @return array
 	 */
-	static public function validate_options( $data = null ) {
-		$data = (is_object( $data ) ? (array) $data : $data );
+	public static function validate_options( $data = null ) {
+		$data = ( is_object( $data ) ? (array) $data : $data );
 		if ( ! is_array( $data ) ) {
 			return array();
 		}
-		$valid = array_keys( self::get_sidebars( 'theme' ) );
+		$valid   = array_keys( self::get_sidebars( 'theme' ) );
 		$current = array();
 		if ( isset( $data['modifiable'] ) ) {
 			$current = self::get_array( $data['modifiable'] );
 		}
 		// Get all the sidebars that are modifiable AND exist.
-		$modifiable = array_intersect( $valid, $current );
+		$modifiable         = array_intersect( $valid, $current );
 		$data['modifiable'] = $modifiable;
 		return $data;
 	}
@@ -463,7 +596,7 @@ class CustomSidebars {
 	 *
 	 * Option-Key: 'cs_sidebars' (3)
 	 */
-	static public function get_custom_sidebars() {
+	public static function get_custom_sidebars() {
 		$sidebars = get_option( 'cs_sidebars', array() );
 		if ( ! is_array( $sidebars ) ) {
 			$sidebars = array();
@@ -481,9 +614,10 @@ class CustomSidebars {
 	 * Saves the custom sidebars to DB.
 	 *
 	 * Option-Key: 'cs_sidebars' (3)
+	 *
 	 * @since  2.0
 	 */
-	static public function set_custom_sidebars( $value ) {
+	public static function set_custom_sidebars( $value ) {
 		// Permission check.
 		if ( ! current_user_can( self::$cap_required ) ) {
 			return;
@@ -497,9 +631,10 @@ class CustomSidebars {
 	 * widgets (this is stored inside a WordPress core option).
 	 *
 	 * Option-Key: 'sidebars_widgets' (4)
+	 *
 	 * @since  2.0
 	 */
-	static public function get_sidebar_widgets() {
+	public static function get_sidebar_widgets() {
 		return get_option( 'sidebars_widgets', array() );
 	}
 
@@ -510,11 +645,11 @@ class CustomSidebars {
 	 *
 	 * Option-Key: 'sidebars_widgets' (4)
 	 */
-	static public function refresh_sidebar_widgets() {
+	public static function refresh_sidebar_widgets() {
 		// Contains an array of all sidebars and widgets inside each sidebar.
 		$widgetized_sidebars = self::get_sidebar_widgets();
 
-		$cs_sidebars = self::get_custom_sidebars();
+		$cs_sidebars                = self::get_custom_sidebars();
 		$delete_widgetized_sidebars = array();
 
 		foreach ( $widgetized_sidebars as $id => $bar ) {
@@ -550,9 +685,10 @@ class CustomSidebars {
 	 * Returns the custom sidebar metadata of a single post.
 	 *
 	 * Meta-Key: '_cs_replacements' (2)
+	 *
 	 * @since  2.0
 	 */
-	static public function get_post_meta( $post_id ) {
+	public static function get_post_meta( $post_id ) {
 		$data = get_post_meta( $post_id, '_cs_replacements', true );
 		if ( ! is_array( $data ) ) {
 			$data = array();
@@ -564,11 +700,12 @@ class CustomSidebars {
 	 * Saves custom sidebar metadata to a single post.
 	 *
 	 * Meta-Key: '_cs_replacements' (2)
+	 *
 	 * @since  2.0
-	 * @param int $post_id
+	 * @param int   $post_id
 	 * @param array $data When array is empty the meta data will be deleted.
 	 */
-	static public function set_post_meta( $post_id, $data ) {
+	public static function set_post_meta( $post_id, $data ) {
 		if ( ! empty( $data ) ) {
 			update_post_meta( $post_id, '_cs_replacements', $data );
 		} else {
@@ -583,10 +720,10 @@ class CustomSidebars {
 	 *
 	 * @param string $type [all|cust|theme] What kind of sidebars to return.
 	 */
-	static public function get_sidebars( $type = 'theme' ) {
+	public static function get_sidebars( $type = 'theme' ) {
 		global $wp_registered_sidebars;
-		$allsidebars = CustomSidebars::sort_sidebars_by_name( $wp_registered_sidebars );
-		$result = array();
+		$allsidebars = self::sort_sidebars_by_name( $wp_registered_sidebars );
+		$result      = array();
 
 		// Remove inactive sidebars.
 		foreach ( $allsidebars as $sb_id => $sidebar ) {
@@ -624,8 +761,9 @@ class CustomSidebars {
 	 * @param string $id Sidebar-ID.
 	 * @param string $type [all|cust|theme] What kind of sidebars to check.
 	 */
-	static public function get_sidebar( $id, $type = 'all' ) {
-		if ( empty( $id ) ) { return false; }
+	public static function get_sidebar( $id, $type = 'all' ) {
+		if ( empty( $id ) ) {
+			return false; }
 
 		// Get all sidebars
 		$sidebars = self::get_sidebars( $type );
@@ -640,7 +778,7 @@ class CustomSidebars {
 	/**
 	 * Get sidebar replacement information for a single post.
 	 */
-	static public function get_replacements( $postid ) {
+	public static function get_replacements( $postid ) {
 		$replacements = self::get_post_meta( $postid );
 		if ( ! is_array( $replacements ) ) {
 			$replacements = array();
@@ -658,12 +796,12 @@ class CustomSidebars {
 	 *                posttype name or the full posttype object.
 	 * @return bool
 	 */
-	static public function supported_post_type( $posttype ) {
+	public static function supported_post_type( $posttype ) {
 		$Ignored_types = null;
-		$Response = array();
+		$Response      = array();
 
 		if ( null === $Ignored_types ) {
-			$Ignored_types = get_post_types(
+			$Ignored_types               = get_post_types(
 				array( 'public' => false ),
 				'names'
 			);
@@ -686,7 +824,7 @@ class CustomSidebars {
 			 * @param  bool $response Flag if the posttype is supported.
 			 * @param  string $posttype Name of the posttype that is checked.
 			 */
-			$response = apply_filters( 'cs_support_posttype', $response, $posttype );
+			$response              = apply_filters( 'cs_support_posttype', $response, $posttype );
 			$Response[ $posttype ] = $response;
 		}
 		return $Response[ $posttype ];
@@ -699,17 +837,17 @@ class CustomSidebars {
 	 * @param  string $type [names|objects] Defines details of return data.
 	 * @return array List of posttype names or objects, depending on the param.
 	 */
-	static public function get_post_types( $type = 'names' ) {
+	public static function get_post_types( $type = 'names' ) {
 		$Valid = array();
 		if ( 'objects' != $type ) {
 			$type = 'names';
 		}
 		if ( ! isset( $Valid[ $type ] ) ) {
-			$all = get_post_types( array(), $type );
+			$all            = get_post_types( array(), $type );
 			$Valid[ $type ] = array();
 			foreach ( $all as $post_type ) {
 				$suports = self::supported_post_type( $post_type );
-				if ( $suports  ) {
+				if ( $suports ) {
 					$Valid[ $type ][] = $post_type;
 				}
 			}
@@ -726,13 +864,19 @@ class CustomSidebars {
 	 * @param  string $type [names|objects] Defines details of return data.
 	 * @return array List of posttype names or objects, depending on the param.
 	 */
-	static public function get_taxonomies( $type = 'names', $_builtin = true ) {
+	public static function get_taxonomies( $type = 'names', $_builtin = true ) {
 		$Valid = array();
 		if ( 'objects' != $type ) {
 			$type = 'names';
 		}
 		if ( ! isset( $Valid[ $type ] ) ) {
-			$all = get_taxonomies( array( 'public' => true, '_builtin' => $_builtin ), $type );
+			$all            = get_taxonomies(
+				array(
+					'public'   => true,
+					'_builtin' => $_builtin,
+				),
+				$type
+			);
 			$Valid[ $type ] = array();
 			foreach ( $all as $one ) {
 				$Valid[ $type ][] = $one;
@@ -747,10 +891,10 @@ class CustomSidebars {
 	 * @since  2.0
 	 * @return array List of categories, including empty ones.
 	 */
-	static public function get_all_categories() {
+	public static function get_all_categories() {
 		$args = array(
 			'hide_empty' => 0,
-			'taxonomy' => 'category',
+			'taxonomy'   => 'category',
 		);
 
 		return get_categories( $args );
@@ -762,7 +906,7 @@ class CustomSidebars {
 	 *
 	 * @uses  self::cmp_cat_level()
 	 */
-	static public function get_sorted_categories( $post_id = null ) {
+	public static function get_sorted_categories( $post_id = null ) {
 		static $Sorted = array();
 
 		// Return categories of current post when no post_id is specified.
@@ -780,7 +924,7 @@ class CustomSidebars {
 	 *
 	 * @uses  self::get_category_level()
 	 */
-	static public function cmp_cat_level( $cat1, $cat2 ) {
+	public static function cmp_cat_level( $cat1, $cat2 ) {
 		$l1 = self::get_category_level( $cat1->cat_ID );
 		$l2 = self::get_category_level( $cat2->cat_ID );
 		if ( $l1 == $l2 ) {
@@ -793,7 +937,7 @@ class CustomSidebars {
 	/**
 	 * Helper function used to sort categories.
 	 */
-	static public function get_category_level( $catid ) {
+	public static function get_category_level( $catid ) {
 		if ( ! $catid ) {
 			return 0;
 		}
@@ -811,9 +955,10 @@ class CustomSidebars {
 	 *
 	 * @since  1.0.0
 	 */
-	static protected function json_response( $obj ) {
+	protected static function json_response( $obj ) {
 		// Flush any output that was made prior to this function call
-		while ( 0 < ob_get_level() ) { ob_end_clean(); }
+		while ( 0 < ob_get_level() ) {
+			ob_end_clean(); }
 
 		header( 'Content-Type: application/json' );
 		echo json_encode( (object) $obj );
@@ -825,12 +970,13 @@ class CustomSidebars {
 	 *
 	 * @since  2.0
 	 */
-	static protected function plain_response( $data ) {
+	protected static function plain_response( $data ) {
 		// Flush any output that was made prior to this function call
-		while ( 0 < ob_get_level() ) { ob_end_clean(); }
+		while ( 0 < ob_get_level() ) {
+			ob_end_clean(); }
 
 		header( 'Content-Type: text/plain' );
-		echo '' . $data;
+		CustomSidebars::wp_kses_wf('' . $data);
 		die();
 	}
 
@@ -842,8 +988,8 @@ class CustomSidebars {
 	 * @param  string $message Error message or reason; already translated.
 	 * @return object Updated response object.
 	 */
-	static protected function req_err( $req, $message ) {
-		$req->status = 'ERR';
+	protected static function req_err( $req, $message ) {
+		$req->status  = 'ERR';
 		$req->message = $message;
 		return $req;
 	}
@@ -879,8 +1025,8 @@ class CustomSidebars {
 		// Catch any unexpected output via output buffering.
 		ob_start();
 
-		$action = isset( $_POST['do'] )? $_POST['do']:null;
-		$get_action = isset( $_GET['do'] )? $_GET['do']:null;
+		$action     = isset( $_POST['do'] ) ? sanitize_key($_POST['do']) : null;
+		$get_action = isset( $_GET['do'] ) ? sanitize_key($_GET['do']) : null;
 
 		/**
 		 * Notify all extensions about the ajax call.
@@ -922,7 +1068,7 @@ class CustomSidebars {
 		if ( $a_name == $b_name ) {
 			return 0;
 		}
-		return ($a_name < $b_name ) ? -1 : 1;
+		return ( $a_name < $b_name ) ? -1 : 1;
 	}
 
 	/**
@@ -952,23 +1098,17 @@ class CustomSidebars {
 	 * Add "support" and (configure) "widgets" on plugin list page
 	 *
 	 * @since 2.1.1.8
-	 *
 	 */
 	public function add_action_links( $actions, $plugin_file, $plugin_data, $context ) {
 		if ( current_user_can( 'edit_theme_options' ) ) {
-			$actions['widgets'] = sprintf(
+			$widgets = sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( admin_url( 'widgets.php' ) ),
-				__( 'Widgets', 'custom-sidebars' )
-			);
+				__( 'Configure Custom Sidebars', 'custom-sidebars' )
+      );
+      array_unshift($actions, $widgets);
 		}
-		$url = 'https://wordpress.org/support/plugin/custom-sidebars';
-		
-		$actions['support'] = sprintf(
-			'<a href="%s">%s</a>',
-			esc_url( $url ),
-			__( 'Support', 'custom-sidebars' )
-		);
+
 		return $actions;
 	}
 
@@ -982,31 +1122,31 @@ class CustomSidebars {
 			return;
 		}
 		wp_enqueue_script( 'wp-util' );
-?>
+		?>
 	<script type="text/html" id="tmpl-custom-sidebars-new">
 		<div class="custom-sidebars-add-new">
 			<p><?php esc_html_e( 'Create a custom sidebar to get started.', 'custom-sidebars' ); ?></p>
 		</div>
 	</script>
-    <script type="text/html" id="tmpl-custom-sidebars-new-rule-row">
-        <tr>
-            <td>
-                <select name="cs-screen[minmax][]">
-                    <option value="max"<# if( 'max' == data.minmax ) { #> selected="selected"<# } #>><?php esc_html_e( 'max', 'custom-sidebars' ); ?></option>
-                    <option value="min"<# if( 'min' == data.minmax ) { #> ' selected="selected"<# } #>><?php esc_html_e( 'min', 'custom-sidebars' ); ?></option>
-                </select>
-            </td>
-            <td>
-                <select name="cs-screen[mode][]">
-                    <option value="hide"<# if( 'hide' == data.mode ) { #> selected="selected"<# } #>><?php esc_html_e( 'Hide', 'custom-sidebars' ); ?></option>
-                    <option value="show"<# if( 'show' == data.mode ) { #> selected="selected"<# } #>><?php esc_html_e( 'Show', 'custom-sidebars' ); ?></option>
-                </select>
-            </td>
-            <td><input type="number" name="cs-screen[size][]" min="0" value="{{{data.size}}}" class="textright" /></td>
-            <td class="num"><span class="dashicons dashicons-trash"></span></td>
-        </tr>
+	<script type="text/html" id="tmpl-custom-sidebars-new-rule-row">
+		<tr>
+			<td>
+				<select name="cs-screen[minmax][]">
+					<option value="max"<# if( 'max' == data.minmax ) { #> selected="selected"<# } #>><?php esc_html_e( 'max', 'custom-sidebars' ); ?></option>
+					<option value="min"<# if( 'min' == data.minmax ) { #> ' selected="selected"<# } #>><?php esc_html_e( 'min', 'custom-sidebars' ); ?></option>
+				</select>
+			</td>
+			<td>
+				<select name="cs-screen[mode][]">
+					<option value="hide"<# if( 'hide' == data.mode ) { #> selected="selected"<# } #>><?php esc_html_e( 'Hide', 'custom-sidebars' ); ?></option>
+					<option value="show"<# if( 'show' == data.mode ) { #> selected="selected"<# } #>><?php esc_html_e( 'Show', 'custom-sidebars' ); ?></option>
+				</select>
+			</td>
+			<td><input type="number" name="cs-screen[size][]" min="0" value="{{{data.size}}}" class="textright" /></td>
+			<td class="num"><span class="dashicons dashicons-trash"></span></td>
+		</tr>
 	</script>
-<?php
+		<?php
 	}
 
 	/**
@@ -1058,7 +1198,7 @@ class CustomSidebars {
 	 * @returns array Array of object of custom, public taxonomies
 	 */
 	public static function get_custom_taxonomies( $state = 'all' ) {
-		$args = array(
+		$args       = array(
 			'public'   => true,
 			'_builtin' => false,
 		);
@@ -1071,7 +1211,7 @@ class CustomSidebars {
 		 * $taxonomies array
 		 */
 		if ( 'allowed' === $state ) {
-			$editor = CustomSidebarsEditor::instance();
+			$editor  = CustomSidebarsEditor::instance();
 			$allowed = $editor->get_allowed_custom_taxonmies();
 			if ( empty( $allowed ) ) {
 				return array();
@@ -1096,4 +1236,306 @@ class CustomSidebars {
 	private static function sort_by_label( $a, $b ) {
 		return strcmp( $a->label, $b->label );
 	}
+
+    public static function wp_kses_wf($html)
+    {
+      add_filter('safe_style_css', function ($styles) {
+            $styles_wf = array(
+                'text-align',
+                'margin',
+                'color',
+                'float',
+                'border',
+                'background',
+                'background-color',
+                'border-bottom',
+                'border-bottom-color',
+                'border-bottom-style',
+                'border-bottom-width',
+                'border-collapse',
+                'border-color',
+                'border-left',
+                'border-left-color',
+                'border-left-style',
+                'border-left-width',
+                'border-right',
+                'border-right-color',
+                'border-right-style',
+                'border-right-width',
+                'border-spacing',
+                'border-style',
+                'border-top',
+                'border-top-color',
+                'border-top-style',
+                'border-top-width',
+                'border-width',
+                'caption-side',
+                'clear',
+                'cursor',
+                'direction',
+                'font',
+                'font-family',
+                'font-size',
+                'font-style',
+                'font-variant',
+                'font-weight',
+                'height',
+                'letter-spacing',
+                'line-height',
+                'margin-bottom',
+                'margin-left',
+                'margin-right',
+                'margin-top',
+                'overflow',
+                'padding',
+                'padding-bottom',
+                'padding-left',
+                'padding-right',
+                'padding-top',
+                'text-decoration',
+                'text-indent',
+                'vertical-align',
+                'width',
+                'display',
+            );
+
+            foreach ($styles_wf as $style_wf) {
+                $styles[] = $style_wf;
+            }
+            return $styles;
+        });
+
+        $allowed_tags = wp_kses_allowed_html('post');
+        $allowed_tags['input'] = array(
+            'type' => true,
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'checked' => true,
+            'disabled' => true,
+            'name' => true,
+            'size' => true,
+            'placeholder' => true,
+            'value' => true,
+            'data-*' => true,
+            'size' => true,
+            'disabled' => true
+        );
+
+        $allowed_tags['textarea'] = array(
+            'type' => true,
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'checked' => true,
+            'disabled' => true,
+            'name' => true,
+            'size' => true,
+            'placeholder' => true,
+            'value' => true,
+            'data-*' => true,
+            'cols' => true,
+            'rows' => true,
+            'disabled' => true,
+            'autocomplete' => true
+        );
+
+        $allowed_tags['select'] = array(
+            'type' => true,
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'checked' => true,
+            'disabled' => true,
+            'name' => true,
+            'size' => true,
+            'placeholder' => true,
+            'value' => true,
+            'data-*' => true,
+            'multiple' => true,
+            'disabled' => true
+        );
+
+        $allowed_tags['option'] = array(
+            'type' => true,
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'checked' => true,
+            'disabled' => true,
+            'name' => true,
+            'size' => true,
+            'placeholder' => true,
+            'value' => true,
+            'selected' => true,
+            'data-*' => true
+        );
+        $allowed_tags['optgroup'] = array(
+            'type' => true,
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'checked' => true,
+            'disabled' => true,
+            'name' => true,
+            'size' => true,
+            'placeholder' => true,
+            'value' => true,
+            'selected' => true,
+            'data-*' => true,
+            'label' => true
+        );
+
+        $allowed_tags['a'] = array(
+            'href' => true,
+            'data-*' => true,
+            'class' => true,
+            'style' => true,
+            'id' => true,
+            'target' => true,
+            'data-*' => true,
+            'role' => true,
+            'aria-controls' => true,
+            'aria-selected' => true,
+            'disabled' => true
+        );
+
+        $allowed_tags['div'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'data-*' => true,
+            'role' => true,
+            'aria-labelledby' => true,
+            'value' => true,
+            'aria-modal' => true,
+            'tabindex' => true
+        );
+
+        $allowed_tags['li'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'data-*' => true,
+            'role' => true,
+            'aria-labelledby' => true,
+            'value' => true,
+            'aria-modal' => true,
+            'tabindex' => true
+        );
+
+        $allowed_tags['span'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'data-*' => true,
+            'aria-hidden' => true
+        );
+
+        $allowed_tags['style'] = array(
+            'class' => true,
+            'id' => true,
+            'type' => true
+        );
+
+        $allowed_tags['fieldset'] = array(
+            'class' => true,
+            'id' => true,
+            'type' => true
+        );
+
+        $allowed_tags['link'] = array(
+            'class' => true,
+            'id' => true,
+            'type' => true,
+            'rel' => true,
+            'href' => true,
+            'media' => true
+        );
+
+        $allowed_tags['form'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+            'method' => true,
+            'action' => true,
+            'data-*' => true
+        );
+
+        $allowed_tags['script'] = array(
+            'class' => true,
+            'id' => true,
+            'type' => true,
+            'src' => true
+        );
+
+        echo wp_kses($html, $allowed_tags);
+
+        add_filter('safe_style_css', function ($styles) {
+            $styles_wf = array(
+                'text-align',
+                'margin',
+                'color',
+                'float',
+                'border',
+                'background',
+                'background-color',
+                'border-bottom',
+                'border-bottom-color',
+                'border-bottom-style',
+                'border-bottom-width',
+                'border-collapse',
+                'border-color',
+                'border-left',
+                'border-left-color',
+                'border-left-style',
+                'border-left-width',
+                'border-right',
+                'border-right-color',
+                'border-right-style',
+                'border-right-width',
+                'border-spacing',
+                'border-style',
+                'border-top',
+                'border-top-color',
+                'border-top-style',
+                'border-top-width',
+                'border-width',
+                'caption-side',
+                'clear',
+                'cursor',
+                'direction',
+                'font',
+                'font-family',
+                'font-size',
+                'font-style',
+                'font-variant',
+                'font-weight',
+                'height',
+                'letter-spacing',
+                'line-height',
+                'margin-bottom',
+                'margin-left',
+                'margin-right',
+                'margin-top',
+                'overflow',
+                'padding',
+                'padding-bottom',
+                'padding-left',
+                'padding-right',
+                'padding-top',
+                'text-decoration',
+                'text-indent',
+                'vertical-align',
+                'width'
+            );
+
+            foreach ($styles_wf as $style_wf) {
+                if (($key = array_search($style_wf, $styles)) !== false) {
+                    unset($styles[$key]);
+                }
+            }
+            return $styles;
+      });
+  }
 };

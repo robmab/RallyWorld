@@ -71,13 +71,13 @@ function su_shortcode_service( $atts = null, $content = null ) {
 	if ( strpos( $atts['icon'], 'icon:' ) !== false ) {
 
 		$atts['icon'] = sprintf(
-			'<i class="fa fa-%s" style="font-size:%spx;color:%s"></i>',
+			'<i class="sui sui-%s" style="font-size:%spx;color:%s"></i>',
 			esc_attr( trim( str_replace( 'icon:', '', $atts['icon'] ) ) ),
 			intval( $atts['size'] ),
 			esc_attr( $atts['icon_color'] )
 		);
 
-		su_query_asset( 'css', 'font-awesome' );
+		su_query_asset( 'css', 'su-icons' );
 
 	} else {
 		$atts['icon'] = sprintf(
@@ -90,6 +90,6 @@ function su_shortcode_service( $atts = null, $content = null ) {
 
 	su_query_asset( 'css', 'su-shortcodes' );
 
-	return '<div class="su-service' . su_get_css_class( $atts ) . '"><div class="su-service-title" style="padding-' . $rtl . ':' . round( $atts['size'] + 14 ) . 'px;min-height:' . $atts['size'] . 'px;line-height:' . $atts['size'] . 'px">' . $atts['icon'] . ' ' . su_do_attribute( $atts['title'] ) . '</div><div class="su-service-content su-clearfix" style="padding-' . $rtl . ':' . round( $atts['size'] + 14 ) . 'px">' . do_shortcode( $content ) . '</div></div>';
+	return '<div class="su-service' . su_get_css_class( $atts ) . '"><div class="su-service-title" style="padding-' . $rtl . ':' . round( intval( $atts['size'] ) + 14 ) . 'px;min-height:' . esc_attr( $atts['size'] ) . 'px;line-height:' . esc_attr( $atts['size'] ) . 'px">' . $atts['icon'] . ' ' . su_do_attribute( $atts['title'] ) . '</div><div class="su-service-content su-u-clearfix su-u-trim" style="padding-' . $rtl . ':' . round( intval( $atts['size'] ) + 14 ) . 'px">' . do_shortcode( $content ) . '</div></div>';
 
 }

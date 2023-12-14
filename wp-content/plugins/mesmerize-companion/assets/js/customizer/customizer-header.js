@@ -3,9 +3,9 @@
         var control = wp.customize.panel('header_panel');
         var $headerLi = control.container.eq(0);
         // remove default events
-        $headerLi.children('h3').andSelf().off();
+        $headerLi.children('h3').addBack().off();
 
-        $headerLi.find('[data-name="change"]').andSelf().click(function(event) {
+        $headerLi.find('[data-name="change"]').addBack().click(function(event) {
             event.preventDefault();
             event.stopPropagation();
 

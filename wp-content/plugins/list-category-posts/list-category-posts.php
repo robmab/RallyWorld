@@ -3,14 +3,14 @@
   Plugin Name: List category posts
   Plugin URI: https://github.com/picandocodigo/List-Category-Posts
   Description: List Category Posts allows you to list posts by category in a post/page using the [catlist] shortcode. This shortcode accepts a category name or id, the order in which you want the posts to display, the number of posts to display and many more parameters. You can use [catlist] as many times as needed with different arguments. Usage: [catlist argument1=value1 argument2=value2].
-  Version: 0.79
+  Version: 0.89.3
   Author: Fernando Briano
   Author URI: http://fernandobriano.com
 
   Text Domain:   list-category-posts
   Domain Path:   /languages/
 
-  Copyright 2008-2016  Fernando Briano  (email : fernando@picandocodigo.net)
+  Copyright 2008-2020  Fernando Briano  (email : fernando@picandocodigo.net)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -34,6 +34,7 @@ require_once 'include/lcp-catlistdisplayer.php';
 
 class ListCategoryPosts{
   private static $default_params = null;
+
   public static function default_params(){
     if (self::$default_params === null) {
       self::$default_params = array(
@@ -63,6 +64,7 @@ class ListCategoryPosts{
         'excerpt_class' =>'',
         'exclude' => '0',
         'excludeposts' => '0',
+        'includeposts' => '0',
         'offset' => '0',
         'tags' => '',
         'exclude_tags' => '',
@@ -76,6 +78,20 @@ class ListCategoryPosts{
         'catlink_string' => '',
         'catlink_tag' =>'',
         'catlink_class' => '',
+        'posts_tags' => '',
+        'posts_tags_tag' => '',
+        'posts_tags_class' => '',
+        'posts_tags_prefix' => ' ',
+        'posts_tags_glue' => ', ',
+        'posts_tags_inner' => '',
+        'posts_taglink' => 'no',
+        'posts_cats' => '',
+        'posts_cats_tag' => '',
+        'posts_cats_class' => '',
+        'posts_cats_prefix' => ' ',
+        'posts_cats_glue' => ', ',
+        'posts_cats_inner' => '',
+        'posts_catlink' => '',
         'child_categories' => 'yes',
         'comments' => 'no',
         'comments_tag' => '',
@@ -83,6 +99,7 @@ class ListCategoryPosts{
         'starting_with' => '',
         'thumbnail' => 'no',
         'thumbnail_size' => 'thumbnail',
+        'thumbnail_tag' => '',
         'thumbnail_class' => '',
         'force_thumbnail' => '',
         'title_tag' => '',
@@ -90,10 +107,10 @@ class ListCategoryPosts{
         'title_limit' => '0',
         'post_type' => '',
         'post_status' => '',
-        'post_parent' => '0',
+        'post_parent' => '',
         'post_suffix' => '',
         'show_protected' => 'no',
-        'class' => 'lcp_catlist',
+        'class' => '',
         'conditional_title' => '',
         'conditional_title_tag' => '',
         'conditional_title_class' => '',
@@ -104,16 +121,21 @@ class ListCategoryPosts{
         'customfield_display_name' =>'',
         'customfield_display_name_glue' => ' : ',
         'customfield_display_separately' => 'no',
-        'customfield_orderby' =>'',
+        'customfield_orderby' => '',
+        'customfield_orderby_type' => '',
         'customfield_tag' => '',
         'customfield_class' => '',
+        'customfield_compare' => '',
         'taxonomy' => '',
         'taxonomies_and' => '',
         'taxonomies_or' => '',
         'terms' => '',
+        'currentterms' => '',
         'categorypage' => '',
         'category_count' => '',
         'category_description' => 'no',
+        'category_description_tag' => '',
+        'category_description_class' => '',
         'morelink' => '',
         'morelink_class' => '',
         'morelink_tag' => '',
@@ -126,10 +148,12 @@ class ListCategoryPosts{
         'pagination' => '',
         'pagination_next' => '>>',
         'pagination_prev' => '<<',
+        'pagination_padding' => '5',
         'no_posts_text' => "",
         'instance' => '0',
         'no_post_titles' => 'no',
         'link_titles' => true,
+        'link_current' => '',
         'link_dates' => 'no',
         'after' => '',
         'after_year' => '',
@@ -141,6 +165,12 @@ class ListCategoryPosts{
         'before_day' => '',
         'tags_as_class' => 'no',
         'pagination_bookmarks' => '',
+        'ol_offset' => '',
+        'main_query' => '',
+        'keep_orderby_filters' => '',
+        'ignore_sticky_posts' => '',
+        'cat_sticky_posts' => '',
+        'main_cat_only' => '',
       );
     }
     return self::$default_params;
@@ -151,8 +181,9 @@ class ListCategoryPosts{
    * @param $atts
    * @param $content
    */
-  static function catlist_func($atts, $content = null) {
-    $atts = shortcode_atts(self::default_params(), $atts);
+  static function catlist_func($atts) {
+    // Can be filtered using the shortcode_atts_catlist hook.
+    $atts = shortcode_atts(self::default_params(), $atts, 'catlist');
 
     if($atts['numberposts'] == ''){
       $atts['numberposts'] = get_option('numberposts');
@@ -172,14 +203,14 @@ add_shortcode( 'catlist', array('ListCategoryPosts', 'catlist_func') );
 function lpc_meta($links, $file) {
   $plugin = plugin_basename(__FILE__);
 
-  if ($file == $plugin):
+  if ($file == $plugin) {
     return array_merge(
       $links,
       array( sprintf('<a href="http://wordpress.org/extend/plugins/list-category-posts/other_notes/">%s</a>', __('How to use','list-category-posts')) ),
       array( sprintf('<a href="http://picandocodigo.net/programacion/wordpress/list-category-posts-wordpress-plugin-english/#support">%s</a>', __('Donate','list-category-posts')) ),
       array( sprintf('<a href="https://github.com/picandocodigo/List-Category-Posts">%s</a>', __('Fork on Github','list-category-posts')) )
     );
-  endif;
+  }
 
   return $links;
 }
@@ -193,25 +224,28 @@ function set_default_numberposts() {
 register_activation_hook( __FILE__, 'set_default_numberposts' );
 
 function load_i18n(){
-  load_plugin_textdomain( 'list-category-posts', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+  load_plugin_textdomain(
+    'list-category-posts',
+    false,
+    dirname( plugin_basename( __FILE__ ) ) . '/languages/'
+  );
 }
 add_action( 'plugins_loaded', 'load_i18n' );
 
 function lcp_pagination_css(){
-  if ( @file_exists( get_stylesheet_directory() . '/lcp_paginator.css' ) ):
+  if ( @file_exists( get_stylesheet_directory() . '/lcp_paginator.css' ) ) {
     $css_file = get_stylesheet_directory_uri() . '/lcp_paginator.css';
-  elseif ( @file_exists( get_template_directory() . '/lcp_paginator.css' ) ):
+  } elseif ( @file_exists( get_template_directory() . '/lcp_paginator.css' ) ) {
     $css_file = get_template_directory_uri() . '/lcp_paginator.css';
-  else:
+  } else {
     $css_file = plugin_dir_url(__FILE__) . '/lcp_paginator.css';
-  endif;
+  }
 
   wp_enqueue_style( 'lcp_paginator', $css_file);
 }
 
 /**
  * TO-DO:
-- Pagination * DONE - Need to add "page" text
 - Add Older Posts at bottom of List Category Post page
 - Simpler template system
 - Exclude child categories

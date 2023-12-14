@@ -9,7 +9,7 @@ function mesmerize_header_background_video($types)
     return $types;
 }
 
-add_filter("mesmerize_header_background_atts", function ($attrs, $bg_type, $inner) {
+add_filter("mesmerize_header_background_attrs", function ($attrs, $bg_type, $inner) {
     if ($bg_type == 'video') {
         $attrs['class'] .= " cp-video-bg";
     }
@@ -21,7 +21,7 @@ add_action("mesmerize_background", function ($bg_type, $inner, $prefix) {
     if ($bg_type == 'video') {
         $internalVideo = get_theme_mod($prefix . '_video', "");
         $video_url     = get_theme_mod($prefix . '_video_external', "");
-        $videoPoster   = get_theme_mod($prefix . '_video_poster', get_template_directory_uri() . "/assets/images/video-poster.jpg");
+        $videoPoster   = get_theme_mod($prefix . '_video_poster', apply_filters('mesmerize_assets_url', get_template_directory_uri() , '/') . "/assets/images/video-poster.jpg");
 
         if ($internalVideo) {
             $video_url = wp_get_attachment_url($internalVideo);
@@ -135,7 +135,7 @@ function mesmerize_header_background_type_video_settings($section, $prefix, $gro
         'settings'          => $prefix . '_video_poster',
         'label'             => esc_html__('Video Poster', 'mesmerize'),
         'section'           => $section,
-        'default'           => get_template_directory_uri() . "/assets/images/video-poster.jpg",
+        'default'           => apply_filters('mesmerize_assets_url', get_template_directory_uri() , '/') . "/assets/images/video-poster.jpg",
         "priority"          => 2,
         'sanitize_callback' => 'esc_url_raw',
         'active_callback'   => array(
@@ -155,7 +155,7 @@ function mesmerize_print_video_container()
     $inner  = mesmerize_is_inner(true);
     $prefix = $inner ? "inner_header" : "header";
     $bgType = get_theme_mod($prefix . "_background_type", null);
-    $poster = get_theme_mod($prefix . '_video_poster', get_template_directory_uri() . "/assets/images/video-poster.jpg");
+    $poster = get_theme_mod($prefix . '_video_poster', apply_filters('mesmerize_assets_url', get_template_directory_uri() , '/') . "/assets/images/video-poster.jpg");
 
     if ($bgType === "video"):
         ?>

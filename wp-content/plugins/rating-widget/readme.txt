@@ -3,8 +3,8 @@ Contributors: ratingwidget, svovaf, leorw, freemius
 Donate link: http://rating-widget.com/pricing/wordpress/
 Tags: rate, rating, ratings, vote, votes, voting, star, stars, like, dislike, thumbs, widget, widgets, star rating, thumb rating, rating platform, rating system, seo, post rating, comment rating, 5 star, five star, sidebar, comment, comments, post, posts, page, pages, google, admin, administrator, review, reviews, rich-snippets, plugin, plugins, ajax, buddypress, bbpress, social, javascript, js, wordpress, meta, woocommerce, jquery, contest, competition, voting contest, rtmedia
 Requires at least: 3.0
-Tested up to: 4.9
-Stable tag: 3.0.1
+Tested up to: 6.3
+Stable tag: 3.2.3
 License: GPLv2 or later
 
 The most popular Five Star Review System on the web. User-friendly ratings for: posts, pages, comments, WooCommerce, BuddyPress and bbPress forums.
@@ -209,6 +209,73 @@ You can contact us regarding paid customization requests here:
 [http://rating-widget.com/contact/](http://rating-widget.com/contact/?platform=wordpress&subject=customization&utm_medium=link&utm_campaign=free&utm_source=wordpress.org)
 
 == Change Log ==
+
+= 3.2.3 - 2023-10-10 =
+* Update: Updated version of Freemius with bug fixes and a new feature (garbage collector).
+
+= 3.2.2 - 2023-10-09 =
+* Update: Improved variables escaping and user capabilities checking.
+* Update: Removed unused resources.
+
+= 3.2.1 - 2023-08-03 =
+* Update: Improved the rating HTML generation.
+
+= 3.2.0 - 2023-07-05 =
+* Update: Updated Freemius SDK to the latest version.
+
+= 3.1.9 - 2023-03-27 =
+* Update: Updated version of Freemius with a minor bug fix.
+
+= 3.1.8 - 2023-02-27 =
+* Update: Updated version of Freemius with bug fixes and new features (connectivity test removed).
+
+= 3.1.7 - 2023-01-23 =
+* Update: Updated version of Freemius with bug fixes.
+
+= 3.1.6 - 2022-11-14 =
+* Update: Updated version of Freemius with a minor bug-fix.
+
+= 3.1.5 - 2022-11-14 =
+* Update: Updated version of Freemius with bug fixes and new features.
+
+= 3.1.4 - 2022-02-28 =
+* Update: Security patch.
+
+= 3.1.3 - 2022-01-06 =
+* Update: Updated version of Freemius with bug fixes and new features (clone resolution is now supported).
+
+= 3.1.2 - 2021-02-03 =
+* Update: Updated version of Freemius with bug fixes and new features.
+
+= 3.1.1 - 2020-10-07 =
+* Update: Updated version of Freemius with bug fixes and new features.
+
+= 3.1.0 - 2020-07-15 =
+* Update: Updated version of Freemius with bug fixes and new features.
+
+= 3.0.9 - 2020-03-11 =
+* Fix: Fixed a fatal error on the "Advanced" settings page.
+
+= 3.0.8 - 2019-12-16 =
+* Update: Updated version of Freemius with bug fixes.
+
+= 3.0.7 - 2019-12-15 =
+* Update: Updated version of Freemius with bug fixes and new features.
+
+= 3.0.6 - 2019-06-04 =
+* Update: Updated version of Freemius with bug fixes and new features.
+
+= 3.0.5 - 2019-02-28 =
+* Update: Security patch.
+
+= 3.0.4 - 2019-01-08 =
+* Update: Updated version of Freemius with bug fixes.
+
+= 3.0.3 - 2018-12-08 =
+* Update: Updated version of Freemius with bug fixes.
+
+= 3.0.2 - 2018-11-25 =
+* Update: Updated version of Freemius with bug fixes and new features.
 
 = 3.0.1 - 2018-08-19 =
 * Fix: Fixed the download link for the premium version on the "Account" section.

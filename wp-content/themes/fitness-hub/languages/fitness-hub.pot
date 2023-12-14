@@ -1,12 +1,12 @@
-# Copyright (C) 2016-2018 the Acme Themes
+# Copyright (C) 2016-2019 the Acme Themes
 # This file is distributed under the GNU General Public License v2 or later.
 
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Fitness Hub\n"
-"POT-Creation-Date: 2018-10-08 18:18+0545\n"
-"PO-Revision-Date: 2018-10-08 18:18+0545\n"
+"POT-Creation-Date: 2019-06-16 23:56+0545\n"
+"PO-Revision-Date: 2019-06-16 23:56+0545\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1063,7 +1063,7 @@ msgstr ""
 #: acmethemes/customizer/customizer-repeater/customizer-control-repeater.php:401
 #: acmethemes/sidebar-widget/acme-about.php:85
 #: acmethemes/sidebar-widget/acme-parallax.php:80
-#: acmethemes/sidebar-widget/acme-testimonial.php:204
+#: acmethemes/sidebar-widget/acme-testimonial.php:203
 msgid "Image preview"
 msgstr ""
 
@@ -1071,7 +1071,7 @@ msgstr ""
 #: acmethemes/customizer/customizer-repeater/customizer-control-repeater.php:404
 #: acmethemes/sidebar-widget/acme-about.php:88
 #: acmethemes/sidebar-widget/acme-parallax.php:83
-#: acmethemes/sidebar-widget/acme-testimonial.php:207
+#: acmethemes/sidebar-widget/acme-testimonial.php:206
 msgid "Upload Image"
 msgstr ""
 
@@ -1084,7 +1084,7 @@ msgstr ""
 #: acmethemes/customizer/customizer-repeater/customizer-control-repeater.php:405
 #: acmethemes/sidebar-widget/acme-about.php:89
 #: acmethemes/sidebar-widget/acme-parallax.php:84
-#: acmethemes/sidebar-widget/acme-testimonial.php:208
+#: acmethemes/sidebar-widget/acme-testimonial.php:207
 msgid "Remove Image"
 msgstr ""
 
@@ -1103,8 +1103,8 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-service.php:151
 #: acmethemes/sidebar-widget/acme-team.php:98
 #: acmethemes/sidebar-widget/acme-team.php:146
-#: acmethemes/sidebar-widget/acme-testimonial.php:98
-#: acmethemes/sidebar-widget/acme-testimonial.php:146
+#: acmethemes/sidebar-widget/acme-testimonial.php:97
+#: acmethemes/sidebar-widget/acme-testimonial.php:145
 msgid "Close"
 msgstr ""
 
@@ -1372,9 +1372,9 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-gallery.php:54
 #: acmethemes/sidebar-widget/acme-parallax.php:62
 #: acmethemes/sidebar-widget/acme-service.php:61
-#: acmethemes/sidebar-widget/acme-social.php:52
+#: acmethemes/sidebar-widget/acme-social.php:50
 #: acmethemes/sidebar-widget/acme-team.php:57
-#: acmethemes/sidebar-widget/acme-testimonial.php:57
+#: acmethemes/sidebar-widget/acme-testimonial.php:56
 msgid "Title"
 msgstr ""
 
@@ -1690,7 +1690,7 @@ msgid "DESC"
 msgstr ""
 
 #: acmethemes/functions.php:303 template-parts/content-page.php:29
-#: template-parts/content-single.php:65 template-parts/content.php:68
+#: template-parts/content-single.php:68 template-parts/content.php:68
 msgid "Pages:"
 msgstr ""
 
@@ -1723,7 +1723,7 @@ msgstr ""
 msgid "%1$s by %2$s"
 msgstr ""
 
-#: acmethemes/hooks/header.php:132
+#: acmethemes/hooks/header.php:131
 msgid "Skip to content"
 msgstr ""
 
@@ -2223,9 +2223,9 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-gallery.php:48
 #: acmethemes/sidebar-widget/acme-parallax.php:56
 #: acmethemes/sidebar-widget/acme-service.php:55
-#: acmethemes/sidebar-widget/acme-social.php:46
+#: acmethemes/sidebar-widget/acme-social.php:44
 #: acmethemes/sidebar-widget/acme-team.php:51
-#: acmethemes/sidebar-widget/acme-testimonial.php:51
+#: acmethemes/sidebar-widget/acme-testimonial.php:50
 msgid "Section ID"
 msgstr ""
 
@@ -2236,9 +2236,9 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-gallery.php:51
 #: acmethemes/sidebar-widget/acme-parallax.php:59
 #: acmethemes/sidebar-widget/acme-service.php:58
-#: acmethemes/sidebar-widget/acme-social.php:49
+#: acmethemes/sidebar-widget/acme-social.php:47
 #: acmethemes/sidebar-widget/acme-team.php:54
-#: acmethemes/sidebar-widget/acme-testimonial.php:54
+#: acmethemes/sidebar-widget/acme-testimonial.php:53
 msgid ""
 "Enter a Unique Section ID. You can use this ID in Menu item for enabling One "
 "Page Menu."
@@ -2246,7 +2246,6 @@ msgstr ""
 
 #: acmethemes/sidebar-widget/acme-about.php:67
 #: acmethemes/sidebar-widget/acme-parallax.php:66
-#: acmethemes/sidebar-widget/acme-social.php:56
 msgid "Short Description"
 msgstr ""
 
@@ -2285,13 +2284,13 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-gallery.php:58
 #: acmethemes/sidebar-widget/acme-service.php:66
 #: acmethemes/sidebar-widget/acme-team.php:61
-#: acmethemes/sidebar-widget/acme-testimonial.php:61
+#: acmethemes/sidebar-widget/acme-testimonial.php:60
 msgid "Select Pages"
 msgstr ""
 
 #: acmethemes/sidebar-widget/acme-class.php:62
 #: acmethemes/sidebar-widget/acme-team.php:63
-#: acmethemes/sidebar-widget/acme-testimonial.php:63
+#: acmethemes/sidebar-widget/acme-testimonial.php:62
 msgid ""
 "Add Page, Reorder and Remove. Please do not forget to add Featured Image and "
 "Excerpt on selected pages"
@@ -2305,8 +2304,8 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-service.php:133
 #: acmethemes/sidebar-widget/acme-team.php:80
 #: acmethemes/sidebar-widget/acme-team.php:128
-#: acmethemes/sidebar-widget/acme-testimonial.php:80
-#: acmethemes/sidebar-widget/acme-testimonial.php:128
+#: acmethemes/sidebar-widget/acme-testimonial.php:79
+#: acmethemes/sidebar-widget/acme-testimonial.php:127
 msgid "Select Item"
 msgstr ""
 
@@ -2319,8 +2318,8 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-service.php:144
 #: acmethemes/sidebar-widget/acme-team.php:91
 #: acmethemes/sidebar-widget/acme-team.php:139
-#: acmethemes/sidebar-widget/acme-testimonial.php:91
-#: acmethemes/sidebar-widget/acme-testimonial.php:139
+#: acmethemes/sidebar-widget/acme-testimonial.php:90
+#: acmethemes/sidebar-widget/acme-testimonial.php:138
 msgid "Select Page"
 msgstr ""
 
@@ -2332,8 +2331,8 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-service.php:150
 #: acmethemes/sidebar-widget/acme-team.php:97
 #: acmethemes/sidebar-widget/acme-team.php:145
-#: acmethemes/sidebar-widget/acme-testimonial.php:97
-#: acmethemes/sidebar-widget/acme-testimonial.php:145
+#: acmethemes/sidebar-widget/acme-testimonial.php:96
+#: acmethemes/sidebar-widget/acme-testimonial.php:144
 msgid "Remove"
 msgstr ""
 
@@ -2341,7 +2340,7 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-gallery.php:100
 #: acmethemes/sidebar-widget/acme-service.php:108
 #: acmethemes/sidebar-widget/acme-team.php:103
-#: acmethemes/sidebar-widget/acme-testimonial.php:103
+#: acmethemes/sidebar-widget/acme-testimonial.php:102
 #: acmethemes/sidebar-widget/sidebar.php:213
 msgid "Full Edit"
 msgstr ""
@@ -2350,7 +2349,7 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-gallery.php:151
 #: acmethemes/sidebar-widget/acme-service.php:159
 #: acmethemes/sidebar-widget/acme-team.php:155
-#: acmethemes/sidebar-widget/acme-testimonial.php:155
+#: acmethemes/sidebar-widget/acme-testimonial.php:154
 msgid "Add Item"
 msgstr ""
 
@@ -2358,14 +2357,14 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-col-posts.php:145
 #: acmethemes/sidebar-widget/acme-service.php:166
 #: acmethemes/sidebar-widget/acme-team.php:160
-#: acmethemes/sidebar-widget/acme-testimonial.php:160
+#: acmethemes/sidebar-widget/acme-testimonial.php:159
 msgid "Content From"
 msgstr ""
 
 #: acmethemes/sidebar-widget/acme-class.php:173
 #: acmethemes/sidebar-widget/acme-service.php:179
 #: acmethemes/sidebar-widget/acme-team.php:173
-#: acmethemes/sidebar-widget/acme-testimonial.php:173
+#: acmethemes/sidebar-widget/acme-testimonial.php:172
 msgid "Number of words in content"
 msgstr ""
 
@@ -2374,7 +2373,7 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-contact.php:101
 #: acmethemes/sidebar-widget/acme-service.php:182
 #: acmethemes/sidebar-widget/acme-team.php:176
-#: acmethemes/sidebar-widget/acme-testimonial.php:176
+#: acmethemes/sidebar-widget/acme-testimonial.php:175
 msgid "Please enter -1 to show full content or 0 to show none"
 msgstr ""
 
@@ -2383,7 +2382,7 @@ msgstr ""
 #: acmethemes/sidebar-widget/acme-gallery.php:158
 #: acmethemes/sidebar-widget/acme-service.php:187
 #: acmethemes/sidebar-widget/acme-team.php:181
-#: acmethemes/sidebar-widget/acme-testimonial.php:181
+#: acmethemes/sidebar-widget/acme-testimonial.php:180
 msgid "Column Number"
 msgstr ""
 
@@ -2502,8 +2501,8 @@ msgstr ""
 
 #: acmethemes/sidebar-widget/acme-parallax.php:71
 #: acmethemes/sidebar-widget/acme-parallax.php:83
-#: acmethemes/sidebar-widget/acme-testimonial.php:195
-#: acmethemes/sidebar-widget/acme-testimonial.php:207
+#: acmethemes/sidebar-widget/acme-testimonial.php:194
+#: acmethemes/sidebar-widget/acme-testimonial.php:206
 msgid "Select Background Image"
 msgstr ""
 
@@ -2525,15 +2524,15 @@ msgstr ""
 msgid "Design Type"
 msgstr ""
 
-#: acmethemes/sidebar-widget/acme-social.php:29
+#: acmethemes/sidebar-widget/acme-social.php:28
 msgid "AT Social Section"
 msgstr ""
 
-#: acmethemes/sidebar-widget/acme-social.php:32
+#: acmethemes/sidebar-widget/acme-social.php:31
 msgid "Show Social Buttons."
 msgstr ""
 
-#: acmethemes/sidebar-widget/acme-social.php:61
+#: acmethemes/sidebar-widget/acme-social.php:55
 #, php-format
 msgid "Add/Edit Social Icons from %1$s Here %2$s "
 msgstr ""
@@ -2546,11 +2545,11 @@ msgstr ""
 msgid "Show Team Section."
 msgstr ""
 
-#: acmethemes/sidebar-widget/acme-testimonial.php:29
+#: acmethemes/sidebar-widget/acme-testimonial.php:28
 msgid "AT Testimonial Section"
 msgstr ""
 
-#: acmethemes/sidebar-widget/acme-testimonial.php:32
+#: acmethemes/sidebar-widget/acme-testimonial.php:31
 msgid "Show Testimonial Section."
 msgstr ""
 

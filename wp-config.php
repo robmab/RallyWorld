@@ -22,7 +22,7 @@ define('DB_NAME', 'robase');
 define('DB_USER', 'rob');
 
 /** Tu contraseña de MySQL */
-define('DB_PASSWORD', 'magic.0294');
+define('DB_PASSWORD', 'unimade');
 
 /** Host de MySQL (es muy probable que no necesites cambiarlo) */
 define('DB_HOST', 'localhost');

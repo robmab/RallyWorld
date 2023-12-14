@@ -64,7 +64,7 @@ function mesmerize_header_background_type_slideshow_settings($section, $prefix, 
             'url' => array(
                 'type'    => 'image',
                 'label'   => esc_attr__('Image', 'mesmerize'),
-                'default' => get_template_directory_uri() . "/assets/images/home_page_header.jpg",
+                'default' => apply_filters('mesmerize_assets_url', get_template_directory_uri() , '/') . "/assets/images/home_page_header.jpg",
             ),
         ),
         'active_callback' => array(

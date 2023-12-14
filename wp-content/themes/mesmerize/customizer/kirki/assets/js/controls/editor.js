@@ -13,7 +13,7 @@ wp.customize.controlConstructor['kirki-editor'] = wp.customize.Control.extend({
 		    setChange,
 		    content;
 
-		jQuery( window ).load( function() {
+		jQuery( window ).on('load', function() {
 
 			var editor  = tinyMCE.get( 'kirki-editor' );
 

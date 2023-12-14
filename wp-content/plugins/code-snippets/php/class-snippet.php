@@ -1,239 +1,131 @@
 <?php
 
+namespace Code_Snippets;
+
+use DateTime;
+use DateTimeZone;
+use Exception;
+
 /**
- * A snippet object
+ * A snippet object.
  *
- * @since 2.4.0
+ * @since   2.4.0
  * @package Code_Snippets
  *
- * @property int         $id             The database ID
- * @property string      $name           The display name
- * @property string      $desc           The formatted description
- * @property string      $code           The executable code
- * @property array       $tags           An array of the tags
- * @property int         $scope          The scope number
- * @property int         $priority       Execution priority
- * @property bool        $active         The active status
- * @property bool        $network        true if is multisite-wide snippet, false if site-wide
- * @property bool        $shared_network Whether the snippet is a shared network snippet
+ * @property int                    $id                 The database ID.
+ * @property string                 $name               The snippet title.
+ * @property string                 $desc               The formatted description.
+ * @property string                 $code               The executable code.
+ * @property array<string>          $tags               An array of the tags.
+ * @property string                 $scope              The scope name.
+ * @property int                    $priority           Execution priority.
+ * @property bool                   $active             The active status.
+ * @property bool                   $network            true if is multisite-wide snippet, false if site-wide.
+ * @property bool                   $shared_network     Whether the snippet is a shared network snippet.
+ * @property string                 $modified           The date and time when the snippet data was most recently saved to the database.
+ * @property array{string,int}|null $code_error         Code error encountered when last testing snippet code.
+ * @property object|null            $conditions         Snippet conditionals
+ * @property int                    $revision           Revision or version number of snippet.
+ * @property string                 $cloud_id           Cloud ID and ownership status of snippet.
  *
- * @property-read array  $tags_list  The tags in string list format
- * @property-read string $scope_name The name of the scope
- * @property-read string $scope_icon The dashicon used to represent the current scope
+ * @property-read string            $display_name       The snippet name if it exists or a placeholder if it does not.
+ * @property-read string            $tags_list          The tags in string list format.
+ * @property-read string            $scope_icon         The dashicon used to represent the current scope.
+ * @property-read string            $scope_name         Human-readable description of the snippet type.
+ * @property-read string            $type               The type of snippet.
+ * @property-read string            $lang               The language that the snippet code is written in.
+ * @property-read int               $modified_timestamp The last modification date in Unix timestamp format.
+ * @property-read DateTime          $modified_local     The last modification date in the local timezone.
+ * @property-read string            $type_desc          Human-readable description of the snippet type.
  */
-class Code_Snippet {
+class Snippet extends Data_Item {
 
 	/**
-	 * The snippet metadata fields.
-	 * Initialized with default values.
-	 * @var array
+	 * MySQL datetime format (YYYY-MM-DD hh:mm:ss).
 	 */
-	private $fields = array(
-		'id'             => 0,
-		'name'           => '',
-		'desc'           => '',
-		'code'           => '',
-		'tags'           => array(),
-		'scope'          => 'global',
-		'active'         => false,
-		'priority'       => 10,
-		'network'        => null,
-		'shared_network' => null,
-	);
-
-	private static $field_aliases = array(
-		'description' => 'desc',
-	);
+	const DATE_FORMAT = 'Y-m-d H:i:s';
 
 	/**
-	 * Constructor function
+	 * Default value used for a datetime variable.
+	 */
+	const DEFAULT_DATE = '0000-00-00 00:00:00';
+
+	/**
+	 * Constructor function.
 	 *
-	 * @param array|object $fields Initial snippet fields
+	 * @param array<string, mixed>|object $initial_data Initial snippet data.
 	 */
-	public function __construct( $fields = null ) {
-		$this->set_fields( $fields );
+	public function __construct( $initial_data = null ) {
+		$default_values = array(
+			'id'             => 0,
+			'name'           => '',
+			'desc'           => '',
+			'code'           => '',
+			'tags'           => array(),
+			'scope'          => 'global',
+			'active'         => false,
+			'priority'       => 10,
+			'network'        => null,
+			'shared_network' => null,
+			'modified'       => null,
+			'code_error'     => null,
+			'revision'       => 1,
+			'cloud_id'       => '',
+		);
+
+		$field_aliases = array(
+			'description' => 'desc',
+			'language'    => 'lang',
+		);
+
+		parent::__construct( $default_values, $initial_data, $field_aliases );
 	}
 
 	/**
-	 * Set all of the snippet fields from an array or object.
-	 * Invalid fields will be ignored
+	 * Add a new tag
 	 *
-	 * @param array|object $fields List of fields
+	 * @param string $tag Tag content to add to list.
 	 */
-	public function set_fields( $fields ) {
+	public function add_tag( string $tag ) {
+		$this->fields['tags'][] = $tag;
+	}
 
-		/* Only accept arrays or objects */
-		if ( ! $fields || is_string( $fields ) ) {
-			return;
+	/**
+	 * Prepare a value before it is stored.
+	 *
+	 * @param mixed  $value Value to prepare.
+	 * @param string $field Field name.
+	 *
+	 * @return mixed Value in the correct format.
+	 */
+	protected function prepare_field( $value, string $field ) {
+		switch ( $field ) {
+			case 'id':
+			case 'priority':
+				return absint( $value );
+
+			case 'tags':
+				return code_snippets_build_tags_array( $value );
+
+			case 'active':
+				return is_bool( $value ) ? $value : (bool) $value;
+
+			default:
+				return $value;
 		}
-
-		/* Convert objects into arrays */
-		if ( is_object( $fields ) ) {
-			$fields = get_object_vars( $fields );
-		}
-
-		/* Loop through the passed fields and set them */
-		foreach ( $fields as $field => $value ) {
-			$this->set_field( $field, $value );
-		}
-	}
-
-	public function get_fields() {
-		return $this->fields;
 	}
 
 	/**
-	 * Internal function for validating the name of a field
+	 * Prepare the scope by ensuring that it is a valid choice
 	 *
-	 * @param string $field A field name
+	 * @param int|string $scope The field as provided.
 	 *
-	 * @return string The validated field name
+	 * @return string The field in the correct format.
 	 */
-	private function validate_field_name( $field ) {
-
-		/* If a field alias is set, remap it to the valid field name */
-		if ( isset( self::$field_aliases[ $field ] ) ) {
-			return self::$field_aliases[ $field ];
-		}
-
-		return $field;
-	}
-
-	/**
-	 * Check if a field is set
-	 *
-	 * @param string $field The field name
-	 *
-	 * @return bool Whether the field is set
-	 */
-	public function __isset( $field ) {
-		$field = $this->validate_field_name( $field );
-
-		return isset( $this->fields[ $field ] ) || method_exists( $this, 'get_' . $field );
-	}
-
-	/**
-	 * Retrieve a field's value
-	 *
-	 * @param string $field The field name
-	 *
-	 * @return mixed The field value
-	 */
-	public function __get( $field ) {
-		$field = $this->validate_field_name( $field );
-
-		if ( method_exists( $this, 'get_' . $field ) ) {
-			return call_user_func( array( $this, 'get_' . $field ) );
-		}
-
-		return $this->fields[ $field ];
-	}
-
-	/**
-	 * Set the value of a field
-	 *
-	 * @param string $field The field name
-	 * @param mixed  $value The field value
-	 */
-	public function __set( $field, $value ) {
-		$field = $this->validate_field_name( $field );
-
-		if ( ! $this->is_allowed_field( $field ) ) {
-
-			if ( WP_DEBUG ) {
-				trigger_error( 'Trying to set invalid property on Snippets class: ' . esc_html( $field ), E_WARNING );
-			}
-
-			return;
-		}
-
-		/* Check if the field value should be filtered */
-		if ( method_exists( $this, 'prepare_' . $field ) ) {
-			$value = call_user_func( array( $this, 'prepare_' . $field ), $value );
-		}
-
-		$this->fields[ $field ] = $value;
-	}
-
-	/**
-	 * Retrieve the list of fields allowed to be written to
-	 *
-	 * @return array
-	 */
-	public function get_allowed_fields() {
-		return array_keys( $this->fields ) + array_keys( self::$field_aliases );
-	}
-
-	/**
-	 * Determine whether a field is allowed to be written to
-	 *
-	 * @param string $field The field name
-	 *
-	 * @return bool true if the is allowed, false if invalid
-	 */
-	public function is_allowed_field( $field ) {
-		return array_key_exists( $field, $this->fields ) || array_key_exists( $field, self::$field_aliases );
-	}
-
-	/**
-	 * Safely set the value for a field.
-	 * If the field name is invalid, false will be returned instead of an error thrown
-	 *
-	 * @param string $field The field name
-	 * @param mixed  $value The field value
-	 *
-	 * @return bool true if the field was set successfully, false if the field name is invalid
-	 */
-	public function set_field( $field, $value ) {
-		if ( ! $this->is_allowed_field( $field ) ) {
-			return false;
-		}
-
-		$this->__set( $field, $value );
-
-		return true;
-	}
-
-	/**
-	 * Prepare the ID by ensuring it is an absolute integer
-	 *
-	 * @param int $id
-	 *
-	 * @return int
-	 */
-	private function prepare_id( $id ) {
-		return absint( $id );
-	}
-
-	/**
-	 * Prepare the code by removing php tags from beginning and end
-	 *
-	 * @param string $code
-	 *
-	 * @return string
-	 */
-	private function prepare_code( $code ) {
-
-		/* Remove <?php and <? from beginning of snippet */
-		$code = preg_replace( '|^[\s]*<\?(php)?|', '', $code );
-
-		/* Remove ?> from end of snippet */
-		$code = preg_replace( '|\?>[\s]*$|', '', $code );
-
-		return $code;
-	}
-
-	/**
-	 * Prepare the scope by ensuring that it is a valid number
-	 *
-	 * @param int $scope The field as provided
-	 *
-	 * @return int The field in the correct format
-	 */
-	private function prepare_scope( $scope ) {
+	protected function prepare_scope( $scope ) {
 		$scopes = self::get_all_scopes();
 
-		if ( in_array( $scope, $scopes ) ) {
+		if ( in_array( $scope, $scopes, true ) ) {
 			return $scope;
 		}
 
@@ -245,52 +137,13 @@ class Code_Snippet {
 	}
 
 	/**
-	 * Prepare the snippet tags by ensuring they are in the correct format
-	 *
-	 * @param string|array $tags The tags as provided
-	 *
-	 * @return array The tags as an array
-	 */
-	private function prepare_tags( $tags ) {
-		return code_snippets_build_tags_array( $tags );
-	}
-
-	/**
-	 * Prepare the active field by ensuring it is the correct type
-	 *
-	 * @param bool|int $active The field as provided
-	 *
-	 * @return bool The field in the correct format
-	 */
-	private function prepare_active( $active ) {
-
-		if ( is_bool( $active ) ) {
-			return $active;
-		}
-
-		return $active ? true : false;
-	}
-
-	/**
-	 * Prepare the priority field by ensuring it is an integer
-	 *
-	 * @param int $priority
-	 *
-	 * @return int
-	 */
-	private function prepare_priority( $priority ) {
-		return intval( $priority );
-	}
-
-	/**
 	 * If $network is anything other than true, set it to false
 	 *
-	 * @param bool $network The provided field
+	 * @param bool $network The field as provided.
 	 *
-	 * @return bool The filtered field
+	 * @return bool The field in the correct format.
 	 */
-	private function prepare_network( $network ) {
-
+	protected function prepare_network( bool $network ): bool {
 		if ( null === $network && function_exists( 'is_network_admin' ) ) {
 			return is_network_admin();
 		}
@@ -299,47 +152,189 @@ class Code_Snippet {
 	}
 
 	/**
-	 * Retrieve the tags in list format
-	 * @return string The tags seperated by a comma and a space
+	 * Determine the type of code this snippet is, based on its scope
+	 *
+	 * @return string The snippet type – will be a filename extension.
 	 */
-	private function get_tags_list() {
-		return implode( ', ', $this->fields['tags'] );
+	protected function get_type(): string {
+		if ( '-css' === substr( $this->scope, -4 ) ) {
+			return 'css';
+		} elseif ( '-js' === substr( $this->scope, -3 ) ) {
+			return 'js';
+		} elseif ( 'content' === substr( $this->scope, -7 ) ) {
+			return 'html';
+		} else {
+			return 'php';
+		}
+	}
+
+	/**
+	 * Retrieve a list of all valid types.
+	 *
+	 * @return string[]
+	 */
+	public static function get_types(): array {
+		return [ 'php', 'html', 'css', 'js' ];
+	}
+
+	/**
+	 * Retrieve description of snippet type.
+	 *
+	 * @return string
+	 */
+	protected function get_type_desc(): string {
+		$labels = [
+			'php'  => __( 'Functions', 'code-snippets' ),
+			'html' => __( 'Content', 'code-snippets' ),
+			'css'  => __( 'Styles', 'code-snippets' ),
+			'js'   => __( 'Scripts', 'code-snippets' ),
+		];
+
+		return isset( $labels[ $this->type ] ) ? $labels[ $this->type ] : strtoupper( $this->type );
+	}
+
+	/**
+	 * Determine the language that the snippet code is written in, based on the scope
+	 *
+	 * @return string The name of a language filename extension.
+	 */
+	protected function get_lang(): string {
+		return $this->type;
+	}
+
+	/**
+	 * Prepare the modification field by ensuring it is in the correct format.
+	 *
+	 * @param DateTime|string $modified Snippet modification date.
+	 *
+	 * @return string
+	 */
+	protected function prepare_modified( $modified ): ?string {
+
+		// If the supplied value is a DateTime object, convert it to string representation.
+		if ( $modified instanceof DateTime ) {
+			return $modified->format( self::DATE_FORMAT );
+		}
+
+		// If the supplied value is probably a timestamp, attempt to convert it to a string.
+		if ( is_numeric( $modified ) ) {
+			return gmdate( self::DATE_FORMAT, $modified );
+		}
+
+		// If the supplied value is a string, check it is not just the default value.
+		if ( is_string( $modified ) && self::DEFAULT_DATE !== $modified ) {
+			return $modified;
+		}
+
+		// Otherwise, discard the supplied value.
+		return null;
+	}
+
+	/**
+	 * Update the last modification date to the current date and time.
+	 *
+	 * @return void
+	 */
+	public function update_modified() {
+		$this->modified = gmdate( self::DATE_FORMAT );
+	}
+
+	/**
+	 * Retrieve the snippet title if set or a placeholder title if not.
+	 *
+	 * @return string
+	 */
+	protected function get_display_name(): string {
+		// translators: %d: snippet ID.
+		return empty( $this->name ) ? sprintf( esc_html__( 'Untitled #%d', 'code-snippets' ), $this->id ) : $this->name;
+	}
+
+	/**
+	 * Retrieve the tags in list format
+	 *
+	 * @return string The tags separated by a comma and a space.
+	 */
+	protected function get_tags_list(): string {
+		return implode( ', ', $this->tags );
 	}
 
 	/**
 	 * Retrieve a list of all available scopes
-	 * @return array
+	 *
+	 * @return array<string> List of scope names.
+	 *
+	 * @phpcs:disable WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine
 	 */
-	public static function get_all_scopes() {
-		return array( 'global', 'admin', 'front-end', 'single-use' );
+	public static function get_all_scopes(): array {
+		return array(
+			'global', 'admin', 'front-end', 'single-use',
+			'content', 'head-content', 'footer-content',
+			'admin-css', 'site-css',
+			'site-head-js', 'site-footer-js',
+		);
 	}
 
 	/**
 	 * Retrieve a list of all scope icons
-	 * @return array
+	 *
+	 * @return array<string, string> Scope name keyed to the class name of a dashicon.
 	 */
-	public static function get_scope_icons() {
+	public static function get_scope_icons(): array {
 		return array(
-			'global'     => 'admin-site',
-			'admin'      => 'admin-tools',
-			'front-end'  => 'admin-appearance',
-			'single-use' => 'clock',
+			'global'         => 'admin-site',
+			'admin'          => 'admin-tools',
+			'front-end'      => 'admin-appearance',
+			'single-use'     => 'clock',
+			'content'        => 'shortcode',
+			'head-content'   => 'editor-code',
+			'footer-content' => 'editor-code',
+			'admin-css'      => 'dashboard',
+			'site-css'       => 'admin-customizer',
+			'site-head-js'   => 'media-code',
+			'site-footer-js' => 'media-code',
 		);
 	}
 
 	/**
 	 * Retrieve the string representation of the scope
-	 * @return string The name of the scope
+	 *
+	 * @return string The name of the scope.
 	 */
-	private function get_scope_name() {
-		return $this->scope;
+	protected function get_scope_name(): string {
+		switch ( $this->scope ) {
+			case 'global':
+				return __( 'Global function', 'code-snippets' );
+			case 'admin':
+				return __( 'Admin function', 'code-snippets' );
+			case 'front-end':
+				return __( 'Front-end function', 'code-snippets' );
+			case 'single-use':
+				return __( 'Single-use function', 'code-snippets' );
+			case 'content':
+				return __( 'Content', 'code-snippets' );
+			case 'head-content':
+				return __( 'Head content', 'code-snippets' );
+			case 'footer-content':
+				return __( 'Footer content', 'code-snippets' );
+			case 'admin-css':
+				return __( 'Admin styles', 'code-snippets' );
+			case 'site-css':
+				return __( 'Front-end styles', 'code-snippets' );
+			case 'site-head-js':
+				return __( 'Head styles', 'code-snippets' );
+			case 'site-footer-js':
+				return __( 'Footer styles', 'code-snippets' );
+		}
+
+		return '';
 	}
 
 	/**
 	 * Retrieve the icon used for the current scope
-	 * @return string a dashicon name
+	 *
+	 * @return string A dashicon name.
 	 */
-	private function get_scope_icon() {
+	protected function get_scope_icon(): string {
 		$icons = self::get_scope_icons();
 
 		return $icons[ $this->scope ];
@@ -347,10 +342,10 @@ class Code_Snippet {
 
 	/**
 	 * Determine if the snippet is a shared network snippet
-	 * @return bool
+	 *
+	 * @return bool Whether the snippet is a shared network snippet.
 	 */
-	private function get_shared_network() {
-
+	protected function get_shared_network(): bool {
 		if ( isset( $this->fields['shared_network'] ) ) {
 			return $this->fields['shared_network'];
 		}
@@ -359,9 +354,95 @@ class Code_Snippet {
 			$this->fields['shared_network'] = false;
 		} else {
 			$shared_network_snippets = get_site_option( 'shared_network_snippets', array() );
-			$this->fields['shared_network'] = in_array( $this->fields['id'], $shared_network_snippets );
+			$this->fields['shared_network'] = in_array( $this->fields['id'], $shared_network_snippets, true );
 		}
 
 		return $this->fields['shared_network'];
+	}
+
+	/**
+	 * Retrieve the snippet modification date as a timestamp.
+	 *
+	 * @return integer Timestamp value.
+	 */
+	protected function get_modified_timestamp(): int {
+		$datetime = DateTime::createFromFormat( self::DATE_FORMAT, $this->modified, new DateTimeZone( 'UTC' ) );
+
+		return $datetime ? $datetime->getTimestamp() : 0;
+	}
+
+	/**
+	 * Retrieve the modification time in the local timezone.
+	 *
+	 * @return DateTime
+	 */
+	protected function get_modified_local(): DateTime {
+		$datetime = DateTime::createFromFormat( self::DATE_FORMAT, $this->modified, new DateTimeZone( 'UTC' ) );
+
+		if ( function_exists( 'wp_timezone' ) ) {
+			$timezone = wp_timezone();
+		} else {
+			$timezone = get_option( 'timezone_string' );
+
+			// Calculate the timezone manually if it is not available.
+			if ( ! $timezone ) {
+				$offset = (float) get_option( 'gmt_offset' );
+				$hours = (int) $offset;
+				$minutes = ( $offset - $hours ) * 60;
+
+				$sign = ( $offset < 0 ) ? '-' : '+';
+				$timezone = sprintf( '%s%02d:%02d', $sign, abs( $hours ), abs( $minutes ) );
+			}
+
+			try {
+				$timezone = new DateTimeZone( $timezone );
+			} catch ( Exception $exception ) {
+				return $datetime;
+			}
+		}
+
+		$datetime->setTimezone( $timezone );
+		return $datetime;
+	}
+
+	/**
+	 * Retrieve the last modified time, nicely formatted for readability.
+	 *
+	 * @param boolean $include_html Whether to include HTML in the output.
+	 *
+	 * @return string
+	 */
+	public function format_modified( bool $include_html = true ): string {
+		if ( ! $this->modified ) {
+			return '';
+		}
+
+		$timestamp = $this->modified_timestamp;
+		$time_diff = time() - $timestamp;
+		$local_time = $this->modified_local;
+
+		if ( $time_diff >= 0 && $time_diff < YEAR_IN_SECONDS ) {
+			// translators: %s: Human-readable time difference.
+			$human_time = sprintf( __( '%s ago', 'code-snippets' ), human_time_diff( $timestamp ) );
+		} else {
+			$human_time = $local_time->format( __( 'Y/m/d', 'code-snippets' ) );
+		}
+
+		if ( ! $include_html ) {
+			return $human_time;
+		}
+
+		// translators: 1: date format, 2: time format.
+		$date_format = _x( '%1$s \a\t %2$s', 'date and time format', 'code-snippets' );
+		$date_format = sprintf( $date_format, get_option( 'date_format' ), get_option( 'time_format' ) );
+
+		return sprintf( '<span title="%s">%s</span>', $local_time->format( $date_format ), $human_time );
+	}
+
+	/**
+	 * Increment the revision number by one.
+	 */
+	public function increment_revision() {
+		++$this->revision;
 	}
 }

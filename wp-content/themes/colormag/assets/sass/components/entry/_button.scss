@@ -1,0 +1,19 @@
+.cm-entry-button {
+	display: inline-block;
+	background-color: $color__primary;
+	border-radius: 2px;
+
+	span {
+		display: inline-block;
+		padding: length( 'l-2', px ) length( 'l-6', px );
+		color: $color__white;
+		@include font-size('font-size-xs');
+		font-weight: 600;
+		cursor: pointer;
+		line-height: 1.8;
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+	}
+}

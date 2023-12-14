@@ -1,4 +1,6 @@
-<?php 
+<?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 // include individual modules
 function wppb_include_default_fields_files() {
     $wppb_generalSettings = get_option('wppb_general_settings', 'not_found' );
@@ -44,5 +46,24 @@ function wppb_include_default_fields_files() {
 
     /* added recaptcha and user role field since version 2.8.2 */
     include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/gdpr/gdpr.php' );
+    include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/gdpr-delete/gdpr-delete.php' );
+
+    /* added email-confirmation field in main plugin since version 3.3.4 */
+    include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/email-confirmation/email-confirmation.php' );
+
+    // added extra fields since version 3.8.1
+    if( !defined( 'WPPB_PAID_PLUGIN_DIR' ) || ( defined( 'WPPB_PAID_PLUGIN_DIR' ) && defined( 'PROFILE_BUILDER_PAID_VERSION' ) ) ){
+
+        include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/avatar/avatar.php' );
+        include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/checkbox/checkbox.php' );
+        include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/heading/heading.php' );
+        include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/input/input.php' );
+        include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/radio/radio.php' );
+        include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/select/select.php' );
+        include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/select2/select2.php' );
+        include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/textarea/textarea.php' );
+
+    }
+
 }
 wppb_include_default_fields_files();

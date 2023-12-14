@@ -421,7 +421,7 @@ class TheLib_Ui extends TheLib {
 			foreach ( $collected as $var => $value ) {
 				printf(
 					'%1$s = %2$s;',
-					$var,
+					esc_html($var),
 					json_encode( $value )
 				);
 			}
@@ -446,7 +446,7 @@ class TheLib_Ui extends TheLib {
 			foreach ( $data as $item ) {
 				printf(
 					'<script>try { %1$s } catch( err ){ window.console.log(err.message); }</script>',
-					$item
+					esc_js($item)
 				);
 			}
 		}
@@ -530,7 +530,7 @@ class TheLib_Ui extends TheLib {
 				printf(
 					'<div class="%1$s notice notice-%1$s is-dismissible %3$s"><p>%2$s</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">%4$s</span></button></div>',
 					esc_attr( $class ),
-					$text,
+					esc_html( $text ),
 					esc_attr( $id ),
 					__( 'Dismiss this notice.' )
 				);

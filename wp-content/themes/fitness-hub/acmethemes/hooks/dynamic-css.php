@@ -73,9 +73,11 @@ if ( ! function_exists( 'fitness_hub_dynamic_css' ) ) :
         $custom_css .= "
             .site-title:hover,
 	        .site-title a:hover,
+	        .site-title a:focus,
 			 .at-social .socials li a,
 			 .primary-color,
 			 #fitness-hub-breadcrumbs a:hover,
+			 #fitness-hub-breadcrumbs a:focus,
 			 .woocommerce .star-rating, 
             .woocommerce ul.products li.product .star-rating,
             .woocommerce p.stars a,
@@ -93,15 +95,30 @@ if ( ! function_exists( 'fitness_hub_dynamic_css' ) ) :
 			.woocommerce input.button.alt:hover,
 			.woocommerce .woocommerce-info .button:hover,
 			.woocommerce .widget_shopping_cart_content .buttons a.button:hover,
+            i.slick-arrow:hover,
+            .main-navigation .navbar-nav >li a:hover,
+            .main-navigation li li a:hover,
+             .woocommerce a.button.add_to_cart_button:focus,
+            .woocommerce a.added_to_cart:focus,
+            .woocommerce a.button.product_type_grouped:focus,
+            .woocommerce a.button.product_type_external:focus,
+            .woocommerce .cart .button:focus,
+            .woocommerce .cart input.button:focus,
+            .woocommerce #respond input#submit.alt:focus,
+			.woocommerce a.button.alt:focus,
+			.woocommerce button.button.alt:focus,
+			.woocommerce input.button.alt:focus,
+			.woocommerce .woocommerce-info .button:focus,
+			.woocommerce .widget_shopping_cart_content .buttons a.button:focus,
+            i.slick-arrow:focus,
+            .main-navigation .navbar-nav >li a:focus,
+            .main-navigation li li a:focus,
 			.woocommerce div.product .woocommerce-tabs ul.tabs li a,
 			.woocommerce-message::before,
-			i.slick-arrow:hover,
 			.acme-contact .contact-page-content ul li strong,
             .main-navigation .acme-normal-page .current_page_item a,
             .main-navigation .acme-normal-page .current-menu-item a,
             .main-navigation .active a,
-            .main-navigation .navbar-nav >li a:hover,
-            .main-navigation li li a:hover,
 			.acme-contact .contact-page-content ul li strong{
                 color: {$fitness_hub_primary_color};
             }";
@@ -109,11 +126,13 @@ if ( ! function_exists( 'fitness_hub_dynamic_css' ) ) :
         /*background color*/
         $custom_css .= "
             .navbar .navbar-toggle:hover,
+            .navbar .navbar-toggle:focus,
             .main-navigation .current_page_ancestor > a:before,
             .comment-form .form-submit input,
             .btn-primary,
             .wpcf7-form input.wpcf7-submit,
             .wpcf7-form input.wpcf7-submit:hover,
+            .wpcf7-form input.wpcf7-submit:focus,
             .sm-up-container,
             .btn-primary.btn-reverse:before,
             #at-shortcode-bootstrap-modal .modal-header,
@@ -121,6 +140,7 @@ if ( ! function_exists( 'fitness_hub_dynamic_css' ) ) :
             .primary-bg,
 			.navigation.pagination .nav-links .page-numbers.current,
 			.navigation.pagination .nav-links a.page-numbers:hover,
+			.navigation.pagination .nav-links a.page-numbers:focus,
 			.woocommerce .product .onsale,
 			.woocommerce span.onsale,
 			.woocommerce a.button.add_to_cart_button,
@@ -143,9 +163,11 @@ if ( ! function_exists( 'fitness_hub_dynamic_css' ) ) :
 			.woocommerce input.button:disabled, 
 			.woocommerce input.button:disabled[disabled],
 			.woocommerce input.button:disabled:hover, 
+			.woocommerce input.button:disabled:focus, 
 			.woocommerce input.button:disabled[disabled]:hover,
+			.woocommerce input.button:disabled[disabled]:focus,
 			 .woocommerce nav.woocommerce-pagination ul li a:focus, 
-			 .woocommerce nav.woocommerce-pagination ul li a:hover, 
+			 .woocommerce nav.woocommerce-pagination ul li a:hover,
 			 .woocommerce nav.woocommerce-pagination ul li span.current,
 			 .woocommerce a.button.wc-forward,
 			 .woocommerce .widget_price_filter .ui-slider .ui-slider-range,
@@ -154,12 +176,16 @@ if ( ! function_exists( 'fitness_hub_dynamic_css' ) ) :
 			 .acme-gallery .read-more,
 			 .woocommerce a.button.alt.disabled, 
               .woocommerce a.button.alt.disabled:hover, 
+              .woocommerce a.button.alt.disabled:focus, 
               .woocommerce a.button.alt:disabled, 
               .woocommerce a.button.alt:disabled:hover, 
+              .woocommerce a.button.alt:disabled:focus, 
               .woocommerce a.button.alt:disabled[disabled], 
               .woocommerce a.button.alt:disabled[disabled]:hover, 
+              .woocommerce a.button.alt:disabled[disabled]:focus, 
               .woocommerce button.button.alt.disabled,
              .woocommerce-MyAccount-navigation ul > li> a:hover,
+             .woocommerce-MyAccount-navigation ul > li> a:focus,
              .woocommerce-MyAccount-navigation ul > li.is-active > a{
                 background-color: {$fitness_hub_primary_color};
                 color:#fff;
@@ -225,7 +251,17 @@ if ( ! function_exists( 'fitness_hub_dynamic_css' ) ) :
         .tags-links a:hover,
         .byline a:hover,
         .nav-links a:hover,
-        .widget li a:hover{
+        .widget li a:hover,
+        .posted-on a:focus,
+        .single-item .fa:focus,
+        .author.vcard a:focus,
+        .cat-links a:focus,
+        .comments-link a:focus,
+        .edit-link a:focus,
+        .tags-links a:focus,
+        .byline a:focus,
+        .nav-links a:focus,
+        .widget li a:focus{
             color: {$fitness_hub_link_hover_color};
         }";
 
@@ -237,7 +273,10 @@ if ( ! function_exists( 'fitness_hub_dynamic_css' ) ) :
         $custom_css .= "
        .btn-reverse:hover,
        .image-slider-wrapper .slider-content .btn-reverse:hover,
-       .at-widgets.at-parallax .btn-reverse:hover{
+       .at-widgets.at-parallax .btn-reverse:hover,
+        .btn-reverse:focus,
+       .image-slider-wrapper .slider-content .btn-reverse:focus,
+       .at-widgets.at-parallax .btn-reverse:focus{
             background: {$fitness_hub_primary_color};
             color:#fff;
             border-color:{$fitness_hub_primary_color};
@@ -264,10 +303,17 @@ if ( ! function_exists( 'fitness_hub_dynamic_css' ) ) :
             -webkit-box-shadow: 0 -130px 92px -35px {$fitness_hub_header_top_bg_color} inset;
             box-shadow: 0 -130px 92px -35px {$fitness_hub_header_top_bg_color} inset;
         }";
-	    
+
+        $custom_css .= "
+       .at-pricing-box:focus-within .at-pricing-img-box::before{
+            -webkit-box-shadow: 0 -130px 92px -35px {$fitness_hub_header_top_bg_color} inset;
+            box-shadow: 0 -130px 92px -35px {$fitness_hub_header_top_bg_color} inset;
+        }";
+
         // Added color options
         $custom_css .= "
-       .filters.button-group button:hover{
+       .filters.button-group button:hover,
+       .filters.button-group button:focus{
             background: {$fitness_hub_primary_color};
             color:#fff;
         }";

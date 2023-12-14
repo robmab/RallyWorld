@@ -2,111 +2,102 @@
 /**
  * The template for displaying Archive page.
  *
- * @package ThemeGrill
- * @subpackage ColorMag
- * @since ColorMag 1.0
+ * @package ColorMag
+ *
+ * @since   ColorMag 1.0.0
  */
 
-get_header(); ?>
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-	<?php do_action( 'colormag_before_body_content' ); ?>
+get_header();
+?>
+<div class="cm-row">
+	<?php
 
-	<div id="primary">
-		<div id="content" class="clearfix">
+	/**
+	 * Hook: colormag_before_body_content.
+	 */
+	do_action( 'colormag_before_body_content' );
+	?>
 
-			<?php if ( have_posts() ) : ?>
+		<div id="cm-primary" class="cm-primary">
 
-				<header class="page-header">
-               <?php if ( is_category() ) {
-                  do_action('colormag_category_title');
-                  single_cat_title();
-                  } else { ?>
-					<h1 class="page-title">
-               <span>
-						<?php
-							if ( is_tag() ) :
-								single_tag_title();
+			<?php
 
-							elseif ( is_author() ) :
-								/* Queue the first post, that way we know
-								 * what author we're dealing with (if that is the case).
-								*/
-								the_post();
-								printf( __( 'Author: %s', 'colormag' ), '<span class="vcard">' . get_the_author() . '</span>' );
-								/* Since we called the_post() above, we need to
-								 * rewind the loop back to the beginning that way
-								 * we can run the loop properly, in full.
-								 */
-								rewind_posts();
+			$grid_layout = 'layout-2';
 
-							elseif ( is_day() ) :
-								printf( __( 'Day: %s', 'colormag' ), '<span>' . get_the_date() . '</span>' );
+			$style = 'cm-layout-2-style-1';
 
-							elseif ( is_month() ) :
-								printf( __( 'Month: %s', 'colormag' ), '<span>' . get_the_date( 'F Y' ) . '</span>' );
+			$col = 'col-2';
 
-							elseif ( is_year() ) :
-								printf( __( 'Year: %s', 'colormag' ), '<span>' . get_the_date( 'Y' ) . '</span>' );
+			/**
+			 * Functions hooked into colormag_action_archive_header action.
+			 *
+			 * @hooked colormag_archive_header - 10
+			 */
+			do_action( 'colormag_action_archive_header' );
 
-							elseif ( is_tax( 'post_format', 'post-format-aside' ) ) :
-								_e( 'Asides', 'colormag' );
+			$pagination_enable = get_theme_mod( 'colormag_enable_pagination', 1 );
+			$pagination_type   = get_theme_mod( 'colormag_pagination_type', 'default' );
+			?>
 
-							elseif ( is_tax( 'post_format', 'post-format-image' ) ) :
-								_e( 'Images', 'colormag');
+			<div class="cm-posts <?php echo esc_attr( 'cm-' . $grid_layout . ' ' . $style . ' ' . $col ); ?>" >
+				<?php
+				if ( have_posts() ) :
 
-							elseif ( is_tax( 'post_format', 'post-format-video' ) ) :
-								_e( 'Videos', 'colormag' );
-
-							elseif ( is_tax( 'post_format', 'post-format-quote' ) ) :
-								_e( 'Quotes', 'colormag' );
-
-							elseif ( is_tax( 'post_format', 'post-format-link' ) ) :
-								_e( 'Links', 'colormag' );
-
-							elseif ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) :
-									woocommerce_page_title( false );
-
-							else :
-								_e( 'Archives', 'colormag' );
-
-							endif;
-						?>
-					</span></h1>
-                  <?php } ?>
-					<?php
-						// Show an optional term description.
-						$term_description = term_description();
-						if ( ! empty( $term_description ) ) :
-							printf( '<div class="taxonomy-description">%s</div>', $term_description );
-						endif;
+					/**
+					 * Hook: colormag_before_archive_page_loop.
+					 */
+					do_action( 'colormag_before_archive_page_loop' );
 					?>
-				</header><!-- .page-header -->
+						<?php
+						while ( have_posts() ) :
+							the_post();
 
-            <div class="article-container">
+							/**
+							 * Include the Post-Type-specific template for the content.
+							 * If you want to override this in a child theme, then include a file
+							 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
+							 */
+							get_template_part( 'template-parts/content', 'archive' );
+						endwhile;
+						?>
 
-   				<?php global $post_i; $post_i = 1; ?>
+					<?php
+					/**
+					 * Hook: colormag_after_archive_page_loop.
+					 */
+					do_action( 'colormag_after_archive_page_loop' );
 
-   				<?php while ( have_posts() ) : the_post(); ?>
+				else :
+					if ( true === apply_filters( 'colormag_archive_page_no_results_filter', true ) ) {
+						get_template_part( 'template-parts/no-results', 'archive' );
+					}
+				endif; // if ( have_posts() ) :
+				?>
+			</div><!-- .cm-posts -->
 
-   					<?php get_template_part( 'content', 'archive' ); ?>
+			<?php
+			if ( 1 == $pagination_enable ) :
+				colormag_pagination();
+			endif;
+			?>
+		</div><!-- #cm-primary -->
 
-   				<?php endwhile; ?>
+	<?php
 
-            </div>
+	colormag_sidebar_select();
 
-				<?php get_template_part( 'navigation', 'archive' ); ?>
+	/**
+	 * Hook: colormag_after_body_content.
+	 */
+	do_action( 'colormag_after_body_content' );
+	?>
 
-			<?php else : ?>
+</div>
 
-				<?php get_template_part( 'no-results', 'archive' ); ?>
-
-			<?php endif; ?>
-
-		</div><!-- #content -->
-	</div><!-- #primary -->
-
-	<?php colormag_sidebar_select(); ?>
-
-	<?php do_action( 'colormag_after_body_content' ); ?>
-
-<?php get_footer(); ?>
+<?php
+get_footer();

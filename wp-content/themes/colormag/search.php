@@ -2,47 +2,103 @@
 /**
  * The template for displaying Search Results pages.
  *
- * @package ThemeGrill
- * @subpackage ColorMag
- * @since ColorMag 1.0
+ * @package ColorMag
+ *
+ * @since   ColorMag 1.0
  */
-get_header(); ?>
 
-	<?php do_action( 'colormag_before_body_content' ); ?>
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-	<div id="primary">
-		<div id="content" class="clearfix">
-			<?php if ( have_posts() ) : ?>
+get_header();
+?>
+<div class="cm-row">
+	<?php
 
-            <header class="page-header">
-               <h1 class="page-title"><?php printf( esc_html__( 'Search Results for: %s', 'colormag' ), get_search_query() ); ?></h1>
-            </header><!-- .page-header -->
+	/**
+	 * Hook: colormag_before_body_content.
+	 */
+	do_action( 'colormag_before_body_content' );
 
-				<div class="article-container">
+	$pagination_enable = get_theme_mod( 'colormag_enable_pagination', 1 );
+	$pagination_type   = get_theme_mod( 'colormag_pagination_type', 'default' );
 
-               <?php global $post_i; $post_i = 1; ?>
+	?>
+		<div id="cm-primary" class="cm-primary">
+			<div class="cm-posts">
+				<?php if ( have_posts() ) : ?>
+					<header class="cm-page-header">
+						<h1 class="cm-page-title">
+							<span>
+								<?php
+								printf(
+									/* Translators: %s: Search query. */
+									esc_html__( 'Search Results for: %s', 'colormag' ),
+									get_search_query()
+								);
+								?>
+							</span>
+						</h1>
+					</header><!-- .cm-page-header -->
 
-               <?php while ( have_posts() ) : the_post(); ?>
+					<?php
+					/**
+					 * Hook: colormag_before_search_results_page_loop.
+					 */
+					do_action( 'colormag_before_search_results_page_loop' );
+					?>
 
-                  <?php get_template_part( 'content', 'archive' ); ?>
+					<div class="article-container">
 
-               <?php endwhile; ?>
+						<?php
+						while ( have_posts() ) :
+							the_post();
 
-            </div>
+							/**
+							 * Include the Post-Type-specific template for the content.
+							 * If you want to override this in a child theme, then include a file
+							 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
+							 */
+							get_template_part( '/template-parts/content', 'archive' );
+						endwhile;
+						?>
 
-            <?php get_template_part( 'navigation', 'archive' ); ?>
+					</div>
 
-         <?php else : ?>
+					<?php
+					/**
+					 * Hook: colormag_after_archive_page_loop.
+					 */
+					do_action( 'colormag_after_search_results_page_loop' );
 
-            <?php get_template_part( 'no-results', 'archive' ); ?>
+				else :
+					if ( true === apply_filters( 'colormag_search_results_page_no_results_filter', true ) ) {
+						get_template_part( 'no-results', 'archive' );
+					}
+				endif;
+				?>
+			</div><!-- .cm-posts -->
 
-         <?php endif; ?>
+			<?php
+			if ( 1 == $pagination_enable ) :
+				colormag_pagination();
+			endif;
+			?>
 
-		</div><!-- #content -->
-	</div><!-- #primary -->
+		</div><!-- #cm-primary -->
 
-	<?php colormag_sidebar_select(); ?>
+	<?php
 
-	<?php do_action( 'colormag_after_body_content' ); ?>
+	colormag_sidebar_select();
 
-<?php get_footer(); ?>
+	/**
+	 * Hook: colormag_after_body_content.
+	 */
+	do_action( 'colormag_after_body_content' );
+	?>
+</div>
+
+<?php
+get_footer();

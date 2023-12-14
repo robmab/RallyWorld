@@ -2,30 +2,27 @@
 
 namespace Mesmerize\Customizer;
 
-class BaseSection extends \WP_Customize_Section
-{
-    protected $cpData = null;
+class BaseSection extends \WP_Customize_Section {
 
-    public function __construct($manager, $id, $cpData = array())
-    {
-        $this->cpData = $cpData;
+	protected $cpData = null;
 
-        $args = (isset($this->cpData['wp_data'])) ? $this->cpData['wp_data'] : array();
-        $args = \Mesmerize\Companion::translateArgs($args);
-         
-        parent::__construct($manager, $id, $args);
-        $this->init();
-    }
+	public function __construct( $manager, $id, $cpData = array() ) {
+		$this->cpData = $cpData;
 
-    
+		$args = ( isset( $this->cpData['wp_data'] ) ) ? $this->cpData['wp_data'] : array();
+		$args = \Mesmerize\Companion::translateArgs( $args );
 
-    final protected function companion()
-    {
-        return \Mesmerize\Companion::instance();
-    }
+		parent::__construct( $manager, $id, $args );
+		$this->init();
+	}
 
-    protected function init()
-    {
-        return true;
-    }
+
+
+	final protected function companion() {
+		return \Mesmerize\Companion::instance();
+	}
+
+	protected function init() {
+		return true;
+	}
 }

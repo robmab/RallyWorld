@@ -66,15 +66,20 @@ abstract class EVF_Admin_Form_Panel {
 	protected $form_data;
 
 	/**
-	 * Primary class constructor.
+	 * Form Settings.
+	 *
+	 * @var array
 	 */
 	public $form_setting;
 
+	/**
+	 * Class constructor.
+	 */
 	public function __construct() {
 		// Load form if found.
-		$form_id            = isset( $_GET['form_id'] ) ? absint( $_GET['form_id'] ) : false;
-		$this->form         = EVF()->form->get( $form_id );
-		$this->form_data    = $this->form ? evf_decode( $this->form->post_content ) : false;
+		$form_id            = isset( $_GET['form_id'] ) ? absint( $_GET['form_id'] ) : 0;
+		$this->form         = evf()->form->get( $form_id );
+		$this->form_data    = is_object( $this->form ) ? evf_decode( $this->form->post_content ) : array();
 		$this->form_setting = isset( $this->form_data['settings'] ) ? $this->form_data['settings'] : array();
 		$this->init();
 
@@ -159,7 +164,7 @@ abstract class EVF_Admin_Form_Panel {
 	 */
 	public function panel_sidebar_section( $name, $slug, $icon = '' ) {
 
-		$class = '';
+		$class  = '';
 		$class .= $slug == 'default' ? ' default' : '';
 		$class .= ! empty( $icon ) ? ' icon' : '';
 
@@ -179,7 +184,7 @@ abstract class EVF_Admin_Form_Panel {
 	/**
 	 * Outputs the panel's primary content.
 	 *
-	 * @since      1.0.0
+	 * @since 1.0.0
 	 */
 	public function panel_content() {}
 }

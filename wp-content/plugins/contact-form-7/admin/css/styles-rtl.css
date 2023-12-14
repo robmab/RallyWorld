@@ -5,10 +5,6 @@
 	padding: 9px 10px 0 15px;
 }
 
-#contact-form-editor-tabs li a span.dashicons {
-	padding: 6px 4px 4px 0;
-}
-
 /*
  * Form Tab
  */
@@ -16,7 +12,7 @@
 	text-align: right;
 }
 
-.tag-generator-panel .control-box > fieldset legend {
+.tag-generator-panel .control-box > fieldset > legend {
 	border: 1px solid #dfdfdf;
 	border-right: 4px solid #00a0d2;
 }
@@ -39,9 +35,24 @@
 /*
  * Welcome Panel
  */
-.welcome-panel .welcome-panel-column,
-.welcome-panel .welcome-panel-column:first-child {
-	padding: 0 0 0 2%;
+.wpcf7-welcome-panel .welcome-panel-close {
+	left: 10px;
+	right: auto;
+	padding: 10px 21px 10px 15px;
+}
+
+.wpcf7-welcome-panel .welcome-panel-close::before {
+	right: 0;
+	left: auto;
+}
+
+.wpcf7-welcome-panel .welcome-panel-content {
+	margin-right: 13px;
+}
+
+.wpcf7-welcome-panel .welcome-panel-column {
+	float: right;
+ 	padding: 0 0 0 2%;
 }
 
 /*

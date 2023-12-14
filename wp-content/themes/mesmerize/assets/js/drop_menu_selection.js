@@ -3,38 +3,41 @@
 (function ($) {
 
     // tap event
-    if (!$.event.special.tap) {
+	 if (!$.event.special.tap) {
+		$.event.special.tap = {
+		  setup: function(data, namespaces) {
+			var $elem = $(this);
+			$elem
+			  .bind('touchstart', $.event.special.tap.handler)
+			  .bind('touchmove', $.event.special.tap.handler)
+			  .bind('touchend', $.event.special.tap.handler);
+		  },
 
-        $.event.special.tap = {
-            setup: function (data, namespaces) {
-                var $elem = $(this);
-                $elem.bind('touchstart', $.event.special.tap.handler)
-                    .bind('touchmove', $.event.special.tap.handler)
-                    .bind('touchend', $.event.special.tap.handler);
-            },
+		  teardown: function(namespaces) {
+			var $elem = $(this);
+			$elem
+			  .unbind('touchstart', $.event.special.tap.handler)
+			  .unbind('touchmove', $.event.special.tap.handler)
+			  .unbind('touchend', $.event.special.tap.handler);
+		  },
 
-            teardown: function (namespaces) {
-                var $elem = $(this);
-                $elem.unbind('touchstart', $.event.special.tap.handler)
-                    .unbind('touchmove', $.event.special.tap.handler)
-                    .unbind('touchend', $.event.special.tap.handler);
-            },
+		  handler: function (event) {
+			var $elem = $(this),
+			  handleObj = event.handleObj,
+			  result;
+			$elem.data(event.type, 1);
+			if (event.type === 'touchend' && !$elem.data('touchmove')) {
+			  event.type = 'tap';
+			  result = handleObj.handler.call(this, event);
+			} else if ($elem.data('touchend')) {
+			  $elem.removeData('touchstart touchmove touchend');
+			}
 
-            handler: function (event) {
+			return result;
+		  },
+		};
+	  }
 
-                var $elem = $(this);
-                $elem.data(event.type, 1);
-                if (event.type === 'touchend' && !$elem.data('touchmove')) {
-                    event.type = 'tap';
-                    $.event.handle.apply(this, arguments);
-                }
-                else if ($elem.data('touchend')) {
-                    $elem.removeData('touchstart touchmove touchend');
-                }
-            }
-        };
-
-    }
 
 
     function deselectItems($menu) {

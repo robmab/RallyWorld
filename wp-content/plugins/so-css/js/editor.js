@@ -47,13 +47,13 @@
 		button: _.template( '<li><a href="#<%= action %>" class="toolbar-button socss-button"><%= text %></a></li>' ),
 		
 		events: {
-			'click .socss-button': 'triggerEvent',
+			'click .socss-button:not(.save)': 'triggerEvent',
 		},
 		
 		triggerEvent: function ( event ) {
 			event.preventDefault();
 			var $target = $( event.currentTarget );
-			$target.blur();
+			$target.trigger( 'blur' );
 			var value = $target.attr( 'href' ).replace( '#', '' );
 			this.$el.trigger( 'click_' + value );
 		},
@@ -88,6 +88,7 @@
 		events: {
 			'click_expand .custom-css-toolbar': 'toggleExpand',
 			'click_visual .custom-css-toolbar': 'showVisualEditor',
+			'click .socss-button.save': 'save',
 			'submit': 'onSubmit',
 		},
 		
@@ -102,6 +103,10 @@
 				}
 			}.bind( this ) );
 			
+		},
+
+		save: function () {
+			socss.save( this );
 		},
 		
 		getSelectedPostCss: function () {
@@ -165,9 +170,7 @@
 		/**
 		 * Do the initial setup of the CodeMirror editor
 		 */
-		setupEditor: function () {
-			this.registerCodeMirrorAutocomplete();
-			
+		setupEditor: function () {			
 			// Setup the Codemirror instance
 			var $textArea = this.$( 'textarea.css-editor' );
 			this.initValue = $textArea.val();
@@ -177,11 +180,12 @@
 			var lineCount = newlineMatches ? newlineMatches.length + 1 : 1;
 			var paddedValue = this.initValue;
 			$textArea.val( paddedValue );
-			this.codeMirror = CodeMirror.fromTextArea( $textArea.get( 0 ), {
+
+			var codeMirrorSettings = {
 				tabSize: 2,
 				lineNumbers: true,
 				mode: 'css',
-				theme: 'neat',
+				theme: $textArea.data( 'theme' ),
 				inputStyle: 'contenteditable', //necessary to allow context menu (right click) copy/paste etc.
 				gutters: [
 					"CodeMirror-lint-markers"
@@ -193,9 +197,30 @@
 				extraKeys: {
 					'Ctrl-F': 'findPersistent',
 					'Alt-G': 'jumpToLine',
+				},
+			}
+
+			if ( typeof wp.codeEditor != "undefined" ) {
+				codeMirrorSettings = _.extend(
+					wp.codeEditor.defaultSettings.codemirror,
+					codeMirrorSettings
+				);
+				this.codeMirror = wp.codeEditor.initialize( $textArea.get( 0 ), codeMirrorSettings ).codemirror;
+			} else {
+				this.registerCodeMirrorAutocomplete();
+				this.codeMirror = CodeMirror.fromTextArea( $textArea.get( 0 ), codeMirrorSettings );
+				this.setupCodeMirrorExtensions();
+			}
+
+			var editor = this.codeMirror;
+			$( '#so_css_editor_theme' ).on( 'change', function() {
+				if ( $( this ).val() == 1 ) {
+					editor.setOption( 'theme', 'neat' );
+				} else {
+					editor.setOption( 'theme', 'ambiance' );
 				}
 			} );
-			
+
 			this.codeMirror.on( 'change', function ( cm, change ) {
 				var selectedPost = this.model.get( 'selectedPost' );
 				if ( selectedPost && selectedPost.get( 'css' ) !== cm.getValue().trim() ) {
@@ -220,9 +245,6 @@
 			$( window ).on( 'resize', function () {
 				this.scaleEditor();
 			}.bind( this ) );
-			
-			// Setup the extensions
-			this.setupCodeMirrorExtensions();
 		},
 		
 		onSubmit: function () {
@@ -340,20 +362,22 @@
 				}
 			}.bind( this ) );
 			
-			// This sets up automatic autocompletion at all times
-			this.codeMirror.on( 'keyup', function ( cm, e ) {
-				if (
-					( e.keyCode >= 65 && e.keyCode <= 90 ) ||
-					( e.keyCode === 189 && !e.shiftKey ) ||
-					( e.keyCode === 190 && !e.shiftKey ) ||
-					( e.keyCode === 51 && e.shiftKey ) ||
-					( e.keyCode === 189 && e.shiftKey )
-				) {
-					cm.showHint( {
-						completeSingle: false
-					} );
-				}
-			} );
+			if ( typeof CodeMirror.showHint == 'function' ) {
+				// This sets up automatic autocompletion at all times
+				this.codeMirror.on( 'keyup', function ( cm, e ) {
+					if (
+						( e.keyCode >= 65 && e.keyCode <= 90 ) ||
+						( e.keyCode === 189 && !e.shiftKey ) ||
+						( e.keyCode === 190 && !e.shiftKey ) ||
+						( e.keyCode === 51 && e.shiftKey ) ||
+						( e.keyCode === 189 && e.shiftKey )
+					) {
+						cm.showHint( {
+							completeSingle: false
+						} );
+					}
+				} );
+			}
 		},
 		
 		/**
@@ -361,10 +385,13 @@
 		 */
 		scaleEditor: function () {
 			var windowHeight = $( window ).outerHeight();
+			var areaHeight;
 			if ( this.$el.hasClass( 'expanded' ) ) {
 				// If we're in the expanded view, then resize the editor
 				this.$el.find( '.CodeMirror-scroll' ).css( 'max-height', '' );
-				this.codeMirror.setSize( '100%', windowHeight - this.$( '.custom-css-toolbar' ).outerHeight() );
+				areaHeight = windowHeight - this.$( '.custom-css-toolbar' ).outerHeight();
+				this.codeMirror.setSize( '100%', areaHeight );
+				this.$el.find( '.CodeMirror-scroll' ).css( 'height', '100%' );
 			}
 			else {
 				// Attempt to calculate approximate space available for editor when not expanded.
@@ -372,12 +399,19 @@
 				var otherEltsHeight = $( '#wpadminbar' ).outerHeight( true ) +
 					$( '#siteorigin-custom-css' ).find( '> h2' ).outerHeight( true ) +
 					$form.find( '> .custom-css-toolbar' ).outerHeight( true ) +
-					$form.find( '> p.description' ).outerHeight( true ) +
-					$form.find( '> p.submit' ).outerHeight( true ) +
+					$form.find( '> .so-css-footer' ).outerHeight( true ) +
 					parseFloat( $( '#wpbody-content' ).css( 'padding-bottom' ) );
-				this.$el.find( '.CodeMirror-scroll' ).css( 'max-height', windowHeight - otherEltsHeight );
+
+				areaHeight = windowHeight - otherEltsHeight;
+				// The container has a min-height of 300px so we need to ensure the areaHeight is at least that large.
+				if ( areaHeight < 300 ) {
+					areaHeight = 300;
+				}
+
 				this.codeMirror.setSize( '100%', 'auto' );
+				this.$el.find( '.CodeMirror-scroll' ).css( 'height', areaHeight + 'px' );
 			}
+			this.$el.find( '.CodeMirror-code' ).css( 'height', areaHeight + 'px' );
 		},
 		
 		/**
@@ -391,7 +425,8 @@
 		/**
 		 * Toggle if this is expanded or not
 		 */
-		toggleExpand: function () {
+		toggleExpand: function ( e ) {
+			$( '.editor-expand' ).attr( 'title', $( '.so-css-icon-' + ( this.isExpanded() ? 'expand' : 'compress ') ).attr( 'title' ) );
 			this.$el.toggleClass( 'expanded' );
 			this.scaleEditor();
 		},
@@ -561,15 +596,17 @@
 			this.currentUri.removeQuery( 'so_css_preview' );
 			this.$( '#preview-navigator input' ).val( this.currentUri.toString() );
 			this.currentUri.addQuery( 'so_css_preview', 1 );
-			
+
+			var wcCheck = $$.contents().find( '.single-product' ).length;
 			$$.contents().find( 'a' ).each( function () {
-				var href = $( this ).attr( 'href' );
-				if ( href === undefined ) {
+				var link = $( this );
+				var href = link.attr( 'href' );
+				if ( href === undefined || ( wcCheck && link.parents( '.wc-tabs' ).length ) ) {
 					return true;
 				}
-				
+
 				var firstSeperator = ( href.indexOf( '?' ) === -1 ? '?' : '&' );
-				$( this ).attr( 'href', href + firstSeperator + 'so_css_preview=1' );
+				link.attr( 'href', href + firstSeperator + 'so_css_preview=1' );
 			} );
 			
 			this.updatePreviewCss();
@@ -588,9 +625,9 @@
 					this.originalUri.host() !== newUri.host() ||
 					this.originalUri.protocol() !== newUri.protocol()
 				) {
-					$$.blur();
+					$$.trigger( 'blur' );
 					alert( $$.data( 'invalid-uri' ) );
-					$$.focus();
+					$$.trigger( 'focus' );
 				}
 				else {
 					newUri.addQuery( 'so_css_preview', 1 );
@@ -679,7 +716,7 @@
 			}
 			
 			// Click on the first one
-			this.$( '.snippets li.snippet' ).eq( 0 ).click();
+			this.$( '.snippets li.snippet' ).eq( 0 ).trigger( 'click' );
 			
 			this.attach();
 			return this;
@@ -745,14 +782,53 @@
 			this.$el.hide();
 		}
 	} );
-	
-	
+
+	socss.save = function ( view ) {
+		let saveBtn = $( '#siteorigin-custom-css .save' );
+		var css;
+
+		if ( ! saveBtn.hasClass( 'button-primary-disabled' ) ) {
+			saveBtn.addClass( 'button-primary-disabled' )
+
+			// Which view is the user using?
+			if ( typeof view.editor != 'undefined' ) {
+				// Visual.
+				css = view.editor.codeMirror.getValue().trim();
+				view.updateMainEditor( true );
+			} else {
+				// Expanded.
+				css = view.codeMirror.getValue().trim();
+			}
+			$.post(
+				socssOptions.ajaxurl,
+				{
+					action: 'socss_save_css',
+					css: css,
+				},
+				null,
+				'html'
+			).done( function ( response ) {
+				if ( response.length ) {
+					// Update was successful. Update revisions list.
+					$( '.custom-revisions-list' ).html( response );
+				}
+			})
+			.fail( function ( error ) {
+				// Something went wrong. Output the error message as an alert.
+				alert( error.responseText );
+			} )
+			.always( function () {
+				saveBtn.removeClass( 'button-primary-disabled' )
+			} );
+		}
+	};
+
 	/**
 	 * The visual properties editor
 	 */
 	socss.view.properties = Backbone.View.extend( {
 		
-		tabTemplate: _.template( '<li data-section="<%- id %>"><span class="fa fa-<%- icon %>"></span> <%- title %></li>' ),
+		tabTemplate: _.template( '<li data-section="<%- id %>"><span class="so-css-icon so-css-icon-<%- icon %>"></span> <%- title %></li>' ),
 		sectionTemplate: _.template( '<div class="section" data-section="<%- id %>"><table class="fields-table"><tbody></tbody></table></div>' ),
 		controllerTemplate: _.template( '<tr><th scope="row"><%- title %></th><td></td></tr>' ),
 		
@@ -788,6 +864,7 @@
 		
 		events: {
 			'click .close': 'hide',
+			'click .save': 'save',
 			'click .section-tabs li': 'onTabClick',
 			'change .toolbar select': 'onToolbarSelectChange',
 		},
@@ -863,7 +940,7 @@
 			}
 			
 			// Switch to the first tab.
-			this.$( '.section-tabs li' ).eq( 0 ).click();
+			this.$( '.section-tabs li' ).eq( 0 ).trigger( 'click' );
 		},
 		
 		onTabClick: function ( event ) {
@@ -1043,6 +1120,10 @@
 			// Update the main editor with compressed CSS when we close the properties editor
 			this.updateMainEditor( true );
 		},
+
+		save: function () {
+			socss.save( this );
+		},
 		
 		/**
 		 * @returns boolean
@@ -1105,7 +1186,7 @@
 				activeSelector = dropdown.find( 'option' ).eq( 0 ).attr( 'val' );
 			}
 			if ( !_.isEmpty( activeSelector ) ) {
-				dropdown.val( activeSelector ).change();
+				dropdown.val( activeSelector ).trigger( 'change' );
 			}
 		},
 		
@@ -1132,7 +1213,7 @@
 			
 			if ( dropdown.val() === selector ) {
 				// Trigger a change event to load the existing selector
-				dropdown.change();
+				dropdown.trigger( 'change' );
 			}
 			else {
 				// The selector doesn't exist, so add it to the CSS, then reload
@@ -1303,15 +1384,15 @@
 			var $tc = $( '<div class="select-tabs"></div>' ).appendTo( this.$el );
 			
 			// Add the none value
-			$( '<div class="select-tab" data-value=""><span class="fa fa-circle-o"></span></div>' ).appendTo( $tc );
+			$( '<div class="select-tab" data-value=""><span class="so-css-icon so-css-icon-circle"></span></div>' ).appendTo( $tc );
 			
 			// Now add one for each of the option icons
 			for ( var k in this.args.option_icons ) {
 				$( '<div class="select-tab"></div>' )
 				.appendTo( $tc )
 				.append(
-					$( '<span class="fa"></span>' )
-					.addClass( 'fa-' + this.args.option_icons[ k ] )
+					$( '<span class="so-css-icon"></span>' )
+					.addClass( 'so-css-icon-' + this.args.option_icons[ k ] )
 				)
 				.attr( 'data-value', k )
 				;
@@ -1347,7 +1428,7 @@
 	
 	// A field that lets a user upload an image
 	socss.view.properties.controllers.image = socss.view.propertyController.extend( {
-		template: _.template( '<input type="text" value="" /> <span class="select socss-button"><span class="fa fa-upload"></span></span>' ),
+		template: _.template( '<input type="text" value="" /> <span class="select socss-button"><span class="so-css-icon so-css-icon-upload"></span></span>' ),
 		
 		events: {
 			'click .select': 'openMedia',
@@ -1385,7 +1466,8 @@
 				var val = this.args.value.replace( '{{url}}', attachment.url );
 				
 				// Change the field value and trigger a change event
-				this.field.val( val ).change();
+				this.field.val( val ).trigger( 'change' );
+				this.trigger( 'set_value', val );
 				
 				// Close the image selector
 				this.media.close();
@@ -1509,8 +1591,8 @@
 			
 			// Now add the increment/decrement buttons
 			var $diw = $( '<div class="socss-diw"></div>' ).appendTo( this.$el );
-			var $dec = $( '<div class="dec-button socss-button"><span class="fa fa-minus"></span></div>' ).appendTo( $diw );
-			var $inc = $( '<div class="inc-button socss-button"><span class="fa fa-plus"></span></div>' ).appendTo( $diw );
+			var $dec = $( '<div class="dec-button socss-button"><span class="so-css-icon so-css-icon-minus"></span></div>' ).appendTo( $diw );
+			var $inc = $( '<div class="inc-button socss-button"><span class="so-css-icon so-css-icon-plus"></span></div>' ).appendTo( $diw );
 			
 			this.setupStepButton( $dec );
 			this.setupStepButton( $inc );
@@ -1603,7 +1685,7 @@
 			var direction = $button.is( '.dec-button' ) ? -1 : 1;
 			var intervalId;
 			var timeoutId;
-			$button.mousedown( function () {
+			$button.on( 'mousedown', function() {
 				this.stepValue( direction );
 				timeoutId = setTimeout( function () {
 					intervalId = setInterval( function () {
@@ -1651,8 +1733,8 @@
 			
 			// Now add the increment/decrement buttons
 			var $diw = $( '<div class="socss-diw"></div>' ).appendTo( this.$el );
-			var $dec = $( '<div class="dec-button socss-button"><span class="fa fa-minus"></span></div>' ).appendTo( $diw );
-			var $inc = $( '<div class="inc-button socss-button"><span class="fa fa-plus"></span></div>' ).appendTo( $diw );
+			var $dec = $( '<div class="dec-button socss-button"><span class="so-css-icon so-css-icon-minus"></span></div>' ).appendTo( $diw );
+			var $inc = $( '<div class="inc-button socss-button"><span class="so-css-icon so-css-icon-plus"></span></div>' ).appendTo( $diw );
 			
 			this.setupStepButton( $dec );
 			this.setupStepButton( $inc );
@@ -1687,7 +1769,7 @@
 			var direction = $button.is( '.dec-button' ) ? this.args.decrement : this.args.increment;
 			var intervalId;
 			var timeoutId;
-			$button.mousedown( function () {
+			$button.on( 'mousedown', function() {
 				this.stepValue( direction );
 				timeoutId = setTimeout( function () {
 					intervalId = setInterval( function () {
@@ -1726,6 +1808,12 @@
 			if ( !this.args.hasAll ) {
 				this.$( '.select-tab' ).eq( 0 ).remove();
 				this.$( '.select-tab' ).css( 'width', '25%' );
+			}
+
+			if ( ! this.args.isRadius ) {
+				this.$( '.select-tabs[data-type="radius"]' ).remove();
+			} else {
+				this.$( '.select-tabs[data-type="box"]' ).remove();
 			}
 			
 			this.$( '.select-tab' ).each( function ( index, element ) {
@@ -1809,7 +1897,7 @@ jQuery( function ( $ ) {
 	editor.setSnippets( socssOptions.snippets );
 	
 	// This is for hiding the getting started video
-	$( '#so-custom-css-getting-started a.hide' ).click( function ( e ) {
+	$( '#so-custom-css-getting-started a.hide' ).on( 'click', function( e ) {
 		e.preventDefault();
 		$( '#so-custom-css-getting-started' ).slideUp();
 		$.get( $( this ).attr( 'href' ) );
@@ -1817,4 +1905,30 @@ jQuery( function ( $ ) {
 	
 	window.socss.mainEditor = editor;
 	$( socss ).trigger( 'initialized' );
+
+	$( '.button-primary[name="siteorigin_custom_css_save"]' ).on( 'click', function() {
+		$( '#so-custom-css-form' ).trigger( 'submit' );
+	} );
+
+	$( '.installer-link' ).on( 'click', function( e ) {
+		e.preventDefault();
+		$( this ).hide();
+		$( '.installer-container' ).slideDown( 'fast' );
+	} );
+
+	$( '.installer_status' ).on( 'change', function() {
+		var $$ = $( this );
+		$$.prop( 'disabled', true );
+		jQuery.post(
+			ajaxurl,
+			{
+				action: 'so_installer_status',
+				nonce: $$.data( 'nonce' ),
+				status: $$.is( ':checked' )
+			},
+			function() {
+				$$.prop( 'disabled', false );
+			}
+		);
+	} );
 } );

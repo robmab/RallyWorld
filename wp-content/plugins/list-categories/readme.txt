@@ -3,21 +3,22 @@ Contributors: fernandobt
 Donate Link: http://picandocodigo.net/programacion/wordpress/list-category-posts-wordpress-plugin-english/#support
 Tags: list, categories, cms
 Requires at least: 3.3
-Tested up to: 5.0
-Stable tag: 0.2
+Tested up to: 6.4.2
+Stable tag: 0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-Simple plugin to display categories in any post or page with a shortcode. It's basically a shortcode API interface to the [wp_list_categories](http://codex.wordpress.org/Template_Tags/wp_list_categories) WordPress function.
+Simple plugin to display categories in any post or page with a shortcode. It's basically a shortcode API interface to the [wp_list_categories](https://developer.wordpress.org/reference/functions/wp_list_categories/) WordPress function. This means given any of the [parameters](https://developer.wordpress.org/reference/functions/wp_list_categories/#parameters) accepted by the function, you can pass it in as a shortcode parameter to the `categories` shortcode.
 
 Usage:
 
 `[categories orderby=count]`
 
-Will display links to all the categories and order them by number of
-posts in each category.
+Will display links to all the categories and order them by number of posts in each category.
+
+You can also **list tags** or any other WordPress taxonomy. You need to pass a value to the `taxonomy` parameter. For example to list tags: `[categories taxonomy=post_tag title_li="Tags"]`.
 
 ==Installation==
 
@@ -46,7 +47,7 @@ By default, the usage shows:
   * All categories.
   * The list is rendered using a new walker object of the the Walker_Category class
 
-See [wp_list_categories](http://codex.wordpress.org/Template_Tags/wp_list_categories) for usage.
+See [wp_list_categories](https://developer.wordpress.org/reference/functions/wp_list_categories/) for usage.
 
 ==Markup and Styling of Category Lists==
 
@@ -79,6 +80,15 @@ For outputting the list into columns, you can use [CSS’s multicolumns](https:/
 `
 
 ==Changelog==
+
+= 0.4 =
+
+* Tested up to the latest version of WordPress.
+
+= 0.3 =
+
+* Tested up to the latest version of WordPress
+* Adds note about taxonomies, updates parameters
 
 = 0.2 =
 

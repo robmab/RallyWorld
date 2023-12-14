@@ -215,6 +215,14 @@ var fields 	=	{
 																						true
 																					]
 																},
+						'GDPR Delete Button':					{	'show_rows'	:	[
+																						'.row-field-title',
+																						'.row-description',
+																					],
+																	'properties':	{
+																						'meta_name_value'	: ''
+																					}
+																},
 
 						'Heading':								{	'show_rows'	:	[
 																						'.row-field-title',
@@ -245,7 +253,19 @@ var fields 	=	{
 																						'.row-overwrite-existing'
 																					]
 																},
-
+						'Email Confirmation':					{	'show_rows'	:	[
+																						'.row-field-title',
+																						'.row-field',
+																						'.row-description',
+																						'.row-required'
+																					],
+																	'required'	:	[
+																		true
+																	],
+																	'properties':	{
+																		'meta_name_value'	: ''
+																	}
+																},
 						'URL':								{	'show_rows'	:	[
 																						'.row-field-title',
 																						'.row-meta-name',
@@ -269,6 +289,14 @@ var fields 	=	{
                                                                                     ]
                         },
 						'Input (Hidden)':						{	'show_rows'	:	[
+																						'.row-field-title',
+																						'.row-meta-name',
+																						'.row-description',
+																						'.row-default-value',
+																						'.row-overwrite-existing'
+																					]
+																},
+						'Language':								{	'show_rows'	:	[
 																						'.row-field-title',
 																						'.row-meta-name',
 																						'.row-description',
@@ -366,9 +394,46 @@ var fields 	=	{
 																					'.row-cpt',
 																					'.row-required',
 																					'.row-overwrite-existing'
-																				]
+																					]
 																},
-
+						"Select2": 								{	'show_rows'	:	[
+																					'.row-field-title',
+																					'.row-meta-name',
+																					'.row-description',
+																					'.row-default-option',
+																					'.row-required',
+																					'.row-overwrite-existing',
+																					'.row-options',
+																					'.row-labels',
+																					'.row-visibility',
+																					'.row-user-role-visibility',
+																					'.row-location-visibility'
+																					]
+																},
+						"Select2 (Multiple)": 					{	'show_rows' :   [
+																					'.row-field-title',
+																					'.row-meta-name',
+																					'.row-description',
+																					'.row-default-options',
+																					'.row-required',
+																					'.row-overwrite-existing',
+																					'.row-options',
+																					'.row-labels',
+																					'.row-select2-multiple-limit',
+																					'.row-select2-multiple-tags',
+																					'.row-visibility',
+																					'.row-user-role-visibility',
+																					'.row-location-visibility'
+																					]
+																},
+						'Honeypot':								{	'show_rows'	:	[
+																					'.row-field-title'
+																					],
+																	'properties':	{
+																		'meta_name_value'	: 'honeypot',
+																		'field_title'		: wppb_fields_strings.honeypot_title
+																	}
+						},
 						'Checkbox':								{	'show_rows'	:	[
 																						'.row-field-title',
 																						'.row-meta-name',
@@ -409,8 +474,10 @@ var fields 	=	{
 																						'.row-field-title',
 																						'.row-meta-name',
 																						'.row-description',
+																						'.row-simple-upload',
 																						'.row-allowed-extensions',
 																						'.row-required',
+																						'.row-overwrite-existing',
 																						'.row-allowed-upload-extensions'
 																					]
 																},
@@ -419,6 +486,7 @@ var fields 	=	{
 																						'.row-field-title',
 																						'.row-meta-name',
 																						'.row-description',
+																						'.row-simple-upload',
 																						'.row-allowed-image-extensions',
 																						'.row-avatar-size',
 																						'.row-required',
@@ -493,6 +561,7 @@ var fields 	=	{
                                                                                         '.row-field-title',
                                                                                         '.row-description',
                                                                                         '.row-user-roles',
+                                                                                        '.row-user-roles-on-edit-profile',
                                                                                         '.row-required'
                                                                                     ],
                                                                     'properties':	{
@@ -509,8 +578,15 @@ var fields 	=	{
                                                                                         '.row-map-default-lng',
                                                                                         '.row-map-default-zoom',
                                                                                         '.row-map-height',
-                                                                                        '.row-required'
-                                                                                    ]
+                                                                                        '.row-map-pins-load-type',
+                                                                                        '.row-map-pagination-number',
+                                                                                        '.row-map-bubble-fields',
+                                                                                        '.row-required',
+																						'.row-overwrite-existing'
+                                                                                    ],
+																	'properties':	{
+																		'meta_name_value'	: 'map'
+																	}
                                                                 },
 						'HTML':              					{	'show_rows'	:	[
 																						'.row-field-title',
@@ -561,7 +637,7 @@ function wppb_hide_properties_for_already_added_fields( container_name ){
 
 function wppb_hide_all ( container_name ){
 	jQuery( container_name + ' ' + '.mb-list-entry-fields > li' ).each(function() {
-		if ( !( ( jQuery(this).hasClass('row-field') ) || ( jQuery(this).children().hasClass('button-primary') ) ) ){
+		if ( !( ( jQuery(this).hasClass('row-field') ) || ( jQuery(this).children().hasClass('button-primary') ) ) || jQuery(this).hasClass('row-rpf-button') ){
 			jQuery(this).hide();
 		}
 	});
@@ -605,11 +681,11 @@ function wppb_edit_form_properties( container_name, element_id ){
 	field = jQuery( container_name + ' #' + element_id + ' ' + '#field' ).val();
 
 	if ( ( field in fields ) ){
-		var to_show = fields[jQuery.trim(field)]['show_rows'];
+		var to_show = fields[ field.trim() ]['show_rows'];
 		for (var key in to_show)
 			jQuery( container_name + ' #' + element_id + ' ' + to_show[key] ).show();
 
-        var properties = fields[ jQuery.trim(field) ]['properties'];
+        var properties = fields[ field.trim() ]['properties'];
         if( typeof properties !== 'undefined' && properties ) {
             for( var key in properties ) {
                 if( typeof properties['meta_name_value'] !== 'undefined' ) {
@@ -627,12 +703,13 @@ function wppb_edit_form_properties( container_name, element_id ){
 
 
 function wppb_display_needed_fields( index, container_name, current_field_select ){
-	var show_rows = fields[jQuery.trim(index)]['show_rows'];
+
+	var show_rows = fields[index.trim()]['show_rows'];
 	for (var key in show_rows) {
 		jQuery(  show_rows[key], jQuery( current_field_select ).parents( '.mb-list-entry-fields' ) ).show();
 	}
 
-	var properties = fields[jQuery.trim(index)]['properties'];
+	var properties = fields[index.trim()]['properties'];
 	if ( ( ( typeof properties !== 'undefined' ) && ( properties ) ) ) { //the extra (second) condition is a particular case since only the username is defined in our global array that has no meta-name
 		for (var key in properties) {
 			if ( ( typeof properties['meta_name_value'] !== 'undefined' ) ){
@@ -692,7 +769,7 @@ function wppb_display_needed_fields( index, container_name, current_field_select
     //Handle user role sorting
     wppb_handle_user_role_field( container_name );
 
-	var set_required = fields[jQuery.trim(index)]['required'];
+	var set_required = fields[index.trim()]['required'];
 	if ( ( typeof set_required !== 'undefined' ) && ( set_required ) ){
 		jQuery( container_name + ' ' + '#required' ).val( 'Yes' );
 		jQuery( container_name + ' ' + '#required' ).attr( 'disabled', true );
@@ -780,10 +857,10 @@ function wppb_initialize_live_select( container_name ){
 function wppb_enable_select2(container_name){
     // Select2 initialization on manage fields.
 
-    jQuery( container_name + ' #field').select2({
+	wppbSelect2.call( jQuery( container_name + ' #field'), {
         placeholder: 'Select an option',
         allowClear: true
-    })
+    });
 
     var $eventSelect = jQuery( container_name + ' #field');
     $eventSelect.on("select2:open", function (e) {
@@ -808,3 +885,84 @@ jQuery(function(){
     wppb_enable_select2('#wppb_manage_fields');
 
 });
+
+// Custom functionality for sorting options (see the Map POIs attributes).
+(function ($) {
+	window.SortSelCheck = {
+		// Initiate the events and triggers.
+		init: function () {
+			SortSelCheck.assess();
+			SortSelCheck.listen();
+		},
+
+		// Listen for events.
+		listen: function () {
+			// Listen for the new element setup and trigger the expected custom event.
+			$('.wck-add-form').on('change', function() {
+				SortSelCheck.assess('wck-add-form');
+			});
+		},
+
+		// Assess the potential elements and configure these when possible.
+		assess: function (elem) {
+			var $elem = $('.wppb_sortable_checkboxes_wrap');
+			// console.log('assess triggerer ' + elem, $elem);
+			$elem.each(function() {
+				$rows = SortSelCheck.remake($(this));
+				SortSelCheck.attach($(this), $rows);
+			});
+		},
+
+		// Configure the elements that form the sortable checkboxes options.
+		remake: function ($field) {
+			var $rows = $field.children('.wck-checkboxes');
+			if (!$rows.length) {
+				$field.prepend('<div class="wck-checkboxes cozmoslabs-checkbox-list"> </div>');
+				var $rows = $field.children('.wck-checkboxes');
+			}
+			if ($rows.length) {
+				SortSelCheck.sortable($rows);
+			}
+			return $rows;
+		},
+
+		// Attach the custom dropdown options as sortable checkboxes options.
+		attach: function ($field, $rows) {
+			var $ddwn = $field.children('.wppb_selector_for_sortable_checkbox');
+			if ($ddwn.length) {
+				$ddwn.on('change', function() {
+					var val = $(this).val();
+					if ('' !== val) {
+						$rows.append('<div class="cozmoslabs-chckbox-container"><input type="checkbox" name="' + $(this).data('list') + '" id="' + $(this).data('list') + '_' + val + '" value="' + val + '" checked="checked" class="mb-checkbox mb-field"><label for="' + $(this).data('list') + '_' + val + '">' + $(this).children('option').filter(':selected').text() + '</label></div>');
+						$(this).children('option').filter(':selected').remove();
+						SortSelCheck.sortable($rows);
+					}
+				});
+			}
+		},
+
+		// Make sortable items from the list.
+		sortable: function ($list) {
+			var $items = $list.children('div');
+			$items.addClass('wppb_manage_fields_sortables');
+			$items.remove('em');
+			$items.prepend('<em class="dashicons dashicons-menu"></em> ');
+			$list.sortable({
+				items: '> div',
+				classes: {'ui-sortable': 'highlight'}
+			});
+		},
+
+	};
+
+	$(document).ready(function () {
+		// Initialize the custom functionality.
+		SortSelCheck.init('init');
+
+		// Bind the event to the custom functionality.
+		$('html').on('wpbFormMetaLoaded', function(e, elem) {
+			SortSelCheck.assess(elem);
+		});
+	});
+
+})(jQuery);

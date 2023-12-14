@@ -310,3 +310,13 @@ pre.changelog {
 .text-decoration-none{
 	text-decoration: none;
 }
+/*getting started*/
+.at-gsm-notice{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.plugin-install-notice{
+	display: block;
+	font-size: 12px;
+	color: #72777c;
+}

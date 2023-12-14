@@ -8,31 +8,36 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+if ( ! class_exists( 'UR_List_Table' ) ) {
+	include_once dirname( UR_PLUGIN_FILE ) . '/includes/abstracts/abstract-ur-list-table.php';
 }
 
 /**
  * Registrations table list class.
  */
-class UR_Admin_Registrations_Table_List extends WP_List_Table {
+class UR_Admin_Registrations_Table_List extends UR_List_Table {
 
 	/**
 	 * Initialize the registration table list.
 	 */
 	public function __construct() {
-		parent::__construct( array(
-			'singular' => 'registration',
-			'plural'   => 'registrations',
-			'ajax'     => false,
-		) );
+		$this->post_type       = 'user_registration';
+		$this->page            = 'user-registration';
+		$this->per_page_option = 'user_registration_per_page';
+		parent::__construct(
+			array(
+				'singular' => 'registration',
+				'plural'   => 'registrations',
+				'ajax'     => false,
+			)
+		);
 	}
 
 	/**
 	 * No items found text.
 	 */
 	public function no_items() {
-		_e( 'No user registration found.', 'user-registration' );
+		esc_html_e( 'No user registration found.', 'user-registration' );
 	}
 
 	/**
@@ -43,318 +48,153 @@ class UR_Admin_Registrations_Table_List extends WP_List_Table {
 	public function get_columns() {
 		return array(
 			'cb'        => '<input type="checkbox" />',
-			'title'     => __( 'Title', 'user-registration' ),
-			'shortcode' => __( 'Shortcode', 'user-registration' ),
-			'author'    => __( 'Author', 'user-registration' ),
-			'date'      => __( 'Date', 'user-registration' ),
+			'title'     => esc_html__( 'Title', 'user-registration' ),
+			'shortcode' => esc_html__( 'Shortcode', 'user-registration' ),
+			'author'    => esc_html__( 'Author', 'user-registration' ),
+			'date'      => esc_html__( 'Date', 'user-registration' ),
 		);
 	}
 
 	/**
-	 * Get list sortable columns.
+	 * Post Edit Link.
 	 *
-	 * @return array
-	 */
-	protected function get_sortable_columns() {
-		return array(
-			'title'  => array( 'title', false ),
-			'author' => array( 'author', false ),
-			'date'   => array( 'date', false ),
-		);
-	}
-
-	/**
-	 * Column cb.
-	 *
-	 * @param  object $registration
+	 * @param object $row Post.
 	 *
 	 * @return string
 	 */
-	public function column_cb( $registration ) {
-		return sprintf( '<input type="checkbox" name="%1$s[]" value="%2$s" />', $this->_args['singular'], $registration->ID );
+	public function get_edit_links( $row ) {
+		return admin_url( 'admin.php?page=add-new-registration&amp;edit-registration=' . $row->ID );
 	}
 
+
 	/**
-	 * Return title column.
+	 * Post Duplicate Link.
 	 *
-	 * @param  object $registration
+	 * @param  mixed $post_id Post ID.
 	 *
 	 * @return string
 	 */
-	public function column_title( $registration ) {
-		$edit_link        = admin_url( 'admin.php?page=add-new-registration&amp;edit-registration=' . $registration->ID );
-		$title            = _draft_or_post_title( $registration->ID );
-		$post_type_object = get_post_type_object( 'user_registration' );
-		$post_status      = $registration->post_status;
+	public function get_duplicate_link( $post_id ) {
+		return admin_url( 'admin.php?page=add-new-registration&edit-registration=' . $post_id );
+	}
 
-		// Title
-		$output = '<strong>';
-		if ( 'trash' == $post_status ) {
-			$output .= esc_html( $title );
-		} else {
-			$output .= '<a href="' . esc_url( $edit_link ) . '" class="row-title">' . esc_html( $title ) . '</a>';
-		}
-		$output .= '</strong>';
+	/**
+	 * Column: Actions.
+	 *
+	 * @param  object $row Post.
+	 *
+	 * @return string
+	 */
+	public function get_row_actions( $row ) {
+		$edit_link            = $this->get_edit_links( $row );
+		$post_status          = $row->post_status;
+		$post_type_object     = get_post_type_object( $row->post_type );
+		$current_status_trash = ( 'trash' === $post_status );
 
-		// Get actions
+		// Get actions.
 		$actions = array(
-			'id' => sprintf( __( 'ID: %d', 'user-registration' ), $registration->ID ),
+			// Translators: %d is a placeholder for the Post ID.
+			'id' => sprintf( esc_html__( 'ID: %d', 'user-registration' ), $row->ID ),
 		);
 
-		if ( current_user_can( $post_type_object->cap->edit_post, $registration->ID ) && 'trash' !== $post_status ) {
+		if ( current_user_can( $post_type_object->cap->edit_post, $row->ID ) && ! $current_status_trash ) {
 			$actions['edit'] = '<a href="' . esc_url( $edit_link ) . '">' . __( 'Edit', 'user-registration' ) . '</a>';
 		}
 
-		if ( current_user_can( $post_type_object->cap->delete_post, $registration->ID ) ) {
-			if ( 'trash' == $post_status ) {
-				$actions['untrash'] = '<a aria-label="' . esc_attr__( 'Restore this item from the Trash', 'user-registration' ) . '" href="' . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $registration->ID ) ), 'untrash-post_' . $registration->ID ) . '">' . esc_html__( 'Restore', 'user-registration' ) . '</a>';
+		if ( current_user_can( $post_type_object->cap->delete_post, $row->ID ) ) {
+			if ( $current_status_trash ) {
+				$actions['untrash'] = '<a aria-label="' . esc_attr__( 'Restore this item from the Trash', 'user-registration' ) . '" href="' . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $row->ID ) ), 'untrash-post_' . $row->ID ) . '">' . esc_html__( 'Restore', 'user-registration' ) . '</a>';
 			} elseif ( EMPTY_TRASH_DAYS ) {
-				$actions['trash'] = '<a class="submitdelete" aria-label="' . esc_attr__( 'Move this item to the Trash', 'user-registration' ) . '" href="' . get_delete_post_link( $registration->ID ) . '">' . esc_html__( 'Trash', 'user-registration' ) . '</a>';
+				$actions['trash'] = '<a class="submitdelete" aria-label="' . esc_attr__( 'Move this item to the Trash', 'user-registration' ) . '" href="' . get_delete_post_link( $row->ID ) . '">' . esc_html__( 'Trash', 'user-registration' ) . '</a>';
 			}
-			if ( 'trash' == $post_status || ! EMPTY_TRASH_DAYS ) {
-				$actions['delete'] = '<a class="submitdelete" aria-label="' . esc_attr__( 'Delete this item permanently', 'user-registration' ) . '" href="' . get_delete_post_link( $registration->ID, '', true ) . '">' . esc_html__( 'Delete permanently', 'user-registration' ) . '</a>';
+			if ( $current_status_trash || ! EMPTY_TRASH_DAYS ) {
+				$actions['delete'] = '<a class="submitdelete" aria-label="' . esc_attr__( 'Delete this item permanently', 'user-registration' ) . '" href="' . get_delete_post_link( $row->ID, '', true ) . '">' . esc_html__( 'Delete permanently', 'user-registration' ) . '</a>';
 			}
 		}
-		$duplicate_nonce = wp_create_nonce( 'user_registration_form_duplicate' . $registration->ID );
-		$duplicate_link  = admin_url( 'admin.php?page=user-registration&action=duplicate&nonce=' . $duplicate_nonce . '&form=' . $registration->ID );
-
-		if ( current_user_can( $post_type_object->cap->edit_post, $registration->ID ) && 'publish' === $post_status ) {
-			$actions['duplicate'] = '<a href="' . esc_url( $duplicate_link ) . '">' . __( 'Duplicate', 'user-registration' ) . '</a>';
-		}
-
-		$row_actions = array();
-
-		foreach ( $actions as $action => $link ) {
-			$row_actions[] = '<span class="' . esc_attr( $action ) . '">' . $link . '</span>';
-		}
-
-		$output .= '<div class="row-actions">' . implode( ' | ', $row_actions ) . '</div>';
-
-		return $output;
-	}
-
-	function column_author( $registration ) {
-		$user = get_user_by( 'id', $registration->post_author );
-
-		if ( ! $user ) {
-			return '<span class="na">&ndash;</span>';
-		}
-
-		$user_name = ! empty( $user->data->display_name ) ? $user->data->display_name : $user->data->user_login;
-
-		if ( current_user_can( 'edit_user' ) ) {
-			return '<a href="' . esc_url( add_query_arg( array(
-					'user_id' => $user->ID,
-				), admin_url( 'user-edit.php' ) ) ) . '">' . esc_html( $user_name ) . '</a>';
-		}
-
-		return esc_html( $user_name );
-	}
-
-	function column_shortcode( $registration ) {
-
-		$shortcode = '[user_registration_form id="' . $registration->ID . '"]';
-
-		return sprintf( '<span class="shortcode"><input type="text" onfocus="this.select();" readonly="readonly" value=\'%s\' class="large-text code"></span>', $shortcode );
-
-	}
-
-	function column_date( $registration ) {
-		$post = get_post( $registration->ID );
-
-		if ( ! $post ) {
-			return;
-		}
-
-		$t_time = mysql2date( __( 'Y/m/d g:i:s A', 'user-registration' ),
-			$post->post_date, true );
-		$m_time = $post->post_date;
-		$time   = mysql2date( 'G', $post->post_date )
-		          - get_option( 'gmt_offset' ) * 3600;
-
-		$time_diff = time() - $time;
-
-		if ( $time_diff > 0 && $time_diff < 24 * 60 * 60 ) {
-			$h_time = sprintf(
-				__( '%s ago', 'user-registration' ), human_time_diff( $time ) );
-		} else {
-			$h_time = mysql2date( __( 'Y/m/d', 'user-registration' ), $m_time );
-		}
-
-		return '<abbr title="' . $t_time . '">' . $h_time . '</abbr>';
-	}
-
-	/**
-	 * Get the status label for licenses.
-	 *
-	 * @param  string   $status_name
-	 * @param  stdClass $status
-	 *
-	 * @return array
-	 */
-	private function get_status_label( $status_name, $status ) {
-		switch ( $status_name ) {
-			case 'publish' :
-				/* translators: %s: count */
-				$label = array(
-					'singular' => __( 'Published <span class="count">(%s)</span>', 'user-registration' ),
-					'plural'   => __( 'Published <span class="count">(%s)</span>', 'user-registration' ),
-					'context'  => '',
-					'domain'   => 'user-registration',
-				);
-				break;
-			case 'draft' :
-				/* translators: %s: count */
-				$label = array(
-					'singular' => __( 'Draft <span class="count">(%s)</span>', 'user-registration' ),
-					'plural'   => __( 'Draft <span class="count">(%s)</span>', 'user-registration' ),
-					'context'  => '',
-					'domain'   => 'user-registration',
-				);
-				break;
-			case 'pending' :
-				/* translators: %s: count */
-				$label = array(
-					'singular' => __( 'Pending <span class="count">(%s)</span>', 'user-registration' ),
-					'plural'   => __( 'Pending <span class="count">(%s)</span>', 'user-registration' ),
-					'context'  => '',
-					'domain'   => 'user-registration',
-				);
-				break;
-
-			default:
-				$label = $status->label_count;
-				break;
-		}
-
-		return $label;
-	}
-
-	/**
-	 * Table list views.
-	 *
-	 * @return array
-	 */
-	protected function get_views() {
-		$status_links = array();
-		$num_posts    = wp_count_posts( 'user_registration', 'readable' );
-		$class        = '';
-		$total_posts  = array_sum( (array) $num_posts );
-
-		// Subtract post types that are not included in the admin all list.
-		foreach (
-			get_post_stati( array(
-				'show_in_admin_all_list' => false,
-			) ) as $state
-		) {
-			$total_posts -= $num_posts->$state;
-		}
-
-		$class = empty( $class ) && empty( $_REQUEST['status'] ) ? ' class="current"' : '';
-		/* translators: %s: count */
-		$status_links['all'] = "<a href='admin.php?page=user-registration'$class>" . sprintf( _nx( 'All <span class="count">(%s)</span>', 'All <span class="count">(%s)</span>', $total_posts, 'posts', 'user-registration' ), number_format_i18n( $total_posts ) ) . '</a>';
-
-		foreach (
-			get_post_stati( array(
-				'show_in_admin_status_list' => true,
-			), 'objects' ) as $status
-		) {
-			$class       = '';
-			$status_name = $status->name;
-
-			if ( ! in_array( $status_name, array(
-				'publish',
-				'draft',
-				'pending',
-				'trash',
-				'future',
-				'private',
-				'auto-draft'
-			) )
-			) {
-				continue;
-			}
-
-			if ( empty( $num_posts->$status_name ) ) {
-				continue;
-			}
-
-			if ( isset( $_REQUEST['status'] ) && $status_name == $_REQUEST['status'] ) {
-				$class = ' class="current"';
-			}
-
-			$label = $this->get_status_label( $status_name, $status );
-
-			$status_links[ $status_name ] = "<a href='admin.php?page=user-registration&amp;status=$status_name'$class>" . sprintf( translate_nooped_plural( $label, $num_posts->$status_name ), number_format_i18n( $num_posts->$status_name ) ) . '</a>';
-		}
-
-		return $status_links;
-	}
-
-	/**
-	 * Get bulk actions.
-	 *
-	 * @return array
-	 */
-	protected function get_bulk_actions() {
-		if ( isset( $_GET['status'] ) && 'trash' == $_GET['status'] ) {
-			return array(
-				'untrash' => __( 'Restore', 'user-registration' ),
-				'delete'  => __( 'Delete permanently', 'user-registration' ),
+		$duplicate_nonce = wp_create_nonce( 'ur_duplicate_post_' . $row->ID );
+		if ( current_user_can( $post_type_object->cap->edit_post, $row->ID ) ) {
+			$preview_link = add_query_arg(
+				array(
+					'ur_preview' => 'true',
+					'form_id'    => absint( $row->ID ),
+				),
+				home_url()
 			);
-		}
 
-		return array(
-			'trash' => __( 'Move to trash', 'user-registration' ),
-		);
+			$duplicate_link = admin_url( 'admin.php?page=user-registration&action=duplicate&nonce=' . $duplicate_nonce . '&post-id=' . $row->ID );
+
+			if ( 'trash' !== $post_status ) {
+				$actions['view'] = '<a href="' . esc_url( $preview_link ) . '" rel="bookmark" target="_blank">' . esc_html__( 'Preview', 'user-registration' ) . '</a>';
+			}
+
+			if ( 'publish' === $post_status ) {
+				$actions['duplicate'] = '<a href="' . esc_url( $duplicate_link ) . '">' . esc_html__( 'Duplicate', 'user-registration' ) . '</a>';
+			}
+
+			if ( 'publish' === $post_status ) {
+				$actions['locate'] = '<a href="#" class="ur-form-locate" data-id= "' . esc_attr( $row->ID ) . '">' . esc_html__( 'Locate', 'user-registration' ) . '</a>';
+			}
+		}
+		return $actions;
 	}
 
 	/**
-	 * Extra controls to be displayed between bulk actions and pagination.
+	 * Return shortcode column.
 	 *
-	 * @param string $which
+	 * @param  object $registration Registration forms datas.
+	 *
+	 * @return void
 	 */
-	protected function extra_tablenav( $which ) {
-		if ( 'top' == $which && isset( $_GET['status'] ) && 'trash' == $_GET['status'] && current_user_can( 'delete_posts' ) ) {
-			echo '<div class="alignleft actions"><a id="delete_all" class="button apply" href="' . esc_url( wp_nonce_url( admin_url( 'admin.php?page=user-registration&status=trash&empty_trash=1' ), 'empty_trash' ) ) . '">' . __( 'Empty trash', 'user-registration' ) . '</a></div>';
-		}
+	public function column_shortcode( $registration ) {
+		$shortcode = '[user_registration_form id="' . $registration->ID . '"]';
+		echo sprintf( '<input type="text" onfocus="this.select();" readonly="readonly" value=\'%s\' class="widefat code"></span>', esc_attr( $shortcode ) );
+		?>
+		<button id="copy-shortcode-<?php echo esc_attr( $registration->ID ); ?>" class="button ur-copy-shortcode " href="#" data-tip="<?php esc_attr_e( 'Copy Shortcode ! ', 'user-registration' ); ?>" data-copied="<?php esc_attr_e( 'Copied ! ', 'user-registration' ); ?>">
+			<span class="dashicons dashicons-admin-page"></span>
+		</button>
+		<?php
+
 	}
 
 	/**
-	 * Prepare table list items.
+	 * Render the list table page, including header, notices, status filters and table.
 	 */
-	public function prepare_items() {
-		global $wpdb;
+	public function display_page() {
+		$this->prepare_items();
+		?>
+			<div class="wrap">
+				<h1 class="wp-heading-inline"><?php esc_html_e( 'User Registration', 'user-registration' ); ?></h1>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=add-new-registration' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add New', 'user-registration' ); ?></a>
+				<div class="user-registration-settings-container">
+					<div class="user-registration-options-header">
+						<div class="user-registration-options-header--bottom" >
+							<div class="ur-scroll-ui">
+								<div class="ur-scroll-ui__scroll-nav">
+									<ul class="subsubsub  ur-scroll-ui__items">
+										<li><a href="<?php echo esc_url( admin_url( 'admin.php?page=user-registration' ) ); ?>" class="current ur-scroll-ui__item">Registration Forms</a></li>
+										<li><a href="<?php echo esc_url( admin_url( 'admin.php?page=user-registration&tab=login-forms' ) ); ?>" class=" ur-scroll-ui__item">Login Forms</a></li>
+									</ul>
+								</div>
+								<div class="ur-scroll-ui__scroll-nav ur-scroll-ui__scroll-nav--forward is-disabled">
+									<i class="ur-scroll-ui__scroll-nav__icon dashicons dashicons-arrow-right-alt2"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr class="wp-header-end">
+				<form id="registration-list" method="get">
+					<input type="hidden" name="page" value="user-registration" />
+					<?php
+						$this->views();
+						$this->search_box( esc_html__( 'Search Registration', 'user-registration' ), 'registration' );
+						$this->display();
 
-		$per_page     = $this->get_items_per_page( 'user_registration_per_page' );
-		$current_page = $this->get_pagenum();
+						wp_nonce_field( 'save', 'user_registration_nonce' );
+					?>
+				</form>
+			</div>
 
-		// Query args
-		$args = array(
-			'post_type'           => 'user_registration',
-			'posts_per_page'      => $per_page,
-			'ignore_sticky_posts' => true,
-			'paged'               => $current_page,
-		);
-
-		// Handle the status query
-		if ( ! empty( $_REQUEST['status'] ) ) {
-			$args['post_status'] = sanitize_text_field( $_REQUEST['status'] );
-		}
-
-		$args['s']       = isset( $_REQUEST['s'] ) ? wp_unslash( trim( $_REQUEST['s'] ) ) : '';
-		$args['orderby'] = isset( $_REQUEST['orderby'] ) ? sanitize_text_field( $_REQUEST['orderby'] ) : 'date_created';
-		$args['order']   = isset( $_REQUEST['order'] ) && 'DESC' === strtoupper( $_REQUEST['order'] ) ? 'DESC' : 'ASC';
-
-		// Get the registrations
-		$registrations = new WP_Query( $args );
-		$this->items   = $registrations->posts;
-
-		// Set the pagination
-		$this->set_pagination_args( array(
-			'total_items' => $registrations->found_posts,
-			'per_page'    => $per_page,
-			'total_pages' => $registrations->max_num_pages,
-		) );
+		<?php
 	}
 }

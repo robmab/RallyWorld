@@ -161,8 +161,8 @@ if ( ! class_exists( 'WDev_Frash' ) ) {
 		 * @since  1.0.0
 		 */
 		public function wp_ajax_frash_act() {
-			$plugin = $_POST['plugin_id'];
-			$type = $_POST['type'];
+			$plugin = sanitize_key($_POST['plugin_id']);
+			$type = sanitize_key($_POST['type']);
 
 			$this->mark_as_done( $plugin, $type, 'ok' );
 
@@ -176,8 +176,8 @@ if ( ! class_exists( 'WDev_Frash' ) ) {
 		 * @since  1.0.0
 		 */
 		public function wp_ajax_frash_dismiss() {
-			$plugin = $_POST['plugin_id'];
-			$type = $_POST['type'];
+			$plugin = sanitize_key($_POST['plugin_id']);
+			$type = sanitize_key($_POST['type']);
 
 			$this->mark_as_done( $plugin, $type, 'ignore' );
 
@@ -231,7 +231,7 @@ if ( ! class_exists( 'WDev_Frash' ) ) {
 
 			// The "current" time can be changed via $_GET to test the module.
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG && ! empty( $_GET['time'] ) ) {
-				$custom_time = $_GET['time'];
+				$custom_time = sanitize_text_field($_GET['time']);
 				if ( ' ' == $custom_time[0] ) { $custom_time[0] = '+'; }
 				if ( $custom_time ) { $now = strtotime( $custom_time ); }
 				if ( ! $now ) { $now = time(); }
@@ -382,18 +382,18 @@ if ( ! class_exists( 'WDev_Frash' ) ) {
 				<div class="frash-notice-message">
 					<?php
 					printf(
-						$msg,
-						'<strong>' . $plugin->title . '</strong>'
+						esc_html($msg),
+						'<strong>' . esc_html($plugin->title) . '</strong>'
 					);
 					?>
 				</div>
 				<div class="frash-notice-cta">
 					<input type="email" name="email" value="<?php echo esc_attr( $admin_email ); ?>" />
-					<button class="frash-notice-act button-primary" data-msg="<?php _e( 'Thanks :)', 'wdev_frash' ); ?>">
+					<button class="frash-notice-act button-primary" data-msg="<?php esc_html_e( 'Thanks :)', 'wdev_frash' ); ?>">
 						<?php echo esc_html( $plugin->cta_email ); ?>
 					</button>
-					<button class="frash-notice-dismiss" data-msg="<?php _e( 'Saving', 'wdev_frash' ); ?>">
-						<?php _e( 'No thanks', 'wdev_frash' ); ?>
+					<button class="frash-notice-dismiss" data-msg="<?php esc_html_e( 'Saving', 'wdev_frash' ); ?>">
+						<?php esc_html_e( 'No thanks', 'wdev_frash' ); ?>
 					</button>
 				</div>
 			<?php
@@ -417,22 +417,22 @@ if ( ! class_exists( 'WDev_Frash' ) ) {
 				<div class="frash-notice-message">
 					<?php
 					printf(
-						$msg,
-						'<strong>' . $user_name . '</strong>',
-						'<strong>' . $plugin->title . '</strong>'
+						esc_html($msg),
+						'<strong>' . esc_html($user_name) . '</strong>',
+						'<strong>' . esc_html($plugin->title) . '</strong>'
 					);
 					?>
 				</div>
 				<div class="frash-notice-cta">
-					<button class="frash-notice-act button-primary" data-msg="<?php _e( 'Thanks :)', 'wdev_frash' ); ?>">
+					<button class="frash-notice-act button-primary" data-msg="<?php esc_html_e( 'Thanks :)', 'wdev_frash' ); ?>">
 						<?php
 						printf(
 							__( 'Rate %s', 'wdev_frash' ),
 							esc_html( $plugin->title )
 						); ?>
 					</button>
-					<button class="frash-notice-dismiss" data-msg="<?php _e( 'Saving', 'wdev_frash' ); ?>">
-						<?php _e( 'No thanks', 'wdev_frash' ); ?>
+					<button class="frash-notice-dismiss" data-msg="<?php esc_html_e( 'Saving', 'wdev_frash' ); ?>">
+						<?php esc_html_e( 'No thanks', 'wdev_frash' ); ?>
 					</button>
 				</div>
 			<?php

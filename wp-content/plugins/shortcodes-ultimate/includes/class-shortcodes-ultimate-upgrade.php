@@ -10,15 +10,6 @@
 final class Shortcodes_Ultimate_Upgrade {
 
 	/**
-	 * The path to the main plugin file.
-	 *
-	 * @since    5.0.0
-	 * @access   private
-	 * @var      string    $plugin_file   The path to the main plugin file.
-	 */
-	private $plugin_file;
-
-	/**
 	 * The current version of the plugin.
 	 *
 	 * @since    5.0.0
@@ -32,37 +23,25 @@ final class Shortcodes_Ultimate_Upgrade {
 	 *
 	 * @since    5.0.0
 	 * @access   private
-	 * @var      string    $option_name   Name of the option which stores plugin version.
+	 * @var      string    $saved_version_option   Name of the option which stores plugin version.
 	 */
-	private $option_name;
-
-	/**
-	 * The previous saved version.
-	 *
-	 * @since    5.0.0
-	 * @access   private
-	 * @var      string    $saved_version   The previous saved version.
-	 */
-	private $saved_version;
+	private $saved_version_option;
 
 	/**
 	 * Define the functionality of the updater.
 	 *
 	 * @since   5.0.0
-	 * @param string  $plugin_file    The path to the main plugin file.
 	 * @param string  $plugin_version The current version of the plugin.
 	 */
-	public function __construct( $plugin_file, $plugin_version ) {
+	public function __construct( $plugin_version ) {
 
-		$this->plugin_file     = $plugin_file;
-		$this->current_version = $plugin_version;
-		$this->option_name     = 'su_option_version';
-		$this->saved_version   = get_option( $this->option_name, 0 );
+		$this->current_version      = $plugin_version;
+		$this->saved_version_option = 'su_option_version';
 
 	}
 
 	/**
-	 * Run upgrade procedures (if needed).
+	 * Run upgrades if version changed.
 	 *
 	 * @since  5.0.0
 	 */
@@ -72,19 +51,48 @@ final class Shortcodes_Ultimate_Upgrade {
 			return;
 		}
 
-		if ( $this->is_previous_version_less_than( '5.0.0' ) ) {
-			$this->upgrade_to_5_0_0();
+		$this->setup_defaults();
+
+		$this->maybe_upgrade_to( '5.0.0' );
+		$this->maybe_upgrade_to( '5.0.7' );
+		$this->maybe_upgrade_to( '5.6.0' );
+		$this->maybe_upgrade_to( '5.9.1' );
+
+		$this->update_saved_version();
+
+	}
+
+	/**
+	 * Helper function to register a new upgrade routine.
+	 *
+	 * @since 5.4.0
+	 * @param string $version New version number.
+	 */
+	private function maybe_upgrade_to( $version ) {
+
+		if ( ! $this->is_saved_version_lower_than( $version ) ) {
+			return;
 		}
 
-		if ( $this->is_previous_version_less_than( '5.0.7' ) ) {
-			$this->upgrade_to_5_0_7();
+		$this->upgrade_to( $version );
+
+	}
+
+	/**
+	 * Helper function to test a new upgrade routine.
+	 *
+	 * @since 5.6.0
+	 * @param string $version New version number.
+	 */
+	private function upgrade_to( $version ) {
+
+		$upgrade_file = __DIR__ . '/upgrade/' . $version . '.php';
+
+		if ( ! file_exists( $upgrade_file ) ) {
+			return;
 		}
 
-		if ( $this->is_previous_version_less_than( '5.1.1' ) ) {
-			$this->upgrade_to_5_1_1();
-		}
-
-		$this->save_current_version();
+		include $upgrade_file;
 
 	}
 
@@ -96,18 +104,24 @@ final class Shortcodes_Ultimate_Upgrade {
 	 * @return boolean True if plugin was updated, False otherwise.
 	 */
 	private function is_version_changed() {
-		return $this->is_previous_version_less_than( $this->current_version );
+		return $this->is_saved_version_lower_than( $this->current_version );
 	}
 
 	/**
-	 * Conditional check if previous version of the plugin less than passed one.
+	 * Conditional check if previous version of the plugin lower than passed one.
 	 *
 	 * @since  5.0.0
 	 * @access private
-	 * @return boolean True if previous version of the plugin less than passed one, False otherwise.
+	 * @return boolean True if previous version of the plugin lower than passed one, False otherwise.
 	 */
-	private function is_previous_version_less_than( $version ) {
-		return version_compare( $this->saved_version, $version, '<' );
+	private function is_saved_version_lower_than( $version ) {
+
+		return version_compare(
+			get_option( $this->saved_version_option, 0 ),
+			$version,
+			'<'
+		);
+
 	}
 
 	/**
@@ -116,107 +130,23 @@ final class Shortcodes_Ultimate_Upgrade {
 	 * @since  5.0.0
 	 * @access private
 	 */
-	private function save_current_version() {
-		update_option( $this->option_name, $this->current_version, false );
+	private function update_saved_version() {
+		update_option( $this->saved_version_option, $this->current_version, false );
 	}
 
 	/**
-	 * Upgrade the plugin to version 5.0.0
-	 *
-	 * 1. Replace 'su_vote' option with 'su_option_dismissed_notices'.
-	 * 2. Delete 'su_installed' option.
-	 * 3. Remove extra slashes from 'su_option_custom-css' option.
-	 *
-	 * @since   5.0.0
-	 * @access  private
+	 * Setup missing default settings
 	 */
-	private function upgrade_to_5_0_0() {
+	private function setup_defaults() {
 
-		/**
-		 * 1. Replace 'su_vote' option with 'su_option_dismissed_notices'.
-		 */
-		if ( get_option( 'su_vote' ) ) {
+		$defaults = su_get_config( 'default-settings' );
 
-			$dismissed_notices = get_option( 'su_option_dismissed_notices' );
+		foreach ( $defaults as $option => $value ) {
 
-			if ( ! is_array( $dismissed_notices ) ) {
-
-				$dismissed_notices = array(
-					'rate' => true
-				);
-
+			if ( get_option( $option, 0 ) === 0 ) {
+				add_option( $option, $value );
 			}
 
-			update_option( 'su_option_dismissed_notices', $dismissed_notices );
-
-			delete_option( 'su_vote' );
-
-		}
-
-
-		/**
-		 * 2. Delete 'su_installed' option.
-		 */
-		delete_option( 'su_installed' );
-
-
-		/**
-		 * 3. Remove extra slashes from 'su_option_custom-css' option.
-		 */
-		$custom_css = get_option( 'su_option_custom-css' );
-
-		if ( ! empty( $custom_css ) ) {
-
-			$custom_css = stripslashes( $custom_css );
-
-			update_option( 'su_option_custom-css', $custom_css, true );
-
-		}
-
-	}
-
-	/**
-	 * Upgrade the plugin to version 5.0.7
-	 *
-	 * 1. Rename `su_generator_access` option to `su_option_generator_access`.
-	 *
-	 * @since   5.0.0
-	 * @access  private
-	 */
-	private function upgrade_to_5_0_7() {
-
-		/**
-		 * 1. Rename `su_generator_access` option to `su_option_generator_access`.
-		 */
-		$su_generator_access_value = get_option( 'su_generator_access' );
-
-		if ( $su_generator_access_value ) {
-
-			delete_option( 'su_generator_access' );
-
-			add_option( 'su_option_generator_access', $su_generator_access_value, '', false );
-
-		}
-
-	}
-
-	/**
-	 * Upgrade the plugin to version 5.1.1
-	 *
-	 * 1. Add `su_option_supported_blocks` option.
-	 *
-	 * @since   5.1.1
-	 * @access  private
-	 */
-	private function upgrade_to_5_1_1() {
-
-		/**
-		 * 1. Add `su_option_supported_blocks` option.
-		 */
-		$supported_blocks = 'su_option_supported_blocks';
-
-		if ( false === get_option( $supported_blocks ) ) {
-			add_option( $supported_blocks, array_keys( su_get_config( 'supported-blocks' ) ) );
 		}
 
 	}

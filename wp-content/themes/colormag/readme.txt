@@ -1,6 +1,6 @@
-== COLORMAG  ==
+=== COLORMAG  ===
 
-ColorMag is reponsive magazine style theme for 2015.
+ColorMag is responsive magazine style theme for 2015.
 
 /**********************************************************/
 
@@ -13,13 +13,28 @@ External resources linked to the theme.
 Resources packed within the theme.
 * Font Awesome by Dave Gandy http://fortawesome.github.io/Font-Awesome/
   SIL OFL 1.1 http://scripts.sil.org/OFL.
-* Images in the screenshot is from http://pixabay.com/ link. License: CC0 Public Domain
+* Images used in the screenshot are licensed under Creative Commons Zero (CC0):
+
+  https://pxhere.com/en/photo/417780
+  https://pxhere.com/en/photo/1388277
+  https://pxhere.com/en/photo/1081493
+  https://pxhere.com/en/photo/1271368
+  https://pxhere.com/en/photo/1170427
+  https://pxhere.com/en/photo/118490
+  https://pxhere.com/en/photo/1151290
+  https://pxhere.com/en/photo/597908
+  https://pxhere.com/en/photo/1250568
+  https://pxhere.com/en/photo/893081
+  https://pxhere.com/en/photo/622393
+  
 * HTML5 Shiv @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
 * JQuery Advanced News Ticker 1.0.11 by Valentin Ledrapier(risq) | GPL Licensed
 * Stickyjs by Anthony Garand | MIT Licensed
 * Magnific-Popup by Dmitry Semenov | MIT Licensed
 * FitVids by Chris Coyier and Paravel | WTFPL Licensed
 * Bxslider by Steven Wanderski released under the MIT license
+* wp-color-picker-alpha by Sergio | GPLv2 Licensed
+* SelectWoo by WooCommerce | MIT Licensed
 * TGM-Plugin-Activation by Thomas Griffin, Gary Jones, Juliette Reinders Folmer | GPL v2 Licensed
 * Other custom js files are our own creation and is licensed under the same license as this theme.
 
@@ -33,10 +48,10 @@ ColorMag is distributed under the terms of the GNU GPL
 == THEME USAGE ==
 
 = Theme Instruction =
-Get theme instruction at https://themegrill.com/theme-instruction/colormag/
+Get theme instruction at https://docs.themegrill.com/colormag/
 
 = Free Support =
-Get free support at https://themegrill.com/support-forum
+Get free support at https://themegrill.com/contact/
 
 = Theme Features Usage =
 All available options can be used from Appearance->Customize
@@ -50,6 +65,325 @@ and we will include it within the theme from next version update.
 /**********************************************************/
 
 == Changelog ==
+= Version 3.0.9 - 2023-12-13 =
+* Fix - Image caption alignment issue in editor.
+* Fix - Single post headings tag issue.
+* Fix - Page title tag issue.
+
+= Version 3.0.8 - 2023-12-12 =
+* Fix - Header background color issue on dark mode.
+* Fix - Navigation  post title word break issue.
+
+= Version 3.0.7 - 2023-10-18 =
+* Fix - Spacing issue in editor.
+* Fix - PHP error on search results page.
+
+= Version 3.0.6 - 2023-09-20 =
+* Fix   - Sub menu design issue.
+* Added - New Demo (ColorMag 02) - Gutenberg-based WordPress Template Site for Best News Magazine.
+
+= Version 3.0.5 - 2023-09-05 =
+* Feature - Breadcrumb option.
+* Feature - Numbered pagination option.
+* Feature - Retina logo option.
+
+= Version 3.0.4 - 2023-08-22 =
+* Feature - Primary menu background color option.
+* Feature - Primary menu border color option.
+* Feature - Main menu color option.
+* Feature - Main menu hover color option.
+* Feature - Sub menu background color option.
+* Feature - Header action icon color option.
+* Feature - Mobile menu toggle icon color option.
+* Feature - Upper footer widget background color option.
+* Feature - Footer copyright content color option.
+* Feature - Footer copyright link color option.
+* Added   - New Demo (ColorMag NewsHive) - Gutenberg-based WordPress Template Site for Blog, Newspaper & Magazine.
+
+= Version 3.0.3 - 2023-08-15 =
+* Feature - Top bar background color option.
+* Feature - Main header background color option.
+* Feature - Footer column background color option.
+* Feature - Container inside background color option.
+* Feature - Footer bar background color option.
+* Fix     - Footer column design issue.
+* Fix     - Navigation menu responsive icon issue.
+* Add     - Footer upper column sidebars.
+* Added   - New Demo (ColorMag MagazineX) -  Gutenberg-based WordPress Template Site to publish articles for your newspaper, magazine, or blog.
+
+= Version 3.0.2 - 2023-07-19 =
+* Fix - Left sidebar content responsive issue.
+* Fix - Post Video format play button position issue.
+
+= Version 3.0.1 - 2023-06-20 =
+* Fix - Single post navigation width issue.
+* Fix - Highlighted post widget clickable issue.
+* Fix - Permalink not appearing on comment section.
+* Fix - Various design issue in button block.
+* Fix - Tag links design issue.
+
+= Version 3.0.0.7 - 2023-06-19 =
+* Fix - Word break issue.
+* Fix - Featured Category slider issue on refresh.
+* Fix - Dashboard notice dismiss button.
+
+= Version 3.0.0.6 - 2023-06-19 =
+* Fix - Featured Category Slider not appearing.
+
+= Version 3.0.0.5 - 2023-06-18 =
+* Fix - Missing deprecated functions issue.
+
+= Version 3.0.0.4 - 2023-06-17 =
+* Fix - Missing commenter author name.
+* Fix - Gutenberg editor skin color.
+* Fix - Comment & Tag meta missing on post meta section.
+* Fix - Dashboard notice dismiss button issue.
+
+= Version 3.0.0.3 - 2023-06-16 =
+* Tweak - Minor change.
+
+= Version 3.0.0.2 - 2023-06-16 =
+* Tweak - Minor change.
+
+= Version 3.0.0.1 - 2023-06-16 =
+* Fix - Footer copyright text issue.
+
+= Version 3.0 - 2023-06-16 =
+* Enhancement - Overall UI/UX improvements of frontend side of the theme
+
+* Enhancement - Responsiveness and mobile-first design
+* Enhancement - Introduced SVG icons for speed and better design
+* Enhancement - Improvements and issues fixes in dark mode design
+
+* Enhancement - Blog, Post content, meta, CTA button
+* Fix         - Design issues in post comments section
+* Enhancement - Search no result found page design 
+* Enhancement - Fixed design issues in 404 page and improved for the betterment
+* Enhancement - Improved design for forms fields
+
+* Enhancement - Overall layout/design improvement in header area
+* Enhancement - Mobile menu design
+* Enhancement - Improved header search
+* Fix         - News ticker alignment issue in mobile devices
+* Fix         - Top bar responsive issues
+
+* Enhancement - Overall layout/design improvement in footer area
+* Fix         - Footer area responsive issues
+
+* Enhancement - WordPress default blocks/widgets design
+* Enhancement - Improved Block Editor design
+* Fix         - Search widget design issue
+* Enhancement - ColorMag custom widgets design: consistency, spacing, responsiveness
+
+* Enhancement - Overall accessibility improvements as per WordPress standards
+* Enhancement - More accessible styles for links
+* Enhancement - Maintained contrast of elements via Color, sizes, spacing
+* Enhancement - Attention to typography for readability by applying hierarchy, consistency, and white spaces
+
+* Enhancement - WooCommerce pages design revamp
+* Enhancement - Improved product boxes
+* Fix         - Various design issues including responsiveness in WooCommerce pages
+
+* Enhancement - Overall UI/UX of customizer controls
+
+* Enhancement - Improved design of icons used in radio image control
+* Enhancement - Use toggle control instead of checkboxes
+* Enhancement - Introduced unit selector, slider in typography control
+* Enhancement - UX improvement in responsive switcher setting
+* Enhancement - Use of toogle instead of eye icon inside sortable control
+* Enhancement - Use of toggle instead of eye icon inside sortable control
+* Enhancement - Introduced unit selector and progress bar indicator in the slider control
+* Feature     - Option of unsortable items inside sortable control
+* Feature     - Introduced input binding setting in dimension control
+* Feature     - Introduced input binding and unit selector setting in dimension control
+* Added       - Introduced new subheadings control
+
+* Enhancement - Refactored options arrangements for better user experience
+* Enhancement - Consistency on layout and style options
+* Enhancement - Updated strings used for customizer options for clarity
+
+* Enhancement - Better file/folder organization
+* Tweak       - Improved Coding Standards
+* Tweak       - PHP OOP way code implementation
+
+* Enhancement - Mobile-first CSS
+* Enhancement - Proper CSS Reusability implementation for less code
+* Enhancement - Use of CSS flex/grid properties instead of float
+* Enhancement - Use of CSS variables
+* Enhancement - Overall CSS transition on events
+
+= Version - 2.1.8 - 2023-01-11 =
+* Fix - Php error.
+
+= Version - 2.1.7 - 2023-01-09 =
+* Fix - Php error.
+
+= Version - 2.1.6 - 2023-01-04 =
+* Integration - Magazine Blocks plugin.
+* Tweak       - Improvements on page builder template.
+* Fix         - Logo alignment issue in header clean layout.
+* Fix         - Alignment issue in header classic layout.
+
+= Version - 2.1.5 - 2022-11-17 =
+* Fix - Primary menu expanded by default when responsive menu is enabled.
+* Fix - Primary menu hover color issue.
+* Fix - Top header enlarge issue on page load.
+* Fix - Primary menu not centered while 3rd header style.
+
+= Version - 2.1.4 - 2022-10-18 =
+* Improvements - Header top bar design and CSS code refactor.
+
+= Version - 2.1.3 - 2022-06-22 =
+* Tweak - Load default fonts locally.
+
+= Version - 2.1.2 - 2022-04-20 =
+* Fix - Option for hiding blog/static page on front page not working on certain condition.
+* Fix - Featured image not showing in a single post on certain condition.
+
+= Version - 2.1.1 - 2022-03-25 =
+* Fix - Elementor\Scheme_Color is deprecated.
+* Fix - _register_controls is deprecated.
+* Fix - Color opacity option in customizer not working properly.
+
+= Version - 2.1.0 - 2021-09-06 =
+* Fix - Dropdown issue in widgets.
+* Fix - Background color customizer option not working properly.
+
+= Version - 2.0.9 - 2021-08-03 =
+* Fix - Font display swap property and value for google fonts.
+
+= Version - 2.0.8 - 2021-05-27 =
+* Tweak - Update screenshot image.
+* Tweak - Update screenshot image source link.
+
+= Version - 2.0.7 - 2021-05-12 =
+* Fix - Elementor's Text Editor widget's font size overridden by theme.
+
+= Version - 2.0.6 - 2021-03-31 =
+* Enhancement - Social Icons control.
+
+= Version - 2.0.5.1 - 2021-02-25 =
+* Tweak - Fix URL of welcome banner image.
+
+= Version - 2.0.5 - 2021-02-24 =
+* Tweak - Update screenshot image.
+
+= Version - 2.0.4 -2020-12-16 =
+* Tweak - Update footer credit link with `rel="nofollow"` attributes.
+* Fix   - jQuery deprecated message in some of the theme custom JS files
+
+= Version - 2.0.3 -2020-10-21 =
+* Enhancement - Customizer design.
+
+= Version - 2.0.2 -2020-09-28 =
+* Fix - Search form result display for specific language when using Polylang plugin.
+* Fix - Alpha color selector design issue on custom customize controls.
+
+= Version - 2.0.1 -2020-09-16 =
+* Tweak - Updated `Tested up to` to 5.5
+* Fix - Link in slider not working on certain devices in Chrome
+
+= Version - 2.0.0.3 -2020-08-19 =
+* Fix - Primary color issue for read more button
+* Fix - Primary color issue for header style 3 menu border
+
+= Version - 2.0.0.2 -2020-08-18 =
+* Fix - Primary color issue
+
+= Version - 2.0.0.1 -2020-08-18 =
+* Fix - PHP syntax error
+
+= Version - 2.0.0 -2020-08-18 =
+* Refactor  - Customize controls.
+* Refactor  - Customizer sections and options.
+* Remove    - TGMPA library to recommend plugins
+* Deprecate - Demo config via theme.
+
+= Version - 1.5.1 -2020-08-08 =
+* Enhancement - Links CSS transition.
+* Remove      - Unused codes.
+
+= Version - 1.5.0 -2020-07-20 =
+* Fix - Mobile sub toggle icon color and bg color conflict while opening two submenu at once.
+* Enhance - Post `Read more` CTA UI.
+
+= Version - 1.4.9 -2020-06-05 =
+* Fix - Responsive video embeds.
+
+= Version - 1.4.8 -2020-05-27 =
+* Tweak       - Enhance customizer upsell section.
+* Enhancement - Gutenberg compatibility
+
+= Version 1.4.7 -2020-05-22 =
+* Add   - Required header fields: `Tested up to` and `Requires PHP` in style.css.
+* Fix   - Theme name and version in the admin dashboard while child theme active.
+* Tweak - Add and improve theme-related notices.
+
+= Version - 1.4.6 - 2020-04-17 =
+* Added - New Demo (ColorMag Wild Magazine) - Engage the nature lovers to your wildlife magazine website with this ColorMag demo.
+* Added - New Demo (ColorMag Entertainment News) - Use this ColorMag demo to provide entertaining information on your news website.
+* Tweak - Notice adjustment with respect to WordPress admin notices guideline
+
+= Version - 1.4.5 - 2020-02-28 =
+* Tweak -Refactor theme page according to WordPress theme guidelines.
+
+= Version - 1.4.4 - 2020-02-19 =
+* Tweak - Minor Enhancement.
+
+= Version - 1.4.3 - 2020-01-22 =
+* Added - New Demo (ColorMag Top Magazine) - Start working on your awesome online magazine with this ColorMag demo.
+* Tweak - Modify menu CSS for keyboard accessibility.
+* Tweak - Modify self hosted Header Video CSS to align center.
+* Tweak - Deprecate Custom CSS customize option provided via theme
+
+= Version - 1.4.2 - 2019-07-29 =
+* Fix   - Random posts and Search icon position in menu.
+* Fix   - Comment form boxes design.
+* Fix   - User consent design for comment form.
+* Fix   - Published and Updated class for Google Structured Data.
+* Fix   - Featured Posts widget image margin when used with Elementor.
+* Fix   - Featured image alignment on featured posts widget for RTL support.
+* Tweak - CSS change for Elementor Block Elements.
+* Tweak - Update `screen-reader-text` CSS.
+* Tweak - Added `skip-link` to content area.
+* Tweak - Autofocus on search field for click on search icon toggle button in menu.
+* Tweak - Remove display of `Comments Off` message, if comment is off within featured posts widget.
+
+= Version 1.4.1 - 2019-07-12 =
+* Remove - Removed dashboard message to align with the theme review guidelines
+
+= Version 1.4.0 - 2019-07-11 =
+* Tweak - Added `wp_body_open` function to support WordPress 5.2 `wp_body_open` hook.
+* Tweak - Added message to make user aware while installing and activating the ThemeGrill demo importer plugin.
+
+= Version 1.3.9 - 2019-05-21 =
+* Update - FitVids to 1.2.0
+* Tweak  - Add review notice message.
+
+= Version 1.3.8 - 2019-03-26 =
+* Fix - Upload Theme button not working
+
+= Version 1.3.7 - 2019-03-19 =
+* Tweak  - Remove import button from site library for pro themes.
+* Update - BxSlider to 4.2.15
+
+= Version 1.3.6 - 2019-03-01 =
+* Tweak - Added site library and demo import process in About ColorMag page.
+* Tweak - Modify pingback url autodiscovery for single posts, pages, or attachments.
+* Tweak - separate customize control class via different file.
+
+= Version 1.3.5 - 2019-01-16 =
+* Update - StickyJS library to 1.0.4
+* Update - Magnific Popup library to 1.1.0
+
+= Version 1.3.4 - 2018-12-07 =
+* Recommend - Zakra Gutenberg ready theme
+* Fix       - Gallery padding for Gutenberg
+* Tweak     - Utilize single custom JS file for required theme JS settings.
+
+= Version 1.3.3 - 2018-11-19 =
+* Added - Gutenberg compatibility
+
 = Version 1.3.2 - 2018-10-04 =
 * Remove - Backward compatible for favicon
 * Remove - Backward compatible for header logo
@@ -78,13 +412,13 @@ and we will include it within the theme from next version update.
 * Fix - Flex issue on safari
 
 = Version 1.2.4 - 2018-02-27 =
-* Fix - Header layout ( Main Header Area Display ) design issue
-* Fix - Touchscreen submenu double click issue in small devices
+* Fix    - Header layout ( Main Header Area Display ) design issue
+* Fix    - Touchscreen submenu double click issue in small devices
 * Tweaks - Introduce customizer live preview and selective refresh feature.
 
 = Version 1.2.3 - 2017-12-12 =
-* Added - Scrollbar for fixed better responsive menu if overflow.
-* Tweaks - Touch screen accessible submenu
+* Added   - Scrollbar for fixed better responsive menu if overflow.
+* Tweaks  - Touch screen accessible submenu
 * Feature - Added Elementor plugin support
 * Feature - Added Block widgets for use within Elementor plugin
 * Feature - Added Grid widgets for use within Elementor plugin
@@ -94,17 +428,17 @@ and we will include it within the theme from next version update.
 * Feature - Added footer variation options
 
 = Version 1.2.1 - 2017-08-31 =
-* Tweaks - Updated BxSlider to version 4.2.12
-* Tweaks - WooCommerce sidebar layout now utilizes the same sidebar area provided via the theme by default
-* Tweaks - Image alt text added to the advertisement widgets provided via this theme
-* Tweaks - Introduce selective refresh for site title and description
+* Tweaks  - Updated BxSlider to version 4.2.12
+* Tweaks  - WooCommerce sidebar layout now utilizes the same sidebar area provided via the theme by default
+* Tweaks  - Image alt text added to the advertisement widgets provided via this theme
+* Tweaks  - Introduce selective refresh for site title and description
 * Feature - Added theme starter content introduced in WordPress 4.7
 
 = Version 1.2.0 - 2017-04-27 =
 * Feature - Added option to display the date in header set via WordPress date setting
-* Tweaks - Add theme support for WooCommerce 3.0's new gallery feature
-* Tweaks - Updated FontAwesome icons to version 4.7.0
-* Fix - Search results page design
+* Tweaks  - Add theme support for WooCommerce 3.0's new gallery feature
+* Tweaks  - Updated FontAwesome icons to version 4.7.0
+* Fix     - Search results page design
 
 = Version 1.1.9 - 2017-03-03 =
 * Tweaks - Updated BxSlider to version 4.2.10
@@ -113,8 +447,8 @@ and we will include it within the theme from next version update.
 
 = Version 1.1.8 - 2017-01-16 =
 * Feature - Added new responsive menu design.
-* Added - RTL Language support.
-* Added - Support for Video Headers introduced in WordPress 4.7.
+* Added   - RTL Language support.
+* Added   - Support for Video Headers introduced in WordPress 4.7.
 
 = Version 1.1.7 - 2016-12-09 =
 * Feature - Migrated the Custom Logo from theme options to the Site Logo in Site Identity section

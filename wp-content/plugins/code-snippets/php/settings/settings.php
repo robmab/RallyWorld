@@ -1,10 +1,57 @@
 <?php
-
 /**
  * This file registers the settings
  *
- * @package Code_Snippets
+ * @package    Code_Snippets
+ * @subpackage Settings
  */
+
+namespace Code_Snippets\Settings;
+
+use function Code_Snippets\code_snippets;
+
+const CACHE_KEY = 'code_snippets_settings';
+const OPTION_GROUP = 'code-snippets';
+const OPTION_NAME = 'code_snippets_settings';
+
+/**
+ * Add a new option for either the current site or the current network
+ *
+ * @param bool   $network Whether to add a network-wide option.
+ * @param string $option  Name of option to add. Expected to not be SQL-escaped.
+ * @param mixed  $value   Option value, can be anything. Expected to not be SQL-escaped.
+ *
+ * @return bool False if the option was not added. True if the option was added.
+ */
+function add_self_option( bool $network, string $option, $value ): bool {
+	return $network ? add_site_option( $option, $value ) : add_option( $option, $value );
+}
+
+/**
+ * Retrieves an option value based on an option name from either the current site or the current network
+ *
+ * @param bool   $network       Whether to get a network-wide option.
+ * @param string $option        Name of option to retrieve. Expected to not be SQL-escaped.
+ * @param mixed  $default_value Optional value to return if option doesn't exist. Default false.
+ *
+ * @return mixed Value set for the option.
+ */
+function get_self_option( bool $network, string $option, $default_value = false ) {
+	return $network ? get_site_option( $option, $default_value ) : get_option( $option, $default_value );
+}
+
+/**
+ * Update the value of an option that was already added on the current site or the current network
+ *
+ * @param bool   $network Whether to update a network-wide option.
+ * @param string $option  Name of option. Expected to not be SQL-escaped.
+ * @param mixed  $value   Option value. Expected to not be SQL-escaped.
+ *
+ * @return bool False if value was not updated. True if value was updated.
+ */
+function update_self_option( bool $network, string $option, $value ): bool {
+	return $network ? update_site_option( $option, $value ) : update_option( $option, $value );
+}
 
 /**
  * Returns 'true' if plugin settings are unified on a multisite installation
@@ -14,14 +61,12 @@
  *
  * @return bool
  */
-function code_snippets_unified_settings() {
-
+function are_settings_unified(): bool {
 	if ( ! is_multisite() ) {
 		return false;
 	}
 
 	$menu_perms = get_site_option( 'menu_items', array() );
-
 	return empty( $menu_perms['snippets_settings'] );
 }
 
@@ -29,69 +74,69 @@ function code_snippets_unified_settings() {
  * Retrieve the setting values from the database.
  * If a setting does not exist in the database, the default value will be returned.
  *
- * @return array
+ * @return array<string, array<string, mixed>>
  */
-function code_snippets_get_settings() {
-
-	/* Check if the settings have been cached */
-	if ( $settings = wp_cache_get( 'code_snippets_settings' ) ) {
+function get_settings_values(): array {
+	$settings = wp_cache_get( CACHE_KEY );
+	if ( $settings ) {
 		return $settings;
 	}
 
-	/* Begin with the default settings */
-	$settings = code_snippets_get_default_settings();
+	$settings = get_default_settings();
+	$saved = get_self_option( are_settings_unified(), OPTION_NAME, array() );
 
-	/* Retrieve saved settings from the database */
-	$saved = code_snippets_unified_settings() ?
-		get_site_option( 'code_snippets_settings', array() ) :
-		get_option( 'code_snippets_settings', array() );
-
-	/* Replace the default field values with the ones saved in the database */
-	if ( function_exists( 'array_replace_recursive' ) ) {
-
-		/* Use the much more efficient array_replace_recursive() function in PHP 5.3 and later */
-		$settings = array_replace_recursive( $settings, $saved );
-	} else {
-
-		/* Otherwise, do it manually */
-		foreach ( $settings as $section => $fields ) {
-			foreach ( $fields as $field => $value ) {
-
-				if ( isset( $saved[ $section ][ $field ] ) ) {
-					$settings[ $section ][ $field ] = $saved[ $section ][ $field ];
-				}
-			}
+	foreach ( $settings as $section => $fields ) {
+		if ( isset( $saved[ $section ] ) ) {
+			$settings[ $section ] = array_replace( $fields, $saved[ $section ] );
 		}
 	}
 
-	wp_cache_set( 'code_snippets_settings', $settings );
-
+	wp_cache_set( CACHE_KEY, $settings );
 	return $settings;
 }
 
 /**
  * Retrieve an individual setting field value
  *
- * @param  string $section The ID of the section the setting belongs to
- * @param  string $field The ID of the setting field
+ * @param string $section ID of the section the setting belongs to.
+ * @param string $field   ID of the setting field.
  *
- * @return array
+ * @return mixed
  */
-function code_snippets_get_setting( $section, $field ) {
-	$settings = code_snippets_get_settings();
+function get_setting( string $section, string $field ) {
+	$settings = get_settings_values();
 
-	return $settings[ $section ][ $field ];
+	return $settings[ $section ][ $field ] ?? null;
+}
+
+/**
+ * Update a single setting to a new value.
+ *
+ * @param string $section   ID of the section the setting belongs to.
+ * @param string $field     ID of the setting field.
+ * @param mixed  $new_value Setting value. Expected to not be SQL-escaped.
+ *
+ * @return bool False if value was not updated. True if value was updated.
+ */
+function update_setting( string $section, string $field, $new_value ): bool {
+	$settings = get_settings_values();
+
+	$settings[ $section ][ $field ] = $new_value;
+
+	wp_cache_set( CACHE_KEY, $settings );
+	return update_self_option( are_settings_unified(), OPTION_NAME, $settings );
 }
 
 /**
  * Retrieve the settings sections
- * @return array
+ *
+ * @return array<string, string> Settings sections.
  */
-function code_snippets_get_settings_sections() {
+function get_settings_sections(): array {
 	$sections = array(
-		'general'            => __( 'General', 'code-snippets' ),
-		'description_editor' => __( 'Description Editor', 'code-snippets' ),
-		'editor'             => __( 'Code Editor', 'code-snippets' ),
+		'general' => __( 'General', 'code-snippets' ),
+		'editor'  => __( 'Code Editor', 'code-snippets' ),
+		'debug'   => __( 'Debug', 'code-snippets' ),
 	);
 
 	return apply_filters( 'code_snippets_settings_sections', $sections );
@@ -100,115 +145,172 @@ function code_snippets_get_settings_sections() {
 /**
  * Register settings sections, fields, etc
  */
-function code_snippets_register_settings() {
-
-	if ( code_snippets_unified_settings() ) {
-
-		if ( ! get_site_option( 'code_snippets_settings', false ) ) {
-			add_site_option( 'code_snippets_settings', code_snippets_get_default_settings() );
+function register_plugin_settings() {
+	if ( are_settings_unified() ) {
+		if ( ! get_site_option( OPTION_NAME ) ) {
+			add_site_option( OPTION_NAME, get_default_settings() );
 		}
-	} else {
-
-		if ( ! get_option( 'code_snippets_settings', false ) ) {
-			add_option( 'code_snippets_settings', code_snippets_get_default_settings() );
-		}
+	} elseif ( ! get_option( OPTION_NAME ) ) {
+		add_option( OPTION_NAME, get_default_settings() );
 	}
 
-	/* Register the setting */
-	register_setting( 'code-snippets', 'code_snippets_settings', 'code_snippets_settings_validate' );
+	// Register the setting.
+	register_setting(
+		OPTION_GROUP,
+		OPTION_NAME,
+		[ 'sanitize_callback' => __NAMESPACE__ . '\\sanitize_settings' ]
+	);
 
-	/* Register settings sections */
-	foreach ( code_snippets_get_settings_sections() as $section_id => $section_name ) {
-		add_settings_section(
-			'code-snippets-' . $section_id,
-			$section_name,
-			'__return_empty_string',
-			'code-snippets'
-		);
+	// Register settings sections.
+	foreach ( get_settings_sections() as $section_id => $section_name ) {
+		add_settings_section( $section_id, $section_name, '__return_empty_string', 'code-snippets' );
 	}
 
-	/* Register settings fields */
-	foreach ( code_snippets_get_settings_fields() as $section_id => $fields ) {
+	// Register settings fields.
+	foreach ( get_settings_fields() as $section_id => $fields ) {
 		foreach ( $fields as $field_id => $field ) {
-			$atts = $field;
-			$atts['id'] = $field_id;
-			$atts['section'] = $section_id;
-
-			add_settings_field(
-				'code_snippets_' . $field_id,
-				$field['name'],
-				"code_snippets_{$field['type']}_field",
-				'code-snippets',
-				'code-snippets-' . $section_id,
-				$atts
-			);
+			$field_object = new Setting_Field( $section_id, $field_id, $field );
+			add_settings_field( $field_id, $field['name'], [ $field_object, 'render' ], 'code-snippets', $section_id );
 		}
 	}
 
-	/* Add editor preview as a field */
+	// Add editor preview as a field.
 	add_settings_field(
-		'code_snippets_editor_preview',
+		'editor_preview',
 		__( 'Editor Preview', 'code-snippets' ),
-		'code_snippets_settings_editor_preview',
+		__NAMESPACE__ . '\\render_editor_preview',
 		'code-snippets',
-		'code-snippets-editor'
+		'editor'
 	);
 }
 
-add_action( 'admin_init', 'code_snippets_register_settings' );
+add_action( 'admin_init', __NAMESPACE__ . '\\register_plugin_settings' );
+
+/**
+ * Sanitize a single setting value.
+ *
+ * @param array<string, mixed> $field       Setting field information.
+ * @param mixed                $input_value User input setting value, or null if missing.
+ *
+ * @return mixed Sanitized setting value, or null if unset.
+ */
+function sanitize_setting_value( array $field, $input_value ) {
+	switch ( $field['type'] ) {
+
+		case 'checkbox':
+			return 'on' === $input_value;
+
+		case 'number':
+			return intval( $input_value );
+
+		case 'select':
+			$select_options = array_map( 'strval', array_keys( $field['options'] ) );
+			return in_array( strval( $input_value ), $select_options, true ) ? $input_value : null;
+
+		case 'checkboxes':
+			$results = [];
+
+			if ( ! empty( $input_value ) ) {
+				foreach ( $field['options'] as $option_id => $option_label ) {
+					if ( isset( $input_value[ $option_id ] ) && 'on' === $input_value[ $option_id ] ) {
+						$results[] = $option_id;
+					}
+				}
+			}
+
+			return $results;
+
+		case 'text':
+			return trim( sanitize_text_field( $input_value ) );
+
+		case 'callback':
+			return isset( $field['sanitize_callback'] ) && is_callable( $field['sanitize_callback'] ) ?
+				call_user_func( $field['sanitize_callback'], $input_value ) :
+				null;
+
+		default:
+			return null;
+	}
+}
+
+/**
+ * Process settings actions.
+ *
+ * @param array $input Provided settings input.
+ *
+ * @return array|null New $input value to return, or null to continue with settings update process.
+ */
+function process_settings_actions( array $input ): ?array {
+
+	if ( isset( $input['reset_settings'] ) ) {
+		add_settings_error(
+			OPTION_NAME,
+			'settings_reset',
+			__( 'All settings have been reset to their defaults.', 'code-snippets' ),
+			'updated'
+		);
+
+		return [];
+	}
+
+	if ( isset( $input['debug']['database_update'] ) ) {
+		code_snippets()->db->create_or_upgrade_tables();
+
+		add_settings_error(
+			OPTION_NAME,
+			'database_update_done',
+			__( 'Successfully performed database table upgrade.', 'code-snippets' ),
+			'updated'
+		);
+	}
+
+	return null;
+}
 
 /**
  * Validate the settings
  *
- * @param  array $input The sent settings
+ * @param array<string, array<string, mixed>> $input The received settings.
  *
- * @return array        The validated settings
+ * @return array<string, array<string, mixed>> The validated settings.
  */
-function code_snippets_settings_validate( array $input ) {
-	$settings = code_snippets_get_settings();
-	$settings_fields = code_snippets_get_settings_fields();
+function sanitize_settings( array $input ): array {
+	wp_cache_delete( CACHE_KEY );
+	$result = process_settings_actions( $input );
 
-	// Don't directly loop through $input as it does not include as deselected checkboxes
-	foreach ( $settings_fields as $section_id => $fields ) {
+	if ( ! is_null( $result ) ) {
+		return $result;
+	}
 
-		// Loop through fields
+	$settings = get_settings_values();
+	$updated = false;
+
+	// Don't directly loop through $input as it does not include as deselected checkboxes.
+	foreach ( get_settings_fields() as $section_id => $fields ) {
 		foreach ( $fields as $field_id => $field ) {
 
-			switch ( $field['type'] ) {
+			// Fetch the corresponding input value from the posted data.
+			$input_value = $input[ $section_id ][ $field_id ] ?? null;
 
-				case 'checkbox':
-					$settings[ $section_id ][ $field_id ] =
-						isset( $input[ $section_id ][ $field_id ] ) && 'on' === $input[ $section_id ][ $field_id ];
-					break;
+			// Attempt to sanitize the setting value.
+			$sanitized_value = sanitize_setting_value( $field, $input_value );
 
-				case 'number':
-					$settings[ $section_id ][ $field_id ] = absint( $input[ $section_id ][ $field_id ] );
-					break;
-
-				case 'codemirror_theme_select':
-					$available_themes = code_snippets_get_available_themes();
-					$selected_theme = $input[ $section_id ][ $field_id ];
-
-					if ( in_array( $selected_theme, $available_themes ) ) {
-						$settings[ $section_id ][ $field_id ] = $selected_theme;
-					}
-
-					break;
-
-				default:
-					break;
-
+			if ( ! is_null( $sanitized_value ) && $settings[ $section_id ][ $field_id ] !== $sanitized_value ) {
+				$settings[ $section_id ][ $field_id ] = $sanitized_value;
+				$updated = true;
 			}
 		}
 	}
 
-	/* Add an updated message */
-	add_settings_error(
-		'code-snippets-settings-notices',
-		'settings-saved',
-		__( 'Settings saved.', 'code-snippets' ),
-		'updated'
-	);
+	// Add an updated message.
+	if ( $updated ) {
+		add_settings_error(
+			OPTION_NAME,
+			'settings-saved',
+			__( 'Settings saved.', 'code-snippets' ),
+			'updated'
+		);
+	}
 
 	return $settings;
 }

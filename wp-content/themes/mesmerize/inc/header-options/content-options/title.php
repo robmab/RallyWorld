@@ -72,6 +72,10 @@ function mesmerize_print_header_title()
         if ($title == "") {
             $title = esc_html__('You can set this title from the customizer.', 'mesmerize');
         }
+    } else {
+        if ($title == "") {
+            $title =  get_bloginfo('site_title');
+        }
     }
 
     $title = mesmerize_wp_kses_post($title);

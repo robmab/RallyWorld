@@ -1,16 +1,18 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 /* handle field output */
 function wppb_description_handler( $output, $form_location, $field, $user_id, $field_check_errors, $request_data ){	
-	$item_title = apply_filters( 'wppb_'.$form_location.'_description_item_title', wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_title_translation', $field['field-title'] ) );
-	$item_description = wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_description_translation', $field['description'] );
+	$item_title = apply_filters( 'wppb_'.$form_location.'_description_item_title', wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_title_translation', $field['field-title'], true ) );
+	$item_description = wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_description_translation', $field['description'], true );
 	$input_value = '';
 	if( $form_location == 'edit_profile' ) {
 		$profileuser = get_userdata( $user_id );
 		$input_value =	$profileuser->description;
 	}
 	
-	if ( trim( $input_value ) == '' )
-		$input_value = $field['default-value'];
+	if ( trim( $input_value ) == '' && !empty( $field['default-content'] ) )
+		$input_value = $field['default-content'];
 		
 	$input_value = ( isset( $request_data['description'] ) ? trim( $request_data['description'] ) : $input_value );
 
@@ -48,11 +50,13 @@ function wppb_check_description_value( $message, $field, $request_data, $form_lo
 add_filter( 'wppb_check_form_field_default-biographical-info', 'wppb_check_description_value', 10, 4 );
 
 /* handle field save */
-function wppb_userdata_add_description( $userdata, $global_request ){
-	if ( isset( $global_request['description'] ) ){
-        $description = apply_filters( 'pre_user_description', trim ( $global_request['description'] ) );
-		$userdata['description'] = $description;
+function wppb_userdata_add_description( $userdata, $global_request, $form_args ){
+    if( wppb_field_exists_in_form( 'Default - Biographical Info', $form_args ) ) {
+        if (isset($global_request['description'])) {
+            $description = apply_filters('pre_user_description', trim($global_request['description']));
+            $userdata['description'] = $description;
+        }
     }
 	return $userdata;
 }
-add_filter( 'wppb_build_userdata', 'wppb_userdata_add_description', 10, 2 );
+add_filter( 'wppb_build_userdata', 'wppb_userdata_add_description', 10, 3 );

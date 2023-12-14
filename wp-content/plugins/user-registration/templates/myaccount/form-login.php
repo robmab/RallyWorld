@@ -10,17 +10,16 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://docs.wpeverest.com/user-registration/template-structure/
- * @author  WPEverest
+ * @see     https://docs.wpuserregistration.com/docs/how-to-edit-user-registration-template-files-such-as-login-form/
  * @package UserRegistration/Templates
  * @version 1.4.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
-$form_template = get_option( 'user_registration_login_options_form_template', 'default' );
+$form_template  = get_option( 'user_registration_login_options_form_template', 'default' );
 $template_class = '';
 
 if ( 'bordered' === $form_template ) {
@@ -29,12 +28,33 @@ if ( 'bordered' === $form_template ) {
 } elseif ( 'flat' === $form_template ) {
 	$template_class = 'ur-frontend-form--flat';
 
-} elseif( 'rounded' === $form_template ) {
+} elseif ( 'rounded' === $form_template ) {
 	$template_class = 'ur-frontend-form--rounded';
 
-} elseif( 'rounded_edge' === $form_template ) {
+} elseif ( 'rounded_edge' === $form_template ) {
 	$template_class = 'ur-frontend-form--rounded ur-frontend-form--rounded-edge';
 }
+
+$labels       = array(
+	'username'           => get_option( 'user_registration_label_username_or_email', __( 'Username or Email Address', 'user-registration' ) ),
+	'password'           => get_option( 'user_registration_label_password', __( 'Password', 'user-registration' ) ),
+	'remember_me'        => get_option( 'user_registration_label_remember_me', __( 'Remember Me', 'user-registration' ) ),
+	'login'              => get_option( 'user_registration_label_login', __( 'Login', 'user-registration' ) ),
+	'lost_your_password' => get_option( 'user_registration_label_lost_your_password', __( 'Lost your password?', 'user-registration' ) ),
+);
+$placeholders = array(
+	'username' => get_option( 'user_registration_placeholder_username_or_email', '' ),
+	'password' => get_option( 'user_registration_placeholder_password', '' ),
+);
+$hide_labels  = ur_option_checked( 'user_registration_login_options_hide_labels', false );
+
+$enable_ajax = ur_option_checked( 'ur_login_ajax_submission', false );
+
+$enable_field_icon = ur_option_checked( 'user_registration_pro_general_setting_login_form', false );
+
+$login_title = ur_option_checked( 'user_registration_login_title', false );
+
+$is_passwordless_enabled = ! ur_is_passwordless_login_enabled() || ! isset( $_GET['pl'] ) || ! ur_string_to_bool( $_GET['pl'] ); // phpcs:ignore WordPress.Security.NonceVerification
 
 ?>
 
@@ -42,83 +62,128 @@ if ( 'bordered' === $form_template ) {
 
 <?php do_action( 'user_registration_before_customer_login_form' ); ?>
 
-<div class="ur-frontend-form login <?php echo $template_class; ?>" id="ur-frontend-form">
+<div class="ur-frontend-form login <?php echo esc_attr( $template_class ); ?>" id="ur-frontend-form">
 
 	<form class="user-registration-form user-registration-form-login login" method="post">
-
 		<div class="ur-form-row">
 			<div class="ur-form-grid">
+				<?php
+				if ( $login_title ) {
+					$login_title_label = apply_filters( 'ur_login_title', $labels['login'] );
+					/* translators: %s - Login Title. */
+					echo wp_kses_post( sprintf( __( '<span class="user-registration-login-title"> %s </span>', 'user-registration' ), $login_title_label ) );
+				}
+				?>
 					<?php do_action( 'user_registration_login_form_start' ); ?>
-
 					<p class="user-registration-form-row user-registration-form-row--wide form-row form-row-wide">
-						<label for="username"><?php _e( 'Username or email address', 'user-registration' ); ?> <span class="required">*</span></label>
-						<input type="text" class="user-registration-Input user-registration-Input--text input-text" name="username" id="username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( $_POST['username'] ) : ''; ?>" />
-					</p>
-					<p class="user-registration-form-row user-registration-form-row--wide form-row form-row-wide">
-						<label for="password"><?php _e( 'Password', 'user-registration' ); ?> <span class="required">*</span></label>
-						<input class="user-registration-Input user-registration-Input--text input-text" type="password" name="password" id="password" />
-					</p>
-
-					<?php 
-						if( ! empty( $recaptcha_node ) ) {
-							echo '<div id="ur-recaptcha-node" style="width:100px;max-width: 100px;"> '. $recaptcha_node .'</div>';
+						<?php
+						if ( ! $hide_labels ) {
+							printf( '<label for="username">%s <span class="required">*</span></label>', esc_html( $labels['username'] ) );
 						}
+						?>
+						<span class="input-wrapper">
+						<input placeholder="<?php echo esc_attr( $placeholders['username'] ); ?>" type="text" class="user-registration-Input user-registration-Input--text input-text" name="username" id="username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( wp_unslash( sanitize_text_field( $_POST['username'] ) ) ) : ''; // phpcs:ignore ?>" style="<?php echo $enable_field_icon ? "padding-left: 32px !important" : '' ?>"/>
+						<?php if ( $enable_field_icon ) { ?>
+						<span class="ur-icon ur-icon-user"></span>
+						<?php } ?>
+						</span>
+					</p>
+					<?php if ( $is_passwordless_enabled ) : ?>
+					<p class="user-registration-form-row user-registration-form-row--wide form-row form-row-wide<?php echo ( ur_option_checked( 'user_registration_login_option_hide_show_password', false ) ) ? ' hide_show_password' : ''; ?>">
+						<?php
+						if ( ! $hide_labels ) {
+							printf( '<label for="password">%s <span class="required">*</span></label>', esc_html( $labels['password'] ) );
+						}
+						?>
+						<span class="input-wrapper">
+						<span class="password-input-group">
+						<input placeholder="<?php echo esc_attr( $placeholders['password'] ); ?>" class="user-registration-Input user-registration-Input--text input-text" type="password" name="password" id="password" style="<?php echo $enable_field_icon ? 'padding-left: 32px !important' : ''; ?>" />
+
+						<?php
+						if ( ur_option_checked( 'user_registration_login_option_hide_show_password', false ) ) {
+							?>
+						<a href="javaScript:void(0)" class="password_preview dashicons dashicons-hidden" title="<?php echo esc_attr__( 'Show password', 'user-registration' ); ?>"></a>
+						</span>
+							<?php
+						}
+						?>
+						<?php if ( $enable_field_icon ) { ?>
+						<span class="ur-icon ur-icon-password"></span>
+						<?php } ?>
+						</span>
+					</p>
+					<?php endif; ?>
+					<?php
+					if ( ! empty( $recaptcha_node ) ) {
+						echo '<div id="ur-recaptcha-node"> ' . $recaptcha_node . '</div>';  //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					}
 					?>
 
 					<?php do_action( 'user_registration_login_form' ); ?>
 
 					<p class="form-row">
 						<?php wp_nonce_field( 'user-registration-login', 'user-registration-login-nonce' ); ?>
-						<input type="submit" class="user-registration-Button button" name="login" value="<?php esc_attr_e( 'Login', 'user-registration' ); ?>" />
-						<input type="hidden" name="redirect" value="<?php the_permalink() ?>" />
-
+						<div>
+						<?php do_action( 'user_registration_login_form_before_submit_button' ); ?>
+							<?php if ( $enable_ajax ) { ?>
+							<input type="submit" class="user-registration-Button button ur-submit-button" id="user_registration_ajax_login_submit" name="login" value="<?php echo esc_html( $labels['login'] ); ?>" />
+							<span></span>
+							<?php } else { ?>
+							<input type="submit" class="user-registration-Button button " name="login" value="<?php echo esc_html( $labels['login'] ); ?>" />
+							<?php } ?>
+						</div>
+						<input type="hidden" name="redirect" value="<?php echo isset( $redirect ) ? esc_attr( $redirect ) : esc_attr( the_permalink() ); ?>" />
 						<?php
-							$remember_me_enabled = get_option( 'user_registration_login_options_remember_me', 'yes' );
+							$remember_me_enabled = ur_option_checked( 'user_registration_login_options_remember_me', true );
 
-							if( 'yes' === $remember_me_enabled ) {
-								?>
+						if ( $remember_me_enabled && $is_passwordless_enabled ) {
+							?>
 								<label class="user-registration-form__label user-registration-form__label-for-checkbox inline">
-									<input class="user-registration-form__input user-registration-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> <span><?php _e( 'Remember me', 'user-registration' ); ?></span>
+									<input class="user-registration-form__input user-registration-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> <span><?php echo esc_html( $labels['remember_me'] ); ?></span>
 								</label>
-								<?php
-							}
+							<?php
+						}
 						?>
 					</p>
 
 					<?php
-						$lost_password_enabled = get_option( 'user_registration_login_options_lost_password', 'yes' );
+						$lost_password_enabled = ur_option_checked( 'user_registration_login_options_lost_password', true );
 
-						if( 'yes' === $lost_password_enabled ) {						
-							?>
+					if ( $lost_password_enabled && $is_passwordless_enabled ) {
+						?>
 								<p class="user-registration-LostPassword lost_password">
-									<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php _e( 'Lost your password?', 'user-registration' ); ?></a>
+									<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php echo esc_html( $labels['lost_your_password'] ); ?></a>
 								</p>
-							<?php
-						}
+						<?php
+					}
 					?>
 
 					<?php
+					$users_can_register = ur_option_checked( 'users_can_register', true );
+
+					if ( $users_can_register ) {
 						$url_options = get_option( 'user_registration_general_setting_registration_url_options' );
 
 						if ( ! empty( $url_options ) ) {
 							echo '<p class="user-registration-register register">';
-							$label = get_option('user_registration_general_setting_registration_label');
-							
+							$label = get_option( 'user_registration_general_setting_registration_label' );
+
 							if ( ! empty( $label ) ) {
-								?><a href="<?php echo get_option('user_registration_general_setting_registration_url_options');?>"> <?php echo get_option( 'user_registration_general_setting_registration_label' ); ?>			
+								?>
+								<a href="<?php echo esc_url( get_option( 'user_registration_general_setting_registration_url_options' ) ); ?>"> <?php echo esc_html( get_option( 'user_registration_general_setting_registration_label' ) ); ?>
 									</a>
 								<?php
-							} else {	
+							} else {
 								update_option( 'user_registration_general_setting_registration_label', __( 'Not a member yet? Register now.', 'user-registration' ) );
 								?>
-									<a href="<?php echo get_option( 'user_registration_general_setting_registration_url_options' );?>"> <?php echo get_option( 'user_registration_general_setting_registration_label' ); ?>	
+									<a href="<?php echo esc_url( get_option( 'user_registration_general_setting_registration_url_options' ) ); ?>"> <?php echo esc_html( get_option( 'user_registration_general_setting_registration_label' ) ); ?>
 									</a>
-								<?php	
+								<?php
 							}
 							echo '</p>';
 						}
+					}
 					?>
-					</p>
 					<?php do_action( 'user_registration_login_form_end' ); ?>
 			</div>
 		</div>

@@ -4,7 +4,7 @@
  * Plugin Name: Rating-Widget: Star Review System
  * Plugin URI:  http://rating-widget.com/wordpress-plugin/
  * Description: Create and manage Rating-Widget ratings in WordPress.
- * Version:     3.0.1
+ * Version:     3.2.3
  * Author:      Rating-Widget
  * Author URI:  http://rating-widget.com/wordpress-plugin/
  * License:     GPLv2
@@ -16,7 +16,6 @@
  * @license         http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since           1.0.0
  *
- * @fs_premium_only dir, file.php
  */
 if ( !defined( 'ABSPATH' ) ) {
     exit;
@@ -313,8 +312,6 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
             
             if ( $this->account->is_registered() ) {
                 add_action( 'wp_ajax_rw-toprated-popup-html', array( &$this, 'generate_toprated_popup_html' ) );
-                add_action( 'wp_ajax_rw-affiliate-apply', array( &$this, 'send_affiliate_application' ) );
-                add_action( 'wp_ajax_rw-addon-request', array( &$this, 'send_addon_request' ) );
                 add_action( 'admin_init', array( &$this, 'register_admin_page_hooks' ) );
                 add_action( 'admin_init', array( &$this, 'prevent_referrer_policy_override' ), 9 );
                 add_action( 'admin_menu', array( &$this, 'AddPostMetaBox' ) );
@@ -453,244 +450,6 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
         }
         
         /**
-         * Sends an affiliate application to affiliate@rating-widget.com
-         *
-         * @author Leo Fajardo (@leorw)
-         * @since  2.4.4
-         *
-         */
-        function send_affiliate_application()
-        {
-            // Continue only if the nonce is correct
-            check_admin_referer( 'rw_send_affiliate_application_nonce', '_n' );
-            $admin_email = get_option( 'admin_email' );
-            $user = $this->fs->get_user();
-            $posts_count = wp_count_posts( 'post' );
-            $pages_count = wp_count_posts( 'page' );
-            $total_posts = $posts_count->publish + $pages_count->publish;
-            $blog_address = site_url();
-            $domain = $_SERVER['HTTP_HOST'];
-            $comments_count = wp_count_comments();
-            $total_approved_comments = $comments_count->approved;
-            $subject = "{$domain} wants to be an affiliate";
-            $email_details = array(
-                'aff_admin_email'    => $admin_email,
-                'aff_user_id'        => $user->id,
-                'aff_site_id'        => $this->account->site_id,
-                'aff_site_address'   => $blog_address,
-                'aff_total_posts'    => $total_posts,
-                'aff_total_comments' => $total_approved_comments,
-            );
-            // Retrieve the HTML email content
-            ob_start();
-            rw_require_view( 'emails/affiliation_email.php', $email_details );
-            $message = ob_get_contents();
-            ob_end_clean();
-            $header = 'Content-type: text/html';
-            wp_mail(
-                'affiliate@rating-widget.com',
-                $subject,
-                $message,
-                $header
-            );
-            echo  1 ;
-            exit;
-        }
-        
-        /**
-         * Sends an email to addons@rating-widget.com containing
-         * information about the add-on with which the user is interacting.
-         *
-         * @author Leo Fajardo (@leorw)
-         * @since  2.5.1
-         *
-         */
-        function send_addon_request()
-        {
-            // Continue only if the nonce is correct
-            check_admin_referer( 'rw_send_addon_request', '_n' );
-            $addons = $this->get_addons();
-            $addon = $addons[$_REQUEST['addon_key']];
-            $pricing = $addon['pricing'][0];
-            $price = $pricing['annual_price'];
-            $is_free = null === $price;
-            $addon_title = '';
-            $total_addons = count( $addons );
-            for ( $i = 0 ;  $i < $total_addons ;  $i++ ) {
-                if ( !empty($addon_title) ) {
-                    
-                    if ( $i % 3 != 0 ) {
-                        $addon_title .= ', ';
-                    } else {
-                        $addon_title .= '<br />';
-                    }
-                
-                }
-                $addon_title .= $addons[$i]['title'];
-            }
-            $site_address = site_url();
-            $email_details = array(
-                'addon_title'        => $addon['title'],
-                'addon_price'        => ( $is_free ? 'Free' : $price ),
-                'addon_site_address' => $site_address,
-                'addon_action'       => $_REQUEST['addon_action'],
-                'addon_order'        => $addon_title,
-            );
-            
-            if ( isset( $_REQUEST['add_user'] ) ) {
-                $user_email = get_option( 'admin_email' );
-                $email_details['addon_user_email'] = $user_email;
-            }
-            
-            // Retrieve the HTML email content
-            ob_start();
-            rw_require_view( 'emails/addon_email.php', $email_details );
-            $message = ob_get_contents();
-            ob_end_clean();
-            $subject = "Add-on Request: {$addon['title']} / " . (( $is_free ? 'Free' : $price ));
-            $header = 'Content-type: text/html';
-            wp_mail(
-                'addons@rating-widget.com',
-                $subject,
-                $message,
-                $header
-            );
-            echo  1 ;
-            exit;
-        }
-        
-        /**
-         * Returns an array of available add-ons.
-         *
-         * @author Leo Fajardo (@leorw)
-         * @since  2.5.1
-         *
-         * @return array
-         */
-        function get_addons()
-        {
-            $addons = array(
-                array(
-                'id'            => 1,
-                'title'         => 'Reviews',
-                'description'   => 'Open a comment form after visitor vote to get textual feedback from your users.',
-                'thumbnail_url' => rw_get_plugin_img_url( 'add-ons/reviews.jpg' ),
-                'avg_rate'      => 5.0,
-                'pricing'       => array( array(
-                'id'           => '',
-                'annual_price' => 19.99,
-            ) ),
-                'version'       => '',
-                'licenses'      => '',
-            ),
-                array(
-                'id'            => 2,
-                'title'         => 'Product Reviews',
-                'description'   => 'Open a comment form after visitor vote to get textual feedback from your customers.',
-                'thumbnail_url' => rw_get_plugin_img_url( 'add-ons/product_reviews.jpg' ),
-                'avg_rate'      => 5.0,
-                'pricing'       => array( array(
-                'id'           => 1,
-                'annual_price' => 19.99,
-            ) ),
-                'version'       => '',
-                'licenses'      => '',
-            ),
-                array(
-                'id'            => 3,
-                'title'         => 'Subscribers',
-                'description'   => 'Ask your visitors to subscribe after after a 5-star rating.',
-                'thumbnail_url' => rw_get_plugin_img_url( 'add-ons/subscribers.jpg' ),
-                'avg_rate'      => 5.0,
-                'pricing'       => array( array(
-                'id'           => 1,
-                'annual_price' => 19.99,
-            ) ),
-                'version'       => '',
-                'licenses'      => '',
-            ),
-                array(
-                'id'            => 4,
-                'title'         => 'Twitter Followers',
-                'description'   => 'Ask your visitors to follow your Twitter account after a 5-star rating.',
-                'thumbnail_url' => rw_get_plugin_img_url( 'add-ons/twitter_followers.jpg' ),
-                'avg_rate'      => 5.0,
-                'pricing'       => array( array(
-                'id'           => 1,
-                'annual_price' => 19.99,
-            ) ),
-                'version'       => '',
-                'licenses'      => '',
-            ),
-                array(
-                'id'            => 5,
-                'title'         => 'Facebook Fans',
-                'description'   => 'Ask your visitors to like your Facebook Fans page after a 5-star rating.',
-                'thumbnail_url' => rw_get_plugin_img_url( 'add-ons/facebook_fans.jpg' ),
-                'avg_rate'      => 5.0,
-                'pricing'       => array( array(
-                'id'           => 1,
-                'annual_price' => 19.99,
-            ) ),
-                'version'       => '',
-                'licenses'      => '',
-            ),
-                array(
-                'id'            => 6,
-                'title'         => 'Mobile Alerts',
-                'description'   => 'Get push notification about every ratings on your site in real-time!',
-                'thumbnail_url' => rw_get_plugin_img_url( 'add-ons/mobile_alerts.jpg' ),
-                'avg_rate'      => 5.0,
-                'pricing'       => array( array(
-                'id'           => 1,
-                'annual_price' => 19.99,
-            ) ),
-                'version'       => '',
-                'licenses'      => '',
-            ),
-                array(
-                'id'            => 7,
-                'title'         => 'Tweets',
-                'description'   => 'Ask your visitors to follow your Twitter account after a 5-star rating.',
-                'thumbnail_url' => rw_get_plugin_img_url( 'add-ons/tweets.jpg' ),
-                'avg_rate'      => 5.0,
-                'pricing'       => array( array(
-                'id'           => 1,
-                'annual_price' => 19.99,
-            ) ),
-                'version'       => '',
-                'licenses'      => '',
-            ),
-                array(
-                'id'            => 8,
-                'title'         => 'Facebook Likes',
-                'description'   => 'Ask your visitors to like your Facebook Fans page after a 5-star rating.',
-                'thumbnail_url' => rw_get_plugin_img_url( 'add-ons/facebook_likes.png' ),
-                'avg_rate'      => 5.0,
-                'pricing'       => array( array(
-                'id'           => 1,
-                'annual_price' => 19.99,
-            ) ),
-                'version'       => '',
-                'licenses'      => '',
-            )
-            );
-            // Reorder the add-ons using the Fisher-Yates algorithm.
-            // Generate a seed value based on the site URL.
-            $seed = crc32( site_url() );
-            mt_srand( $seed );
-            // Fisher-Yates shuffle algorithm
-            $total = count( $addons );
-            for ( $i = $total - 1 ;  $i > 0 ;  $i-- ) {
-                $j = mt_rand( 0, $i );
-                $tmp = $addons[$i];
-                $addons[$i] = $addons[$j];
-                $addons[$j] = $tmp;
-            }
-            return $addons;
-        }
-        
-        /**
          * This function updates the minimum votes required in order to
          * display the admin notice at the top of the current page.
          *
@@ -701,6 +460,9 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
         {
             // Continue only if the nonce is correct
             check_admin_referer( 'rw_five_star_wp_rate_action_nonce', '_n' );
+            if ( !current_user_can( 'manage_options' ) ) {
+                return;
+            }
             $min_votes_trigger = $this->GetOption( WP_RW__DB_OPTION_WP_RATE_NOTICE_MIN_VOTES_TRIGGER );
             if ( -1 === $min_votes_trigger ) {
                 exit;
@@ -1381,6 +1143,9 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
             if ( !isset( $_POST['rw_comment_meta_box_nonce'] ) || !wp_verify_nonce( $_POST['rw_comment_meta_box_nonce'], basename( WP_RW__PLUGIN_FILE_FULL ) ) ) {
                 return;
             }
+            if ( !current_user_can( 'edit_comment', $comment_id ) ) {
+                return;
+            }
             // Check whether this comment's rating is to be included.
             $include_rating = isset( $_POST['rw_include_comment_rating'] ) && '1' == $_POST['rw_include_comment_rating'];
             // Checks whether this comment's rating is to be set to read-only.
@@ -1498,10 +1263,10 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
         {
             ?>
 				<div class="<?php 
-            echo  $pType ;
+            echo  esc_attr( $pType ) ;
             ?> rw-notice"><span class="rw-slug"><b>rating</b><i>widget</i></span> <b
 						class="rw-sep">&#9733;</b> <?php 
-            echo  $pNotice ;
+            echo  esc_html( $pNotice ) ;
             ?></div>
 			<?php 
         }
@@ -2569,19 +2334,6 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
                 'menu_title' => __rw( 'advanced' ),
                 'function'   => 'AdvancedSettingsPageRender',
             );
-            // Affiliation application page.
-            //				$submenu[] = array(
-            //					'menu_title' => __rw( 'affiliation' ),
-            //					'function'   => 'affiliation_settings_page_render',
-            //				);
-            /*
-            // Add Ons page
-            $submenu[] = array(
-            	'menu_title' => __rw('add-ons'),
-            	'function' => 'addons_settings_page_render',
-            	'slug' => 'addons'
-            );
-            */
             $submenu = apply_filters( 'ratingwidget_dashboard_submenus', $submenu );
             foreach ( $submenu as $item ) {
                 $this->fs->add_submenu_item(
@@ -2593,29 +2345,6 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
                     ( isset( $item['load_function'] ) && !empty($item['load_function']) ? ( is_array( $item['load_function'] ) ? $item['load_function'] : array( &$this, $item['load_function'] ) ) : false )
                 );
             }
-        }
-        
-        /**
-         * @deprecated Old sign-up page callback.
-         */
-        function SignUpPageLoad()
-        {
-            if ( $this->fs->is_registered() ) {
-                return;
-            }
-            
-            if ( 'post' === strtolower( $_SERVER['REQUEST_METHOD'] ) && isset( $_POST['action'] ) && 'account' === $_POST['action'] ) {
-                $this->SetOption( WP_RW__DB_OPTION_OWNER_ID, $_POST['user_id'] );
-                $this->SetOption( WP_RW__DB_OPTION_OWNER_EMAIL, $_POST['user_email'] );
-                $this->SetOption( WP_RW__DB_OPTION_SITE_ID, $_POST['site_id'] );
-                $this->SetOption( WP_RW__DB_OPTION_SITE_PUBLIC_KEY, $_POST['public_key'] );
-                $this->SetOption( WP_RW__DB_OPTION_SITE_SECRET_KEY, $_POST['secret_key'] );
-                $this->SetOption( WP_RW__DB_OPTION_TRACKING, isset( $_POST['tracking'] ) && '1' == $_POST['tracking'] );
-                $this->_options->store();
-                // Reload the page with the keys.
-                rw_admin_redirect();
-            }
-        
         }
         
         #region Reports ------------------------------------------------------------------
@@ -2731,7 +2460,7 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
             // Get show on mobile flag.
             $rw_show_on_mobile = $this->GetOption( WP_RW__SHOW_ON_MOBILE );
             
-            if ( isset( $_POST[$rw_form_hidden_field_name] ) && $_POST[$rw_form_hidden_field_name] == 'Y' && !empty($_POST['rw_advanced_settings_nonce']) && wp_verify_nonce( $_POST['rw_advanced_settings_nonce'], basename( WP_RW__PLUGIN_FILE_FULL ) ) ) {
+            if ( isset( $_POST[$rw_form_hidden_field_name] ) && $_POST[$rw_form_hidden_field_name] == 'Y' && !empty($_POST['rw_advanced_settings_nonce']) && wp_verify_nonce( $_POST['rw_advanced_settings_nonce'], basename( WP_RW__PLUGIN_FILE_FULL ) ) && current_user_can( 'manage_options' ) ) {
                 $this->settings->SetSaveMode();
                 // Save advanced settings.
                 // Get posted identification method.
@@ -2776,28 +2505,6 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
         }
         
         #endregion Advanced Settings ------------------------------------------------------------------
-        /**
-         * Generates the content of the Affiliation Program page.
-         *
-         * @author Leo Fajardo (@leorw)
-         * @since  2.4.4
-         */
-        function affiliation_settings_page_render()
-        {
-            rw_require_once_view( 'pages/admin/affiliation.php' );
-        }
-        
-        /**
-         * Generates the content of the Add Ons page.
-         *
-         * @author Leo Fajardo (@leorw)
-         * @since  2.5.0
-         */
-        function addons_settings_page_render()
-        {
-            rw_require_once_view( 'pages/admin/addons.php' );
-        }
-        
         function TopRatedSettingsPageLoad()
         {
             rw_enqueue_style( 'rw_toprated', rw_get_plugin_css_path( 'toprated.css' ) );
@@ -2820,20 +2527,20 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
 								<ul id="screenshots">
 									<li>
 										<img src="<?php 
-            echo  rw_get_plugin_img_url( 'top-rated/legacy.png' ) ;
+            echo  esc_url( rw_get_plugin_img_url( 'top-rated/legacy.png' ) ) ;
             ?>"
 										     alt="">
 									</li>
 									<li>
 										<img
 											src="<?php 
-            echo  rw_get_plugin_img_url( 'top-rated/compact-thumbs.png' ) ;
+            echo  esc_url( rw_get_plugin_img_url( 'top-rated/compact-thumbs.png' ) ) ;
             ?>"
 											alt="">
 									</li>
 									<li>
 										<img src="<?php 
-            echo  rw_get_plugin_img_url( 'top-rated/thumbs.png' ) ;
+            echo  esc_url( rw_get_plugin_img_url( 'top-rated/thumbs.png' ) ) ;
             ?>"
 										     alt="">
 									</li>
@@ -2842,7 +2549,7 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
 							</li>
 							<li>
 								<a href="<?php 
-            echo  get_admin_url( null, 'widgets.php' ) ;
+            echo  esc_url( get_admin_url( null, 'widgets.php' ) ) ;
             ?>" class="button-primary"
 								   style="margin-left: 20px; display: block; text-align: center; width: 720px;"><?php 
             _erw( 'add-widget-now' );
@@ -2875,12 +2582,12 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
             _erw( 'go-to' );
             ?> <b><i><a
 												href="<?php 
-            echo  get_admin_url( null, 'widgets.php' ) ;
+            echo  esc_url( get_admin_url( null, 'widgets.php' ) ) ;
             ?>"
 												class="button-primary">Appearence > Widgets</a></i></b> and simply drag
 									the <b>Rating-Widget: Top Rated</b> widget to your sidebar.</p>
 								<img src="<?php 
-            echo  rw_get_plugin_img_url( 'top-rated/add-widget.png' ) ;
+            echo  esc_url( rw_get_plugin_img_url( 'top-rated/add-widget.png' ) ) ;
             ?>" alt="">
 							</li>
 							<li>
@@ -2903,7 +2610,7 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
 							</li>
 							<li>
 								<a href="<?php 
-            echo  get_admin_url( null, 'widgets.php' ) ;
+            echo  esc_url( get_admin_url( null, 'widgets.php' ) ) ;
             ?>"
 								   class="button-primary"><?php 
             _erw( 'add-widget-now' );
@@ -3488,7 +3195,7 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
                     echo  ' nav-tab-active' ;
                 }
                 ?>"><?php 
-                echo  $settings["tab"] ;
+                echo  esc_html( $settings["tab"] ) ;
                 ?></a>
 						<?php 
             }
@@ -3498,7 +3205,7 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
 					<form method="post" action="">
 						<input type="hidden" name="rw_settings_nonce"
 						       value="<?php 
-            echo  wp_create_nonce( basename( WP_RW__PLUGIN_FILE_FULL ) ) ;
+            echo  esc_attr( wp_create_nonce( basename( WP_RW__PLUGIN_FILE_FULL ) ) ) ;
             ?>"/>
 						<div id="poststuff">
 							<div id="rw_wp_set">
@@ -3520,7 +3227,7 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
             }
             ?> onclick="RWM_WP.enable(this);"/> Enable
 													for <?php 
-            echo  $rw_current_settings["tab"] ;
+            echo  esc_html( $rw_current_settings["tab"] ) ;
             ?>
 												</label>
 												<?php 
@@ -3547,13 +3254,13 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
                         ?>
 																			<option
 																				value="<?php 
-                        echo  $ver . " " . $hor ;
+                        echo  esc_attr( $ver . " " . $hor ) ;
                         ?>"<?php 
                         if ( $checked ) {
                             echo  ' selected="selected"' ;
                         }
                         ?>><?php 
-                        echo  ucwords( $ver ) . ' ' . ucwords( $hor ) ;
+                        echo  esc_html( ucwords( $ver ) . ' ' . ucwords( $hor ) ) ;
                         ?></option>
 																		<?php 
                     }
@@ -3562,7 +3269,7 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
 															</select>
 															<input id="rw_align" name="rw_align" type="hidden"
 															       value="<?php 
-                echo  $rw_align->ver . ' ' . $rw_align->hor ;
+                echo  esc_attr( $rw_align->ver . ' ' . $rw_align->hor ) ;
                 ?>">
 															<script>
 																(function ($) {
@@ -3620,8 +3327,8 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
 						</div>
 					</form>
 				</div>
-				<?php 
-            fs_require_template( 'powered-by.php' );
+                <?php 
+            rw_require_view( 'fs-powered-by.php' );
             ?>
 				<?php 
             // Store options if in save mode.
@@ -4314,7 +4021,8 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
                 }
             
             }
-            $rating_html = '<div class="rw-ui-container rw-class-' . $pElementClass . ' rw-urid-' . $pUrid . '"' . $ratingData . '></div>';
+            $rating_container_class = "rw-ui-container rw-class-{$pElementClass} rw-urid-{$pUrid}";
+            $rating_html = '<div class="' . esc_attr( $rating_container_class ) . '"' . $ratingData . '></div>';
             return $rating_html;
         }
         
@@ -5377,10 +5085,10 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
 							function RW_Async_Init() {
 								RW.init({<?php 
                 // User key (uid).
-                echo  'uid: "' . $this->account->site_public_key . '"' ;
+                echo  'uid: ' . wp_json_encode( $this->account->site_public_key ) ;
                 // User id (huid).
                 if ( $this->account->has_site_id() ) {
-                    echo  ', huid: "' . $this->account->site_id . '"' ;
+                    echo  ', huid: ' . wp_json_encode( $this->account->site_id ) ;
                 }
                 global  $pagenow ;
                 $vid = 0;
@@ -5404,9 +5112,9 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
 									<?php 
                 ?>
 								},
-								identifyBy: "<?php 
-                echo  $this->GetOption( WP_RW__IDENTIFY_BY ) ;
-                ?>"
+								identifyBy: <?php 
+                echo  wp_json_encode( $this->GetOption( WP_RW__IDENTIFY_BY ) ) ;
+                ?>
 							});
 							<?php 
                 foreach ( $rw_settings as $rclass => $options ) {
@@ -5429,33 +5137,33 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
                         
                         if ( rw_fs()->has_installed_addons() ) {
                             ?>
-							defaultRateCallbacks['<?php 
-                            echo  $rclass ;
-                            ?>'] = {
+							defaultRateCallbacks[<?php 
+                            echo  wp_json_encode( $rclass ) ;
+                            ?>] = {
 								'afterRate' : options.afterRate ? options.afterRate : false,
 								'beforeRate': options.beforeRate ? options.beforeRate : false
 							};
 
 							options.beforeRate = function (rating, score) {
 								var returnValue = true;
-								if (false !== defaultRateCallbacks['<?php 
-                            echo  $rclass ;
-                            ?>'].beforeRate) {
-									returnValue = defaultRateCallbacks['<?php 
-                            echo  $rclass ;
-                            ?>'].beforeRate(rating, score);
+								if (false !== defaultRateCallbacks[<?php 
+                            echo  wp_json_encode( $rclass ) ;
+                            ?>].beforeRate) {
+									returnValue = defaultRateCallbacks[<?php 
+                            echo  wp_json_encode( $rclass ) ;
+                            ?>].beforeRate(rating, score);
 								}
 
 								return WF_Engine.eval('beforeVote', rating, score, returnValue);
 							};
 
 							options.afterRate = function (success, score, rating) {
-								if (false !== defaultRateCallbacks['<?php 
-                            echo  $rclass ;
-                            ?>'].afterRate) {
-									defaultRateCallbacks['<?php 
-                            echo  $rclass ;
-                            ?>'].afterRate(success, score, rating);
+								if (false !== defaultRateCallbacks[<?php 
+                            echo  wp_json_encode( $rclass ) ;
+                            ?>].afterRate) {
+									defaultRateCallbacks[<?php 
+                            echo  wp_json_encode( $rclass ) ;
+                            ?>].afterRate(success, score, rating);
 								}
 
 								WF_Engine.eval('afterVote', rating, score);
@@ -5467,9 +5175,9 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
                         
                         ?>
 
-							RW.initClass("<?php 
-                        echo  $criteria_class ;
-                        ?>", options);
+							RW.initClass(<?php 
+                        echo  wp_json_encode( $criteria_class ) ;
+                        ?>, options);
 							<?php 
                     }
                 
@@ -5477,7 +5185,7 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
                 foreach ( self::$ratings as $urid => $data ) {
                     
                     if ( 0 === strpos( $urid, 'dummy-activity-' ) ) {
-                        echo  "RW.initRating('{$urid}', {});" ;
+                        echo  "RW.initRating('{" . wp_json_encode( $urid ) . "}', {});" ;
                     } else {
                         
                         if ( is_string( $data["title"] ) && !empty($data["title"]) || is_string( $data["permalink"] ) && !empty($data["permalink"]) || isset( $data["img"] ) ) {
@@ -5524,7 +5232,7 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
 							RW_Advanced_Options = {
 								blockFlash: !(<?php 
                 $flash = $this->GetOption( WP_RW__FLASH_DEPENDENCY, true );
-                echo  ( in_array( $flash, array( 'true', 'false' ) ) ? $flash : (( true === $flash ? 'true' : 'false' )) ) ;
+                echo  wp_json_encode( ( in_array( $flash, array( 'true', 'false' ) ) ? $flash : (( true === $flash ? 'true' : 'false' )) ) ) ;
                 ?>)
 							};
 
@@ -5534,11 +5242,9 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
 									var rw = document.createElement("script");
 									rw.type = "text/javascript";
 									rw.async = true;
-									rw.src = "<?php 
-                echo  rw_get_js_url( 'external' . (( !WP_RW__DEBUG ? '.min' : '' )) . '.php' ) ;
-                ?>?wp=<?php 
-                echo  WP_RW__VERSION ;
-                ?>";
+									rw.src = <?php 
+                echo  wp_json_encode( rw_get_js_url( 'external' . (( !WP_RW__DEBUG ? '.min' : '' )) . '.php?wp=' . WP_RW__VERSION ) ) ;
+                ?>;
 									var s = document.getElementsByTagName("script")[0];
 									s.parentNode.insertBefore(rw, s);
 								})();
@@ -5682,6 +5388,9 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
             
             // Verify nonce.
             if ( !isset( $_POST['rw_post_meta_box_nonce'] ) || !wp_verify_nonce( $_POST['rw_post_meta_box_nonce'], basename( WP_RW__PLUGIN_FILE_FULL ) ) ) {
+                return $post_id;
+            }
+            if ( !current_user_can( 'edit_posts' ) ) {
                 return $post_id;
             }
             // Check auto-save.
@@ -6606,6 +6315,12 @@ if ( !class_exists( 'RatingWidgetPlugin' ) ) {
      */
     function rw_fs()
     {
+        if ( !defined( 'WP_FS__ENABLE_GARBAGE_COLLECTOR' ) ) {
+            define( 'WP_FS__ENABLE_GARBAGE_COLLECTOR', true );
+        }
+        if ( !defined( 'WP_FS__GARBAGE_COLLECTOR_EXPIRATION_TIME_SECS' ) ) {
+            define( 'WP_FS__GARBAGE_COLLECTOR_EXPIRATION_TIME_SECS', 7 * 24 * 60 * 60 * 1.5 );
+        }
         /**
          * @var Freemius $rw_fs
          */

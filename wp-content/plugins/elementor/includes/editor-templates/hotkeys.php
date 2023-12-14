@@ -1,21 +1,28 @@
 <?php
 namespace Elementor;
 
+use Elementor\Core\Editor\Editor;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+
+$is_editor_v2_active = Plugin::$instance->experiments->is_feature_active( Editor::EDITOR_V2_EXPERIMENT_NAME );
 ?>
 <script type="text/template" id="tmpl-elementor-hotkeys">
-	<# var ctrlLabel = environment.mac ? 'Cmd' : 'Ctrl'; #>
+	<# var ctrlLabel = environment.mac ? '&#8984;' : 'Ctrl'; #>
 	<div id="elementor-hotkeys__content">
-		<div id="elementor-hotkeys__actions" class="elementor-hotkeys__col">
+
+		<div class="elementor-hotkeys__col">
 
 			<div class="elementor-hotkeys__header">
-				<h3><?php echo __( 'Actions', 'elementor' ); ?></h3>
+				<h3><?php echo esc_html__( 'Actions', 'elementor' ); ?></h3>
 			</div>
+
 			<div class="elementor-hotkeys__list">
+
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Undo', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Undo', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>Z</span>
@@ -23,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Redo', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Redo', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>Shift</span>
@@ -32,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Copy', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Copy', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>C</span>
@@ -40,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Paste', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Paste', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>V</span>
@@ -48,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Paste Style', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Paste Style', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>Shift</span>
@@ -57,14 +64,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Delete', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Delete', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>Delete</span>
 					</div>
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Duplicate', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Duplicate', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>D</span>
@@ -72,7 +79,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Save', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Save', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>S</span>
@@ -80,16 +87,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 			</div>
+
 		</div>
 
-		<div id="elementor-hotkeys__navigation" class="elementor-hotkeys__col">
+		<div class="elementor-hotkeys__col">
 
 			<div class="elementor-hotkeys__header">
-				<h3><?php echo __( 'Go To', 'elementor' ); ?></h3>
+				<h3><?php echo esc_html__( 'Panels', 'elementor' ); ?></h3>
 			</div>
+
 			<div class="elementor-hotkeys__list">
+
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Finder', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Finder', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>E</span>
@@ -97,7 +107,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Show / Hide Panel', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Show / Hide Panel', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>P</span>
@@ -105,16 +115,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Responsive Mode', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Site Settings', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
-						<span>Shift</span>
-						<span>M</span>
+						<span>K</span>
 					</div>
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'History', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php
+						echo $is_editor_v2_active
+							? esc_html__( 'Structure', 'elementor' )
+							: esc_html__( 'Navigator', 'elementor' );
+					?></div>
+					<div class="elementor-hotkeys__item--shortcut">
+						<span>{{{ ctrlLabel }}}</span>
+						<span>I</span>
+					</div>
+				</div>
+
+				<div class="elementor-hotkeys__item">
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Page Settings', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--shortcut">
+						<span>{{{ ctrlLabel }}}</span>
+						<span>Shift</span>
+						<span>Y</span>
+					</div>
+				</div>
+
+				<div class="elementor-hotkeys__item">
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'History', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>Shift</span>
@@ -123,16 +153,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Navigator', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'User Preferences', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>Shift</span>
-						<span>I</span>
+						<span>U</span>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="elementor-hotkeys__col">
+
+			<div class="elementor-hotkeys__header">
+				<h3><?php echo esc_html__( 'Go To', 'elementor' ); ?></h3>
+			</div>
+
+			<div class="elementor-hotkeys__list">
+
+				<div class="elementor-hotkeys__item">
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Responsive Mode', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--shortcut">
+						<span>{{{ ctrlLabel }}}</span>
+						<span>Shift</span>
+						<span>M</span>
 					</div>
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Template Library', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Template Library', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>{{{ ctrlLabel }}}</span>
 						<span>Shift</span>
@@ -140,21 +191,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				</div>
 
+				<?php if ( Plugin::$instance->experiments->is_feature_active( 'notes' ) ) : ?>
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Keyboard Shortcuts', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Notes', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
-						<span>{{{ ctrlLabel }}}</span>
+						<span>Shift</span>
+						<span>C</span>
+					</div>
+				</div>
+				<?php endif ?>
+
+				<div class="elementor-hotkeys__item">
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Keyboard Shortcuts', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--shortcut">
+						<span>Shift</span>
 						<span>?</span>
 					</div>
 				</div>
 
 				<div class="elementor-hotkeys__item">
-					<div class="elementor-hotkeys__item--label"><?php echo __( 'Quit', 'elementor' ); ?></div>
+					<div class="elementor-hotkeys__item--label"><?php echo esc_html__( 'Quit', 'elementor' ); ?></div>
 					<div class="elementor-hotkeys__item--shortcut">
 						<span>Esc</span>
 					</div>
 				</div>
+
 			</div>
+
 		</div>
+
 	</div>
 </script>

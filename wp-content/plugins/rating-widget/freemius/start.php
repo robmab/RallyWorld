@@ -15,7 +15,7 @@
 	 *
 	 * @var string
 	 */
-	$this_sdk_version = '2.1.0';
+	$this_sdk_version = '2.5.12.7';
 
 	#region SDK Selection Logic --------------------------------------------------------------------
 
@@ -44,9 +44,39 @@
 	 * @author Vova Feldman (@svovaf)
 	 * @since  1.2.2.6
 	 */
-	$file_path                = fs_normalize_path( __FILE__ );
-	$fs_root_path             = dirname( $file_path );
-	$themes_directory         = get_theme_root();
+	$file_path    = fs_normalize_path( __FILE__ );
+	$fs_root_path = dirname( $file_path );
+
+    if (
+        ! function_exists( 'wp_get_current_user' ) &&
+        /**
+         * `get_stylesheet()` will rely on `wp_get_current_user()` when it is being filtered by `theme-previews.php`. That happens only when the site editor is loaded or when the site editor is sending REST requests.
+         * @see theme-previews.php:wp_get_theme_preview_path()
+         *
+         * @todo If this behavior is fixed in the core, we will remove this workaround.
+         * @since WP 6.3.0
+         */
+        (
+            'site-editor.php' === basename( $_SERVER['SCRIPT_FILENAME'] ) ||
+            (
+                function_exists( 'wp_is_json_request' ) &&
+                wp_is_json_request() &&
+                ! empty( $_GET['wp_theme_preview'] )
+            )
+        )
+    ) {
+        // Requiring this file since the call to get_stylesheet() below can trigger a call to wp_get_current_user() when previewing a theme.
+        require_once ABSPATH . 'wp-includes/pluggable.php';
+    }
+
+    /**
+     * Get the themes directory where the active theme is located (not passing the stylesheet will make WordPress
+     * assume that the themes directory is inside `wp-content`.
+     *
+     * @author Leo Fajardo (@leorw)
+     * @since 2.2.3
+     */
+	$themes_directory         = get_theme_root( get_stylesheet() );
 	$themes_directory_name    = basename( $themes_directory );
 	$theme_candidate_basename = basename( dirname( $fs_root_path ) ) . '/' . basename( $fs_root_path );
 
@@ -61,7 +91,11 @@
 
 	if ( ! isset( $fs_active_plugins ) ) {
 		// Load all Freemius powered active plugins.
-		$fs_active_plugins = get_option( 'fs_active_plugins', new stdClass() );
+		$fs_active_plugins = get_option( 'fs_active_plugins' );
+
+        if ( ! is_object( $fs_active_plugins ) ) {
+            $fs_active_plugins = new stdClass();
+        }
 
 		if ( ! isset( $fs_active_plugins->plugins ) ) {
 			$fs_active_plugins->plugins = array();
@@ -99,9 +133,17 @@
 			 * @since  1.2.1.7
 			 */
 			$has_changes = false;
-			foreach ( $fs_active_plugins->plugins as $sdk_path => &$data ) {
-				if ( ! file_exists( WP_PLUGIN_DIR . '/' . $sdk_path ) ) {
+			foreach ( $fs_active_plugins->plugins as $sdk_path => $data ) {
+                if ( ! file_exists( ( isset( $data->type ) && 'theme' === $data->type ? $themes_directory : WP_PLUGIN_DIR ) . '/' . $sdk_path ) ) {
 					unset( $fs_active_plugins->plugins[ $sdk_path ] );
+
+                    if (
+                        ! empty( $fs_active_plugins->newest ) &&
+                        $sdk_path === $fs_active_plugins->newest->sdk_path
+                    ) {
+                        unset( $fs_active_plugins->newest );
+                    }
+
 					$has_changes = true;
 				}
 			}
@@ -118,6 +160,10 @@
 
 	if ( ! function_exists( 'fs_find_direct_caller_plugin_file' ) ) {
 		require_once dirname( __FILE__ ) . '/includes/supplements/fs-essential-functions-1.1.7.1.php';
+	}
+
+	if ( ! function_exists( 'fs_get_plugins' ) ) {
+		require_once dirname( __FILE__ ) . '/includes/supplements/fs-essential-functions-2.2.1.php';
 	}
 
 	// Update current SDK info based on the SDK path.
@@ -179,6 +225,16 @@
 		} else {
 			$current_theme               = wp_get_theme();
 			$is_newest_sdk_plugin_active = ( $current_theme->stylesheet === $fs_newest_sdk->plugin_path );
+
+            $current_theme_parent = $current_theme->parent();
+
+            /**
+             * If the current theme is a child of the theme that has the newest SDK, this prevents a redirects loop
+             * from happening by keeping the SDK info stored in the `fs_active_plugins` option.
+             */
+            if ( ! $is_newest_sdk_plugin_active && $current_theme_parent instanceof WP_Theme ) {
+                $is_newest_sdk_plugin_active = ( $fs_newest_sdk->plugin_path === $current_theme_parent->stylesheet );
+            }
 		}
 
 		if ( $is_current_sdk_newest &&
@@ -195,7 +251,7 @@
 			$sdk_starter_path = fs_normalize_path( WP_PLUGIN_DIR . '/' . $this_sdk_relative_path . '/start.php' );
 		} else {
 			$sdk_starter_path = fs_normalize_path(
-				get_theme_root()
+                $themes_directory
 				. '/'
 				. str_replace( "../{$themes_directory_name}/", '', $this_sdk_relative_path )
 				. '/start.php' );
@@ -257,7 +313,7 @@
 
 		$plugins_or_theme_dir_path = ( ! isset( $newest_sdk->type ) || 'theme' !== $newest_sdk->type ) ?
 			WP_PLUGIN_DIR :
-			get_theme_root();
+            $themes_directory;
 
 		$newest_sdk_starter = fs_normalize_path(
 			$plugins_or_theme_dir_path
@@ -365,7 +421,7 @@
 		}
 
 		$plugins_or_theme_dir_path = fs_normalize_path( trailingslashit( $is_theme ?
-			get_theme_root() :
+            $themes_directory :
 			WP_PLUGIN_DIR ) );
 
 		if ( 0 === strpos( $file_path, $plugins_or_theme_dir_path ) ) {
@@ -483,7 +539,7 @@
 		}
 
 		/**
-		 * @param array <string,string> $module Plugin or Theme details.
+		 * @param array <string,string|bool|array> $module Plugin or Theme details.
 		 *
 		 * @return Freemius
 		 * @throws Freemius_Exception

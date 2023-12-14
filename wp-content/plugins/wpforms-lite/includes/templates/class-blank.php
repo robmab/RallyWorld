@@ -1,13 +1,13 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Blank form template.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 class WPForms_Template_Blank extends WPForms_Template {
 
@@ -18,26 +18,30 @@ class WPForms_Template_Blank extends WPForms_Template {
 	 */
 	public function init() {
 
-		$this->name        = esc_html__( 'Blank Form', 'wpforms' );
+		$this->priority    = 1;
+		$this->name        = esc_html__( 'Blank Form', 'wpforms-lite' );
 		$this->slug        = 'blank';
-		$this->description = esc_html__( 'The blank form allows you to create any type of form using our drag & drop builder.', 'wpforms' );
+		$this->source      = 'wpforms-core';
+		$this->categories  = 'all';
+		$this->description = esc_html__( 'The blank form allows you to create any type of form using our drag & drop builder.', 'wpforms-lite' );
 		$this->includes    = '';
 		$this->icon        = '';
 		$this->modal       = '';
 		$this->core        = true;
-		$this->data        = array(
+		$this->data        = [
 			'field_id' => '1',
-			'fields'   => array(),
-			'settings' => array(
-				'honeypot'                    => '1',
+			'fields'   => [],
+			'settings' => [
+				'antispam'                    => '1',
+				'ajax_submit'                 => '1',
 				'confirmation_message_scroll' => '1',
-				'submit_text_processing'      => esc_html__( 'Sending...', 'wpforms' ),
-			),
-			'meta'     => array(
+				'submit_text_processing'      => esc_html__( 'Sending...', 'wpforms-lite' ),
+			],
+			'meta'     => [
 				'template' => $this->slug,
-			),
-		);
+			],
+		];
 	}
 }
 
-new WPForms_Template_Blank;
+new WPForms_Template_Blank();

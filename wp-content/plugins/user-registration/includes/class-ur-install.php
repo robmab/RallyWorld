@@ -8,6 +8,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( class_exists( 'UR_Install' ) ) {
+	return;
+}
 /**
  * UR_Install Class.
  */
@@ -19,25 +22,37 @@ class UR_Install {
 	 * @var array
 	 */
 	private static $db_updates = array(
-		'1.0.0' => array(
+		'1.0.0'   => array(
 			'ur_update_100_db_version',
 		),
-		'1.2.0' => array(
+		'1.2.0'   => array(
 			'ur_update_120_usermeta',
 			'ur_update_120_db_version',
 		),
-		'1.3.0' => array(
+		'1.3.0'   => array(
 			'ur_update_130_db_version',
 			'ur_update_130_post',
 		),
-		'1.4.0' => array(
+		'1.4.0'   => array(
 			'ur_update_140_db_version',
 			'ur_update_140_option',
 		),
-		'1.4.2' => array(
+		'1.4.2'   => array(
 			'ur_update_142_db_version',
 			'ur_update_142_option',
-		)
+		),
+		'1.5.8.1' => array(
+			'ur_update_1581_db_version',
+			'ur_update_1581_meta_key',
+		),
+		'1.6.0'   => array(
+			'ur_update_160_db_version',
+			'ur_update_160_option_migrate',
+		),
+		'1.6.2'   => array(
+			'ur_update_162_db_version',
+			'ur_update_162_meta_key',
+		),
 	);
 
 	/**
@@ -55,8 +70,6 @@ class UR_Install {
 		add_action( 'init', array( __CLASS__, 'init_background_updater' ), 5 );
 		add_action( 'admin_init', array( __CLASS__, 'install_actions' ) );
 		add_action( 'in_plugin_update_message-user-registration/user-registration.php', array( __CLASS__, 'in_plugin_update_message' ) );
-		add_filter( 'plugin_action_links_' . UR_PLUGIN_BASENAME, array( __CLASS__, 'plugin_action_links' ) );
-		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
 		add_filter( 'wpmu_drop_tables', array( __CLASS__, 'wpmu_drop_tables' ) );
 	}
 
@@ -86,18 +99,14 @@ class UR_Install {
 	 * This function is hooked into admin_init to affect admin only.
 	 */
 	public static function install_actions() {
-		if ( ! empty( $_GET['do_update_user_registration'] ) ) { // WPCS: input var okay, CSRF ok.
+		if ( ! empty( $_GET['do_update_user_registration'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification
 			self::update();
 			UR_Admin_Notices::add_notice( 'update' );
 		}
-		if ( ! empty( $_GET['force_update_user_registration'] ) ) { // WPCS: input var okay, CSRF ok.
+		if ( ! empty( $_GET['force_update_user_registration'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification
 			do_action( 'wp_' . get_current_blog_id() . '_ur_updater_cron' );
 			wp_safe_redirect( admin_url( 'admin.php?page=user-registration-settings' ) );
 			exit;
-		}
-		if ( ! empty( $_GET['install_user_registration_pages'] ) ) { // WPCS: input var okay, CSRF ok.
-			self::create_pages();
-			UR_Admin_Notices::remove_notice( 'install' );
 		}
 	}
 
@@ -125,14 +134,22 @@ class UR_Install {
 		self::setup_environment();
 		self::create_form();
 		self::create_files();
-		self::maybe_enable_setup_wizard();
 		self::update_ur_version();
 		self::maybe_update_db_version();
+		self::maybe_add_installation_date();
+		self::maybe_run_migrations();
+
+		$path = UR_UPLOAD_PATH . 'profile-pictures';
+
+		if ( ! is_dir( $path ) ) {
+			mkdir( $path, 0777, true );
+		}
 
 		delete_transient( 'ur_installing' );
 
 		do_action( 'user_registration_flush_rewrite_rules' );
 		do_action( 'user_registration_installed' );
+		set_transient( '_ur_activation_redirect', 1, 30 );
 	}
 
 	/**
@@ -185,7 +202,6 @@ class UR_Install {
 	private static function maybe_enable_setup_wizard() {
 		if ( apply_filters( 'user_registration_enable_setup_wizard', self::is_new_install() ) ) {
 			UR_Admin_Notices::add_notice( 'install' );
-			set_transient( '_ur_activation_redirect', 1, 30 );
 		}
 	}
 
@@ -208,6 +224,78 @@ class UR_Install {
 	}
 
 	/**
+	 * May be add installation date. Donot insert on every update.
+	 *
+	 * @since 1.5.8
+	 */
+	private static function maybe_add_installation_date() {
+
+		$installed_date = get_option( 'user_registration_activated' );
+
+		if ( empty( $installed_date ) ) {
+			update_option( 'user_registration_activated', current_time( 'Y-m-d' ) );
+			update_option( 'user_registration_updated_at', current_time( 'Y-m-d' ) );
+		} else {
+			update_option( 'user_registration_updated_at', current_time( 'Y-m-d' ) );
+		}
+	}
+
+
+	/**
+	 * Run Migrations.
+	 *
+	 * @throws Exception If callable function not defined.
+	 *
+	 * @return void
+	 */
+	private static function maybe_run_migrations() {
+
+		include_once 'functions-ur-update.php';
+
+		$current_migration_version = get_option( 'user_registration_migration_version', null );
+
+		// Migrations for User Registration ( Free ).
+		$migration_updates = array(
+			'3.0' => array(
+				'ur_update_30_option_migrate',
+			),
+		);
+
+		if ( defined( 'UR_PRO_ACTIVE' ) ) {
+			// Migrations for User Registration ( Pro ).
+			$migration_updates = array(
+				'4.0' => array(
+					'ur_update_30_option_migrate',
+					'ur_pro_update_40_option_migrate',
+				),
+			);
+
+			$current_migration_version = ! is_null( $current_migration_version ) ? $current_migration_version : '3.2.4';
+		}
+
+		$current_migration_version = ! is_null( $current_migration_version ) ? $current_migration_version : '2.3.4';
+
+		foreach ( $migration_updates as $version => $update_callbacks ) {
+			if ( version_compare( $current_migration_version, $version, '<' ) ) {
+				foreach ( $update_callbacks as $update_callback ) {
+					try {
+						if ( function_exists( $update_callback ) ) {
+							if ( is_callable( $update_callback ) ) {
+								call_user_func( $update_callback );
+							}
+						} else {
+							throw new Exception( 'Migration function ' . $update_callback . '() not found.' );
+						}
+					} catch ( Exception $e ) {
+						ur_get_logger()->debug( $e->getMessage() );
+					}
+				}
+				update_option( 'user_registration_migration_version', $version );
+			}
+		}
+	}
+
+	/**
 	 * Update UR version to current.
 	 */
 	private static function update_ur_version() {
@@ -222,12 +310,12 @@ class UR_Install {
 	 * @return array
 	 */
 	public static function get_db_update_callbacks() {
-		$updates = self::$db_updates;
+		$updates            = self::$db_updates;
 		$current_db_version = get_option( 'user_registration_db_version' );
 
-		$db_needs_update = array( '1.2.2','1.2.3','1.2.4' );
+		$db_needs_update = array( '1.2.2', '1.2.3', '1.2.4' );
 
-		if( in_array( $current_db_version, $db_needs_update ) ) {
+		if ( in_array( $current_db_version, $db_needs_update ) ) {
 			$updates['1.2.5'] = array(
 				'ur_update_125_usermeta',
 				'ur_update_125_db_version',
@@ -274,7 +362,8 @@ class UR_Install {
 		include_once dirname( __FILE__ ) . '/admin/functions-ur-admin.php';
 
 		$pages = apply_filters(
-			'user_registration_create_pages', array(
+			'user_registration_create_pages',
+			array(
 				'myaccount' => array(
 					'name'    => _x( 'my-account', 'Page slug', 'user-registration' ),
 					'title'   => _x( 'My Account', 'Page title', 'user-registration' ),
@@ -283,16 +372,18 @@ class UR_Install {
 			)
 		);
 
-		if ( $default_form_page_id = get_option( 'user_registration_default_form_page_id' ) ) {
+		$default_form_page_id = get_option( 'user_registration_default_form_page_id' );
+
+		if ( $default_form_page_id ) {
 			$pages['registration'] = array(
 				'name'    => _x( 'registration', 'Page slug', 'user-registration' ),
 				'title'   => _x( 'Registration', 'Page title', 'user-registration' ),
-				'content' => '[' . apply_filters( 'user_registration_form_shortcode_tag', 'user_registration_form' ) . ' id="' . $default_form_page_id . '"]',
+				'content' => '[' . apply_filters( 'user_registration_form_shortcode_tag', 'user_registration_form' ) . ' id="' . esc_attr( $default_form_page_id ) . '"]',
 			);
 		}
 
 		foreach ( $pages as $key => $page ) {
-			ur_create_page( esc_sql( $page['name'] ), 'user_registration_' . $key . '_page_id', $page['title'], $page['content'] );
+			ur_create_page( esc_sql( $page['name'] ), 'user_registration_' . $key . '_page_id', wp_kses_post( ( $page['title'] ) ), wp_kses_post( $page['content'] ) );
 		}
 	}
 
@@ -303,21 +394,23 @@ class UR_Install {
 	 */
 	private static function create_options() {
 		// Include settings so that we can run through defaults.
-		include_once( dirname( __FILE__ ) . '/admin/class-ur-admin-settings.php' );
+		include_once dirname( __FILE__ ) . '/admin/class-ur-admin-settings.php';
 
 		$settings = UR_Admin_Settings::get_settings_pages();
 
-		foreach ( $settings as $section ) {
-			if ( ! method_exists( $section, 'get_settings' ) ) {
-				continue;
-			}
-			$subsections = array_unique( array_merge( array( '' ), array_keys( $section->get_sections() ) ) );
+		if ( ! empty( $settings ) ) {
+			foreach ( $settings as $section ) {
+				if ( ! method_exists( $section, 'get_settings' ) ) {
+					continue;
+				}
+				$subsections = array_unique( array_merge( array( '' ), array_keys( $section->get_sections() ) ) );
 
-			foreach ( $subsections as $subsection ) {
-				foreach ( $section->get_settings( $subsection ) as $value ) {
-					if ( isset( $value['default'] ) && isset( $value['id'] ) ) {
-						$autoload = isset( $value['autoload'] ) ? (bool) $value['autoload'] : true;
-						add_option( $value['id'], $value['default'], '', ( $autoload ? 'yes' : 'no' ) );
+				foreach ( $subsections as $subsection ) {
+					foreach ( $section->get_settings( $subsection ) as $value ) {
+						if ( isset( $value['default'] ) && isset( $value['id'] ) ) {
+							$autoload = isset( $value['autoload'] ) ? (bool) $value['autoload'] : true;
+							add_option( $value['id'], $value['default'], '', ( $autoload ? 'yes' : 'no' ) );
+						}
 					}
 				}
 			}
@@ -331,17 +424,20 @@ class UR_Install {
 		$hasposts = get_posts( 'post_type=user_registration' );
 
 		if ( 0 === count( $hasposts ) ) {
+			update_option( 'user_registration_first_time_activation_flag', true );
 			$post_content = '[[[{"field_key":"user_login","general_setting":{"label":"Username","field_name":"user_login","placeholder":"","required":"yes"},"advance_setting":{}},{"field_key":"user_pass","general_setting":{"label":"User Password","field_name":"user_pass","placeholder":"","required":"yes"},"advance_setting":{}}],[{"field_key":"user_email","general_setting":{"label":"User Email","field_name":"user_email","placeholder":"","required":"yes"},"advance_setting":{}},{"field_key":"user_confirm_password","general_setting":{"label":"Confirm Password","field_name":"user_confirm_password","placeholder":"","required":"yes"},"advance_setting":{}}]]]';
 
-			// Insert default form :)
-			$default_post_id = wp_insert_post( array(
-				'post_type'      => 'user_registration',
-				'post_title'     => __( 'Default form', 'user-registration' ),
-				'post_content'   => $post_content,
-				'post_status'    => 'publish',
-				'comment_status' => 'closed',
-				'ping_status'    => 'closed',
-			) );
+			// Insert default form.
+			$default_post_id = wp_insert_post(
+				array(
+					'post_type'      => 'user_registration',
+					'post_title'     => esc_html__( 'Default form', 'user-registration' ),
+					'post_content'   => $post_content,
+					'post_status'    => 'publish',
+					'comment_status' => 'closed',
+					'ping_status'    => 'closed',
+				)
+			);
 
 			update_option( 'user_registration_default_form_page_id', $default_post_id );
 		}
@@ -366,7 +462,7 @@ class UR_Install {
 			$collate = $wpdb->get_charset_collate();
 		}
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$sql = "
 CREATE TABLE {$wpdb->prefix}user_registration_sessions (
@@ -407,7 +503,7 @@ CREATE TABLE {$wpdb->prefix}user_registration_sessions (
 		$tables = self::get_tables();
 
 		foreach ( $tables as $table ) {
-			$wpdb->query( "DROP TABLE IF EXISTS {$table}" ); // WPCS: unprepared SQL ok.
+			$wpdb->query( "DROP TABLE IF EXISTS {$table}" ); // phpcs:ignore
 		}
 	}
 
@@ -453,7 +549,7 @@ CREATE TABLE {$wpdb->prefix}user_registration_sessions (
 		$capabilities = array();
 
 		$capabilities['core'] = array(
-			'manage_user_registration'
+			'manage_user_registration',
 		);
 
 		$capability_types = array( 'user_registration' );
@@ -461,7 +557,7 @@ CREATE TABLE {$wpdb->prefix}user_registration_sessions (
 		foreach ( $capability_types as $capability_type ) {
 
 			$capabilities[ $capability_type ] = array(
-				// Post type
+				// Post type.
 				"edit_{$capability_type}",
 				"read_{$capability_type}",
 				"delete_{$capability_type}",
@@ -476,7 +572,7 @@ CREATE TABLE {$wpdb->prefix}user_registration_sessions (
 				"edit_private_{$capability_type}s",
 				"edit_published_{$capability_type}s",
 
-				// Terms
+				// Terms.
 				"manage_{$capability_type}_terms",
 				"edit_{$capability_type}_terms",
 				"delete_{$capability_type}_terms",
@@ -498,7 +594,7 @@ CREATE TABLE {$wpdb->prefix}user_registration_sessions (
 		}
 
 		if ( ! isset( $wp_roles ) ) {
-			$wp_roles = new WP_Roles();
+			$wp_roles = new WP_Roles(); // phpcs:ignore
 		}
 
 		$capabilities = self::get_core_capabilities();
@@ -519,7 +615,7 @@ CREATE TABLE {$wpdb->prefix}user_registration_sessions (
 			return;
 		}
 
-		// Install files and folders for uploading files and prevent hotlinking
+		// Install files and folders for uploading files and prevent hotlinking.
 		$upload_dir = wp_upload_dir();
 
 		$files = array(
@@ -537,7 +633,9 @@ CREATE TABLE {$wpdb->prefix}user_registration_sessions (
 
 		foreach ( $files as $file ) {
 			if ( wp_mkdir_p( $file['base'] ) && ! file_exists( trailingslashit( $file['base'] ) . $file['file'] ) ) {
-				if ( $file_handle = @fopen( trailingslashit( $file['base'] ) . $file['file'], 'w' ) ) {
+				$file_handle = @fopen( trailingslashit( $file['base'] ) . $file['file'], 'w' );
+
+				if ( $file_handle ) {
 					fwrite( $file_handle, $file['content'] );
 					fclose( $file_handle );
 				}
@@ -547,11 +645,14 @@ CREATE TABLE {$wpdb->prefix}user_registration_sessions (
 
 	/**
 	 * Show plugin changes. Code adapted from W3 Total Cache.
+	 *
+	 * @param array $args Arguments.
 	 */
 	public static function in_plugin_update_message( $args ) {
 		$transient_name = 'ur_upgrade_notice_' . $args['Version'];
+		$upgrade_notice = get_transient( $transient_name );
 
-		if ( false === ( $upgrade_notice = get_transient( $transient_name ) ) ) {
+		if ( false === $upgrade_notice ) {
 			$response = wp_safe_remote_get( 'https://plugins.svn.wordpress.org/user-registration/trunk/readme.txt' );
 
 			if ( ! is_wp_error( $response ) && ! empty( $response['body'] ) ) {
@@ -566,8 +667,8 @@ CREATE TABLE {$wpdb->prefix}user_registration_sessions (
 	/**
 	 * Parse update notice from readme file
 	 *
-	 * @param  string $content
-	 * @param  string $new_version
+	 * @param  string $content Content of notice.
+	 * @param  string $new_version Version of plugin.
 	 *
 	 * @return string
 	 */
@@ -595,40 +696,6 @@ CREATE TABLE {$wpdb->prefix}user_registration_sessions (
 		}
 
 		return wp_kses_post( $upgrade_notice );
-	}
-
-	/**
-	 * Display action links in the Plugins list table.
-	 *
-	 * @param  array $actions Plugin Action links.
-	 * @return array
-	 */
-	public static function plugin_action_links( $actions ) {
-		$new_actions = array(
-			'settings' => '<a href="' . admin_url( 'admin.php?page=user-registration-settings' ) . '" aria-label="' . esc_attr__( 'View User Registration settings', 'user-registration' ) . '">' . esc_html__( 'Settings', 'user-registration' ) . '</a>',
-		);
-
-		return array_merge( $new_actions, $actions );
-	}
-
-	/**
-	 * Display row meta in the Plugins list table.
-	 *
-	 * @param  array  $plugin_meta Plugin Row Meta.
-	 * @param  string $plugin_file Plugin Row Meta.
-	 * @return array
-	 */
-	public static function plugin_row_meta( $plugin_meta, $plugin_file ) {
-		if ( UR_PLUGIN_BASENAME === $plugin_file ) {
-			$new_plugin_meta = array(
-				'docs'    => '<a href="' . esc_url( apply_filters( 'user_registration_docs_url', 'https://docs.wpeverest.com/user-registration/' ) ) . '" area-label="' . esc_attr__( 'View User Registration documentation', 'user-registration' ) . '">' . esc_html__( 'Docs', 'user-registration' ) . '</a>',
-				'support' => '<a href="' . esc_url( apply_filters( 'user_registration_support_url', 'https://wpeverest.com/support-forum/' ) ) . '" area-label="' . esc_attr__( 'Visit free customer support', 'user-registration' ) . '">' . __( 'Free support', 'user-registration' ) . '</a>',
-			);
-
-			return array_merge( $plugin_meta, $new_plugin_meta );
-		}
-
-		return (array) $plugin_meta;
 	}
 }
 

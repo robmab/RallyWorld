@@ -1,6 +1,8 @@
 <?php
 namespace Elementor\Core\DynamicTags;
 
+use Elementor\Utils;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -34,22 +36,22 @@ abstract class Tag extends Base_Tag {
 
 		$value = ob_get_clean();
 
-		if ( $value ) {
+		if ( ! Utils::is_empty( $value ) ) {
 			// TODO: fix spaces in `before`/`after` if WRAPPED_TAG ( conflicted with .elementor-tag { display: inline-flex; } );
-			if ( ! empty( $settings['before'] ) ) {
+			if ( ! Utils::is_empty( $settings, 'before' ) ) {
 				$value = wp_kses_post( $settings['before'] ) . $value;
 			}
 
-			if ( ! empty( $settings['after'] ) ) {
+			if ( ! Utils::is_empty( $settings, 'after' ) ) {
 				$value .= wp_kses_post( $settings['after'] );
 			}
 
-			if ( self::WRAPPED_TAG ) :
+			if ( static::WRAPPED_TAG ) :
 				$value = '<span id="elementor-tag-' . esc_attr( $this->get_id() ) . '" class="elementor-tag">' . $value . '</span>';
 			endif;
 
-		} elseif ( ! empty( $settings['fallback'] ) ) {
-			$value = $settings['fallback'];
+		} elseif ( ! Utils::is_empty( $settings, 'fallback' ) ) {
+			$value = wp_kses_post_deep( $settings['fallback'] );
 		}
 
 		return $value;
@@ -63,6 +65,10 @@ abstract class Tag extends Base_Tag {
 		return 'ui';
 	}
 
+	/**
+	 * @since 2.0.9
+	 * @access public
+	 */
 	public function get_editor_config() {
 		$config = parent::get_editor_config();
 
@@ -79,28 +85,37 @@ abstract class Tag extends Base_Tag {
 		$this->start_controls_section(
 			'advanced',
 			[
-				'label' => __( 'Advanced', 'elementor' ),
+				'label' => esc_html__( 'Advanced', 'elementor' ),
 			]
 		);
 
 		$this->add_control(
 			'before',
 			[
-				'label' => __( 'Before', 'elementor' ),
+				'label' => esc_html__( 'Before', 'elementor' ),
+				'ai' => [
+					'active' => false,
+				],
 			]
 		);
 
 		$this->add_control(
 			'after',
 			[
-				'label' => __( 'After', 'elementor' ),
+				'label' => esc_html__( 'After', 'elementor' ),
+				'ai' => [
+					'active' => false,
+				],
 			]
 		);
 
 		$this->add_control(
 			'fallback',
 			[
-				'label' => __( 'Fallback', 'elementor' ),
+				'label' => esc_html__( 'Fallback', 'elementor' ),
+				'ai' => [
+					'active' => false,
+				],
 			]
 		);
 

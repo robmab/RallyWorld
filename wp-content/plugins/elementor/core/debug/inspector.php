@@ -14,6 +14,10 @@ class Inspector {
 
 	protected $log = [];
 
+	/**
+	 * @since 2.1.2
+	 * @access public
+	 */
 	public function __construct() {
 		$is_debug = ( defined( 'WP_DEBUG' ) && WP_DEBUG );
 		$option = get_option( 'elementor_enable_inspector', null );
@@ -27,27 +31,39 @@ class Inspector {
 		add_action( 'elementor/admin/after_create_settings/' . Tools::PAGE_ID, [ $this, 'register_admin_tools_fields' ], 50 );
 	}
 
+	/**
+	 * @since 2.1.3
+	 * @access public
+	 */
 	public function is_enabled() {
 		return $this->is_enabled;
 	}
 
+	/**
+	 * @since 2.1.3
+	 * @access public
+	 */
 	public function register_admin_tools_fields( Tools $tools ) {
 		$tools->add_fields( Settings::TAB_GENERAL, 'tools', [
 			'enable_inspector' => [
-				'label' => __( 'Debug Bar', 'elementor' ),
+				'label' => esc_html__( 'Debug Bar', 'elementor' ),
 				'field_args' => [
 					'type' => 'select',
 					'std' => $this->is_enabled ? 'enable' : '',
 					'options' => [
-						'' => __( 'Disable', 'elementor' ),
-						'enable' => __( 'Enable', 'elementor' ),
+						'' => esc_html__( 'Disable', 'elementor' ),
+						'enable' => esc_html__( 'Enable', 'elementor' ),
 					],
-					'desc' => __( 'Debug Bar adds an admin bar menu that lists all the templates that are used on a page that is being displayed.', 'elementor' ),
+					'desc' => esc_html__( 'Debug Bar adds an admin bar menu that lists all the templates that are used on a page that is being displayed.', 'elementor' ),
 				],
 			],
 		] );
 	}
 
+	/**
+	 * @since 2.1.2
+	 * @access public
+	 */
 	public function parse_template_path( $template ) {
 		// `untrailingslashit` for windows path style.
 		if ( 0 === strpos( $template, untrailingslashit( ELEMENTOR_PATH ) ) ) {
@@ -66,6 +82,10 @@ class Inspector {
 		return str_replace( WP_CONTENT_DIR, '', $template );
 	}
 
+	/**
+	 * @since 2.1.2
+	 * @access public
+	 */
 	public function add_log( $module, $title, $url = '' ) {
 		if ( ! $this->is_enabled ) {
 			return;
@@ -81,6 +101,10 @@ class Inspector {
 		];
 	}
 
+	/**
+	 * @since 2.1.2
+	 * @access public
+	 */
 	public function add_menu_in_admin_bar( \WP_Admin_Bar $wp_admin_bar ) {
 		if ( empty( $this->log ) ) {
 			return;
@@ -88,7 +112,7 @@ class Inspector {
 
 		$wp_admin_bar->add_node( [
 			'id' => 'elementor_inspector',
-			'title' => __( 'Elementor Debugger', 'elementor' ),
+			'title' => esc_html__( 'Elementor Debugger', 'elementor' ),
 		] );
 
 		foreach ( $this->log as $module => $log ) {

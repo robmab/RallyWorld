@@ -106,7 +106,8 @@ class Shapes {
 	public static function get_shape_path( $shape, $is_negative = false ) {
 
 		if ( isset( self::$shapes[ $shape ] ) && isset( self::$shapes[ $shape ]['path'] ) ) {
-			return self::$shapes[ $shape ]['path'];
+			$path = self::$shapes[ $shape ]['path'];
+			return ( $is_negative ) ? str_replace( '.svg', '-negative.svg', $path ) : $path;
 		}
 
 		$file_name = $shape;
@@ -130,86 +131,104 @@ class Shapes {
 	private static function init_shapes() {
 		$native_shapes = [
 			'mountains' => [
-				'title' => _x( 'Mountains', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Mountains', 'Shapes', 'elementor' ),
 				'has_flip' => true,
 			],
 			'drops' => [
-				'title' => _x( 'Drops', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Drops', 'Shapes', 'elementor' ),
 				'has_negative' => true,
 				'has_flip' => true,
 				'height_only' => true,
 			],
 			'clouds' => [
-				'title' => _x( 'Clouds', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Clouds', 'Shapes', 'elementor' ),
 				'has_negative' => true,
 				'has_flip' => true,
 				'height_only' => true,
 			],
 			'zigzag' => [
-				'title' => _x( 'Zigzag', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Zigzag', 'Shapes', 'elementor' ),
 			],
 			'pyramids' => [
-				'title' => _x( 'Pyramids', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Pyramids', 'Shapes', 'elementor' ),
 				'has_negative' => true,
 				'has_flip' => true,
 			],
 			'triangle' => [
-				'title' => _x( 'Triangle', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Triangle', 'Shapes', 'elementor' ),
 				'has_negative' => true,
 			],
 			'triangle-asymmetrical' => [
-				'title' => _x( 'Triangle Asymmetrical', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Triangle Asymmetrical', 'Shapes', 'elementor' ),
 				'has_negative' => true,
 				'has_flip' => true,
 			],
 			'tilt' => [
-				'title' => _x( 'Tilt', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Tilt', 'Shapes', 'elementor' ),
 				'has_flip' => true,
 				'height_only' => true,
 			],
 			'opacity-tilt' => [
-				'title' => _x( 'Tilt Opacity', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Tilt Opacity', 'Shapes', 'elementor' ),
 				'has_flip' => true,
 			],
 			'opacity-fan' => [
-				'title' => _x( 'Fan Opacity', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Fan Opacity', 'Shapes', 'elementor' ),
 			],
 			'curve' => [
-				'title' => _x( 'Curve', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Curve', 'Shapes', 'elementor' ),
 				'has_negative' => true,
 			],
 			'curve-asymmetrical' => [
-				'title' => _x( 'Curve Asymmetrical', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Curve Asymmetrical', 'Shapes', 'elementor' ),
 				'has_negative' => true,
 				'has_flip' => true,
 			],
 			'waves' => [
-				'title' => _x( 'Waves', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Waves', 'Shapes', 'elementor' ),
 				'has_negative' => true,
 				'has_flip' => true,
 			],
 			'wave-brush' => [
-				'title' => _x( 'Waves Brush', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Waves Brush', 'Shapes', 'elementor' ),
 				'has_flip' => true,
 			],
 			'waves-pattern' => [
-				'title' => _x( 'Waves Pattern', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Waves Pattern', 'Shapes', 'elementor' ),
 				'has_flip' => true,
 			],
 			'arrow' => [
-				'title' => _x( 'Arrow', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Arrow', 'Shapes', 'elementor' ),
 				'has_negative' => true,
 			],
 			'split' => [
-				'title' => _x( 'Split', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Split', 'Shapes', 'elementor' ),
 				'has_negative' => true,
 			],
 			'book' => [
-				'title' => _x( 'Book', 'Shapes', 'elementor' ),
+				'title' => esc_html_x( 'Book', 'Shapes', 'elementor' ),
 				'has_negative' => true,
 			],
 		];
 
+		self::$shapes = array_merge( $native_shapes, self::get_additional_shapes() );
+	}
+
+	/**
+	 * Get Additional Shapes
+	 *
+	 * Used to add custom shapes to elementor.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return array
+	 */
+	private static function get_additional_shapes() {
+		static $additional_shapes = null;
+
+		if ( null !== $additional_shapes ) {
+			return $additional_shapes;
+		}
 		$additional_shapes = [];
 		/**
 		 * Additional shapes.
@@ -218,10 +237,39 @@ class Shapes {
 		 *
 		 * @since 2.0.1
 		 *
-		 * @param array $additional_shapes Additional Elementor fonts.
+		 * @param array $additional_shapes Additional Elementor shapes.
 		 */
 		$additional_shapes = apply_filters( 'elementor/shapes/additional_shapes', $additional_shapes );
+		return $additional_shapes;
+	}
 
-		self::$shapes = array_merge( $native_shapes, $additional_shapes );
+	/**
+	 * Get Additional Shapes For Config
+	 *
+	 * Used to set additional shape paths for editor
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return array|bool
+	 */
+	public static function get_additional_shapes_for_config() {
+		$additional_shapes = self::get_additional_shapes();
+		if ( empty( $additional_shapes ) ) {
+			return false;
+		}
+
+		$additional_shapes_config = [];
+		foreach ( $additional_shapes as $shape_name => $shape_settings ) {
+			if ( ! isset( $shape_settings['url'] ) ) {
+				continue;
+			}
+			$additional_shapes_config[ $shape_name ] = $shape_settings['url'];
+		}
+
+		if ( empty( $additional_shapes_config ) ) {
+			return false;
+		}
+
+		return $additional_shapes_config;
 	}
 }

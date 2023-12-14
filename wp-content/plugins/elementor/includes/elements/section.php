@@ -16,19 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Element_Section extends Element_Base {
 
 	/**
-	 * Section edit tools.
-	 *
-	 * Holds the section edit tools.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @static
-	 *
-	 * @var array Section edit tools.
-	 */
-	protected static $_edit_tools;
-
-	/**
 	 * Section predefined columns presets.
 	 *
 	 * Holds the predefined columns width for each columns count available by
@@ -88,7 +75,7 @@ class Element_Section extends Element_Base {
 	 * @return string Section title.
 	 */
 	public function get_title() {
-		return __( 'Section', 'elementor' );
+		return esc_html__( 'Section', 'elementor' );
 	}
 
 	/**
@@ -202,54 +189,6 @@ class Element_Section extends Element_Base {
 	}
 
 	/**
-	 * Get default edit tools.
-	 *
-	 * Retrieve the section default edit tools. Used to set initial tools.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @static
-	 *
-	 * @return array Default section edit tools.
-	 */
-	protected static function get_default_edit_tools() {
-		$section_label = __( 'Section', 'elementor' );
-
-		$edit_tools = [
-			'add' => [
-				/* translators: %s: Section label */
-				'title' => sprintf( __( 'Add %s', 'elementor' ), $section_label ),
-				'icon' => 'plus',
-			],
-			'edit' => [
-				/* translators: %s: Section label */
-				'title' => sprintf( __( 'Edit %s', 'elementor' ), $section_label ),
-				'icon' => 'handle',
-			],
-		];
-
-		if ( self::is_edit_buttons_enabled() ) {
-			$edit_tools += [
-				'duplicate' => [
-					/* translators: %s: Section label */
-					'title' => sprintf( __( 'Duplicate %s', 'elementor' ), $section_label ),
-					'icon' => 'clone',
-				],
-			];
-		}
-
-		$edit_tools += [
-			'remove' => [
-				/* translators: %s: Section label */
-				'title' => sprintf( __( 'Delete %s', 'elementor' ), $section_label ),
-				'icon' => 'close',
-			],
-		];
-
-		return $edit_tools;
-	}
-
-	/**
 	 * Get initial config.
 	 *
 	 * Retrieve the current section initial configuration.
@@ -258,15 +197,17 @@ class Element_Section extends Element_Base {
 	 * the control, element name, type, icon and more. This method also adds
 	 * section presets.
 	 *
-	 * @since 1.0.10
+	 * @since 2.9.0
 	 * @access protected
 	 *
 	 * @return array The initial config.
 	 */
-	protected function _get_initial_config() {
-		$config = parent::_get_initial_config();
+	protected function get_initial_config() {
+		$config = parent::get_initial_config();
 
 		$config['presets'] = self::get_presets();
+		$config['controls'] = $this->get_controls();
+		$config['tabs_controls'] = $this->get_tabs_controls();
 
 		return $config;
 	}
@@ -276,61 +217,46 @@ class Element_Section extends Element_Base {
 	 *
 	 * Used to add new controls to the section element.
 	 *
-	 * @since 1.0.0
+	 * @since 3.1.0
 	 * @access protected
 	 */
-	protected function _register_controls() {
-
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_layout',
 			[
-				'label' => __( 'Layout', 'elementor' ),
+				'label' => esc_html__( 'Layout', 'elementor' ),
 				'tab' => Controls_Manager::TAB_LAYOUT,
 			]
 		);
 
+		// Element Name for the Navigator
 		$this->add_control(
 			'_title',
 			[
-				'label' => __( 'Title', 'elementor' ),
+				'label' => esc_html__( 'Title', 'elementor' ),
 				'type' => Controls_Manager::HIDDEN,
 				'render_type' => 'none',
 			]
 		);
 
 		$this->add_control(
-			'stretch_section',
-			[
-				'label' => __( 'Stretch Section', 'elementor' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => '',
-				'return_value' => 'section-stretched',
-				'prefix_class' => 'elementor-',
-				'hide_in_inner' => true,
-				'description' => __( 'Stretch the section to the full width of the page using JS.', 'elementor' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://go.elementor.com/stretch-section/', __( 'Learn more.', 'elementor' ) ),
-				'render_type' => 'none',
-				'frontend_available' => true,
-			]
-		);
-
-		$this->add_control(
 			'layout',
 			[
-				'label' => __( 'Content Width', 'elementor' ),
+				'label' => esc_html__( 'Content Width', 'elementor' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'boxed',
 				'options' => [
-					'boxed' => __( 'Boxed', 'elementor' ),
-					'full_width' => __( 'Full Width', 'elementor' ),
+					'boxed' => esc_html__( 'Boxed', 'elementor' ),
+					'full_width' => esc_html__( 'Full Width', 'elementor' ),
 				],
 				'prefix_class' => 'elementor-section-',
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'content_width',
 			[
-				'label' => __( 'Content Width', 'elementor' ),
+				'label' => esc_html__( 'Width', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -344,7 +270,6 @@ class Element_Section extends Element_Base {
 				'condition' => [
 					'layout' => [ 'boxed' ],
 				],
-				'show_label' => false,
 				'separator' => 'none',
 			]
 		);
@@ -352,16 +277,50 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'gap',
 			[
-				'label' => __( 'Columns Gap', 'elementor' ),
+				'label' => esc_html__( 'Columns Gap', 'elementor' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'default',
 				'options' => [
-					'default' => __( 'Default', 'elementor' ),
-					'no' => __( 'No Gap', 'elementor' ),
-					'narrow' => __( 'Narrow', 'elementor' ),
-					'extended' => __( 'Extended', 'elementor' ),
-					'wide' => __( 'Wide', 'elementor' ),
-					'wider' => __( 'Wider', 'elementor' ),
+					'default' => esc_html__( 'Default', 'elementor' ),
+					'no' => esc_html__( 'No Gap', 'elementor' ),
+					'narrow' => esc_html__( 'Narrow', 'elementor' ),
+					'extended' => esc_html__( 'Extended', 'elementor' ),
+					'wide' => esc_html__( 'Wide', 'elementor' ),
+					'wider' => esc_html__( 'Wider', 'elementor' ),
+					'custom' => esc_html__( 'Custom', 'elementor' ),
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'gap_columns_custom',
+			[
+				'label' => esc_html__( 'Custom Columns Gap', 'elementor' ),
+				'type' => Controls_Manager::SLIDER,
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 500,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'vh' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'vw' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vh', 'vw', 'custom' ],
+				'selectors' => [
+					'{{WRAPPER}} .elementor-column-gap-custom .elementor-column > .elementor-element-populated' => 'padding: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'gap' => 'custom',
 				],
 			]
 		);
@@ -369,13 +328,13 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'height',
 			[
-				'label' => __( 'Height', 'elementor' ),
+				'label' => esc_html__( 'Height', 'elementor' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'default',
 				'options' => [
-					'default' => __( 'Default', 'elementor' ),
-					'full' => __( 'Fit To Screen', 'elementor' ),
-					'min-height' => __( 'Min Height', 'elementor' ),
+					'default' => esc_html__( 'Default', 'elementor' ),
+					'full' => esc_html__( 'Fit To Screen', 'elementor' ),
+					'min-height' => esc_html__( 'Min Height', 'elementor' ),
 				],
 				'prefix_class' => 'elementor-section-height-',
 				'hide_in_inner' => true,
@@ -385,7 +344,7 @@ class Element_Section extends Element_Base {
 		$this->add_responsive_control(
 			'custom_height',
 			[
-				'label' => __( 'Minimum Height', 'elementor' ),
+				'label' => esc_html__( 'Minimum Height', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 400,
@@ -399,11 +358,14 @@ class Element_Section extends Element_Base {
 						'min' => 0,
 						'max' => 100,
 					],
+					'vw' => [
+						'min' => 0,
+						'max' => 100,
+					],
 				],
-				'size_units' => [ 'px', 'vh' ],
+				'size_units' => [ 'px', 'em', 'rem', 'vh', 'vw', 'custom' ],
 				'selectors' => [
 					'{{WRAPPER}} > .elementor-container' => 'min-height: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} > .elementor-container:after' => 'content: ""; min-height: inherit;', // Hack for IE11
 				],
 				'condition' => [
 					'height' => [ 'min-height' ],
@@ -415,12 +377,13 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'height_inner',
 			[
-				'label' => __( 'Height', 'elementor' ),
+				'label' => esc_html__( 'Height', 'elementor' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'default',
 				'options' => [
-					'default' => __( 'Default', 'elementor' ),
-					'min-height' => __( 'Min Height', 'elementor' ),
+					'default' => esc_html__( 'Default', 'elementor' ),
+					'full' => esc_html__( 'Fit To Screen', 'elementor' ),
+					'min-height' => esc_html__( 'Min Height', 'elementor' ),
 				],
 				'prefix_class' => 'elementor-section-height-',
 				'hide_in_top' => true,
@@ -430,7 +393,7 @@ class Element_Section extends Element_Base {
 		$this->add_responsive_control(
 			'custom_height_inner',
 			[
-				'label' => __( 'Minimum Height', 'elementor' ),
+				'label' => esc_html__( 'Minimum Height', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 400,
@@ -447,6 +410,7 @@ class Element_Section extends Element_Base {
 				'condition' => [
 					'height_inner' => [ 'min-height' ],
 				],
+				'size_units' => [ 'px', 'em', 'rem', 'vh', 'vw', 'custom' ],
 				'hide_in_top' => true,
 			]
 		);
@@ -454,14 +418,14 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'column_position',
 			[
-				'label' => __( 'Column Position', 'elementor' ),
+				'label' => esc_html__( 'Column Position', 'elementor' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'middle',
 				'options' => [
-					'stretch' => __( 'Stretch', 'elementor' ),
-					'top' => __( 'Top', 'elementor' ),
-					'middle' => __( 'Middle', 'elementor' ),
-					'bottom' => __( 'Bottom', 'elementor' ),
+					'stretch' => esc_html__( 'Stretch', 'elementor' ),
+					'top' => esc_html__( 'Top', 'elementor' ),
+					'middle' => esc_html__( 'Middle', 'elementor' ),
+					'bottom' => esc_html__( 'Bottom', 'elementor' ),
 				],
 				'prefix_class' => 'elementor-section-items-',
 				'condition' => [
@@ -470,19 +434,66 @@ class Element_Section extends Element_Base {
 			]
 		);
 
+		$content_position_selector = Plugin::$instance->experiments->is_feature_active( 'e_dom_optimization' ) ?
+				'{{WRAPPER}} > .elementor-container > .elementor-column > .elementor-widget-wrap' :
+				'{{WRAPPER}} > .elementor-container > .elementor-row > .elementor-column > .elementor-column-wrap > .elementor-widget-wrap';
+
 		$this->add_control(
 			'content_position',
 			[
-				'label' => __( 'Content Position', 'elementor' ),
+				'label' => esc_html__( 'Vertical Align', 'elementor' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => '',
 				'options' => [
-					'' => __( 'Default', 'elementor' ),
-					'top' => __( 'Top', 'elementor' ),
-					'middle' => __( 'Middle', 'elementor' ),
-					'bottom' => __( 'Bottom', 'elementor' ),
+					'' => esc_html__( 'Default', 'elementor' ),
+					'top' => esc_html__( 'Top', 'elementor' ),
+					'middle' => esc_html__( 'Middle', 'elementor' ),
+					'bottom' => esc_html__( 'Bottom', 'elementor' ),
+					'space-between' => esc_html__( 'Space Between', 'elementor' ),
+					'space-around' => esc_html__( 'Space Around', 'elementor' ),
+					'space-evenly' => esc_html__( 'Space Evenly', 'elementor' ),
 				],
+				'selectors_dictionary' => [
+					'top' => 'flex-start',
+					'middle' => 'center',
+					'bottom' => 'flex-end',
+				],
+				'selectors' => [
+					$content_position_selector => 'align-content: {{VALUE}}; align-items: {{VALUE}};',
+				],
+				// TODO: The following line is for BC since 2.7.0
 				'prefix_class' => 'elementor-section-content-',
+			]
+		);
+
+		$this->add_control(
+			'overflow',
+			[
+				'label' => esc_html__( 'Overflow', 'elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					'' => esc_html__( 'Default', 'elementor' ),
+					'hidden' => esc_html__( 'Hidden', 'elementor' ),
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => 'overflow: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'stretch_section',
+			[
+				'label' => esc_html__( 'Stretch Section', 'elementor' ),
+				'type' => Controls_Manager::SWITCHER,
+				'default' => '',
+				'return_value' => 'section-stretched',
+				'prefix_class' => 'elementor-',
+				'hide_in_inner' => true,
+				'description' => esc_html__( 'Stretch the section to the full width of the page using JS.', 'elementor' ) . sprintf( ' <a href="%1$s" target="_blank">%2$s</a>', 'https://go.elementor.com/stretch-section/', esc_html__( 'Learn more.', 'elementor' ) ),
+				'render_type' => 'none',
+				'frontend_available' => true,
 			]
 		);
 
@@ -498,26 +509,38 @@ class Element_Section extends Element_Base {
 		];
 
 		$options = [
-			'' => __( 'Default', 'elementor' ),
+			'' => esc_html__( 'Default', 'elementor' ),
 		] + array_combine( $possible_tags, $possible_tags );
 
 		$this->add_control(
 			'html_tag',
 			[
-				'label' => __( 'HTML Tag', 'elementor' ),
+				'label' => esc_html__( 'HTML Tag', 'elementor' ),
 				'type' => Controls_Manager::SELECT,
 				'options' => $options,
 				'separator' => 'before',
 			]
 		);
 
+		$this->end_controls_section();
+
+		// Section Structure
+		$this->start_controls_section(
+			'section_structure',
+			[
+				'label' => esc_html__( 'Structure', 'elementor' ),
+				'tab' => Controls_Manager::TAB_LAYOUT,
+			]
+		);
+
 		$this->add_control(
 			'structure',
 			[
-				'label' => __( 'Structure', 'elementor' ),
+				'label' => esc_html__( 'Structure', 'elementor' ),
 				'type' => Controls_Manager::STRUCTURE,
 				'default' => '10',
 				'render_type' => 'none',
+				'style_transfer' => false,
 			]
 		);
 
@@ -527,7 +550,7 @@ class Element_Section extends Element_Base {
 		$this->start_controls_section(
 			'section_background',
 			[
-				'label' => __( 'Background', 'elementor' ),
+				'label' => esc_html__( 'Background', 'elementor' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -537,7 +560,7 @@ class Element_Section extends Element_Base {
 		$this->start_controls_tab(
 			'tab_background_normal',
 			[
-				'label' => __( 'Normal', 'elementor' ),
+				'label' => esc_html__( 'Normal', 'elementor' ),
 			]
 		);
 
@@ -545,19 +568,16 @@ class Element_Section extends Element_Base {
 			Group_Control_Background::get_type(),
 			[
 				'name' => 'background',
-				'types' => [ 'classic', 'gradient', 'video' ],
+				'types' => [ 'classic', 'gradient', 'video', 'slideshow' ],
 				'fields_options' => [
 					'background' => [
 						'frontend_available' => true,
 					],
-					'video_link' => [
-						'frontend_available' => true,
-					],
-					'video_start' => [
-						'frontend_available' => true,
-					],
-					'video_end' => [
-						'frontend_available' => true,
+					'image' => [
+						'background_lazyload' => [
+							'active' => true,
+							'keys' => [ 'background_image', 'url' ],
+						],
 					],
 				],
 			]
@@ -568,7 +588,7 @@ class Element_Section extends Element_Base {
 		$this->start_controls_tab(
 			'tab_background_hover',
 			[
-				'label' => __( 'Hover', 'elementor' ),
+				'label' => esc_html__( 'Hover', 'elementor' ),
 			]
 		);
 
@@ -583,7 +603,7 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'background_hover_transition',
 			[
-				'label' => __( 'Transition Duration', 'elementor' ),
+				'label' => esc_html__( 'Transition Duration', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 0.3,
@@ -609,11 +629,8 @@ class Element_Section extends Element_Base {
 		$this->start_controls_section(
 			'section_background_overlay',
 			[
-				'label' => __( 'Background Overlay', 'elementor' ),
+				'label' => esc_html__( 'Background Overlay', 'elementor' ),
 				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [
-					'background_background' => [ 'classic', 'gradient', 'video' ],
-				],
 			]
 		);
 
@@ -622,7 +639,7 @@ class Element_Section extends Element_Base {
 		$this->start_controls_tab(
 			'tab_background_overlay_normal',
 			[
-				'label' => __( 'Normal', 'elementor' ),
+				'label' => esc_html__( 'Normal', 'elementor' ),
 			]
 		);
 
@@ -631,13 +648,22 @@ class Element_Section extends Element_Base {
 			[
 				'name' => 'background_overlay',
 				'selector' => '{{WRAPPER}} > .elementor-background-overlay',
+				'fields_options' => [
+					'image' => [
+						'background_lazyload' => [
+							'active' => true,
+							'keys' => [ 'background_overlay_image', 'url' ],
+							'selector' => '.elementor-background-overlay',
+						],
+					],
+				],
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'background_overlay_opacity',
 			[
-				'label' => __( 'Opacity', 'elementor' ),
+				'label' => esc_html__( 'Opacity', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => .5,
@@ -662,28 +688,61 @@ class Element_Section extends Element_Base {
 			[
 				'name' => 'css_filters',
 				'selector' => '{{WRAPPER}} .elementor-background-overlay',
+				'conditions' => [
+					'relation' => 'or',
+					'terms' => [
+						[
+							'name' => 'background_overlay_image[url]',
+							'operator' => '!==',
+							'value' => '',
+						],
+						[
+							'name' => 'background_overlay_color',
+							'operator' => '!==',
+							'value' => '',
+						],
+					],
+				],
 			]
 		);
 
 		$this->add_control(
 			'overlay_blend_mode',
 			[
-				'label' => __( 'Blend Mode', 'elementor' ),
+				'label' => esc_html__( 'Blend Mode', 'elementor' ),
 				'type' => Controls_Manager::SELECT,
 				'options' => [
-					'' => __( 'Normal', 'elementor' ),
-					'multiply' => 'Multiply',
-					'screen' => 'Screen',
-					'overlay' => 'Overlay',
-					'darken' => 'Darken',
-					'lighten' => 'Lighten',
-					'color-dodge' => 'Color Dodge',
-					'saturation' => 'Saturation',
-					'color' => 'Color',
-					'luminosity' => 'Luminosity',
+					'' => esc_html__( 'Normal', 'elementor' ),
+					'multiply' => esc_html__( 'Multiply', 'elementor' ),
+					'screen' => esc_html__( 'Screen', 'elementor' ),
+					'overlay' => esc_html__( 'Overlay', 'elementor' ),
+					'darken' => esc_html__( 'Darken', 'elementor' ),
+					'lighten' => esc_html__( 'Lighten', 'elementor' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'elementor' ),
+					'saturation' => esc_html__( 'Saturation', 'elementor' ),
+					'color' => esc_html__( 'Color', 'elementor' ),
+					'luminosity' => esc_html__( 'Luminosity', 'elementor' ),
+					'difference' => esc_html__( 'Difference', 'elementor' ),
+					'exclusion' => esc_html__( 'Exclusion', 'elementor' ),
+					'hue' => esc_html__( 'Hue', 'elementor' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} > .elementor-background-overlay' => 'mix-blend-mode: {{VALUE}}',
+				],
+				'conditions' => [
+					'relation' => 'or',
+					'terms' => [
+						[
+							'name' => 'background_overlay_image[url]',
+							'operator' => '!==',
+							'value' => '',
+						],
+						[
+							'name' => 'background_overlay_color',
+							'operator' => '!==',
+							'value' => '',
+						],
+					],
 				],
 			]
 		);
@@ -693,7 +752,7 @@ class Element_Section extends Element_Base {
 		$this->start_controls_tab(
 			'tab_background_overlay_hover',
 			[
-				'label' => __( 'Hover', 'elementor' ),
+				'label' => esc_html__( 'Hover', 'elementor' ),
 			]
 		);
 
@@ -705,10 +764,10 @@ class Element_Section extends Element_Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'background_overlay_hover_opacity',
 			[
-				'label' => __( 'Opacity', 'elementor' ),
+				'label' => esc_html__( 'Opacity', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => .5,
@@ -739,7 +798,7 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'background_overlay_hover_transition',
 			[
-				'label' => __( 'Transition Duration', 'elementor' ),
+				'label' => esc_html__( 'Transition Duration', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 0.3,
@@ -765,7 +824,7 @@ class Element_Section extends Element_Base {
 		$this->start_controls_section(
 			'section_border',
 			[
-				'label' => __( 'Border', 'elementor' ),
+				'label' => esc_html__( 'Border', 'elementor' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -775,7 +834,7 @@ class Element_Section extends Element_Base {
 		$this->start_controls_tab(
 			'tab_border_normal',
 			[
-				'label' => __( 'Normal', 'elementor' ),
+				'label' => esc_html__( 'Normal', 'elementor' ),
 			]
 		);
 
@@ -786,12 +845,12 @@ class Element_Section extends Element_Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'border_radius',
 			[
-				'label' => __( 'Border Radius', 'elementor' ),
+				'label' => esc_html__( 'Border Radius', 'elementor' ),
 				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors' => [
 					'{{WRAPPER}}, {{WRAPPER}} > .elementor-background-overlay' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -810,7 +869,7 @@ class Element_Section extends Element_Base {
 		$this->start_controls_tab(
 			'tab_border_hover',
 			[
-				'label' => __( 'Hover', 'elementor' ),
+				'label' => esc_html__( 'Hover', 'elementor' ),
 			]
 		);
 
@@ -822,12 +881,12 @@ class Element_Section extends Element_Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'border_radius_hover',
 			[
-				'label' => __( 'Border Radius', 'elementor' ),
+				'label' => esc_html__( 'Border Radius', 'elementor' ),
 				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors' => [
 					'{{WRAPPER}}:hover, {{WRAPPER}}:hover > .elementor-background-overlay' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -845,7 +904,7 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'border_hover_transition',
 			[
-				'label' => __( 'Transition Duration', 'elementor' ),
+				'label' => esc_html__( 'Transition Duration', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
 				'separator' => 'before',
 				'default' => [
@@ -889,7 +948,7 @@ class Element_Section extends Element_Base {
 		$this->start_controls_section(
 			'section_shape_divider',
 			[
-				'label' => __( 'Shape Divider', 'elementor' ),
+				'label' => esc_html__( 'Shape Divider', 'elementor' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -897,7 +956,7 @@ class Element_Section extends Element_Base {
 		$this->start_controls_tabs( 'tabs_shape_dividers' );
 
 		$shapes_options = [
-			'' => __( 'None', 'elementor' ),
+			'' => esc_html__( 'None', 'elementor' ),
 		];
 
 		foreach ( Shapes::get_shapes() as $shape_name => $shape_props ) {
@@ -905,8 +964,8 @@ class Element_Section extends Element_Base {
 		}
 
 		foreach ( [
-			'top' => __( 'Top', 'elementor' ),
-			'bottom' => __( 'Bottom', 'elementor' ),
+			'top' => esc_html__( 'Top', 'elementor' ),
+			'bottom' => esc_html__( 'Bottom', 'elementor' ),
 		] as $side => $side_label ) {
 			$base_control_key = "shape_divider_$side";
 
@@ -920,7 +979,7 @@ class Element_Section extends Element_Base {
 			$this->add_control(
 				$base_control_key,
 				[
-					'label' => __( 'Type', 'elementor' ),
+					'label' => esc_html__( 'Type', 'elementor' ),
 					'type' => Controls_Manager::SELECT,
 					'options' => $shapes_options,
 					'render_type' => 'none',
@@ -931,7 +990,7 @@ class Element_Section extends Element_Base {
 			$this->add_control(
 				$base_control_key . '_color',
 				[
-					'label' => __( 'Color', 'elementor' ),
+					'label' => esc_html__( 'Color', 'elementor' ),
 					'type' => Controls_Manager::COLOR,
 					'condition' => [
 						"shape_divider_$side!" => '',
@@ -945,7 +1004,7 @@ class Element_Section extends Element_Base {
 			$this->add_responsive_control(
 				$base_control_key . '_width',
 				[
-					'label' => __( 'Width', 'elementor' ),
+					'label' => esc_html__( 'Width', 'elementor' ),
 					'type' => Controls_Manager::SLIDER,
 					'default' => [
 						'unit' => '%',
@@ -974,7 +1033,7 @@ class Element_Section extends Element_Base {
 			$this->add_responsive_control(
 				$base_control_key . '_height',
 				[
-					'label' => __( 'Height', 'elementor' ),
+					'label' => esc_html__( 'Height', 'elementor' ),
 					'type' => Controls_Manager::SLIDER,
 					'range' => [
 						'px' => [
@@ -993,7 +1052,7 @@ class Element_Section extends Element_Base {
 			$this->add_control(
 				$base_control_key . '_flip',
 				[
-					'label' => __( 'Flip', 'elementor' ),
+					'label' => esc_html__( 'Flip', 'elementor' ),
 					'type' => Controls_Manager::SWITCHER,
 					'condition' => [
 						"shape_divider_$side" => array_keys( Shapes::filter_shapes( 'has_flip' ) ),
@@ -1007,7 +1066,7 @@ class Element_Section extends Element_Base {
 			$this->add_control(
 				$base_control_key . '_negative',
 				[
-					'label' => __( 'Invert', 'elementor' ),
+					'label' => esc_html__( 'Invert', 'elementor' ),
 					'type' => Controls_Manager::SWITCHER,
 					'frontend_available' => true,
 					'condition' => [
@@ -1020,7 +1079,7 @@ class Element_Section extends Element_Base {
 			$this->add_control(
 				$base_control_key . '_above_content',
 				[
-					'label' => __( 'Bring to Front', 'elementor' ),
+					'label' => esc_html__( 'Bring to Front', 'elementor' ),
 					'type' => Controls_Manager::SWITCHER,
 					'selectors' => [
 						"{{WRAPPER}} > .elementor-shape-$side" => 'z-index: 2; pointer-events: none',
@@ -1042,26 +1101,15 @@ class Element_Section extends Element_Base {
 		$this->start_controls_section(
 			'section_typo',
 			[
-				'label' => __( 'Typography', 'elementor' ),
+				'label' => esc_html__( 'Typography', 'elementor' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		if ( in_array( Scheme_Color::get_type(), Schemes_Manager::get_enabled_schemes(), true ) ) {
-			$this->add_control(
-				'colors_warning',
-				[
-					'type' => Controls_Manager::RAW_HTML,
-					'raw' => __( 'Note: The following colors won\'t work if Default Colors are enabled.', 'elementor' ),
-					'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
-				]
-			);
-		}
-
 		$this->add_control(
 			'heading_color',
 			[
-				'label' => __( 'Heading Color', 'elementor' ),
+				'label' => esc_html__( 'Heading Color', 'elementor' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'selectors' => [
@@ -1074,7 +1122,7 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'color_text',
 			[
-				'label' => __( 'Text Color', 'elementor' ),
+				'label' => esc_html__( 'Text Color', 'elementor' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'selectors' => [
@@ -1086,7 +1134,7 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'color_link',
 			[
-				'label' => __( 'Link Color', 'elementor' ),
+				'label' => esc_html__( 'Link Color', 'elementor' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'selectors' => [
@@ -1098,7 +1146,7 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'color_link_hover',
 			[
-				'label' => __( 'Link Hover Color', 'elementor' ),
+				'label' => esc_html__( 'Link Hover Color', 'elementor' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'selectors' => [
@@ -1107,23 +1155,27 @@ class Element_Section extends Element_Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'text_align',
 			[
-				'label' => __( 'Text Align', 'elementor' ),
+				'label' => esc_html__( 'Text Align', 'elementor' ),
 				'type' => Controls_Manager::CHOOSE,
 				'options' => [
 					'left' => [
-						'title' => __( 'Left', 'elementor' ),
-						'icon' => 'fa fa-align-left',
+						'title' => esc_html__( 'Left', 'elementor' ),
+						'icon' => 'eicon-text-align-left',
 					],
 					'center' => [
-						'title' => __( 'Center', 'elementor' ),
-						'icon' => 'fa fa-align-center',
+						'title' => esc_html__( 'Center', 'elementor' ),
+						'icon' => 'eicon-text-align-center',
 					],
 					'right' => [
-						'title' => __( 'Right', 'elementor' ),
-						'icon' => 'fa fa-align-right',
+						'title' => esc_html__( 'Right', 'elementor' ),
+						'icon' => 'eicon-text-align-right',
+					],
+					'justify' => [
+						'title' => esc_html__( 'Justified', 'elementor' ),
+						'icon' => 'eicon-text-align-justify',
 					],
 				],
 				'selectors' => [
@@ -1138,7 +1190,7 @@ class Element_Section extends Element_Base {
 		$this->start_controls_section(
 			'section_advanced',
 			[
-				'label' => __( 'Advanced', 'elementor' ),
+				'label' => esc_html__( 'Advanced', 'elementor' ),
 				'tab' => Controls_Manager::TAB_ADVANCED,
 			]
 		);
@@ -1146,9 +1198,9 @@ class Element_Section extends Element_Base {
 		$this->add_responsive_control(
 			'margin',
 			[
-				'label' => __( 'Margin', 'elementor' ),
+				'label' => esc_html__( 'Margin', 'elementor' ),
 				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'allowed_dimensions' => 'vertical',
 				'placeholder' => [
 					'top' => '',
@@ -1165,36 +1217,78 @@ class Element_Section extends Element_Base {
 		$this->add_responsive_control(
 			'padding',
 			[
-				'label' => __( 'Padding', 'elementor' ),
+				'label' => esc_html__( 'Padding', 'elementor' ),
 				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'selectors' => [
 					'{{WRAPPER}}' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'z_index',
 			[
-				'label' => __( 'Z-Index', 'elementor' ),
+				'label' => esc_html__( 'Z-Index', 'elementor' ),
 				'type' => Controls_Manager::NUMBER,
 				'min' => 0,
 				'selectors' => [
 					'{{WRAPPER}}' => 'z-index: {{VALUE}};',
 				],
-				'label_block' => false,
 			]
 		);
 
 		$this->add_control(
+			'_element_id',
+			[
+				'label' => esc_html__( 'CSS ID', 'elementor' ),
+				'type' => Controls_Manager::TEXT,
+				'default' => '',
+				'ai' => [
+					'active' => false,
+				],
+				'dynamic' => [
+					'active' => true,
+				],
+				'title' => esc_html__( 'Add your custom id WITHOUT the Pound key. e.g: my-id', 'elementor' ),
+				'style_transfer' => false,
+				'classes' => 'elementor-control-direction-ltr',
+			]
+		);
+
+		$this->add_control(
+			'css_classes',
+			[
+				'label' => esc_html__( 'CSS Classes', 'elementor' ),
+				'type' => Controls_Manager::TEXT,
+				'default' => '',
+				'ai' => [
+					'active' => false,
+				],
+				'dynamic' => [
+					'active' => true,
+				],
+				'prefix_class' => '',
+				'title' => esc_html__( 'Add your custom class WITHOUT the dot. e.g: my-class', 'elementor' ),
+				'classes' => 'elementor-control-direction-ltr',
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_effects',
+			[
+				'label' => esc_html__( 'Motion Effects', 'elementor' ),
+				'tab' => Controls_Manager::TAB_ADVANCED,
+			]
+		);
+
+		$this->add_responsive_control(
 			'animation',
 			[
-				'label' => __( 'Entrance Animation', 'elementor' ),
+				'label' => esc_html__( 'Entrance Animation', 'elementor' ),
 				'type' => Controls_Manager::ANIMATION,
-				'default' => '',
-				'prefix_class' => 'animated ',
-				'label_block' => false,
 				'frontend_available' => true,
 			]
 		);
@@ -1202,13 +1296,13 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'animation_duration',
 			[
-				'label' => __( 'Animation Duration', 'elementor' ),
+				'label' => esc_html__( 'Animation Duration', 'elementor' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => '',
 				'options' => [
-					'slow' => __( 'Slow', 'elementor' ),
-					'' => __( 'Normal', 'elementor' ),
-					'fast' => __( 'Fast', 'elementor' ),
+					'slow' => esc_html__( 'Slow', 'elementor' ),
+					'' => esc_html__( 'Normal', 'elementor' ),
+					'fast' => esc_html__( 'Fast', 'elementor' ),
 				],
 				'prefix_class' => 'animated-',
 				'condition' => [
@@ -1220,7 +1314,7 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'animation_delay',
 			[
-				'label' => __( 'Animation Delay', 'elementor' ) . ' (ms)',
+				'label' => esc_html__( 'Animation Delay', 'elementor' ) . ' (ms)',
 				'type' => Controls_Manager::NUMBER,
 				'default' => '',
 				'min' => 0,
@@ -1233,67 +1327,37 @@ class Element_Section extends Element_Base {
 			]
 		);
 
-		$this->add_control(
-			'_element_id',
-			[
-				'label' => __( 'CSS ID', 'elementor' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
-				'title' => __( 'Add your custom id WITHOUT the Pound key. e.g: my-id', 'elementor' ),
-				'label_block' => false,
-				'style_transfer' => false,
-			]
-		);
-
-		$this->add_control(
-			'css_classes',
-			[
-				'label' => __( 'CSS Classes', 'elementor' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => '',
-				'prefix_class' => '',
-				'title' => __( 'Add your custom class WITHOUT the dot. e.g: my-class', 'elementor' ),
-				'label_block' => false,
-			]
-		);
-
 		$this->end_controls_section();
 
 		// Section Responsive
 		$this->start_controls_section(
 			'_section_responsive',
 			[
-				'label' => __( 'Responsive', 'elementor' ),
+				'label' => esc_html__( 'Responsive', 'elementor' ),
 				'tab' => Controls_Manager::TAB_ADVANCED,
 			]
 		);
 
-		$this->add_control(
-			'reverse_order_tablet',
-			[
-				'label' => __( 'Reverse Columns', 'elementor' ) . ' (' . __( 'Tablet', 'elementor' ) . ')',
-				'type' => Controls_Manager::SWITCHER,
-				'default' => '',
-				'prefix_class' => 'elementor-',
-				'return_value' => 'reverse-tablet',
-			]
-		);
+		// The controls should be displayed from largest to smallest breakpoint, so we reverse the array.
+		$active_breakpoints = array_reverse( Plugin::$instance->breakpoints->get_active_breakpoints() );
 
-		$this->add_control(
-			'reverse_order_mobile',
-			[
-				'label' => __( 'Reverse Columns', 'elementor' ) . ' (' . __( 'Mobile', 'elementor' ) . ')',
-				'type' => Controls_Manager::SWITCHER,
-				'default' => '',
-				'prefix_class' => 'elementor-',
-				'return_value' => 'reverse-mobile',
-			]
-		);
+		foreach ( $active_breakpoints as $breakpoint_key => $breakpoint ) {
+			$this->add_control(
+				'reverse_order_' . $breakpoint_key,
+				[
+					'label' => esc_html__( 'Reverse Columns', 'elementor' ) . ' (' . $breakpoint->get_label() . ')',
+					'type' => Controls_Manager::SWITCHER,
+					'default' => '',
+					'prefix_class' => 'elementor-',
+					'return_value' => 'reverse-' . $breakpoint_key,
+				]
+			);
+		}
 
 		$this->add_control(
 			'heading_visibility',
 			[
-				'label' => __( 'Visibility', 'elementor' ),
+				'label' => esc_html__( 'Visibility', 'elementor' ),
 				'type' => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1302,83 +1366,24 @@ class Element_Section extends Element_Base {
 		$this->add_control(
 			'responsive_description',
 			[
-				'raw' => __( 'Attention: The display settings (show/hide for mobile, tablet or desktop) will only take effect once you are on the preview or live page, and not while you\'re in editing mode in Elementor.', 'elementor' ),
+				'raw' => sprintf(
+					/* translators: 1: Link open tag, 2: Link close tag. */
+					esc_html__( 'Responsive visibility will take effect only on %1$s preview mode %2$s or live page, and not while editing in Elementor.', 'elementor' ),
+					'<a href="javascript: $e.run( \'panel/close\' )">',
+					'</a>'
+				),
 				'type' => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			]
 		);
 
-		$this->add_control(
-			'hide_desktop',
-			[
-				'label' => __( 'Hide On Desktop', 'elementor' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => '',
-				'prefix_class' => 'elementor-',
-				'label_on' => __( 'Hide', 'elementor' ),
-				'label_off' => __( 'Show', 'elementor' ),
-				'return_value' => 'hidden-desktop',
-			]
-		);
-
-		$this->add_control(
-			'hide_tablet',
-			[
-				'label' => __( 'Hide On Tablet', 'elementor' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => '',
-				'prefix_class' => 'elementor-',
-				'label_on' => __( 'Hide', 'elementor' ),
-				'label_off' => __( 'Show', 'elementor' ),
-				'return_value' => 'hidden-tablet',
-			]
-		);
-
-		$this->add_control(
-			'hide_mobile',
-			[
-				'label' => __( 'Hide On Mobile', 'elementor' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => '',
-				'prefix_class' => 'elementor-',
-				'label_on' => __( 'Hide', 'elementor' ),
-				'label_off' => __( 'Show', 'elementor' ),
-				'return_value' => 'hidden-phone',
-			]
-		);
+		$this->add_hidden_device_controls();
 
 		$this->end_controls_section();
 
-		Plugin::$instance->controls_manager->add_custom_css_controls( $this );
-	}
+		Plugin::$instance->controls_manager->add_custom_attributes_controls( $this );
 
-	/**
-	 * Render section edit tools.
-	 *
-	 * Used to generate the edit tools HTML.
-	 *
-	 * @since 1.8.0
-	 * @access protected
-	 */
-	protected function render_edit_tools() {
-		?>
-		<div class="elementor-element-overlay">
-			<ul class="elementor-editor-element-settings elementor-editor-section-settings">
-				<?php foreach ( self::get_edit_tools() as $edit_tool_name => $edit_tool ) : ?>
-					<?php if ( 'add' === $edit_tool_name ) : ?>
-						<# if ( ! isInner ) { #>
-					<?php endif; ?>
-					<li class="elementor-editor-element-setting elementor-editor-element-<?php echo esc_attr( $edit_tool_name ); ?>" title="<?php echo esc_attr( $edit_tool['title'] ); ?>">
-						<i class="eicon-<?php echo esc_attr( $edit_tool['icon'] ); ?>" aria-hidden="true"></i>
-						<span class="elementor-screen-only"><?php echo esc_html( $edit_tool['title'] ); ?></span>
-					</li>
-					<?php if ( 'add' === $edit_tool_name ) : ?>
-						<# } #>
-					<?php endif; ?>
-				<?php endforeach; ?>
-			</ul>
-		</div>
-		<?php
+		Plugin::$instance->controls_manager->add_custom_css_controls( $this );
 	}
 
 	/**
@@ -1386,22 +1391,37 @@ class Element_Section extends Element_Base {
 	 *
 	 * Used to generate the live preview, using a Backbone JavaScript template.
 	 *
-	 * @since 1.0.0
+	 * @since 2.9.0
 	 * @access protected
 	 */
-	protected function _content_template() {
+	protected function content_template() {
 		?>
-		<# if ( settings.background_video_link ) { #>
-			<div class="elementor-background-video-container elementor-hidden-phone">
+		<#
+		if ( settings.background_video_link ) {
+			let videoAttributes = 'autoplay muted playsinline';
+
+			if ( ! settings.background_play_once ) {
+				videoAttributes += ' loop';
+			}
+
+			view.addRenderAttribute( 'background-video-container', 'class', 'elementor-background-video-container' );
+
+			if ( ! settings.background_play_on_mobile ) {
+				view.addRenderAttribute( 'background-video-container', 'class', 'elementor-hidden-mobile' );
+			}
+		#>
+			<div {{{ view.getRenderAttributeString( 'background-video-container' ) }}}>
 				<div class="elementor-background-video-embed"></div>
-				<video class="elementor-background-video-hosted" autoplay loop muted></video>
+				<video class="elementor-background-video-hosted elementor-html5-video" {{ videoAttributes }}></video>
 			</div>
 		<# } #>
 		<div class="elementor-background-overlay"></div>
 		<div class="elementor-shape elementor-shape-top"></div>
 		<div class="elementor-shape elementor-shape-bottom"></div>
 		<div class="elementor-container elementor-column-gap-{{ settings.gap }}">
-			<div class="elementor-row"></div>
+			<?php if ( ! Plugin::$instance->experiments->is_feature_active( 'e_dom_optimization' ) ) { ?>
+				<div class="elementor-row"></div>
+			<?php } ?>
 		</div>
 		<?php
 	}
@@ -1416,19 +1436,36 @@ class Element_Section extends Element_Base {
 	 */
 	public function before_render() {
 		$settings = $this->get_settings_for_display();
-
 		?>
-		<<?php echo esc_html( $this->get_html_tag() ); ?> <?php $this->print_render_attribute_string( '_wrapper' ); ?>>
+		<<?php
+			// PHPCS - the method get_html_tag is safe.
+			echo $this->get_html_tag(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		?> <?php $this->print_render_attribute_string( '_wrapper' ); ?>>
 			<?php
 			if ( 'video' === $settings['background_background'] ) :
 				if ( $settings['background_video_link'] ) :
 					$video_properties = Embed::get_video_properties( $settings['background_video_link'] );
+
+					$this->add_render_attribute( 'background-video-container', 'class', 'elementor-background-video-container' );
+
+					if ( ! $settings['background_play_on_mobile'] ) {
+						$this->add_render_attribute( 'background-video-container', 'class', 'elementor-hidden-phone' );
+					}
 					?>
-					<div class="elementor-background-video-container elementor-hidden-phone">
+					<div <?php $this->print_render_attribute_string( 'background-video-container' ); ?>>
 						<?php if ( $video_properties ) : ?>
 							<div class="elementor-background-video-embed"></div>
-						<?php else : ?>
-							<video class="elementor-background-video-hosted elementor-html5-video" autoplay loop muted></video>
+							<?php
+						else :
+							$video_tag_attributes = 'autoplay muted playsinline';
+							if ( 'yes' !== $settings['background_play_once'] ) :
+								$video_tag_attributes .= ' loop';
+							endif;
+							?>
+							<video class="elementor-background-video-hosted elementor-html5-video" <?php
+								// PHPCS - the variable $video_tag_attributes is a plain string.
+								echo $video_tag_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							?>></video>
 						<?php endif; ?>
 					</div>
 					<?php
@@ -1436,7 +1473,7 @@ class Element_Section extends Element_Base {
 			endif;
 
 			$has_background_overlay = in_array( $settings['background_overlay_background'], [ 'classic', 'gradient' ], true ) ||
-									  in_array( $settings['background_overlay_hover_background'], [ 'classic', 'gradient' ], true );
+									in_array( $settings['background_overlay_hover_background'], [ 'classic', 'gradient' ], true );
 
 			if ( $has_background_overlay ) :
 				?>
@@ -1453,8 +1490,9 @@ class Element_Section extends Element_Base {
 			}
 			?>
 			<div class="elementor-container elementor-column-gap-<?php echo esc_attr( $settings['gap'] ); ?>">
+			<?php if ( ! Plugin::$instance->experiments->is_feature_active( 'e_dom_optimization' ) ) { ?>
 				<div class="elementor-row">
-		<?php
+			<?php }
 	}
 
 	/**
@@ -1467,9 +1505,14 @@ class Element_Section extends Element_Base {
 	 */
 	public function after_render() {
 		?>
+		<?php if ( ! Plugin::$instance->experiments->is_feature_active( 'e_dom_optimization' ) ) { ?>
 				</div>
+		<?php } ?>
 			</div>
-		</<?php echo esc_html( $this->get_html_tag() ); ?>>
+		</<?php
+			// PHPCS - the method get_html_tag is safe.
+			echo $this->get_html_tag(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		?>>
 		<?php
 	}
 
@@ -1481,8 +1524,7 @@ class Element_Section extends Element_Base {
 	 * @since 1.3.0
 	 * @access protected
 	 */
-	protected function _add_render_attributes() {
-		parent::_add_render_attributes();
+	protected function add_render_attributes() {
 
 		$section_type = $this->get_data( 'isInner' ) ? 'inner' : 'top';
 
@@ -1493,7 +1535,7 @@ class Element_Section extends Element_Base {
 			]
 		);
 
-		$this->add_render_attribute( '_wrapper', 'data-element_type', $this->get_name() );
+		parent::add_render_attributes();
 	}
 
 	/**
@@ -1522,14 +1564,14 @@ class Element_Section extends Element_Base {
 	 *
 	 * @return string Section HTML tag.
 	 */
-	private function get_html_tag() {
+	protected function get_html_tag() {
 		$html_tag = $this->get_settings( 'html_tag' );
 
 		if ( empty( $html_tag ) ) {
 			$html_tag = 'section';
 		}
 
-		return $html_tag;
+		return Utils::validate_html_tag( $html_tag );
 	}
 
 	/**
@@ -1542,13 +1584,23 @@ class Element_Section extends Element_Base {
 	 *
 	 * @param string $side Shape divider side, used to set the shape key.
 	 */
-	private function print_shape_divider( $side ) {
+	protected function print_shape_divider( $side ) {
 		$settings = $this->get_active_settings();
 		$base_setting_key = "shape_divider_$side";
 		$negative = ! empty( $settings[ $base_setting_key . '_negative' ] );
+		$shape_path = Shapes::get_shape_path( $settings[ $base_setting_key ], $negative );
+		if ( ! is_file( $shape_path ) || ! is_readable( $shape_path ) ) {
+			return;
+		}
+
 		?>
-		<div class="elementor-shape elementor-shape-<?php echo esc_attr( $side ); ?>" data-negative="<?php echo var_export( $negative ); ?>">
-			<?php include Shapes::get_shape_path( $settings[ $base_setting_key ], ! empty( $settings[ $base_setting_key . '_negative' ] ) ); ?>
+		<div class="elementor-shape elementor-shape-<?php echo esc_attr( $side ); ?>" data-negative="<?php
+			Utils::print_unescaped_internal_string( $negative ? 'true' : 'false' );
+		?>">
+			<?php
+				// PHPCS - The file content is being read from a strict file path structure.
+				echo Utils::file_get_contents( $shape_path ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			?>
 		</div>
 		<?php
 	}

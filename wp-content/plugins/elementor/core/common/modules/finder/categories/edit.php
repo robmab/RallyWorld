@@ -21,12 +21,17 @@ class Edit extends Base_Category {
 	/**
 	 * Get title.
 	 *
+	 * @since 2.3.0
 	 * @access public
 	 *
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Edit', 'elementor' );
+		return esc_html__( 'Edit', 'elementor' );
+	}
+
+	public function get_id() {
+		return 'edit';
 	}
 
 	/**
@@ -34,6 +39,7 @@ class Edit extends Base_Category {
 	 *
 	 * Determine if the category is dynamic.
 	 *
+	 * @since 2.3.0
 	 * @access public
 	 *
 	 * @return bool
@@ -45,6 +51,7 @@ class Edit extends Base_Category {
 	/**
 	 * Get category items.
 	 *
+	 * @since 2.3.0
 	 * @access public
 	 *
 	 * @param array $options
@@ -58,13 +65,15 @@ class Edit extends Base_Category {
 
 		$post_types[] = Source_Local::CPT;
 
-		$document_types = Plugin::$instance->documents->get_document_types();
-
-		unset( $document_types['widget'] );
+		$document_types = Plugin::$instance->documents->get_document_types( [
+			'is_editable' => true,
+			'show_in_finder' => true,
+		] );
 
 		$recently_edited_query_args = [
+			'no_found_rows' => true,
 			'post_type' => $post_types,
-			'post_status' => [ 'publish', 'draft' ],
+			'post_status' => [ 'publish', 'draft', 'private', 'pending', 'future' ],
 			'posts_per_page' => '10',
 			'meta_query' => [
 				[
@@ -106,21 +115,21 @@ class Edit extends Base_Category {
 			$icon = 'document-file';
 
 			if ( $is_template ) {
-				$description = __( 'Template', 'elementor' ) . ' / ' . $description;
+				$description = esc_html__( 'Template', 'elementor' ) . ' / ' . $description;
 
 				$icon = 'post-title';
 			}
 
 			$items[] = [
 				'icon' => $icon,
-				'title' => $post->post_title,
+				'title' => esc_html( $post->post_title ),
 				'description' => $description,
 				'url' => $document->get_edit_url(),
 				'actions' => [
 					[
 						'name' => 'view',
 						'url' => $document->get_permalink(),
-						'icon' => 'eye',
+						'icon' => 'preview-medium',
 					],
 				],
 			];

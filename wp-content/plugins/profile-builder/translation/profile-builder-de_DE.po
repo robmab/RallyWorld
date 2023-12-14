@@ -2,17 +2,21 @@
 # This file is distributed under the same license as the Profile Builder package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-13 12:34:03+0000\n"
+"Project-Id-Version: Profile Builder\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2022-03-15 09:44+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/0.1\n"
-"Project-Id-Version: Profile Builder\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: profile-builder-2.0/admin/general-settings.php:154
 msgid "You can add / edit user roles at %1$sUsers > Roles Editor%2$s."
-msgstr "Du kannst über %1$Benutzer > Rollen Editor %2$s Benutzerrollen hinzufügen/bearbeiten."
+msgstr "Du kannst über %1$sBenutzer > Rollen Editor%2$s Benutzerrollen hinzufügen/bearbeiten."
 
 #: profile-builder-2.0/admin/general-settings.php:146
 msgid "\"Roles Editor\" Activated:"
@@ -36,7 +40,7 @@ msgstr "Einzelne Umleitungen in Shortcodes definiert; der <strong><em>Redirect_p
 
 #: profile-builder-2.0/admin/manage-fields.php:1217
 msgid "If you're interested in displaying different fields in the registration and edit profile forms, please use the Multiple Registration & Edit Profile Forms Modules."
-msgstr "Wenn du verschiedene Felder in den Anmelde- und Profilbearbeitungs-Formularen verwenden möchtest, benutze bitte die Mehrfach-Registrierungs und Profilbearbeitungsformular Module,"
+msgstr "Wenn du verschiedene Felder in den Anmelde- und Profilbearbeitungs-Formularen verwenden möchtest, benutze bitte die Mehrfach-Registrierungs und Profilbearbeitungsformular Module."
 
 #: profile-builder-2.0/modules/custom-redirects/custom_redirects_admin.php:240
 msgid "Multiple Registration and Edit Profile form settings Redirects"
@@ -97,7 +101,7 @@ msgstr "Blog Details"
 
 #: profile-builder-2.0/admin/pms-cross-promotion.php:239
 msgid "Allow your users to have <strong>paid accounts with Profile Builder</strong>. %1$sFind out how >%2$s %3$sDismiss%4$s"
-msgstr "Erlaube deinen Benutzern, <strong>bezahlte Konten mit Profil Builder /strong> zu haben. %1$sFinde heraus, wie>%2$s %3$sAusblenden %4$s"
+msgstr "Erlaube deinen Benutzern, <strong>bezahlte Konten mit Profil Builder</strong> zu haben. %1$sFinde heraus, wie>%2$s %3$sAusblenden%4$s"
 
 #: profile-builder-2.0/features/email-confirmation/email-confirmation.php:579
 msgid "Welcome to %1$s!<br/><br/><br/>Your username is:%2$s"
@@ -119,7 +123,7 @@ msgstr "Rechnungsfelder"
 
 #: pb-add-on-woocommerce/index.php:256
 msgid "Select which WooCommerce Billing fields to display to the user ( drag and drop to re-order ) and which should be required"
-msgstr "Wählen Sie, welche WooCommerce Rechnungs-Felder für den Benutzer (Drag & Drop für eine neue Reihenfolge) anzuzeigen und erforderlich sein sollten"
+msgstr "Wähle, welche WooCommerce Rechnungs-Felder für den Benutzer (Drag & Drop für eine neue Reihenfolge) anzuzeigen und erforderlich sein sollten"
 
 #: pb-add-on-woocommerce/index.php:257
 msgid "Billing Fields Order"
@@ -143,7 +147,7 @@ msgstr "Versand Felder"
 
 #: pb-add-on-woocommerce/index.php:275
 msgid "Select which WooCommerce Shipping fields to display to the user ( drag and drop to re-order ) and which should be required"
-msgstr "Wählen Sie, welche WooCommerce Versand-Felder für den Benutzer (Drag & Drop für eine neue Reihenfolge) anzuzeigen und erforderlich sein sollten"
+msgstr "Wähle, welche WooCommerce Versand-Felder für den Benutzer (Drag & Drop für eine neue Reihenfolge) anzuzeigen und erforderlich sein sollten"
 
 #: pb-add-on-woocommerce/index.php:276
 msgid "Shipping Fields Order"
@@ -268,7 +272,7 @@ msgstr "Erlaubte Werte"
 
 #: profile-builder-2.0/admin/manage-fields.php:145
 msgid "Enter a comma separated list of possible values. Upon registration if the value provided by the user does not match one of these values, the user will not be registered."
-msgstr "Geben Sie eine mit Kommas getrennte Liste von zulässigen Werten an. Nur wenn der Nutzer bei der Registrierung einen dieser Werte angibt wird die Registrierung durchgeführt."
+msgstr "Gib eine mit Kommas getrennte Liste von zulässigen Werten an. Nur wenn der Nutzer bei der Registrierung einen dieser Werte angibt wird die Registrierung durchgeführt."
 
 #: profile-builder-2.0/admin/manage-fields.php:146
 msgid "Error Message"
@@ -340,7 +344,7 @@ msgstr "Format der Telefonnummer"
 
 #: profile-builder-2.0/admin/manage-fields.php:155
 msgid "You can use: # for numbers, parentheses ( ), - sign, + sign, dot . and spaces."
-msgstr "Sie können folgendes nutzen: # für Nummern, Klammern ( ), - Zeichen, + Zeichen, Punkt . und Leerzeichen."
+msgstr "Du kannst folgendes nutzen: # für Nummern, Klammern ( ), - Zeichen, + Zeichen, Punkt . und Leerzeichen."
 
 #: profile-builder-2.0/admin/manage-fields.php:155
 msgid "Eg. (###) ###-####"
@@ -903,7 +907,7 @@ msgstr "Bitte füge den Google Maps API Schlüssel für dieses Feld hinzu."
 
 #: profile-builder-2.0/front-end/extra-fields/map/map.php:134
 msgid "Something went wrong. Please try again."
-msgstr "Irgendetwas ging schief. Bitte probieren Sie es erneut."
+msgstr "Irgendetwas ging schief. Bitte versuche es erneut."
 
 #: profile-builder-2.0/front-end/extra-fields/number/number.php:69
 msgid "Please enter numbers only"
@@ -1202,7 +1206,7 @@ msgstr "Felder suchen"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2325
 msgid "Choose the fields in which the Search Field will look in"
-msgstr "Wählen Sie die Felder, in denen das Suchfeld nachschauen wird"
+msgstr "Wähle die Felder, in denen das Suchfeld nachschauen wird"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2330
 msgid "Search Settings"
@@ -1293,11 +1297,11 @@ msgstr "Standard Registrierungsformular"
 
 #: pb-add-on-woocommerce/woosync-page.php:103
 msgid "Select which Profile Builder Register form to display on My Account page from WooCommerce. <br/> This will also add the Profile Builder Login form to MyAccount page."
-msgstr "Wählen Sie das Registrierungsformular, welches im Kundenkonto (My Account) angezeigt werden soll.<br/> Dadurch wird auch das Profile Builder Loginformular im Kundenkonto angezeigt."
+msgstr "Wähle das Registrierungsformular, welches im Kundenkonto (My Account) angezeigt werden soll.<br/> Dadurch wird auch das Profile Builder Loginformular im Kundenkonto angezeigt."
 
 #: pb-add-on-woocommerce/woosync-page.php:110
 msgid "Choose Edit Profile form to display on My Account page:"
-msgstr "Wählen Sie das \"Profil editieren\"-Formular, welches im Kundenkonto (My Account) angezeigt werden soll:"
+msgstr "Wähle das \"Profil editieren\"-Formular, welches im Kundenkonto (My Account) angezeigt werden soll:"
 
 #: pb-add-on-woocommerce/woosync-page.php:115
 msgid "Default Edit Profile"
@@ -1305,7 +1309,7 @@ msgstr "Standard \"Profil editieren\"-Formular"
 
 #: pb-add-on-woocommerce/woosync-page.php:137
 msgid "Select which Profile Builder Edit-profile form to display on My Account page from WooCommerce."
-msgstr "Wählen Sie das \"Profil editieren\"-Formular aus Profile Builder, welches im Kundenkonto (My Account) von WooCommerce angezeigt werden soll:"
+msgstr "Wähle das \"Profil editieren\"-Formular aus Profile Builder, das im Kundenkonto (My Account) von WooCommerce angezeigt werden soll:"
 
 #: profile-builder-2.0/admin/add-ons.php:190
 msgid "Recommended Plugins"
@@ -1342,7 +1346,7 @@ msgstr "Die Erweiterung ist <strong>aktiv</strong>"
 #: profile-builder-2.0/admin/add-ons.php:256
 #: profile-builder-2.0/admin/pms-cross-promotion.php:146
 msgid "Could not install plugin. Retry or <a href=\"%s\" target=\"_blank\">install manually</a>."
-msgstr "Die Erweiterung konnte nicht installiert werden. Versuchen Sie es noch einmal oder <a href=\"%s\" target=\"_blank\">installieren Sie die Erweiterung manuell</a>."
+msgstr "Die Erweiterung konnte nicht installiert werden. Versuche es noch einmal oder <a href=\"%s\" target=\"_blank\">installiere die Erweiterung manuell</a>."
 
 #: profile-builder-2.0/admin/pms-cross-promotion.php:10
 msgid "Paid Accounts"
@@ -1358,15 +1362,15 @@ msgstr "Mit dem neuen Abonnement-Feld im Profile Builder, können sich Benutzer 
 
 #: profile-builder-2.0/admin/pms-cross-promotion.php:40
 msgid "Paid & Free Subscriptions"
-msgstr "Paid & Free Subscriptions"
+msgstr "Bezahlte und kostenfreie Abos"
 
 #: profile-builder-2.0/admin/pms-cross-promotion.php:41
 msgid "Restrict Content"
-msgstr "Restrict Content"
+msgstr "Inhalt einschränken"
 
 #: profile-builder-2.0/admin/pms-cross-promotion.php:42
 msgid "Member Management"
-msgstr "Member Management"
+msgstr "Mitgliederverwaltung"
 
 #: profile-builder-2.0/admin/pms-cross-promotion.php:43
 msgid "Email Templates"
@@ -1374,15 +1378,15 @@ msgstr "Emailvorlagen"
 
 #: profile-builder-2.0/admin/pms-cross-promotion.php:44
 msgid "Account Management"
-msgstr "Account Management"
+msgstr "Kontoverwaltung"
 
 #: profile-builder-2.0/admin/pms-cross-promotion.php:45
 msgid "Subscription Management"
-msgstr "Mitgliederverwaltung"
+msgstr "Aboverwaltung"
 
 #: profile-builder-2.0/admin/pms-cross-promotion.php:46
 msgid "Payment Management"
-msgstr "Payment Management"
+msgstr "Zahlungsverwaltung"
 
 #: profile-builder-2.0/admin/pms-cross-promotion.php:83
 msgid "Plugin is Active"
@@ -1406,7 +1410,7 @@ msgstr "Schnelle Schritt für Schritt Einrichtung"
 
 #: profile-builder-2.0/features/email-confirmation/email-confirmation.php:401
 msgid "To activate your user, please click the following link:<br><br>%s%s%s<br><br>After you activate it you will receive yet *another email* with your login."
-msgstr "Klicken Sie bitte hier, um Ihr Benutzerkonto zu aktivieren:<br><br>%s%s%s<br><br>Im Anschluss erhalten Sie eine weitere Email mit Ihren Logindaten."
+msgstr "Klicke bitte hier, um dein Benutzerkonto zu aktivieren:<br><br>%s%s%s<br><br>Im Anschluss erhältst du eine weitere Email mit deinen Logindaten."
 
 #: profile-builder-2.0/modules/custom-redirects/custom_redirects_admin.php:45
 msgid "After Login"
@@ -2882,15 +2886,15 @@ msgstr "Simbabwe"
 
 #: profile-builder-2.0/admin/manage-fields.php:1219
 msgid "With Profile Builder Pro v2 you can display different fields in the registration and edit profile forms, using the Multiple Registration & Edit Profile Forms module."
-msgstr "Mit Profile Builder Pro v2 können Sie verschiedene Felder im Registrierungs- und Profilformular anzeigen. Nutzen Sie dazu das Modul Multiple Registration & Edit Profile Forms."
+msgstr "Mit Profile Builder Pro v2 kannst du verschiedene Felder im Registrierungs- und Profilformular anzeigen. Nutze dazu das Modul Multiple Registration & Edit Profile Forms."
 
 #: profile-builder-2.0/assets/misc/plugin-compatibilities.php:237
 msgid "Your account has to be confirmed by an administrator before you can log in."
-msgstr "Ihr Benutzerkonto muss von einem Administrator bestätigt werden, bevor Sie sich einloggen können."
+msgstr "Dein Benutzerkonto muss von einem Administrator bestätigt werden, bevor du dich einloggen kannst."
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:216
 msgid "Your account has been successfully created!"
-msgstr "Ihr Benutzerkonto wurde erfolgreich angelegt!"
+msgstr "Dein Benutzerkonto wurde erfolgreich angelegt!"
 
 #: profile-builder-2.0/features/functions.php:678
 #: profile-builder-2.0/front-end/default-fields/recaptcha/recaptcha.php:374
@@ -2911,7 +2915,7 @@ msgstr "Dieser Dateityp ist für dieses Feld nicht erlaubt."
 
 #: profile-builder-2.0/front-end/extra-fields/upload/upload_helper_functions.php:94
 msgid "An error occurred, please try again later."
-msgstr "Es ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal."
+msgstr "Es ist ein Fehler aufgetreten, bitte versuche es später noch einmal."
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:282
 msgid "More"
@@ -2919,11 +2923,11 @@ msgstr "Mehr"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:376
 msgid "You do not have permission to view this user list."
-msgstr "Sie haben keine Berechtigung, um diese Benutzerliste einzusehen."
+msgstr "Du hast keine Berechtigung, um diese Benutzerliste einzusehen."
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:389
 msgid "You do not have the required user role to view this user list."
-msgstr "Sie haben nicht die notwendige Benutzerrolle, um diese Benutzerliste einzusehen."
+msgstr "Du hast nicht die notwendige Benutzerrolle, um diese Benutzerliste einzusehen."
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2253
 msgid "Ascending"
@@ -2970,11 +2974,11 @@ msgstr "Der geheime Schlüssel von Google, <a href=\"http://www.google.com/recap
 
 #: profile-builder-2.0/admin/manage-fields.php:1023
 msgid "You must enter the site key\n"
-msgstr "Sie müssen den Seiten Schlüssel eingeben\n"
+msgstr "Du musst den Seiten Schlüssel eingeben\n"
 
 #: profile-builder-2.0/admin/manage-fields.php:1025
 msgid "You must enter the secret key\n"
-msgstr "Sie müssen den geheimen Schlüssel eingeben\n"
+msgstr "Du musst den geheimen Schlüssel eingeben\n"
 
 #: profile-builder-2.0/admin/add-ons.php:10
 #: profile-builder-2.0/admin/add-ons.php:32
@@ -3074,7 +3078,7 @@ msgstr "Add-On konnte nicht installiert werden. Erneut versuchen oder <a href=\"
 
 #: profile-builder-2.0/front-end/default-fields/email/email.php:51
 msgid "You must enter a valid email address."
-msgstr "Sie müssen eine gültige E-Mail Adresse angeben."
+msgstr "Du musst eine gültige E-Mail Adresse angeben."
 
 #: profile-builder-2.0/front-end/default-fields/username/username.php:52
 #: profile-builder-2.0/front-end/default-fields/username/username.php:60
@@ -3187,11 +3191,11 @@ msgstr "Benutzername und E-Mail"
 
 #: profile-builder-2.0/admin/general-settings.php:184
 msgid "\"Username and Email\" - users can Log In with both Username and Email."
-msgstr "\"Benutzername und E-Mail\" - Benutzer können sich mit Ihrem Benutzernamen und EMail-Adresse anmelden."
+msgstr "\"Benutzername und E-Mail\" - Benutzer können sich mit ihrem Benutzernamen und E-Mail-Adresse anmelden."
 
 #: profile-builder-2.0/admin/general-settings.php:185
 msgid "\"Username\" - users can Log In only with Username."
-msgstr "\"Benutzername\" - Benutzer können sich nur mit Ihrem Benutzernamen anmelden"
+msgstr "\"Benutzername\" - Benutzer können sich nur mit ihrem Benutzernamen anmelden"
 
 #: profile-builder-2.0/admin/general-settings.php:186
 msgid "\"Email\" - users can Log In only with Email."
@@ -3205,7 +3209,7 @@ msgstr ""
 
 #: profile-builder-2.0/admin/manage-fields.php:125
 msgid "Specify the extension(s) you want to limit to upload<br/>Example: .ext1,.ext2,.ext3<br/>If not specified, defaults to all WordPress allowed file extensions (.*)"
-msgstr "Geben Sie die Datei-Erweiterung(en) ein, die Sie für den Upload erlauben möchten<br/> z. B.: .ext1,.ext2,.ext3<br/>Bei keiner Eingabe werden alle von WordPress erlaubten Datei-Erweiterungen gesetzt: (.*)"
+msgstr "Gib die Datei-Erweiterung(en) ein, die Sie für den Upload erlauben möchten<br/> z. B.: .ext1,.ext2,.ext3<br/>Bei keiner Eingabe werden alle von WordPress erlaubten Datei-Erweiterungen gesetzt: (.*)"
 
 #: profile-builder-2.0/admin/manage-fields.php:135
 msgid "User Roles"
@@ -3225,7 +3229,7 @@ msgstr "Speichere die Reihenfolge der Benutzerrollen-Checkboxen"
 
 #: profile-builder-2.0/admin/manage-fields.php:1128
 msgid "Please select at least one user role\n"
-msgstr "Bitte wählen Sie mindestens eine Benutzerrolle\n"
+msgstr "Bitte wähle mindestens eine Benutzerrolle\n"
 
 #: profile-builder-2.0/admin/register-version.php:22
 msgid "Profile Builder Register"
@@ -3237,11 +3241,11 @@ msgstr "Die Seriennummer wird bald ablaufen!"
 
 #: profile-builder-2.0/admin/register-version.php:81
 msgid " Your serial number is about to expire, please %1$s Renew Your License%2$s."
-msgstr "Ihre Seriennummer wird bald ablaufen, bitte %1$ erneuere deine Lizenz%2$s."
+msgstr "Deine Seriennummer wird bald ablaufen, bitte %1$ erneuere deine Lizenz%2$s."
 
 #: profile-builder-2.0/admin/register-version.php:83
 msgid " Your serial number is expired, please %1$s Renew Your License%2$s."
-msgstr "Ihre Seriennummer ist abgelaufen, bitte %1$serneuern Sie Ihre Lizenz%2$s."
+msgstr "Deine Seriennummer ist abgelaufen, bitte %1$serneuern Sie Ihre Lizenz%2$s."
 
 #: profile-builder-2.0/assets/lib/wck-api/wordpress-creation-kit.php:334
 msgid "Add Entry"
@@ -3253,7 +3257,7 @@ msgstr "anzeigen"
 
 #: profile-builder-2.0/features/functions.php:736
 msgid "To allow users to register for your website via Profile Builder, you first must enable user registration. Go to %1$sNetwork Settings%2$s, and under Registration Settings make sure to check “User accounts may be registered”. %3$sDismiss%4$s"
-msgstr "Damit sich Benutzer auf Ihre Website über Profile Builder registrieren können, musst du zunächst die Benutzerregistrierung ermöglichen. Gehe dazu nach %1$sEinstellungen -> Allgemein%2$s und stelle unter unter Mitgliedschaft sicher, dass das Kontrollkästchen \"Jeder kann sich registrieren\" angekreuzt ist . %3$sVerwerfen%4$s"
+msgstr "Damit sich Benutzer auf deiner Website über Profile Builder registrieren können, musst du zunächst die Benutzerregistrierung ermöglichen. Gehe dazu nach %1$sEinstellungen -> Allgemein%2$s und stelle unter unter Mitgliedschaft sicher, dass das Kontrollkästchen \"Jeder kann sich registrieren\" angekreuzt ist . %3$sVerwerfen%4$s"
 
 #: profile-builder-2.0/front-end/class-formbuilder.php:659
 msgid "User to edit:"
@@ -3271,7 +3275,7 @@ msgstr "Das Passwort muss eine Mindeststärke von %s haben"
 
 #: profile-builder-2.0/front-end/default-fields/user-role/user-role.php:118
 msgid "You cannot register this user role"
-msgstr "Sie können diese Benutzerrolle nicht registrieren"
+msgstr "Du kannst diese Benutzerrolle nicht registrieren"
 
 #: profile-builder-2.0/front-end/login.php:153
 msgid "username or email"
@@ -3307,7 +3311,7 @@ msgid "displays all users except the ones you specified the user_id for"
 msgstr "Zeigt alle Benutzer an, außer diejenigen, denen du eine user_id gegeben hast."
 
 #: profile-builder-2.0/features/functions.php:566
-msgid "Minimum length of %d characters"
+msgid "Minimum length of %d characters."
 msgstr "Mindestlänge: %d Zeichen"
 
 #: profile-builder-2.0/front-end/class-formbuilder.php:146
@@ -3408,7 +3412,7 @@ msgstr "Es muss eine gültige E-Mail-Adresse oder der Tag  {{reply_to}} sein der
 #: profile-builder-2.0/modules/email-customizer/email-customizer.php:494
 #: profile-builder-2.0/modules/email-customizer/email-customizer.php:508
 msgid "Your selected password at signup"
-msgstr "Das von Ihnen gewählte Anmeldepasswort"
+msgstr "Das von dir gewählte Anmeldepasswort"
 
 #: profile-builder-2.0/modules/email-customizer/user-email-customizer.php:38
 msgid "These settings are also replicated in the \"Admin Email Customizer\" settings-page upon save."
@@ -3557,7 +3561,7 @@ msgstr "Extra-Features"
 
 #: profile-builder-2.0/admin/basic-info.php:52
 msgid "Features that give you more control over your users, increased security and help you fight user registration spam."
-msgstr "Funktionen, die Ihnen mehr Kontrolle über Ihre Benutzer und erhöhte Sicherheit bietet und gegen Registrierungs-Spam von Nutzern hilft."
+msgstr "Funktionen, die dir mehr Kontrolle über Ihre Benutzer und erhöhte Sicherheit bietet und gegen Registrierungs-Spam von Nutzern hilft."
 
 #: profile-builder-2.0/admin/basic-info.php:53
 msgid "Enable extra features"
@@ -3573,7 +3577,7 @@ msgstr "Admin-Zulassung (*)"
 
 #: profile-builder-2.0/admin/basic-info.php:62
 msgid "You decide who is a user on your website. Get notified via email or approve multiple users at once from the WordPress UI."
-msgstr "Sie entscheiden, wer als Benutzer auf Ihrer Website freigeschaltet wird. Sie können Benachrichtigungen per E-Mail erhalten oder mehrere Benutzer gleichzeitig über das WordPress-UI genehmigen."
+msgstr "Du entscheidest, wer als Benutzer auf deiner Website freigeschaltet wird. Du kannst Benachrichtigungen per E-Mail erhalten oder mehrere Benutzer gleichzeitig über das WordPress-UI genehmigen."
 
 #: profile-builder-2.0/admin/basic-info.php:65
 msgid "Email Confirmation"
@@ -3601,7 +3605,7 @@ msgstr "Erlaube Benutzern, sich mit ihrer E-Mail-Adresse oder ihrem Benutzername
 
 #: profile-builder-2.0/admin/basic-info.php:87
 msgid "Customize Your Forms The Way You Want (*)"
-msgstr "Passen Sie die Formulare wie Sie wollen an (*)"
+msgstr "Passe die Formulare an, wie du willst (*)"
 
 #: profile-builder-2.0/admin/basic-info.php:88
 msgid "With Extra Profile Fields you can create the exact registration form your project needs."
@@ -3718,7 +3722,7 @@ msgstr "Mehrfache Anmeldeformulare"
 
 #: profile-builder-2.0/admin/basic-info.php:155
 msgid "Set up multiple registration forms with different fields for certain user roles. Capture different information from different types of users."
-msgstr "Richten Sie mehrere Anmeldeformulare mit verschiedenen Feldern für bestimmte Benutzerrollen ein. Erfassen Sie verschiedene Informationen von verschiedene Arten von Benutzern."
+msgstr "Richte mehrere Anmeldeformulare mit verschiedenen Feldern für bestimmte Benutzerrollen ein. Erfasse verschiedene Informationen von verschiedenen Arten von Benutzern."
 
 #: profile-builder-2.0/admin/basic-info.php:158
 #: profile-builder-2.0/modules/modules.php:82
@@ -3727,7 +3731,7 @@ msgstr "Mehrfache Profilbearbeitungs-Formulare"
 
 #: profile-builder-2.0/admin/basic-info.php:159
 msgid "Allow different user roles to edit their specific information. Set up multiple edit-profile forms with different fields for certain user roles."
-msgstr "Ermöglichen Sie verschiedenen Benutzerrollen, ihre spezifischen Informationen zu bearbeiten. Errichten Sie mehrere Profil Bearbeitungs-Formulare mit verschiedenen Felder für bestimmte Benutzerrollen."
+msgstr "Ermögliche verschiedenen Benutzerrollen, ihre spezifischen Informationen zu bearbeiten. Errichte mehrere Profil Bearbeitungs-Formulare mit verschiedenen Felder für bestimmte Benutzerrollen."
 
 #: profile-builder-2.0/admin/basic-info.php:187
 msgid " * only available in the %1$sHobbyist and Pro versions%2$s."
@@ -3739,7 +3743,7 @@ msgstr "** nur in der %1$sPro Version%2$s verfügbar."
 
 #: profile-builder-2.0/admin/general-settings.php:39
 msgid "Load Profile Builder's own CSS file in the front-end:"
-msgstr "Laden Sie die CSS-Datei vom Profil-Generator in die Front-End hoch"
+msgstr "Lade die CSS-Datei vom Profil-Generator in die Front-End hoch"
 
 #: profile-builder-2.0/admin/general-settings.php:42
 #: profile-builder-2.0/admin/general-settings.php:55
@@ -3754,7 +3758,7 @@ msgstr "Ja"
 
 #: profile-builder-2.0/admin/general-settings.php:44
 msgid "You can find the default file here: %1$s"
-msgstr "Sie finden die Standard-Datei hier:%1$s"
+msgstr "Du findest die Standard-Datei hier:%1$s"
 
 #: profile-builder-2.0/admin/general-settings.php:51
 msgid "\"Email Confirmation\" Activated:"
@@ -3771,7 +3775,7 @@ msgstr "Nein"
 
 #: profile-builder-2.0/admin/general-settings.php:61
 msgid "You can find a list of unconfirmed email addresses %1$sUsers > All Users > Email Confirmation%2$s."
-msgstr "Sie können eine Liste der unbestätigten Emailadressen unter %1$sUsers > alle Benutzer > E-Mail Bestätigung%2$s finden."
+msgstr "Du kannst eine Liste der unbestätigten Emailadressen unter %1$sUsers > alle Benutzer > E-Mail Bestätigung%2$s finden."
 
 #: profile-builder-2.0/admin/general-settings.php:69
 msgid "\"Email Confirmation\" Landing Page:"
@@ -3783,7 +3787,7 @@ msgstr "Vorhandene Seiten"
 
 #: profile-builder-2.0/admin/general-settings.php:89
 msgid "Specify the page where the users will be directed when confirming the email account. This page can differ from the register page(s) and can be changed at any time. If none selected, a simple confirmation page will be displayed for the user."
-msgstr "Geben Sie die Seite ein, wo der Benutzer umgeleitet werden sollte, wenn er sein E-Mail-Konto  bestätigt. Diese Seite kann von der Registerungs- Seite(n) unterschiedlich sein und kann jederzeit geändert werden. Wenn nichts ausgewähltw wird, wird eine einfache Bestätigungsseite für den Benutzer angezeigt."
+msgstr "Gib die Seite ein, wo der Benutzer umgeleitet werden sollte, wenn er sein E-Mail-Konto  bestätigt. Diese Seite kann von der Registerungs- Seite(n) unterschiedlich sein und kann jederzeit geändert werden. Wenn nichts ausgewähltw wird, wird eine einfache Bestätigungsseite für den Benutzer angezeigt."
 
 #: profile-builder-2.0/admin/general-settings.php:100
 msgid "\"Admin Approval\" Activated:"
@@ -3791,7 +3795,7 @@ msgstr "\"Admin Genehmigung\" aktiviert:"
 
 #: profile-builder-2.0/admin/general-settings.php:108
 msgid "You can find a list of users at %1$sUsers > All Users > Admin Approval%2$s."
-msgstr "Sie können eine Liste mit allen Benutzer unter %1$sUsers > alle Benutzer > Admin Genehmigung%2$s finden."
+msgstr "Du kannst eine Liste mit allen Benutzer unter %1$sUsers > alle Benutzer > Admin Genehmigung%2$s finden."
 
 #: profile-builder-2.0/admin/general-settings.php:165
 msgid "\"Admin Approval\" Feature:"
@@ -3799,7 +3803,7 @@ msgstr "\"Admin Genehmigung\" Feature:"
 
 #: profile-builder-2.0/admin/general-settings.php:168
 msgid "You decide who is a user on your website. Get notified via email or approve multiple users at once from the WordPress UI. Enable Admin Approval by upgrading to %1$sHobbyist or PRO versions%2$s."
-msgstr "Sie entscheiden, wer als Benutzer auf Ihrer Website freigeschaltet wird. Sie können Benachrichtigungen per E-Mail erhalten oder mehrere Benutzer gleichzeitig über das WordPress-UI genehmigen. Aktivieren Sie die Admin-Genehmigung mit einem Upgrade auf %1$s die Hobbyist oder PRO Version %2$s."
+msgstr "Du entscheidest, wer als Benutzer auf Ihrer Website freigeschaltet wird. Du kannst Benachrichtigungen per E-Mail erhalten oder mehrere Benutzer gleichzeitig über das WordPress-UI genehmigen. Aktiviere die Admin-Genehmigung mit einem Upgrade auf %1$s die Hobbyist oder PRO Version %2$s."
 
 #: profile-builder-2.0/admin/general-settings.php:175
 msgid "Allow Users to Log in With:"
@@ -3835,7 +3839,7 @@ msgstr "Minimale Kennwortlänge:"
 
 #: profile-builder-2.0/admin/general-settings.php:198
 msgid "Enter the minimum characters the password should have. Leave empty for no minimum limit"
-msgstr "Geben Sie die minimalen Zeichen ein, die das Kennwort haben sollten. Lassen Sie es leer für keine Untergrenze"
+msgstr "Gib die minimalen Zeichen ein, die das Kennwort haben sollten. Lasse es leer für keine Untergrenze"
 
 #: profile-builder-2.0/admin/general-settings.php:205
 msgid "Minimum Password Strength:"
@@ -3885,7 +3889,7 @@ msgstr "ID"
 #: profile-builder-2.0/modules/multiple-forms/edit-profile-forms.php:246
 #: profile-builder-2.0/modules/multiple-forms/register-forms.php:267
 msgid "A unique, auto-generated ID for this particular field<br/>You can use this in conjuction with filters to target this element if needed<br/>Can't be edited"
-msgstr "Ein einzigartiges, automatisch generiertes ID für dieses spezielle Feld<br/> Sie können dies in Verbindung mit Kriterien verwenden, um dieses Element bei Bedarf aufzuziehlen<br/> Nicht editierbar"
+msgstr "Ein einzigartiges, automatisch generiertes ID für dieses spezielle Feld<br/> Du kannst dies in Verbindung mit Kriterien verwenden, um dieses Element bei Bedarf aufzuziehlen<br/> Nicht editierbar"
 
 #: profile-builder-2.0/admin/manage-fields.php:122
 msgid "Description"
@@ -3893,7 +3897,7 @@ msgstr "Beschreibung"
 
 #: profile-builder-2.0/admin/manage-fields.php:122
 msgid "Enter a (detailed) description of the option for end users to read<br/>Optional"
-msgstr "Geben Sie eine (ausführliche) Beschreibung der Option ein die die Endbenutzer lesen können <br/> Optional"
+msgstr "Gib eine (ausführliche) Beschreibung der Option ein die die Endbenutzer lesen können <br/> Optional"
 
 #: profile-builder-2.0/admin/manage-fields.php:123
 msgid "Row Count"
@@ -3901,7 +3905,7 @@ msgstr "Zeilenanzahl"
 
 #: profile-builder-2.0/admin/manage-fields.php:123
 msgid "Specify the number of rows for a 'Textarea' field<br/>If not specified, defaults to 5"
-msgstr "Geben Sie die Anzahl der Zeilen für ein Text-Feld ein <br/> Wenn nicht angegeben, wird dieser standardmäßig auf 5 gesetzt."
+msgstr "Gib die Anzahl der Zeilen für ein Text-Feld ein <br/> Wenn nicht angegeben, wird dieser standardmäßig auf 5 gesetzt."
 
 #: profile-builder-2.0/admin/manage-fields.php:124
 msgid "Allowed Image Extensions"
@@ -3917,7 +3921,7 @@ msgstr "Profilbild-Größe"
 
 #: profile-builder-2.0/admin/manage-fields.php:126
 msgid "Enter a value (between 20 and 200) for the size of the 'Avatar'<br/>If not specified, defaults to 100"
-msgstr "Geben Sie einen Wert (zwischen 20 und 200) für die Größe des 'Profilbilds' ein.<br/>Falls nicht angegeben, wird er standardmäßig auf 100 gesetzt"
+msgstr "Gib einen Wert (zwischen 20 und 200) für die Größe des 'Profilbilds' ein.<br/>Falls nicht angegeben, wird er standardmäßig auf 100 gesetzt"
 
 #: profile-builder-2.0/admin/manage-fields.php:127
 msgid "Date-format"
@@ -3929,7 +3933,7 @@ msgstr "Nutzungsbedingungen"
 
 #: profile-builder-2.0/admin/manage-fields.php:128
 msgid "Enter a detailed description of the temrs of agreement for the user to read.<br/>Links can be inserted by using standard HTML syntax: &lt;a href=\"custom_url\"&gt;custom_text&lt;/a&gt;"
-msgstr "Geben Sie eine detaillierte Beschreibung der Bedingungen der Vereinbarung für den Benutzer zu lesen ein. <br/>Links können mit standard-HTML-Syntax eingefügt werden: &lt; a href =\"custom_url\"&gt;custom_text &lt;/a&gt;"
+msgstr "Gib eine detaillierte Beschreibung der Bedingungen der Vereinbarung für den Benutzer zu lesen ein. <br/>Links können mit standard-HTML-Syntax eingefügt werden: &lt; a href =\"custom_url\"&gt;custom_text &lt;/a&gt;"
 
 #: profile-builder-2.0/admin/manage-fields.php:129
 msgid "Options"
@@ -3941,7 +3945,7 @@ msgstr "Beschriftung "
 
 #: profile-builder-2.0/admin/manage-fields.php:130
 msgid "Enter a comma separated list of labels<br/>Visible for the user"
-msgstr "Geben Sie eine durch Kommas getrennte Liste der Beschriftungen ein.<br/>Sie ist für den Benutzer sichtbar."
+msgstr "Gib eine durch Kommas getrennte Liste der Beschriftungen ein.<br/>Sie ist für den Benutzer sichtbar."
 
 #: profile-builder-2.0/admin/manage-fields.php:137
 msgid "Default Value"
@@ -3960,7 +3964,7 @@ msgstr "Standardoption"
 
 #: profile-builder-2.0/admin/manage-fields.php:138
 msgid "Specify the option which should be selected by default"
-msgstr "Geben Sie die Option ein, die standardmäßig ausgewählt sein soll."
+msgstr "Gib die Option ein, die standardmäßig ausgewählt sein soll."
 
 #: profile-builder-2.0/admin/manage-fields.php:139
 msgid "Default Option(s)"
@@ -3968,7 +3972,7 @@ msgstr "Standard-Option(en)"
 
 #: profile-builder-2.0/admin/manage-fields.php:139
 msgid "Specify the option which should be checked by default<br/>If there are multiple values, separate them with a ',' (comma)"
-msgstr "Geben Sie die Option, die standardmäßig überprüft werden sollen, ein.<br/>Wenn mehrere Werte vorhanden sind, trennen Sie diese mit einem Komma."
+msgstr "Gib die Option, die standardmäßig überprüft werden sollen, ein.<br/>Wenn mehrere Werte vorhanden sind, trenne diese mit einem Komma."
 
 #: profile-builder-2.0/admin/manage-fields.php:153
 msgid "Default Content"
@@ -4102,11 +4106,11 @@ msgstr "Bitte gib dein Kennwort erneut ein."
 #: profile-builder-2.0/admin/manage-fields.php:980
 #: profile-builder-2.0/admin/manage-fields.php:1137
 msgid "You must select a field\n"
-msgstr "Sie müssen ein Feld auswählen.\n"
+msgstr "Du musst ein Feld auswählen.\n"
 
 #: profile-builder-2.0/admin/manage-fields.php:990
 msgid "Please choose a different field type as this one already exists in your form (must be unique)\n"
-msgstr "Bitte wählen Sie ein anderes Feld aus. Dieses ist bereits im Formular vorhanden (muss einzigartig) sein.\n"
+msgstr "Bitte wähle ein anderes Feld aus. Dieses ist bereits im Formular vorhanden (muss einzigartig) sein.\n"
 
 #: profile-builder-2.0/admin/manage-fields.php:1001
 msgid "The entered avatar size is not between 20 and 200\n"
@@ -4122,7 +4126,7 @@ msgstr "Die eingegebene Nummer der Zeile ist nicht numerisch\n"
 
 #: profile-builder-2.0/admin/manage-fields.php:1015
 msgid "You must enter a value for the row number\n"
-msgstr "Sie müssen die Zeilennummer angeben.\n"
+msgstr "Du musst die Zeilennummer angeben.\n"
 
 #: profile-builder-2.0/admin/manage-fields.php:1036
 msgid "The entered value for the Datepicker is not a valid date-format\n"
@@ -4130,7 +4134,7 @@ msgstr "Der eingegebene Wert für den Datums-picker ist kein gültiges Datumsfor
 
 #: profile-builder-2.0/admin/manage-fields.php:1039
 msgid "You must enter a value for the date-format\n"
-msgstr "Sie müssen das Datumsformat angeben.\n"
+msgstr "Du musst das Datumsformat angeben.\n"
 
 #: profile-builder-2.0/admin/manage-fields.php:1067
 #: profile-builder-2.0/admin/manage-fields.php:1075
@@ -4186,11 +4190,11 @@ msgstr "Löschen"
 
 #: profile-builder-2.0/admin/manage-fields.php:1208
 msgid "Use these shortcodes on the pages you want the forms to be displayed:"
-msgstr "Verwenden Sie folgende Shortcodes auf den Seiten, auf denen Sie die Formulare angezeigt haben möchten:"
+msgstr "Verwende folgende Shortcodes auf den Seiten, auf denen du die Formulare angezeigt haben möchtest:"
 
 #: profile-builder-2.0/admin/register-version.php:14
 msgid "Register Your Version"
-msgstr "Registrieren Sie Ihre Version"
+msgstr "Registriere deine Version"
 
 #: profile-builder-2.0/admin/register-version.php:14
 msgid "Register Version"
@@ -4198,7 +4202,7 @@ msgstr "Version registrieren"
 
 #: profile-builder-2.0/admin/register-version.php:70
 msgid "If you register this version of Profile Builder, you'll receive information regarding upgrades, patches, and technical support."
-msgstr "Wenn Sie diese Version vom Profile Builder registrieren, erhalten Sie Informationen zu Upgrades, Patches und technischen Support."
+msgstr "Wenn du diese Version vom Profile Builder registrierest, erhältst Informationen zu Upgrades, Patches und technischen Support."
 
 #: profile-builder-2.0/admin/register-version.php:72
 msgid " Serial Number:"
@@ -4318,7 +4322,7 @@ msgstr "Möchtest du"
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:51
 msgid "Your session has expired! Please refresh the page and try again"
-msgstr "Ihre Sitzung ist abgelaufen! Bitte laden Sie die Seite neu und versuchen es noch einmal."
+msgstr "Deine Sitzung ist abgelaufen! Bitte lade die Seite neu und versuche es noch einmal."
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:64
 msgid "User successfully approved!"
@@ -4336,11 +4340,11 @@ msgstr "Benutzer erfolgreich gelöscht!"
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:131
 #: profile-builder-2.0/features/email-confirmation/email-confirmation.php:132
 msgid "You either don't have permission for that action or there was an error!"
-msgstr "Sie haben entweder keine Berechtigungen für diese Aktion oder es ist ein Fehler aufgetreten!"
+msgstr "Du hast entweder keine Berechtigungen für diese Aktion oder es ist ein Fehler aufgetreten!"
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:96
 msgid "Your session has expired! Please refresh the page and try again."
-msgstr "Ihre Sitzung ist abgelaufen! Bitte laden Sie die Seite neu und versuchen es noch einmal."
+msgstr "Deine Sitzung ist abgelaufen! Bitte lade die Seite neu und versuche es noch einmal."
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:109
 msgid "Users successfully approved!"
@@ -4356,7 +4360,7 @@ msgstr "Benutzer wurden erfolgreich gelöscht!"
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:147
 msgid "Your account on %1$s has been approved!"
-msgstr "Ihr Benutzerkonto auf %1$s wurde genehmigt!"
+msgstr "Dein Benutzerkonto auf %1$s wurde genehmigt!"
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:148
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:151
@@ -4369,7 +4373,7 @@ msgstr "Ein Administrator hat gerade Ihr Konto auf %1$s (%2$s) genehmigt."
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:155
 msgid "Your account on %1$s has been unapproved!"
-msgstr "Ihr Benutzerkonto auf %1$s wurde nicht genehmigt!"
+msgstr "Dein Benutzerkonto auf %1$s wurde nicht genehmigt!"
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:156
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:159
@@ -4378,15 +4382,15 @@ msgstr "abgelehnt"
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:158
 msgid "An administrator has just unapproved your account on %1$s (%2$s)."
-msgstr "Ein Administrator hat Ihr Konto auf %1$ s (%2$ s) nicht genehmigt. "
+msgstr "Ein Administrator hat dein Konto auf %1$ s (%2$ s) nicht genehmigt. "
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:177
 msgid "<strong>ERROR</strong>: Your account has to be confirmed by an administrator before you can log in."
-msgstr "<strong>Fehler</strong>: Ihr Konto muss von einem Administrator bestätigt werden, bevor Sie sich anmelden können. "
+msgstr "<strong>Fehler</strong>: Dein Konto muss von einem Administrator bestätigt werden, bevor du dich anmelden kannst. "
 
 #: profile-builder-2.0/features/admin-approval/admin-approval.php:189
 msgid "Your account has to be confirmed by an administrator before you can use the \"Password Recovery\" feature."
-msgstr "Ihr Benutzerkonto muss von einem Administrator bestätigt werden, bevor Sie die \"Kennwort Wiederherstellung\"-Funktion verwenden können."
+msgstr "Dein Benutzerkonto muss von einem Administrator bestätigt werden, bevor du die \"Kennwort Wiederherstellung\"-Funktion verwenden kannst."
 
 #: profile-builder-2.0/features/admin-approval/class-admin-approval.php:113
 msgid "delete this user?"
@@ -4557,11 +4561,11 @@ msgstr "Das \"Admin Approval\" Feature war zum Zeitpunkt der Registrierung aktiv
 
 #: profile-builder-2.0/features/email-confirmation/email-confirmation.php:570
 msgid "[%1$s] Your new account information"
-msgstr "[%1$s] Ihre neuen Kontodaten"
+msgstr "[%1$s] Deine neuen Kontodaten"
 
 #: profile-builder-2.0/features/email-confirmation/email-confirmation.php:581
 msgid "Welcome to %1$s!<br/><br/><br/>Your username is:%2$s and password:%3$s"
-msgstr "Willkommen bei %1$s! <br/> <br/> <br/>Ihr Benutzername ist: %2$s und das Kennwort: %3$s"
+msgstr "Willkommen bei %1$s! <br/> <br/> <br/>Dein Benutzername ist: %2$s und das Kennwort: %3$s"
 
 #: profile-builder-2.0/features/email-confirmation/email-confirmation.php:642
 #: profile-builder-2.0/front-end/register.php:125
@@ -4629,7 +4633,7 @@ msgstr "Ausloggen"
 
 #: profile-builder-2.0/front-end/class-formbuilder.php:175
 msgid "You must be logged in to edit your profile."
-msgstr "Sie müssen angemeldet sein, um Ihr Profil zu bearbeiten."
+msgstr "Du musst angemeldet sein, um dein Profil zu bearbeiten."
 
 #: profile-builder-2.0/features/functions.php:994
 msgid "here"
@@ -4637,7 +4641,7 @@ msgstr "hier"
 
 #: profile-builder-2.0/features/functions.php:995
 msgid "You will soon be redirected automatically. If you see this page for more than %1$d seconds, please click %2$s.%3$s"
-msgstr "Sie werden in Kürze automatisch weitergeleitet. Wenn Sie diese Seite mehr als %1$d Sekunden sehen, klicken Sie bitte hier %2$s.%3$s"
+msgstr "Sie wirst in Kürze automatisch weitergeleitet. Wenn du diese Seite mehr als %1$d Sekunden siehst, klicke bitte hier %2$s.%3$s"
 
 #: profile-builder-2.0/front-end/class-formbuilder.php:315
 #: profile-builder-2.0/front-end/class-formbuilder.php:322
@@ -4647,15 +4651,15 @@ msgstr "Das Konto %1s wurde erfolgreich erstellt!"
 #: profile-builder-2.0/front-end/class-formbuilder.php:318
 #: profile-builder-2.0/front-end/class-formbuilder.php:328
 msgid "Before you can access your account %1s, you need to confirm your email address. Please check your inbox and click the activation link."
-msgstr "Bevor du auf dein Konto %1S zugreifen kannst, musst du deine E-Mail-Adresse bestätigen. Bitte überprüfe deinen Posteingang und klicke auf den Aktivierungslink."
+msgstr "Bevor du auf dein Konto %1s zugreifen kannst, musst du deine E-Mail-Adresse bestätigen. Bitte überprüfe deinen Posteingang und klicke auf den Aktivierungslink."
 
 #: profile-builder-2.0/front-end/class-formbuilder.php:324
 msgid "Before you can access your account %1s, an administrator has to approve it. You will be notified via email."
-msgstr "Bevor du auf dein Konto %1S zugreifen kannst, muss es von einem Administrator genehmigt werden. Über eine Bestätigung wirst du per E-Mail benachrichtigt."
+msgstr "Bevor du auf dein Konto %1s zugreifen kannst, muss es von einem Administrator genehmigt werden. Über eine Bestätigung wirst du per E-Mail benachrichtigt."
 
 #: profile-builder-2.0/front-end/class-formbuilder.php:347
 msgid "Your profile has been successfully updated!"
-msgstr "Ihr Profil wurde aktualisiert!"
+msgstr "Dein Profil wurde aktualisiert!"
 
 #: profile-builder-2.0/front-end/class-formbuilder.php:358
 msgid "There was an error in the submitted form"
@@ -4672,7 +4676,7 @@ msgstr "Aktualisieren"
 
 #: profile-builder-2.0/front-end/class-formbuilder.php:481
 msgid "Send these credentials via email."
-msgstr "Senden Sie mir diese Anmeldeninformationen per E-Mail."
+msgstr "Sende mir diese Anmeldeninformationen per E-Mail."
 
 #: profile-builder-2.0/front-end/extra-fields/extra-fields.php:92
 #: profile-builder-2.0/front-end/login.php:137
@@ -4716,7 +4720,7 @@ msgstr "Ausloggen"
 
 #: profile-builder-2.0/front-end/recover.php:17
 msgid "Your account has to be confirmed by an administrator before you can use the \"Password Reset\" feature."
-msgstr "Ihr Benutzerkonto muss von einem Administrator bestätigt werden, bevor Sie Ihr Kennwort zurücksetzen können."
+msgstr "Dein Benutzerkonto muss von einem Administrator bestätigt werden, bevor du dein Kennwort zurücksetzen kannst."
 
 #: profile-builder-2.0/front-end/recover.php:94
 msgid "Reset Password"
@@ -4728,7 +4732,7 @@ msgstr "Bitte gib deinen Benutzernamen oder deine E-Mail Adresse ein."
 
 #: profile-builder-2.0/front-end/recover.php:125
 msgid "You will receive a link to create a new password via email."
-msgstr "Sie werden per E-Mail einen Link erhalten, über den Sie ein neues Passwort vergeben können."
+msgstr "Du wirst per E-Mail einen Link erhalten, über den du ein neues Passwort vergeben kannst."
 
 #: profile-builder-2.0/front-end/recover.php:122
 msgid "Username or E-mail"
@@ -4752,7 +4756,7 @@ msgstr "Überprüfe dein E-Mail Postfach für den Bestätigungslink."
 
 #: profile-builder-2.0/front-end/recover.php:235
 msgid "Someone requested that the password be reset for the following account: <b>%1$s</b><br/>If this was a mistake, just ignore this email and nothing will happen.<br/>To reset your password, visit the following link:%2$s"
-msgstr "Jemand hat angefragt, dass das Passwort für dieses Konto zurückgesetzt werden soll: <b>%1$s</b> <br/> Wenn diese Anfrage nicht von die ausgeht, bitte ignoriere diese E-Mail einfach und es geschieht nichts.<br/>Um dein Passwort zurückzusetzen, rufe folgenden Link auf: %2$s"
+msgstr "Jemand hat angefragt, dass das Passwort für dieses Konto zurückgesetzt werden soll: <b>%1$s</b> <br/> Wenn diese Anfrage nicht von dir ausgeht, bitte ignoriere diese E-Mail einfach und es geschieht nichts.<br/>Um dein Passwort zurückzusetzen, rufe folgenden Link auf: %2$s"
 
 #: profile-builder-2.0/front-end/recover.php:238
 msgid "Password Reset from \"%1$s\""
@@ -4772,11 +4776,11 @@ msgstr "Bitte prüfe, ob du die richtige E-Mail Adresse angegeben hast."
 
 #: profile-builder-2.0/front-end/recover.php:273
 msgid "Your password has been successfully changed!"
-msgstr "Ihr Passwort wurde erfolgreich geändert!"
+msgstr "Dein Passwort wurde erfolgreich geändert!"
 
 #: profile-builder-2.0/front-end/recover.php:292
 msgid "You have successfully reset your password to: %1$s"
-msgstr "Ihr Kennwort wurde erfolgreich zurückgesetzt: %1$s"
+msgstr "Dein Kennwort wurde erfolgreich zurückgesetzt: %1$s"
 
 #: profile-builder-2.0/front-end/recover.php:295
 #: profile-builder-2.0/front-end/recover.php:306
@@ -4785,7 +4789,7 @@ msgstr "Kennwort erfolgreich zurückgesetzt für %1$s auf \"%2$s\""
 
 #: profile-builder-2.0/front-end/recover.php:303
 msgid "%1$s has requested a password change via the password reset feature.<br/>His/her new password is:%2$s"
-msgstr "%1$s hat eine Kennwortänderung über die Funktion \"Kennwort zurücksetzen\" angefordert. <br/>Ihr neues Passwort ist: %2$s"
+msgstr "%1$s hat eine Kennwortänderung über die Funktion \"Kennwort zurücksetzen\" angefordert. <br/>Dein neues Passwort ist: %2$s"
 
 #: profile-builder-2.0/front-end/recover.php:320
 msgid "The entered passwords don't match!"
@@ -4899,7 +4903,7 @@ msgstr "Module"
 
 #: profile-builder-2.0/modules/modules.php:59
 msgid "Here you can activate / deactivate available modules for Profile Builder."
-msgstr "Hier können Sie die verfügbaren Module für Profil-Generator aktivieren/deaktivieren."
+msgstr "Hier kannst du die verfügbaren Module für Profil-Generator aktivieren/deaktivieren."
 
 #: profile-builder-2.0/modules/modules.php:69
 msgid "Name/Description"
@@ -5019,7 +5023,7 @@ msgstr ""
 "<p>Benutzername: {{username}}</p> \n"
 "<p>E-Mail :{{user_email}}</p> \n"
 "<p>Die Admin Genehmigung Feature wurde zum Zeitpunkt der Registrierung aktiviert.\n"
-"Also bitte denken Sie daran, dass dieser Benutzer genehmigt sein muss, bevor er sich anmelden kann !</p>\n"
+"Also bitte denke daran, dass dieser Benutzer genehmigt sein muss, bevor er sich anmelden kann !</p>\n"
 
 #: profile-builder-2.0/modules/email-customizer/admin-email-customizer.php:114
 #: profile-builder-2.0/modules/email-customizer/user-email-customizer.php:143
@@ -5071,7 +5075,7 @@ msgid ""
 "<p>Your username is:{{username}} and password:{{password}}</p>\n"
 msgstr ""
 "\n"
-"<h3>Willkommen bei {{Site_name}}!</h3> <p>Ihr Benutzername ist: {{Username}} und das Passwort ist: {{Passwort}}</p>\n"
+"<h3>Willkommen bei {{Site_name}}!</h3> <p>Dein Benutzername ist: {{Username}} und das Passwort ist: {{Passwort}}</p>\n"
 
 #: profile-builder-2.0/modules/email-customizer/user-email-customizer.php:85
 msgid "Default Registration"
@@ -5106,8 +5110,8 @@ msgid ""
 msgstr ""
 "\n"
 "<h3>Willkommen bei {{site_name}}!</h3>\n"
-"<p>Ihr Benutzername ist: {{username}} und das Kennwort: {{password}}</p>\n"
-"<p>Bevor Sie in Ihr Konto zugreifen können, muss ein Administrator diesen Benutzer freischalten. Sie werden per E-Mail benachrichtigt, sobald dies passiert ist.</p>\n"
+"<p>Dein Benutzername ist: {{username}} und das Kennwort: {{password}}</p>\n"
+"<p>Bevor du auf dein Konto zugreifen kannst, muss ein Administrator diesen Benutzer freischalten. Du wirst per E-Mail benachrichtigt, sobald dies passiert ist.</p>\n"
 
 #: profile-builder-2.0/modules/email-customizer/user-email-customizer.php:132
 msgid "A new account has been created for you on {{site_name}}"
@@ -5121,11 +5125,11 @@ msgid ""
 msgstr ""
 "\n"
 "<h3>Herzlich Willkommen!</h3>\n"
-"<p>Der Administrator hat Ihr Konto freigeschaltet: {{username}} auf {{site_name}}.</p>\n"
+"<p>Der Administrator hat dein Konto freigeschaltet: {{username}} auf {{site_name}}.</p>\n"
 
 #: profile-builder-2.0/modules/email-customizer/user-email-customizer.php:159
 msgid "Your account on {{site_name}} has been approved!"
-msgstr "Ihr Benutzerkonto auf {{site_name}} wurde freigeschaltet!"
+msgstr "Dein Benutzerkonto auf {{site_name}} wurde freigeschaltet!"
 
 #: profile-builder-2.0/modules/email-customizer/user-email-customizer.php:170
 msgid "User Approval Notification"
@@ -5139,11 +5143,11 @@ msgid ""
 msgstr ""
 "\n"
 "<h3>Lieber Benutzer,</h3>\n"
-"<p>leider hat der Administrator Ihrem Konto soeben die Freigabe entzogen:  {{username}} auf {{site_name}}.</p>\n"
+"<p>leider hat der Administrator deinem Konto soeben die Freigabe entzogen:  {{username}} auf {{site_name}}.</p>\n"
 
 #: profile-builder-2.0/modules/email-customizer/user-email-customizer.php:187
 msgid "Your account on {{site_name}} has been unapproved!"
-msgstr "Ihr Benutzerkonto auf {{site_name}} wurde nicht freigeschaltet!"
+msgstr "Dein Benutzerkonto auf {{site_name}} wurde nicht freigeschaltet!"
 
 #: profile-builder-2.0/modules/email-customizer/user-email-customizer.php:198
 msgid "Unapproved User Notification"
@@ -5209,13 +5213,13 @@ msgstr "(kein Titel)"
 #: profile-builder-2.0/modules/multiple-forms/register-forms.php:178
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2156
 msgid "The shortcode will be available after you publish this form."
-msgstr "Der Shortcode wird verfügbar sein, nachdem Sie dieses Formular veröffentlichen."
+msgstr "Der Shortcode wird verfügbar sein, nachdem du dieses Formular veröffentlichst."
 
 #: profile-builder-2.0/modules/multiple-forms/edit-profile-forms.php:177
 #: profile-builder-2.0/modules/multiple-forms/register-forms.php:180
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2158
 msgid "Use this shortcode on the page you want the form to be displayed:"
-msgstr "Verwenden Sie diesen Shortcode auf der Seite, wo das Formular angezeigt werden soll."
+msgstr "Verwende diesen Shortcode auf der Seite, wo das Formular angezeigt werden soll."
 
 #: profile-builder-2.0/modules/multiple-forms/edit-profile-forms.php:181
 #: profile-builder-2.0/modules/multiple-forms/register-forms.php:184
@@ -5246,7 +5250,7 @@ msgstr "Erlaubte Zeit (in Sekunden) um Erfolgsmeldungen anzuzeigen"
 
 #: profile-builder-2.0/modules/multiple-forms/edit-profile-forms.php:208
 msgid "Specify the URL of the page users will be redirected once they updated their profile using this form<br/>Use the following format: http://www.mysite.com"
-msgstr "Geben Sie die URL der Seite ein, zu der die Benutzer umgeleitet werden sollten, sobald sie ihr Profil mit diesem Formular aktualisiert haben<br/> verwenden Sie folgendes Format: http://www.meineWebseite.com"
+msgstr "Gib die URL der Seite ein, zu der die Benutzer umgeleitet werden sollten, sobald du sein Profil mit diesem Formular aktualisiert hast<br/> verwende folgendes Format: http://www.meineWebseite.com"
 
 #: profile-builder-2.0/modules/multiple-forms/edit-profile-forms.php:215
 msgid "After Profile Update..."
@@ -5260,7 +5264,7 @@ msgstr "Neues Feld zur Liste hinzufügen"
 #: profile-builder-2.0/modules/multiple-forms/edit-profile-forms.php:245
 #: profile-builder-2.0/modules/multiple-forms/register-forms.php:266
 msgid "Choose one of the supported fields you manage <a href=\""
-msgstr "Wählen Sie eines der unterstützten Felder, die Sie verwalten aus <a href=\""
+msgstr "Wähle eines der unterstützten Felder, die Sie verwalten aus <a href=\""
 
 #: profile-builder-2.0/modules/multiple-forms/multiple-forms.php:406
 msgid "<pre>Title (Type)</pre>"
@@ -5268,7 +5272,7 @@ msgstr "<pre>Titel (Type)</pre>"
 
 #: profile-builder-2.0/modules/multiple-forms/multiple-forms.php:222
 msgid "You need to specify the title of the form before creating it"
-msgstr "Sie müssen dem Formular einen Titel geben, bevor Sie es anlegen können."
+msgstr "Du musst dem Formular einen Titel geben, bevor du es anlegen kannst."
 
 #: profile-builder-2.0/modules/multiple-forms/register-forms.php:11
 #: profile-builder-2.0/modules/multiple-forms/register-forms.php:12
@@ -5495,7 +5499,7 @@ msgstr "Ende &raquo;&raquo;"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:1504
 msgid "You don't have any pagination settings on this userlisting!"
-msgstr "Sie haben keine Paginations-Einstellungen für diese Benutzerliste getätigt!"
+msgstr "Du hast keine Blättern Einstellungen für diese Benutzerliste getätigt!"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:1970
 msgid "Search"
@@ -5532,7 +5536,7 @@ msgstr "Rollen anzeigen"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2262
 msgid "Restrict the userlisting to these selected roles only<br/>If not specified, defaults to all existing roles"
-msgstr "Beschränken Sie die Benutzerlisten nur für diese ausgewählten Rollen <br/> Wenn nicht angegeben, wird standardmäßig auf allen vorhandenen Rollen die Beschränkung gesetzt"
+msgstr "Beschränke die Benutzerlisten nur für diese ausgewählten Rollen <br/> Wenn nicht angegeben, wird standardmäßig auf allen vorhandenen Rollen die Beschränkung gesetzt"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2263
 msgid "Number of Users/Page"
@@ -5560,7 +5564,7 @@ msgstr "Profilbild-Größe (alle Benutzereinträge)"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2266
 msgid "Set the avatar size on the all-userlisting only"
-msgstr "Legen Sie die Profilbildgröße für alle Benutzer-Listen fest."
+msgstr "Lege die Profilbildgröße für alle Benutzer-Listen fest."
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2267
 msgid "Avatar Size (Single-userlisting)"
@@ -5568,7 +5572,7 @@ msgstr "Profilbild-Größe (Einzel-Benutzeranzeige)"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2267
 msgid "Set the avatar size on the single-userlisting only"
-msgstr "Setzen Sie die Profilbild-Größe (nur für die Einzel-Benutzeranzeige)"
+msgstr "Setze die Profilbild-Größe (nur für die Einzel-Benutzeranzeige)"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2268
 msgid "Visible only to logged in users?"
@@ -5592,11 +5596,11 @@ msgstr "Einstellungen für Benutzerliste"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2402
 msgid "You need to activate the Userlisting feature from within the \"Modules\" tab!"
-msgstr "Sie müssen die Benutzerlisten-Funktion innerhalb des Tabs \"Module\" aktivieren!"
+msgstr "Du musst die Benutzerlisten-Funktion innerhalb des Tabs \"Module\" aktivieren!"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2402
 msgid "You can find it in the Profile Builder menu."
-msgstr "Sie finden es im Menü vom Profile Builder"
+msgstr "Du findest es im Menü vom Profile Builder"
 
 #: profile-builder-2.0/modules/user-listing/userlisting.php:2565
 msgid "No results found!"

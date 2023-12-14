@@ -62,16 +62,16 @@ class CustomSidebarsCheckupNotification extends CustomSidebars {
 		/**
 		 * Check: nonce
 		 */
-		$nonce_name = $this->nonce_name . $_GET['user_id'];
+		$nonce_name = $this->nonce_name . sanitize_key($_GET['user_id']);
 		if ( ! wp_verify_nonce( $_GET['_wpnonce'], $nonce_name ) ) {
 			die;
 		}
 		/**
 		 * save result
 		 */
-		$result = add_user_meta( $_GET['user_id'], $this->dismiss_name, true, true );
+		$result = add_user_meta( sanitize_key($_GET['user_id']), $this->dismiss_name, true, true );
 		if ( false == $result ) {
-			update_user_meta( $_GET['user_id'], $this->dismiss_name, true );
+			update_user_meta( sanitize_key($_GET['user_id']), $this->dismiss_name, true );
 		}
 		die;
 	}
@@ -82,49 +82,6 @@ class CustomSidebarsCheckupNotification extends CustomSidebars {
 	 * @since 3.0.0
 	 */
 	public function init_admin_head() {
-		add_action( 'admin_notices', array( $this, 'admin_notice_scan' ) );
-	}
-
-	/**
-	 * Admin notice scan!
-	 *
-	 * @since 3.0.1
-	 */
-	public function admin_notice_scan() {
-		$user_id = get_current_user_id();
-		$state = get_user_meta( $user_id, $this->dismiss_name, true );
-		if ( $state ) {
-			return;
-		}
-		lib3()->ui->add( CSB_CSS_URL . 'cs-scan.css' );
-?>
-<script type="text/javascript">
-    jQuery(document).on( 'click', '.custom-sidebars-wp-checkup .notice-dismiss', function() {
-        jQuery.ajax({
-            url: ajaxurl,
-            data: {
-            action: '<?php echo esc_attr( $this->dismiss_name ); ?>',
-                _wpnonce: '<?php echo wp_create_nonce( $this->nonce_name . $user_id ) ?>',
-                user_id: <?php echo $user_id ?>
-            }
-        })
-    });
-</script>
-<div class="notice is-dismissible custom-sidebars-wp-checkup">
-<p><?php _e( '<b>Warning:</b> Some of your plugins may be slowing down your site. Run a free security and performance scan with WP Checkup.', 'custom-sidebars' ); ?></p>
-<form method="get" action="https://premium.wpmudev.org/wp-checkup/">
-<input type="hidden" name="external-url" value="1" />
-<input type="text" name="the-url" value="<?php echo esc_url( get_option( 'home' ) ); ?>" />
-<input type="submit" value="<?php esc_attr_e( 'Scan', 'custom-sidebars' ); ?>" />
-<input type="hidden" name="utm_source" value="custom_sidebar_ad" />
-<input type="hidden" name="utm_campaign" value="custom_sidebar_plugin" />
-<input type="hidden" name="utm_medium" value="Custom Sidebars Plugin" />
-</form>
-	<button type="button" class="notice-dismiss">
-		<span class="screen-reader-text">Dismiss this notice.</span>
-	</button>
-</div>
-<?php
 	}
 
 	/**
@@ -143,7 +100,7 @@ class CustomSidebarsCheckupNotification extends CustomSidebars {
 	 */
 	public function admin_notices() {
 		wp_enqueue_script( 'wp-util' );
-		$this->show_box( 'checkup' );
+		$this->show_box( 'wf_ads' );
 	}
 
 	/**
@@ -162,12 +119,12 @@ class CustomSidebarsCheckupNotification extends CustomSidebars {
 <script type="text/javascript">
 	jQuery(document).ready( function() {
 		setTimeout( function() {
-			var template = wp.template('custom-sidebars-<?php echo $template_name; ?>');
+			var template = wp.template('custom-sidebars-<?php esc_attr_e($template_name); ?>');
 			jQuery(".sidebars-column-1 .inner").append( template() );
 		}, 1000);
 	});
 </script>
-<script type="text/html" id="tmpl-custom-sidebars-<?php echo $template_name; ?>">
+<script type="text/html" id="tmpl-custom-sidebars-<?php esc_attr_e($template_name); ?>">
 <?php
 		$this->$method();
 ?>
@@ -176,43 +133,34 @@ class CustomSidebarsCheckupNotification extends CustomSidebars {
 	}
 
 	/**
-	 * Show *Run site health check* box.
+	 * Show ads for other plugins box.
 	 *
 	 * @since 3.0.4
 	 */
-	private function show_box_checkup() {
+	private function show_box_wf_ads() {
 ?>
 <div class="custom-sidebars-box custom-sidebars-checkup">
-	<div class="cs-inner">
-		<h4><?php esc_html_e( 'Run site health check', 'custom-sidebars' ); ?></h4>
-		<p><?php esc_html_e( 'Free performance, security and SEO report', 'custom-sidebars' ); ?></p>
-		<form method="get" action="https://premium.wpmudev.org/wp-checkup/">
-			<input type="hidden" name="external-url" value="1" />
-			<input type="text" name="the-url" value="<?php echo esc_url( get_option( 'home' ) ); ?>" /><input type="submit" value="<?php esc_attr_e( 'Go', 'custom-sidebars' ); ?>" />
-			<input type="hidden" name="utm_source" value="custom_sidebar_ad" />
-			<input type="hidden" name="utm_campaign" value="custom_sidebar_plugin" />
-			<input type="hidden" name="utm_medium" value="Custom Sidebars Plugin" />
-		</form>
-	</div>
-</div>
 <?php
-	}
-
-	private function show_box_upfront() {
-		$url = add_query_arg(
-			array(
-				'utm_source' => 'custom_sidebar_uf_ad',
-				'utm_campaign' => 'custom_sidebar_plugin_uf_ad',
-				'utm_medium' => 'Custom Sidebars Plugin',
-			),
-			'https://premium.wpmudev.org/projects/category/themes/'
-		);
+if (!defined('WPFSSL_OPTIONS_KEY')) {
 ?>
-<div class="custom-sidebars-box custom-sidebars-upfront">
-	<div class="cs-inner">
-		<p><?php esc_html_e( 'Don’t just replace sidebars. Add new sidebars and footers anywhere with Upfront.', 'custom-sidebars' ); ?></p>
-		<p><a class="button" href="<?php echo esc_url( $url ); ?>"><?php esc_html_e( 'get Upfront free', 'custom-sidebars' ); ?></a></p>
+  <div class="cs-inner cs-wpfssl">
+		<h4 class="textcenter">Having problems with SSL?<br>Generate a free certificate &amp; properly redirect to HTTPS with a few clicks</h4>
+		<div class="wpfssl-logo"><a target="_blank" href="<?php echo admin_url('plugin-install.php?s=webfactory%20force%20ssl&tab=search&type=term'); ?>"><img src="<?php echo esc_url(CSB_IMG_URL); ?>wp-force-ssl.png" alt="WP Force SSL" title="WP Force SSL"></a></div>
+		<div class="textcenter"><a target="_blank" href="<?php echo admin_url('plugin-install.php?s=webfactory%20force%20ssl&tab=search&type=term'); ?>" class="button">Install the <b>free WP Force SSL plugin</b></a></div>
 	</div>
+<?php
+}
+
+if (!function_exists('sticky_anything_activate')) {
+?>
+  <div class="cs-inner">
+		<h4 class="textcenter">Need to make any element on your site sticky?<br>Header menu, a widget, or an image?</h4>
+		<div class="sticky-logo"><a target="_blank" href="<?php echo admin_url('plugin-install.php?s=webfactory%20sticky&tab=search&type=term'); ?>"><img src="<?php echo esc_url(CSB_IMG_URL); ?>wp-sticky.png" alt="WP Sticky Anything" title="WP Sticky Anything"></a></div>
+		<div class="textcenter"><a target="_blank" href="<?php echo admin_url('plugin-install.php?s=webfactory%20sticky&tab=search&type=term'); ?>" class="button-primary">Install the free WP Sticky plugin</a></div>
+	</div>
+<?php
+}
+?>
 </div>
 <?php
 	}

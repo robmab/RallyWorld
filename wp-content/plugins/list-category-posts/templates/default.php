@@ -40,11 +40,14 @@ $lcp_display_output = '';
 // Show category link:
 $lcp_display_output .= $this->get_category_link('strong');
 
+// Show category description:
+$lcp_display_output .= $this->get_category_description('p');
+
 // Show the conditional title:
 $lcp_display_output .= $this->get_conditional_title();
 
 //Add 'starting' tag. Here, I'm using an unordered list (ul) as an example:
-$lcp_display_output .= '<ul class="lcp_catlist">';
+$lcp_display_output .= $this->open_outer_tag('ul', 'lcp_catlist');
 
 /* Posts Loop
  *
@@ -56,28 +59,43 @@ $lcp_display_output .= '<ul class="lcp_catlist">';
  * you'll see get_excerpt, get_thumbnail, etc.  You can now pass an
  * html tag as a parameter. This tag will sorround the info you want
  * to display. You can also assign a specific CSS class to each field.
+ *
+ * IMPORTANT: Prior to v0.85 lines 65-67 were different. Make sure your
+ * template is up to date.
 */
 global $post;
-while ( have_posts() ):
-  the_post();
+while ( $this->lcp_query->have_posts() ):
+  $this->lcp_query->the_post();
+
+  // Check if protected post should be displayed
+  if (!$this->check_show_protected($post)) continue;
 
   //Start a List Item for each post:
-  $lcp_display_output .= "<li>";
+  $lcp_display_output .= $this->open_inner_tag($post, 'li');
 
   //Show the title and link to the post:
-  $lcp_display_output .= $this->get_post_title($post, 'h3', 'lcp_post');
+  $lcp_display_output .= $this->get_post_title($post);
+
+  // Show categories
+  $lcp_display_output .= $this->get_posts_cats($post);
+
+  // Show tags
+  $lcp_display_output .= $this->get_posts_tags($post);
 
   //Show comments:
   $lcp_display_output .= $this->get_comments($post);
 
   //Show date:
-  $lcp_display_output .= ' ' . $this->get_date($post);
+  $lcp_display_output .= $this->get_date($post);
 
   //Show date modified:
-  $lcp_display_output .= ' ' . $this->get_modified_date($post);
+  $lcp_display_output .= $this->get_modified_date($post);
 
   //Show author
   $lcp_display_output .= $this->get_author($post);
+
+  // Show post ID
+  $lcp_display_output .= $this->get_display_id($post);
 
   //Custom fields:
   $lcp_display_output .= $this->get_custom_fields($post);
@@ -87,9 +105,9 @@ while ( have_posts() ):
 
   /**
    * Post content - Example of how to use tag and class parameters:
-   * This will produce:<p class="lcp_content">The content</p>
+   * This will produce:<div class="lcp_content">The content</div>
    */
-  $lcp_display_output .= $this->get_content($post, 'p', 'lcp_content');
+  $lcp_display_output .= $this->get_content($post, 'div', 'lcp_content');
 
   /**
    * Post content - Example of how to use tag and class parameters:
@@ -101,11 +119,14 @@ while ( have_posts() ):
   $lcp_display_output .= $this->get_posts_morelink($post);
 
   //Close li tag
-  $lcp_display_output .= '</li>';
+  $lcp_display_output .= $this->close_inner_tag();
 endwhile;
 
+// Show no posts text if there are no posts
+$lcp_display_output .= $this->get_no_posts_text();
+
 // Close the wrapper I opened at the beginning:
-$lcp_display_output .= '</ul>';
+$lcp_display_output .= $this->close_outer_tag();
 
 // If there's a "more link", show it:
 $lcp_display_output .= $this->get_morelink();

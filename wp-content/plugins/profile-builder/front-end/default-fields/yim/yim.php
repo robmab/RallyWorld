@@ -1,8 +1,10 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 /* handle field output */
 function wppb_yim_handler( $output, $form_location, $field, $user_id, $field_check_errors, $request_data ){	
-	$item_title = apply_filters( 'wppb_'.$form_location.'_yim_item_title', wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_title_translation', $field['field-title'] ) );
-	$item_description = wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_description_translation', $field['description'] );
+	$item_title = apply_filters( 'wppb_'.$form_location.'_yim_item_title', wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_title_translation', $field['field-title'], true ) );
+	$item_description = wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_description_translation', $field['description'], true );
 	$input_value = '';
 	if( $form_location == 'edit_profile' )
 		$input_value = get_the_author_meta( 'yim', $user_id );
@@ -22,7 +24,7 @@ function wppb_yim_handler( $output, $form_location, $field, $user_id, $field_che
 
         $output = '
 			<label for="yim">'.$item_title.$error_mark.'</label>
-			<input name="yim" maxlength="'. apply_filters( 'wppb_maximum_character_length', 70 ) .'" type="text" class="text-input default_field_yim '. apply_filters( 'wppb_fields_extra_css_class', '', $field ) .'" id="yim" value="'. esc_attr( wp_unslash( $input_value ) ) .'" '. $extra_attr .'/>';
+			<input name="yim" maxlength="'. apply_filters( 'wppb_maximum_character_length', 70, $field ) .'" type="text" class="text-input default_field_yim '. apply_filters( 'wppb_fields_extra_css_class', '', $field ) .'" id="yim" value="'. esc_attr( wp_unslash( $input_value ) ) .'" '. $extra_attr .'/>';
         if( !empty( $item_description ) )
             $output .= '<span class="wppb-description-delimiter">'. $item_description .'</span>';
 

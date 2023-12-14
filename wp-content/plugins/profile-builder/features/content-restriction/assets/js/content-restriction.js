@@ -1,7 +1,7 @@
 jQuery( function(){
 
     /* Display custom redirect URL section if type of restriction is "Redirect" */
-    jQuery( 'input[type=radio][name=wppb-content-restrict-type]' ).click( function() {
+    jQuery( 'input[type=radio][name=wppb-content-restrict-type]' ).on( "click", function() {
         if( jQuery( this ).is(':checked') && jQuery( this ).val() == 'redirect' )
             jQuery( '#wppb-meta-box-fields-wrapper-restriction-redirect-url' ).addClass( 'wppb-content-restriction-enabled' );
         else
@@ -9,7 +9,7 @@ jQuery( function(){
     } );
 
     /* Display custom redirect URL field */
-    jQuery( '#wppb-content-restrict-custom-redirect-url-enabled' ).click( function() {
+    jQuery( '#wppb-content-restrict-custom-redirect-url-enabled' ).on( "click", function() {
         if( jQuery( this ).is( ':checked' ) )
             jQuery( '.wppb-meta-box-field-wrapper-custom-redirect-url' ).addClass( 'wppb-content-restriction-enabled' );
         else
@@ -17,7 +17,7 @@ jQuery( function(){
     } );
 
     /* Display custom messages editors */
-    jQuery( '#wppb-content-restrict-messages-enabled' ).click( function() {
+    jQuery( '#wppb-content-restrict-messages-enabled' ).on( "click", function() {
         if( jQuery( this ).is( ':checked' ) )
             jQuery( '.wppb-meta-box-field-wrapper-custom-messages' ).addClass( 'wppb-content-restriction-enabled' );
         else
@@ -26,7 +26,7 @@ jQuery( function(){
 
 
     /* Disable / Enable the user roles from the "Display for" field if the "Logged in Users" option is checked or not */
-    jQuery( document ).on( 'ready click', 'input[name="wppb-content-restrict-user-status"]', function() {
+    jQuery( document ).on( 'click', 'input[name="wppb-content-restrict-user-status"]', function() {
         wppb_disable_enable_user_roles( jQuery( this ) );
     } );
 

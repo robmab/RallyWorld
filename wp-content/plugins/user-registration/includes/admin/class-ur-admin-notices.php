@@ -5,12 +5,10 @@
  * @class    UR_Admin_Notices
  * @version  1.0.0
  * @package  UserRegistration/Admin
- * @category Admin
- * @author   WPEverest
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly.
 }
 
 /**
@@ -49,7 +47,7 @@ class UR_Admin_Notices {
 
 		if ( current_user_can( 'manage_user_registration' ) ) {
 			add_action( 'admin_print_styles', array( __CLASS__, 'add_notices' ) );
-			add_action( 'admin_print_scripts', array( __CLASS__, 'hide_unrelated_notices' ) );
+			add_action( 'in_admin_header', array( __CLASS__, 'hide_unrelated_notices' ) );
 		}
 	}
 
@@ -86,7 +84,7 @@ class UR_Admin_Notices {
 	/**
 	 * Show a notice.
 	 *
-	 * @param string $name
+	 * @param string $name Name.
 	 */
 	public static function add_notice( $name ) {
 		self::$notices = array_unique( array_merge( self::get_notices(), array( $name ) ) );
@@ -95,7 +93,7 @@ class UR_Admin_Notices {
 	/**
 	 * Remove a notice from being displayed.
 	 *
-	 * @param string $name
+	 * @param string $name Name.
 	 */
 	public static function remove_notice( $name ) {
 		self::$notices = array_diff( self::get_notices(), array( $name ) );
@@ -105,11 +103,11 @@ class UR_Admin_Notices {
 	/**
 	 * See if a notice is being shown.
 	 *
-	 * @param  string $name
+	 * @param  string $name Name.
 	 * @return boolean
 	 */
 	public static function has_notice( $name ) {
-		return in_array( $name, self::get_notices() );
+		return in_array( $name, self::get_notices(), true );
 	}
 
 	/**
@@ -117,16 +115,22 @@ class UR_Admin_Notices {
 	 */
 	public static function hide_notices() {
 		if ( isset( $_GET['ur-hide-notice'] ) && isset( $_GET['_ur_notice_nonce'] ) ) {
-			if ( ! wp_verify_nonce( $_GET['_ur_notice_nonce'], 'user_registration_hide_notices_nonce' ) ) {
-				wp_die( __( 'Action failed. Please refresh the page and retry.', 'user-registration' ) );
+			if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_ur_notice_nonce'] ) ), 'user_registration_hide_notices_nonce' ) ) {
+				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'user-registration' ) );
 			}
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_die( __( 'Cheatin&#8217; huh?', 'user-registration' ) );
+				wp_die( esc_html__( 'Cheatin&#8217; huh?', 'user-registration' ) );
 			}
 
-			$hide_notice = sanitize_text_field( $_GET['ur-hide-notice'] );
+			$hide_notice = sanitize_text_field( wp_unslash( $_GET['ur-hide-notice'] ) );
 			self::remove_notice( $hide_notice );
+
+			// Remove the onboarding skipped checker if install notice is removed.
+			if ( 'install' === $hide_notice ) {
+				delete_option( 'user_registration_onboarding_skipped' );
+			}
+
 			do_action( 'user_registration_hide_' . $hide_notice . '_notice' );
 		}
 	}
@@ -140,7 +144,7 @@ class UR_Admin_Notices {
 		if ( $notices ) {
 			wp_enqueue_style( 'user-registration-activation', UR()->plugin_url() . '/assets/css/activation.css', array(), UR_VERSION );
 
-			// Add RTL support
+			// Add RTL support.
 			wp_style_add_data( 'user-registration-activation', 'rtl', 'replace' );
 
 			foreach ( $notices as $notice ) {
@@ -161,16 +165,44 @@ class UR_Admin_Notices {
 	public static function hide_unrelated_notices() {
 		global $wp_filter;
 
+		// Array to define pages where notices are to be excluded.
+		$pages_to_exclude = array(
+			'add-new-registration',
+			'user-registration-settings',
+			'user-registration-email-templates',
+			'user-registration-mailchimp',
+		);
+
+		$pages_to_exclude = apply_filters( 'user_registration_notice_excluded_pages', $pages_to_exclude );
+
 		// Return on other than user registraion builder page.
-		if ( empty( $_REQUEST['page'] ) || 'add-new-registration' !== $_REQUEST['page'] ) {
+		if ( empty( $_REQUEST['page'] ) || ! in_array( $_REQUEST['page'], $pages_to_exclude ) ) {
 			return;
 		}
 
- 		foreach ( array( 'user_admin_notices', 'admin_notices', 'all_admin_notices' ) as $wp_notice ) {
+		foreach ( array( 'user_admin_notices', 'admin_notices', 'all_admin_notices' ) as $wp_notice ) {
+
 			if ( ! empty( $wp_filter[ $wp_notice ]->callbacks ) && is_array( $wp_filter[ $wp_notice ]->callbacks ) ) {
+
 				foreach ( $wp_filter[ $wp_notice ]->callbacks as $priority => $hooks ) {
 					foreach ( $hooks as $name => $arr ) {
-						unset( $wp_filter[ $wp_notice ]->callbacks[ $priority ][ $name ] );
+						// Remove all notices if the page is form builder page.
+						if ( 'add-new-registration' === $_REQUEST['page'] ) {
+							unset( $wp_filter[ $wp_notice ]->callbacks[ $priority ][ $name ] );
+						} else {
+							// Remove all notices except user registration plugins notices.
+							if ( null !== $name ) {
+								if ( strstr( $name, 'user_registration_error_notices' ) ) {
+									if ( ! isset( $_REQUEST['tab'] ) || 'license' !== $_REQUEST['tab'] ) {
+										unset( $wp_filter[ $wp_notice ]->callbacks[ $priority ][ $name ] );
+									}
+								} elseif ( strpos( $name, 'user_registration_' ) || strpos( $name, 'UR_Admin_Notices' ) ) {
+									continue;
+								} else {
+									unset( $wp_filter[ $wp_notice ]->callbacks[ $priority ][ $name ] );
+								}
+							}
+						}
 					}
 				}
 			}
@@ -180,12 +212,12 @@ class UR_Admin_Notices {
 	/**
 	 * Add a custom notice.
 	 *
-	 * @param string $name
-	 * @param string $notice_html
+	 * @param string $name Name.
+	 * @param string $notice_html Notice.
 	 */
 	public static function add_custom_notice( $name, $notice_html ) {
 		self::add_notice( $name );
-		update_option( 'user_registration_admin_notice_' . $name, wp_kses_post( $notice_html ) );
+		update_option( 'user_registration_admin_notice_' . sanitize_text_field( $name ), wp_kses_post( $notice_html ) );
 	}
 
 	/**
@@ -200,7 +232,7 @@ class UR_Admin_Notices {
 					$notice_html = get_option( 'user_registration_admin_notice_' . $notice );
 
 					if ( $notice_html ) {
-						include( 'views/html-notice-custom.php' );
+						include 'views/html-notice-custom.php';
 					}
 				}
 			}
@@ -216,12 +248,12 @@ class UR_Admin_Notices {
 			$updater = new UR_Background_Updater();
 
 			if ( $updater->is_updating() || ! empty( $_GET['do_update_user_registration'] ) ) {
-				include( 'views/html-notice-updating.php' );
+				include 'views/html-notice-updating.php';
 			} else {
-				include( 'views/html-notice-update.php' );
+				include 'views/html-notice-update.php';
 			}
 		} else {
-			include( 'views/html-notice-updated.php' );
+			include 'views/html-notice-updated.php';
 		}
 	}
 
@@ -229,7 +261,7 @@ class UR_Admin_Notices {
 	 * If we have just installed, show a message with the install pages button.
 	 */
 	public static function install_notice() {
-		include( 'views/html-notice-install.php' );
+		include 'views/html-notice-install.php';
 	}
 
 	/**
@@ -239,7 +271,7 @@ class UR_Admin_Notices {
 		$users_can_register = apply_filters( 'ur_register_setting_override', get_option( 'users_can_register' ) );
 
 		if ( ! $users_can_register && is_admin() && ! defined( 'DOING_AJAX' ) ) {
-			include( 'views/html-notice-registration.php' );
+			include 'views/html-notice-registration.php';
 		} else {
 			self::remove_notice( 'register' );
 		}

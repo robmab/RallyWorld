@@ -2,52 +2,67 @@
  * Simple text copy functions using native browser clipboard capabilities.
  * @since 1.4.3
  */
-jQuery( function ($){
-	$(document.body).on( 'click', '.ur-copy-shortcode' , function( evt ) {
-		var res = $('.code').val();
-		urSetClipboard(res, $( this ) );
+jQuery(function ($) {
+	var URCopyShortcode = {
+		/**
+		 * Initiate copy shortcode process.
+		 */
+		init: function () {
+			$(".ur-copy-shortcode").each(function () {
+				var $this = $(this);
 
-		$( '.ur-copy-shortcode' ).tipTip({
-				'attribute': 'data-copied',
-				'activation': 'focus',
-				'fadeIn': 50,
-				'fadeOut': 50,
-				'delay': 200
-			}).focus();
+				$this.on("click", function (evt) {
+					var res = $this.parent().find(".code").val();
+					URCopyShortcode.urSetClipboard(res, $this);
 
-		evt.preventDefault();
-	});
+					$this
+					.tooltipster( 'content', $( this ).attr( 'data-copied' ) )
+					.trigger( 'focus' )
+					.on( 'mouseleave', function() {
+						var $this = $( this );
+						setTimeout( function() {
+							$this.tooltipster( 'content', $this.attr( 'data-tip' ) );
+						}, 1000 );
+					} );
+					evt.preventDefault();
+				});
+			});
+		},
+		/**
+		 * Set the user's clipboard contents.
+		 *
+		 * @param string data: Text to copy to clipboard.
+		 * @param object $el: jQuery element to trigger copy events on. (Default: document)
+		 */
+		urSetClipboard: function (data, $el) {
+			if ("undefined" === typeof $el) {
+				$el = jQuery(document);
+			}
+
+			var $temp_input = jQuery('<textarea style="opacity:0">');
+			jQuery("body").append($temp_input);
+			$temp_input.val(data).select();
+
+			$el.trigger("beforecopy");
+			try {
+				document.execCommand("copy");
+				$el.trigger("aftercopy");
+			} catch (err) {
+				$el.trigger("aftercopyfailure");
+			}
+
+			$temp_input.remove();
+		},
+		/**
+		 * Clear the user's clipboard.
+		 */
+		urClearClipboard: function () {
+			URCopyShortcode.urSetClipboard("");
+		},
+	};
+
+	/**
+	 * Initiate copy shortcode process.
+	 */
+	URCopyShortcode.init();
 });
-
-/**
- * Set the user's clipboard contents.
- *
- * @param string data: Text to copy to clipboard.
- * @param object $el: jQuery element to trigger copy events on. (Default: document)
- */
-function urSetClipboard( data, $el ) {
-	if ( 'undefined' === typeof $el ) {
-		$el = jQuery( document );
-	}
-
-	var $temp_input = jQuery( '<textarea style="opacity:0">' );
-	jQuery( 'body' ).append( $temp_input );
-	$temp_input.val( data ).select();
-
-	$el.trigger( 'beforecopy' );
-	try {
-		document.execCommand( 'copy' );
-		$el.trigger( 'aftercopy' );
-	} catch ( err ) {
-		$el.trigger( 'aftercopyfailure' );
-	}
-
-	$temp_input.remove();
-}
-
-/**
- * Clear the user's clipboard.
- */
-function urClearClipboard() {
-	urSetClipboard( '' );
-}

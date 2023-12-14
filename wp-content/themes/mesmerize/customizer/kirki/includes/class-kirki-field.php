@@ -12,6 +12,7 @@
 
 if ( ! class_exists('Kirki_Field')) {
 
+    #[AllowDynamicProperties]
     /**
      * Please do not use this class directly.
      * You should instead extend it per-field-type.

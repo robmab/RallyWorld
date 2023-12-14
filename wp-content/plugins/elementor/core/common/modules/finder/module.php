@@ -29,6 +29,7 @@ class Module extends BaseModule {
 	/**
 	 * Module constructor.
 	 *
+	 * @since 2.3.0
 	 * @access public
 	 */
 	public function __construct() {
@@ -42,6 +43,7 @@ class Module extends BaseModule {
 	/**
 	 * Get name.
 	 *
+	 * @since 2.3.0
 	 * @access public
 	 *
 	 * @return string
@@ -53,6 +55,7 @@ class Module extends BaseModule {
 	/**
 	 * Add template.
 	 *
+	 * @since 2.3.0
 	 * @access public
 	 */
 	public function add_template() {
@@ -62,6 +65,7 @@ class Module extends BaseModule {
 	/**
 	 * Register ajax actions.
 	 *
+	 * @since 2.3.0
 	 * @access public
 	 *
 	 * @param Ajax $ajax
@@ -73,6 +77,7 @@ class Module extends BaseModule {
 	/**
 	 * Ajax get category items.
 	 *
+	 * @since 2.3.0
 	 * @access public
 	 *
 	 * @param array $data
@@ -80,6 +85,10 @@ class Module extends BaseModule {
 	 * @return array
 	 */
 	public function ajax_get_category_items( array $data ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			throw new \Exception( 'Access denied.' );
+		}
+
 		$category = $this->categories_manager->get_categories( $data['category'] );
 
 		return $category->get_category_items( $data );
@@ -88,6 +97,7 @@ class Module extends BaseModule {
 	/**
 	 * Get init settings.
 	 *
+	 * @since 2.3.0
 	 * @access protected
 	 *
 	 * @return array
@@ -101,13 +111,20 @@ class Module extends BaseModule {
 			$categories_data[ $category_name ] = array_merge( $category->get_settings(), [ 'name' => $category_name ] );
 		}
 
+		/**
+		 * Finder categories.
+		 *
+		 * Filters the list of finder categories. This hook is used to manage Finder
+		 * categories - to add new categories, remove and edit existing categories.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param array $categories_data A list of finder categories.
+		 */
 		$categories_data = apply_filters( 'elementor/finder/categories', $categories_data );
 
 		return [
 			'data' => $categories_data,
-			'i18n' => [
-				'finder' => __( 'Finder', 'elementor' ),
-			],
 		];
 	}
 }

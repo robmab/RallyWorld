@@ -32,10 +32,6 @@ require fitness_hub_file_directory('acmethemes/customizer/header-options/menu-op
 */
 require fitness_hub_file_directory('acmethemes/customizer/header-options/popup-widgets.php');
 
-/*adding header image inside this panel*/
-$wp_customize->get_section( 'header_image' )->panel = 'fitness-hub-header-panel';
-$wp_customize->get_section( 'header_image' )->description = esc_html__( 'Applied to header image of inner pages.', 'fitness-hub' );
-
 /* feature section height*/
 $wp_customize->add_setting( 'fitness_hub_theme_options[fitness-hub-header-height]', array(
     'capability'		=> 'edit_theme_options',

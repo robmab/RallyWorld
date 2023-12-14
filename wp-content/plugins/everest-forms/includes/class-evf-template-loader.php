@@ -31,12 +31,15 @@ class EVF_Template_Loader {
 	 * Hook in methods.
 	 */
 	public static function init() {
-		self::$form_id = isset( $_GET['form_id'] ) ? absint( $_GET['form_id'] ) : 0;
+		self::$form_id = isset( $_GET['form_id'] ) ? absint( $_GET['form_id'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
 
-		if ( ! is_admin() && isset( $_GET['evf_preview'] ) ) {
+		if ( ! is_admin() && isset( $_GET['evf_preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ) );
-			add_filter( 'template_include', array( __CLASS__, 'template_include' ) );
+			add_filter( 'edit_post_link', array( __CLASS__, 'edit_form_link' ) );
+			add_filter( 'home_template_hierarchy', array( __CLASS__, 'template_include' ) );
+			add_filter( 'frontpage_template_hierarchy', array( __CLASS__, 'template_include' ) );
 			add_action( 'template_redirect', array( __CLASS__, 'form_preview_init' ) );
+			add_filter( 'astra_remove_entry_header_content', '__return_true' ); // Need to remove in next version, If astra release the patches.
 		} else {
 			add_filter( 'template_include', array( __CLASS__, 'template_loader' ) );
 		}
@@ -55,12 +58,27 @@ class EVF_Template_Loader {
 	}
 
 	/**
-	 * Limit page templates to singular pages only.
+	 * Change edit link of preview page.
 	 *
-	 * @return string
+	 * @param string $link Edit post link.
 	 */
-	public static function template_include() {
-		return locate_template( array( 'page.php', 'single.php', 'index.php' ) );
+	public static function edit_form_link( $link ) {
+		if ( 0 < self::$form_id ) {
+			return '<a href="' . esc_url( admin_url( 'admin.php?page=evf-builder&tab=fields&form_id=' . self::$form_id ) ) . '" class="post-edit-link">' . esc_html__( 'Edit Form', 'everest-forms' ) . '</a>';
+		}
+
+		return $link;
+	}
+
+	/**
+	 *  A list of template candidates.
+	 *
+	 * @param array $templates A list of template candidates, in descending order of priority.
+	 *
+	 * @return array
+	 */
+	public static function template_include( $templates ) {
+		return array( 'page.php', 'single.php', 'index.php' );
 	}
 
 	/**
@@ -96,7 +114,7 @@ class EVF_Template_Loader {
 			$template     = locate_template( $search_files );
 
 			if ( ! $template || EVF_TEMPLATE_DEBUG_MODE ) {
-				$template = EVF()->plugin_path() . '/templates/' . $default_file;
+				$template = evf()->plugin_path() . '/templates/' . $default_file;
 			}
 		}
 
@@ -129,7 +147,7 @@ class EVF_Template_Loader {
 		}
 
 		$search_files[] = $default_file;
-		$search_files[] = EVF()->template_path() . $default_file;
+		$search_files[] = evf()->template_path() . $default_file;
 
 		return array_unique( $search_files );
 	}
@@ -149,9 +167,9 @@ class EVF_Template_Loader {
 		}
 
 		if ( 0 < self::$form_id ) {
-			add_filter( 'the_title', array( __CLASS__, 'form_preview_title_filter' ) );
-			add_filter( 'the_content', array( __CLASS__, 'form_preview_content_filter' ) );
-			add_filter( 'get_the_excerpt', array( __CLASS__, 'form_preview_content_filter' ) );
+			add_filter( 'the_title', array( __CLASS__, 'form_preview_title_filter' ), 100, 1 );
+			add_filter( 'the_content', array( __CLASS__, 'form_preview_content_filter' ),999 );
+			add_filter( 'get_the_excerpt', array( __CLASS__, 'form_preview_content_filter' ),999 );
 			add_filter( 'post_thumbnail_html', '__return_empty_string' );
 		}
 	}
@@ -163,11 +181,18 @@ class EVF_Template_Loader {
 	 * @return string
 	 */
 	public static function form_preview_title_filter( $title ) {
-		$form = EVF()->form->get( self::$form_id, array(
-			'content_only' => true,
-		) );
+		$form = evf()->form->get(
+			self::$form_id,
+			array(
+				'content_only' => true,
+			)
+		);
 
 		if ( ! empty( $form['settings']['form_title'] ) && in_the_loop() ) {
+			if ( is_customize_preview() ) {
+				return esc_html( sanitize_text_field( $form['settings']['form_title'] ) );
+			}
+
 			/* translators: %s - Form name. */
 			return sprintf( esc_html__( '%s &ndash; Preview', 'everest-forms' ), sanitize_text_field( $form['settings']['form_title'] ) );
 		}
@@ -191,8 +216,12 @@ class EVF_Template_Loader {
 		// Remove the filter we're in to avoid nested calls.
 		remove_filter( 'the_content', array( __CLASS__, 'form_preview_content_filter' ) );
 
-		if ( current_user_can( 'manage_everest_forms' ) ) {
-			$content = do_shortcode( '[everest_form id="' . absint( self::$form_id ) . '"]' );
+		if ( current_user_can( 'everest_forms_view_forms', self::$form_id ) ) {
+			if ( function_exists( 'apply_shortcodes' ) ) {
+				$content = apply_shortcodes( '[everest_form id="' . absint( self::$form_id ) . '"]' );
+			} else {
+				$content = do_shortcode( '[everest_form id="' . absint( self::$form_id ) . '"]' );
+			}
 		}
 
 		self::$in_content_filter = false;

@@ -1,6 +1,7 @@
 <?php
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly.\
 }
 
 /**
@@ -27,17 +28,19 @@ class UR_Setting_Email extends UR_Field_Settings {
 	public function register_fields() {
 		$fields = array(
 			'custom_class' => array(
-				'label' => __( 'Custom Class','user-registration' ),
-				'data-id' => $this->field_id . '_custom_class',
-				'name' => $this->field_id . '[custom_class]',
-				'class' => $this->default_class . ' ur-settings-custom-class',
-				'type' => 'text',
-				'required' => false,
-				'default' => '',
-				'placeholder' => __( 'Custom Class' ,'user-registration' ),
+				'label'       => __( 'Custom Class', 'user-registration' ),
+				'data-id'     => $this->field_id . '_custom_class',
+				'name'        => $this->field_id . '[custom_class]',
+				'class'       => $this->default_class . ' ur-settings-custom-class',
+				'type'        => 'text',
+				'required'    => false,
+				'default'     => '',
+				'placeholder' => __( 'Custom Class', 'user-registration' ),
+				'tip'         => __( 'Class name to embed in this field.', 'user-registration' ),
 			),
 		);
 
+		$fields = apply_filters( 'email_custom_advance_settings', $fields, $this->field_id, $this->default_class );
 		$this->render_html( $fields );
 	}
 }

@@ -32,7 +32,7 @@ function mesmerize_filter_defaults($data)
             if (is_string($value)) {
                 $data[$key] = str_replace(
                     array('[tag_companion_uri]', '[tag_theme_uri]', '[tag_style_uri]'),
-                    get_template_directory_uri(),
+                    apply_filters('mesmerize_assets_url',get_template_directory_uri(),'/'),
                     $value
                 );
             }

@@ -92,10 +92,13 @@ class Rollback {
 		<style>
 			.wrap {
 				overflow: hidden;
+				max-width: 850px;
+				margin: auto;
+				font-family: Courier, monospace;
 			}
 
 			h1 {
-				background: #9b0a46;
+				background: #D30C5C;
 				text-align: center;
 				color: #fff !important;
 				padding: 70px !important;
@@ -159,7 +162,7 @@ class Rollback {
 			'url' => 'update.php?action=upgrade-plugin&plugin=' . rawurlencode( $this->plugin_name ),
 			'plugin' => $this->plugin_name,
 			'nonce' => 'upgrade-plugin_' . $this->plugin_name,
-			'title' => '<img src="' . $logo_url . '" alt="Elementor">' . __( 'Rollback to Previous Version', 'elementor' ),
+			'title' => '<img src="' . $logo_url . '" alt="Elementor">' . esc_html__( 'Rollback to Previous Version', 'elementor' ),
 		];
 
 		$this->print_inline_style();

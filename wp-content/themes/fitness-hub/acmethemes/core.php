@@ -126,6 +126,7 @@ function fitness_hub_scripts() {
 
     /*slick slider*/
 	wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/library/slick/slick.css', array(), '1.3.3' );
+    wp_style_add_data( 'slick', 'rtl', 'replace' );
 	wp_enqueue_script('slick', get_template_directory_uri() . '/assets/library/slick/slick.min.js', array('jquery'), '1.1.2', 1);
 
 	/*magnific-popup*/

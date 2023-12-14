@@ -2,51 +2,95 @@
 /**
  * Theme Single Post Section for our theme.
  *
- * @package ThemeGrill
- * @subpackage ColorMag
- * @since ColorMag 1.0
+ * @package ColorMag
+ *
+ * @since   ColorMag 1.0.0
  */
-get_header(); ?>
 
-	<?php do_action( 'colormag_before_body_content' ); ?>
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-	<div id="primary">
-		<div id="content" class="clearfix">
+get_header();
+?>
 
-			<?php while ( have_posts() ) : the_post(); ?>
+<div class="cm-row">
+	<?php
+	/**
+	 * Hook: colormag_before_body_content.
+	 */
+	do_action( 'colormag_before_body_content' );
+	?>
 
-				<?php get_template_part( 'content', 'single' ); ?>
+	<div id="cm-primary" class="cm-primary">
+		<div class="cm-posts" class="clearfix">
 
-			<?php endwhile; ?>
+			<?php
+			/**
+			 * Hook: colormag_before_single_post_page_loop.
+			 */
+			do_action( 'colormag_before_single_post_page_loop' );
 
-		</div><!-- #content -->
+			while ( have_posts() ) :
+				the_post();
 
-      <?php get_template_part( 'navigation', 'single' ); ?>
+				get_template_part( 'template-parts/content', 'single' );
+			endwhile;
 
-      <?php if ( get_the_author_meta( 'description' ) ) : ?>
-         <div class="author-box">
-            <div class="author-img"><?php echo get_avatar( get_the_author_meta( 'user_email' ), '100' ); ?></div>
-               <h4 class="author-name"><?php the_author_meta( 'display_name' ); ?></h4>
-               <p class="author-description"><?php the_author_meta( 'description' ); ?></p>
-         </div>
-      <?php endif; ?>
+			/**
+			 * Hook: colormag_after_single_post_page_loop.
+			 */
+			do_action( 'colormag_after_single_post_page_loop' );
+			?>
+		</div><!-- .cm-posts -->
+		<?php
 
-      <?php if ( get_theme_mod( 'colormag_related_posts_activate', 0 ) == 1 )
-         get_template_part( 'inc/related-posts' );
-      ?>
+		if (true === apply_filters('colormag_single_post_page_navigation_filter', true)) :
+				get_template_part('navigation', 'single');
+		endif;
 
-      <?php
-         do_action( 'colormag_before_comments_template' );
-         // If comments are open or we have at least one comment, load up the comment template
-         if ( comments_open() || '0' != get_comments_number() )
-            comments_template();
-         do_action ( 'colormag_after_comments_template' );
-      ?>
+		if (!class_exists('Auto_Load_Next_Post')) :
 
-	</div><!-- #primary -->
+			/**
+			 * Functions hooked into colormag_action_after_single_post_content action.
+			 *
+			 * @hooked colormag_author_bio - 10
+			 * @hooked colormag_related_posts - 20
+			 */
+			do_action('colormag_action_after_single_post_content');
 
-	<?php colormag_sidebar_select(); ?>
+		endif;
 
-	<?php do_action( 'colormag_after_body_content' ); ?>
+		/**
+		 * Hook: colormag_before_comments_template.
+		 */
+		do_action('colormag_before_comments_template');
 
-<?php get_footer(); ?>
+		/**
+		 * Functions hooked into colormag_action_after_inner_content action.
+		 *
+		 * @hooked colormag_render_comments - 10
+		 */
+		do_action('colormag_action_comments');
+
+		/**
+		 * Hook: colormag_after_comments_template.
+		 */
+		do_action('colormag_after_comments_template');
+		?>
+	</div><!-- #cm-primary -->
+
+	<?php
+
+	colormag_sidebar_select();
+	?>
+</div>
+
+<?php
+/**
+ * Hook: colormag_after_body_content.
+ */
+do_action( 'colormag_after_body_content' );
+
+get_footer();

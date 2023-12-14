@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * list of icons.
  *
  * @since 1.0.0
+ * @deprecated 2.6.0 Use `Control_Icons` class instead.
  */
 class Control_Icon extends Base_Data_Control {
 
@@ -22,6 +23,7 @@ class Control_Icon extends Base_Data_Control {
 	 * Retrieve the control type, in this case `icon`.
 	 *
 	 * @since 1.0.0
+	 * @deprecated 2.6.0 Use `Control_Icons` class instead.
 	 * @access public
 	 *
 	 * @return string Control type.
@@ -36,6 +38,7 @@ class Control_Icon extends Base_Data_Control {
 	 * Retrieve all the available icons.
 	 *
 	 * @since 1.0.0
+	 * @deprecated 2.6.0 Use `Control_Icons` class instead.
 	 * @access public
 	 * @static
 	 *
@@ -841,6 +844,7 @@ class Control_Icon extends Base_Data_Control {
 	 * settings while initializing the icons control.
 	 *
 	 * @since 1.0.0
+	 * @deprecated 2.6.0 Use `Control_Icons` class instead.
 	 * @access protected
 	 *
 	 * @return array Control default settings.
@@ -861,16 +865,16 @@ class Control_Icon extends Base_Data_Control {
 	 * object.
 	 *
 	 * @since 1.0.0
+	 * @deprecated 2.6.0 Use `Control_Icons` class instead.
 	 * @access public
 	 */
 	public function content_template() {
-		$control_uid = $this->get_control_uid();
 		?>
 		<div class="elementor-control-field">
-			<label for="<?php echo $control_uid; ?>" class="elementor-control-title">{{{ data.label }}}</label>
+			<label for="<?php $this->print_control_uid(); ?>" class="elementor-control-title">{{{ data.label }}}</label>
 			<div class="elementor-control-input-wrapper">
-				<select id="<?php echo $control_uid; ?>" class="elementor-control-icon" data-setting="{{ data.name }}" data-placeholder="<?php echo __( 'Select Icon', 'elementor' ); ?>">
-					<option value=""><?php echo __( 'Select Icon', 'elementor' ); ?></option>
+				<select id="<?php $this->print_control_uid(); ?>" class="elementor-control-icon" data-setting="{{ data.name }}" data-placeholder="<?php echo esc_attr__( 'Select Icon', 'elementor' ); ?>">
+					<option value=""><?php echo esc_html__( 'Select Icon', 'elementor' ); ?></option>
 					<# _.each( data.options, function( option_title, option_value ) { #>
 					<option value="{{ option_value }}">{{{ option_title }}}</option>
 					<# } ); #>

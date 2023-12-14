@@ -84,20 +84,24 @@
         showPopUp('Installing One Click Demo Import Plugin', 'tb_install_ocdi');
         jQuery("#tb_install_ocdi_response").append("<h2>Activate 'One Click Demo Import' plugin</h2>");
         jQuery.ajax({
-            url: window.__ocdiPreparePluginData.activate_url,
-            method: 'GET',
-            success: function () {
-                window.location.hash = "#" + currentDemo;
-                jQuery("#tb_install_ocdi_response").append("<p>Activation succesfull</p>");
-                jQuery("#tb_install_ocdi_response").append("<p><strong>If the page does not refresh automaticly please click <a href='" + window.location + "'>here</a> </strong></p>");
-                setTimeout(function () {
-                    window.location.reload(true);
-                }, 800);
+                url: window.__ocdiPreparePluginData.activate_url,
+                method: 'GET',
+                success: function () {
+                    window.location.hash = "#" + currentDemo;
+                    jQuery("#tb_install_ocdi_response").append("<p>Activation succesfull</p>");
+                    jQuery("#tb_install_ocdi_response").append("<p><strong>If the page does not refresh automaticly please click <a href='" + window.location + "'>here</a> </strong></p>");
+                    setTimeout(function () {
+                        window.location.reload(true);
+                    }, 800);
+                },
+                error: function () {
+                    jQuery("#tb_install_ocdi_response").append("<p>Activation failed. Please try to activate the plugin manually</p>");
+                }
             },
-            error: function () {
-                jQuery("#tb_install_ocdi_response").append("<p>Activation failed. Please try to activate the plugin manually</p>");
+            {
+                data: null
             }
-        })
+        )
     }
 
     if (window.__ocdiPreparePluginData) {
@@ -336,7 +340,7 @@
         }
     }
 
-    $(window).load(function () {
+    $(window).on('load', function () {
         if (hash) {
 
             var valueID = hash.replace('demo-', '');

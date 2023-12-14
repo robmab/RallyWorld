@@ -48,6 +48,11 @@ add_action("mesmerize_before_header_background", "mesmerize_print_background_ove
 
 function mesmerize_get_gradient_value($colors, $angle)
 {
+
+    if(!is_array($colors) || empty($colors)){
+        return '';
+    }
+
     $angle    = intval($angle);
     $color1 = $colors[0]['color'];
     $color2 = $colors[1]['color'];

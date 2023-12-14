@@ -88,7 +88,7 @@ function mesmerize_get_header_shape_overlay_value($shape, $shapes = false)
     if ($shapeURL) {
         $url = esc_url("$shapeURL/{$shape}.png");
     } else {
-        $url = esc_url(get_template_directory_uri() . "/assets/images/header-shapes/{$shape}.png");
+        $url = esc_url(apply_filters('mesmerize_assets_url', get_template_directory_uri() , '/') . "/assets/images/header-shapes/{$shape}.png");
     }
 
 
@@ -159,7 +159,7 @@ function mesmerize_get_header_shapes_overlay($asControlOptions = true)
             $url = '#';
         } else {
             if ( ! $shapeURL) {
-                $url = get_template_directory_uri() . "/assets/images/header-shapes/{$shape}.png";
+                $url = apply_filters('mesmerize_assets_url', get_template_directory_uri() , '/') . "/assets/images/header-shapes/{$shape}.png";
             } else {
                 $url = "{$shapeURL}/{$shape}.png";
             }

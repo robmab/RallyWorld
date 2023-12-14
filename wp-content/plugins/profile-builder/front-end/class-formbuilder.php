@@ -1,30 +1,35 @@
-<?php 
+<?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 class Profile_Builder_Form_Creator{
 	private $defaults = array(
-							'form_type' 			=> '',					
+							'form_type' 			=> '',
 							'form_fields' 			=> array(),
 							'form_name' 			=> '',
 							'role' 					=> '', //used only for the register-form settings
                             'redirect_url'          => '',
                             'logout_redirect_url'   => '', //used only for the register-form settings
+                            'automatic_login'       => '', //used only for the register-form
 							'redirect_priority'		=> 'normal',
                             'ID'                    => null
 						);
 	public $args;
-	
-	
+
+
 	// Constructor method for the class
 	function __construct( $args ) {
 
         /* we should stop the execution of the forms if they are in the wp_head hook because it should not be there.
         SEO plugins can execute shortcodes in the auto generated descriptions */
-        global $wp_current_filter;
-        if( !empty( $wp_current_filter ) && is_array( $wp_current_filter ) ){
-            foreach( $wp_current_filter as $filter ){
-                if( $filter == 'wp_head' )
-                    return;
-            }
-        }
+		if( apply_filters( 'wppb_dont_render_form_in_wp_head_hook', true ) ){
+			global $wp_current_filter;
+			if( !empty( $wp_current_filter ) && is_array( $wp_current_filter ) ){
+				foreach( $wp_current_filter as $filter ){
+					if( $filter == 'wp_head' )
+					return;
+				}
+			}
+		}
 
 		// Merge the input arguments and the defaults
 		$this->args = wp_parse_args( $args, $this->defaults );
@@ -37,19 +42,27 @@ class Profile_Builder_Form_Creator{
         global $wppb_shortcode_on_front;
         $wppb_shortcode_on_front = true;
 
+        global $wppb_register_edit_profile_shortcode_on_front;
+        $wppb_register_edit_profile_shortcode_on_front = true;
+
 		if( empty( $this->args['form_fields'] ) )
 			$this->args['form_fields'] = apply_filters( 'wppb_change_form_fields', get_option( 'wppb_manage_fields' ), $this->args );
-		
+
 		if ( file_exists ( WPPB_PLUGIN_DIR.'/front-end/default-fields/default-fields.php' ) )
 			require_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/default-fields.php' );
-			
-		if ( file_exists ( WPPB_PLUGIN_DIR.'/front-end/extra-fields/extra-fields.php' ) )
-			require_once( WPPB_PLUGIN_DIR.'/front-end/extra-fields/extra-fields.php' );
+
+		if ( defined( 'WPPB_PAID_PLUGIN_DIR' ) && file_exists ( WPPB_PAID_PLUGIN_DIR.'/front-end/extra-fields/extra-fields.php' ) )
+			require_once( WPPB_PAID_PLUGIN_DIR.'/front-end/extra-fields/extra-fields.php' );
 
 		$this->wppb_retrieve_custom_settings();
 
-        if( ( !is_multisite() && current_user_can( 'edit_users' ) ) || ( is_multisite() && current_user_can( 'manage_network' ) ) )
-            add_action( 'wppb_before_edit_profile_fields', array( 'Profile_Builder_Form_Creator', 'wppb_edit_profile_select_user_to_edit' ) );
+        // NOTE: for Multisite, the capability we check against is `remove_users` because `edit_users` is on the do not allow on multisite list for current_user_can()
+        // current_user_can( 'edit_users' ) will only return true on a Multisite for Super Administrator Users
+        if( ( !is_multisite() && current_user_can( 'edit_users' ) ) || ( is_multisite() && ( current_user_can( 'remove_users' ) || current_user_can( 'manage_options' ) ) ) )
+            add_action( 'wppb_before_edit_profile_fields', array( 'Profile_Builder_Form_Creator', 'wppb_edit_profile_select_user_to_edit' ), 10, 4 );
+
+        //enqueue frontend scripts for forms
+        add_action( 'wp_footer', array( $this, 'wppb_frontend_scripts' ), 9999 );
 	}
 
     /**
@@ -88,13 +101,16 @@ class Profile_Builder_Form_Creator{
 
         return null;
     }
-	
+
 	function wppb_retrieve_custom_settings(){
-		$this->args['login_after_register'] = apply_filters( 'wppb_automatically_login_after_register', 'No' ); //used only for the register-form settings
+		$this->args['login_after_register'] = apply_filters( 'wppb_automatically_login_after_register', 'No' );
 		$this->args['redirect_activated'] = apply_filters( 'wppb_redirect_default_setting', '-' );
 		$this->args['redirect_url'] = apply_filters( 'wppb_redirect_default_location', ( $this->args['redirect_url'] != '' ) ? $this->args['redirect_url'] : '' );
 		$this->args['logout_redirect_url'] = apply_filters( 'wppb_logout_redirect_default_location', ( $this->args['logout_redirect_url'] != '' ) ? $this->args['logout_redirect_url'] : '' );
 		$this->args['redirect_delay'] = apply_filters( 'wppb_redirect_default_duration', 3 );
+
+        $wppb_general_settings = get_option( 'wppb_general_settings' );
+        $this->args['login_after_register'] = ( isset( $wppb_general_settings['automaticallyLogIn'] ) ? $wppb_general_settings['automaticallyLogIn'] : $this->args['login_after_register'] );
 
 		if ( !is_null( $this->args['ID'] ) ){
 			$meta_name = ( ( $this->args['form_type'] == 'register' ) ? 'wppb_rf_page_settings' : 'wppb_epf_page_settings' );
@@ -116,67 +132,72 @@ class Profile_Builder_Form_Creator{
             $this->args['redirect_delay'] = ( isset( $page_settings[0]['display-messages'] ) && $this->args['redirect_activated'] == 'Yes' ? $page_settings[0]['display-messages'] : $this->args['redirect_delay'] );
 		}
 
+		// the 'automatic_login' shortcode parameter overwrites all other settings
+        $this->args['login_after_register'] = ( $this->args['automatic_login'] != '' ) ? $this->args['automatic_login'] : $this->args['login_after_register'];
+
         if( !empty( $this->args['role'] ) ){
             $role_in_arg = get_role( $this->args['role'] );
             if( !empty( $role_in_arg->capabilities['manage_options'] ) || !empty( $role_in_arg->capabilities['remove_users'] ) ){
                 if( !current_user_can( 'manage_options' ) || !current_user_can( 'remove_users' ) ){
                     $this->args['role'] = get_option('default_role');
-                    echo apply_filters( 'wppb_register_pre_form_user_role_message', '<p class="alert" id="wppb_general_top_error_message">'.__( 'The role of the created user set to the default role. Only an administrator can register a user with the role assigned to this form.', 'profile-builder').'</p>' );
+                    echo wp_kses_post( apply_filters( 'wppb_register_pre_form_user_role_message', '<p class="alert wppb-error" id="wppb_form_general_message">'.__( 'The role of the created user set to the default role. Only an administrator can register a user with the role assigned to this form.', 'profile-builder').'</p>' ) );
                 }
             }
         }
 	}
 
     function wppb_form_logic() {
-        if( $this->args['form_type'] == 'register' ){
-            $registration = apply_filters ( 'wppb_register_setting_override', true );//used to be get_option( 'users_can_register' )
+        if( isset( $this->args['form_type'] ) ) {
+            if( $this->args['form_type'] == 'register' ){
+                $registration = apply_filters ( 'wppb_register_setting_override', true );//used to be get_option( 'users_can_register' )
 
-            if ( !is_user_logged_in() ){
-                if ( !$registration )
-                    echo apply_filters( 'wppb_register_pre_form_message', '<p class="alert" id="wppb_register_pre_form_message">'.__( 'Only an administrator can add new users.', 'profile-builder').'</p>' );
+                if ( !is_user_logged_in() ){
+                    if ( !$registration )
+                        echo wp_kses_post( apply_filters( 'wppb_register_pre_form_message', '<p class="alert" id="wppb_register_pre_form_message">'.esc_html(__( 'Only an administrator can add new users.', 'profile-builder')).'</p>' ) );
 
-                elseif ( $registration ){
-                    $this->wppb_form_content( apply_filters( 'wppb_register_pre_form_message', '' ) );
-                }
-
-            }else{
-                $current_user_capability = apply_filters ( 'wppb_registration_user_capability', 'create_users' );
-
-                if ( current_user_can( $current_user_capability ) && $registration )
-                    $this->wppb_form_content( apply_filters( 'wppb_register_pre_form_message', '<p class="alert" id="wppb_register_pre_form_message">'.__( 'Users can register themselves or you can manually create users here.', 'profile-builder'). '<img src="'.WPPB_PLUGIN_URL.'assets/images/pencil_delete.png" title="'.__( 'This message is only visible by administrators', 'profile-builder' ).'"/>' . '</p>' ) );
-
-                elseif ( current_user_can( $current_user_capability ) && !$registration )
-                    $this->wppb_form_content( apply_filters( 'wppb_register_pre_form_message', '<p class="alert" id="wppb_register_pre_form_message">'.__( 'Users cannot currently register themselves, but you can manually create users here.', 'profile-builder'). '<img src="'.WPPB_PLUGIN_URL.'assets/images/pencil_delete.png" title="'.__( 'This message is only visible by administrators', 'profile-builder' ).'"/>' . '</p>' ) );
-
-                elseif ( !current_user_can( $current_user_capability ) ){
-                    global $user_ID;
-
-                    $userdata = get_userdata( $user_ID );
-                    $display_name = ( ( $userdata->data->display_name == '' ) ? $userdata->data->user_login : $userdata->data->display_name );
-
-                    $wppb_general_settings = get_option( 'wppb_general_settings' );
-                    if ( isset( $wppb_general_settings['loginWith'] ) && ( $wppb_general_settings['loginWith'] == 'email' ) )
-                        $display_name = $userdata->data->user_email;
-
-                    if( empty( $this->args['logout_redirect_url'] ) ) {
-                        $this->args['logout_redirect_url'] = get_permalink();
+                    elseif ( $registration ){
+                        $this->wppb_form_content( apply_filters( 'wppb_register_pre_form_message', '' ) );
                     }
 
-                    // CHECK FOR REDIRECT
-                    $this->args['logout_redirect_url'] = wppb_get_redirect_url( $this->args['redirect_priority'], 'after_logout', $this->args['logout_redirect_url'], $userdata );
-                    $this->args['logout_redirect_url'] = apply_filters( 'wppb_after_logout_redirect_url', $this->args['logout_redirect_url'] );
+                }else{
+                    $current_user_capability = apply_filters ( 'wppb_registration_user_capability', 'create_users' );
 
-                    echo apply_filters( 'wppb_register_pre_form_message', '<p class="alert" id="wppb_register_pre_form_message">'.sprintf( __( "You are currently logged in as %1s. You don't need another account. %2s", 'profile-builder' ), '<a href="'.get_author_posts_url( $user_ID ).'" title="'.$display_name.'">'.$display_name.'</a>', '<a href="'.wp_logout_url( $this->args['logout_redirect_url'] ).'" title="'.__( 'Log out of this account.', 'profile-builder' ).'">'.__( 'Logout', 'profile-builder' ).'  &raquo;</a>' ).'</p>', $user_ID );
+                    if ( current_user_can( $current_user_capability ) && $registration )
+                        $this->wppb_form_content( apply_filters( 'wppb_register_pre_form_message', '<p class="alert" id="wppb_register_pre_form_message">'.esc_html(__( 'Users can register themselves or you can manually create users here.', 'profile-builder')). '<img src="'.WPPB_PLUGIN_URL.'assets/images/pencil_delete.png" title="'.esc_attr(__( 'This message is only visible by administrators', 'profile-builder' )).'"/>' . '</p>' ) );
+
+                    elseif ( current_user_can( $current_user_capability ) && !$registration )
+                        $this->wppb_form_content( apply_filters( 'wppb_register_pre_form_message', '<p class="alert" id="wppb_register_pre_form_message">'.esc_html(__( 'Users cannot currently register themselves, but you can manually create users here.', 'profile-builder')). '<img src="'.WPPB_PLUGIN_URL.'assets/images/pencil_delete.png" title="'.esc_attr(__( 'This message is only visible by administrators', 'profile-builder' )).'"/>' . '</p>' ) );
+
+                    elseif ( !current_user_can( $current_user_capability ) ){
+                        global $user_ID;
+
+                        $userdata = get_userdata( $user_ID );
+                        $display_name = ( ( $userdata->data->display_name == '' ) ? $userdata->data->user_login : $userdata->data->display_name );
+
+                        $wppb_general_settings = get_option( 'wppb_general_settings' );
+                        if ( isset( $wppb_general_settings['loginWith'] ) && ( $wppb_general_settings['loginWith'] == 'email' ) )
+                            $display_name = $userdata->data->user_email;
+
+                        if( empty( $this->args['logout_redirect_url'] ) ) {
+                            $this->args['logout_redirect_url'] = get_permalink();
+                        }
+
+                        // CHECK FOR REDIRECT
+                        $this->args['logout_redirect_url'] = wppb_get_redirect_url( $this->args['redirect_priority'], 'after_logout', $this->args['logout_redirect_url'], $userdata );
+                        $this->args['logout_redirect_url'] = apply_filters( 'wppb_after_logout_redirect_url', $this->args['logout_redirect_url'] );
+
+                        echo wp_kses_post( apply_filters( 'wppb_register_pre_form_message', '<p class="alert" id="wppb_register_pre_form_message">'.sprintf( __( "You are currently logged in as %1s. You don't need another account. %2s", 'profile-builder' ), '<a href="'.get_author_posts_url( $user_ID ).'" title="'.$display_name.'">'.$display_name.'</a>', '<a href="'.wp_logout_url( $this->args['logout_redirect_url'] ).'" title="'.__( 'Log out of this account.', 'profile-builder' ).'">'.__( 'Logout', 'profile-builder' ).'  &raquo;</a>' ).'</p>', $user_ID ) );
+                    }
                 }
+
+            }elseif ( $this->args['form_type'] == 'edit_profile' ){
+                if ( !is_user_logged_in() )
+                    echo wp_kses_post( apply_filters( 'wppb_edit_profile_user_not_logged_in_message', '<p class="warning" id="wppb_edit_profile_user_not_logged_in_message">'.esc_html(__( 'You must be logged in to edit your profile.', 'profile-builder' )) .'</p>' ) );
+
+                elseif ( is_user_logged_in() )
+                    $this->wppb_form_content( apply_filters( 'wppb_edit_profile_logged_in_user_message', '' ) );
+
             }
-
-        }elseif ( $this->args['form_type'] == 'edit_profile' ){
-            if ( !is_user_logged_in() )
-                echo apply_filters( 'wppb_edit_profile_user_not_logged_in_message', '<p class="warning" id="wppb_edit_profile_user_not_logged_in_message">'.__( 'You must be logged in to edit your profile.', 'profile-builder' ) .'</p>' );
-
-            elseif ( is_user_logged_in() )
-                $this->wppb_form_content( apply_filters( 'wppb_edit_profile_logged_in_user_message', '' ) );
-
         }
     }
 
@@ -193,10 +214,17 @@ class Profile_Builder_Form_Creator{
         }
 
         /* get user id */
+        if( empty( $_POST['email'] ) )
+            return;
+
         $user = get_user_by( 'email', trim( sanitize_email( $_POST['email'] ) ) );
+
+        if( !$user )
+            return;
+
         $nonce = wp_create_nonce( 'autologin-'. $user->ID .'-'. (int)( time() / 60 ) );
 
-        if ( isset( $wppb_general_settings['adminApproval'] ) && ( $wppb_general_settings['adminApproval'] == 'yes' ) ) {
+        if ( wppb_get_admin_approval_option_value() === 'yes' ) {
             if( !empty( $wppb_general_settings['adminApprovalOnUserRole'] ) ) {
                 foreach ($user->roles as $role) {
                     if ( in_array( $role, $wppb_general_settings['adminApprovalOnUserRole'] ) ) {
@@ -217,6 +245,9 @@ class Profile_Builder_Form_Creator{
                 $redirect = home_url();
 			}
         }
+
+		if( empty( $redirect ) )
+			$redirect = wppb_curpageurl();
 
         $redirect = apply_filters( 'wppb_login_after_reg_redirect_url', $redirect, $this );
 
@@ -258,13 +289,29 @@ class Profile_Builder_Form_Creator{
 	function wppb_form_content( $message ) {
 		$field_check_errors = array();
 
-		if( isset( $_REQUEST['action'] ) && $_REQUEST['form_name'] == $this->args['form_name'] ) {
-            if( ! isset( $_POST[$this->args['form_type'].'_'. $this->args['form_name'] .'_nonce_field'] ) || ! wp_verify_nonce( $_POST[$this->args['form_type'].'_'. $this->args['form_name'] .'_nonce_field'], 'wppb_verify_form_submission' ) ) {
-                echo '<span class="wppb-form-error wppb-error">'. __( 'You are not allowed to do this.', 'profile-builder' ) . '</span>';
+		ob_start();
+
+		// check if the form is being displayed in the Elementor editor
+        // if true remove any messages
+        $is_elementor_edit_mode_or_divi_ajax = false;
+        if( class_exists ( '\Elementor\Plugin' ) ){
+            $is_elementor_edit_mode_or_divi_ajax = \Elementor\Plugin::$instance->editor->is_edit_mode();
+            $message= "";
+        }
+
+        if ( is_array( $_POST ) && array_key_exists( 'action', $_POST ) && $_POST['action'] === 'wppb_divi_extension_ajax' ) {
+            $is_elementor_edit_mode_or_divi_ajax = true;
+        }
+
+		if( !$is_elementor_edit_mode_or_divi_ajax && isset( $_REQUEST['action'], $_REQUEST['form_name'], $this->args['form_name'] ) && $_REQUEST['form_name'] === $this->args['form_name'] ) {
+            if( ! isset( $_POST[$this->args['form_type'].'_'. $this->args['form_name'] .'_nonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST[$this->args['form_type'].'_'. $this->args['form_name'] .'_nonce_field'] ), 'wppb_verify_form_submission' ) ) {
+                echo '<span class="wppb-form-error wppb-error">'. esc_html(__( 'You are not allowed to do this.', 'profile-builder' )) . '</span>';
                 return;
             }
 
-			$field_check_errors = $this->wppb_test_required_form_values( $_REQUEST );			
+            $_REQUEST = apply_filters( 'wppb_filter_form_request_data', $_REQUEST, $this->args );
+
+			$field_check_errors = $this->wppb_test_required_form_values( $_REQUEST );
 			if( empty( $field_check_errors ) ) {
 
                 do_action( 'wppb_before_saving_form_values',$_REQUEST, $this->args );
@@ -272,9 +319,11 @@ class Profile_Builder_Form_Creator{
 				// we only have a $user_id on default registration (no email confirmation, no multisite)
 				$user_id = $this->wppb_save_form_values( $_REQUEST );
 
-				if( ( 'POST' == $_SERVER['REQUEST_METHOD'] ) && ( $_POST['action'] == $this->args['form_type'] ) ) {
+                do_action( 'wppb_after_saving_form_values',$_REQUEST, $this->args );
 
-                    $form_message_tpl_start = apply_filters( 'wppb_form_message_tpl_start', '<p class="alert" id="wppb_form_success_message">' );
+				if( ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) && ( isset( $_POST['action'] ) && $_POST['action'] === $this->args['form_type'] ) ) {
+
+                    $form_message_tpl_start = apply_filters( 'wppb_form_message_tpl_start', '<p class="alert wppb-success" id="wppb_form_general_message">' );
                     $form_message_tpl_end = apply_filters( 'wppb_form_message_tpl_end', '</p>' );
 
                     if( ! current_user_can( 'manage_options' ) && $this->args['form_type'] != 'edit_profile' && isset( $_POST['custom_field_user_role'] ) ) {
@@ -285,9 +334,9 @@ class Profile_Builder_Form_Creator{
                         $user_role = NULL;
                     }
 
-                    if( isset( $_POST['username'] ) && ( trim( $_POST['username'] ) != '' ) ) {
+                    if( isset( $_POST['username'] ) && sanitize_user( $_POST['username'] ) != '' ) {
                         $account_name = sanitize_user( $_POST['username'] );
-                    } elseif( isset( $_POST['email'] ) && ( trim( $_POST['email'] ) != '' ) ) {
+                    } elseif( isset( $_POST['email'] ) && ( sanitize_email( $_POST['email'] ) != '' ) ) {
                         $account_name = sanitize_email( $_POST['email'] );
                     }else{
                         /* we are in the edit form with no username or email field */
@@ -306,10 +355,9 @@ class Profile_Builder_Form_Creator{
                             else
 								$wppb_email_confirmation = 'no';
 
-                            if( !empty( $wppb_general_settings['adminApproval'] ) )
-                                $wppb_admin_approval = $wppb_general_settings['adminApproval'];
-                            else
-                                $wppb_admin_approval = 'no';
+
+                            $wppb_admin_approval = wppb_get_admin_approval_option_value();
+
                             $account_management_settings = 'ec-' . $wppb_email_confirmation . '_' . 'aa-' . $wppb_admin_approval;
                         } else {
                             $account_management_settings = 'ec-no_aa-no';
@@ -317,31 +365,32 @@ class Profile_Builder_Form_Creator{
 
                         switch( $account_management_settings ) {
                             case 'ec-no_aa-no':
-                                $wppb_register_success_message = apply_filters( 'wppb_register_success_message', sprintf( __( "The account %1s has been successfully created!", 'profile-builder' ), $account_name ), $account_name );
+                                $wppb_register_success_message = apply_filters( 'wppb_register_success_message', sprintf( __( "The account %1s has been successfully created!", 'profile-builder' ), $account_name ), $account_name ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
                                 break;
                             case 'ec-yes_aa-no':
-                                $wppb_register_success_message = apply_filters( 'wppb_register_success_message', sprintf( __( "Before you can access your account %1s, you need to confirm your email address. Please check your inbox and click the activation link.", 'profile-builder' ), $account_name ), $account_name );
+                                $wppb_register_success_message = apply_filters( 'wppb_register_success_message', sprintf( __( "Before you can access your account %1s, you need to confirm your email address. Please check your inbox and click the activation link.", 'profile-builder' ), $account_name ), $account_name ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
                                 break;
                             case 'ec-no_aa-yes':
 								if( current_user_can( 'delete_users' ) ) {
-									$wppb_register_success_message = apply_filters( 'wppb_register_success_message', sprintf( __( "The account %1s has been successfully created!", 'profile-builder' ), $account_name ), $account_name );
-								} else {
-									$wppb_register_success_message = apply_filters( 'wppb_register_success_message', sprintf( __( "Before you can access your account %1s, an administrator has to approve it. You will be notified via email.", 'profile-builder' ), $account_name ), $account_name );
+									$wppb_register_success_message = apply_filters( 'wppb_register_success_message', sprintf( __( "The account %1s has been successfully created!", 'profile-builder' ), $account_name ), $account_name ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+								} else { 
+									$wppb_register_success_message = apply_filters( 'wppb_register_success_message', sprintf( __( "Before you can access your account %1s, an administrator has to approve it. You will be notified via email.", 'profile-builder' ), $account_name ), $account_name ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 								}
 								break;
                             case 'ec-yes_aa-yes':
-                                $wppb_register_success_message = apply_filters( 'wppb_register_success_message', sprintf( __( "Before you can access your account %1s, you need to confirm your email address. Please check your inbox and click the activation link.", 'profile-builder' ), $account_name ), $account_name );
+                                $wppb_register_success_message = apply_filters( 'wppb_register_success_message', sprintf( __( "Before you can access your account %1s, you need to confirm your email address. Please check your inbox and click the activation link.", 'profile-builder' ), $account_name ), $account_name ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
                                 break;
                         }
 
                         // CHECK FOR REDIRECT
                         $redirect = $this->wppb_get_redirect( 'register', 'after_registration', $account_name, $user_role );
 
-                        if( $this->args['login_after_register'] == 'Yes' ) {
+                        // using case-insensitive string comparison to allow for both 'Yes' and 'yes'
+                        if( strcasecmp($this->args['login_after_register'], 'Yes') == 0 ) {
                             $redirect = $this->wppb_log_in_user( $this->args['redirect_url'], $redirect );
                         }
 
-						echo $form_message_tpl_start . $wppb_register_success_message  . $form_message_tpl_end . $redirect;
+						echo $form_message_tpl_start . wp_kses_post( $wppb_register_success_message )  . $form_message_tpl_end . $redirect; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */  /* properly escaped above */
 						//action hook after registration success
 	                    do_action( 'wppb_register_success', $_REQUEST, $this->args['form_name'], $user_id );
                         return;
@@ -349,24 +398,24 @@ class Profile_Builder_Form_Creator{
                         // CHECK FOR REDIRECT
                         $redirect = $this->wppb_get_redirect( 'edit_profile', 'after_edit_profile', $account_name, $user_role );
 
-						echo $form_message_tpl_start  . apply_filters( 'wppb_edit_profile_success_message', __( 'Your profile has been successfully updated!', 'profile-builder' ) ) . $form_message_tpl_end . $redirect;
+						echo $form_message_tpl_start  . apply_filters( 'wppb_edit_profile_success_message', esc_html(__( 'Your profile has been successfully updated!', 'profile-builder' )) ) . $form_message_tpl_end . $redirect; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */  /* properly escaped above */
 
                         //action hook after edit profile success
 	                    do_action( 'wppb_edit_profile_success', $_REQUEST, $this->args['form_name'], $user_id );
                         if( apply_filters( 'wppb_no_form_after_profile_update', false ) )
 	                        return;
 					}
-				
+
 				}
-			
+
 			}else
-				echo $message.apply_filters( 'wppb_general_top_error_message', '<p id="wppb_general_top_error_message">'.__( 'There was an error in the submitted form', 'profile-builder' ).'</p>' );
-		
+				echo $message. wp_kses_post( apply_filters( 'wppb_general_top_error_message', '<p id="wppb_form_general_message" class="wppb-error">'.esc_html(__( 'There was an error in the submitted form', 'profile-builder' )).'</p>' ) ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */  /* properly escaped above */
+
 		}else
-			echo $message;
-		
-		// use this action hook to add extra content before the register form
-		do_action( 'wppb_before_'.$this->args['form_type'].'_fields', $this->args['form_name'], $this->args['ID'], $this->args['form_type'] );
+			echo $message; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */  /* properly escaped when created */
+
+			// use this action hook to add extra content before the register form
+		do_action( 'wppb_before_'.$this->args['form_type'].'_fields', $this->args['form_name'], $this->args['ID'], $this->args['form_type'], $is_elementor_edit_mode_or_divi_ajax );
 
 		$wppb_user_role_class = '';
 		if( is_user_logged_in() ) {
@@ -381,7 +430,7 @@ class Profile_Builder_Form_Creator{
 			$wppb_user_role_class = ' wppb-user-logged-out';
 		}
 		$wppb_user_role_class = apply_filters( 'wppb_user_role_form_class', $wppb_user_role_class );
-        
+
         /* set up form id */
         $wppb_form_id = '';
         if( $this->args['form_type'] == 'register' )
@@ -390,7 +439,7 @@ class Profile_Builder_Form_Creator{
             $wppb_form_id = 'wppb-edit-user';
         if( isset($this->args['form_name']) && $this->args['form_name'] != "unspecified" )
             $wppb_form_id .= '-' . $this->args['form_name'];
-        
+
         /* set up form class */
         $wppb_form_class = 'wppb-user-forms';
         if( $this->args['form_type'] == 'register' )
@@ -400,45 +449,48 @@ class Profile_Builder_Form_Creator{
         $wppb_form_class .= $wppb_user_role_class;
 
         ?>
-        <form enctype="multipart/form-data" method="post" id="<?php echo apply_filters( 'wppb_form_id', $wppb_form_id, $this ); ?>" class="<?php echo apply_filters( 'wppb_form_class', $wppb_form_class, $this ); ?>" action="<?php echo apply_filters( 'wppb_form_action', wppb_curpageurl() ); ?>">
+        <form enctype="multipart/form-data" method="post" id="<?php echo esc_attr( apply_filters( 'wppb_form_id', $wppb_form_id, $this ) ); ?>" class="<?php echo esc_attr( apply_filters( 'wppb_form_class', $wppb_form_class, $this ) ); ?>" action="<?php echo esc_url( apply_filters( 'wppb_form_action', wppb_curpageurl(), $this->args ) ); ?>">
 			<?php
             do_action( 'wppb_form_args_before_output', $this->args );
+            $this->args = apply_filters( 'wppb_filter_form_args_before_output', $this->args );
 
-			echo apply_filters( 'wppb_before_form_fields', '<ul>', $this->args['form_type'], $this->args['ID'] );
-			echo $this->wppb_output_form_fields( $_REQUEST, $field_check_errors, $this->args['form_fields'] );
-			echo apply_filters( 'wppb_after_form_fields', '</ul>', $this->args['form_type'], $this->args['ID'] );
+			echo apply_filters( 'wppb_before_form_fields', '<ul>', $this->args['form_type'], $this->args['ID'] ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
+			echo $this->wppb_output_form_fields( $_REQUEST, $field_check_errors, $this->args['form_fields'] ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */  /* properly escaped when created */
+			echo apply_filters( 'wppb_after_form_fields', '</ul>', $this->args['form_type'], $this->args['ID'], $_REQUEST ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 
-			echo apply_filters( 'wppb_before_send_credentials_checkbox', '<ul>', $this->args['form_type'], $this->args['ID'] );
+			echo apply_filters( 'wppb_before_send_credentials_checkbox', '<ul>', $this->args['form_type'], $this->args['ID'] ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			$this->wppb_add_send_credentials_checkbox( $_REQUEST, $this->args['form_type'] );
-			echo apply_filters( 'wppb_after_send_credentials_checkbox', '</ul>', $this->args['form_type'] );
+			echo apply_filters( 'wppb_after_send_credentials_checkbox', '</ul>', $this->args['form_type'] ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 
             $wppb_form_submit_extra_attr = apply_filters( 'wppb_form_submit_extra_attr', '', $this->args['form_type'], $this->args['ID'] );
 			?>
-			<p class="form-submit" <?php echo $wppb_form_submit_extra_attr; ?> >
+			<p class="form-submit" <?php echo $wppb_form_submit_extra_attr; /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */  /* properly escaped when created */ ?> >
 				<?php
 				if( $this->args['form_type'] == 'register' )
 					$button_name = ( current_user_can( 'create_users' ) ? __( 'Add User', 'profile-builder' ) : __( 'Register', 'profile-builder' ) );
-					
+
 				elseif( $this->args['form_type'] == 'edit_profile' )
 					$button_name = __( 'Update', 'profile-builder' );
 				?>
                 <?php do_action( 'wppb_form_before_submit_button', $this->args ); ?>
-				<input name="<?php echo $this->args['form_type']; ?>" type="submit" id="<?php echo $this->args['form_type']; ?>" class="<?php echo apply_filters( 'wppb_'. $this->args['form_type'] .'_submit_class', "submit button" );?>" value="<?php echo apply_filters( 'wppb_'. $this->args['form_type'] .'_button_name', $button_name, $this->args['form_name'] ); ?>" <?php echo apply_filters( 'wppb_form_submit_button_extra_attributes', '', $this->args['form_type'] );?>/>
+				<input name="<?php echo esc_attr( $this->args['form_type'] ); ?>" type="submit" id="<?php echo esc_attr( $this->args['form_type'] ); ?>" class="<?php echo esc_attr( apply_filters( 'wppb_'. $this->args['form_type'] .'_submit_class', "submit button" ) );?>" value="<?php echo esc_attr( apply_filters( 'wppb_'. $this->args['form_type'] .'_button_name', $button_name, $this->args['form_name'] ) ); ?>" <?php echo apply_filters( 'wppb_form_submit_button_extra_attributes', '', $this->args['form_type'] ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */  /* properly escaped when created */?>/>
+                <input name="redirect_to" type="hidden" value="<?php echo esc_attr( $this->args['redirect_url'] ); ?>" />
                 <?php do_action( 'wppb_form_after_submit_button', $this->args ); ?>
-				<input name="action" type="hidden" id="action" value="<?php echo $this->args['form_type']; ?>" />
-				<input name="form_name" type="hidden" id="form_name" value="<?php echo $this->args['form_name']; ?>" />
+				<input name="action" type="hidden" id="action" value="<?php echo esc_attr( $this->args['form_type'] ); ?>" />
+				<input name="form_name" type="hidden" id="form_name" value="<?php echo esc_attr( $this->args['form_name'] ); ?>" />
+				<input name="form_id" type="hidden" id="form_id" value="<?php echo esc_attr( $this->args['ID'] ); ?>" />
 				<?php
 				$wppb_module_settings = get_option( 'wppb_module_settings' );
 
 				if( isset( $wppb_module_settings['wppb_customRedirect'] ) && $wppb_module_settings['wppb_customRedirect'] == 'show' ) {
                     if( isset( $_POST['wppb_referer_url'] ) )
-                        $referer = $_POST['wppb_referer_url'];
+                        $referer = esc_url_raw( $_POST['wppb_referer_url'] );
                     elseif( isset( $_SERVER['HTTP_REFERER'] ) )
-                        $referer =  $_SERVER['HTTP_REFERER'];
+                        $referer =  esc_url_raw( $_SERVER['HTTP_REFERER'] );
                     else
                         $referer = '';
 
-					echo '<input type="hidden" name="wppb_referer_url" value="'.esc_url( $referer ).'"/>';
+					echo '<input type="hidden" name="wppb_referer_url" value="'. esc_attr( $referer ).'"/>';
 				}
 				?>
 			</p><!-- .form-submit -->
@@ -447,10 +499,14 @@ class Profile_Builder_Form_Creator{
 		<?php
 		// use this action hook to add extra content after the register form
 		do_action( 'wppb_after_'. $this->args['form_type'] .'_fields', $this->args['form_name'], $this->args['ID'], $this->args['form_type'] );
-		
+
+		$form_content = ob_get_clean();
+
+		echo apply_filters( 'wppb_' . $this->args['form_type'] . '_form_content', $form_content ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */  /* properly escaped when created */
 	}
-	
-	function wppb_output_form_fields( $global_request, $field_check_errors, $form_fields, $called_from = NULL ){
+
+	function wppb_output_form_fields( $global_request, $field_check_errors, $form_fields, $called_from = NULL, $is_repeater_group = false ){
+		$wppb_generalSettings = get_option( 'wppb_general_settings' );
 		$output_fields = '';
 
 		if( !empty( $form_fields ) ){
@@ -466,34 +522,47 @@ class Profile_Builder_Form_Creator{
 
                 $css_class = apply_filters( 'wppb_field_css_class', 'wppb-form-field wppb-'. Wordpress_Creation_Kit_PB::wck_generate_slug( $field['field'] ) .$error_var, $field, $error_var );
 				$output_fields .= apply_filters( 'wppb_output_before_form_field', '<li class="'. $css_class .'" id="wppb-form-element-'. $field['id'] .'">', $field, $error_var, $this->args['role'] );
-				$output_fields .= apply_filters( 'wppb_output_form_field_'.Wordpress_Creation_Kit_PB::wck_generate_slug( $field['field'] ), '', $this->args['form_type'], $field, $this->wppb_get_desired_user_id(), $field_check_errors, $global_request, $this->args['role'], $this );
-				$output_fields .= apply_filters( 'wppb_output_specific_error_message', $specific_message );
+
+				$render_field = true;
+				if( wppb_conditional_fields_exists() && isset( $wppb_generalSettings['conditional_fields_ajax'] ) ){
+                    if($wppb_generalSettings['conditional_fields_ajax'] === 'yes' && isset($field['conditional-logic-enabled']) && $field['conditional-logic-enabled'] === 'yes') {
+                        $render_field = false;
+                    }
+                }
+
+				if( $render_field ){
+                    $output_fields .= apply_filters('wppb_output_form_field_' . Wordpress_Creation_Kit_PB::wck_generate_slug($field['field']), '', $this->args['form_type'], $field, $this->wppb_get_desired_user_id(), $field_check_errors, $global_request, $this->args['role'], $this);
+                    $output_fields .= apply_filters('wppb_output_specific_error_message', $specific_message);
+                }
+
 				$output_fields .= apply_filters( 'wppb_output_after_form_field', '</li>', $field, $this->args['ID'], $this->args['form_type'], $called_from );
 			}
 
-			$output_fields .= apply_filters( 'wppb_output_after_last_form_field', '', $this->args['ID'], $this->args['form_type'], $called_from );
+			if ( !$is_repeater_group ) {
+                $output_fields .= apply_filters('wppb_output_after_last_form_field', '', $this->args['ID'], $this->args['form_type'], $called_from);
+            }
 		}
 
 		return apply_filters( 'wppb_output_fields_filter', $output_fields );
 	}
 
-	
+
 	function wppb_add_send_credentials_checkbox ( $request_data, $form ){
 		if ( $form == 'edit_profile' )
 			echo '';
-		
+
 		else{
-			$checkbox = apply_filters( 'wppb_send_credentials_checkbox_logic', '<li class="wppb-form-field wppb-send-credentials-checkbox"><label for="send_credentials_via_email"><input id="send_credentials_via_email" type="checkbox" name="send_credentials_via_email" value="sending"'.( ( isset( $request_data['send_credentials_via_email'] ) && ( $request_data['send_credentials_via_email'] == 'sending' ) ) ? ' checked' : '' ).'/>'.__( 'Send these credentials via email.', 'profile-builder').'</label></li>', $request_data, $form );
+			$checkbox = apply_filters( 'wppb_send_credentials_checkbox_logic', '<li class="wppb-form-field wppb-send-credentials-checkbox"><label for="send_credentials_via_email"><input id="send_credentials_via_email" type="checkbox" name="send_credentials_via_email" value="sending"'.( ( isset( $request_data['send_credentials_via_email'] ) && ( $request_data['send_credentials_via_email'] == 'sending' ) ) ? ' checked' : '' ).'/>'.esc_html__( 'Send these credentials via email.', 'profile-builder').'</label></li>', $request_data, $form );
 
 			$wppb_general_settings = get_option( 'wppb_general_settings' );
-			echo ( isset( $wppb_general_settings['emailConfirmation'] ) && ( $wppb_general_settings['emailConfirmation'] == 'yes' ) ? '' : $checkbox );
+			echo ( isset( $wppb_general_settings['emailConfirmation'] ) && ( $wppb_general_settings['emailConfirmation'] == 'yes' ) ? '' : $checkbox ); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */  /* properly escaped when created */
 		}
 	}
-	
-	
+
+
 	function wppb_test_required_form_values( $global_request ){
 		$output_field_errors = array();
-        $form_fields = apply_filters( 'wppb_form_fields', $this->args['form_fields'], array( 'global_request' => $global_request, 'context' => 'validate_frontend', 'global_request' => $global_request, 'form_type' => $this->args['form_type'], 'role' => $this->args['role'], 'user_id' => $this->wppb_get_desired_user_id()  ) );
+        $form_fields = apply_filters( 'wppb_form_fields', $this->args['form_fields'], array( 'global_request' => $global_request, 'context' => 'validate_frontend', 'form_type' => $this->args['form_type'], 'role' => $this->args['role'], 'user_id' => $this->wppb_get_desired_user_id()  ) );
 		if( !empty( $form_fields ) ){
 			foreach( $form_fields as $field ){
 				$error_for_field = apply_filters( 'wppb_check_form_field_'.Wordpress_Creation_Kit_PB::wck_generate_slug( $field['field'] ), '', $field, $global_request, $this->args['form_type'], $this->args['role'], $this->wppb_get_desired_user_id() );
@@ -505,14 +574,14 @@ class Profile_Builder_Form_Creator{
 
 		return apply_filters( 'wppb_output_field_errors_filter', $output_field_errors, $this->args['form_fields'], $global_request, $this->args['form_type'] );
 	}
-	
+
 	function wppb_save_form_values( $global_request ){
 		$user_id = $this->wppb_get_desired_user_id();
 		$userdata = apply_filters( 'wppb_build_userdata', array(), $global_request, $this->args );
 		$new_user_signup = false;
 
         $wppb_general_settings = get_option( 'wppb_general_settings' );
- 
+
 		if( $this->args['form_type'] == 'register' ){
 
             $result = $this->wppb_register_user( $global_request, $userdata );
@@ -534,13 +603,16 @@ class Profile_Builder_Form_Creator{
             if( isset( $userdata['user_pass'] ) && !empty( $userdata['user_pass'] ) ){
                 unset($userdata['user_pass']);
             }
-            
-            if( current_user_can( 'manage_options' ) && isset( $userdata['role'] ) && is_array( $userdata['role'] ) ) {
-                $user_data = get_userdata( $user_id );
-                $user_data->remove_all_caps();
 
-                foreach( $userdata['role'] as $role ) {
-                    $user_data->add_role( $role );
+            if( isset( $userdata['role'] ) && is_array( $userdata['role'] ) ) {
+                $user_data = get_userdata( $user_id );
+                if( $user_data ) {
+                    $user_data->remove_all_caps();
+
+                    foreach ($userdata['role'] as $role) {
+                        if ($role !== 'administrator' || $role !== 'super-admin')//make sure this doesn't happen for any reason
+                            $user_data->add_role($role);
+                    }
                 }
 
                 unset( $userdata['role'] );
@@ -548,7 +620,7 @@ class Profile_Builder_Form_Creator{
 
 			wp_update_user( $userdata );
 		}
-		
+
 		if( !empty( $this->args['form_fields'] ) && !$new_user_signup ){
 			foreach( $this->args['form_fields'] as $field ){
                 if( apply_filters( 'wppb_pre_save_form_field', true, $field, $user_id, $global_request, $this->args['form_type'] ) )
@@ -562,7 +634,7 @@ class Profile_Builder_Form_Creator{
                         $send_credentials_via_email = 'sending';
                     else
                         $send_credentials_via_email = '';
-					wppb_notify_user_registration_email( get_bloginfo( 'name' ), ( isset( $userdata['user_login'] ) ? trim( $userdata['user_login'] ) : trim( $userdata['user_email'] ) ), trim( $userdata['user_email'] ), $send_credentials_via_email, trim( $userdata['user_pass'] ), ( isset( $wppb_general_settings['adminApproval'] ) ? $wppb_general_settings['adminApproval'] : 'no' ) );
+					wppb_notify_user_registration_email( get_bloginfo( 'name' ), ( isset( $userdata['user_login'] ) ? trim( $userdata['user_login'] ) : trim( $userdata['user_email'] ) ), trim( $userdata['user_email'] ), $send_credentials_via_email, trim( $userdata['user_pass'] ), ( wppb_get_admin_approval_option_value() === 'yes' ? 'yes' : 'no' ) );
 				}
             }
 		}
@@ -580,7 +652,8 @@ class Profile_Builder_Form_Creator{
         }
 
 		/* filter so we can bypass Email Confirmation on register */
-		$wppb_general_settings['emailConfirmation'] = apply_filters( 'wppb_email_confirmation_on_register', $wppb_general_settings['emailConfirmation'], $global_request );
+        if ( isset( $wppb_general_settings['emailConfirmation'] ) )
+            $wppb_general_settings['emailConfirmation'] = apply_filters( 'wppb_email_confirmation_on_register', $wppb_general_settings['emailConfirmation'], $global_request );
 
         if ( isset( $wppb_general_settings['emailConfirmation'] ) && ( $wppb_general_settings['emailConfirmation'] == 'yes' ) ){
             $new_user_signup = true;
@@ -599,7 +672,7 @@ class Profile_Builder_Form_Creator{
                 $userdata = wp_unslash( $userdata );
             }
 
-            wppb_signup_user( $userdata['user_login'], $userdata['user_email'], $userdata );
+            wppb_signup_user( $userdata['user_login'], $userdata['user_email'], $this->args['login_after_register'], $userdata );
         }else{
 			if( ! isset( $userdata['role'] ) ) {
 				$userdata['role'] = $this->args['role'];
@@ -641,7 +714,7 @@ class Profile_Builder_Form_Creator{
 	function wppb_get_desired_user_id(){
 		if( $this->args['form_type'] == 'edit_profile' ){
 			//only admins
-			if( ( !is_multisite() && current_user_can( 'edit_users' ) ) || ( is_multisite() && current_user_can( 'manage_network' ) ) ) {
+            if( ( !is_multisite() && current_user_can( 'edit_users' ) ) || ( is_multisite() && ( current_user_can( 'remove_users' ) || current_user_can( 'manage_options' ) ) ) ){
 				if( isset( $_GET['edit_user'] ) && ! empty( $_GET['edit_user'] ) ){
 					return absint( $_GET['edit_user'] );
 				}
@@ -651,10 +724,10 @@ class Profile_Builder_Form_Creator{
 		return get_current_user_id();
 	}
 
-    static function wppb_edit_profile_select_user_to_edit(){
+    static function wppb_edit_profile_select_user_to_edit( $form_name, $id, $form_type, $is_elementor_edit_mode_or_divi_ajax ){
 
-        $display_edit_users_dropdown = apply_filters( 'wppb_display_edit_other_users_dropdown', true );
-        if( !$display_edit_users_dropdown )
+        $display_edit_users_dropdown = apply_filters( 'wppb_display_edit_other_users_dropdown', true, $form_name );
+        if( !$display_edit_users_dropdown || $is_elementor_edit_mode_or_divi_ajax )
             return;
 
         /* add a hard cap: if we have more than 5000 users don't display the dropdown for performance considerations */
@@ -667,9 +740,15 @@ class Profile_Builder_Form_Creator{
         else
             $selected = get_current_user_id();
 
-        $query_args['fields'] = array( 'ID', 'user_login', 'display_name' );
-        $query_args['role'] = apply_filters( 'wppb_edit_profile_user_dropdown_role', '' );
+        $query_args = array(
+            'fields'       => array( 'ID', 'user_login', 'display_name' ),
+            'role'         => apply_filters( 'wppb_edit_profile_user_dropdown_role', '', $form_name ),
+            'role__not_in' => array( 'administrator' ),
+            'orderby'      => array( 'display_name', 'user_login' ),
+        );
+
         $users = get_users( apply_filters( 'wppb_edit_other_users_dropdown_query_args', $query_args ) );
+        
         if( !empty( $users ) ) {
 
             /* turn it in a select2 */
@@ -678,28 +757,45 @@ class Profile_Builder_Form_Creator{
             ?>
             <form method="GET" action="" id="select_user_to_edit_form">
                 <p class="wppb-form-field">
-                    <label for="edit_user"><?php _e('User to edit:', 'profile-builder') ?></label>
-                    <select id="wppb-user-to-edit" class="wppb-user-to-edit" name="edit_user">
-                        <option value=""><?php echo __( 'Select User', 'profile-builder' ); ?></option>
+                    <label for="edit_user"><?php esc_html_e('User to edit:', 'profile-builder') ?></label>
+                    <select id="wppb-<?php echo !empty( $form_name ) ? esc_attr( $form_name ).'-' : ''; ?>user-to-edit" class="wppb-user-to-edit" name="edit_user">
+                        <option value=""><?php echo esc_html__( 'Select User', 'profile-builder' ); ?></option>
                         <?php
-                        foreach( $users as $user ){
-                            ?>
-                            <option value="<?php echo  esc_url_raw( add_query_arg( array( 'edit_user' => $user->ID ) ) ); ?>" <?php selected( $selected, $user->ID ); ?>><?php echo $user->display_name; ?></option>
-                            <?php
-                        }
+						foreach( $users as $user ){
+							?>
+							<option value="<?php echo  esc_url_raw( add_query_arg( array( 'edit_user' => $user->ID ) ) ); ?>" <?php selected( $selected, $user->ID ); ?>>
+								<?php echo esc_html( apply_filters( 'wppb_edit_other_users_display_name', $user->display_name, $user ) ); ?>
+							</option>
+							<?php
+						}
                         ?>
                     </select>
                 </p>
-                <script type="text/javascript">jQuery('#wppb-user-to-edit').change(function () {
-						window.location.href = jQuery(this).val();
-                    });
-                    jQuery(function(){jQuery('.wppb-user-to-edit').select2(); })</script>
             </form>
         <?php
         }
         else{
-            echo '<p id="wppb-no-other-users-to-edit">'. apply_filters( 'wppb_no_users_to_edit_message', __( 'There are no other users to edit', 'profile-builder' ) ) .'</p>';
+            echo '<p id="wppb-no-other-users-to-edit">'. esc_html( apply_filters( 'wppb_no_users_to_edit_message', __( 'There are no other users to edit', 'profile-builder' ) ) ).'</p>';
         }
+    }
+
+    static function wppb_frontend_scripts(){
+        
+        wp_register_script( 'wppb_front_end_script', WPPB_PLUGIN_URL. 'assets/js/script-front-end.js', array('jquery'), PROFILE_BUILDER_VERSION, true );
+        
+        $wppb_toolbox_forms_settings = get_option( 'wppb_toolbox_forms_settings' );
+	    if( isset( $wppb_toolbox_forms_settings[ 'disable-automatic-scrolling' ] ) ){
+            wp_add_inline_script( 'wppb_front_end_script', "var wppb_disable_automatic_scrolling = 1;", 'before' );
+        }
+
+        wp_enqueue_script( 'wppb_front_end_script' );
+        wp_print_scripts( 'wppb_front_end_script' );
+
+        if( ( !is_multisite() && current_user_can( 'edit_users' ) ) || ( is_multisite() && ( current_user_can( 'remove_users' ) || current_user_can( 'manage_options' ) ) ) ){
+            wp_enqueue_script( 'wppb_select_user_to_edit_js', WPPB_PLUGIN_URL. 'assets/js/select-user-to-edit.js', array('jquery'), PROFILE_BUILDER_VERSION, true );
+            wp_print_scripts( 'wppb_select_user_to_edit_js' );
+        }
+
     }
 
     /**
@@ -724,14 +820,13 @@ class Profile_Builder_Form_Creator{
 /* set action for automatic login after registration */
 add_action( 'init', 'wppb_autologin_after_registration' );
 function wppb_autologin_after_registration(){
-    if( isset( $_GET['autologin'] ) && isset( $_GET['uid'] ) ){
+    if( isset( $_GET['autologin'] ) && isset( $_GET['uid'] ) && isset( $_REQUEST['_wpnonce'] ) ){
         $uid = absint( $_GET['uid'] );
-        $nonce  = $_REQUEST['_wpnonce'];
 
         $arr_params = array( 'autologin', 'uid', '_wpnonce' );
         $current_page_url = remove_query_arg( $arr_params, wppb_curpageurl() );
 
-        if ( ! ( wp_verify_nonce( $nonce , 'autologin-'.$uid.'-'.(int)( time() / 60 ) ) || wp_verify_nonce( $nonce , 'autologin-'.$uid.'-'.(int)( time() / 60 ) - 1 ) ) ){
+        if ( ! ( wp_verify_nonce( sanitize_text_field( $_REQUEST['_wpnonce'] ) , 'autologin-'.$uid.'-'.(int)( time() / 60 ) ) || wp_verify_nonce( sanitize_text_field( $_REQUEST['_wpnonce'] ) , 'autologin-'.$uid.'-'.(int)( time() / 60 - 1 ) ) ) ){
             wp_redirect( $current_page_url );
             exit;
         } else {

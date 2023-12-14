@@ -3,49 +3,37 @@
 Plugin Name: Smart Slider 3
 Plugin URI: https://smartslider3.com/
 Description: The perfect all-in-one responsive slider solution for WordPress.
-Version: 3.3.11
+Version: 3.5.1.21
+Requires PHP: 7.0
+Requires at least: 5.0
 Author: Nextend
-Author URI: http://nextendweb.com
+Author URI: https://smartslider3.com
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-if (!defined('NEXTEND_SMARTSLIDER_3_URL_PATH')) {
-    define('NEXTEND_SMARTSLIDER_3_URL_PATH', 'smart-slider3');
+if (!defined('SMARTSLIDER3_LIBRARY_PATH')) {
+    define('SMARTSLIDER3_LIBRARY_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Nextend');
 }
 
-if (!version_compare(PHP_VERSION, '5.4', '>=')) {
-    require_once dirname(__FILE__) . '/includes/fail.php';
+if (!version_compare(PHP_VERSION, '7.0', '>=')) {
+
+    require_once SMARTSLIDER3_LIBRARY_PATH . '/WordPress/Fail.php';
     add_action('admin_notices', 'smartslider3_fail_php_version');
-} else if (!version_compare(get_bloginfo('version'), '4.6', '>=')) {
-    require_once dirname(__FILE__) . '/includes/fail.php';
+
+} else if (!version_compare(get_bloginfo('version'), '5.0', '>=')) {
+
+    require_once SMARTSLIDER3_LIBRARY_PATH . '/WordPress/Fail.php';
     add_action('admin_notices', 'smartslider3_fail_wp_version');
-} else if (!class_exists('SmartSlider3', true)) {
 
-    add_action('plugins_loaded', 'smart_slider_3_plugins_loaded', 30);
+} else if (!defined('NONCE_SALT')) {
 
-    function smart_slider_3_plugins_loaded() {
+    require_once SMARTSLIDER3_LIBRARY_PATH . '/WordPress/Fail.php';
+    add_action('admin_notices', 'smartslider3_fail_nonce_salt');
 
-        define('N2PRO', 0);
-        define('N2SSPRO', 0);
-        define('N2GSAP', 0);
+} else if (!function_exists('smart_slider_3_plugins_loaded')) {
+    define('NEXTEND_SMARTSLIDER_3_FREE_BASENAME', plugin_basename(__FILE__));
+    define('NEXTEND_SMARTSLIDER_3_FREE_SLUG', 'smart-slider-3');
 
-        define('NEXTEND_SMARTSLIDER_3__FILE__', __FILE__);
-        define('NEXTEND_SMARTSLIDER_3', dirname(__FILE__) . DIRECTORY_SEPARATOR);
-        define('NEXTEND_SMARTSLIDER_3_BASENAME', plugin_basename(__FILE__));
-
-        require_once dirname(NEXTEND_SMARTSLIDER_3__FILE__) . DIRECTORY_SEPARATOR . 'includes/smartslider3.php';
-
-        add_filter("plugin_action_links_" . NEXTEND_SMARTSLIDER_3_BASENAME, 'N2_SMARTSLIDER_3_UPGRADE_TO_PRO');
-        function N2_SMARTSLIDER_3_UPGRADE_TO_PRO($links) {
-
-            if (function_exists('is_plugin_active') && !is_plugin_active('nextend-smart-slider3-pro/nextend-smart-slider3-pro.php')) {
-                $links[] = '<a href="' . N2SS3::getProUrlPricing() . '" target="_blank">' . "Go Pro" . '</a>';
-            }
-
-            return $links;
-        }
-
-        N2Pluggable::addAction('animationFramework', 'N2AssetsPredefined::custom_animation_framework');
-    }
+    require_once dirname(__FILE__) . '/plugin.php';
 }

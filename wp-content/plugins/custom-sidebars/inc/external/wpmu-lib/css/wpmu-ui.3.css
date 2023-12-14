@@ -77,12 +77,7 @@
 .wpmui-has-overlay .wpmui-overlay.light {
   opacity: .25;
 }
-.wpmui-has-overlay #wpwrap {
-  -webkit-filter: grayscale(75%);
-  -moz-filter: grayscale(75%);
-  filter: gray;
-  filter: grayscale(75%);
-}
+
 .wpmui-has-overlay #wpbody {
   -webkit-filter: blur(3px);
   -moz-filter: blur(3px);
@@ -638,7 +633,7 @@
  *
  *   <div class="wpmui-box">
  *     <h3>
- *       <a href="#" class="toggle" title="<?php _e( 'Click to toggle' ); ?>"><br></a>
+ *       <a href="#" class="toggle" title="<?php esc_html_e( 'Click to toggle' ); ?>"><br></a>
  *       <span>Title</span>
  *     </h3>
  *     <div class="inside">

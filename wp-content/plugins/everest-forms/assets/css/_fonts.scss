@@ -4,11 +4,40 @@
  */
 @font-face {
 	font-family: 'EverestForms';
-	src:  url('../fonts/EverestForms.eot?7rdhl2');
-	src:  url('../fonts/EverestForms.eot?7rdhl2#iefix') format('embedded-opentype'),
-		url('../fonts/EverestForms.ttf?7rdhl2') format('truetype'),
-		url('../fonts/EverestForms.woff?7rdhl2') format('woff'),
-		url('../fonts/EverestForms.svg?7rdhl2#EverestForms') format('svg');
+	src: url('../fonts/EverestForms.eot?q9mcqj');
+	src: url('../fonts/EverestForms.eot?q9mcqj#iefix')
+		format('embedded-opentype'),
+		url('../fonts/EverestForms.ttf?q9mcqj') format('truetype'),
+		url('../fonts/EverestForms.woff?q9mcqj') format('woff'),
+		url('../fonts/EverestForms.svg?q9mcqj#EverestForms') format('svg');
 	font-weight: normal;
 	font-style: normal;
+	font-display: block;
+}
+
+/**
+ * Icons
+ * Icon size should be 24dp.
+ **/
+.evf-icon {
+	padding: 8px;
+	border-radius: 4px;
+
+	* {
+		display: block;
+	}
+}
+/**
+ * Headings
+ **/
+.evf-h2 {
+	font-size: 28px;
+	font-weight: 600;
+}
+
+/**
+ * Text
+ **/
+.evf-text-center {
+	text-align: center;
 }

@@ -38,7 +38,7 @@ jQuery(function($) {
             submitHandler: function(form) {
                 var subscribe_form_data = 'action=wpmm_add_subscriber&' + subscribe_form.serialize();
 
-                $.post(wpmm_vars.ajax_url, subscribe_form_data, function(response) {
+                $.post(wpmmVars.ajaxURL, subscribe_form_data, function(response) {
                     if (!response.success) {
                         alert(response.data);
                         return false;
@@ -58,7 +58,7 @@ jQuery(function($) {
      */
     if ($('.contact').length > 0) {
         // show form
-        $('.contact_us').click(function() {
+        $('body').on('click', '.contact_us', function() {
             var open_contact = $(this).data('open'),
                     close_contact = $(this).data('close');
 
@@ -73,7 +73,7 @@ jQuery(function($) {
             submitHandler: function(form) {
                 var contact_form_data = 'action=wpmm_send_contact&' + contact_form.serialize();
 
-                $.post(wpmm_vars.ajax_url, contact_form_data, function(response) {
+                $.post(wpmmVars.ajaxURL, contact_form_data, function(response) {
                     if (!response.success) {
                         alert(response.data);
                         return false;
@@ -108,4 +108,11 @@ jQuery(function($) {
             }
         });
     }
+    
+    /**
+     * RESPONSIVE VIDEO EMBEDS
+     */
+    $('.wrap h2').fitVids({
+        customSelector: 'iframe[src*="dailymotion.com"]'
+    });
 });

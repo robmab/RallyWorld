@@ -9,6 +9,12 @@
 </head>
 
 <body <?php body_class(); ?>>
+<?php
+if ( function_exists( 'wp_body_open' ) ) {
+	wp_body_open();
+}
+?>
+<?php mesmerize_print_skip_link(); ?>
 
 <div  id="page-top" class="header-top small">
     <?php mesmerize_print_header_top_bar(); ?>

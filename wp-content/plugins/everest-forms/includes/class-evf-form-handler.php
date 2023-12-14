@@ -1,13 +1,17 @@
 <?php
-
 /**
- * form handler.
+ * Form handler.
  *
  * Contains a bunch of helper methods as well.
  *
- * @package    EverestForms
- * @author     WPEverest
- * @since      1.0.0
+ * @package EverestForms
+ * @since   1.0.0
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Form Handler class.
  */
 class EVF_Form_Handler {
 
@@ -15,9 +19,9 @@ class EVF_Form_Handler {
 	 * Fetches forms
 	 *
 	 * @since  1.0.0
-	 * @param  mixed $id
-	 * @param  array $args
-	 * @return array|bool|null|WP_Post
+	 * @param  mixed $id   Form ID.
+	 * @param  array $args Form Arguments.
+	 * @return array|bool|null|WP_Post Form object.
 	 */
 	public function get( $id = '', $args = array() ) {
 		$forms = array();
@@ -27,7 +31,15 @@ class EVF_Form_Handler {
 			return false;
 		}
 
+		if ( ! isset( $args['cap'] ) && ( is_admin() && ! wp_doing_ajax() ) ) {
+			$args['cap'] = 'everest_forms_view_form';
+		}
+
 		if ( ! empty( $id ) ) {
+			if ( ! empty( $args['cap'] ) && ! current_user_can( $args['cap'], $id ) ) {
+				return false;
+			}
+
 			$the_post = get_post( absint( $id ) );
 
 			if ( $the_post && 'everest_form' === $the_post->post_type ) {
@@ -35,19 +47,14 @@ class EVF_Form_Handler {
 			}
 		} else {
 			// No ID provided, get multiple forms.
-			$defaults = array(
-				'post_type'     => 'everest_form',
-				'orderby'       => 'id',
-				'order'         => 'DESC',
-				'no_found_rows' => true,
-				'nopaging'      => true,
+			$args = wp_parse_args(
+				$args,
+				array(
+					'order' => 'DESC',
+				)
 			);
 
-			$args = wp_parse_args( $args, $defaults );
-
-			$args['post_type'] = 'everest_form';
-
-			$forms = get_posts( $args );
+			$forms = $this->get_multiple( $args );
 		}
 
 		if ( empty( $forms ) ) {
@@ -58,18 +65,80 @@ class EVF_Form_Handler {
 	}
 
 	/**
+	 * Fetch multiple forms.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param array $args Additional arguments array.
+	 * @param bool  $content_only True to return post content only.
+	 *
+	 * @return array
+	 */
+	public function get_multiple( $args = array(), $content_only = false ) {
+		$forms   = array();
+		$user_id = get_current_user_id();
+		$args    = apply_filters( 'everest_forms_get_multiple_forms_args', $args, $content_only );
+
+		// No ID provided, get multiple forms.
+		$defaults = array(
+			'orderby'       => 'id',
+			'order'         => 'ASC',
+			'no_found_rows' => true,
+			'nopaging'      => true,
+			'status'        => 'publish',
+			'post_status'   => 'publish',
+			'numberposts'   => -1,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$args['post_type'] = 'everest_form';
+
+		// Can user interact, lets check the view capabilities?
+		if ( current_user_can( 'everest_forms_view_forms' ) && ! current_user_can( 'everest_forms_view_others_forms' ) ) {
+			$args['author'] = $user_id;
+		}
+
+		if ( ! current_user_can( 'everest_forms_view_forms' ) && current_user_can( 'everest_forms_view_others_forms' ) ) {
+			$args['author__not_in'] = $user_id;
+		}
+
+		if ( ! current_user_can( 'everest_forms_view_forms' ) && ! current_user_can( 'everest_forms_view_others_forms' ) ) {
+			if ( isset( $args['cap'] ) && 'everest_forms_view_conversational_forms' !== $args['cap'] ) {
+				$args['post__in'] = array( 0 );
+			}
+		}
+
+		// For cache lets unset the cap args.
+		unset( $args['cap'] );
+
+		// Fetch posts.
+		$forms = get_posts( $args );
+
+		if ( $content_only ) {
+			$forms = array_map( array( $this, 'prepare_post_content' ), $forms );
+		}
+
+		return $forms;
+	}
+
+	/**
+	 * Prepares post content.
+	 *
+	 * @param object $post Post object.
+	 */
+	public function prepare_post_content( $post ) {
+		return ! empty( $post->post_content ) ? evf_decode( $post->post_content ) : false;
+	}
+
+	/**
 	 * Delete forms.
 	 *
 	 * @since  1.0.0
-	 * @param  array $ids
+	 * @param  array $ids Form IDs.
 	 * @return boolean
 	 */
 	public function delete( $ids = array() ) {
-		// Check for permissions.
-		if ( ! current_user_can( apply_filters( 'everest_forms_manage_cap', 'manage_options' ) ) ) {
-			return false;
-		}
-
 		if ( ! is_array( $ids ) ) {
 			$ids = array( $ids );
 		}
@@ -77,16 +146,20 @@ class EVF_Form_Handler {
 		$ids = array_map( 'absint', $ids );
 
 		foreach ( $ids as $id ) {
-			$form = wp_delete_post( $id, true );
 
-			if ( class_exists( 'EVF_Entry_Handler' ) ) {
-				// Delete entry if exists.
+			// Check for permissions.
+			if ( ! current_user_can( 'everest_forms_delete', $id ) ) {
+				return false;
 			}
+
+			$form = wp_delete_post( $id, true );
 
 			if ( ! $form ) {
 				return false;
 			}
 		}
+
+		do_action( 'everest_forms_delete_form', $ids );
 
 		return true;
 	}
@@ -95,17 +168,20 @@ class EVF_Form_Handler {
 	 * Create new form.
 	 *
 	 * @since  1.0.0
-	 * @param  string $title
-	 * @param  array  $args
-	 * @param  array  $data
-	 * @return mixed
+	 * @param  string $title    Form title.
+	 * @param  string $template Form template.
+	 * @param  array  $args     Form Arguments.
+	 * @param  array  $data     Additional data.
+	 * @return int|bool Form ID on successful creation else false.
 	 */
-	public static function create( $title = '', $template = 'blank', $args = array(), $data = array() ) {
-		if ( empty( $title ) || ! current_user_can( 'manage_everest_forms' ) ) {
+	public function create( $title = '', $template = 'blank', $args = array(), $data = array() ) {
+		if ( empty( $title ) || ! current_user_can( 'everest_forms_create_forms' ) ) {
 			return false;
 		}
 
 		$args         = apply_filters( 'everest_forms_create_form_args', $args, $data );
+		$form_style   = array();
+		$style_needed = false;
 		$form_content = array(
 			'form_field_id' => '1',
 			'settings'      => array(
@@ -114,31 +190,70 @@ class EVF_Form_Handler {
 			),
 		);
 
-		// Check for template and format the form content.
-		if ( in_array( $template, array( 'contact' ), true ) ) {
-			include_once( dirname( __FILE__ ) . "/templates/{$template}.php" );
-			$form_content = $form_template[ $template ];
+		// Prevent content filters from corrupting JSON in post_content.
+		$has_kses = ( false !== has_filter( 'content_save_pre', 'wp_filter_post_kses' ) );
+		if ( $has_kses ) {
+			kses_remove_filters();
+		}
+		$has_targeted_link_rel_filters = ( false !== has_filter( 'content_save_pre', 'wp_targeted_link_rel' ) );
+		if ( $has_targeted_link_rel_filters ) {
+			wp_remove_targeted_link_rel_filters();
 		}
 
 		// Create a form.
- 		$form_id = wp_insert_post( array(
-			'post_title'   => esc_html( $title ),
-			'post_status'  => 'publish',
-			'post_type'    => 'everest_form',
-			'post_content' => '{}',
-		) );
-
-		if ( $form_id ) {
-			$form_data = wp_parse_args( $args, array(
-				'ID'           => $form_id,
+		$form_id = wp_insert_post(
+			array(
 				'post_title'   => esc_html( $title ),
-				'post_content' => evf_encode( array_merge( array( 'id' => $form_id ), $form_content ) ),
-			) );
+				'post_status'  => 'publish',
+				'post_type'    => 'everest_form',
+				'post_content' => '{}',
+			)
+		);
 
-			wp_update_post( $form_data );
+		$templates = EVF_Admin_Form_Templates::get_template_data();
+		$templates = is_array( $templates ) ? $templates : array();
+		if ( ! empty( $templates ) ) {
+			foreach ( $templates as $template_data ) {
+				if ( $template_data->slug === $template && 'blank' !== $template_data->slug ) {
+					$form_content = json_decode( base64_decode( $template_data->settings ), true );
+					if ( isset( $template_data->styles ) ) {
+						$style_needed           = true;
+						$form_style[ $form_id ] = json_decode( base64_decode( $template_data->styles ), true );
+					}
+				}
+			}
 		}
 
-		do_action( 'everest_forms_create_form', $form_id, $form_data, $data );
+		if ( $form_id ) {
+			$form_content['id']                      = $form_id;
+			$form_content['settings']['form_title']  = $title;
+			$form_content['imported_form_templates'] = $template;
+
+			$form_data = wp_parse_args(
+				$args,
+				array(
+					'ID'           => $form_id,
+					'post_title'   => esc_html( $title ),
+					'post_content' => evf_encode( array_merge( array( 'id' => $form_id ), $form_content ) ),
+				)
+			);
+
+			wp_update_post( $form_data );
+
+			if ( ! empty( $form_style ) ) {
+				update_option( 'everest_forms_styles', $form_style );
+			}
+		}
+
+		// Restore removed content filters.
+		if ( $has_kses ) {
+			kses_init_filters();
+		}
+		if ( $has_targeted_link_rel_filters ) {
+			wp_init_targeted_link_rel_filters();
+		}
+
+		do_action( 'everest_forms_create_form', $form_id, $form_data, $data, $style_needed );
 
 		return $form_id;
 	}
@@ -147,28 +262,30 @@ class EVF_Form_Handler {
 	 * Updates form
 	 *
 	 * @since    1.0.0
-	 * @param    string $form_id
-	 * @param    array  $data
-	 * @param    array  $args
+	 *
+	 * @param string|int $form_id Form ID.
+	 * @param array      $data    Data retrieved from $_POST and processed.
+	 * @param array      $args    Empty by default, may have custom data not intended to be saved.
+	 *
 	 * @return   mixed
 	 * @internal param string $title
 	 */
 	public function update( $form_id = '', $data = array(), $args = array() ) {
-
-		// This filter breaks forms if they contain HTML
-		remove_filter( 'content_save_pre', 'balanceTags', 50 );
-
-		// Check for permissions
-		if ( ! current_user_can( apply_filters( 'everest_forms_manage_cap', 'manage_options' ) ) ) {
-			return false;
-		}
-
 		if ( empty( $data ) ) {
 			return false;
 		}
 
 		if ( empty( $form_id ) ) {
 			$form_id = $data['form_id'];
+		}
+
+		if ( ! isset( $args['cap'] ) ) {
+			$args['cap'] = 'everest_forms_edit_form';
+		}
+
+		// Check for permissions.
+		if ( ! empty( $args['cap'] ) && ! current_user_can( $args['cap'], $form_id ) ) {
+			return false;
 		}
 
 		$data = wp_unslash( $data );
@@ -187,9 +304,22 @@ class EVF_Form_Handler {
 
 		$data['form_field_id'] = ! empty( $data['form_field_id'] ) ? absint( $data['form_field_id'] ) : '0';
 
-		// Sanitize - don't allow tags for users who do not have appropriate cap
+		// This filter can destroy the JSON when messing with HTML.
+		remove_filter( 'content_save_pre', 'balanceTags', 50 );
+
+		// Don't allow tags for users who do not have appropriate cap.
 		if ( ! current_user_can( 'unfiltered_html' ) ) {
-			array_walk_recursive( $data, 'wp_strip_all_tags' );
+			$data = map_deep( $data, 'wp_strip_all_tags' );
+		}
+
+		// Prevent content filters from corrupting JSON in post_content.
+		$has_kses = ( false !== has_filter( 'content_save_pre', 'wp_filter_post_kses' ) );
+		if ( $has_kses ) {
+			kses_remove_filters();
+		}
+		$has_targeted_link_rel_filters = ( false !== has_filter( 'content_save_pre', 'wp_targeted_link_rel' ) );
+		if ( $has_targeted_link_rel_filters ) {
+			wp_remove_targeted_link_rel_filters();
 		}
 
 		$form    = array(
@@ -201,7 +331,26 @@ class EVF_Form_Handler {
 		$form    = apply_filters( 'everest_forms_save_form_args', $form, $data, $args );
 		$form_id = wp_update_post( $form );
 
-		do_action( 'everest_forms_save_form', $form_id, $form );
+		// Import form styles if present.
+		$style_needed = false;
+		if ( ! empty( $data['form_styles'] ) ) {
+			$style_needed            = true;
+			$form_styles             = get_option( 'everest_forms_styles', array() );
+			$form_styles[ $form_id ] = evf_decode( $data['form_styles'] );
+
+			// Update forms styles.
+			update_option( 'everest_forms_styles', $form_styles );
+		}
+
+		// Restore removed content filters.
+		if ( $has_kses ) {
+			kses_init_filters();
+		}
+		if ( $has_targeted_link_rel_filters ) {
+			wp_init_targeted_link_rel_filters();
+		}
+
+		do_action( 'everest_forms_save_form', $form_id, $form, array(), $style_needed );
 
 		return $form_id;
 	}
@@ -210,13 +359,14 @@ class EVF_Form_Handler {
 	 * Duplicate forms.
 	 *
 	 * @since  1.0.0
-	 * @param  array $ids
+	 *
+	 * @param array $ids Form IDs to duplicate.
+	 *
 	 * @return boolean
 	 */
 	public function duplicate( $ids = array() ) {
-
 		// Check for permissions.
-		if ( ! current_user_can( apply_filters( 'everest_forms_manage_cap', 'manage_options' ) ) ) {
+		if ( ! current_user_can( 'everest_forms_create_forms' ) ) {
 			return false;
 		}
 
@@ -231,6 +381,10 @@ class EVF_Form_Handler {
 			// Get original entry.
 			$form = get_post( $id );
 
+			if ( ! current_user_can( 'everest_forms_view_form', $id ) ) {
+				return false;
+			}
+
 			// Confirm form exists.
 			if ( ! $form || empty( $form ) ) {
 				return false;
@@ -238,6 +392,12 @@ class EVF_Form_Handler {
 
 			// Get the form data.
 			$new_form_data = evf_decode( $form->post_content );
+
+			// Get the form styles.
+			$form_styles = get_option( 'everest_forms_styles', array() );
+			if ( ! empty( $form_styles[ $id ] ) ) {
+				$new_form_data['form_styles'] = wp_json_encode( $form_styles[ $id ] );
+			}
 
 			// Remove form ID from title if present.
 			$new_form_data['settings']['form_title'] = str_replace( '(ID #' . absint( $id ) . ')', '', $new_form_data['settings']['form_title'] );
@@ -281,20 +441,27 @@ class EVF_Form_Handler {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @param string $form_id
-	 * @param string $field
+	 * @param int    $form_id Form ID.
+	 * @param string $field   Field.
+	 * @param array  $args    Additional arguments.
 	 *
-	 * @return bool
+	 * @return false|array
 	 */
-	public function get_meta( $form_id, $field = '' ) {
-
+	public function get_meta( $form_id, $field = '', $args = array() ) {
 		if ( empty( $form_id ) ) {
 			return false;
 		}
 
-		$data = $this->get( $form_id, array(
-			'content_only' => true,
-		) );
+		if ( isset( $args['cap'] ) ) {
+			$defaults['cap'] = $args['cap'];
+		}
+
+		$data = $this->get(
+			$form_id,
+			array(
+				'content_only' => true,
+			)
+		);
 
 		if ( isset( $data['meta'] ) ) {
 			if ( empty( $field ) ) {
@@ -311,11 +478,11 @@ class EVF_Form_Handler {
 	 * Get the next available field ID and increment by one.
 	 *
 	 * @since  1.0.0
-	 * @param  int $form_id
+	 * @param  int $form_id  Form ID.
 	 * @return mixed int or false
 	 */
 	public function field_unique_key( $form_id ) {
-		if ( ! current_user_can( apply_filters( 'everest_forms_manage_cap', 'manage_options' ) ) ) {
+		if ( ! current_user_can( 'everest_forms_edit_form', $form_id ) ) {
 			return false;
 		}
 
@@ -323,10 +490,12 @@ class EVF_Form_Handler {
 			return false;
 		}
 
-
-		$form = $this->get( $form_id, array(
-			'content_only' => true,
-		) );
+		$form = $this->get(
+			$form_id,
+			array(
+				'content_only' => true,
+			)
+		);
 
 		if ( ! empty( $form['form_field_id'] ) ) {
 			$form_field_id = absint( $form['form_field_id'] );
@@ -343,24 +512,32 @@ class EVF_Form_Handler {
 		return $field_id;
 	}
 
-
 	/**
 	 * Get private meta information for a form field.
 	 *
 	 * @since  1.0.0
-	 * @param  string $form_id
-	 * @param  string $field_id
-	 * @return bool
+	 *
+	 * @param int    $form_id  Form ID.
+	 * @param string $field_id Field ID.
+	 * @param array  $args     Additional arguments.
+	 *
+	 * @return array|bool
 	 */
-	public function get_field( $form_id, $field_id = '' ) {
-
+	public function get_field( $form_id, $field_id = '', $args = array() ) {
 		if ( empty( $form_id ) ) {
 			return false;
 		}
 
-		$data = $this->get( $form_id, array(
-			'content_only' => true,
-		) );
+		if ( isset( $args['cap'] ) ) {
+			$defaults['cap'] = $args['cap'];
+		}
+
+		$data = $this->get(
+			$form_id,
+			array(
+				'content_only' => true,
+			)
+		);
 
 		return isset( $data['form_fields'][ $field_id ] ) ? $data['form_fields'][ $field_id ] : false;
 	}
@@ -370,14 +547,14 @@ class EVF_Form_Handler {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $form_id
-	 * @param string $field
+	 * @param int    $form_id  Form ID.
+	 * @param string $field_id Field.
+	 * @param array  $args     Additional arguments.
 	 *
 	 * @return bool
 	 */
-	public function get_field_meta( $form_id, $field = '' ) {
-
-		$field = $this->get_field( $form_id, $field );
+	public function get_field_meta( $form_id, $field_id = '', $args = array() ) {
+		$field = $this->get_field( $form_id, $field_id, $args );
 		if ( ! $field ) {
 			return false;
 		}

@@ -1,14 +1,16 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 //functions needed for the email-confirmation on single-sites (to create the "_signups" table)
 function wppb_signup_schema( $oldVal, $newVal ){
 	// Declare these as global in case schema.php is included from a function.
 	global $wpdb, $wp_queries, $charset_collate;
 
-	if ($newVal['emailConfirmation'] == 'yes'){
-		
+	if ( !empty( $newVal['emailConfirmation'] ) && $newVal['emailConfirmation'] == 'yes'){
+
 		//The database character collate.
 		$charset_collate = '';
-		
+
 		if ( ! empty( $wpdb->charset ) )
 			$charset_collate = "DEFAULT CHARACTER SET ".$wpdb->charset;
 		if ( ! empty( $wpdb->collate ) )
@@ -17,7 +19,7 @@ function wppb_signup_schema( $oldVal, $newVal ){
 
 		$sql = "
 			CREATE TABLE $tableName (
-				domain varchar(200) NOT NULL default '',
+				domain varchar(191) NOT NULL default '',
 				path varchar(100) NOT NULL default '',
 				title longtext NOT NULL,
 				user_login varchar(60) NOT NULL default '',
@@ -30,7 +32,7 @@ function wppb_signup_schema( $oldVal, $newVal ){
 				KEY activation_key (activation_key),
 				KEY domain (domain)
 			) $charset_collate;";
-			
+
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		$res = dbDelta($sql);
 	}
@@ -41,33 +43,33 @@ add_action( 'update_option_wppb_general_settings', 'wppb_signup_schema', 10, 2 )
 //function to add new tab in the default WP userlisting with all the users who didn't confirm their account yet
 function wppb_add_pending_users_header_script(){
 ?>
-	<script type="text/javascript">	
+	<script type="text/javascript">
 		jQuery(document).ready(function() {
 			jQuery.post( ajaxurl ,  { action:"wppb_get_unconfirmed_email_number"}, function(response) {
-				jQuery('.wrap ul.subsubsub').append('<span id="separatorID"> |</span> <li class="listUsersWithUncofirmedEmail"><a class="unconfirmedEmailUsers" href="?page=unconfirmed_emails"><?php _e('Users with Unconfirmed Email Address', 'profile-builder');?></a> <font id="unconfirmedEmailNo" color="grey">('+response.number+')</font></li>');
-			});			
+				jQuery('.wrap ul.subsubsub').append('<span id="separatorID"> |</span> <li class="listUsersWithUncofirmedEmail"><a class="unconfirmedEmailUsers" href="?page=unconfirmed_emails"><?php esc_html_e('Users with Unconfirmed Email Address', 'profile-builder');?></a> <font id="unconfirmedEmailNo" color="grey">('+response.number+')</font></li>');
+			});
 		});
-		
+
 		function confirmECActionBulk( URL, message ) {
 			if ( confirm(message) )
 				window.location=URL;
 		}
-	
+
 		// script to create a confirmation box for the user upon approving/unapproving a user
 		function confirmECAction( URL, todo, user_email, actionText ) {
-			actionText = '<?php _e( 'Do you want to', 'profile-builder' ); ?>' + ' ' + actionText;
-		
+			actionText = '<?php esc_html_e( 'Do you want to', 'profile-builder' ); ?>' + ' ' + actionText;
+
 			if (confirm(actionText)) {
-				jQuery.post( ajaxurl ,  { action:"wppb_handle_email_confirmation_cases", URL:URL, todo:todo, user_email:user_email}, function(response) {	
-					if (jQuery.trim(response) == 'ok')
+				jQuery.post( ajaxurl ,  { action:"wppb_handle_email_confirmation_cases", URL:URL, todo:todo, user_email:user_email, nonce:"<?php echo esc_js( wp_create_nonce( 'wppb_handle_email_confirmation' ) ) ?>" }, function(response) {
+					if (response.trim() == 'ok')
 						window.location=URL;
-						
+
 					else
-						alert( jQuery.trim(response) );
-				});			
+						alert( response.trim() );
+				});
 			}
 		}
-	</script>	
+	</script>
 <?php
 }
 
@@ -90,53 +92,56 @@ function wppb_get_unconfirmed_email_number(){
     header( 'Content-type: application/json' );
 	die( json_encode( array( 'number' => $number_of_users ) ) );
 }
-	
+
 
 function wppb_handle_email_confirmation_cases() {
 	global $wpdb;
 
-	$todo = sanitize_text_field($_POST['todo']);
-	$user_email = sanitize_email($_POST['user_email']);
-	
-	if ( current_user_can( 'delete_users' ) )
+	if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( sanitize_text_field( $_POST['nonce'] ), 'wppb_handle_email_confirmation' ) )
+        die( esc_html__("You either don't have permission for that action or there was an error!", "profile-builder") );
+
+	$todo = isset( $_POST['todo'] ) ? sanitize_text_field( $_POST['todo'] ) : '';
+	$user_email = isset( $_POST['user_email'] ) ? sanitize_email($_POST['user_email']) : '';
+
+	if ( current_user_can( apply_filters( 'wppb_email_confirmation_user_capability', 'manage_options' ) ) )
 		if ( ( $todo != '' ) && ( $user_email != '' ) ){
 
 			$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM " . $wpdb->base_prefix . "signups WHERE active = 0 AND user_email = %s", $user_email ) );
-			
+
 			if ( count( $results ) != 1 )
-				die( __( "There was an error performing that action!", "profile-builder" ) );
-				
+				die( esc_html__( "There was an error performing that action!", "profile-builder" ) );
+
 			elseif ( $todo == 'delete' ){
 				$sql_result = $wpdb->delete( $wpdb->base_prefix.'signups', array( 'user_login' => $results[0]->user_login, 'user_email' => $results[0]->user_email ) );
 				if ( $sql_result )
 					die( 'ok' );
-					
+
 				else
-					die( __( "The selected user couldn't be deleted", "profile-builder" ) );
+					die( esc_html__( "The selected user couldn't be deleted", "profile-builder" ) );
 
 			}elseif ( $todo == 'confirm' ){
-				die( wppb_manual_activate_signup( $results[0]->activation_key ) );
+				die( wppb_manual_activate_signup( $results[0]->activation_key ) );/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */ /* escaped inside the function */
 
 			}elseif ( $todo == 'resend' ){
 				$sql_result = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . $wpdb->base_prefix . "signups WHERE user_login = %s AND user_email = %s", $results[0]->user_login, $results[0]->user_email ), ARRAY_A );
-				
+
 				if ( $sql_result ){
 					wppb_signup_user_notification( trim( $sql_result['user_login'] ), trim( $sql_result['user_email'] ), $sql_result['activation_key'], $sql_result['meta'] );
-					
-					die( __( "Email notification resent to user", "profile-builder" ) );
+
+					die( esc_html__( "Email notification resent to user", "profile-builder" ) );
 				}
-				
+
 			}
 		}
 
-	die( __("You either don't have permission for that action or there was an error!", "profile-builder") );
+	die( esc_html__("You either don't have permission for that action or there was an error!", "profile-builder") );
 }
 
 
 
 // FUNCTIONS USED BOTH ON THE REGISTRATION PAGE AND THE EMAIL CONFIRMATION TABLE
 
-// Hook to add AP user meta after signup autentification 
+// Hook to add AP user meta after signup autentification
 add_action( 'wpmu_activate_user', 'wppb_add_meta_to_user_on_activation', 10, 3 );
 
 //function that adds AP user meta after signup autentification and it is also used when editing the user uprofile
@@ -245,12 +250,18 @@ function wppb_add_meta_to_user_on_activation( $user_id, $password, $meta ){
                         }
 					}
 					break;
-				}				
+				}
 				case 'Avatar':{
 					if ( isset( $meta[$value['meta-name']] ) ) {
                         if( !empty( $meta[$value['meta-name']] ) ) {
                             if (is_numeric($meta[$value['meta-name']])) {
                                 update_user_meta($user_id, $value['meta-name'], trim($meta[$value['meta-name']]));
+
+                                // use this to update the post author to the correct user
+                                wp_update_post( array(
+                                    'ID'            => trim( $meta[$value['meta-name']] ),
+                                    'post_author'   => $user_id
+                                ) );
                             } else {
                                 $wp_upload_array = wp_upload_dir(); // Array of key => value pairs
 
@@ -304,6 +315,26 @@ function wppb_add_meta_to_user_on_activation( $user_id, $password, $meta ){
 						}
 					}
 				}
+				case 'Select2 (Multiple)':{
+
+                    $selected_values = '';
+                    if (!empty($meta[wppb_handle_meta_name($value['meta-name'])]) && is_array($meta[wppb_handle_meta_name($value['meta-name'])])) {
+                        foreach ($meta[wppb_handle_meta_name($value['meta-name'])] as $selected_key => $selected_value)
+                            $selected_values .= sanitize_text_field($selected_value) . ',';
+                    }
+
+                    update_user_meta( $user_id, $value['meta-name'], trim( $selected_values, ',' ) );
+                }
+                case 'GDPR Checkbox':{
+                    if ( isset($meta[wppb_handle_meta_name($value['meta-name'])]) ) {
+                        if (isset($meta[wppb_handle_meta_name($value['meta-name'])]) && !empty($meta[wppb_handle_meta_name($value['meta-name'])]) && $meta[wppb_handle_meta_name($value['meta-name'])]==='agree') {
+                            update_user_meta($user_id, $value['meta-name'], $meta[$value['meta-name']]);
+                            if (isset($meta['gdpr_agreement_time']) && !empty($meta['gdpr_agreement_time'])) {
+                                update_user_meta($user_id, 'gdpr_agreement_time', $meta['gdpr_agreement_time']);
+                            }
+                        }
+                    }
+                }
                 default: {
 					if ( isset( $meta[$value['meta-name']] ) ) {
 						update_user_meta($user_id, $value['meta-name'], $meta[$value['meta-name']]);
@@ -318,8 +349,22 @@ function wppb_add_meta_to_user_on_activation( $user_id, $password, $meta ){
 
 
 // function to add the new user to the signup table if email confirmation is selected as active or it is a wpmu installation
-function wppb_signup_user( $username, $user_email, $meta = '' ) {
+function wppb_signup_user( $username, $user_email, $login_after_register, $meta = '' ) {
 	global $wpdb;
+
+    // check for automatic login
+    // using case-insensitive string comparison to allow for both 'Yes' and 'yes'
+    if( strcasecmp($login_after_register, 'Yes') === 0 ) {
+        $login_after_register = true;
+    } else {
+        $login_after_register = false;
+    }
+    $meta [ 'wppb_login_after_register_'.$meta['user_login'] ] = $login_after_register;
+
+    // save the gdpr_agreement_time if necessary
+    if ( array_key_exists('user_consent_gdpr', $meta) && $meta [ 'user_consent_gdpr' ] === 'agree' ) {
+        $meta [ 'gdpr_agreement_time' ] = time();
+    }
 
 	// Format data
 	$user = sanitize_user( $username, true );
@@ -328,7 +373,7 @@ function wppb_signup_user( $username, $user_email, $meta = '' ) {
 
 	$user_email = sanitize_email( $user_email );
 	$activation_key = substr( md5( time() . rand() . $user_email ), 0, 16 );
-	$meta = serialize( $meta );
+    $meta = serialize( $meta );
 
 	// change User Registered date and time according to timezone selected in WordPress settings
 	$wppb_get_date = wppb_get_register_date();
@@ -339,13 +384,13 @@ function wppb_signup_user( $username, $user_email, $meta = '' ) {
 		$wppb_user_registered = current_time( 'mysql', true );
 	}
 
-	if ( is_multisite() ) 
+	if ( is_multisite() )
 		$wpdb->insert( $wpdb->signups, array('domain' => '', 'path' => '', 'title' => '', 'user_login' => $user, 'user_email' => $user_email, 'registered' => $wppb_user_registered, 'activation_key' => $activation_key, 'meta' => $meta ) );
 	else
 		$wpdb->insert( $wpdb->prefix.'signups', array('domain' => '', 'path' => '', 'title' => '', 'user_login' => $user, 'user_email' => $user_email, 'registered' => $wppb_user_registered, 'activation_key' => $activation_key, 'meta' => $meta ) );
-	
+
 	do_action ( 'wppb_signup_user', $username, $user_email, $activation_key, $meta );
-	
+
 	wppb_signup_user_notification( $username, $user_email, $activation_key, $meta );
 }
 
@@ -368,23 +413,22 @@ function wppb_signup_user( $username, $user_email, $meta = '' ) {
 function wppb_signup_user_notification( $user, $user_email, $activation_key, $meta = '' ) {
 	if ( !apply_filters( 'wppb_signup_user_notification_filter', $user, $user_email, $activation_key, $meta ) )
 		return false;
-	
-	$wppb_general_settings = get_option( 'wppb_general_settings' );	
+
+	$wppb_general_settings = get_option( 'wppb_general_settings' );
 	$admin_email = get_site_option( 'admin_email' );
-	
-	if ( $admin_email == '' )
-		$admin_email = 'support@' . $_SERVER['SERVER_NAME'];
-		
+
 	$from_name = apply_filters ( 'wppb_signup_user_notification_email_from_field', get_bloginfo( 'name' ) );
 
 	//we don't use this anymore do we ?
 	/*$message_headers = apply_filters ( 'wppb_signup_user_notification_from', "From: \"{$from_name}\" <{$admin_email}>\n" . "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\n" );*/
 
-	if( isset( $wppb_general_settings['activationLandingPage'] ) && ( trim( $wppb_general_settings['activationLandingPage'] ) != '' ) ) {
+	if( isset( $wppb_general_settings['activationLandingPage'] ) && !empty( $wppb_general_settings['activationLandingPage'] ) )  {
 		$registration_page_url = add_query_arg( array('activation_key' => $activation_key), get_permalink( $wppb_general_settings['activationLandingPage'] ) );
 	} else {
 		$registration_page_url = 'not_set';
 	}
+
+	$registration_page_url = apply_filters( 'wppb_ec_landing_page', $registration_page_url, $user, $activation_key, $meta );
 
 	if ( $registration_page_url == 'not_set' ){
 		global $post;
@@ -398,19 +442,28 @@ function wppb_signup_user_notification( $user, $user_email, $activation_key, $me
         else
             $post_content = '';
 
-		$registration_page_url = ( ( strpos( $post_content, '[wppb-register' ) !== false ) ? add_query_arg( array( 'activation_key' => $activation_key ), $permalink ) : add_query_arg( array( 'activation_key' => $activation_key ), get_bloginfo( 'url' ) ) );
+		$registration_page_url = ( ( ( strpos( $post_content, '[wppb-register' ) !== false ) || ( strpos( $post_content, '<!-- wp:wppb/register' ) !== false ) ) ? add_query_arg( array( 'activation_key' => $activation_key ), $permalink ) : add_query_arg( array( 'activation_key' => $activation_key ), get_bloginfo( 'url' ) ) );
 	}
-	
-	$subject = sprintf( __( '[%1$s] Activate %2$s', 'profile-builder'), $from_name, $user );
+
+    $wppb_generalSettings = get_option( 'wppb_general_settings' );
+
+    if( !empty( $wppb_generalSettings['loginWith'] ) && $wppb_generalSettings['loginWith'] == 'email' ) {
+        $display_username_email = $user_email;
+    }
+    else {
+        $display_username_email = $user;
+    }
+
+	$subject = sprintf( __( '[%1$s] Activate %2$s', 'profile-builder'), $from_name, $display_username_email );
 	$subject = apply_filters( 'wppb_signup_user_notification_email_subject', $subject, $user_email, $user, $activation_key, $registration_page_url, $meta, $from_name, 'wppb_user_emailc_registr_w_email_confirm_email_subject' );
 
-	$message = sprintf( __( "To activate your user, please click the following link:<br><br>%s%s%s<br><br>After you activate it you will receive yet *another email* with your login.", "profile-builder" ), '<a href="'.$registration_page_url.'">', $registration_page_url, '</a>.' );
+	$message = sprintf( __( "To activate your user, please click the following link:<br><br>%s%s%s<br><br>After you activate it you will receive yet *another email* with your login.", "profile-builder" ), '<a href="'.$registration_page_url.'">', $registration_page_url, '</a>' );
     $message = apply_filters( 'wppb_signup_user_notification_email_content', $message, $user_email, $user, $activation_key, $registration_page_url, $meta, $from_name, 'wppb_user_emailc_registr_w_email_confirm_email_content' );
 
 	$message_context = 'email_user_activate';
 
 	wppb_mail( $user_email, $subject, $message, $from_name, $message_context );
-	
+
 	return true;
 }
 
@@ -446,13 +499,13 @@ function wppb_manual_activate_signup( $activation_key ) {
 
 		if ( !$user_id )
 			return __( 'Could not create user!', 'profile-builder' );
-			
+
 		elseif ( isset( $user_already_exists ) && ( $user_already_exists == true ) )
 			return __( 'That username is already activated!', 'profile-builder' );
-		
+
 		else{
 			$now = current_time('mysql', true);
-			
+
 			$retVal = ( is_multisite() ? $wpdb->update( $wpdb->signups, array('active' => 1, 'activated' => $now), array('activation_key' => $activation_key) ) : $wpdb->update( $wpdb->base_prefix.'signups', array('active' => 1, 'activated' => $now), array('activation_key' => $activation_key) ) );
 
 			wppb_add_meta_to_user_on_activation( $user_id, '', $meta );
@@ -467,9 +520,9 @@ function wppb_manual_activate_signup( $activation_key ) {
 				//This is required so that the APC cached data is updated with the new password. Thanks to @foliovision
 				wp_cache_delete( $user_id, 'users' );
             }
-			
-			wppb_notify_user_registration_email( get_bloginfo( 'name' ), $user_login, $user_email, 'sending', $password, ( isset( $wppb_general_settings['adminApproval'] ) ? $wppb_general_settings['adminApproval'] : 'no' ) );
-			
+
+			wppb_notify_user_registration_email( get_bloginfo( 'name' ), $user_login, $user_email, 'sending', $password, ( wppb_get_admin_approval_option_value() === 'yes' ? 'yes' : 'no' ) );
+
 			do_action('wppb_activate_user', $user_id, $password, $meta);
 			return ( $retVal ? 'ok' : __( 'There was an error while trying to activate the user', 'profile-builder' ) );
 		}
@@ -518,11 +571,11 @@ function wppb_notify_user_registration_email( $bloginfo, $user_name, $email, $se
 
 	//send email to the admin
 	$message_from = apply_filters( 'wppb_register_from_email_message_admin_email', $bloginfo );
-	
+
 	$message_subject = '['.$message_from.'] '.__( 'A new subscriber has (been) registered!', 'profile-builder' );
 	$message_subject = apply_filters ('wppb_register_admin_email_subject_without_admin_approval', $message_subject, $email, $password, $message_from, 'wppb_admin_emailc_default_registration_email_subject' );
-	
-	$message_content = sprintf( __( 'New subscriber on %1$s.<br/><br/>Username:%2$s<br/>E-mail:%3$s<br/>', 'profile-builder'), $message_from, $user_name, $email );
+
+	$message_content = sprintf( __( 'New subscriber on %1$s.<br/><br/>Username:%2$s<br/>Email:%3$s<br/>', 'profile-builder'), $message_from, $user_name, $email );
 
 	$message_context = 'email_admin_new_subscriber';
 
@@ -567,8 +620,8 @@ function wppb_notify_user_registration_email( $bloginfo, $user_name, $email, $se
 		wppb_mail( $admin_email, $message_subject, $message_content, $message_from, $message_context );
 	}
 
-		
-	
+
+
 	//send an email to the newly registered user, if this option was selected
 	if ( isset( $send_credentials_via_email ) && ( $send_credentials_via_email == 'sending' ) ){
 		$user_message_from = apply_filters( 'wppb_register_from_email_message_user_email', $bloginfo );
@@ -583,9 +636,9 @@ function wppb_notify_user_registration_email( $bloginfo, $user_name, $email, $se
 		$send_password = apply_filters( 'wppb_send_password_in_default_email_message', false );
         $site_url = '<a href="'. home_url() .'"> ' . home_url() . ' </a>';
 		if( !$send_password )
-			$user_message_content = sprintf( __( 'Welcome to %1$s!<br/><br/><br/>Your username is:%2$s and the password you selected on registration.<br/><br/>Access your account: %3$s ', 'profile-builder' ), $user_message_from, $user_name, $site_url );
+			$user_message_content = sprintf( __( 'Welcome to %1$s!<br/><br/><br/>Your username is: %2$s and your password is the one that you have selected during registration.<br/><br/>Access your account: %3$s ', 'profile-builder' ), $user_message_from, $user_name, $site_url );
 		else
-			$user_message_content = sprintf( __( 'Welcome to %1$s!<br/><br/><br/>Your username is:%2$s and the password: %3$s.<br/><br/>Access your account: %4$s ', 'profile-builder' ), $user_message_from, $user_name, $password, $site_url );
+			$user_message_content = sprintf( __( 'Welcome to %1$s!<br/><br/><br/>Your username is: %2$s and the password: %3$s<br/><br/>Access your account: %4$s ', 'profile-builder' ), $user_message_from, $user_name, $password, $site_url );
 
         if ( $password === __( 'Your selected password at signup', 'profile-builder' ) ) {
             $password = NULL;
@@ -630,7 +683,7 @@ function wppb_notify_user_registration_email( $bloginfo, $user_name, $email, $se
 			$user_message_content = apply_filters( 'wppb_register_user_email_message_without_admin_approval', $user_message_content, $email, $password, $user_message_subject, 'wppb_user_emailc_default_registration_email_content' );
 
 		$message_sent = wppb_mail( $email, $user_message_subject, $user_message_content, $user_message_from, $user_message_context );
-		
+
 		return ( ( $message_sent ) ? 2 : 1 );
 	}
 }
@@ -654,35 +707,30 @@ function wppb_adminApproval_userEmailContent() {
 
 
 // Set up the AJAX hooks
-add_action( 'wp_ajax_wppb_get_unconfirmed_email_number', 'wppb_get_unconfirmed_email_number' );	
+add_action( 'wp_ajax_wppb_get_unconfirmed_email_number', 'wppb_get_unconfirmed_email_number' );
 add_action( 'wp_ajax_wppb_handle_email_confirmation_cases', 'wppb_handle_email_confirmation_cases' );
 
 
 $wppb_general_settings = get_option( 'wppb_general_settings', 'not_found' );
-if( $wppb_general_settings != 'not_found' )
+if( $wppb_general_settings != 'not_found' ){
+
     if( !empty($wppb_general_settings['emailConfirmation'] ) && ( $wppb_general_settings['emailConfirmation'] == 'yes' ) ){
         if ( is_multisite() ){
             /* don't display on network admin */
-            if( strpos($_SERVER['SCRIPT_NAME'], 'users.php') && !is_network_admin() ){  //global $pagenow doesn't seem to work
+            if( isset($_SERVER['SCRIPT_NAME']) && strpos( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ), 'users.php') && !is_network_admin() ){  //global $pagenow doesn't seem to work
                 add_action( 'admin_head', 'wppb_add_pending_users_header_script' );
             }
         }else{
             global $pagenow;
-            if ( $pagenow == 'users.php' ){
+            // the Unconfirmed Email Address submenu page is added to profile.php if the user does not have the
+            // list_users capability so we also check for it
+            if ( $pagenow == 'users.php' || $pagenow == 'profile.php' ){
                 add_action( 'admin_head', 'wppb_add_pending_users_header_script' );
             }
         }
 
-        if ( file_exists ( WPPB_PLUGIN_DIR . '/features/admin-approval/admin-approval.php' ) )
+        if ( defined( 'WPPB_PAID_PLUGIN_DIR' ) && file_exists ( WPPB_PAID_PLUGIN_DIR . '/features/admin-approval/admin-approval.php' ) )
             add_action( 'user_register', 'wppb_update_user_status_on_admin_registration' );
     }
 
-
-// function to delete the users from the _signups table also
-function wppb_delete_user_from_signups( $user_id ) {
-	global $wpdb;
-
-    $user = get_user_by( 'id', $user_id );
-	$wpdb->delete( $wpdb->base_prefix.'signups', array( 'user_email' => $user->user_email ) );
 }
-add_action( 'delete_user', 'wppb_delete_user_from_signups' );

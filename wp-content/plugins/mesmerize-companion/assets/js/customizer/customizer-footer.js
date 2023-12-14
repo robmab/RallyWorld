@@ -8,9 +8,9 @@
 
         var $footerLi = control.container.eq(0);
         // remove default events
-        $footerLi.children('h3').andSelf().off();
+        $footerLi.children('h3').addBack().off();
 
-        $footerLi.find('[data-name="change"]').andSelf().click(function (event) {
+        $footerLi.find('[data-name="change"]').addBack().click(function (event) {
             event.preventDefault();
             event.stopPropagation();
 

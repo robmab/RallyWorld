@@ -3,7 +3,7 @@
     CP_Customizer.one(CP_Customizer.events.PREVIEW_LOADED, function () {
 
         var predefinedSitesSection = CP_Customizer.wpApi.section('extendthemes_start_from_demo_site').container;
-        predefinedSitesSection.find('*').andSelf().off();
+        predefinedSitesSection.find('*').addBack().off();
 
         predefinedSitesSection.on('click', function (event) {
             event.preventDefault();

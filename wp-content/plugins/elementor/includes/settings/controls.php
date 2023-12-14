@@ -62,26 +62,19 @@ class Settings_Controls {
 	 * @param array $field Field data.
 	 */
 	private static function text( array $field ) {
-		$attributes = [];
-
 		if ( empty( $field['attributes']['class'] ) ) {
 			$field['attributes']['class'] = 'regular-text';
 		}
 
-		foreach ( $field['attributes'] as $attribute_key => $attribute_values ) {
-			$attributes[] = sprintf( '%1$s="%2$s"', $attribute_key, esc_attr( $attribute_values ) );
-		}
-
-		$attributes = implode( ' ', $attributes );
 		?>
-		<input type="<?php echo esc_attr( $field['type'] ); ?>" id="<?php echo esc_attr( $field['id'] ); ?>" name="<?php echo esc_attr( $field['id'] ); ?>" value="<?php echo esc_attr( get_option( $field['id'], $field['std'] ) ); ?>" <?php echo $attributes; ?>/>
+		<input type="<?php echo esc_attr( $field['type'] ); ?>" id="<?php echo esc_attr( $field['id'] ); ?>" name="<?php echo esc_attr( $field['id'] ); ?>" value="<?php echo esc_attr( get_option( $field['id'], $field['std'] ) ); ?>" <?php Utils::print_html_attributes( $field['attributes'] ); ?>/>
 		<?php
 		if ( ! empty( $field['sub_desc'] ) ) :
-			echo $field['sub_desc'];
+			echo wp_kses_post( $field['sub_desc'] );
 		endif;
 		?>
 		<?php if ( ! empty( $field['desc'] ) ) : ?>
-			<p class="description"><?php echo $field['desc']; ?></p>
+			<p class="description"><?php echo wp_kses_post( $field['desc'] ); ?></p>
 			<?php
 		endif;
 	}
@@ -100,15 +93,15 @@ class Settings_Controls {
 	private static function checkbox( array $field ) {
 		?>
 		<label>
-			<input type="<?php echo esc_attr( $field['type'] ); ?>" id="<?php echo esc_attr( $field['id'] ); ?>" name="<?php echo esc_attr( $field['id'] ); ?>" value="<?php echo $field['value']; ?>"<?php checked( $field['value'], get_option( $field['id'], $field['std'] ) ); ?> />
+			<input type="<?php echo esc_attr( $field['type'] ); ?>" id="<?php echo esc_attr( $field['id'] ); ?>" name="<?php echo esc_attr( $field['id'] ); ?>" value="<?php echo esc_attr( $field['value'] ); ?>"<?php checked( $field['value'], get_option( $field['id'], $field['std'] ) ); ?> />
 			<?php
 			if ( ! empty( $field['sub_desc'] ) ) :
-				echo $field['sub_desc'];
+				echo wp_kses_post( $field['sub_desc'] );
 			endif;
 			?>
 		</label>
 		<?php if ( ! empty( $field['desc'] ) ) : ?>
-			<p class="description"><?php echo $field['desc']; ?></p>
+			<p class="description"><?php echo wp_kses_post( $field['desc'] ); ?></p>
 			<?php
 		endif;
 	}
@@ -133,12 +126,12 @@ class Settings_Controls {
 		foreach ( $field['options'] as $option_key => $option_value ) :
 			?>
 			<label>
-				<input type="checkbox" name="<?php echo $field['id']; ?>[]" value="<?php echo $option_key; ?>"<?php checked( in_array( $option_key, $old_value ), true ); ?> />
-				<?php echo $option_value; ?>
+				<input type="checkbox" name="<?php echo esc_attr( $field['id'] ); ?>[]" value="<?php echo esc_attr( $option_key ); ?>"<?php checked( in_array( $option_key, $old_value ), true ); ?> />
+				<?php echo wp_kses_post( $option_value ); ?>
 			</label><br />
 		<?php endforeach; ?>
 		<?php if ( ! empty( $field['desc'] ) ) : ?>
-			<p class="description"><?php echo $field['desc']; ?></p>
+			<p class="description"><?php echo wp_kses_post( $field['desc'] ); ?></p>
 			<?php
 		endif;
 	}
@@ -159,16 +152,16 @@ class Settings_Controls {
 		?>
 		<select name="<?php echo esc_attr( $field['id'] ); ?>">
 			<?php if ( ! empty( $field['show_select'] ) ) : ?>
-				<option value="">— <?php echo __( 'Select', 'elementor' ); ?> —</option>
+				<option value="">— <?php echo esc_html__( 'Select', 'elementor' ); ?> —</option>
 			<?php endif; ?>
 
 			<?php foreach ( $field['options'] as $value => $label ) : ?>
-				<option value="<?php echo esc_attr( $value ); ?>"<?php selected( $value, $old_value ); ?>><?php echo $label; ?></option>
+				<option value="<?php echo esc_attr( $value ); ?>"<?php esc_attr( selected( $value, $old_value ) ); ?>><?php echo esc_html( $label ); ?></option>
 			<?php endforeach; ?>
 		</select>
 
 		<?php if ( ! empty( $field['desc'] ) ) : ?>
-			<p class="description"><?php echo $field['desc']; ?></p>
+			<p class="description"><?php echo wp_kses_post( $field['desc'] ); ?></p>
 			<?php
 		endif;
 	}
@@ -195,9 +188,19 @@ class Settings_Controls {
 				'public' => true,
 			], 'objects'
 		);
+
+		/**
+		 * Filters the list of post type objects used by Elementor.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param array $post_types_objects List of post type objects used by Elementor.
+		 */
+		$post_types_objects = apply_filters( 'elementor/settings/controls/checkbox_list_cpt/post_type_objects', $post_types_objects );
+
 		$field['options'] = [];
 		foreach ( $post_types_objects as $cpt_slug => $post_type ) {
-			if ( in_array( $cpt_slug, $field['exclude'] ) ) {
+			if ( in_array( $cpt_slug, $field['exclude'], true ) ) {
 				continue;
 			}
 
@@ -225,7 +228,17 @@ class Settings_Controls {
 		$field = array_merge( $defaults, $field );
 
 		$field['options'] = [];
-		foreach ( get_editable_roles() as $role_slug => $role_data ) {
+		$roles = get_editable_roles();
+
+		if ( is_multisite() ) {
+			$roles = [
+				'super_admin' => [
+					'name' => esc_html__( 'Super Admin', 'elementor' ),
+				],
+			] + $roles;
+		}
+
+		foreach ( $roles as $role_slug => $role_data ) {
 			if ( in_array( $role_slug, $field['exclude'] ) ) {
 				continue;
 			}
@@ -252,16 +265,17 @@ class Settings_Controls {
 			return;
 		}
 		?>
-		<div id="<?php echo $field['id']; ?>">
+		<div id="<?php echo esc_attr( $field['id'] ); ?>">
 
-			<div><?php echo $field['html']; ?></div>
+			<?php // PHPCS - This is a Raw HTML control, it is not escaped on purpose. ?>
+			<div><?php echo $field['html']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 			<?php
 			if ( ! empty( $field['sub_desc'] ) ) :
-				echo $field['sub_desc'];
+				echo wp_kses_post( $field['sub_desc'] );
 			endif;
 			?>
 			<?php if ( ! empty( $field['desc'] ) ) : ?>
-				<p class="description"><?php echo $field['desc']; ?></p>
+				<p class="description"><?php echo wp_kses_post( $field['desc'] ); ?></p>
 			<?php endif; ?>
 			</div>
 		<?php

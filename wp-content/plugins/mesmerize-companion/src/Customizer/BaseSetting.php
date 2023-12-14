@@ -2,112 +2,107 @@
 
 namespace Mesmerize\Customizer;
 
-class BaseSetting extends \WP_Customize_Setting
-{
-    protected $cpData = null;
+class BaseSetting extends \WP_Customize_Setting {
 
-    public function __construct($manager, $id, $cpData = array())
-    {
-        $this->cpData = $cpData;
-        $this->manager = $manager;
-        $this->id = $id;
+	protected $cpData = null;
 
-        $this->cpData["__is__kirki"] = isset($this->cpData["__is__kirki"]) ? $this->cpData["__is__kirki"] : false;
+	public function __construct( $manager, $id, $cpData = array() ) {
+		$this->cpData  = $cpData;
+		$this->manager = $manager;
+		$this->id      = $id;
 
-        $args = (isset($this->cpData['wp_data'])) ? $this->cpData['wp_data'] : array();
+		$this->cpData['__is__kirki'] = isset( $this->cpData['__is__kirki'] ) ? $this->cpData['__is__kirki'] : false;
 
-       
-        if (isset($args['default'])) {
-            $default = $args['default'];
+		$args = ( isset( $this->cpData['wp_data'] ) ) ? $this->cpData['wp_data'] : array();
 
-            if ($default ==="__cp_filter__") {
-                $filter = $this->cpData['filterOptions']['filter'];
-                $filterDefault = isset($this->cpData['filterOptions']['default'])? $this->cpData['filterOptions']['default']: false;
-                $default = apply_filters($filter, $filterDefault) ;
-            }
+		if ( isset( $args['default'] ) ) {
+			$default = $args['default'];
 
-            $args['default'] = BaseSetting::filterDefault($default);
-        }
+			if ( $default === '__cp_filter__' ) {
+				$filter        = $this->cpData['filterOptions']['filter'];
+				$filterDefault = isset( $this->cpData['filterOptions']['default'] ) ? $this->cpData['filterOptions']['default'] : false;
+				$default       = apply_filters( $filter, $filterDefault );
+			}
 
-        $args['capability'] = isset($args['capability']) ? $args['capability'] : "edit_theme_options";
-        $args['option_type'] = isset($args['option_type'])? $args['option_type'] : "theme_mod";
-            
-        $this->cpData['wp_data'] = $args;
+			$args['default'] = BaseSetting::filterDefault( $default );
+		}
 
-        if ($this->isKirki()) {
-            \Kirki::add_config($id, $args);
-        } else {
-            parent::__construct($manager, $id, $args);
-        }
+		$args['capability']  = isset( $args['capability'] ) ? $args['capability'] : 'edit_theme_options';
+		$args['option_type'] = isset( $args['option_type'] ) ? $args['option_type'] : 'theme_mod';
 
-        $this->init();
-    }
+		$this->cpData['wp_data'] = $args;
+
+		if ( $this->isKirki() ) {
+			\Kirki::add_config( $id, $args );
+		} else {
+			parent::__construct( $manager, $id, $args );
+		}
+
+		$this->init();
+	}
 
 
-    public function isKirki()
-    {
-        $controlClass = \Mesmerize\Companion::getTreeValueAt($this->cpData, "control:class");
-        $controlIsKirki = $controlClass && (strpos($controlClass, "kirki:") ===0);
-        
-        $isKirki = $this->cpData["__is__kirki"] || $controlIsKirki;
+	public function isKirki() {
+		$controlClass   = \Mesmerize\Companion::getTreeValueAt( $this->cpData, 'control:class' );
+		$controlIsKirki = $controlClass && ( strpos( $controlClass, 'kirki:' ) === 0 );
 
-        return  $isKirki;
-    }
+		$isKirki = $this->cpData['__is__kirki'] || $controlIsKirki;
 
-    public function setControl()
-    {
-        if (isset($this->cpData['no-control']) && $this->cpData['no-control']) {
-            return;
-        }
+		return  $isKirki;
+	}
 
-        $controlData = array(
-            "class"   => false,
-            "wp_data" => array(
-                "section" => $this->cpData['section'],
-                "label"   => $this->id,
-            ),
-        );
-        if (isset($this->cpData['control'])) {
-            $controlData = $this->cpData['control'];
+	public function setControl() {
+		if ( isset( $this->cpData['no-control'] ) && $this->cpData['no-control'] ) {
+			return;
+		}
 
-            if (!isset($controlData['wp_data'])) {
-                $controlData['wp_data'] = array();
-            }
+		$controlData = array(
+			'class'   => false,
+			'wp_data' => array(
+				'section' => $this->cpData['section'],
+				'label'   => $this->id,
+			),
+		);
+		if ( isset( $this->cpData['control'] ) ) {
+			$controlData = $this->cpData['control'];
 
-            $controlData['wp_data']['section'] = isset($this->cpData['section']) ? $this->cpData['section'] : null;
-            $controlData['wp_data']['settings'] = $this->id;
-        }
+			if ( ! isset( $controlData['wp_data'] ) ) {
+				$controlData['wp_data'] = array();
+			}
 
-        if ($this->isKirki()) {
-            $settingTransport = \Mesmerize\Companion::getTreeValueAt($this->cpData, "wp_data:transport");
-            $controlData['wp_data']['transport'] = $settingTransport ? $settingTransport : "refresh";
+			$controlData['wp_data']['section']  = isset( $this->cpData['section'] ) ? $this->cpData['section'] : null;
+			$controlData['wp_data']['settings'] = $this->id;
+		}
 
-            $settingDefault =  \Mesmerize\Companion::getTreeValueAt($this->cpData, "wp_data:default");
-            $controlData['wp_data']['default'] =  $settingDefault;
-        }
+		if ( $this->isKirki() ) {
+			$settingTransport                    = \Mesmerize\Companion::getTreeValueAt( $this->cpData, 'wp_data:transport' );
+			$controlData['wp_data']['transport'] = $settingTransport ? $settingTransport : 'refresh';
 
-        $this->companion()->customizer()->registerControls($this->manager, array(
-            $this->id => $controlData,
-        ));
-    }
+			$settingDefault                    = \Mesmerize\Companion::getTreeValueAt( $this->cpData, 'wp_data:default' );
+			$controlData['wp_data']['default'] = $settingDefault;
+		}
 
-    protected function init()
-    {
-        return true;
-    }
+		$this->companion()->customizer()->registerControls(
+			$this->manager,
+			array(
+				$this->id => $controlData,
+			)
+		);
+	}
 
-    final protected function companion()
-    {
-        return \Mesmerize\Companion::instance();
-    }
+	protected function init() {
+		return true;
+	}
 
-    public static function filterDefault($data)
-    {
-        return \Mesmerize\Companion::filterDefault($data);
-    }
+	final protected function companion() {
+		return \Mesmerize\Companion::instance();
+	}
 
-    public static function filterArrayDefaults($data)
-    {
-        return \Mesmerize\Companion::filterArrayDefaults($data);
-    }
+	public static function filterDefault( $data ) {
+		return \Mesmerize\Companion::filterDefault( $data );
+	}
+
+	public static function filterArrayDefaults( $data ) {
+		return \Mesmerize\Companion::filterArrayDefaults( $data );
+	}
 }

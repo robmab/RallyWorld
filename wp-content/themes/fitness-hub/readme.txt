@@ -1,46 +1,81 @@
-=== Theme Name ===
+=== Fitness Hub ===
+
 Contributors: acmethemes
-Tags: one-column, two-columns, three-columns, four-columns, left-sidebar, right-sidebar, custom-background, custom-colors, custom-header, custom-menu, custom-logo, featured-images, footer-widgets, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready, portfolio, entertainment, education
-Requires at least: 4.5
-Tested up to: 4.9.8
-Stable tag: 1.0.0
+Tags: portfolio, entertainment, education, one-column, two-columns, three-columns, four-columns, left-sidebar, right-sidebar, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, full-width-template ,post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, wide-blocks
+Requires at least: 4.8
+Tested up to: 5.9
+Requires PHP: 5.6.20
+Stable tag: 3.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Fitness Hub is a flexible and modern Fitness and Gym WordPress Theme, build mainly for fitness institutes, gym club, and a fitness center.
+Fitness Hub is a flexible and modern Fitness and Gym WordPress Theme, build mainly for fitness institutes, gym club, and a fitness centre.
 
 == Description ==
 
-Fitness Hub is a flexible and modern Fitness and Gym WordPress Theme, build mainly for fitness institutes, gym club, and a fitness center. The theme is crafted carefully keeping in mind health club,  yoga classes, weight loss centers, aerobics classes, healthcare centers, workout studios, and overall business & club related to fitness, gym, and health. With this theme, you can create a magnificent website to let people know all the amazing fitness services and classes your fitness club has to offer. Not only you can make an online presence of your company but also promote it worldwide and reach out to potential customers. Being a highly responsive theme, it easily fits in smartphones, tablets, and devices of any screen sizes. With its integration with WooCommerce, you can open an online store within the website and showcase your products such as gym equipment and materials etc. The theme is user-friendly and easily customizable. Since its compatibility with Site By Origin Page Builder, anyone can design the layout design of the site as desired. Other features included in the theme are Unlimited Slider, Advanced Logo Options, Custom Sidebar Areas, Layout Controls, Colors Options, Social Media Integration, Translation Ready, Browser Compatibility and much more.
+Fitness Hub is a flexible and modern Fitness and Gym WordPress Theme, build mainly for fitness institutes, gym club, and a fitness centre. The theme is crafted carefully keeping in mind health club,  yoga classes, weight loss centres, aerobics classes, healthcare centres, workout studios, and overall business & club related to fitness, gym, and health. With this theme, you can create a magnificent website to let people know all the amazing fitness services and classes your fitness club has to offer. Not only you can make an online presence of your company but also promote it worldwide and reach out to potential customers. Being a highly responsive theme, it easily fits in smartphones, tablets, and devices of any screen sizes. With its integration with WooCommerce, you can open an online store within the website and showcase your products such as gym equipment and materials etc. The theme is user-friendly and easily customizable. Since its compatibility with Site By Origin Page Builder, anyone can design the layout design of the site as desired. Other features included in the theme are Unlimited Slider, Advanced Logo Options, Custom Sidebar Areas, Layout Controls, Colors Options, Social Media Integration, Translation Ready, Browser Compatibility and much more.
 
 == Frequently Asked Questions ==
 
 = How to Install Theme =
 
 1. In your admin panel, go to Appearance > Themes and click the Add New button and Search for Fitness Hub, OR
-2. If you have theme zip file, click Upload and choose File, then select the theme's .zip file. Click Install Now.
+2. If you have the theme zip file, click Upload and choose File, then select the theme's .zip file. Click Install Now.
 3. Click Activate to use your new theme right away.
 
 = Front Page/Home page Customization ==
 
 1. In the admin area, go to Pages > Add New
-3. Again In the admin area, go to Settings > Reading
-4. In Front page displays choose 'A static page (select below)' and select page for homepage/frontpage
-4. The sidebar "Home Main Content Area" will display in homepage
+2. Again In the admin area, go to Settings > Reading
+3. In Frontpage displays choose 'A static page (select below)' and select page for homepage/frontpage
+4. The sidebar "Home Main Content Area" will display on the homepage
 
 = How to change content or customize site? =
 1. In the admin area, go to Appearance > Customize
-2. You wll find different options in customizer
-2. Add/Edit Widgets, Page and Post
+2. You will find different options in customizer
+3. Add/Edit Widgets, Page and Post
 
-== Changelog ==
+== Change log ==
+
+= 3.0.3 - Feb 15 2022 =
+* Updated: WordPress latest compatibility
+
+= 3.0.2 - July 21 2021 =
+* Fixed   :  WordPress 5.8 compatibility
+
+= 3.0.1 - June 25 2021 =
+* Fixed   :  Notice on Editor Gutenberg Editor
+* Updated   :  RTL CSS
+
+= 3.0.0 - Jan 14 2021 =
+* Added   : Advanced Demo Import
+* Added   : Links within content must be underlined
+* Removed : Acme Demo Setup Plugin from TGM
+* Updated : Getting Started experience
+* Fixed   : Breadcrumbs error on google console, $item,$attributes,$meta updates inside function trail
+* Fixed   : New theme check issues
+
+= 2.0.2 - Oct 16 2019=
+* Added : Upgrade to pro
+
+= 2.0.1 - Oct 16 2019=
+* Added : wp_body_open hook in header
+* Added : Gutentor Plugin in TGM
+* Added : wp-config.xml file for translation
+* Fixed : Screen Reader Text
+
+= 2.0.0 - June 16 2019 =
+* Added : Gutenberg Ready
+* Added : Language file
+* Fixed : RTL CSS
+* Fixed : Space before DOCTYPE
 
 = 1.0.0 =
 * Submitted on WordPress dot org
 
 == Copyright ==
 
-Fitness Hub WordPress Theme, Copyright 2018 Acme Themes( acmethemes.com )
+Fitness Hub WordPress Theme, Copyright 2016-2019 Acme Themes( acmethemes.com )
 Fitness Hub is distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify
@@ -68,7 +103,7 @@ Fitness Hub bundles the following third-party resources:
 * WOW https://github.com/matthieua/WOW [MIT](http://opensource.org/licenses/MIT) Copyright (c) 2013 Daniel Eden
 * TGM-Plugin-Activation Copyright 2011 Thomas Griffin (thomas licensed under the GNU GPL
 
-Image used in screenshot
+Image used in the screenshot
 
 * https://pixabay.com/en/sport-fitness-fit-training-2245029/ - License CC0 Public Domain
 

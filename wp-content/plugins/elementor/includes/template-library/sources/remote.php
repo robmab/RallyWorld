@@ -2,6 +2,7 @@
 namespace Elementor\TemplateLibrary;
 
 use Elementor\Api;
+use Elementor\Core\Common\Modules\Connect\Module as ConnectModule;
 use Elementor\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,6 +18,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 class Source_Remote extends Source_Base {
+
+	const API_TEMPLATES_URL = 'https://my.elementor.com/api/connect/v1/library/templates';
+
+	const TEMPLATES_DATA_TRANSIENT_KEY_PREFIX = 'elementor_remote_templates_data_';
+
+	public function __construct() {
+		parent::__construct();
+
+		$this->add_actions();
+	}
+
+	public function add_actions() {
+		add_action( 'elementor/experiments/feature-state-change/container', [ $this, 'clear_cache' ], 10, 0 );
+	}
 
 	/**
 	 * Get remote template ID.
@@ -43,7 +58,7 @@ class Source_Remote extends Source_Base {
 	 * @return string The remote template title.
 	 */
 	public function get_title() {
-		return __( 'Remote', 'elementor' );
+		return esc_html__( 'Remote', 'elementor' );
 	}
 
 	/**
@@ -65,24 +80,19 @@ class Source_Remote extends Source_Base {
 	 * @since 1.0.0
 	 * @access public
 	 *
-	 * @param array $args Optional. Filter templates list based on a set of
-	 *                    arguments. Default is an empty array.
+	 * @param array $args Optional. Not used in remote source.
 	 *
 	 * @return array Remote templates.
 	 */
 	public function get_items( $args = [] ) {
-		$library_data = Api::get_library_data();
+		$force_update = ! empty( $args['force_update'] ) && is_bool( $args['force_update'] );
+
+		$templates_data = $this->get_templates_data( $force_update );
 
 		$templates = [];
 
-		if ( ! empty( $library_data['templates'] ) ) {
-			foreach ( $library_data['templates'] as $template_data ) {
-				$templates[] = $this->prepare_template( $template_data );
-			}
-		}
-
-		if ( ! empty( $args ) ) {
-			$templates = wp_list_filter( $templates, $args );
+		foreach ( $templates_data as $template_data ) {
+			$templates[] = $this->prepare_template( $template_data );
 		}
 
 		return $templates;
@@ -185,7 +195,7 @@ class Source_Remote extends Source_Base {
 	 * @param array  $args    Custom template arguments.
 	 * @param string $context Optional. The context. Default is `display`.
 	 *
-	 * @return array Remote Template data.
+	 * @return array|\WP_Error Remote Template data.
 	 */
 	public function get_data( array $args, $context = 'display' ) {
 		$data = Api::get_template_content( $args['template_id'] );
@@ -194,20 +204,117 @@ class Source_Remote extends Source_Base {
 			return $data;
 		}
 
+		// Set the Request's state as an Elementor upload request, in order to support unfiltered file uploads.
+		Plugin::$instance->uploads_manager->set_elementor_upload_state( true );
+
+		// BC.
+		$data = (array) $data;
+
 		$data['content'] = $this->replace_elements_ids( $data['content'] );
 		$data['content'] = $this->process_export_import_content( $data['content'], 'on_import' );
 
-		$post_id = $_POST['editor_post_id'];
+		$post_id = $args['editor_post_id'];
 		$document = Plugin::$instance->documents->get( $post_id );
 		if ( $document ) {
 			$data['content'] = $document->get_elements_raw_data( $data['content'], true );
 		}
 
+		// After the upload complete, set the elementor upload state back to false
+		Plugin::$instance->uploads_manager->set_elementor_upload_state( false );
+
 		return $data;
 	}
 
+	/**
+	 * Get templates data from a transient or from a remote request.
+	 * In any of the following 2 conditions, the remote request will be triggered:
+	 * 1. Force update - "$force_update = true" parameter was passed.
+	 * 2. The data saved in the transient is empty or not exist.
+	 *
+	 * @param bool $force_update
+	 * @return array
+	 */
+	private function get_templates_data( bool $force_update ) : array {
+		$templates_data_cache_key = static::TEMPLATES_DATA_TRANSIENT_KEY_PREFIX . ELEMENTOR_VERSION;
+
+		$experiments_manager = Plugin::$instance->experiments;
+		$editor_layout_type = $experiments_manager->is_feature_active( 'container' ) ? 'container_flexbox' : '';
+
+		if ( $force_update ) {
+			return $this->get_templates( $editor_layout_type );
+		}
+
+		$templates_data = get_transient( $templates_data_cache_key );
+
+		if ( empty( $templates_data ) ) {
+			return $this->get_templates( $editor_layout_type );
+		}
+
+		return $templates_data;
+	}
+
+	/**
+	 * Get the templates from a remote server and set a transient.
+	 *
+	 * @param string $editor_layout_type
+	 * @return array
+	 */
+	private function get_templates( string $editor_layout_type ): array {
+		$templates_data_cache_key = static::TEMPLATES_DATA_TRANSIENT_KEY_PREFIX . ELEMENTOR_VERSION;
+
+		$templates_data = $this->get_templates_remotely( $editor_layout_type );
+
+		if ( empty( $templates_data ) ) {
+			return [];
+		}
+
+		set_transient( $templates_data_cache_key, $templates_data, 12 * HOUR_IN_SECONDS );
+
+		return $templates_data;
+	}
+
+	/**
+	 * Fetch templates from the remote server.
+	 *
+	 * @param string $editor_layout_type
+	 * @return array|false
+	 */
+	private function get_templates_remotely( string $editor_layout_type ) {
+		$response = wp_remote_get( static::API_TEMPLATES_URL, [
+			'body' => [
+				'plugin_version' => ELEMENTOR_VERSION,
+				'editor_layout_type' => $editor_layout_type,
+			],
+		] );
+
+		if ( is_wp_error( $response ) || 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
+			return false;
+		}
+
+		$templates_data = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( empty( $templates_data ) || ! is_array( $templates_data ) ) {
+			return [];
+		}
+
+		return $templates_data;
+	}
+
+	/**
+	 * @since 2.2.0
+	 * @access private
+	 */
 	private function prepare_template( array $template_data ) {
 		$favorite_templates = $this->get_user_meta( 'favorites' );
+
+		// BC: Support legacy APIs that don't have access tiers.
+		if ( isset( $template_data['access_tier'] ) ) {
+			$access_tier = $template_data['access_tier'];
+		} else {
+			$access_tier = 0 === $template_data['access_level']
+				? ConnectModule::ACCESS_TIER_FREE
+				: ConnectModule::ACCESS_TIER_ESSENTIAL;
+		}
 
 		return [
 			'template_id' => $template_data['id'],
@@ -220,11 +327,17 @@ class Source_Remote extends Source_Base {
 			'author' => $template_data['author'],
 			'tags' => json_decode( $template_data['tags'] ),
 			'isPro' => ( '1' === $template_data['is_pro'] ),
+			'accessLevel' => $template_data['access_level'],
+			'accessTier' => $access_tier,
 			'popularityIndex' => (int) $template_data['popularity_index'],
 			'trendIndex' => (int) $template_data['trend_index'],
 			'hasPageSettings' => ( '1' === $template_data['has_page_settings'] ),
 			'url' => $template_data['url'],
 			'favorite' => ! empty( $favorite_templates[ $template_data['id'] ] ),
 		];
+	}
+
+	public function clear_cache() {
+		delete_transient( static::TEMPLATES_DATA_TRANSIENT_KEY_PREFIX . ELEMENTOR_VERSION );
 	}
 }

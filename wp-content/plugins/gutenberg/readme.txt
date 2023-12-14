@@ -1,70 +1,72 @@
 === Gutenberg ===
 Contributors: matveb, joen, karmatosed
-Requires at least: 4.9.8
-Tested up to: 4.9
-Stable tag: 4.5.0
+Tested up to: 6.4
+Stable tag: 17.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A new editing experience for WordPress is in the works, with the goal of making it easier than ever to make your words, pictures, and layout look just right. This is the beta plugin for the project.
+The Gutenberg plugin provides editing, customization, and site building features to WordPress. This beta plugin allows you to test bleeding-edge features before they land in future WordPress releases.
 
 == Description ==
 
-Gutenberg is more than an editor. While the editor is the focus right now, the project will ultimately impact the entire publishing experience including customization (the next focus area).
+“Gutenberg” is a codename for a whole new paradigm for creating with WordPress, that aims to revolutionize the entire publishing experience as much as <a href="https://en.wikipedia.org/wiki/Johannes_Gutenberg">Johannes Gutenberg</a> did the printed word. The project is <a href="https://wordpress.org/about/roadmap/">following a four-phase process</a> that will touch major pieces of WordPress — Editing, Customization, Collaboration, and Multilingual.
 
-<a href="https://wordpress.org/gutenberg">Discover more about the project</a>.
+Following the introduction of post block editing in December 2018, Gutenberg later introduced full site editing (FSE) in 2021, <a href="https://wordpress.org/news/2022/01/josephine/">which shipped with WordPress 5.9 in early 2022</a>.
 
-= Editing focus =
+### What Does Gutenberg Do?
 
-> The editor will create a new page- and post-building experience that makes writing rich posts effortless, and has “blocks” to make it easy what today might take shortcodes, custom HTML, or “mystery meat” embed discovery. — Matt Mullenweg
+Gutenberg is WordPress's “block editor”, and introduces a modular approach to modifying your entire site. Edit individual content blocks on posts or pages. Add and adjust widgets. Even design your site headers, footers, and navigation with full site editing support.
 
-One thing that sets WordPress apart from other systems is that it allows you to create as rich a post layout as you can imagine -- but only if you know HTML and CSS and build your own custom theme. By thinking of the editor as a tool to let you write rich posts and create beautiful layouts, we can transform WordPress into something users _love_ WordPress, as opposed something they pick it because it's what everyone else uses.
+Each piece of content in the editor, from a paragraph to an image gallery to a headline, is its own block. And just like physical blocks, WordPress blocks can be added, arranged, and rearranged, allowing users to create media-rich content and site layouts in a visually intuitive way — and without workarounds like shortcodes or custom HTML and PHP.
 
-Gutenberg looks at the editor as more than a content field, revisiting a layout that has been largely unchanged for almost a decade.This allows us to holistically design a modern editing experience and build a foundation for things to come.
+We’re always hard at work refining the experience, creating more and better blocks, and laying the groundwork for future phases of work. Each WordPress release includes stable features from the Gutenberg plugin, so you don’t need to install the plugin to benefit from the work being done here.
 
-Here's why we're looking at the whole editing screen, as opposed to just the content field:
+### Early Access
 
-1. The block unifies multiple interfaces. If we add that on top of the existing interface, it would _add_ complexity, as opposed to remove it.
-2. By revisiting the interface, we can modernize the writing, editing, and publishing experience, with usability and simplicity in mind, benefitting both new and casual users.
-3. When singular block interface takes center stage, it demonstrates a clear path forward for developers to create premium blocks, superior to both shortcodes and widgets.
-4. Considering the whole interface lays a solid foundation for the next focus, full site customization.
-5. Looking at the full editor screen also gives us the opportunity to drastically modernize the foundation, and take steps towards a more fluid and JavaScript powered future that fully leverages the WordPress REST API.
+Are you a tech-savvy early adopter who likes testing bleeding-edge and experimental features, and isn’t afraid to tinker with features that are still in active development? If so, this beta plugin gives you access to the latest Gutenberg features for block and full site editing, as well as a peek into what’s to come.
 
-= Blocks =
+### Contributors Wanted
 
-Blocks are the unifying evolution of what is now covered, in different ways, by shortcodes, embeds, widgets, post formats, custom post types, theme options, meta-boxes, and other formatting elements. They embrace the breadth of functionality WordPress is capable of, with the clarity of a consistent user experience.
+For the adventurous and tech-savvy, the Gutenberg plugin gives you the latest and greatest feature set, so you can join us in testing and developing bleeding-edge features, playing around with blocks, and maybe <a href="https://developer.wordpress.org/block-editor/contributors/">get inspired to contribute</a> or <a href="https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/">build your own blocks</a>.
 
-Imagine a custom “employee” block that a client can drag to an About page to automatically display a picture, name, and bio. A whole universe of plugins that all extend WordPress in the same way. Simplified menus and widgets. Users who can instantly understand and use WordPress  -- and 90% of plugins. This will allow you to easily compose beautiful posts like <a href="http://moc.co/sandbox/example-post/">this example</a>.
+### Discover More
 
-Check out the <a href="https://wordpress.org/gutenberg/handbook/reference/faq/">FAQ</a> for answers to the most common questions about the project.
+- **User Documentation:** Review the <a href="https://wordpress.org/documentation/article/wordpress-block-editor/">WordPress Editor documentation</a> for detailed instructions on using the editor as an author to create posts, pages, and more.
 
-= Compatibility =
+- **Developer Documentation:** Explore the <a href="https://developer.wordpress.org/block-editor/">Developer Documentation</a> for extensive tutorials, documentation, and API references on how to extend the editor.
 
-Posts are backwards compatible, and shortcodes will still work. We are continuously exploring how highly-tailored metaboxes can be accommodated, and are looking at solutions ranging from a plugin to disable Gutenberg to automatically detecting whether to load Gutenberg or not. While we want to make sure the new editing experience from writing to publishing is user-friendly, we’re committed to finding  a good solution for highly-tailored existing sites.
+- **Contributors:** Gutenberg is an open-source project and welcomes all contributors from code to design, from documentation to triage. See the <a href="https://developer.wordpress.org/block-editor/contributors/">Contributor's Handbook</a> for all the details on how you can help.
 
-= The stages of Gutenberg =
-
-Gutenberg has three planned stages. The first, aimed for inclusion in WordPress 5.0, focuses on the post editing experience and the implementation of blocks. This initial phase focuses on a content-first approach. The use of blocks, as detailed above, allows you to focus on how your content will look without the distraction of other configuration options. This ultimately will help all users present their content in a way that is engaging, direct, and visual.
-
-These foundational elements will pave the way for stages two and three, planned for the next year, to go beyond the post into page templates and ultimately, full site customization.
-
-Gutenberg is a big change, and there will be ways to ensure that existing functionality (like shortcodes and meta-boxes) continue to work while allowing developers the time and paths to transition effectively. Ultimately, it will open new opportunities for plugin and theme developers to better serve users through a more engaging and visual experience that takes advantage of a toolset supported by core.
-
-= Contributors =
-
-Gutenberg is built by many contributors and volunteers. Please see the full list in <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTORS.md">CONTRIBUTORS.md</a>.
+The development hub for the Gutenberg project can be found at <a href="https://github.com/wordpress/gutenberg">https://github.com/wordpress/gutenberg</a>. Discussions for the project are on the <a href="https://make.wordpress.org/core/">Make Core Blog</a> and in the #core-editor channel in Slack, <a href="https://make.wordpress.org/core/tag/core-editor-agenda/">including weekly meetings</a>. If you don’t have a Slack account, you can <a href="https://make.wordpress.org/chat/">sign up here</a>.
 
 == Frequently Asked Questions ==
 
 = How can I send feedback or get help with a bug? =
 
-We'd love to hear your bug reports, feature suggestions and any other feedback! Please head over to <a href="https://github.com/WordPress/gutenberg/issues">the GitHub issues page</a> to search for existing issues or open a new one. While we'll try to triage issues reported here on the plugin forum, you'll get a faster response (and reduce duplication of effort) by keeping everything centralized in the GitHub repository.
+The best place to report bugs, feature suggestions, or any other feedback is at <a href="https://github.com/WordPress/gutenberg/issues">the Gutenberg GitHub issues page</a>. Before submitting a new issue, please search the existing issues to check if someone else has reported the same feedback.
 
-= How can I contribute? =
+While we try to triage issues reported here on the plugin forum, you’ll get a faster response (and reduce duplication of effort) by keeping feedback centralized in GitHub.
 
-We’re calling this editor project "Gutenberg" because it's a big undertaking. We are working on it every day in GitHub, and we'd love your help building it.You’re also welcome to give feedback, the easiest is to join us in <a href="https://make.wordpress.org/chat/">our Slack channel</a>, `#core-editor`.
+= Where can I report security bugs? =
 
-See also <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>.
+The Gutenberg team and WordPress community take security bugs seriously. We appreciate your efforts to responsibly disclose your findings, and will make every effort to acknowledge your contributions.
+
+To report a security issue, please visit the [WordPress HackerOne](https://hackerone.com/wordpress) program.
+
+= Do I have to use the Gutenberg plugin to get access to these features? =
+
+Not necessarily. Each version of WordPress after 5.0 has included features from the Gutenberg plugin, which are known collectively as the <a href="https://wordpress.org/documentation/article/wordpress-block-editor/">WordPress Editor</a>. You are likely already benefitting from stable features!
+
+But if you want cutting edge beta features, including more experimental items, you will need to use the plugin. You can <a href="https://wordpress.org/news/2021/04/become-an-early-adopter-with-the-gutenberg-plugin/">read more here</a> to help decide whether the plugin is right for you.
+
+= Where can I see which Gutenberg plugin versions are included in each WordPress release? =
+
+View the <a href="https://developer.wordpress.org/block-editor/principles/versions-in-wordpress/">Versions in WordPress</a> document to get a table showing which Gutenberg plugin version is included in each WordPress release.
+
+= What’s next for the project? =
+
+The four phases of the project are Editing, Customization, Collaboration, and Multilingual. You can hear more about the project and phases from Matt in his State of the Word talks for <a href="https://ma.tt/2021/12/state-of-the-word-in-person/">2021</a>, <a href="https://ma.tt/2020/12/sotw-2020/">2020</a>, <a href="https://ma.tt/2019/11/state-of-the-word-2019/">2019</a>, and <a href="https://ma.tt/2018/12/state-of-the-word-2018/">2018</a>. Additionally, you can follow the <a href="https://make.wordpress.org/core/tag/gutenberg-new/">biweekly release notes</a> and <a href="https://make.wordpress.org/core/tag/gutenberg-next/">monthly project plan updates</a> on the <a href="https://make.wordpress.org/core/?s=gutenberg">Make WordPress Core blog</a> for more up to date information about what’s happening now.
+
 
 = Where can I read more about Gutenberg? =
 
@@ -76,17 +78,6 @@ See also <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTIN
 - <a href="https://wordpress.org/gutenberg/handbook/">Documentation: Creating Blocks, Reference, and Guidelines</a>
 - <a href="https://wordpress.org/gutenberg/handbook/reference/faq/">Additional frequently asked questions</a>
 
-
 == Changelog ==
 
-= Latest =
-
-* Raw Handling: fix consecutive lists with one item
-* Avoid showing draft revert message on autosaves
-* Honor the Disable Visual Editor setting in the Gutenberg editor page
-* Docs: Fix dead links in CONTRIBUTING.md
-* Fix undefined index warnings in Latest Comments & Latest Posts
-* Add `react-native` module property to html-entities package.json
-* RichText: List: Sync DOM after editor command
-* Fix RichText infinte rerendering
-* Fix keycodes package missing i18n dependencies
+To read the changelog for the latest Gutenberg release, please navigate to the <a href="https://github.com/WordPress/gutenberg/releases/latest">release page</a>.

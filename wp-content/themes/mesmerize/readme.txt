@@ -2,8 +2,9 @@
 
 Contributors: horearadu
 Tags: entertainment, food-and-drink, portfolio, one-column, two-columns, right-sidebar, grid-layout, custom-header, custom-menu, custom-logo, full-width-template, theme-options, translation-ready, featured-images, threaded-comments
-Requires at least:      3.3.0
-Tested up to:           4.9
+Requires at least: 5.6
+Tested up to: 6.4
+Requires PHP: 5.6
 
 == Description ==
 

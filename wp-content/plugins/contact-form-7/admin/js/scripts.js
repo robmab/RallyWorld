@@ -7,7 +7,7 @@
 	}
 
 	$( function() {
-		var welcomePanel = $( '#welcome-panel' );
+		var welcomePanel = $( '#wpcf7-welcome-panel' );
 		var updateWelcomePanel;
 
 		updateWelcomePanel = function( visible ) {
@@ -22,6 +22,17 @@
 			event.preventDefault();
 			welcomePanel.addClass( 'hidden' );
 			updateWelcomePanel( 0 );
+			$( '#wpcf7-welcome-panel-show' ).prop( 'checked', false );
+		} );
+
+		$( '#wpcf7-welcome-panel-show' ).click( function( event ) {
+			if ( this.checked ) {
+				welcomePanel.removeClass( 'hidden' );
+				updateWelcomePanel( 1 );
+			} else {
+				welcomePanel.addClass( 'hidden' );
+				updateWelcomePanel( 0 );
+			}
 		} );
 
 		$( '#contact-form-editor' ).tabs( {
@@ -126,6 +137,15 @@
 				$( '#publishing-action .spinner' ).addClass( 'is-active' );
 			}
 		} );
+
+		$( '#wpcf7-ctct-enable-contact-list, #wpcf7-sendinblue-enable-contact-list, #wpcf7-sendinblue-enable-transactional-email' ).on( 'change', function() {
+			if ( $( this ).is( ':checked' ) ) {
+				$( this ).closest( 'tr' ).removeClass( 'inactive' );
+			} else {
+				$( this ).closest( 'tr' ).addClass( 'inactive' );
+			}
+		} );
+
 	} );
 
 	wpcf7.toggleMail2 = function( checkbox ) {
@@ -150,15 +170,17 @@
 
 			var section = $( this ).attr( 'data-config-field' );
 
+			$( this ).attr( 'aria-describedby', 'wpcf7-config-error-for-' + section );
+
 			if ( errors[ section ] ) {
 				var $list = $( '<ul></ul>' ).attr( {
-					'role': 'alert',
+					'id': 'wpcf7-config-error-for-' + section,
 					'class': 'config-error'
 				} );
 
 				$.each( errors[ section ], function( i, val ) {
 					var $li = $( '<li></li>' ).append(
-						$( '<span class="dashicons dashicons-warning" aria-hidden="true"></span>' )
+						wpcf7.iconInCircle( '!' )
 					).append(
 						$( '<span class="screen-reader-text"></span>' ).text( wpcf7.configValidator.iconAlt )
 					).append( ' ' );
@@ -191,14 +213,14 @@
 
 		$( '#contact-form-editor-tabs > li' ).each( function() {
 			var $item = $( this );
-			$item.find( 'span.dashicons' ).remove();
+			$item.find( '.icon-in-circle' ).remove();
 			var tab = $item.attr( 'id' ).replace( /-panel-tab$/, '' );
 
 			$.each( errors, function( key, val ) {
 				key = key.replace( /^mail_\d+\./, 'mail.' );
 
 				if ( key.replace( /\..*$/, '' ) == tab.replace( '-', '_' ) ) {
-					var $mark = $( '<span class="dashicons dashicons-warning" aria-hidden="true"></span>' );
+					var $mark = wpcf7.iconInCircle( '!' );
 					$item.find( 'a.ui-tabs-anchor' ).first().append( $mark );
 					return false;
 				}
@@ -208,8 +230,7 @@
 			$tabPanelError.empty();
 
 			if ( errorCount[ tab.replace( '-', '_' ) ] ) {
-				$tabPanelError
-					.append( '<span class="dashicons dashicons-warning" aria-hidden="true"></span> ' );
+				$tabPanelError.append( wpcf7.iconInCircle( '!' ) );
 
 				if ( 1 < errorCount[ tab.replace( '-', '_' ) ] ) {
 					var manyErrorsInTab = wpcf7.configValidator.manyErrorsInTab
@@ -226,7 +247,7 @@
 		if ( errorCount.total ) {
 			var $warning = $( '<div></div>' )
 				.addClass( 'misc-pub-section config-error' )
-				.append( '<span class="dashicons dashicons-warning" aria-hidden="true"></span> ' );
+				.append( wpcf7.iconInCircle( '!' ) );
 
 			if ( 1 < errorCount.total ) {
 				$warning.append(
@@ -272,6 +293,11 @@
 			$titleprompt.addClass( 'screen-reader-text' );
 			$( this ).unbind( e );
 		} );
+	};
+
+	wpcf7.iconInCircle = function( icon ) {
+		var $span = $( '<span class="icon-in-circle" aria-hidden="true"></span>' );
+		return $span.text( icon );
 	};
 
 	wpcf7.apiSettings.getRoute = function( path ) {

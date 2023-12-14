@@ -5,12 +5,10 @@
  * @class    UR_Form_Field_Number
  * @since    1.0.5
  * @package  UserRegistration/Form
- * @category Admin
- * @author   WPEverest
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly.
 }
 
 /**
@@ -18,8 +16,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class UR_Form_Field_Number extends UR_Form_Field {
 
+	/**
+	 * Instance Variable.
+	 *
+	 * @var [mixed]
+	 */
 	private static $_instance;
 
+	/**
+	 * Get Instance of class.
+	 */
 	public static function get_instance() {
 		// If the single instance hasn't been set, set it now.
 		if ( is_null( self::$_instance ) ) {
@@ -29,42 +35,92 @@ class UR_Form_Field_Number extends UR_Form_Field {
 		return self::$_instance;
 	}
 
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 
-		$this->id = 'user_registration_number';
-		$this->form_id = 1;
+		$this->id                       = 'user_registration_number';
+		$this->form_id                  = 1;
 		$this->registered_fields_config = array(
 			'label' => __( 'Number', 'user-registration' ),
-			'icon' => 'dashicons dashicons-image-filter',
+			'icon'  => 'ur-icon ur-icon-number',
 		);
 
 		$this->field_defaults = array(
-			'default_label' => __( 'Number', 'user-registration' ),
+			'default_label'      => __( 'Number', 'user-registration' ),
 			'default_field_name' => 'number_box_' . ur_get_random_number(),
 		);
 	}
 
+	/**
+	 * Get Registered admin fields.
+	 */
 	public function get_registered_admin_fields() {
 
-		return '<li id="' . $this->id . '_list " class="ur-registered-item draggable" data-field-id="' . $this->id . '"><span class="' . $this->registered_fields_config['icon'] . '"></span>' . $this->registered_fields_config['label'] . '</li>';
+		return '<li id="' . esc_attr( $this->id ) . '_list " class="ur-registered-item draggable" data-field-id="' . esc_attr( $this->id ) . '"><span class="' . esc_attr( $this->registered_fields_config['icon'] ) . '"></span>' . esc_html( $this->registered_fields_config['label'] ) . '</li>';
 	}
 
+	/**
+	 * Validate field.
+	 *
+	 * @param [object] $single_form_field Field Data.
+	 * @param [object] $form_data Form Data.
+	 * @param [string] $filter_hook Hook.
+	 * @param [int]    $form_id Form id.
+	 */
 	public function validation( $single_form_field, $form_data, $filter_hook, $form_id ) {
-		$is_condition_enabled = isset( $single_form_field->advance_setting->enable_conditional_logic ) ? $single_form_field->advance_setting->enable_conditional_logic : '0';
-		$required = isset( $single_form_field->general_setting->required ) ? $single_form_field->general_setting->required : 'no';
-		$field_label = isset( $form_data->label ) ? $form_data->label : '';
+		$label = $single_form_field->general_setting->field_name;
 		$value = isset( $form_data->value ) ? $form_data->value : '';
 
-		if ( $is_condition_enabled !== '1' &&  'yes' == $required && empty( $value ) ) {
-			add_filter( $filter_hook, function ( $msg ) use ( $field_label ) {
-				return __( $field_label . ' is required.', 'user-registration' );
-			});
+		if ( isset( $single_form_field->advance_setting->max ) && '' !== $single_form_field->advance_setting->max ) {
+			$max_value = $single_form_field->advance_setting->max;
+			if ( floatval( $value ) > floatval( $max_value ) ) {
+				$message = array(
+					/* translators: %s - validation message */
+					$label       => sprintf( __( 'Please enter a value less than %d', 'user-registration' ), $max_value ),
+					'individual' => true,
+				);
+				add_filter(
+					$filter_hook,
+					function ( $msg ) use ( $label, $message ) {
+						if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX || ! ur_option_checked( 'user_registration_ajax_form_submission_on_edit_profile', false ) ) {
+							return sprintf( $message[ $label ] );
+						} else {
+							wp_send_json_error(
+								array(
+									'message' => $message,
+								)
+							);
+						}
+					}
+				);
+			}
 		}
 
-		if ( ! is_numeric( $value ) ) {
-			add_filter( $filter_hook, function ( $msg ) use ( $field_label ) {
-				return __( $field_label . ' must be numeric value.', 'user-registration' );
-			});
+		if ( isset( $single_form_field->advance_setting->min ) && '' !== $single_form_field->advance_setting->min ) {
+			$min_value = $single_form_field->advance_setting->min;
+			if ( floatval( $value ) < floatval( $min_value ) ) {
+				$message = array(
+					/* translators: %s - validation message */
+					$label       => sprintf( __( 'Please enter a value greater than %d', 'user-registration' ), $min_value ),
+					'individual' => true,
+				);
+				add_filter(
+					$filter_hook,
+					function ( $msg ) use ( $label, $message ) {
+						if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX || ! ur_option_checked( 'user_registration_ajax_form_submission_on_edit_profile', false ) ) {
+							return sprintf( $message[ $label ] );
+						} else {
+							wp_send_json_error(
+								array(
+									'message' => $message,
+								)
+							);
+						}
+					}
+				);
+			}
 		}
 	}
 }

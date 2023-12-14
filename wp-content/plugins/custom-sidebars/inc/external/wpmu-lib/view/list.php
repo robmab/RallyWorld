@@ -34,9 +34,9 @@ $current = 'current';
 	foreach ( $filters as $key => $label ) {
 		printf(
 			'<li><a href="#" class="filter %3$s" data-filter="%1$s">%2$s</a></li>',
-			$key,
-			$label,
-			$current
+			esc_html( $key ),
+			esc_html( $label ),
+			esc_html( $current )
 		);
 		$current = '';
 	}
@@ -64,7 +64,7 @@ $current = 'current';
 						<?php echo esc_html( $lang->active_badge ); ?>
 					</span>
 				</span>
-				<div class="item-icon"><?php echo $item->icon; ?></div>
+				<div class="item-icon"><?php CustomSidebars::wp_kses_wf( $item->icon ); ?></div>
 				<div class="name">
 					<h4 class="<?php if ( $item->details ) : ?>toggle-details<?php endif; ?> is-no-detail">
 						<?php echo esc_html( $item->title ); ?>
@@ -74,7 +74,7 @@ $current = 'current';
 					</h4>
 				</div>
 				<div class="desc">
-					<?php echo $item->description; ?>
+					<?php CustomSidebars::wp_kses_wf ( $item->description ); ?>
 				</div>
 				<div class="action-links">
 					<span class="toggle-details toggle-link is-detail close-button">
@@ -103,7 +103,7 @@ $current = 'current';
 			</div>
 			<div class="list-card-bottom">
 				<span class="list-card-footer is-no-detail">
-					<?php echo $item->footer; ?>
+					<?php CustomSidebars::wp_kses_wf( $item->footer ); ?>
 				</span>
 				<?php if ( $item->details ) : ?>
 				<span class="toggle-details toggle-link is-no-detail">

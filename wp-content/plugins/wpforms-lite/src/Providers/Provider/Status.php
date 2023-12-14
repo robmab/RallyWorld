@@ -2,15 +2,13 @@
 
 namespace WPForms\Providers\Provider;
 
+use stdClass;
+
 /**
  * Class Status gives ability to check/work with provider statuses.
  * Might be used later to track Provider errors on data-delivery.
  *
- * @package    WPForms\Providers
- * @author     WPForms
- * @since      1.4.8
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2018, WPForms LLC
+ * @since 1.4.8
  */
 class Status {
 
@@ -24,20 +22,23 @@ class Status {
 	private $provider;
 
 	/**
-	 * Form data.
+	 * Form data and settings.
 	 *
 	 * @since 1.4.8
 	 *
 	 * @var array
 	 */
-	protected $form_data = array();
+	protected $form_data = [];
 
 	/**
 	 * Status constructor.
 	 *
+	 * @since 1.4.8
+	 *
 	 * @param string $provider Provider slug.
 	 */
 	public function __construct( $provider ) {
+
 		$this->provider = sanitize_key( (string) $provider );
 	}
 
@@ -48,15 +49,17 @@ class Status {
 	 * @example: Status::init( 'drip' )->is_ready();
 	 *
 	 * @since 1.4.8
+	 * @since 1.5.9 Added a check on provider.
 	 *
 	 * @param string $provider Provider slug.
 	 *
-	 * @return \WPForms\Providers\Provider\Status
+	 * @return Status
 	 */
 	public static function init( $provider ) {
+
 		static $instance;
 
-		if ( ! $instance ) {
+		if ( ! $instance || $provider !== $instance->provider ) {
 			$instance = new self( $provider );
 		}
 
@@ -78,7 +81,7 @@ class Status {
 		// We meed to leave this filter for BC.
 		$is_configured = \apply_filters(
 			'wpforms_providers_' . $this->provider . '_configured',
-			! empty( $options[ $this->provider ] ) ? true : false
+			! empty( $options[ $this->provider ] )
 		);
 
 		// Use this filter to change the configuration status of the provider.
@@ -99,16 +102,19 @@ class Status {
 
 		$is_connected = false;
 
-		$this->form_data = \wpforms()->form->get(
-			(int) $form_id,
-			array(
-				'content_only' => true,
-			)
-		);
+		$revisions = wpforms()->get( 'revisions' );
+		$revision  = $revisions ? $revisions->get_revision() : null;
+
+		if ( $revision ) {
+			$form_id = $revision->ID;
+		}
+
+		$this->form_data = wpforms()->get( 'form' )->get( (int) $form_id );
+		$content         = isset( $this->form_data->post_content ) ? json_decode( $this->form_data->post_content ) : new stdClass();
 
 		if (
-			! empty( $this->form_data['providers'][ $this->provider ] ) ||
-			! empty( $this->form_data['payments'][ $this->provider ] )
+			! empty( $content->providers->{$this->provider} ) ||
+			! empty( $content->payments->{$this->provider} )
 		) {
 			$is_connected = true;
 		}
@@ -127,6 +133,7 @@ class Status {
 	 * @return bool
 	 */
 	public function is_ready( $form_id ) {
+
 		return $this->is_configured() && $this->is_connected( $form_id );
 	}
 

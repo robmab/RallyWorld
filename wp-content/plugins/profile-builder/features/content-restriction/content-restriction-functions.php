@@ -1,10 +1,11 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /* Verifies whether the current post or the post with the provided id has any restrictions in place */
 function wppb_content_restriction_is_post_restricted( $post_id = null ) {
 
     //fixes some php warnings with Onfleek theme
-    if( is_array( $post_id ) && empty( $post_id ) )
+    if( is_array( $post_id ) || empty( $post_id ) )
         $post_id = null;
 
     global $post, $wppb_show_content, $wppb_is_post_restricted_arr;
@@ -44,6 +45,8 @@ function wppb_get_restriction_content_message( $message_type = '', $post_id = 0 
         $wppb_content_restriction_message = ( ( $wppb_content_restriction_settings != 'not_found' && ! empty( $wppb_content_restriction_settings['message_logged_out'] ) ) ? $wppb_content_restriction_settings['message_logged_out'] : __( 'You must be logged in to view this content.', 'profile-builder' ) );
     } elseif ( $message_type == 'logged_in' ) {
         $wppb_content_restriction_message = ( ( $wppb_content_restriction_settings != 'not_found' && ! empty( $wppb_content_restriction_settings['message_logged_in'] ) ) ? $wppb_content_restriction_settings['message_logged_in'] : __( 'This content is restricted for your user role.', 'profile-builder' ) );
+    } elseif ( $message_type == 'purchasing_restricted' ) {
+        $wppb_content_restriction_message = ( ( $wppb_content_restriction_settings != 'not_found' && ! empty( $wppb_content_restriction_settings['purchasing_restricted'] ) ) ? $wppb_content_restriction_settings['purchasing_restricted'] : __( 'This product cannot be purchased by your user role.', 'profile-builder' ) );
     } else {
         $wppb_content_restriction_message = apply_filters( 'wppb_get_restriction_content_message_default', $wppb_content_restriction_message, $message_type, $wppb_content_restriction_settings );
     }
@@ -69,7 +72,7 @@ function wppb_content_restriction_process_content_message( $type, $user_ID, $pos
     $user_info  = get_userdata( $user_ID );
     $message    = wppb_content_restriction_merge_tags( $message, $user_info, $post_id );
 
-    return '<span class="wppb-frontend-restriction-message">'. $message .'</span>';
+    return '<span class="wppb-frontend-restriction-message wppb-content-restriction-message">'. $message .'</span>';
 
 }
 
@@ -106,7 +109,9 @@ function wppb_content_restriction_get_post_message( $post_id = 0 ) {
 
 /* Checks to see if the current post is restricted and if any redirect URLs are in place the user is redirected to the URL with the highest priority */
 function wppb_content_restriction_post_redirect() {
+    // try not to overwrite $post. Can have side-effects with other plugins.
     global $post;
+    $woo_shop_or_post = $post;
 
     if( function_exists( 'wc_get_page_id' ) ) {//redirect restriction for woocommerce shop page
         if ( !is_singular() && !( is_post_type_archive('product') || is_page(wc_get_page_id('shop')) ) ){
@@ -114,7 +119,7 @@ function wppb_content_restriction_post_redirect() {
         }
 
         if( is_post_type_archive('product') || is_page(wc_get_page_id('shop')) ){
-            $post = get_post( wc_get_page_id('shop') );
+            $woo_shop_or_post = get_post( wc_get_page_id('shop') );
         }
     }
     else {
@@ -123,10 +128,14 @@ function wppb_content_restriction_post_redirect() {
         }
     }
 
+    if ( !($woo_shop_or_post instanceof WP_Post) ){
+        return;
+    }
 
+    $woo_shop_or_post->ID = apply_filters( 'wppb_restricted_post_redirect_post_id', $woo_shop_or_post->ID );
 
     $redirect_url             = '';
-    $post_restriction_type    = get_post_meta( $post->ID, 'wppb-content-restrict-type', true );
+    $post_restriction_type    = get_post_meta( $woo_shop_or_post->ID, 'wppb-content-restrict-type', true );
     $settings                 = get_option( 'wppb_content_restriction_settings', array() );
     $general_restriction_type = ( ! empty( $settings['restrict_type'] ) ? $settings['restrict_type'] : 'message' );
 
@@ -138,14 +147,14 @@ function wppb_content_restriction_post_redirect() {
         return;
     }
 
-    if( ! wppb_content_restriction_is_post_restricted( $post->ID ) ) {
+    if( ! wppb_content_restriction_is_post_restricted( $woo_shop_or_post->ID ) ) {
         return;
     }
 
     // Get the redirect URL from the post meta if enabled
     if( $post_restriction_type === 'redirect' ) {
-        $post_redirect_url_enabled = get_post_meta( $post->ID, 'wppb-content-restrict-custom-redirect-url-enabled', true );
-        $post_redirect_url         = get_post_meta( $post->ID, 'wppb-content-restrict-custom-redirect-url', true );
+        $post_redirect_url_enabled = get_post_meta( $woo_shop_or_post->ID, 'wppb-content-restrict-custom-redirect-url-enabled', true );
+        $post_redirect_url         = get_post_meta( $woo_shop_or_post->ID, 'wppb-content-restrict-custom-redirect-url', true );
 
         $redirect_url = ( ! empty( $post_redirect_url_enabled ) && ! empty( $post_redirect_url ) ? $post_redirect_url : '' );
     }
@@ -167,10 +176,14 @@ function wppb_content_restriction_post_redirect() {
         return;
     }
 
-    // Redirect
-    wp_redirect( wppb_add_missing_http( $redirect_url ) );
-    exit;
+    // Pass the correct referer URL forward
+    $redirect_url = add_query_arg( array( 'wppb_referer_url' => urlencode( wppb_curpageurl() ) ), wppb_add_missing_http( $redirect_url ) );
 
+    // Redirect
+    nocache_headers();
+    wp_redirect( apply_filters( 'wppb_restricted_post_redirect_url', $redirect_url ) );
+    exit;
+    
 }
 add_action( 'template_redirect', 'wppb_content_restriction_post_redirect' );
 
@@ -244,7 +257,8 @@ function wppb_content_restriction_shortcode( $atts, $content = null ) {
         array(
             'user_roles'    => array(),
             'display_to'    => '',
-            'message'       => ''
+            'message'       => '',
+	        'users_id'       => array()
         ),
         $atts
     );
@@ -254,7 +268,7 @@ function wppb_content_restriction_shortcode( $atts, $content = null ) {
         $message = '<span class="wppb-shortcode-restriction-message">' . $args['message'] . '</span>';
     } else {
         $type = ( is_user_logged_in() ? 'logged_in' : 'logged_out' );
-        $message = wpautop( wppb_get_restriction_content_message( $type ) );
+        $message = '<span class="wppb-content-restriction-message">' . wpautop( wppb_get_restriction_content_message( $type ) ) . '</span>';
     }
 
     /*
@@ -277,22 +291,37 @@ function wppb_content_restriction_shortcode( $atts, $content = null ) {
             return $message;
         }
 
-        if( ! empty( $args['user_roles'] ) ) {
-            $user_roles = array_map( 'trim', explode( ',', $args['user_roles'] ) );
-            $user_data = get_userdata( get_current_user_id() );
+		if( ! empty($args['users_id'] ) ){
+			$users_id=array_map('trim', explode(',', $args['users_id']));
+			$current_user_id = get_current_user_id(); // the current id user
+			if( ! empty($current_user_id)){
+				if(in_array($current_user_id, $users_id))
+				{
+					return do_shortcode( $content );
+				}
+				else{
+					return $message;
+				}
+			}
+		}
+		elseif( ! empty( $args['user_roles'] ) ) {
+				$user_roles = array_map( 'trim', explode( ',', $args['user_roles'] ) );
+				$user_data = get_userdata( get_current_user_id() );
 
-            if( ! empty( $user_data->roles ) ) {
-                $common_user_roles = array_intersect( $user_roles, $user_data->roles );
+				if( ! empty( $user_data->roles ) ) {
+					$common_user_roles = array_intersect( $user_roles, $user_data->roles );
 
-                if( ! empty( $common_user_roles ) ) {
-                    return do_shortcode( $content );
-                } else {
-                    return $message;
-                }
-            }
-        } else {
-            return do_shortcode( $content );
-        }
+					if( ! empty( $common_user_roles ) ) {
+						return do_shortcode( $content );
+					} else {
+						return $message;
+					}
+				}
+			} else {
+
+				return do_shortcode( $content );
+			}
+
     } else {
         if( $args['display_to'] == 'not_logged_in' ) {
             return do_shortcode( $content );

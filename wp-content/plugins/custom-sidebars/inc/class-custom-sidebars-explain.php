@@ -152,7 +152,7 @@ class CustomSidebarsExplain extends CustomSidebars {
 			<h3>Sidebar Infos</h3>
 			<ul>
 				<?php foreach ( $this->infos as $info ) : ?>
-					<li><?php echo $info; ?></li>
+					<li><?php CustomSidebars::wp_kses_wf($info); ?></li>
 				<?php endforeach; ?>
 			</ul>
 		</div>

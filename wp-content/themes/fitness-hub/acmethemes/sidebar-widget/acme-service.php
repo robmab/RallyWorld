@@ -169,7 +169,7 @@ if ( ! class_exists( 'Fitness_Hub_Service' ) ) {
 					$fitness_hub_service_content_from = fitness_hub_content_from();
 					foreach ( $fitness_hub_service_content_from as $key => $value ) {
 						?>
-                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $content_from ); ?>><?php echo esc_attr( $value ); ?></option>
+                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $content_from ); ?>><?php echo esc_html( $value ); ?></option>
 						<?php
 					}
 					?>
@@ -190,7 +190,7 @@ if ( ! class_exists( 'Fitness_Hub_Service' ) ) {
 					$fitness_hub_service_column_numbers = fitness_hub_widget_column_number();
 					foreach ( $fitness_hub_service_column_numbers as $key => $value ) {
 						?>
-                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $column_number ); ?>><?php echo esc_attr( $value ); ?></option>
+                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $column_number ); ?>><?php echo esc_html( $value ); ?></option>
 						<?php
 					}
 					?>
@@ -203,7 +203,7 @@ if ( ! class_exists( 'Fitness_Hub_Service' ) ) {
 					$fitness_hub_background_options = fitness_hub_background_options();
 					foreach ( $fitness_hub_background_options as $key => $value ) {
 						?>
-                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $background_options ); ?>><?php echo esc_attr( $value ); ?></option>
+                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $background_options ); ?>><?php echo esc_html( $value ); ?></option>
 						<?php
 					}
 					?>
@@ -218,7 +218,7 @@ if ( ! class_exists( 'Fitness_Hub_Service' ) ) {
 					$fitness_hub_widget_design_types = fitness_hub_widget_design_type();
 					foreach ( $fitness_hub_widget_design_types as $key => $value ){
 						?>
-                        <option value="<?php echo esc_attr( $key )?>" <?php selected( $key, $design_type ); ?>><?php echo esc_attr( $value );?></option>
+                        <option value="<?php echo esc_attr( $key )?>" <?php selected( $key, $design_type ); ?>><?php echo esc_html( $value );?></option>
 						<?php
 					}
 					?>

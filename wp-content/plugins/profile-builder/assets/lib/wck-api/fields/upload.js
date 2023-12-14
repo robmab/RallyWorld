@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
 	
-	if( typeof wp != "undefined" ){
+	if( typeof wp != "undefined" && typeof wp.media != "undefined" ){
 	
 		// Uploading files					
 		var wp_media_post_id = wp.media.model.settings.post.id; // Store the old id

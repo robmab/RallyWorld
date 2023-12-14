@@ -40,6 +40,15 @@ class Manager {
 	}
 
 	/**
+	 * @deprecated 3.1.0
+	 */
+	public function localize_settings() {
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0' );
+
+		return [];
+	}
+
+	/**
 	 * Parse dynamic tags text.
 	 *
 	 * Receives the dynamic tag text, and returns a single value or multiple values
@@ -97,7 +106,7 @@ class Manager {
 			return '';
 		}
 
-		return call_user_func_array( $parse_callback, $tag_data );
+		return call_user_func_array( $parse_callback, array_values( $tag_data ) );
 	}
 
 	/**
@@ -225,6 +234,10 @@ class Manager {
 		return $tags[ $tag_name ];
 	}
 
+	/**
+	 * @since 2.0.9
+	 * @access public
+	 */
 	public function get_tags() {
 		if ( ! did_action( 'elementor/dynamic_tags/register_tags' ) ) {
 			/**
@@ -233,10 +246,29 @@ class Manager {
 			 * Fires when Elementor registers dynamic tags.
 			 *
 			 * @since 2.0.9
+			 * @deprecated 3.5.0 Use `elementor/dynamic_tags/register` hook instead.
 			 *
 			 * @param Manager $this Dynamic tags manager.
 			 */
-			do_action( 'elementor/dynamic_tags/register_tags', $this );
+			Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->do_deprecated_action(
+				'elementor/dynamic_tags/register_tags',
+				[ $this ],
+				'3.5.0',
+				'elementor/dynamic_tags/register'
+			);
+		}
+
+		if ( ! did_action( 'elementor/dynamic_tags/register' ) ) {
+			/**
+			 * Register dynamic tags.
+			 *
+			 * Fires when Elementor registers dynamic tags.
+			 *
+			 * @since 3.5.0
+			 *
+			 * @param Manager $this Dynamic tags manager.
+			 */
+			do_action( 'elementor/dynamic_tags/register', $this );
 		}
 
 		return $this->tags_info;
@@ -245,25 +277,68 @@ class Manager {
 	/**
 	 * @since 2.0.0
 	 * @access public
+	 * @deprecated 3.5.0 Use `register()` method instead.
 	 *
 	 * @param string $class
 	 */
 	public function register_tag( $class ) {
-		/** @var Tag $tag */
-		$tag = new $class();
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function(
+			__METHOD__,
+			'3.5.0',
+			'register()'
+		);
 
-		$this->tags_info[ $tag->get_name() ] = [
-			'class' => $class,
-			'instance' => $tag,
+		/** @var Base_Tag $tag */
+		$instance = new $class();
+
+		$this->register( $instance );
+	}
+
+	/**
+	 * Register a new Dynamic Tag.
+	 *
+	 * @param Base_Tag $dynamic_tag_instance
+	 *
+	 * @return void
+	 * @since  3.5.0
+	 * @access public
+	 *
+	 */
+	public function register( Base_Tag $dynamic_tag_instance ) {
+		$this->tags_info[ $dynamic_tag_instance->get_name() ] = [
+			'class' => get_class( $dynamic_tag_instance ),
+			'instance' => $dynamic_tag_instance,
 		];
 	}
 
 	/**
+	 * @since 2.0.9
 	 * @access public
+	 * @deprecated 3.5.0 Use `unregister()` method instead.
 	 *
 	 * @param string $tag_name
 	 */
 	public function unregister_tag( $tag_name ) {
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function(
+			__METHOD__,
+			'3.5.0',
+			'unregister()'
+		);
+
+		$this->unregister( $tag_name );
+	}
+
+	/**
+	 * Unregister a dynamic tag.
+	 *
+	 * @since 3.5.0
+	 * @access public
+	 *
+	 * @param string $tag_name Dynamic Tag name to unregister.
+	 *
+	 * @return void
+	 */
+	public function unregister( $tag_name ) {
 		unset( $this->tags_info[ $tag_name ] );
 	}
 
@@ -329,7 +404,7 @@ class Manager {
 	}
 
 	/**
-	 * @since  2.0.0
+	 * @since 2.0.0
 	 * @access public
 	 *
 	 * @throws \Exception If post ID is missing.
@@ -400,22 +475,24 @@ class Manager {
 	}
 
 	/**
+	 * @since 2.1.0
+	 * @access public
 	 * @param Post $css_file
 	 */
 	public function after_enqueue_post_css( $css_file ) {
 		$post_id = $css_file->get_post_id();
+		$should_enqueue = apply_filters( 'elementor/css-file/dynamic/should_enqueue', true, $post_id );
 
-		if ( $css_file instanceof Post_Preview ) {
-			$post_id_for_data = $css_file->get_preview_id();
-		} else {
-			$post_id_for_data = $post_id;
+		if ( $should_enqueue ) {
+			$css_file = Dynamic_CSS::create( $post_id, $css_file );
+			$css_file->enqueue();
 		}
-
-		$css_file = new Dynamic_CSS( $post_id, $post_id_for_data );
-
-		$css_file->enqueue();
 	}
 
+	/**
+	 * @since 2.3.0
+	 * @access public
+	 */
 	public function register_ajax_actions( Ajax $ajax ) {
 		$ajax->register_ajax_action( 'render_tags', [ $this, 'ajax_render_tags' ] );
 	}

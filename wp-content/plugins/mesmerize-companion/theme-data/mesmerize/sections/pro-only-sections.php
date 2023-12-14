@@ -1004,7 +1004,7 @@ return array (
     'category' => 'testimonials',
     'prepend' => false,
     'pro-only' => true,
-    'export' => 'module.exports={customColor:[{colorClass:{selector:\'div[class*="bottom-border-"]\',prefix:\'bottom-border-\',suffix:\'\'}}]}',
+    'export' => NULL,
   ),
   67 => 
   array (

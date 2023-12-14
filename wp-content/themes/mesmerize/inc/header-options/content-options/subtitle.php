@@ -3,8 +3,8 @@
 function mesmerize_front_page_header_subtitle_options($section, $prefix, $priority)
 {
     $companion = apply_filters('mesmerize_is_companion_installed', false);
-
-
+    
+    
     mesmerize_add_kirki_field(array(
         'type'            => 'checkbox',
         'settings'        => 'header_content_show_subtitle',
@@ -14,7 +14,7 @@ function mesmerize_front_page_header_subtitle_options($section, $prefix, $priori
         'priority'        => $priority,
         'active_callback' => apply_filters('mesmerize_header_active_callback_filter', array(), false),
     ));
-
+    
     mesmerize_add_kirki_field(array(
         'type'            => 'sidebar-button-group',
         'settings'        => 'header_content_subtitle_group',
@@ -32,14 +32,14 @@ function mesmerize_front_page_header_subtitle_options($section, $prefix, $priori
                 'operator' => '==',
                 'value'    => true,
             ),
-
+        
         ), false),
-
-        'in_row_with'     => array('header_content_show_subtitle'),
+        
+        'in_row_with' => array('header_content_show_subtitle'),
     ));
-
+    
     if ( ! $companion) {
-
+        
         mesmerize_add_kirki_field(array(
             'type'              => 'textarea',
             'settings'          => 'header_subtitle',
@@ -70,10 +70,14 @@ function mesmerize_print_header_subtitle()
 {
     $subtitle = get_theme_mod('header_subtitle', "");
     $show     = get_theme_mod('header_content_show_subtitle', true);
-
+    
     if (mesmerize_can_show_demo_content()) {
         if ($subtitle == "") {
             $subtitle = esc_html__('You can set this subtitle from the customizer.', 'mesmerize');
+        }
+    } else {
+        if ($subtitle == "") {
+            $subtitle = get_bloginfo('description');
         }
     }
     if ($show) {

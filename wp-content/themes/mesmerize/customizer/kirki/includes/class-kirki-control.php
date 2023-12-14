@@ -67,7 +67,7 @@ if ( ! class_exists('Kirki_Control')) {
          *
          * @return         string   the name of the class that will be used to create this control.
          */
-        final private function get_control_class_name($args)
+        private function get_control_class_name($args)
         {
 
             // Set a default class name.
@@ -104,7 +104,7 @@ if ( ! class_exists('Kirki_Control')) {
          * and that the defined classes actually exist.
          * If a defined class does not exist, it is removed.
          */
-        final private function set_control_types()
+        private function set_control_types()
         {
 
             $this->control_types = apply_filters('kirki/control_types', array(

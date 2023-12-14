@@ -21,7 +21,7 @@ final class EverestForms {
 	 *
 	 * @var string
 	 */
-	public $version = '1.3.3';
+	public $version = '2.0.5';
 
 	/**
 	 * The single instance of the class.
@@ -29,7 +29,7 @@ final class EverestForms {
 	 * @var   EverestForms
 	 * @since 1.0.0
 	 */
-	protected static $_instance = null;
+	protected static $instance = null;
 
 	/**
 	 * Session instance.
@@ -41,7 +41,7 @@ final class EverestForms {
 	/**
 	 * The form data handler instance.
 	 *
-	 * @var object everest_forms_Form_Handler
+	 * @var EVF_Form_Handler
 	 */
 	public $form;
 
@@ -86,10 +86,10 @@ final class EverestForms {
 	 * @return EverestForms - Main instance.
 	 */
 	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
 		}
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
@@ -127,9 +127,10 @@ final class EverestForms {
 	 */
 	public function __construct() {
 		$this->define_constants();
+		$this->define_tables();
 		$this->includes();
 		$this->init_hooks();
-		add_action( 'plugins_loaded', array( $this, 'objects' ), 10 );
+		add_action( 'plugins_loaded', array( $this, 'objects' ), 1 );
 
 		do_action( 'everest_forms_loaded' );
 	}
@@ -146,7 +147,6 @@ final class EverestForms {
 		add_action( 'init', array( $this, 'init' ), 0 );
 		add_action( 'init', array( $this, 'form_fields' ), 0 );
 		add_action( 'init', array( 'EVF_Shortcodes', 'init' ), 0 );
-		add_action( 'init', array( $this, 'wpdb_table_fix' ), 0 );
 		add_action( 'switch_blog', array( $this, 'wpdb_table_fix' ), 0 );
 	}
 
@@ -157,7 +157,8 @@ final class EverestForms {
 	 */
 	public function log_errors() {
 		$error = error_get_last();
-		if ( E_ERROR === $error['type'] ) {
+
+		if ( $error && in_array( $error['type'], array( E_ERROR, E_PARSE, E_COMPILE_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR ), true ) ) {
 			$logger = evf_get_logger();
 			$logger->critical(
 				$error['message'] . PHP_EOL,
@@ -180,6 +181,22 @@ final class EverestForms {
 		$this->define( 'EVF_LOG_DIR', $upload_dir['basedir'] . '/evf-logs/' );
 		$this->define( 'EVF_SESSION_CACHE_GROUP', 'evf_session_id' );
 		$this->define( 'EVF_TEMPLATE_DEBUG_MODE', false );
+	}
+
+	/**
+	 * Register custom tables within $wpdb object.
+	 */
+	private function define_tables() {
+		global $wpdb;
+
+		// List of tables without prefixes.
+		$tables = array(
+			'form_entrymeta' => 'evf_entrymeta',
+		);
+		foreach ( $tables as $name => $table ) {
+			$wpdb->$name    = $wpdb->prefix . $table;
+			$wpdb->tables[] = $table;
+		}
 	}
 
 	/**
@@ -246,12 +263,20 @@ final class EverestForms {
 		include_once EVF_ABSPATH . 'includes/class-evf-install.php';
 		include_once EVF_ABSPATH . 'includes/class-evf-ajax.php';
 		include_once EVF_ABSPATH . 'includes/class-evf-emails.php';
+		include_once EVF_ABSPATH . 'includes/class-evf-form-block.php';
 		include_once EVF_ABSPATH . 'includes/class-evf-integrations.php';
 		include_once EVF_ABSPATH . 'includes/class-evf-cache-helper.php';
 		include_once EVF_ABSPATH . 'includes/class-evf-deprecated-action-hooks.php';
 		include_once EVF_ABSPATH . 'includes/class-evf-deprecated-filter-hooks.php';
 		include_once EVF_ABSPATH . 'includes/class-evf-forms-features.php';
 		include_once EVF_ABSPATH . 'includes/class-evf-privacy.php';
+
+		/**
+		 * Elementor classes.
+		 */
+		if ( class_exists( '\Elementor\Plugin' ) ) {
+			include_once EVF_ABSPATH . 'includes/elementor/class-evf-elementor.php';
+		}
 
 		if ( $this->is_request( 'admin' ) ) {
 			include_once EVF_ABSPATH . 'includes/admin/class-evf-admin.php';
@@ -260,6 +285,19 @@ final class EverestForms {
 		if ( $this->is_request( 'frontend' ) ) {
 			$this->frontend_includes();
 		}
+
+		/**
+		 *Usage Tracking.
+		 */
+		include_once EVF_ABSPATH . 'includes/class-evf-cron.php';
+		include_once EVF_ABSPATH . 'includes/stats/class-evf-stats.php';
+
+		/**
+		 * External Libraries
+		 *
+		 * @return void
+		 */
+		include_once EVF_ABSPATH . 'includes/libraries/wptt-webfont-loader.php';
 	}
 
 	/**
@@ -315,8 +353,8 @@ final class EverestForms {
 	 */
 	public function objects() {
 		// Global objects.
-		$this->form = new EVF_Form_Handler();
-		$this->task = new EVF_Form_Task();
+		$this->form       = new EVF_Form_Handler();
+		$this->task       = new EVF_Form_Task();
 		$this->smart_tags = new EVF_Smart_Tags();
 	}
 
@@ -330,21 +368,29 @@ final class EverestForms {
 	 *      - WP_LANG_DIR/plugins/everest-forms-LOCALE.mo
 	 */
 	public function load_plugin_textdomain() {
-		$locale = is_admin() && function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
+		if ( function_exists( 'determine_locale' ) ) {
+			$locale = determine_locale();
+		} else {
+			// @todo Remove when start supporting WP 5.0 or later.
+			$locale = is_admin() ? get_user_locale() : get_locale();
+		}
+
 		$locale = apply_filters( 'plugin_locale', $locale, 'everest_forms' );
 
 		unload_textdomain( 'everest-forms' );
 		load_textdomain( 'everest-forms', WP_LANG_DIR . '/everest-forms/everest-forms-' . $locale . '.mo' );
-		load_plugin_textdomain( 'everest-forms', false, plugin_basename( dirname( EVF_PLUGIN_FILE ) ) . '/i18n/languages' );
+		load_plugin_textdomain( 'everest-forms', false, plugin_basename( dirname( EVF_PLUGIN_FILE ) ) . '/languages' );
 	}
 
 	/**
 	 * Get the plugin url.
 	 *
+	 * @param String $path Path.
+	 *
 	 * @return string
 	 */
-	public function plugin_url() {
-		return untrailingslashit( plugins_url( '/', EVF_PLUGIN_FILE ) );
+	public function plugin_url( $path = '/' ) {
+		return untrailingslashit( plugins_url( $path, EVF_PLUGIN_FILE ) );
 	}
 
 	/**
@@ -378,9 +424,7 @@ final class EverestForms {
 	 * Everest Forms Entry Meta - set table names.
 	 */
 	public function wpdb_table_fix() {
-		global $wpdb;
-		$wpdb->form_entrymeta = $wpdb->prefix . 'evf_entrymeta';
-		$wpdb->tables[]       = 'evf_entrymeta';
+		$this->define_tables();
 	}
 
 	/**

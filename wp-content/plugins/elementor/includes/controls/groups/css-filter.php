@@ -8,8 +8,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Elementor CSS Filter control.
  *
- * A base control for applying css filters. Displays sliders to define
- * the values of different css filters including blur, brightens, contrast, saturation, .
+ * A base control for applying css filters. Displays sliders to define the
+ * values of different CSS filters including blur, brightens, contrast,
+ * saturation and hue.
  *
  * @since 2.1.0
  */
@@ -23,7 +24,7 @@ class Group_Control_Css_Filter extends Group_Control_Base {
 	 * @since 2.1.0
 	 * @access protected
 	 *
-	 * @param array $fields CSS Filter control fields.
+	 * @param array $fields CSS filter control fields.
 	 *
 	 * @return array Processed fields.
 	 */
@@ -34,7 +35,7 @@ class Group_Control_Css_Filter extends Group_Control_Base {
 	 *
 	 * Retrieve the control type, in this case `css-filter`.
 	 *
-	 * @since 1.0.0
+	 * @since 2.1.0
 	 * @access public
 	 * @static
 	 *
@@ -54,17 +55,11 @@ class Group_Control_Css_Filter extends Group_Control_Base {
 	 *
 	 * @return array Control fields.
 	 */
-
 	protected function init_fields() {
 		$controls = [];
 
-		$controls['filter_type'] = [
-			'type' => Controls_Manager::HIDDEN,
-			'default' => 'custom',
-		];
-
 		$controls['blur'] = [
-			'label' => _x( 'Blur', 'Filter Control', 'elementor' ),
+			'label' => esc_html_x( 'Blur', 'Filter Control', 'elementor' ),
 			'type' => Controls_Manager::SLIDER,
 			'required' => 'true',
 			'range' => [
@@ -80,13 +75,10 @@ class Group_Control_Css_Filter extends Group_Control_Base {
 			'selectors' => [
 				'{{SELECTOR}}' => 'filter: brightness( {{brightness.SIZE}}% ) contrast( {{contrast.SIZE}}% ) saturate( {{saturate.SIZE}}% ) blur( {{blur.SIZE}}px ) hue-rotate( {{hue.SIZE}}deg )',
 			],
-			'condition' => [
-				'filter_type' => 'custom',
-			],
 		];
 
 		$controls['brightness'] = [
-			'label' => _x( 'Brightness', 'Filter Control', 'elementor' ),
+			'label' => esc_html_x( 'Brightness', 'Filter Control', 'elementor' ),
 			'type' => Controls_Manager::SLIDER,
 			'render_type' => 'ui',
 			'required' => 'true',
@@ -100,13 +92,10 @@ class Group_Control_Css_Filter extends Group_Control_Base {
 				],
 			],
 			'separator' => 'none',
-			'condition' => [
-				'filter_type' => 'custom',
-			],
 		];
 
 		$controls['contrast'] = [
-			'label' => _x( 'Contrast', 'Filter Control', 'elementor' ),
+			'label' => esc_html_x( 'Contrast', 'Filter Control', 'elementor' ),
 			'type' => Controls_Manager::SLIDER,
 			'render_type' => 'ui',
 			'required' => 'true',
@@ -120,13 +109,10 @@ class Group_Control_Css_Filter extends Group_Control_Base {
 				],
 			],
 			'separator' => 'none',
-			'condition' => [
-				'filter_type' => 'custom',
-			],
 		];
 
 		$controls['saturate'] = [
-			'label' => _x( 'Saturation', 'Filter Control', 'elementor' ),
+			'label' => esc_html_x( 'Saturation', 'Filter Control', 'elementor' ),
 			'type' => Controls_Manager::SLIDER,
 			'render_type' => 'ui',
 			'required' => 'true',
@@ -140,13 +126,10 @@ class Group_Control_Css_Filter extends Group_Control_Base {
 				],
 			],
 			'separator' => 'none',
-			'condition' => [
-				'filter_type' => 'custom',
-			],
 		];
 
 		$controls['hue'] = [
-			'label' => _x( 'Hue', 'Filter Control', 'elementor' ),
+			'label' => esc_html_x( 'Hue', 'Filter Control', 'elementor' ),
 			'type' => Controls_Manager::SLIDER,
 			'render_type' => 'ui',
 			'required' => 'true',
@@ -160,27 +143,9 @@ class Group_Control_Css_Filter extends Group_Control_Base {
 				],
 			],
 			'separator' => 'none',
-			'condition' => [
-				'filter_type' => 'custom',
-			],
 		];
 
 		return $controls;
-	}
-
-
-	protected function prepare_fields( $fields ) {
-		array_walk( $fields, function ( &$field, $field_name ) {
-			if ( in_array( $field_name, [ 'css_filter', 'popover_toggle' ] ) ) {
-				return;
-			}
-
-			$field['condition'] = [
-				'css_filter' => 'custom',
-			];
-		} );
-
-		return parent::prepare_fields( $fields );
 	}
 
 	/**
@@ -192,13 +157,16 @@ class Group_Control_Css_Filter extends Group_Control_Base {
 	 * @since 2.1.0
 	 * @access protected
 	 *
-	 * @return array Default box shadow control options.
+	 * @return array Default CSS filter control options.
 	 */
 	protected function get_default_options() {
 		return [
 			'popover' => [
 				'starter_name' => 'css_filter',
-				'starter_title' => _x( 'CSS Filters', 'Filter Control', 'elementor' ),
+				'starter_title' => esc_html__( 'CSS Filters', 'elementor' ),
+				'settings' => [
+					'render_type' => 'ui',
+				],
 			],
 		];
 	}

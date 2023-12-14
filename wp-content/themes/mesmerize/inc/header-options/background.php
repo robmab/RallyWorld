@@ -39,12 +39,12 @@ add_action("mesmerize_customize_register_options", function () {
     template functions
 */
 
-add_filter("mesmerize_header_background_atts", function ($attrs, $bg_type, $inner) {
+add_filter("mesmerize_header_background_attrs", function ($attrs, $bg_type, $inner) {
     if ( ! $inner) {
         $full_height_header = get_theme_mod('full_height_header', mesmerize_mod_default('full_height_header'));
 
         if ($full_height_header) {
-            $attrs['style'] .= "; min-height:100vh";
+            $attrs['class'] .= " header-full-height";
         }
     }
 
@@ -52,7 +52,7 @@ add_filter("mesmerize_header_background_atts", function ($attrs, $bg_type, $inne
 }, 1, 3);
 
 
-function mesmerize_header_background_atts()
+function mesmerize_header_background_attrs()
 {
     $inner = mesmerize_is_inner(true);
     $attrs = array(
@@ -66,7 +66,7 @@ function mesmerize_header_background_atts()
 
     do_action("mesmerize_background", $bgType, $inner, $prefix);
 
-    $attrs = apply_filters('mesmerize_header_background_atts', $attrs, $bgType, $inner);
+    $attrs = apply_filters('mesmerize_header_background_attrs', $attrs, $bgType, $inner);
 
     $result = "";
     foreach ($attrs as $key => $value) {

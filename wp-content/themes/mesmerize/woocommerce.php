@@ -4,7 +4,7 @@ mesmerize_get_header();
 
 $mesmerize_wc_template_classes = apply_filters('mesmerize_wc_template_classes', array('gridContainer'));
 ?>
-    <div class="page-content">
+    <div  id='page-content' class="page-content">
         <div class="page-column content <?php echo esc_attr((implode(' ', $mesmerize_wc_template_classes))) ?>">
             <div class="page-row row">
                 <?php mesmerize_woocommerce_get_sidebar('left'); ?>

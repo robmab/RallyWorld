@@ -68,7 +68,9 @@ body.post-type-mcwp .inside, body.post-type-mcwp #post-body-content {
     color: #aaa;
 }
 @media (max-width: 1300px) {
-	.crypto-edit .widget-type .crypto-cols:last-child > label, .crypto-edit .crypto-options, .crypto-edit .crypto-preview {
+    .crypto-edit .widget-type .crypto-cols:last-child > label,
+    .crypto-edit .widget-type-pro .crypto-cols:last-child > label,
+    .crypto-edit .crypto-options, .crypto-edit .crypto-preview {
 		width: 100%;
 	}
 }
@@ -101,7 +103,15 @@ body.post-type-mcwp .inside, body.post-type-mcwp #post-body-content {
 	text-transform: uppercase;
 	font-size: 14px;
 }
+
+.crypto-edit .widget-type-pro .crypto-rows {
+    border-top: 1px dashed #000;
+    padding-top: 20px;
+}
 .crypto-edit .widget-type .crypto-cols:last-child > label {
+	width: 24%;
+}
+.crypto-edit .widget-type-pro .crypto-cols:last-child > label {
 	width: 30%;
 }
 .crypto-edit label {
@@ -389,7 +399,7 @@ body.post-type-mcwp .inside, body.post-type-mcwp #post-body-content {
 	width: 12.5% !important;
 	margin-right: 0 !important;
 }
-.crypto-edit .cryptoboxes .mcwp-converter.mcwp-converter-two .mcwp-input-group input.mcwp-field {
+.crypto-edit .mcwp-crypto .mcwp-converter.mcwp-converter-two .mcwp-input-group input.mcwp-field {
 	line-height: 23px;
 }
 .crypto-edit .mcwp-hide {
@@ -480,6 +490,19 @@ body.post-type-mcwp .inside, body.post-type-mcwp #post-body-content {
     right: auto;
 	box-shadow: none;
 }
+.powered-by {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-weight: bold;
+}
+.powered-by a {
+    color: #000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
 .mcwp-update {
 	width: 90%;
     padding: 10px;
@@ -516,15 +539,17 @@ body.post-type-mcwp .inside, body.post-type-mcwp #post-body-content {
     margin-bottom: 20px;
 }
 .mcwp-pro-add a {
-    text-decoration: none;
     padding: 7px 10px;
-    background-color: #ED4264;
-    color: #FFEDBC;
+    color: #f1264f;
+    border-radius: 5px;
     box-shadow: none;
     font-family: 'lato',sans-serif;
+    transition: all 1s;
 }
 .mcwp-pro-add a:hover {
+    color: #ffffff;
     background-color: #DC2424;
+    text-decoration: none;
 }
 .mcwp-pro {
     padding: 10px;
@@ -542,7 +567,7 @@ body.post-type-mcwp .inside, body.post-type-mcwp #post-body-content {
 .mcwp-imgpro h3, .mcwp-pro h3 {
     font-size: 20px;
     margin: 10px 0 20px;
-    line-height: 1;
+    line-height: 1.5;
 }
 .mcwp-imgpro img {
     max-width: 100%;
@@ -576,10 +601,9 @@ body.post-type-mcwp .inside, body.post-type-mcwp #post-body-content {
     box-shadow: none;
 }
 .mcwp-pro .mcwp-anime a span {
-    -webkit-transition: all 1s;
-    transition: all 1s;
-}
-.mcwp-pro .mcwp-anime:hover a span {
+    width: 24px;
+    margin: 0 3px;
+    display: inline-block;
     -webkit-transition: all 1s;
     transition: all 1s;
     -webkit-animation: step-end;
@@ -587,74 +611,14 @@ body.post-type-mcwp .inside, body.post-type-mcwp #post-body-content {
     -webkit-transform: scale(1.4);
             transform: scale(1.4);
 }
-.mcwp-pro .mcwp-anime span {
-    width: 24px;
-    margin: 0 3px;
-    display: inline-block;
-    -webkit-animation: anime 5s ease 1.5s;
-            animation: anime 5s ease 1.5s;
-    -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
-}
-.mcwp-pro .mcwp-anime span:nth-child(2) {
-    -webkit-animation-delay: 1600ms;
-            animation-delay: 1600ms;
-}
-.mcwp-pro .mcwp-anime span:nth-child(3) {
-    -webkit-animation-delay: 1700ms;
-            animation-delay: 1700ms;
-}
-.mcwp-pro .mcwp-anime span:nth-child(4) {
-    -webkit-animation-delay: 1800ms;
-            animation-delay: 1800ms;
-}
-.mcwp-pro .mcwp-anime span:nth-child(5) {
-    -webkit-animation-delay: 1900ms;
-            animation-delay: 1900ms;
-}
 .mcwp-pro .mcwp-anime span img {
     max-width: 100%;
-}
-@-webkit-keyframes anime {
-    0% {
-        -webkit-transform: scale(1);
-                transform: scale(1);
-    }
-    12% {
-        -webkit-transform: scale(1.4);
-                transform: scale(1.4);
-    }
-    25% {
-        -webkit-transform: scale(1);
-                transform: scale(1);
-    }
-    100% {
-        -webkit-transform: scale(1);
-                transform: scale(1);
-    }
-}
-@keyframes anime {
-    0% {
-        -webkit-transform: scale(1);
-                transform: scale(1);
-    }
-    12% {
-        -webkit-transform: scale(1.4);
-                transform: scale(1.4);
-    }
-    25% {
-        -webkit-transform: scale(1);
-                transform: scale(1);
-    }
-    100% {
-        -webkit-transform: scale(1);
-                transform: scale(1);
-    }
 }
 
 .crypto-edit .mcwp-rate {
     display: none;
-    background-color: rgb(71, 74, 86);
+    /* background-color: #d444b9; */
+    background-image: linear-gradient(to right top, #f800c9, #c924c5, #992fbb, #6a32ac, #383099);
     color: white;
     padding: 25px 10px 20px;
     line-height: 1.75;

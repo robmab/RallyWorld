@@ -13,7 +13,7 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://docs.wpeverest.com/docs/everest-forms/template-structure/
+ * @see     https://docs.everestforms.net/
  * @package EverestForms/Templates
  * @version 1.2.0
  */
@@ -195,7 +195,7 @@ defined( 'ABSPATH' ) || exit;
 		/* Body - Body Link */
 		#templateBody .mcnTextContent a,
 		#templateBody .mcnTextContent p a{
-			color:#ff7f50;
+			color: #7e3bd0;
 			font-weight:normal;
 			text-decoration:underline;
 		}
@@ -265,9 +265,9 @@ defined( 'ABSPATH' ) || exit;
 					<![endif]-->
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
 						<?php
-						if ( !empty( $header_image ) ) {
+						if ( ! empty( $header_image ) ) {
 							echo '<tr><td valign="top" align="center" id="templateHeader" style="padding-bottom:20px;text-align:center;">';
-								echo '<img src="' . esc_url( $header_image ) . '" alt="' . get_bloginfo( 'name' ) . '" />';
+								echo '<img src="' . esc_url( $header_image ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" />';
 							echo '</td></tr>';
 						}
 						?>

@@ -88,7 +88,7 @@ if ( ! class_exists( 'Fitness_Hub_Contact' ) ) {
 			        $fitness_hub_about_content_from = fitness_hub_content_from();
 			        foreach ( $fitness_hub_about_content_from as $key => $value ) {
 				        ?>
-                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $single_page_content_from ); ?>><?php echo esc_attr( $value ); ?></option>
+                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $single_page_content_from ); ?>><?php echo esc_html( $value ); ?></option>
 				        <?php
 			        }
 			        ?>
@@ -109,7 +109,7 @@ if ( ! class_exists( 'Fitness_Hub_Contact' ) ) {
 			        $fitness_hub_background_options = fitness_hub_background_options();
 			        foreach ( $fitness_hub_background_options as $key => $value ) {
 				        ?>
-                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $background_options ); ?>><?php echo esc_attr( $value ); ?></option>
+                        <option value="<?php echo esc_attr( $key ) ?>" <?php selected( $key, $background_options ); ?>><?php echo esc_html( $value ); ?></option>
 				        <?php
 			        }
 			        ?>

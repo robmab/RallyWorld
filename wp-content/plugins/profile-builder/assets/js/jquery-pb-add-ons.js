@@ -24,7 +24,7 @@ jQuery('.wppb-add-on .button').on( 'click', function(e) {
 /*
  * Make deactivate button from Add-On is Active message button
  */
-jQuery('.wppb-add-on').on( 'hover', function() {
+jQuery('.wppb-add-on').on( 'mouseenter mouseleave', function() {
 
     $button = jQuery(this).find('.wppb-add-on-deactivate');
 
@@ -83,8 +83,8 @@ function wppb_add_on_activate( $button ) {
 
             $activate_button
                 .blur()
-                .removeClass('wppb-add-on-activate')
-                .addClass('wppb-add-on-deactivate')
+                .removeClass('wppb-add-on-activate button-primary')
+                .addClass('wppb-add-on-deactivate button-secondary')
                 .removeAttr('disabled')
                 .text( jQuery('#wppb-add-on-deactivate-button-text').text() );
 
@@ -136,8 +136,8 @@ function wppb_add_on_deactivate( $button ) {
 
         $button
             .blur()
-            .removeClass('wppb-add-on-is-active')
-            .addClass('wppb-add-on-activate')
+            .removeClass('wppb-add-on-is-active button-secondary')
+            .addClass('wppb-add-on-activate button-primary')
             .attr( 'disabled', false )
             .text( jQuery('#wppb-add-on-activate-button-text').text() );
 

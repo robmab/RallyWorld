@@ -136,7 +136,7 @@ $wp_customize->add_setting('fitness_hub_theme_options[fitness-hub-menu-right-but
 	'capability'		=> 'edit_theme_options',
 	'sanitize_callback' => 'wp_kses_post'
 ));
-$description = sprintf( esc_html__( 'Add Popup Widget from %1$s here%2$s ', 'fitness-hub' ), '<a class="at-customizer" data-section="sidebar-widgets-popup-widget-area" style="cursor: pointer">','</a>' );
+$description = sprintf( esc_html__( '%1$sAdd Popup Widget from here%2$s ', 'fitness-hub' ), '<a class="at-customizer" data-section="sidebar-widgets-popup-widget-area" style="cursor: pointer">','</a>' );
 $wp_customize->add_control(
 	new Fitness_Hub_Customize_Message_Control(
 		$wp_customize,
@@ -146,7 +146,8 @@ $wp_customize->add_control(
 			'description'       => $description,
 			'settings'          => 'fitness_hub_theme_options[fitness-hub-menu-right-button-booking-message]',
 			'type'	  	        => 'message',
-			'active_callback'   => 'fitness_hub_menu_right_button_if_booking'
+			'active_callback'   => 'fitness_hub_menu_right_button_if_booking',
+            'priority'	  	    => 100
 		)
 	)
 );

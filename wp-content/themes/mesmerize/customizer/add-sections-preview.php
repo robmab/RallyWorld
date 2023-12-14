@@ -28,19 +28,9 @@
         <button data-install-companion-button="true" class="button color6"><?php esc_html_e('Add Section', 'mesmerize'); ?></button>
         <script>
             (function () {
-                window.mesmerizeDomReady(function () {
-                    jQuery('[data-install-companion-button="true"]').click(function () {
-                        var w = window.parent;
-                        w.tb_show('Mesmerize Companion', '#TB_inline?width=400&height=430&inlineId=mesmerize_homepage');
-                        w.jQuery('#TB_closeWindowButton').hide();
-                        w.jQuery('#TB_window').css({
-                            'z-index': '5000001',
-                            'height': '480px',
-                            'width': '780px'
-                        });
-                        w.jQuery('#TB_overlay').css({
-                            'z-index': '5000000'
-                        });
+                jQuery(function () {
+                    jQuery('[data-install-companion-button="true"]').click(function (event) {
+                        parent.ExtendThemesCompanionPopover.showPopover(event.currentTarget, 'down')
                     })
                 });
             })();

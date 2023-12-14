@@ -2,13 +2,14 @@
 namespace Elementor;
 
 use Elementor\Core\Base\App;
-use Elementor\Core\Base\Document;
+use Elementor\Core\Frontend\Render_Mode_Manager;
 use Elementor\Core\Responsive\Files\Frontend as FrontendFile;
 use Elementor\Core\Files\CSS\Global_CSS;
 use Elementor\Core\Files\CSS\Post as Post_CSS;
 use Elementor\Core\Files\CSS\Post_Preview;
 use Elementor\Core\Responsive\Responsive;
 use Elementor\Core\Settings\Manager as SettingsManager;
+use Elementor\Core\Breakpoints\Manager as Breakpoints_Manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -46,11 +47,18 @@ class Frontend extends App {
 	 * Holds the list of fonts that are being used in the current page.
 	 *
 	 * @since 1.9.4
-	 * @access private
+	 * @access public
 	 *
 	 * @var array Used fonts. Default is an empty array.
 	 */
-	private $fonts_to_enqueue = [];
+	public $fonts_to_enqueue = [];
+
+	/**
+	 * Holds the class that respond to manage the render mode.
+	 *
+	 * @var Render_Mode_Manager
+	 */
+	public $render_mode_manager;
 
 	/**
 	 * Registered fonts.
@@ -63,6 +71,30 @@ class Frontend extends App {
 	 * @var array Registered fonts. Default is an empty array.
 	 */
 	private $registered_fonts = [];
+
+	/**
+	 * Icon Fonts to enqueue
+	 *
+	 * Holds the list of Icon fonts that are being used in the current page.
+	 *
+	 * @since 2.4.0
+	 * @access private
+	 *
+	 * @var array Used icon fonts. Default is an empty array.
+	 */
+	private $icon_fonts_to_enqueue = [];
+
+	/**
+	 * Enqueue Icon Fonts
+	 *
+	 * Holds the list of Icon fonts already enqueued  in the current page.
+	 *
+	 * @since 2.4.0
+	 * @access private
+	 *
+	 * @var array enqueued icon fonts. Default is an empty array.
+	 */
+	private $enqueued_icon_fonts = [];
 
 	/**
 	 * Whether the page is using Elementor.
@@ -101,18 +133,24 @@ class Frontend extends App {
 	 */
 	private $content_removed_filters = [];
 
-
-	/**
-	 * @var Document[]
-	 */
-	private $admin_bar_edit_documents = [];
-
 	/**
 	 * @var string[]
 	 */
 	private $body_classes = [
 		'elementor-default',
 	];
+
+	private $google_fonts_index = 0;
+
+	/**
+	 * @var string
+	 */
+	private $e_swiper_asset_path;
+
+	/**
+	 * @var string
+	 */
+	private $e_swiper_version;
 
 	/**
 	 * Front End constructor.
@@ -125,15 +163,17 @@ class Frontend extends App {
 	 */
 	public function __construct() {
 		// We don't need this class in admin side, but in AJAX requests.
-		if ( is_admin() && ! Utils::is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 			return;
 		}
 
+		add_action( 'template_redirect', [ $this, 'init_render_mode' ], -1 /* Before admin bar. */ );
 		add_action( 'template_redirect', [ $this, 'init' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_scripts' ], 5 );
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_styles' ], 5 );
 
 		$this->add_content_filter();
+		$this->init_swiper_settings();
 
 		// Hack to avoid enqueue post CSS while it's a `the_excerpt` call.
 		add_filter( 'get_the_excerpt', [ $this, 'start_excerpt_flag' ], 1 );
@@ -145,13 +185,24 @@ class Frontend extends App {
 	 *
 	 * Retrieve the module name.
 	 *
-	 * @since  2.3.0
+	 * @since 2.3.0
 	 * @access public
 	 *
 	 * @return string Module name.
 	 */
 	public function get_name() {
 		return 'frontend';
+	}
+
+	/**
+	 * Init render mode manager.
+	 */
+	public function init_render_mode() {
+		if ( Plugin::$instance->editor->is_edit_mode() ) {
+			return;
+		}
+
+		$this->render_mode_manager = new Render_Mode_Manager();
 	}
 
 	/**
@@ -182,19 +233,30 @@ class Frontend extends App {
 
 		$this->post_id = get_the_ID();
 
-		if ( is_singular() && Plugin::$instance->db->is_built_with_elementor( $this->post_id ) ) {
+		$document = Plugin::$instance->documents->get( $this->post_id );
+
+		if ( is_singular() && $document && $document->is_built_with_elementor() ) {
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
 		}
 
 		// Priority 7 to allow google fonts in header template to load in <head> tag
 		add_action( 'wp_head', [ $this, 'print_fonts_links' ], 7 );
+		add_action( 'wp_head', [ $this, 'print_google_fonts_preconnect_tag' ], 8 );
+		add_action( 'wp_head', [ $this, 'add_theme_color_meta_tag' ] );
 		add_action( 'wp_footer', [ $this, 'wp_footer' ] );
+	}
 
-		// Add Edit with the Elementor in Admin Bar.
-		add_action( 'admin_bar_menu', [ $this, 'add_menu_in_admin_bar' ], 200 );
+	public function print_google_fonts_preconnect_tag() {
+		if ( 0 >= $this->google_fonts_index ) {
+			return;
+		}
+
+		echo '<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>';
 	}
 
 	/**
+	 * @since 2.0.12
+	 * @access public
 	 * @param string|array $class
 	 */
 	public function add_body_class( $class ) {
@@ -202,6 +264,23 @@ class Frontend extends App {
 			$this->body_classes = array_merge( $this->body_classes, $class );
 		} else {
 			$this->body_classes[] = $class;
+		}
+	}
+
+	/**
+	 * Add Theme Color Meta Tag
+	 *
+	 * @since 3.0.0
+	 * @access public
+	 */
+	public function add_theme_color_meta_tag() {
+		$kit = Plugin::$instance->kits_manager->get_active_kit_for_frontend();
+		$mobile_theme_color = $kit->get_settings( 'mobile_browser_background' );
+
+		if ( ! empty( $mobile_theme_color ) ) {
+			?>
+			<meta name="theme-color" content="<?php echo esc_attr( $mobile_theme_color ); ?>">
+			<?php
 		}
 	}
 
@@ -225,8 +304,20 @@ class Frontend extends App {
 
 		$id = get_the_ID();
 
-		if ( is_singular() && Plugin::$instance->db->is_built_with_elementor( $id ) ) {
+		$document = Plugin::$instance->documents->get( $id );
+
+		if ( is_singular() && $document && $document->is_built_with_elementor() ) {
 			$classes[] = 'elementor-page elementor-page-' . $id;
+		}
+
+		if ( Plugin::$instance->preview->is_preview_mode() ) {
+			$editor_preferences = SettingsManager::get_settings_managers( 'editorPreferences' );
+
+			$show_hidden_elements = $editor_preferences->get_model()->get_settings( 'show_hidden_elements' );
+
+			if ( 'yes' === $show_hidden_elements ) {
+				$classes[] = 'e-preview--show-hidden-elements';
+			}
 		}
 
 		return $classes;
@@ -242,6 +333,12 @@ class Frontend extends App {
 	 */
 	public function add_content_filter() {
 		add_filter( 'the_content', [ $this, 'apply_builder_in_content' ], self::THE_CONTENT_FILTER_PRIORITY );
+	}
+
+	public function init_swiper_settings() {
+		$e_swiper_latest = Plugin::$instance->experiments->is_feature_active( 'e_swiper_latest' );
+		$this->e_swiper_asset_path = $e_swiper_latest ? 'assets/lib/swiper/v8/' : 'assets/lib/swiper/';
+		$this->e_swiper_version = $e_swiper_latest ? '8.4.5' : '5.3.6';
 	}
 
 	/**
@@ -276,6 +373,25 @@ class Frontend extends App {
 		 * @since 1.2.1
 		 */
 		do_action( 'elementor/frontend/before_register_scripts' );
+
+		wp_register_script(
+			'elementor-webpack-runtime',
+			$this->get_js_assets_url( 'webpack.runtime', 'assets/js/' ),
+			[],
+			ELEMENTOR_VERSION,
+			true
+		);
+
+		wp_register_script(
+			'elementor-frontend-modules',
+			$this->get_js_assets_url( 'frontend-modules' ),
+			[
+				'elementor-webpack-runtime',
+				'jquery',
+			],
+			ELEMENTOR_VERSION,
+			true
+		);
 
 		wp_register_script(
 			'elementor-waypoints',
@@ -318,43 +434,39 @@ class Frontend extends App {
 		);
 
 		wp_register_script(
-			'jquery-swiper',
-			$this->get_js_assets_url( 'swiper.jquery', 'assets/lib/swiper/' ),
-			[
-				'jquery',
-			],
-			'4.4.3',
-			true
-		);
-
-		wp_register_script(
-			'jquery-slick',
-			$this->get_js_assets_url( 'slick', 'assets/lib/slick/' ),
-			[
-				'jquery',
-			],
-			'1.8.1',
-			true
-		);
-
-		wp_register_script(
 			'elementor-dialog',
 			$this->get_js_assets_url( 'dialog', 'assets/lib/dialog/' ),
 			[
 				'jquery-ui-position',
 			],
-			'4.4.1',
+			'4.9.0',
+			true
+		);
+
+		wp_register_script(
+			'elementor-gallery',
+			$this->get_js_assets_url( 'e-gallery', 'assets/lib/e-gallery/js/' ),
+			[
+				'jquery',
+			],
+			'1.2.0',
+			true
+		);
+
+		wp_register_script(
+			'share-link',
+			$this->get_js_assets_url( 'share-link', 'assets/lib/share-link/' ),
+			[
+				'jquery',
+			],
+			ELEMENTOR_VERSION,
 			true
 		);
 
 		wp_register_script(
 			'elementor-frontend',
 			$this->get_js_assets_url( 'frontend' ),
-			[
-				'elementor-dialog',
-				'elementor-waypoints',
-				'jquery-swiper',
-			],
+			$this->get_elementor_frontend_dependencies(),
 			ELEMENTOR_VERSION,
 			true
 		);
@@ -390,13 +502,6 @@ class Frontend extends App {
 		do_action( 'elementor/frontend/before_register_styles' );
 
 		wp_register_style(
-			'elementor-icons',
-			$this->get_css_assets_url( 'elementor-icons', 'assets/lib/eicons/css/' ),
-			[],
-			'4.0.0'
-		);
-
-		wp_register_style(
 			'font-awesome',
 			$this->get_css_assets_url( 'font-awesome', 'assets/lib/font-awesome/css/' ),
 			[],
@@ -404,10 +509,10 @@ class Frontend extends App {
 		);
 
 		wp_register_style(
-			'elementor-animations',
-			$this->get_css_assets_url( 'animations', 'assets/lib/animations/', true ),
+			'elementor-icons',
+			$this->get_css_assets_url( 'elementor-icons', 'assets/lib/eicons/css/' ),
 			[],
-			ELEMENTOR_VERSION
+			Icons_Manager::ELEMENTOR_ICONS_VERSION
 		);
 
 		wp_register_style(
@@ -417,33 +522,49 @@ class Frontend extends App {
 			'4.1.4'
 		);
 
+		wp_register_style(
+			'elementor-gallery',
+			$this->get_css_assets_url( 'e-gallery', 'assets/lib/e-gallery/css/' ),
+			[],
+			'1.2.0'
+		);
+
 		$min_suffix = Utils::is_script_debug() ? '' : '.min';
 
 		$direction_suffix = is_rtl() ? '-rtl' : '';
 
-		$frontend_file_name = 'frontend' . $direction_suffix . $min_suffix . '.css';
+		$frontend_base_file_name = $this->is_optimized_css_mode() ? 'frontend-lite' : 'frontend';
 
-		$has_custom_file = Responsive::has_custom_breakpoints();
+		$frontend_file_name = $frontend_base_file_name . $direction_suffix . $min_suffix . '.css';
 
-		if ( $has_custom_file ) {
-			$frontend_file = new FrontendFile( 'custom-' . $frontend_file_name, Responsive::get_stylesheet_templates_path() . $frontend_file_name );
+		$frontend_dependencies = [];
 
-			$time = $frontend_file->get_meta( 'time' );
+		$has_custom_breakpoints = Plugin::$instance->breakpoints->has_custom_breakpoints();
 
-			if ( ! $time ) {
-				$frontend_file->update();
-			}
+		if ( ! Plugin::$instance->experiments->is_feature_active( 'e_dom_optimization' ) ) {
+			// If The Dom Optimization feature is disabled, register the legacy CSS
+			wp_register_style(
+				'elementor-frontend-legacy',
+				$this->get_frontend_file_url( 'frontend-legacy' . $direction_suffix . $min_suffix . '.css', $has_custom_breakpoints ),
+				[],
+				ELEMENTOR_VERSION
+			);
 
-			$frontend_file_url = $frontend_file->get_url();
-		} else {
-			$frontend_file_url = ELEMENTOR_ASSETS_URL . 'css/' . $frontend_file_name;
+			$frontend_dependencies[] = 'elementor-frontend-legacy';
 		}
 
 		wp_register_style(
 			'elementor-frontend',
-			$frontend_file_url,
+			$this->get_frontend_file_url( $frontend_file_name, $has_custom_breakpoints ),
+			$frontend_dependencies,
+			$has_custom_breakpoints ? null : ELEMENTOR_VERSION
+		);
+
+		wp_register_style(
+			'swiper',
+			$this->get_css_assets_url( 'swiper', $this->e_swiper_asset_path . 'css/' ),
 			[],
-			$has_custom_file ? null : ELEMENTOR_VERSION
+			$this->e_swiper_version
 		);
 
 		/**
@@ -476,7 +597,21 @@ class Frontend extends App {
 
 		wp_enqueue_script( 'elementor-frontend' );
 
+		if ( ! $this->is_improved_assets_loading() ) {
+			wp_enqueue_script(
+				'preloaded-modules',
+				$this->get_js_assets_url( 'preloaded-modules', 'assets/js/' ),
+				[
+					'elementor-frontend',
+				],
+				ELEMENTOR_VERSION,
+				true
+			);
+		}
+
 		$this->print_config();
+
+		$this->enqueue_conditional_assets();
 
 		/**
 		 * After frontend enqueue scripts.
@@ -499,35 +634,154 @@ class Frontend extends App {
 	 * @access public
 	 */
 	public function enqueue_styles() {
-		/**
-		 * Before frontend styles enqueued.
-		 *
-		 * Fires before Elementor frontend styles are enqueued.
-		 *
-		 * @since 1.0.0
-		 */
-		do_action( 'elementor/frontend/before_enqueue_styles' );
+		static $is_enqueue_styles_already_triggered;
 
-		wp_enqueue_style( 'elementor-icons' );
-		wp_enqueue_style( 'font-awesome' );
-		wp_enqueue_style( 'elementor-animations' );
-		wp_enqueue_style( 'elementor-frontend' );
+		if ( ! $is_enqueue_styles_already_triggered ) {
+			$is_enqueue_styles_already_triggered = true;
 
-		/**
-		 * After frontend styles enqueued.
-		 *
-		 * Fires after Elementor frontend styles are enqueued.
-		 *
-		 * @since 1.0.0
-		 */
-		do_action( 'elementor/frontend/after_enqueue_styles' );
+			/**
+			 * Before frontend styles enqueued.
+			 *
+			 * Fires before Elementor frontend styles are enqueued.
+			 *
+			 * @since 1.0.0
+			 */
+			do_action( 'elementor/frontend/before_enqueue_styles' );
 
-		if ( ! Plugin::$instance->preview->is_preview_mode() ) {
-			$this->parse_global_css_code();
+			// The e-icons are needed in preview mode for the editor icons (plus-icon for new section, folder-icon for the templates library etc.).
+			if ( ! Plugin::$instance->experiments->is_feature_active( 'e_font_icon_svg' ) || Plugin::$instance->preview->is_preview_mode() ) {
+				wp_enqueue_style( 'elementor-icons' );
+			}
 
-			$css_file = new Post_CSS( get_the_ID() );
-			$css_file->enqueue();
+			wp_enqueue_style( 'elementor-frontend' );
+
+			wp_enqueue_style( 'swiper' );
+
+			/**
+			 * After frontend styles enqueued.
+			 *
+			 * Fires after Elementor frontend styles are enqueued.
+			 *
+			 * @since 1.0.0
+			 */
+			do_action( 'elementor/frontend/after_enqueue_styles' );
+
+			if ( ! Plugin::$instance->preview->is_preview_mode() ) {
+				$this->parse_global_css_code();
+
+				$post_id = get_the_ID();
+				// Check $post_id for virtual pages. check is singular because the $post_id is set to the first post on archive pages.
+				if ( $post_id && is_singular() ) {
+					$css_file = Post_CSS::create( get_the_ID() );
+					$css_file->enqueue();
+				}
+			}
 		}
+	}
+
+	/**
+	 * Get Frontend File URL
+	 *
+	 * Returns the URL for the CSS file to be loaded in the front end. If requested via the second parameter, a custom
+	 * file is generated based on a passed template file name. Otherwise, the URL for the default CSS file is returned.
+	 *
+	 * @since 3.4.5
+	 *
+	 * @access public
+	 *
+	 * @param string $frontend_file_name
+	 * @param boolean $custom_file
+	 *
+	 * @return string frontend file URL
+	 */
+	public function get_frontend_file_url( $frontend_file_name, $custom_file ) {
+		if ( $custom_file ) {
+			$frontend_file = $this->get_frontend_file( $frontend_file_name );
+
+			$frontend_file_url = $frontend_file->get_url();
+		} else {
+			$frontend_file_url = ELEMENTOR_ASSETS_URL . 'css/' . $frontend_file_name;
+		}
+
+		return $frontend_file_url;
+	}
+
+	/**
+	 * Get Frontend File Path
+	 *
+	 * Returns the path for the CSS file to be loaded in the front end. If requested via the second parameter, a custom
+	 * file is generated based on a passed template file name. Otherwise, the path for the default CSS file is returned.
+	 *
+	 * @since 3.5.0
+	 * @access public
+	 *
+	 * @param string $frontend_file_name
+	 * @param boolean $custom_file
+	 *
+	 * @return string frontend file path
+	 */
+	public function get_frontend_file_path( $frontend_file_name, $custom_file ) {
+		if ( $custom_file ) {
+			$frontend_file = $this->get_frontend_file( $frontend_file_name );
+
+			$frontend_file_path = $frontend_file->get_path();
+		} else {
+			$frontend_file_path = ELEMENTOR_ASSETS_PATH . 'css/' . $frontend_file_name;
+		}
+
+		return $frontend_file_path;
+	}
+
+	/**
+	 * Get Frontend File
+	 *
+	 * Returns a frontend file instance.
+	 *
+	 * @since 3.5.0
+	 * @access public
+	 *
+	 * @param string $frontend_file_name
+	 * @param string $file_prefix
+	 * @param string $template_file_path
+	 *
+	 * @return FrontendFile
+	 */
+	public function get_frontend_file( $frontend_file_name, $file_prefix = 'custom-', $template_file_path = '' ) {
+		static $cached_frontend_files = [];
+
+		$file_name = $file_prefix . $frontend_file_name;
+
+		if ( isset( $cached_frontend_files[ $file_name ] ) ) {
+			return $cached_frontend_files[ $file_name ];
+		}
+
+		if ( ! $template_file_path ) {
+			$template_file_path = Breakpoints_Manager::get_stylesheet_templates_path() . $frontend_file_name;
+		}
+
+		$frontend_file = new FrontendFile( $file_name, $template_file_path );
+
+		$time = $frontend_file->get_meta( 'time' );
+
+		if ( ! $time ) {
+			$frontend_file->update();
+		}
+
+		$cached_frontend_files[ $file_name ] = $frontend_file;
+
+		return $frontend_file;
+	}
+
+	/**
+	 * Enqueue assets conditionally.
+	 *
+	 * Enqueue all assets that were pre-enabled.
+	 *
+	 * @since 3.3.0
+	 * @access private
+	 */
+	private function enqueue_conditional_assets() {
+		Plugin::$instance->assets_loader->enqueue_assets();
 	}
 
 	/**
@@ -552,16 +806,9 @@ class Frontend extends App {
 	}
 
 	/**
-	 * Print fonts links.
-	 *
-	 * Enqueue all the frontend fonts by url.
-	 *
-	 * Fired by `wp_head` action.
-	 *
-	 * @since 1.9.4
-	 * @access public
+	 * @return array|array[]
 	 */
-	public function print_fonts_links() {
+	public function get_list_of_google_fonts_by_type(): array {
 		$google_fonts = [
 			'google' => [],
 			'early' => [],
@@ -579,6 +826,9 @@ class Frontend extends App {
 					$google_fonts['early'][] = $font;
 					break;
 
+				case false:
+					$this->maybe_enqueue_icon_font( $font );
+					break;
 				default:
 					/**
 					 * Print font links.
@@ -596,7 +846,119 @@ class Frontend extends App {
 		}
 		$this->fonts_to_enqueue = [];
 
+		return $google_fonts;
+	}
+
+	/**
+	 * Print fonts links.
+	 *
+	 * Enqueue all the frontend fonts by url.
+	 *
+	 * Fired by `wp_head` action.
+	 *
+	 * @since 1.9.4
+	 * @access public
+	 */
+	public function print_fonts_links() {
+		$google_fonts = $this->get_list_of_google_fonts_by_type();
+
 		$this->enqueue_google_fonts( $google_fonts );
+		$this->enqueue_icon_fonts();
+	}
+
+	private function maybe_enqueue_icon_font( $icon_font_type ) {
+		if ( ! Icons_Manager::is_migration_allowed() ) {
+			return;
+		}
+
+		$icons_types = Icons_Manager::get_icon_manager_tabs();
+		if ( ! isset( $icons_types[ $icon_font_type ] ) ) {
+			return;
+		}
+
+		$icon_type = $icons_types[ $icon_font_type ];
+		if ( isset( $icon_type['url'] ) ) {
+			$this->icon_fonts_to_enqueue[ $icon_font_type ] = [ $icon_type['url'] ];
+		}
+	}
+
+	private function enqueue_icon_fonts() {
+		if ( empty( $this->icon_fonts_to_enqueue ) || ! Icons_Manager::is_migration_allowed() ) {
+			return;
+		}
+
+		foreach ( $this->icon_fonts_to_enqueue as $icon_type => $css_url ) {
+			wp_enqueue_style( 'elementor-icons-' . $icon_type );
+			$this->enqueued_icon_fonts[] = $css_url;
+		}
+
+		//clear enqueued icons
+		$this->icon_fonts_to_enqueue = [];
+	}
+
+	/**
+	 * @param array $fonts Stable google fonts ($google_fonts['google']).
+	 * @return string
+	 */
+	public function get_stable_google_fonts_url( array $fonts ): string {
+		foreach ( $fonts as &$font ) {
+			$font = str_replace( ' ', '+', $font ) . ':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
+		}
+
+		// Defining a font-display type to google fonts.
+		$font_display_url_str = '&display=' . Fonts::get_font_display_setting();
+
+		$fonts_url = sprintf( 'https://fonts.googleapis.com/css?family=%1$s%2$s', implode( rawurlencode( '|' ), $fonts ), $font_display_url_str );
+
+		$subsets = [
+			'ru_RU' => 'cyrillic',
+			'bg_BG' => 'cyrillic',
+			'he_IL' => 'hebrew',
+			'el' => 'greek',
+			'vi' => 'vietnamese',
+			'uk' => 'cyrillic',
+			'cs_CZ' => 'latin-ext',
+			'ro_RO' => 'latin-ext',
+			'pl_PL' => 'latin-ext',
+			'hr_HR' => 'latin-ext',
+			'hu_HU' => 'latin-ext',
+			'sk_SK' => 'latin-ext',
+			'tr_TR' => 'latin-ext',
+			'lt_LT' => 'latin-ext',
+		];
+
+		/**
+		 * Google font subsets.
+		 *
+		 * Filters the list of Google font subsets from which locale will be enqueued in frontend.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $subsets A list of font subsets.
+		 */
+		$subsets = apply_filters( 'elementor/frontend/google_font_subsets', $subsets );
+
+		$locale = get_locale();
+
+		if ( isset( $subsets[ $locale ] ) ) {
+			$fonts_url .= '&subset=' . $subsets[ $locale ];
+		}
+
+		return $fonts_url;
+	}
+
+	/**
+	 * @param array $fonts Early Access google fonts ($google_fonts['early']).
+	 * @return array
+	 */
+	public function get_early_access_google_font_urls( array $fonts ): array {
+		$font_urls = [];
+
+		foreach ( $fonts as $font ) {
+			$font_urls[] = sprintf( 'https://fonts.googleapis.com/earlyaccess/%s.css', strtolower( str_replace( ' ', '', $font ) ) );
+		}
+
+		return $font_urls;
 	}
 
 	/**
@@ -613,9 +975,7 @@ class Frontend extends App {
 	 *                            Default is an empty array.
 	 */
 	private function enqueue_google_fonts( $google_fonts = [] ) {
-		static $google_fonts_index = 0;
-
-		$print_google_fonts = true;
+		$print_google_fonts = Fonts::is_google_fonts_enabled();
 
 		/**
 		 * Print frontend google fonts.
@@ -634,43 +994,22 @@ class Frontend extends App {
 
 		// Print used fonts
 		if ( ! empty( $google_fonts['google'] ) ) {
-			$google_fonts_index++;
+			$this->google_fonts_index++;
 
-			foreach ( $google_fonts['google'] as &$font ) {
-				$font = str_replace( ' ', '+', $font ) . ':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic';
-			}
+			$fonts_url = $this->get_stable_google_fonts_url( $google_fonts['google'] );
 
-			$fonts_url = sprintf( 'https://fonts.googleapis.com/css?family=%s', implode( rawurlencode( '|' ), $google_fonts['google'] ) );
-
-			$subsets = [
-				'ru_RU' => 'cyrillic',
-				'bg_BG' => 'cyrillic',
-				'he_IL' => 'hebrew',
-				'el' => 'greek',
-				'vi' => 'vietnamese',
-				'uk' => 'cyrillic',
-				'cs_CZ' => 'latin-ext',
-				'ro_RO' => 'latin-ext',
-				'pl_PL' => 'latin-ext',
-			];
-			$locale = get_locale();
-
-			if ( isset( $subsets[ $locale ] ) ) {
-				$fonts_url .= '&subset=' . $subsets[ $locale ];
-			}
-
-			wp_enqueue_style( 'google-fonts-' . $google_fonts_index, $fonts_url ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+			wp_enqueue_style( 'google-fonts-' . $this->google_fonts_index, $fonts_url ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		}
 
 		if ( ! empty( $google_fonts['early'] ) ) {
-			foreach ( $google_fonts['early'] as $current_font ) {
-				$google_fonts_index++;
+			$early_access_font_urls = $this->get_early_access_google_font_urls( $google_fonts['early'] );
+
+			foreach ( $early_access_font_urls as $ea_font_url ) {
+				$this->google_fonts_index++;
 
 				//printf( '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/%s.css">', strtolower( str_replace( ' ', '', $current_font ) ) );
 
-				$font_url = sprintf( 'https://fonts.googleapis.com/earlyaccess/%s.css', strtolower( str_replace( ' ', '', $current_font ) ) );
-
-				wp_enqueue_style( 'google-earlyaccess-' . $google_fonts_index, $font_url ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+				wp_enqueue_style( 'google-earlyaccess-' . $this->google_fonts_index, $ea_font_url ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 			}
 		}
 
@@ -704,7 +1043,7 @@ class Frontend extends App {
 	 * @access protected
 	 */
 	protected function parse_global_css_code() {
-		$scheme_css_file = new Global_CSS( 'global.css' );
+		$scheme_css_file = Global_CSS::create( 'global.css' );
 
 		$scheme_css_file->enqueue();
 	}
@@ -766,18 +1105,14 @@ class Frontend extends App {
 			return '';
 		}
 
-		if ( ! Plugin::$instance->db->is_built_with_elementor( $post_id ) ) {
+		$document = Plugin::$instance->documents->get_doc_for_frontend( $post_id );
+
+		if ( ! $document || ! $document->is_built_with_elementor() ) {
 			return '';
 		}
 
-		$document = Plugin::$instance->documents->get_doc_for_frontend( $post_id );
-
 		// Change the current post, so widgets can use `documents->get_current`.
 		Plugin::$instance->documents->switch_to_document( $document );
-
-		if ( $document->is_editable_by_current_user() ) {
-			$this->admin_bar_edit_documents[ $document->get_main_id() ] = $document;
-		}
 
 		$data = $document->get_elements_data();
 
@@ -793,16 +1128,29 @@ class Frontend extends App {
 		 */
 		$data = apply_filters( 'elementor/frontend/builder_content_data', $data, $post_id );
 
+		do_action( 'elementor/frontend/before_get_builder_content', $document, $this->_is_excerpt );
+
 		if ( empty( $data ) ) {
+			Plugin::$instance->documents->restore_document();
+
 			return '';
 		}
 
 		if ( ! $this->_is_excerpt ) {
 			if ( $document->is_autosave() ) {
-				$css_file = new Post_Preview( $document->get_post()->ID );
+				$css_file = Post_Preview::create( $document->get_post()->ID );
 			} else {
-				$css_file = new Post_CSS( $post_id );
+				$css_file = Post_CSS::create( $post_id );
 			}
+
+			/**
+			 * Builder Content - Before Enqueue CSS File
+			 *
+			 * Allows intervening with a document's CSS file before it is enqueued.
+			 *
+			 * @param $css_file Post_CSS|Post_Preview
+			 */
+			$css_file = apply_filters( 'elementor/frontend/builder_content/before_enqueue_css_file', $css_file );
 
 			$css_file->enqueue();
 		}
@@ -810,9 +1158,19 @@ class Frontend extends App {
 		ob_start();
 
 		// Handle JS and Customizer requests, with CSS inline.
-		if ( is_customize_preview() || Utils::is_ajax() ) {
+		if ( is_customize_preview() || wp_doing_ajax() ) {
 			$with_css = true;
 		}
+
+		/**
+		 * Builder Content - With CSS
+		 *
+		 * Allows overriding the `$with_css` parameter which is a factor in determining whether to print the document's
+		 * CSS and font links inline in a `style` tag above the document's markup.
+		 *
+		 * @param $with_css boolean
+		 */
+		$with_css = apply_filters( 'elementor/frontend/builder_content/before_print_css', $with_css );
 
 		if ( ! empty( $css_file ) && $with_css ) {
 			$css_file->print_css();
@@ -821,6 +1179,8 @@ class Frontend extends App {
 		$document->print_elements_with_wrapper( $data );
 
 		$content = ob_get_clean();
+
+		$content = $this->process_more_tag( $content );
 
 		/**
 		 * Frontend content.
@@ -839,49 +1199,11 @@ class Frontend extends App {
 
 		Plugin::$instance->documents->restore_document();
 
+		// BC
+		// TODO: use Deprecation::do_deprecated_action() in 3.1.0
+		do_action( 'elementor/frontend/get_builder_content', $document, $this->_is_excerpt, $with_css );
+
 		return $content;
-	}
-
-	/**
-	 * Add Elementor menu to admin bar.
-	 *
-	 * Add new admin bar item only on singular pages, to display a link that
-	 * allows the user to edit with Elementor.
-	 *
-	 * Fired by `admin_bar_menu` action.
-	 *
-	 * @since 1.3.4
-	 * @access public
-	 *
-	 * @param \WP_Admin_Bar $wp_admin_bar WP_Admin_Bar instance, passed by reference.
-	 */
-	public function add_menu_in_admin_bar( \WP_Admin_Bar $wp_admin_bar ) {
-		if ( empty( $this->admin_bar_edit_documents ) ) {
-			return;
-		}
-
-		$queried_object_id = get_queried_object_id();
-
-		$menu_args = [
-			'id' => 'elementor_edit_page',
-			'title' => __( 'Edit with Elementor', 'elementor' ),
-		];
-
-		if ( is_singular() && isset( $this->admin_bar_edit_documents[ $queried_object_id ] ) ) {
-			$menu_args['href'] = $this->admin_bar_edit_documents[ $queried_object_id ]->get_edit_url();
-			unset( $this->admin_bar_edit_documents[ $queried_object_id ] );
-		}
-
-		$wp_admin_bar->add_node( $menu_args );
-
-		foreach ( $this->admin_bar_edit_documents as $document ) {
-			$wp_admin_bar->add_menu( [
-				'id' => 'elementor_edit_doc_' . $document->get_main_id(),
-				'parent' => 'elementor_edit_page',
-				'title' => sprintf( '<span class="elementor-edit-link-title">%s</span><span class="elementor-edit-link-type">%s</span>', $document->get_post()->post_title, $document::get_title() ),
-				'href' => $document->get_edit_url(),
-			] );
-		}
 	}
 
 	/**
@@ -910,7 +1232,7 @@ class Frontend extends App {
 		if ( get_the_ID() === (int) $post_id ) {
 			$content = '';
 			if ( $editor->is_edit_mode() ) {
-				$content = '<div class="elementor-alert elementor-alert-danger">' . __( 'Invalid Data: The Template ID cannot be the same as the currently edited template. Please choose a different one.', 'elementor' ) . '</div>';
+				$content = '<div class="elementor-alert elementor-alert-danger">' . esc_html__( 'Invalid Data: The Template ID cannot be the same as the currently edited template. Please choose a different one.', 'elementor' ) . '</div>';
 			}
 
 			return $content;
@@ -988,55 +1310,164 @@ class Frontend extends App {
 		}
 	}
 
+	/**
+	 * Has Elementor In Page
+	 *
+	 * Determine whether the current page is using Elementor.
+	 *
+	 * @since 2.0.9
+	 *
+	 * @access public
+	 * @return bool
+	 */
 	public function has_elementor_in_page() {
 		return $this->_has_elementor_in_page;
 	}
 
+	public function create_action_hash( $action, array $settings = [] ) {
+		return '#' . rawurlencode( sprintf( 'elementor-action:action=%1$s&settings=%2$s', $action, base64_encode( wp_json_encode( $settings ) ) ) );
+	}
+
+	/**
+	 * Is the current render mode is static.
+	 *
+	 * @return bool
+	 */
+	public function is_static_render_mode() {
+		// The render mode manager is exists only in frontend,
+		// so by default if it is not exist the method will return false.
+		if ( ! $this->render_mode_manager ) {
+			return false;
+		}
+
+		return $this->render_mode_manager->get_current()->is_static();
+	}
+
+	/**
+	 * Get Init Settings
+	 *
+	 * Used to define the default/initial settings of the object. Inheriting classes may implement this method to define
+	 * their own default/initial settings.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @access protected
+	 * @return array
+	 */
 	protected function get_init_settings() {
 		$is_preview_mode = Plugin::$instance->preview->is_preview_mode( Plugin::$instance->preview->get_post_id() );
 
+		$active_experimental_features = Plugin::$instance->experiments->get_active_features();
+
+		$active_experimental_features = array_fill_keys( array_keys( $active_experimental_features ), true );
+
+		$assets_url = ELEMENTOR_ASSETS_URL;
+
+		/**
+		 * Frontend assets URL
+		 *
+		 * Filters Elementor frontend assets URL.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param string $assets_url The frontend assets URL. Default is ELEMENTOR_ASSETS_URL.
+		 */
+		$assets_url = apply_filters( 'elementor/frontend/assets_url', $assets_url );
+
 		$settings = [
-			'isEditMode' => $is_preview_mode,
-			'is_rtl' => is_rtl(),
-			'breakpoints' => Responsive::get_breakpoints(),
-			'version' => ELEMENTOR_VERSION,
-			'urls' => [
-				'assets' => ELEMENTOR_ASSETS_URL,
+			'environmentMode' => [
+				'edit' => $is_preview_mode,
+				'wpPreview' => is_preview(),
+				'isScriptDebug' => Utils::is_script_debug(),
 			],
+			'i18n' => [
+				'shareOnFacebook' => esc_html__( 'Share on Facebook', 'elementor' ),
+				'shareOnTwitter' => esc_html__( 'Share on Twitter', 'elementor' ),
+				'pinIt' => esc_html__( 'Pin it', 'elementor' ),
+				'download' => esc_html__( 'Download', 'elementor' ),
+				'downloadImage' => esc_html__( 'Download image', 'elementor' ),
+				'fullscreen' => esc_html__( 'Fullscreen', 'elementor' ),
+				'zoom' => esc_html__( 'Zoom', 'elementor' ),
+				'share' => esc_html__( 'Share', 'elementor' ),
+				'playVideo' => esc_html__( 'Play Video', 'elementor' ),
+				'previous' => esc_html__( 'Previous', 'elementor' ),
+				'next' => esc_html__( 'Next', 'elementor' ),
+				'close' => esc_html__( 'Close', 'elementor' ),
+				'a11yCarouselWrapperAriaLabel' => __( 'Carousel | Horizontal scrolling: Arrow Left & Right', 'elementor' ),
+				'a11yCarouselPrevSlideMessage' => __( 'Previous slide', 'elementor' ),
+				'a11yCarouselNextSlideMessage' => __( 'Next slide', 'elementor' ),
+				'a11yCarouselFirstSlideMessage' => __( 'This is the first slide', 'elementor' ),
+				'a11yCarouselLastSlideMessage' => __( 'This is the last slide', 'elementor' ),
+				'a11yCarouselPaginationBulletMessage' => __( 'Go to slide', 'elementor' ),
+			],
+			'is_rtl' => is_rtl(),
+			// 'breakpoints' object is kept for BC.
+			'breakpoints' => Responsive::get_breakpoints(),
+			// 'responsive' contains the custom breakpoints config introduced in Elementor v3.2.0
+			'responsive' => [
+				'breakpoints' => Plugin::$instance->breakpoints->get_breakpoints_config(),
+			],
+			'version' => ELEMENTOR_VERSION,
+			'is_static' => $this->is_static_render_mode(),
+			'experimentalFeatures' => $active_experimental_features,
+			'urls' => [
+				'assets' => $assets_url,
+			],
+			'swiperClass' => Plugin::$instance->experiments->is_feature_active( 'e_swiper_latest' ) ? 'swiper' : 'swiper-container',
 		];
 
 		$settings['settings'] = SettingsManager::get_settings_frontend_config();
 
+		$kit = Plugin::$instance->kits_manager->get_active_kit_for_frontend();
+		$settings['kit'] = $kit->get_frontend_settings();
+
 		if ( is_singular() ) {
 			$post = get_post();
+
+			$title = Utils::urlencode_html_entities( wp_get_document_title() );
+
+			// Try to use the 'large' WP image size because the Pinterest share API
+			// has problems accepting shares with large images sometimes, and the WP 'large' thumbnail is
+			// the largest default WP image size that will probably not be changed in most sites
+			$featured_image_url = get_the_post_thumbnail_url( null, 'large' );
+
+			// If the large size was nullified, use the full size which cannot be nullified/deleted
+			if ( ! $featured_image_url ) {
+				$featured_image_url = get_the_post_thumbnail_url( null, 'full' );
+			}
+
 			$settings['post'] = [
 				'id' => $post->ID,
-				'title' => $post->post_title,
+				'title' => $title,
 				'excerpt' => $post->post_excerpt,
+				'featuredImage' => $featured_image_url,
 			];
 		} else {
 			$settings['post'] = [
 				'id' => 0,
 				'title' => wp_get_document_title(),
-				'excerpt' => '',
+				'excerpt' => get_the_archive_description(),
 			];
 		}
 
+		$empty_object = (object) [];
+
 		if ( $is_preview_mode ) {
-			$elements_manager = Plugin::$instance->elements_manager;
-
-			$elements_frontend_keys = [
-				'section' => $elements_manager->get_element_types( 'section' )->get_frontend_settings_keys(),
-				'column' => $elements_manager->get_element_types( 'column' )->get_frontend_settings_keys(),
-			];
-
-			$elements_frontend_keys += Plugin::$instance->widgets_manager->get_widgets_frontend_settings_keys();
-
 			$settings['elements'] = [
-				'data' => (object) [],
-				'editSettings' => (object) [],
-				'keys' => $elements_frontend_keys,
+				'data' => $empty_object,
+				'editSettings' => $empty_object,
+				'keys' => $empty_object,
 			];
+		}
+
+		if ( is_user_logged_in() ) {
+			$user = wp_get_current_user();
+
+			if ( ! empty( $user->roles ) ) {
+				$settings['user'] = [
+					'roles' => $user->roles,
+				];
+			}
 		}
 
 		return $settings;
@@ -1048,13 +1479,107 @@ class Frontend extends App {
 	 * Restore removed WordPress filters that conflicted with Elementor.
 	 *
 	 * @since 1.5.0
-	 * @access private
+	 * @access public
 	 */
-	private function restore_content_filters() {
+	public function restore_content_filters() {
 		foreach ( $this->content_removed_filters as $filter ) {
 			add_filter( 'the_content', $filter );
 		}
 
 		$this->content_removed_filters = [];
+	}
+
+	/**
+	 * Process More Tag
+	 *
+	 * Respect the native WP (<!--more-->) tag
+	 *
+	 * @access private
+	 * @since 2.0.4
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	private function process_more_tag( $content ) {
+		$post = get_post();
+		$content = str_replace( '&lt;!--more--&gt;', '<!--more-->', $content );
+		$parts = get_extended( $content );
+		if ( empty( $parts['extended'] ) ) {
+			return $content;
+		}
+
+		if ( is_singular() ) {
+			return $parts['main'] . '<div id="more-' . $post->ID . '"></div>' . $parts['extended'];
+		}
+
+		if ( empty( $parts['more_text'] ) ) {
+			$parts['more_text'] = esc_html__( '(more&hellip;)', 'elementor' );
+		}
+
+		$more_link_text = sprintf(
+			'<span aria-label="%1$s">%2$s</span>',
+			sprintf(
+				/* translators: %s: Current post name. */
+				__( 'Continue reading %s', 'elementor' ),
+				the_title_attribute( [
+					'echo' => false,
+				] )
+			),
+			$parts['more_text']
+		);
+
+		$more_link = sprintf( ' <a href="%s#more-%s" class="more-link elementor-more-link">%s</a>', get_permalink(), $post->ID, $more_link_text );
+
+		/**
+		 * The content "more" link.
+		 *
+		 * Filters the "more" link displayed after the content.
+		 *
+		 * This hook can be used either to change the link syntax or to change the
+		 * text inside the link.
+		 *
+		 * @since 2.0.4
+		 *
+		 * @param string $more_link      The more link.
+		 * @param string $more_link_text The text inside the more link.
+		 */
+		$more_link = apply_filters( 'the_content_more_link', $more_link, $more_link_text );
+
+		return force_balance_tags( $parts['main'] ) . $more_link;
+	}
+
+	private function is_improved_assets_loading() {
+		return Plugin::$instance->experiments->is_feature_active( 'e_optimized_assets_loading' );
+	}
+
+	private function get_elementor_frontend_dependencies() {
+		$dependencies = [
+			'elementor-frontend-modules',
+			'elementor-waypoints',
+			'jquery-ui-position',
+		];
+
+		if ( ! $this->is_improved_assets_loading() ) {
+			wp_register_script(
+				'swiper',
+				$this->get_js_assets_url( 'swiper', $this->e_swiper_asset_path ),
+				[],
+				$this->e_swiper_version,
+				true
+			);
+
+			$dependencies[] = 'swiper';
+			$dependencies[] = 'share-link';
+			$dependencies[] = 'elementor-dialog';
+		}
+
+		return $dependencies;
+	}
+
+	private function is_optimized_css_mode() {
+		$is_optimized_css_loading = Plugin::$instance->experiments->is_feature_active( 'e_optimized_css_loading' );
+
+		return ! Utils::is_script_debug() && $is_optimized_css_loading && ! Plugin::$instance->preview->is_preview_mode();
 	}
 }

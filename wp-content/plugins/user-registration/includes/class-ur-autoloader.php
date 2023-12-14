@@ -41,7 +41,7 @@ class UR_Autoloader {
 	/**
 	 * Take a class name and turn it into a file name.
 	 *
-	 * @param  string $class
+	 * @param  string $class Class.
 	 *
 	 * @return string
 	 */
@@ -52,13 +52,13 @@ class UR_Autoloader {
 	/**
 	 * Include a class file.
 	 *
-	 * @param  string $path
+	 * @param  string $path Path.
 	 *
 	 * @return bool successful or not
 	 */
 	private function load_file( $path ) {
 		if ( $path && is_readable( $path ) ) {
-			include_once( $path );
+			include_once $path;
 
 			return true;
 		}
@@ -69,7 +69,7 @@ class UR_Autoloader {
 	/**
 	 * Auto-load UR classes on demand to reduce memory consumption.
 	 *
-	 * @param string $class
+	 * @param string $class Class.
 	 */
 	public function autoload( $class ) {
 		$class = strtolower( $class );
@@ -82,10 +82,9 @@ class UR_Autoloader {
 			$path = $this->include_path . 'admin/meta-boxes/';
 		} elseif ( strpos( $class, 'ur_admin' ) === 0 ) {
 			$path = $this->include_path . 'admin/';
-		} elseif ( strpos($class, 'ur_settings') === 0 ) {
+		} elseif ( strpos( $class, 'ur_settings' ) === 0 ) {
 			$path = $this->include_path . 'admin/settings/emails/';
-		}
-		elseif ( strpos( $class, 'ur_form' ) === 0 ) {
+		} elseif ( strpos( $class, 'ur_form' ) === 0 ) {
 			$path = $this->include_path . 'form/';
 		} elseif ( strpos( $class, 'ur_log_handler_' ) === 0 ) {
 			$path = $this->include_path . 'log-handlers/';

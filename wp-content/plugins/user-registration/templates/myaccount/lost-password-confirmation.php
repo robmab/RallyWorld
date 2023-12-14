@@ -10,18 +10,18 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://docs.wpeverest.com/user-registration/template-structure/
+ * @see     https://docs.wpuserregistration.com/docs/how-to-edit-user-registration-template-files-such-as-login-form/
  * @author  WPEverest
  * @package UserRegistration/Templates
  * @version 1.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly.
 }
 
 ur_print_notices();
 ur_print_notice( __( 'Password reset email has been sent.', 'user-registration' ) );
 ?>
 
-<p><?php echo apply_filters( 'user_registration_lost_password_message', __( 'A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox. Please wait at least 10 minutes before attempting another reset.', 'user-registration' ) ); ?></p>
+<p><?php echo esc_html( apply_filters( 'user_registration_lost_password_message', esc_html__( 'A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox. Please wait at least 10 minutes before attempting another reset.', 'user-registration' ) ) ); ?></p>

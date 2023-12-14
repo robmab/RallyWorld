@@ -1,13 +1,13 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Ask for some love.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.3.2
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2017, WPForms LLC
+ * @since 1.3.2
  */
 class WPForms_Review {
 
@@ -19,11 +19,12 @@ class WPForms_Review {
 	public function __construct() {
 
 		// Admin notice requesting review.
-		add_action( 'admin_notices', array( $this, 'review_request' ) );
-		add_action( 'wp_ajax_wpforms_review_dismiss', array( $this, 'review_dismiss' ) );
+		add_action( 'admin_init', [ $this, 'review_request' ] );
+		add_action( 'wp_ajax_wpforms_review_dismiss', [ $this, 'review_dismiss' ] );
 
 		// Admin footer text.
-		add_filter( 'admin_footer_text', array( $this, 'admin_footer' ), 1, 2 );
+		add_filter( 'admin_footer_text', [ $this, 'admin_footer' ], 1, 2 );
+		add_action( 'in_admin_footer', [ $this, 'promote_wpforms' ] );
 	}
 
 	/**
@@ -38,28 +39,38 @@ class WPForms_Review {
 			return;
 		}
 
-		// If the user has opted out of product annoucement notifications, don't
+		// If the user has opted out of product announcement notifications, don't
 		// display the review request.
 		if ( wpforms_setting( 'hide-announcements', false ) ) {
 			return;
 		}
 
 		// Verify that we can do a check for reviews.
-		$review = get_option( 'wpforms_review' );
-		$time   = time();
-		$load   = false;
+		$notices = (array) get_option( 'wpforms_admin_notices', [] );
+		$time    = time();
+		$load    = false;
 
-		if ( ! $review ) {
-			$review = array(
+		if ( empty( $notices['review_request'] ) ) {
+			$notices['review_request'] = [
 				'time'      => $time,
 				'dismissed' => false,
-			);
-			update_option( 'wpforms_review', $review );
-		} else {
-			// Check if it has been dismissed or not.
-			if ( ( isset( $review['dismissed'] ) && ! $review['dismissed'] ) && ( isset( $review['time'] ) && ( ( $review['time'] + DAY_IN_SECONDS ) <= $time ) ) ) {
-				$load = true;
-			}
+			];
+
+			update_option( 'wpforms_admin_notices', $notices );
+
+			return;
+		}
+
+		// Check if it has been dismissed or not.
+		if (
+			( isset( $notices['review_request']['dismissed'] ) &&
+			! $notices['review_request']['dismissed'] ) &&
+			(
+				isset( $notices['review_request']['time'] ) &&
+				( ( $notices['review_request']['time'] + DAY_IN_SECONDS ) <= $time )
+			)
+		) {
+			$load = true;
 		}
 
 		// If we cannot load, return early.
@@ -68,7 +79,7 @@ class WPForms_Review {
 		}
 
 		// Logic is slightly different depending on what's at our disposal.
-		if ( wpforms()->pro && class_exists( 'WPForms_Entry_Handler' ) ) {
+		if ( wpforms()->is_pro() && class_exists( 'WPForms_Entry_Handler', false ) ) {
 			$this->review();
 		} else {
 			$this->review_lite();
@@ -83,38 +94,35 @@ class WPForms_Review {
 	public function review() {
 
 		// Fetch total entries.
-		$entries = wpforms()->entry->get_entries( array( 'number' => 50 ), true );
+		$entries = wpforms()->entry->get_entries( [ 'number' => 50 ], true );
 
 		// Only show review request if the site has collected at least 50 entries.
 		if ( empty( $entries ) || $entries < 50 ) {
 			return;
 		}
 
+		ob_start();
+
 		// We have a candidate! Output a review message.
 		?>
-		<div class="notice notice-info is-dismissible wpforms-review-notice">
-			<p><?php esc_html_e( 'Hey, I noticed you collected over 50 entries from WPForms - that’s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'wpforms' ); ?></p>
-			<p><strong><?php echo wp_kses( __( '~ Syed Balkhi<br>Co-Founder of WPForms', 'wpforms' ), array( 'br' => array() ) ); ?></strong></p>
-			<p>
-				<a href="https://wordpress.org/support/plugin/wpforms-lite/reviews/?filter=5#new-post" class="wpforms-dismiss-review-notice wpforms-review-out" target="_blank" rel="noopener"><?php esc_html_e( 'Ok, you deserve it', 'wpforms' ); ?></a><br>
-				<a href="#" class="wpforms-dismiss-review-notice" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Nope, maybe later', 'wpforms' ); ?></a><br>
-				<a href="#" class="wpforms-dismiss-review-notice" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'I already did', 'wpforms' ); ?></a>
-			</p>
-		</div>
-		<script type="text/javascript">
-			jQuery( document ).ready( function ( $ ) {
-				$( document ).on( 'click', '.wpforms-dismiss-review-notice, .wpforms-review-notice button', function ( event ) {
-					if ( ! $( this ).hasClass( 'wpforms-review-out' ) ) {
-						event.preventDefault();
-					}
-					$.post( ajaxurl, {
-						action: 'wpforms_review_dismiss'
-					} );
-					$( '.wpforms-review-notice' ).remove();
-				} );
-			} );
-		</script>
+		<p><?php esc_html_e( 'Hey, I noticed you collected over 50 entries from WPForms - that’s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'wpforms-lite' ); ?></p>
+		<p><strong><?php echo wp_kses( __( '~ Syed Balkhi<br>Co-Founder of WPForms', 'wpforms-lite' ), [ 'br' => [] ] ); ?></strong></p>
+		<p>
+			<a href="https://wordpress.org/support/plugin/wpforms-lite/reviews/?filter=5#new-post" class="wpforms-notice-dismiss wpforms-review-out" target="_blank" rel="noopener"><?php esc_html_e( 'Ok, you deserve it', 'wpforms-lite' ); ?></a><br>
+			<a href="#" class="wpforms-notice-dismiss" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Nope, maybe later', 'wpforms-lite' ); ?></a><br>
+			<a href="#" class="wpforms-notice-dismiss" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'I already did', 'wpforms-lite' ); ?></a>
+		</p>
 		<?php
+
+		\WPForms\Admin\Notice::info(
+			ob_get_clean(),
+			[
+				'dismiss' => \WPForms\Admin\Notice::DISMISS_GLOBAL,
+				'slug'    => 'review_request',
+				'autop'   => false,
+				'class'   => 'wpforms-review-notice',
+			]
+		);
 	}
 
 	/**
@@ -125,15 +133,16 @@ class WPForms_Review {
 	public function review_lite() {
 
 		// Fetch when plugin was initially installed.
-		$activated = get_option( 'wpforms_activated', array() );
+		$activated = get_option( 'wpforms_activated', [] );
 
 		if ( ! empty( $activated['lite'] ) ) {
-			// Only continue if plugin has been installed for at least 7 days.
+			// Only continue if plugin has been installed for at least 14 days.
 			if ( ( $activated['lite'] + ( DAY_IN_SECONDS * 14 ) ) > time() ) {
 				return;
 			}
 		} else {
 			$activated['lite'] = time();
+
 			update_option( 'wpforms_activated', $activated );
 
 			return;
@@ -141,6 +150,7 @@ class WPForms_Review {
 
 		// Only proceed with displaying if the user created at least one form.
 		$form_count = wp_count_posts( 'wpforms' );
+
 		if ( empty( $form_count->publish ) ) {
 			return;
 		}
@@ -154,45 +164,47 @@ class WPForms_Review {
 			return;
 		}
 
+		ob_start();
+
 		// We have a candidate! Output a review message.
 		?>
-		<div class="notice notice-info is-dismissible wpforms-review-notice">
-			<p><?php esc_html_e( 'Hey, I noticed you created a contact form with WPForms - that’s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'wpforms' ); ?></p>
-			<p><strong><?php echo wp_kses( __( '~ Syed Balkhi<br>Co-Founder of WPForms', 'wpforms' ), array( 'br' => array() ) ); ?></strong></p>
-			<p>
-				<a href="https://wordpress.org/support/plugin/wpforms-lite/reviews/?filter=5#new-post" class="wpforms-dismiss-review-notice wpforms-review-out" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Ok, you deserve it', 'wpforms' ); ?></a><br>
-				<a href="#" class="wpforms-dismiss-review-notice" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Nope, maybe later', 'wpforms' ); ?></a><br>
-				<a href="#" class="wpforms-dismiss-review-notice" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'I already did', 'wpforms' ); ?></a>
-			</p>
-		</div>
-		<script type="text/javascript">
-			jQuery( document ).ready( function ( $ ) {
-				$( document ).on( 'click', '.wpforms-dismiss-review-notice, .wpforms-review-notice button', function ( event ) {
-					if ( ! $( this ).hasClass( 'wpforms-review-out' ) ) {
-						event.preventDefault();
-					}
-					$.post( ajaxurl, {
-						action: 'wpforms_review_dismiss'
-					} );
-					$( '.wpforms-review-notice' ).remove();
-				} );
-			} );
-		</script>
+		<p><?php esc_html_e( 'Hey, I noticed you created a contact form with WPForms - that’s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'wpforms-lite' ); ?></p>
+		<p><strong><?php echo wp_kses( __( '~ Syed Balkhi<br>Co-Founder of WPForms', 'wpforms-lite' ), [ 'br' => [] ] ); ?></strong></p>
+		<p>
+			<a href="https://wordpress.org/support/plugin/wpforms-lite/reviews/?filter=5#new-post" class="wpforms-notice-dismiss wpforms-review-out" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Ok, you deserve it', 'wpforms-lite' ); ?></a><br>
+			<a href="#" class="wpforms-notice-dismiss" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Nope, maybe later', 'wpforms-lite' ); ?></a><br>
+			<a href="#" class="wpforms-notice-dismiss" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'I already did', 'wpforms-lite' ); ?></a>
+		</p>
 		<?php
+
+		\WPForms\Admin\Notice::info(
+			ob_get_clean(),
+			[
+				'dismiss' => \WPForms\Admin\Notice::DISMISS_GLOBAL,
+				'slug'    => 'review_lite_request',
+				'autop'   => false,
+				'class'   => 'wpforms-review-notice',
+			]
+		);
 	}
 
 	/**
-	 * Dismiss the review admin notice
+	 * Dismiss the review admin notice.
+	 *
+	 * @deprecated 1.6.7.1
 	 *
 	 * @since 1.3.2
 	 */
 	public function review_dismiss() {
 
-		$review              = get_option( 'wpforms_review', array() );
+		_deprecated_function( __METHOD__, '1.6.7.1 of the WPForms plugin' );
+
+		$review              = get_option( 'wpforms_review', [] );
 		$review['time']      = time();
 		$review['dismissed'] = true;
 
 		update_option( 'wpforms_review', $review );
+
 		die;
 	}
 
@@ -202,7 +214,7 @@ class WPForms_Review {
 	 *
 	 * @since 1.3.2
 	 *
-	 * @param string $text
+	 * @param string $text Footer text.
 	 *
 	 * @return string
 	 */
@@ -213,16 +225,15 @@ class WPForms_Review {
 		if ( ! empty( $current_screen->id ) && strpos( $current_screen->id, 'wpforms' ) !== false ) {
 			$url  = 'https://wordpress.org/support/plugin/wpforms-lite/reviews/?filter=5#new-post';
 			$text = sprintf(
-				wp_kses(
-					/* translators: $1$s - WPForms plugin name; $2$s - WP.org review link; $3$s - WP.org review link. */
-					__( 'Please rate %1$s <a href="%2$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%3$s" target="_blank" rel="noopener">WordPress.org</a> to help us spread the word. Thank you from the WPForms team!', 'wpforms' ),
-					array(
-						'a' => array(
-							'href'   => array(),
-							'target' => array(),
-							'rel'    => array(),
-						),
-					)
+				wp_kses( /* translators: $1$s - WPForms plugin name, $2$s - WP.org review link, $3$s - WP.org review link. */
+					__( 'Please rate %1$s <a href="%2$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%3$s" target="_blank" rel="noopener">WordPress.org</a> to help us spread the word.', 'wpforms-lite' ),
+					[
+						'a' => [
+							'href'   => [],
+							'target' => [],
+							'rel'    => [],
+						],
+					]
 				),
 				'<strong>WPForms</strong>',
 				$url,
@@ -233,6 +244,77 @@ class WPForms_Review {
 		return $text;
 	}
 
+	/**
+	 * Pre-footer promotion block, displayed on all WPForms admin pages except Form Builder.
+	 *
+	 * @since 1.8.0
+	 */
+	public function promote_wpforms() {
+
+		// Some 3rd-party addons may use page slugs that start with `wpforms-` (e.g. WPForms Views),
+		// so we should define exact pages we want the footer to be displayed on instead
+		// of targeting any page that looks like a WPForms page.
+		$plugin_pages = [
+			'wpforms-about',
+			'wpforms-addons',
+			'wpforms-analytics',
+			'wpforms-community',
+			'wpforms-entries',
+			'wpforms-overview',
+			'wpforms-payments',
+			'wpforms-settings',
+			'wpforms-smtp',
+			'wpforms-templates',
+			'wpforms-tools',
+		];
+
+		// phpcs:ignore WordPress.Security.NonceVerification
+		$current_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : '';
+
+		if ( ! in_array( $current_page, $plugin_pages, true ) ) {
+			return;
+		}
+
+		$links = [
+			[
+				'url'    => wpforms()->is_pro() ?
+					wpforms_utm_link(
+						'https://wpforms.com/account/support/',
+						'Plugin Footer',
+						'Contact Support'
+					) : 'https://wordpress.org/support/plugin/wpforms-lite/',
+				'text'   => __( 'Support', 'wpforms-lite' ),
+				'target' => '_blank',
+			],
+			[
+				'url'    => wpforms_utm_link(
+					'https://wpforms.com/docs/',
+					'Plugin Footer',
+					'Plugin Documentation'
+				),
+				'text'   => __( 'Docs', 'wpforms-lite' ),
+				'target' => '_blank',
+			],
+			[
+				'url'    => 'https://www.facebook.com/groups/wpformsvip/',
+				'text'   => __( 'VIP Circle', 'wpforms-lite' ),
+				'target' => '_blank',
+			],
+			[
+				'url'  => admin_url( 'admin.php?page=wpforms-about' ),
+				'text' => __( 'Free Plugins', 'wpforms-lite' ),
+			],
+		];
+
+		echo wpforms_render( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			'admin/promotion',
+			[
+				'title' => __( 'Made with ♥ by the WPForms Team', 'wpforms-lite' ),
+				'links' => $links,
+			],
+			true
+		);
+	}
 }
 
-new WPForms_Review;
+new WPForms_Review();

@@ -1,0 +1,92 @@
+<wpml-config>
+    <admin-texts>
+        <key name="theme_mods_fitness-hub">
+            <key name="fitness_hub_theme_options">
+                /*logo and site title*/
+                <key name="fitness-hub-display-site-logo"/>
+                <key name="fitness-hub-display-site-title"/>
+                <key name="fitness-hub-display-site-tagline"/>
+                /*header height*/
+                <key name="fitness-hub-header-height"/>
+                <key name="fitness-hub-header-image-display"/>
+                /*header top*/
+                <key name="fitness-hub-enable-header-top"/>
+                <key name="fitness-hub-header-top-menu-display-selection"/>
+                <key name="fitness-hub-header-top-info-display-selection"/>
+                <key name="fitness-hub-header-top-social-display-selection"/>
+                /*menu options*/
+                <key name="fitness-hub-menu-display-options"/>
+                <key name="fitness-hub-enable-sticky"/>
+                <key name="fitness-hub-menu-right-button-options"/>
+                <key name="fitness-hub-menu-right-button-title"/>
+                <key name="fitness-hub-menu-right-button-link"/>
+                <key name="fitness-hub-enable-cart-icon"/>
+                /*feature section options*/
+                <key name="fitness-hub-enable-feature"/>
+                <key name="fitness-hub-slides-data"/>
+                <key name="fitness-hub-feature-slider-enable-animation"/>
+                <key name="fitness-hub-feature-slider-display-title"/>
+                <key name="fitness-hub-feature-slider-display-excerpt"/>
+                <key name="fitness-hub-fs-image-display-options"/>
+                <key name="fitness-hub-feature-slider-text-align"/>
+                /*basic info*/
+                <key name="fitness-hub-feature-info-number"/>
+                <key name="fitness-hub-first-info-icon"/>
+                <key name="fitness-hub-first-info-title"/>
+                <key name="fitness-hub-first-info-desc"/>
+                <key name="fitness-hub-second-info-icon"/>
+                <key name="fitness-hub-second-info-title"/>
+                <key name="fitness-hub-second-info-desc"/>
+                <key name="fitness-hub-third-info-icon"/>
+                <key name="fitness-hub-third-info-title"/>
+                <key name="fitness-hub-third-info-desc"/>
+                <key name="fitness-hub-forth-info-icon"/>
+                <key name="fitness-hub-forth-info-title"/>
+                <key name="fitness-hub-forth-info-desc"/>
+                /*footer options*/
+                <key name="fitness-hub-footer-copyright"/>
+                <key name="fitness-hub-footer-copyright-beside-option"/>
+                <key name="fitness-hub-enable-footer-power-text"/>
+                <key name="fitness-hub-footer-bg-img"/>
+                /*layout/design options*/
+                <key name="fitness-hub-pagination-option"/>
+                <key name="fitness-hub-enable-animation"/>
+                <key name="fitness-hub-single-sidebar-layout"/>
+                <key name="fitness-hub-front-page-sidebar-layout"/>
+                <key name="fitness-hub-archive-sidebar-layout"/>
+                <key name="fitness-hub-blog-archive-img-size"/>
+                <key name="fitness-hub-blog-archive-content-from"/>
+                <key name="fitness-hub-blog-archive-excerpt-length"/>
+                <key name="fitness-hub-blog-archive-more-text"/>
+                <key name="fitness-hub-primary-color"/>
+                <key name="fitness-hub-header-top-bg-color"/>
+                <key name="fitness-hub-footer-bg-color"/>
+                <key name="fitness-hub-footer-bottom-bg-color"/>
+                <key name="fitness-hub-link-color"/>
+                <key name="fitness-hub-link-hover-color"/>
+                /*Front Page*/
+                <key name="fitness-hub-hide-front-page-content"/>
+                <key name="fitness-hub-hide-front-page-header"/>
+                /*woocommerce*/
+                <key name="fitness-hub-wc-shop-archive-sidebar-layout"/>
+                <key name="fitness-hub-wc-product-column-number"/>
+                <key name="fitness-hub-wc-shop-archive-total-product"/>
+                <key name="fitness-hub-wc-single-product-sidebar-layout"/>
+                /*single post*/
+                <key name="fitness-hub-single-header-title"/>
+                <key name="fitness-hub-single-img-size"/>
+                /*theme options*/
+                <key name="fitness-hub-popup-widget-title"/>
+                <key name="fitness-hub-breadcrumb-options"/>
+                <key name="fitness-hub-search-placeholder"/>
+                <key name="fitness-hub-social-data"/>
+            </key>
+        </key>
+    </admin-texts>
+</wpml-config>
+
+
+
+
+
+

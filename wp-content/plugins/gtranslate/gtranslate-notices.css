@@ -14,7 +14,7 @@
     clear: both;
     content: "";
     display: block;
-    background-image: url(gt-logo.png);
+    background-image: url(gt_logo.svg);
     background-size: 125px auto;
     background-repeat: no-repeat;
     background-position: 0 45%;
@@ -49,6 +49,7 @@
 }
 .gt-notice-body .dashicons {
     font-size: 17px;
+    vertical-align: middle;
 }
 .gt-red {
     color: #ED494D;

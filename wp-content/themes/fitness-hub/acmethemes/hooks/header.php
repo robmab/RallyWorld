@@ -29,8 +29,7 @@ add_action( 'fitness_hub_action_before_head', 'fitness_hub_set_global', 0 );
  */
 if ( ! function_exists( 'fitness_hub_doctype' ) ) :
     function fitness_hub_doctype() {
-        ?>
-        <!DOCTYPE html><html <?php language_attributes(); ?>>
+        ?><!DOCTYPE html><html <?php language_attributes(); ?>>
         <?php
     }
 endif;

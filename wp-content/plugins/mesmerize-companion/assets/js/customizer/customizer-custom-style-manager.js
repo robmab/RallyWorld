@@ -296,8 +296,9 @@
             });
 
             colorsText = colorsArray.join(' , ');
+            if (!isNaN(angle)) angle += "deg";
 
-            return 'linear-gradient(' + angle + 'deg, ' + colorsText + ')';
+            return 'linear-gradient(' + angle + ', ' + colorsText + ')';
 
         },
 

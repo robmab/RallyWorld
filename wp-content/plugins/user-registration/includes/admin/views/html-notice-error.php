@@ -1,10 +1,12 @@
 <?php
 /**
  * Admin View: Notice - License Error
+ *
+ * @package UserRegistration
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly.
 }
 
 ?>

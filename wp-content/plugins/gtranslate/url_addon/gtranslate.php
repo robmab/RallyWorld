@@ -27,7 +27,7 @@ if(isset($get_params['gurl']))
     unset($get_params['gurl']);
 
 if(count($get_params)) {
-    $page_url .= '?' . http_build_query($get_params);
+    $page_url .= '?' . rtrim(str_replace('=&', '&', http_build_query($get_params, '', '&', PHP_QUERY_RFC3986)), '=');
 }
 
 $main_lang = isset($data['default_language']) ? $data['default_language'] : $main_lang;
@@ -75,7 +75,7 @@ $request_headers['Host'] = $host;
 if(isset($request_headers['HOST'])) unset($request_headers['HOST']);
 if(isset($request_headers['host'])) unset($request_headers['host']);
 
-if(!function_exists('gzdecode'))
+if(!function_exists('zlib_decode'))
     $request_headers['Accept-Encoding'] = '';
 else
     $request_headers['Accept-Encoding'] = 'gzip';
@@ -113,8 +113,32 @@ foreach($request_headers as $key => $val) {
         $headers[] = $key . ': ' . $val;
 }
 
+// add real visitor IP header
+if(isset($_SERVER['HTTP_CLIENT_IP']) and !empty($_SERVER['HTTP_CLIENT_IP']))
+    $viewer_ip_address = $_SERVER['HTTP_CLIENT_IP'];
+if(isset($_SERVER['HTTP_CF_CONNECTING_IP']) and !empty($_SERVER['HTTP_CF_CONNECTING_IP']))
+    $viewer_ip_address = $_SERVER['HTTP_CF_CONNECTING_IP'];
+if(isset($_SERVER['HTTP_X_SUCURI_CLIENTIP']) and !empty($_SERVER['HTTP_X_SUCURI_CLIENTIP']))
+    $viewer_ip_address = $_SERVER['HTTP_X_SUCURI_CLIENTIP'];
+if(!isset($viewer_ip_address))
+    $viewer_ip_address = $_SERVER['REMOTE_ADDR'];
+
+$headers[] = 'X-GT-Viewer-IP: ' . $viewer_ip_address;
+
+// add X-Forwarded-For
+if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) and !empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+    $headers[] = 'X-GT-Forwarded-For: ' . $_SERVER['HTTP_X_FORWARDED_FOR'];
+
 //print_r($headers);
 //exit;
+
+if(!function_exists('curl_init')) {
+    if(function_exists('http_response_code'))
+        http_response_code(500);
+
+    echo 'PHP Curl library is required';
+    exit;
+}
 
 // proxy request
 $ch = curl_init();
@@ -122,9 +146,10 @@ curl_setopt($ch, CURLOPT_URL, $page_url);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($ch, CURLOPT_HEADER, true);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+if(defined('CURL_IPRESOLVE_V4')) curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__).'/cacert.pem');
 
 switch($_SERVER['REQUEST_METHOD']) {
     case 'POST': {
@@ -145,7 +170,7 @@ switch($_SERVER['REQUEST_METHOD']) {
             $new_post = array('a'=>1,'b'=>2);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $new_post); // todo: think about $_FILES: http://php.net/manual/en/class.curlfile.php
             //curl_setopt($ch, CURLOPT_HTTPHEADER, array());
-            file_put_contents('debug.txt', print_r($new_post, true)."\n", FILE_APPEND);
+            file_put_contents(dirname(__FILE__).'/debug.txt', print_r($new_post, true)."\n", FILE_APPEND);
         } else {
             curl_setopt($ch, CURLOPT_POSTFIELDS, file_get_contents('php://input'));
         }
@@ -158,8 +183,8 @@ switch($_SERVER['REQUEST_METHOD']) {
 }
 
 // Debug
-if($debug or isset($_GET['enable_debug'])) {
-    $fh = fopen('debug.txt', 'a');
+if($debug) {
+    $fh = fopen(dirname(__FILE__).'/debug.txt', 'a');
     curl_setopt($ch, CURLOPT_VERBOSE, true);
     curl_setopt($ch, CURLOPT_STDERR, $fh);
 }
@@ -174,9 +199,9 @@ $header_size = $response_info['header_size'];
 $header = substr($response, 0, $header_size);
 $html = substr($response, $header_size);
 
-if(function_exists('gzdecode')) {
+if(function_exists('zlib_decode')) {
     $return_gz = false;
-    $html_gunzip = @gzdecode($html);
+    $html_gunzip = @zlib_decode($html);
 
     if($html_gunzip !== false) {
         $html = $html_gunzip;
@@ -194,9 +219,9 @@ $response_headers = explode(PHP_EOL, $header);
 //print_r($response_headers);
 $headers_sent = '';
 foreach($response_headers as $header) {
-    if(!empty($header) and !preg_match('/Content\-Length:|Transfer\-Encoding:|Content\-Encoding:|Link:/i', $header)) {
+    if(!empty(trim($header)) and !preg_match('/Content\-Length:|Transfer\-Encoding:|Content\-Encoding:|Link:/i', $header)) {
 
-        if(preg_match('/^Location:/i', $header)) {
+        if(preg_match('/^(Location|Refresh):/i', $header)) {
             $header = str_ireplace($host, $_SERVER['HTTP_HOST'] . '/' . $glang, $header);
             $header = str_ireplace('Location: /', 'Location: /' . $glang . '/', $header);
             $header = str_replace('/' . $glang . '/' . $glang . '/', '/' . $glang . '/', $header);
@@ -227,8 +252,8 @@ $html = str_ireplace('action=\'//' . $_SERVER['HTTP_HOST'], 'action=\'//' . $_SE
 
 // woocommerce specific changes
 $html = str_ireplace(
-    array('ajax_url":"\\/',              '"checkout_url":"\\/',               'var wc_country_select_params',  'var wc_address_i18n_params' ),
-    array('ajax_url":"\\/'.$glang.'\\/', '"checkout_url":"\\/'.$glang.'\\/',  'var wc_country_select_params2', 'var wc_address_i18n_params2'),
+    array('ajax_url":"\\/',              '"checkout_url":"\\/'              ),
+    array('ajax_url":"\\/'.$glang.'\\/', '"checkout_url":"\\/'.$glang.'\\/' ),
     $html
 );
 

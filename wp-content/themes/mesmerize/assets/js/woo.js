@@ -1,7 +1,7 @@
 (function ($) {
 
     var addCloseCartBind = function ($cart, $cart_button, $menu) {
-        $('body').on('mouseover.ope-woo', function () {
+        $('body').on('mouseover.ope-woo', function (event) {
             var $target = $(event.target);
             var related = isHeaderCartRelated($target, $cart, $cart_button) || $target.is($menu);
             if (!related) {

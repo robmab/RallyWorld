@@ -120,7 +120,7 @@ class CustomSidebarsEditor extends CustomSidebars {
 		$view_file = '';
 		$sb_id = '';
 		if ( isset( $_POST['sb'] ) ) {
-			$sb_id = $_POST['sb'];
+			$sb_id = sanitize_key($_POST['sb']);
 		}
 		switch ( $action ) {
 			case 'get':
@@ -146,6 +146,7 @@ class CustomSidebarsEditor extends CustomSidebars {
 				__( 'You do not have permission for this', 'custom-sidebars' )
 			);
 		} else {
+            $sidebar_data = map_deep( $_POST, 'sanitize_text_field' );
 			switch ( $action ) {
 				// Return details for the specified sidebar.
 				case 'get':
@@ -153,8 +154,8 @@ class CustomSidebarsEditor extends CustomSidebars {
 				 * check nonce
 				 */
 					if (
-					! isset( $_POST['_wpnonce'] )
-					|| ! wp_verify_nonce( $_POST['_wpnonce'], 'custom-sidebars-get' )
+					! isset( $sidebar_data['_wpnonce'] )
+					|| ! wp_verify_nonce( $sidebar_data['_wpnonce'], 'custom-sidebars-get' )
 					) {
 						$req = self::req_err(
 							$req,
@@ -174,12 +175,12 @@ class CustomSidebarsEditor extends CustomSidebars {
 				break;
 				// Save or insert the specified sidebar.
 				case 'save':
-					$req = $this->save_item( $req, $_POST );
+					$req = $this->save_item( $req, $sidebar_data );
 				break;
 				// Delete the specified sidebar.
 				case 'delete':
 					$req->sidebar = $sb_data;
-					$req = $this->delete_item( $req, $_POST );
+					$req = $this->delete_item( $req, $sidebar_data );
 				break;
 				// Get the location data.
 				case 'get-location':
@@ -293,7 +294,7 @@ class CustomSidebarsEditor extends CustomSidebars {
 				$name = sprintf( '%s_%s', $prefix, $sufix );
 				$sidebar[ $name ] = '';
 				if ( isset( $_POST[ $name ] ) ) {
-					$sidebar[ $name ] = stripslashes( trim( $_POST[ $name ] ) );
+					$sidebar[ $name ] = stripslashes( trim( sanitize_text_field($_POST[ $name ]) ) );
 				}
 			}
 		}
@@ -411,7 +412,7 @@ class CustomSidebarsEditor extends CustomSidebars {
 	 * @return object Updated response object.
 	 */
 	private function set_replaceable( $req ) {
-		$state = @$_POST['state'];
+		$state = @sanitize_text_field($_POST['state']);
 		$options = self::get_options();
 		if ( 'true' === $state ) {
 			$req->status = true;
@@ -495,7 +496,7 @@ class CustomSidebarsEditor extends CustomSidebars {
 			array(
 				'order_by' => 'display_name',
 				'fields' => array( 'ID', 'display_name' ),
-				'who' => 'authors',
+				'role' => 'author',
 			)
 		);
 		// Collect required data for all posttypes.
@@ -666,9 +667,11 @@ class CustomSidebarsEditor extends CustomSidebars {
 		/**
 		 * check nonce
 		 */
+        $sidebar_data = map_deep( $_POST, 'sanitize_text_field' );
+        
 		if (
-			! isset( $_POST['_wpnonce'] )
-			|| ! wp_verify_nonce( $_POST['_wpnonce'], 'custom-sidebars-set-location' )
+			! isset( $sidebar_data['_wpnonce'] )
+			|| ! wp_verify_nonce( $sidebar_data['_wpnonce'], 'custom-sidebars-set-location' )
 		) {
 			return self::req_err(
 				$req,
@@ -683,7 +686,7 @@ class CustomSidebarsEditor extends CustomSidebars {
 		$raw_taxonomies = array(
 			'custom' => self::get_taxonomies( 'names', false ),
 		);
-		foreach ( $_POST as $key => $value ) {
+		foreach ( $sidebar_data as $key => $value ) {
 			if ( strlen( $key ) > 8 && '___cs___' == substr( $key, 0, 8 ) ) {
 				list( $prefix, $id ) = explode( '___', substr( $key, 8 ) );
 				if ( ! isset( $data[ $prefix ] ) ) {
@@ -705,7 +708,7 @@ class CustomSidebarsEditor extends CustomSidebars {
 			array(
 				'order_by' => 'display_name',
 				'fields' => array( 'ID', 'display_name' ),
-				'who' => 'authors',
+				'role' => 'author',
 			)
 		);
 		// == Update the options
@@ -866,7 +869,7 @@ class CustomSidebarsEditor extends CustomSidebars {
 			&& is_array( $_POST['cs-screen']['minmax'] )
 			&& is_array( $_POST['cs-screen']['size'] )
 		) {
-			$screen_size = $_POST['cs-screen'];
+            $screen_size = map_deep( $_POST['cs-screen'], 'sanitize_text_field' );
 			for ( $i = 0; $i < count( $screen_size['size'] ); $i++ ) {
 				if ( ! empty( $screen_size['size'][ $i ] ) ) {
 					$size[ $screen_size['size'][ $i ] ][ $screen_size['minmax'][ $i ] ] = $screen_size['mode'][ $i ];
@@ -1034,7 +1037,7 @@ class CustomSidebarsEditor extends CustomSidebars {
 		if ( ! empty( $sidebars ) ) {
 			foreach ( $sidebars as $sb_id ) {
 				if ( isset( $_POST[ 'cs_replacement_' . $sb_id ] ) ) {
-					$replacement = $_POST[ 'cs_replacement_' . $sb_id ];
+                    $replacement = map_deep( $_POST[ 'cs_replacement_' . $sb_id], 'sanitize_text_field' );
 					if ( ! empty( $replacement ) ) {
 						$data[ $sb_id ] = $replacement;
 					}
@@ -1329,7 +1332,7 @@ class CustomSidebarsEditor extends CustomSidebars {
 		$data = CustomSidebars::get_post_meta( $post_id );
 		foreach ( $this->modifiable as $key ) {
 			$k = sprintf( 'cs_replacement_%s', $key );
-			$value = isset( $_REQUEST[ $k ] )? $_REQUEST[ $k ]:'-';
+			$value = isset( $_REQUEST[ $k ] )? map_deep($_REQUEST[ $k ],'sanitize_text_field'):'-';
 			if ( '-' != $value ) {
 				$update = true;
 				$data[ $key ] = $value;
@@ -1404,7 +1407,7 @@ class CustomSidebarsEditor extends CustomSidebars {
 					);
 				}
 				$screen_settings .= '</fieldset>';
-				$screen_settings .= sprintf( '<p class="description">%s</p>', __( 'After turn on any Custom Taxonomy you need to reload this screen to be able choose it in Sidebar Location.', 'ub' ) );
+				$screen_settings .= sprintf( '<p class="description">%s</p>', __( 'After turn on any Custom Taxonomy you need to reload this screen to be able choose it in Sidebar Location.', 'custom-sidebars' ) );
 			}
 		}
 		return $screen_settings;

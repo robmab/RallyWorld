@@ -1,9 +1,4 @@
 <?php
-/*customizing default colors section and adding new controls-setting too*/
-$wp_customize->get_section( 'colors' )->panel = 'fitness-hub-design-panel';
-$wp_customize->get_section( 'colors' )->title = esc_html__( 'Basic Color', 'fitness-hub' );
-$wp_customize->get_section( 'background_image' )->priority = 100;
-
 /*Primary color*/
 $wp_customize->add_setting( 'fitness_hub_theme_options[fitness-hub-primary-color]', array(
     'capability'		=> 'edit_theme_options',

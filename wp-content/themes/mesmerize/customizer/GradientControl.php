@@ -33,6 +33,10 @@ class GradientControl extends \Kirki_Customize_Control
         if (is_string($gradient)) {
             $gradient = json_decode($gradient, true);
         }
+
+        if (!is_array($gradient)) {
+            $gradient = array('colors' => array(), 'angle' => 0);
+        }
         
         
         $this->json['button_label'] = $this->button_label;

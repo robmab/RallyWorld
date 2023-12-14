@@ -1,10 +1,10 @@
 === Easy Social Icons ===
 Contributors: cybernetikz
-Donate link: 
-Tags: easy social icon,easy social icons,social icon,social icons,social,social share,follow,followus,follow us,share,icon,custom social icons, social media icons
+Donate link:
+Tags: easy social icons, easy social icon, social icons, social share, follow us, custom social icons, social media icons
 Requires at least: 3.5
-Tested up to: 4.7.5
-Stable tag: 3.0.5
+Tested up to: 6.4.1
+Stable tag: 3.2.5
 
 Upload your own social media icons or choose from font-awesome. Use widget|shortcode to place icons anywhere(sidebar, header, footer, page) in theme.
 
@@ -60,12 +60,12 @@ You can use the "Easy Social Icons" widget for the sidebar.
 For more details, please follow the instruction in this page  "WP Admin Menu"->"Easy Social Icons"->"Settings &amp; Instruction" on "How to use" section.
 
 = Ques : What if my wordpress version is below 3.5 ? =
-Ans : 
+Ans :
 If you are using wordpress version lower than 3.5 please use Easy social Icon version <a href="https://downloads.wordpress.org/plugin/easy-social-icons.1.0.zip">1.1</a>
 
 == Screenshots ==
 
-1. display social icons in sidebar using widget 
+1. display social icons in sidebar using widget
 2. display social icons in sidebar using widget different icons shape
 3. display social icons in sidebar using widget different icons colors
 4. manage icons page layout
@@ -75,6 +75,62 @@ If you are using wordpress version lower than 3.5 please use Easy social Icon ve
 8. add Easy Social Icon widget to sidebar using drag drop
 
 == Changelog ==
+
+= 3.2.5 =
+* fix / update security issue CVE-2023-33998 and sql prepare issue in debug mode.
+thanks to @ov3rfly
+
+= 3.2.4 =
+* fix / update security issue
+
+= 3.2.3 =
+* fix / update security issue
+
+= 3.2.2 =
+* fix / update security issue
+
+= 3.2.1 =
+* fix / update security issue
+* fix security issue (Admin + Stored XSS) and unauthenticated icon deletion
+
+= 3.2.0 =
+* fix / update security issue
+* check with latest wordpress version 5.9.2
+* fix security issue (Admin + Stored XSS)
+
+= 3.1.4 =
+* fix/update security issue
+* check with latest wordpress version 5.9.1
+* fix security issue (Admin + SQL Injection)
+
+= 3.1.3 =
+* fix/update security issue
+
+= 3.1.2 =
+* check with latest wordpress version 5.8.1
+* fix/update security issue
+
+= 3.1.1 =
+* fix/update security issue
+
+= 3.1.0 =
+* fix/update security issue
+
+= 3.0.9 =
+* fix/update security issue
+* check with latest wordpress version 5.8
+
+= 3.0.8 =
+* fix version conflict issue
+* check with latest wordpress version 5.5.1
+
+= 3.0.7 =
+* fix trademark issue
+* check with latest wordpress version 5.2.3
+
+= 3.0.6 =
+* update font-awesome version 5.7.2
+* fix compatibility issue with php version 7.0
 
 = 3.0.5 =
 * add color to youtube play icon
@@ -119,7 +175,7 @@ If you are using wordpress version lower than 3.5 please use Easy social Icon ve
 * New feature added for widget, create mutiple widget instance with different settings
 * New feature added for shortcode, use mutiple shortcode in page/post with different settings
 * New feature added for PHP template tag, use mutiple PHP template tag in PHP themes files with different settings
-* New feature added for shortcode generate 
+* New feature added for shortcode generate
 * Plugin's settings & instructions page layout is updated
 * "How to use?" section is added in plugin's settings & instructions page
 * ID column is added to manage icons page

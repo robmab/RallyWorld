@@ -1,80 +1,98 @@
 <?php
 /**
- * Theme Header Section for our theme.
+ * Theme Header Section for ColorMag theme.
  *
- * Displays all of the <head> section and everything up till <div id="main" class="clearfix"> <div class="inner-wrap">
+ * Displays all of the <head> section and everything up till <div id="cm-content" class="cm-content"> <div class="inner-wrap">
  *
- * @package    ThemeGrill
- * @subpackage ColorMag
- * @since      ColorMag 1.0
+ * @package ColorMag
+ *
+ * @since   ColorMag 1.0.0
  */
-?><!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
+do_action( 'colormag_action_doctype' );
+
+?>
+
 <head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="http://gmpg.org/xfn/11"/>
-	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>"/>
+
 	<?php
 	/**
-	 * This hook is important for wordpress plugins and other many things
+	 * Functions hooked into colormag_action_head action.
+	 *
+	 * @hooked colormag_head - 10
 	 */
-	wp_head();
+	do_action( 'colormag_action_head' );
 	?>
+
+	<?php wp_head(); ?>
+
 </head>
 
 <body <?php body_class(); ?>>
 
-<?php do_action( 'colormag_before' ); ?>
+<?php
 
-<div id="page" class="hfeed site">
-	<?php do_action( 'colormag_before_header' ); ?>
+global $colormag_duplicate_posts;
+$colormag_duplicate_posts = array();
 
-	<?php
-	// Add the main total header area display type dynamic class
-	$main_total_header_option_layout_class = get_theme_mod( 'colormag_main_total_header_area_display_type', 'type_one' );
+?>
 
-	$class_name = '';
-	if ( $main_total_header_option_layout_class == 'type_two' ) {
-		$class_name = 'colormag-header-clean';
-	} else if ( $main_total_header_option_layout_class == 'type_three' ) {
-		$class_name = 'colormag-header-classic';
-	}
-	?>
+<?php
+/**
+ * WordPress function to load custom scripts after body.
+ *
+ * Introduced in WordPress 5.2.0
+ *
+ */
+if ( function_exists( 'wp_body_open' ) ) {
+	wp_body_open();
+}
+?>
 
-	<header id="masthead" class="site-header clearfix <?php echo esc_attr( $class_name ); ?>">
-		<div id="header-text-nav-container" class="clearfix">
+<?php
+/**
+ * Hook: colormag_before.
+ */
+do_action( 'colormag_before' );
+?>
 
-			<?php colormag_top_header_bar_display(); // Display the top header bar ?>
+<?php
+/**
+ * Functions hooked into colormag_action_before action.
+ *
+ * @hooked colormag_background_image_clickable - 5
+ * @hooked colormag_page_start - 10
+ * @hooked colormag_skip_content_link - 15
+ */
+do_action( 'colormag_action_before' );
+?>
 
-			<?php
-			if ( get_theme_mod( 'colormag_header_image_position', 'position_two' ) == 'position_one' ) {
-				colormag_render_header_image();
-			}
-			?>
+<?php colormag_header() ?>
 
-			<?php colormag_middle_header_bar_display(); // Display the middle header bar ?>
+<?php
+/**
+ * Hook: colormag_before_main.
+ */
+do_action( 'colormag_before_main' );
+?>
 
-			<?php
-			if ( get_theme_mod( 'colormag_header_image_position', 'position_two' ) == 'position_two' ) {
-				colormag_render_header_image();
-			}
-			?>
+<?php
+/**
+ * Functions hooked into colormag_action_before_content action.
+ *
+ * @hooked colormag_main_section_start - 10
+ * @hooked colormag_front_page_full_width_sidebar - 20
+ */
+do_action( 'colormag_action_before_content' );
+?>
 
-			<?php colormag_below_header_bar_display(); // Display the below header bar  ?>
-
-		</div><!-- #header-text-nav-container -->
-
-		<?php
-		if ( get_theme_mod( 'colormag_header_image_position', 'position_two' ) == 'position_three' ) {
-			colormag_render_header_image();
-		}
-		?>
-
-	</header>
-
-	<?php do_action( 'colormag_after_header' ); ?>
-	<?php do_action( 'colormag_before_main' ); ?>
-
-	<div id="main" class="clearfix">
-		<div class="inner-wrap clearfix">
+<?php
+/**
+ * Functions hooked into colormag_action_before_inner_content action.
+ *
+ * @hooked colormag_main_section_inner_start - 10
+ */
+do_action( 'colormag_action_before_inner_content' );

@@ -34,14 +34,50 @@ function evf_bool_to_string( $bool ) {
 }
 
 /**
+ * Add a suffix into an array.
+ *
+ * @since  1.4.5
+ * @param  array  $array  Raw array data.
+ * @param  string $suffix Suffix to be added.
+ * @return array Modified array with suffix added.
+ */
+function evf_suffix_array( $array = array(), $suffix = '' ) {
+	return preg_filter( '/$/', $suffix, $array );
+}
+
+/**
+ * Implode an array into a string by $glue and remove empty values.
+ *
+ * @since  1.4.5
+ * @param  array  $array Array to convert.
+ * @param  string $glue  Glue, defaults to ' '.
+ * @return string
+ */
+function evf_array_to_string( $array = array(), $glue = ' ' ) {
+	return is_string( $array ) ? $array : implode( $glue, array_filter( $array ) );
+}
+
+/**
  * Explode a string into an array by $delimiter and remove empty values.
  *
- * @param string $string    String to convert.
- * @param string $delimiter Delimiter, defaults to ','.
+ * @param  string $string    String to convert.
+ * @param  string $delimiter Delimiter, defaults to ','.
  * @return array
  */
 function evf_string_to_array( $string, $delimiter = ',' ) {
 	return is_array( $string ) ? $string : array_filter( explode( $delimiter, $string ) );
+}
+
+/**
+ * Format dimensions for display.
+ *
+ * @since  1.4.5
+ * @param  array $dimensions Array of dimensions.
+ * @param  array $unit       Unit, defaults to 'px'.
+ * @return string
+ */
+function evf_sanitize_dimension_unit( $dimensions = array(), $unit = 'px' ) {
+	return evf_array_to_string( evf_suffix_array( $dimensions, $unit ) );
 }
 
 /**
@@ -125,7 +161,8 @@ function evf_sanitize_textarea( $var ) {
 function evf_sanitize_tooltip( $var ) {
 	return htmlspecialchars(
 		wp_kses(
-			html_entity_decode( $var ), array(
+			html_entity_decode( $var ),
+			array(
 				'br'     => array(),
 				'em'     => array(),
 				'strong' => array(),
@@ -227,34 +264,6 @@ function evf_time_format() {
 }
 
 /**
- * Convert mysql datetime to PHP timestamp, forcing UTC. Wrapper for strtotime.
- *
- * Based on wcs_strtotime_dark_knight() from WC Subscriptions by Prospress.
- *
- * @since  3.0.0
- * @param  string   $time_string    Time string.
- * @param  int|null $from_timestamp Timestamp to convert from.
- * @return int
- */
-function evf_string_to_timestamp( $time_string, $from_timestamp = null ) {
-	$original_timezone = date_default_timezone_get();
-
-	// @codingStandardsIgnoreStart
-	date_default_timezone_set( 'UTC' );
-
-	if ( null === $from_timestamp ) {
-		$next_timestamp = strtotime( $time_string );
-	} else {
-		$next_timestamp = strtotime( $time_string, $from_timestamp );
-	}
-
-	date_default_timezone_set( $original_timezone );
-	// @codingStandardsIgnoreEnd
-
-	return $next_timestamp;
-}
-
-/**
  * Callback which can flatten post meta (gets the first value if it's an array).
  *
  * @param  array $value Value to flatten.
@@ -279,9 +288,9 @@ if ( ! function_exists( 'evf_rgb_from_hex' ) ) {
 		$color = preg_replace( '~^(.)(.)(.)$~', '$1$1$2$2$3$3', $color );
 
 		$rgb      = array();
-		$rgb['R'] = hexdec( $color{0} . $color{1} );
-		$rgb['G'] = hexdec( $color{2} . $color{3} );
-		$rgb['B'] = hexdec( $color{4} . $color{5} );
+		$rgb['R'] = hexdec( $color[0] . $color[1] );
+		$rgb['G'] = hexdec( $color[2] . $color[3] );
+		$rgb['B'] = hexdec( $color[4] . $color[5] );
 
 		return $rgb;
 	}
@@ -422,7 +431,7 @@ function evf_format_phone_number( $phone ) {
  * @return string
  */
 function evf_strtoupper( $string ) {
-	return function_exists( 'mb_strtoupper' ) ? mb_strtoupper( $string ) : strtoupper( $string );
+	return function_exists( 'mb_strtoupper' ) ? mb_strtoupper( $string, 'UTF-8' ) : strtoupper( $string );
 }
 
 /**
@@ -433,7 +442,7 @@ function evf_strtoupper( $string ) {
  * @return string
  */
 function evf_strtolower( $string ) {
-	return function_exists( 'mb_strtolower' ) ? mb_strtolower( $string ) : strtolower( $string );
+	return function_exists( 'mb_strtolower' ) ? mb_strtolower( $string, 'UTF-8' ) : strtolower( $string );
 }
 
 /**
@@ -449,7 +458,7 @@ function evf_strtolower( $string ) {
 function evf_trim_string( $string, $chars = 200, $suffix = '...' ) {
 	if ( strlen( $string ) > $chars ) {
 		if ( function_exists( 'mb_substr' ) ) {
-			$string = mb_substr( $string, 0, ( $chars - mb_strlen( $suffix ) ) ) . $suffix;
+			$string = mb_substr( $string, 0, ( $chars - mb_strlen( $suffix, 'UTF-8' ) ), 'UTF-8' ) . $suffix;
 		} else {
 			$string = substr( $string, 0, ( $chars - strlen( $suffix ) ) ) . $suffix;
 		}
@@ -570,10 +579,13 @@ function evf_parse_relative_date_option( $raw_value ) {
 		'years'  => __( 'Year(s)', 'everest-forms' ),
 	);
 
-	$value = wp_parse_args( (array) $raw_value, array(
-		'number' => '',
-		'unit'   => 'days',
-	) );
+	$value = wp_parse_args(
+		(array) $raw_value,
+		array(
+			'number' => '',
+			'unit'   => 'days',
+		)
+	);
 
 	$value['number'] = ! empty( $value['number'] ) ? absint( $value['number'] ) : '';
 
@@ -595,4 +607,34 @@ function evf_flatten_array( $value = array() ) {
 	$return = array();
 	array_walk_recursive( $value, function( $a ) use ( &$return ) { $return[] = $a; } ); // @codingStandardsIgnoreLine.
 	return $return;
+}
+
+/**
+ * An `array_splice` which does preverse the keys of the replacement array
+ *
+ * The argument list is identical to `array_splice`
+ *
+ * @since 1.6.5
+ *
+ * @link https://github.com/lode/gaps/blob/master/src/gaps.php
+ *
+ * @param  array $input       The input array.
+ * @param  int   $offset      The offeset to start.
+ * @param  int   $length      Optional length.
+ * @param  array $replacement The replacement array.
+ *
+ * @return array the array consisting of the extracted elements.
+ */
+function evf_array_splice_preserve_keys( &$input, $offset, $length = null, $replacement = array() ) {
+	if ( empty( $replacement ) ) {
+		return array_splice( $input, $offset, $length );
+	}
+
+	$part_before  = array_slice( $input, 0, $offset, true );
+	$part_removed = array_slice( $input, $offset, $length, true );
+	$part_after   = array_slice( $input, $offset + $length, null, true );
+
+	$input = $part_before + $replacement + $part_after;
+
+	return $part_removed;
 }

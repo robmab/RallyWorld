@@ -2070,11 +2070,12 @@ span.CodeMirror-selectedtext {
 }
 
 .customize-control-kirki-typography .wrapper .text-transform {
-    padding-top: 10px;
+    padding-top: 0px;
 }
 
 .customize-control-kirki-typography .wrapper .color {
     width: auto;
+    padding-top: 10px;
 }
 
 .hint,

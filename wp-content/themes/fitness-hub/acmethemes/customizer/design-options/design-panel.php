@@ -6,8 +6,6 @@ $wp_customize->add_panel( 'fitness-hub-design-panel', array(
     'title'          => esc_html__( 'Layout/Design Option', 'fitness-hub' )
 ) );
 
-$wp_customize->get_section( 'background_image' )->panel = 'fitness-hub-design-panel';
-$wp_customize->get_section( 'background_image' )->priority = 60;
 
 /*
 * file for front page hiding content

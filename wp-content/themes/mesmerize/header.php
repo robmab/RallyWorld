@@ -9,6 +9,12 @@
 </head>
 
 <body <?php body_class(); ?>>
+<?php
+if ( function_exists( 'wp_body_open' ) ) {
+	wp_body_open();
+}
+?>
+<?php mesmerize_print_skip_link(); ?>
 
 <div  id="page-top" class="header-top">
 	<?php mesmerize_print_header_top_bar(); ?>
@@ -17,7 +23,7 @@
 
 <div id="page" class="site">
     <div class="header-wrapper">
-        <div <?php echo mesmerize_header_background_atts(); ?>>
+        <div <?php echo mesmerize_header_background_attrs(); ?>>
             <?php do_action( 'mesmerize_before_header_background' ); ?>
 			<?php mesmerize_print_video_container(); ?>
 					<?php mesmerize_print_inner_pages_header_content(); ?>

@@ -1,51 +1,294 @@
-( function( window, document, settings ) {
-	var src, ready, ii, tests;
+/**
+ * @output wp-includes/js/wp-emoji-loader.js
+ */
 
-	/*
-	 * Create a canvas element for testing native browser support
-	 * of emoji.
-	 */
-	var canvas = document.createElement( 'canvas' );
-	var context = canvas.getContext && canvas.getContext( '2d' );
+/**
+ * Emoji Settings as exported in PHP via _print_emoji_detection_script().
+ * @typedef WPEmojiSettings
+ * @type {object}
+ * @property {?object} source
+ * @property {?string} source.concatemoji
+ * @property {?string} source.twemoji
+ * @property {?string} source.wpemoji
+ * @property {?boolean} DOMReady
+ * @property {?Function} readyCallback
+ */
+
+/**
+ * Support tests.
+ * @typedef SupportTests
+ * @type {object}
+ * @property {?boolean} flag
+ * @property {?boolean} emoji
+ */
+
+/**
+ * IIFE to detect emoji support and load Twemoji if needed.
+ *
+ * @param {Window} window
+ * @param {Document} document
+ * @param {WPEmojiSettings} settings
+ */
+( function wpEmojiLoader( window, document, settings ) {
+	if ( typeof Promise === 'undefined' ) {
+		return;
+	}
+
+	var sessionStorageKey = 'wpEmojiSettingsSupports';
+	var tests = [ 'flag', 'emoji' ];
 
 	/**
-	 * Check if two sets of Emoji characters render the same.
+	 * Checks whether the browser supports offloading to a Worker.
 	 *
-	 * @param set1 array Set of Emoji characters.
-	 * @param set2 array Set of Emoji characters.
-	 * @returns {boolean} True if the two sets render the same.
+	 * @since 6.3.0
+	 *
+	 * @private
+	 *
+	 * @returns {boolean}
 	 */
-	function emojiSetsRenderIdentically( set1, set2 ) {
-		var stringFromCharCode = String.fromCharCode;
-
-		// Cleanup from previous test.
-		context.clearRect( 0, 0, canvas.width, canvas.height );
-		context.fillText( stringFromCharCode.apply( this, set1 ), 0, 0 );
-		var rendered1 = canvas.toDataURL();
-
-		// Cleanup from previous test.
-		context.clearRect( 0, 0, canvas.width, canvas.height );
-		context.fillText( stringFromCharCode.apply( this, set2 ), 0, 0 );
-		var rendered2 = canvas.toDataURL();
-
-		return rendered1 === rendered2;
+	function supportsWorkerOffloading() {
+		return (
+			typeof Worker !== 'undefined' &&
+			typeof OffscreenCanvas !== 'undefined' &&
+			typeof URL !== 'undefined' &&
+			URL.createObjectURL &&
+			typeof Blob !== 'undefined'
+		);
 	}
 
 	/**
-	 * Detect if the browser supports rendering emoji or flag emoji. Flag emoji are a single glyph
-	 * made of two characters, so some browsers (notably, Firefox OS X) don't support them.
+	 * @typedef SessionSupportTests
+	 * @type {object}
+	 * @property {number} timestamp
+	 * @property {SupportTests} supportTests
+	 */
+
+	/**
+	 * Get support tests from session.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @private
+	 *
+	 * @returns {?SupportTests} Support tests, or null if not set or older than 1 week.
+	 */
+	function getSessionSupportTests() {
+		try {
+			/** @type {SessionSupportTests} */
+			var item = JSON.parse(
+				sessionStorage.getItem( sessionStorageKey )
+			);
+			if (
+				typeof item === 'object' &&
+				typeof item.timestamp === 'number' &&
+				new Date().valueOf() < item.timestamp + 604800 && // Note: Number is a week in seconds.
+				typeof item.supportTests === 'object'
+			) {
+				return item.supportTests;
+			}
+		} catch ( e ) {}
+		return null;
+	}
+
+	/**
+	 * Persist the supports in session storage.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @private
+	 *
+	 * @param {SupportTests} supportTests Support tests.
+	 */
+	function setSessionSupportTests( supportTests ) {
+		try {
+			/** @type {SessionSupportTests} */
+			var item = {
+				supportTests: supportTests,
+				timestamp: new Date().valueOf()
+			};
+
+			sessionStorage.setItem(
+				sessionStorageKey,
+				JSON.stringify( item )
+			);
+		} catch ( e ) {}
+	}
+
+	/**
+	 * Checks if two sets of Emoji characters render the same visually.
+	 *
+	 * This function may be serialized to run in a Worker. Therefore, it cannot refer to variables from the containing
+	 * scope. Everything must be passed by parameters.
+	 *
+	 * @since 4.9.0
+	 *
+	 * @private
+	 *
+	 * @param {CanvasRenderingContext2D} context 2D Context.
+	 * @param {string} set1 Set of Emoji to test.
+	 * @param {string} set2 Set of Emoji to test.
+	 *
+	 * @return {boolean} True if the two sets render the same.
+	 */
+	function emojiSetsRenderIdentically( context, set1, set2 ) {
+		// Cleanup from previous test.
+		context.clearRect( 0, 0, context.canvas.width, context.canvas.height );
+		context.fillText( set1, 0, 0 );
+		var rendered1 = new Uint32Array(
+			context.getImageData(
+				0,
+				0,
+				context.canvas.width,
+				context.canvas.height
+			).data
+		);
+
+		// Cleanup from previous test.
+		context.clearRect( 0, 0, context.canvas.width, context.canvas.height );
+		context.fillText( set2, 0, 0 );
+		var rendered2 = new Uint32Array(
+			context.getImageData(
+				0,
+				0,
+				context.canvas.width,
+				context.canvas.height
+			).data
+		);
+
+		return rendered1.every( function ( rendered2Data, index ) {
+			return rendered2Data === rendered2[ index ];
+		} );
+	}
+
+	/**
+	 * Determines if the browser properly renders Emoji that Twemoji can supplement.
+	 *
+	 * This function may be serialized to run in a Worker. Therefore, it cannot refer to variables from the containing
+	 * scope. Everything must be passed by parameters.
 	 *
 	 * @since 4.2.0
 	 *
-	 * @param type {String} Whether to test for support of "flag" or "emoji".
-	 * @return {Boolean} True if the browser can render emoji, false if it cannot.
+	 * @private
+	 *
+	 * @param {CanvasRenderingContext2D} context 2D Context.
+	 * @param {string} type Whether to test for support of "flag" or "emoji".
+	 * @param {Function} emojiSetsRenderIdentically Reference to emojiSetsRenderIdentically function, needed due to minification.
+	 *
+	 * @return {boolean} True if the browser can render emoji, false if it cannot.
 	 */
-	function browserSupportsEmoji( type ) {
+	function browserSupportsEmoji( context, type, emojiSetsRenderIdentically ) {
 		var isIdentical;
 
-		if ( ! context || ! context.fillText ) {
-			return false;
+		switch ( type ) {
+			case 'flag':
+				/*
+				 * Test for Transgender flag compatibility. Added in Unicode 13.
+				 *
+				 * To test for support, we try to render it, and compare the rendering to how it would look if
+				 * the browser doesn't render it correctly (white flag emoji + transgender symbol).
+				 */
+				isIdentical = emojiSetsRenderIdentically(
+					context,
+					'\uD83C\uDFF3\uFE0F\u200D\u26A7\uFE0F', // as a zero-width joiner sequence
+					'\uD83C\uDFF3\uFE0F\u200B\u26A7\uFE0F' // separated by a zero-width space
+				);
+
+				if ( isIdentical ) {
+					return false;
+				}
+
+				/*
+				 * Test for UN flag compatibility. This is the least supported of the letter locale flags,
+				 * so gives us an easy test for full support.
+				 *
+				 * To test for support, we try to render it, and compare the rendering to how it would look if
+				 * the browser doesn't render it correctly ([U] + [N]).
+				 */
+				isIdentical = emojiSetsRenderIdentically(
+					context,
+					'\uD83C\uDDFA\uD83C\uDDF3', // as the sequence of two code points
+					'\uD83C\uDDFA\u200B\uD83C\uDDF3' // as the two code points separated by a zero-width space
+				);
+
+				if ( isIdentical ) {
+					return false;
+				}
+
+				/*
+				 * Test for English flag compatibility. England is a country in the United Kingdom, it
+				 * does not have a two letter locale code but rather a five letter sub-division code.
+				 *
+				 * To test for support, we try to render it, and compare the rendering to how it would look if
+				 * the browser doesn't render it correctly (black flag emoji + [G] + [B] + [E] + [N] + [G]).
+				 */
+				isIdentical = emojiSetsRenderIdentically(
+					context,
+					// as the flag sequence
+					'\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67\uDB40\uDC7F',
+					// with each code point separated by a zero-width space
+					'\uD83C\uDFF4\u200B\uDB40\uDC67\u200B\uDB40\uDC62\u200B\uDB40\uDC65\u200B\uDB40\uDC6E\u200B\uDB40\uDC67\u200B\uDB40\uDC7F'
+				);
+
+				return ! isIdentical;
+			case 'emoji':
+				/*
+				 * Why can't we be friends? Everyone can now shake hands in emoji, regardless of skin tone!
+				 *
+				 * To test for Emoji 14.0 support, try to render a new emoji: Handshake: Light Skin Tone, Dark Skin Tone.
+				 *
+				 * The Handshake: Light Skin Tone, Dark Skin Tone emoji is a ZWJ sequence combining 🫱 Rightwards Hand,
+				 * 🏻 Light Skin Tone, a Zero Width Joiner, 🫲 Leftwards Hand, and 🏿 Dark Skin Tone.
+				 *
+				 * 0x1FAF1 == Rightwards Hand
+				 * 0x1F3FB == Light Skin Tone
+				 * 0x200D == Zero-Width Joiner (ZWJ) that links the code points for the new emoji or
+				 * 0x200B == Zero-Width Space (ZWS) that is rendered for clients not supporting the new emoji.
+				 * 0x1FAF2 == Leftwards Hand
+				 * 0x1F3FF == Dark Skin Tone.
+				 *
+				 * When updating this test for future Emoji releases, ensure that individual emoji that make up the
+				 * sequence come from older emoji standards.
+				 */
+				isIdentical = emojiSetsRenderIdentically(
+					context,
+					'\uD83E\uDEF1\uD83C\uDFFB\u200D\uD83E\uDEF2\uD83C\uDFFF', // as the zero-width joiner sequence
+					'\uD83E\uDEF1\uD83C\uDFFB\u200B\uD83E\uDEF2\uD83C\uDFFF' // separated by a zero-width space
+				);
+
+				return ! isIdentical;
 		}
+
+		return false;
+	}
+
+	/**
+	 * Checks emoji support tests.
+	 *
+	 * This function may be serialized to run in a Worker. Therefore, it cannot refer to variables from the containing
+	 * scope. Everything must be passed by parameters.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @private
+	 *
+	 * @param {string[]} tests Tests.
+	 * @param {Function} browserSupportsEmoji Reference to browserSupportsEmoji function, needed due to minification.
+	 * @param {Function} emojiSetsRenderIdentically Reference to emojiSetsRenderIdentically function, needed due to minification.
+	 *
+	 * @return {SupportTests} Support tests.
+	 */
+	function testEmojiSupports( tests, browserSupportsEmoji, emojiSetsRenderIdentically ) {
+		var canvas;
+		if (
+			typeof WorkerGlobalScope !== 'undefined' &&
+			self instanceof WorkerGlobalScope
+		) {
+			canvas = new OffscreenCanvas( 300, 150 ); // Dimensions are default for HTMLCanvasElement.
+		} else {
+			canvas = document.createElement( 'canvas' );
+		}
+
+		var context = canvas.getContext( '2d', { willReadFrequently: true } );
 
 		/*
 		 * Chrome on OS X added native emoji rendering in M41. Unfortunately,
@@ -55,112 +298,127 @@
 		context.textBaseline = 'top';
 		context.font = '600 32px Arial';
 
-		switch ( type ) {
-			case 'flag':
-				/*
-				 * Test for UN flag compatibility. This is the least supported of the letter locale flags,
-				 * so gives us an easy test for full support.
-				 *
-				 * To test for support, we try to render it, and compare the rendering to how it would look if
-				 * the browser doesn't render it correctly ([U] + [N]).
-				 */
-				isIdentical = emojiSetsRenderIdentically(
-					[ 55356, 56826, 55356, 56819 ],
-					[ 55356, 56826, 8203, 55356, 56819 ]
-				);
-
-				if ( isIdentical ) {
-					return false;
-				}
-
-				/*
-				 * Test for English flag compatibility. England is a country in the United Kingdom, it
-				 * does not have a two letter locale code but rather an five letter sub-division code.
-				 *
-				 * To test for support, we try to render it, and compare the rendering to how it would look if
-				 * the browser doesn't render it correctly (black flag emoji + [G] + [B] + [E] + [N] + [G]).
-				 */
-				isIdentical = emojiSetsRenderIdentically(
-					[ 55356, 57332, 56128, 56423, 56128, 56418, 56128, 56421, 56128, 56430, 56128, 56423, 56128, 56447 ],
-					[ 55356, 57332, 8203, 56128, 56423, 8203, 56128, 56418, 8203, 56128, 56421, 8203, 56128, 56430, 8203, 56128, 56423, 8203, 56128, 56447 ]
-				);
-
-				return ! isIdentical;
-			case 'emoji':
-				/*
-				 * She's the hero Emoji deserves, but not the one it needs right now.
-				 *
-				 * To test for support, try to render a new emoji (female superhero),
-				 * then compare it to how it would look if the browser doesn't render it correctly
-				 * (superhero + female sign).
-				 */
-				isIdentical = emojiSetsRenderIdentically(
-					[55358, 56760, 9792, 65039],
-					[55358, 56760, 8203, 9792, 65039]
-				);
-				return ! isIdentical;
-		}
-
-		return false;
+		var supports = {};
+		tests.forEach( function ( test ) {
+			supports[ test ] = browserSupportsEmoji( context, test, emojiSetsRenderIdentically );
+		} );
+		return supports;
 	}
 
+	/**
+	 * Adds a script to the head of the document.
+	 *
+	 * @ignore
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param {string} src The url where the script is located.
+	 *
+	 * @return {void}
+	 */
 	function addScript( src ) {
 		var script = document.createElement( 'script' );
-
 		script.src = src;
-		script.defer = script.type = 'text/javascript';
-		document.getElementsByTagName( 'head' )[0].appendChild( script );
+		script.defer = true;
+		document.head.appendChild( script );
 	}
-
-	tests = Array( 'flag', 'emoji' );
 
 	settings.supports = {
 		everything: true,
 		everythingExceptFlag: true
 	};
 
-	for( ii = 0; ii < tests.length; ii++ ) {
-		settings.supports[ tests[ ii ] ] = browserSupportsEmoji( tests[ ii ] );
+	// Create a promise for DOMContentLoaded since the worker logic may finish after the event has fired.
+	var domReadyPromise = new Promise( function ( resolve ) {
+		document.addEventListener( 'DOMContentLoaded', resolve, {
+			once: true
+		} );
+	} );
 
-		settings.supports.everything = settings.supports.everything && settings.supports[ tests[ ii ] ];
-
-		if ( 'flag' !== tests[ ii ] ) {
-			settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && settings.supports[ tests[ ii ] ];
+	// Obtain the emoji support from the browser, asynchronously when possible.
+	new Promise( function ( resolve ) {
+		var supportTests = getSessionSupportTests();
+		if ( supportTests ) {
+			resolve( supportTests );
+			return;
 		}
-	}
 
-	settings.supports.everythingExceptFlag = settings.supports.everythingExceptFlag && ! settings.supports.flag;
+		if ( supportsWorkerOffloading() ) {
+			try {
+				// Note that the functions are being passed as arguments due to minification.
+				var workerScript =
+					'postMessage(' +
+					testEmojiSupports.toString() +
+					'(' +
+					[
+						JSON.stringify( tests ),
+						browserSupportsEmoji.toString(),
+						emojiSetsRenderIdentically.toString()
+					].join( ',' ) +
+					'));';
+				var blob = new Blob( [ workerScript ], {
+					type: 'text/javascript'
+				} );
+				var worker = new Worker( URL.createObjectURL( blob ), { name: 'wpTestEmojiSupports' } );
+				worker.onmessage = function ( event ) {
+					supportTests = event.data;
+					setSessionSupportTests( supportTests );
+					worker.terminate();
+					resolve( supportTests );
+				};
+				return;
+			} catch ( e ) {}
+		}
 
-	settings.DOMReady = false;
-	settings.readyCallback = function() {
-		settings.DOMReady = true;
-	};
+		supportTests = testEmojiSupports( tests, browserSupportsEmoji, emojiSetsRenderIdentically );
+		setSessionSupportTests( supportTests );
+		resolve( supportTests );
+	} )
+		// Once the browser emoji support has been obtained from the session, finalize the settings.
+		.then( function ( supportTests ) {
+			/*
+			 * Tests the browser support for flag emojis and other emojis, and adjusts the
+			 * support settings accordingly.
+			 */
+			for ( var test in supportTests ) {
+				settings.supports[ test ] = supportTests[ test ];
 
-	if ( ! settings.supports.everything ) {
-		ready = function() {
-			settings.readyCallback();
-		};
+				settings.supports.everything =
+					settings.supports.everything && settings.supports[ test ];
 
-		if ( document.addEventListener ) {
-			document.addEventListener( 'DOMContentLoaded', ready, false );
-			window.addEventListener( 'load', ready, false );
-		} else {
-			window.attachEvent( 'onload', ready );
-			document.attachEvent( 'onreadystatechange', function() {
-				if ( 'complete' === document.readyState ) {
-					settings.readyCallback();
+				if ( 'flag' !== test ) {
+					settings.supports.everythingExceptFlag =
+						settings.supports.everythingExceptFlag &&
+						settings.supports[ test ];
 				}
-			} );
-		}
+			}
 
-		src = settings.source || {};
+			settings.supports.everythingExceptFlag =
+				settings.supports.everythingExceptFlag &&
+				! settings.supports.flag;
 
-		if ( src.concatemoji ) {
-			addScript( src.concatemoji );
-		} else if ( src.wpemoji && src.twemoji ) {
-			addScript( src.twemoji );
-			addScript( src.wpemoji );
-		}
-	}
+			// Sets DOMReady to false and assigns a ready function to settings.
+			settings.DOMReady = false;
+			settings.readyCallback = function () {
+				settings.DOMReady = true;
+			};
+		} )
+		.then( function () {
+			return domReadyPromise;
+		} )
+		.then( function () {
+			// When the browser can not render everything we need to load a polyfill.
+			if ( ! settings.supports.everything ) {
+				settings.readyCallback();
 
+				var src = settings.source || {};
+
+				if ( src.concatemoji ) {
+					addScript( src.concatemoji );
+				} else if ( src.wpemoji && src.twemoji ) {
+					addScript( src.twemoji );
+					addScript( src.wpemoji );
+				}
+			}
+		} );
 } )( window, document, window._wpemojiSettings );

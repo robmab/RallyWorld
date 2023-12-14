@@ -1,6 +1,8 @@
 <?php
 namespace Elementor;
 
+use Elementor\Core\Breakpoints\Manager as Breakpoints_Manager;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -28,18 +30,6 @@ abstract class Element_Base extends Controls_Stack {
 	 * @var Element_Base[]
 	 */
 	private $children;
-
-	/**
-	 * Element render attributes.
-	 *
-	 * Holds all the render attributes of the element. Used to store data like
-	 * the HTML class name and the class value, or HTML element ID name and value.
-	 *
-	 * @access private
-	 *
-	 * @var array
-	 */
-	private $render_attributes = [];
 
 	/**
 	 * Element default arguments.
@@ -87,18 +77,6 @@ abstract class Element_Base extends Controls_Stack {
 	 * @var array
 	 */
 	private $depended_styles = [];
-
-	/**
-	 * Element edit tools.
-	 *
-	 * Holds all the edit tools of the element. For example: delete, duplicate etc.
-	 *
-	 * @access protected
-	 * @static
-	 *
-	 * @var array
-	 */
-	protected static $_edit_tools;
 
 	/**
 	 * Add script depends.
@@ -152,7 +130,15 @@ abstract class Element_Base extends Controls_Stack {
 	 * @access public
 	 */
 	final public function enqueue_scripts() {
+		$deprecated_scripts = [
+			//Insert here when you have a deprecated script
+		];
+
 		foreach ( $this->get_script_depends() as $script ) {
+			if ( isset( $deprecated_scripts[ $script ] ) ) {
+				Utils::handle_deprecation( $script, $deprecated_scripts[ $script ]['version'], $deprecated_scripts[ $script ]['replacement'] );
+			}
+
 			wp_enqueue_script( $script );
 		}
 	}
@@ -187,95 +173,21 @@ abstract class Element_Base extends Controls_Stack {
 	}
 
 	/**
-	 * Get element edit tools.
-	 *
-	 * Used to retrieve the element edit tools.
-	 *
 	 * @since 1.0.0
+	 * @deprecated 2.6.0
 	 * @access public
 	 * @static
-	 *
-	 * @return array Element edit tools.
 	 */
-	final public static function get_edit_tools() {
-		if ( ! Plugin::instance()->role_manager->user_can( 'design' ) ) {
-			return [];
-		}
-
-		if ( null === static::$_edit_tools ) {
-			self::init_edit_tools();
-		}
-
-		return static::$_edit_tools;
-	}
+	final public static function add_edit_tool() {}
 
 	/**
-	 * Add new edit tool.
-	 *
-	 * Register new edit tool for the element.
-	 *
-	 * @since 1.0.0
+	 * @since 2.2.0
+	 * @deprecated 2.6.0
 	 * @access public
 	 * @static
-	 *
-	 * @param string   $tool_name Edit tool name.
-	 * @param string[] $tool_data Edit tool data.
-	 * @param string   $after     Optional. If tool ID defined, the new edit tool
-	 *                            will be added after it. If null, the new edit
-	 *                            tool will be added at the end. Default is null.
-	 *
 	 */
-	final public static function add_edit_tool( $tool_name, $tool_data, $after = null ) {
-		if ( null === static::$_edit_tools ) {
-			self::init_edit_tools();
-		}
-
-		// Adding the tool at specific position
-		// in the tools array if requested
-		if ( $after ) {
-			$after_index = array_search( $after, array_keys( static::$_edit_tools ), true ) + 1;
-
-			static::$_edit_tools = array_slice( static::$_edit_tools, 0, $after_index, true ) +
-								   [
-									   $tool_name => $tool_data,
-								   ] +
-								   array_slice( static::$_edit_tools, $after_index, null, true );
-		} else {
-			static::$_edit_tools[ $tool_name ] = $tool_data;
-		}
-	}
-
 	final public static function is_edit_buttons_enabled() {
 		return get_option( 'elementor_edit_buttons' );
-	}
-
-	/**
-	 * Get default edit tools.
-	 *
-	 * Retrieve the element default edit tools. Used to set initial tools.
-	 * By default the element has no edit tools.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @static
-	 *
-	 * @return array Default edit tools.
-	 */
-	protected static function get_default_edit_tools() {
-		return [];
-	}
-
-	/**
-	 * Initialize edit tools.
-	 *
-	 * Register default edit tools.
-	 *
-	 * @since 2.0.0
-	 * @access private
-	 * @static
-	 */
-	private static function init_edit_tools() {
-		static::$_edit_tools = static::get_default_edit_tools();
 	}
 
 	/**
@@ -343,6 +255,14 @@ abstract class Element_Base extends Controls_Stack {
 		return 'eicon-columns';
 	}
 
+	public function get_help_url() {
+		return 'https://go.elementor.com/widget-' . $this->get_name();
+	}
+
+	public function get_custom_help_url() {
+		return '';
+	}
+
 	/**
 	 * Whether the reload preview is required.
 	 *
@@ -357,25 +277,12 @@ abstract class Element_Base extends Controls_Stack {
 		return false;
 	}
 
+	/**
+	 * @since 2.3.1
+	 * @access protected
+	 */
 	protected function should_print_empty() {
 		return true;
-	}
-
-	/**
-	 * Print element content template.
-	 *
-	 * Used to generate the element content template on the editor, using a
-	 * Backbone JavaScript template.
-	 *
-	 * @access protected
-	 * @since 2.0.0
-	 *
-	 * @param string $template_content Template content.
-	 */
-	protected function print_template_content( $template_content ) {
-		$this->render_edit_tools();
-
-		echo $template_content; // XSS ok.
 	}
 
 	/**
@@ -410,24 +317,22 @@ abstract class Element_Base extends Controls_Stack {
 	 * @return array Default argument(s).
 	 */
 	public function get_default_args( $item = null ) {
-		return self::_get_items( $this->default_args, $item );
+		return self::get_items( $this->default_args, $item );
 	}
 
 	/**
-	 * Get parent element.
+	 * Get panel presets.
 	 *
-	 * Retrieve the element parent. Used to check which element it belongs to.
+	 * Used for displaying the widget in the panel multiple times, but with different defaults values,
+	 * icon, title etc.
 	 *
-	 * @since 1.0.0
-	 * @deprecated 1.7.6 Use `Element_Base::get_data( 'parent' )` instead.
+	 * @since 3.16.0
 	 * @access public
 	 *
-	 * @return Element_Base Parent element.
+	 * @return array
 	 */
-	public function get_parent() {
-		_deprecated_function( __METHOD__, '1.7.6', __CLASS__ . '::get_data( \'parent\' )' );
-
-		return $this->get_data( 'parent' );
+	public function get_panel_presets() {
+		return [];
 	}
 
 	/**
@@ -463,160 +368,55 @@ abstract class Element_Base extends Controls_Stack {
 	}
 
 	/**
-	 * Add render attribute.
+	 * Add link render attributes.
 	 *
-	 * Used to add attributes to a specific HTML element.
+	 * Used to add link tag attributes to a specific HTML element.
 	 *
-	 * The HTML tag is represented by the element parameter, then you need to
-	 * define the attribute key and the attribute key. The final result will be:
-	 * `<element attribute_key="attribute_value">`.
+	 * The HTML link tag is represented by the element parameter. The `url_control` parameter
+	 * needs to be an array of link settings in the same format they are set by Elementor's URL control.
 	 *
 	 * Example usage:
 	 *
-	 * `$this->add_render_attribute( 'wrapper', 'class', 'custom-widget-wrapper-class' );`
-	 * `$this->add_render_attribute( 'widget', 'id', 'custom-widget-id' );`
-	 * `$this->add_render_attribute( 'button', [ 'class' => 'custom-button-class', 'id' => 'custom-button-id' ] );`
+	 * `$this->add_link_attributes( 'button', $settings['link'] );`
 	 *
-	 * @since 1.0.0
+	 * @since 2.8.0
 	 * @access public
 	 *
 	 * @param array|string $element   The HTML element.
-	 * @param array|string $key       Optional. Attribute key. Default is null.
-	 * @param array|string $value     Optional. Attribute value. Default is null.
-	 * @param bool         $overwrite Optional. Whether to overwrite existing
+	 * @param array $url_control      Array of link settings.
+	 * @param bool $overwrite         Optional. Whether to overwrite existing
 	 *                                attribute. Default is false, not to overwrite.
 	 *
 	 * @return Element_Base Current instance of the element.
 	 */
-	public function add_render_attribute( $element, $key = null, $value = null, $overwrite = false ) {
-		if ( is_array( $element ) ) {
-			foreach ( $element as $element_key => $attributes ) {
-				$this->add_render_attribute( $element_key, $attributes, null, $overwrite );
-			}
 
-			return $this;
+	public function add_link_attributes( $element, array $url_control, $overwrite = false ) {
+		$attributes = [];
+
+		if ( ! empty( $url_control['url'] ) ) {
+			$allowed_protocols = array_merge( wp_allowed_protocols(), [ 'skype', 'viber' ] );
+
+			$attributes['href'] = esc_url( $url_control['url'], $allowed_protocols );
 		}
 
-		if ( is_array( $key ) ) {
-			foreach ( $key as $attribute_key => $attributes ) {
-				$this->add_render_attribute( $element, $attribute_key, $attributes, $overwrite );
-			}
-
-			return $this;
+		if ( ! empty( $url_control['is_external'] ) ) {
+			$attributes['target'] = '_blank';
 		}
 
-		if ( empty( $this->render_attributes[ $element ][ $key ] ) ) {
-			$this->render_attributes[ $element ][ $key ] = [];
+		if ( ! empty( $url_control['nofollow'] ) ) {
+			$attributes['rel'] = 'nofollow';
 		}
 
-		settype( $value, 'array' );
+		if ( ! empty( $url_control['custom_attributes'] ) ) {
+			// Custom URL attributes should come as a string of comma-delimited key|value pairs
+			$attributes = array_merge( $attributes, Utils::parse_custom_attributes( $url_control['custom_attributes'] ) );
+		}
 
-		if ( $overwrite ) {
-			$this->render_attributes[ $element ][ $key ] = $value;
-		} else {
-			$this->render_attributes[ $element ][ $key ] = array_merge( $this->render_attributes[ $element ][ $key ], $value );
+		if ( $attributes ) {
+			$this->add_render_attribute( $element, $attributes, null, $overwrite );
 		}
 
 		return $this;
-	}
-
-	/**
-	 * Get Render Attributes
-	 *
-	 * Used to retrieve render attribute.
-	 *
-	 * The returned array is either all elements and their attributes if no `$element` is specified, an array of all
-	 * attributes of a specific element or a specific attribute properties if `$key` is specified.
-	 *
-	 * Returns null if one of the requested parameters isn't set.
-	 *
-	 * @param string $element
-	 * @param string $key
-	 *
-	 * @return array
-	 */
-	public function get_render_attributes( $element = '', $key = '' ) {
-		$attributes = $this->render_attributes;
-
-		if ( $element ) {
-			if ( ! isset( $attributes[ $element ] ) ) {
-				return null;
-			}
-
-			$attributes = $attributes[ $element ];
-
-			if ( $key ) {
-				if ( ! isset( $attributes[ $key ] ) ) {
-					return null;
-				}
-
-				$attributes = $attributes[ $key ];
-			}
-		}
-
-		return $attributes;
-	}
-
-	/**
-	 * Set render attribute.
-	 *
-	 * Used to set the value of the HTML element render attribute or to update
-	 * an existing render attribute.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @param array|string $element The HTML element.
-	 * @param array|string $key     Optional. Attribute key. Default is null.
-	 * @param array|string $value   Optional. Attribute value. Default is null.
-	 *
-	 * @return Element_Base Current instance of the element.
-	 */
-	public function set_render_attribute( $element, $key = null, $value = null ) {
-		return $this->add_render_attribute( $element, $key, $value, true );
-	}
-
-	/**
-	 * Get render attribute string.
-	 *
-	 * Used to retrieve the value of the render attribute.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @param array|string $element The element.
-	 *
-	 * @return string Render attribute string, or an empty string if the attribute
-	 *                is empty or not exist.
-	 */
-	public function get_render_attribute_string( $element ) {
-		if ( empty( $this->render_attributes[ $element ] ) ) {
-			return '';
-		}
-
-		$render_attributes = $this->render_attributes[ $element ];
-
-		$attributes = [];
-
-		foreach ( $render_attributes as $attribute_key => $attribute_values ) {
-			$attributes[] = sprintf( '%1$s="%2$s"', $attribute_key, esc_attr( implode( ' ', $attribute_values ) ) );
-		}
-
-		return implode( ' ', $attributes );
-	}
-
-	/**
-	 * Print render attribute string.
-	 *
-	 * Used to output the rendered attribute.
-	 *
-	 * @since 2.0.0
-	 * @access public
-	 *
-	 * @param array|string $element The element.
-	 */
-	public function print_render_attribute_string( $element ) {
-		echo $this->get_render_attribute_string( $element ); // XSS ok.
 	}
 
 	/**
@@ -628,14 +428,6 @@ abstract class Element_Base extends Controls_Stack {
 	 * @access public
 	 */
 	public function print_element() {
-		ob_start();
-		$this->_print_content();
-		$content = ob_get_clean();
-
-		if ( empty( $content ) && ! $this->should_print_empty() ) {
-			return;
-		}
-
 		$element_type = $this->get_type();
 
 		/**
@@ -662,14 +454,49 @@ abstract class Element_Base extends Controls_Stack {
 		 */
 		do_action( "elementor/frontend/{$element_type}/before_render", $this );
 
-		$this->_add_render_attributes();
+		ob_start();
 
-		$this->before_render();
-		echo $content;
-		$this->after_render();
+		if ( $this->has_own_method( '_print_content', self::class ) ) {
+			Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( '_print_content', '3.1.0', __CLASS__ . '::print_content()' );
 
-		$this->enqueue_scripts();
-		$this->enqueue_styles();
+			$this->_print_content();
+		} else {
+			$this->print_content();
+		}
+
+		$content = ob_get_clean();
+
+		$should_render = ( ! empty( $content ) || $this->should_print_empty() );
+
+		/**
+		 * Should the element be rendered for frontend
+		 *
+		 * Filters if the element should be rendered on frontend.
+		 *
+		 * @since 2.3.3
+		 *
+		 * @param bool true The element.
+		 * @param Element_Base $this The element.
+		 */
+		$should_render = apply_filters( "elementor/frontend/{$element_type}/should_render", $should_render, $this );
+
+		if ( $should_render ) {
+			if ( $this->has_own_method( '_add_render_attributes', self::class ) ) {
+				Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( '_add_render_attributes', '3.1.0', __CLASS__ . '::add_render_attributes()' );
+
+				$this->_add_render_attributes();
+			} else {
+				$this->add_render_attributes();
+			}
+
+			$this->before_render();
+			// PHPCS - The content has already been escaped by the `render` method.
+			echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			$this->after_render();
+
+			$this->enqueue_scripts();
+			$this->enqueue_styles();
+		}
 
 		/**
 		 * After frontend element render.
@@ -724,13 +551,39 @@ abstract class Element_Base extends Controls_Stack {
 			$elements[] = $child->get_raw_data( $with_html_content );
 		}
 
-		return [
+		$raw_data = [
 			'id' => $this->get_id(),
 			'elType' => $data['elType'],
 			'settings' => $data['settings'],
 			'elements' => $elements,
 			'isInner' => $data['isInner'],
 		];
+
+		if ( ! empty( $data['isLocked'] ) ) {
+			$raw_data['isLocked'] = $data['isLocked'];
+		}
+
+		return $raw_data;
+	}
+
+	public function get_data_for_save() {
+		$data = $this->get_raw_data();
+
+		$elements = [];
+
+		foreach ( $this->get_children() as $child ) {
+			$elements[] = $child->get_data_for_save();
+		}
+
+		if ( ! empty( $elements ) ) {
+			$data['elements'] = $elements;
+		}
+
+		if ( ! empty( $data['settings'] ) ) {
+			$data['settings'] = $this->on_save( $data['settings'] );
+		}
+
+		return $data;
 	}
 
 	/**
@@ -750,46 +603,6 @@ abstract class Element_Base extends Controls_Stack {
 	}
 
 	/**
-	 * Render element edit tools.
-	 *
-	 * Used to generate the edit tools HTML.
-	 *
-	 * @since 1.0.0
-	 * @deprecated 1.8.0 Use `Element_Base::render_edit_tools()` instead.
-	 * @access protected
-	 */
-	protected function _render_settings() {
-		_deprecated_function( sprintf( '%s::%s', get_called_class(), __FUNCTION__ ), '1.8.0', '$this->render_edit_tools()' );
-
-		$this->render_edit_tools();
-	}
-
-	/**
-	 * Render element edit tools.
-	 *
-	 * Used to generate the edit tools HTML.
-	 *
-	 * @since 1.8.0
-	 * @access protected
-	 */
-	protected function render_edit_tools() {
-		?>
-		<div class="elementor-element-overlay">
-			<ul class="elementor-editor-element-settings elementor-editor-<?php echo $this->get_type(); ?>-settings">
-				<?php
-				foreach ( self::get_edit_tools() as $edit_tool_name => $edit_tool ) {
-					?>
-					<li class="elementor-editor-element-setting elementor-editor-element-<?php echo esc_attr( $edit_tool_name ); ?>" title="<?php echo esc_attr( $edit_tool['title'] ); ?>">
-						<i class="eicon-<?php echo esc_attr( $edit_tool['icon'] ); ?>" aria-hidden="true"></i>
-						<span class="elementor-screen-only"><?php echo esc_html( $edit_tool['title'] ); ?></span>
-					</li>
-				<?php } ?>
-			</ul>
-		</div>
-		<?php
-	}
-
-	/**
 	 * Is type instance.
 	 *
 	 * Used to determine whether the element is an instance of that type or not.
@@ -804,34 +617,94 @@ abstract class Element_Base extends Controls_Stack {
 	}
 
 	/**
+	 * On import update dynamic content (e.g. post and term IDs).
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param array      $config   The config of the passed element.
+	 * @param array      $data     The data that requires updating/replacement when imported.
+	 * @param array|null $controls The available controls.
+	 *
+	 * @return array Element data.
+	 */
+	public static function on_import_update_dynamic_content( array $config, array $data, $controls = null ) : array {
+		$tags_manager = Plugin::$instance->dynamic_tags;
+
+		if ( empty( $config['settings'][ $tags_manager::DYNAMIC_SETTING_KEY ] ) ) {
+			return $config;
+		}
+
+		foreach ( $config['settings'][ $tags_manager::DYNAMIC_SETTING_KEY ] as $dynamic_name => $dynamic_value ) {
+			$tag_config = $tags_manager->tag_text_to_tag_data( $dynamic_value );
+			$tag_instance = $tags_manager->create_tag( $tag_config['id'], $tag_config['name'], $tag_config['settings'] );
+
+			if ( is_null( $tag_instance ) ) {
+				continue;
+			}
+
+			if ( $tag_instance->has_own_method( 'on_import_replace_dynamic_content' ) ) {
+				// TODO: Remove this check in the future.
+				$tag_config = $tag_instance->on_import_replace_dynamic_content( $tag_config, $data['post_ids'] );
+			} else {
+				$tag_config = $tag_instance->on_import_update_dynamic_content( $tag_config, $data, $tag_instance->get_controls() );
+			}
+
+			$config['settings'][ $tags_manager::DYNAMIC_SETTING_KEY ][ $dynamic_name ] = $tags_manager->tag_data_to_tag_text( $tag_config['id'], $tag_config['name'], $tag_config['settings'] );
+		}
+
+		return $config;
+	}
+
+	/**
 	 * Add render attributes.
 	 *
 	 * Used to add attributes to the current element wrapper HTML tag.
 	 *
 	 * @since 1.3.0
 	 * @access protected
+	 * @deprecated 3.1.0 Use `add_render_attribute()` method instead.
 	 */
 	protected function _add_render_attributes() {
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0', 'add_render_attributes()' );
+
+		return $this->add_render_attributes();
+	}
+
+	/**
+	 * Add render attributes.
+	 *
+	 * Used to add attributes to the current element wrapper HTML tag.
+	 *
+	 * @since 3.1.0
+	 * @access protected
+	 */
+	protected function add_render_attributes() {
 		$id = $this->get_id();
 
-		$settings = $this->get_active_settings();
+		$settings = $this->get_settings_for_display();
 		$frontend_settings = $this->get_frontend_settings();
 		$controls = $this->get_controls();
 
-		$this->add_render_attribute( '_wrapper', 'data-id', $id );
-
-		$this->add_render_attribute(
-			'_wrapper', 'class', [
+		$this->add_render_attribute( '_wrapper', [
+			'class' => [
 				'elementor-element',
 				'elementor-element-' . $id,
-			]
-		);
+			],
+			'data-id' => $id,
+			'data-element_type' => $this->get_type(),
+		] );
 
 		$class_settings = [];
 
 		foreach ( $settings as $setting_key => $setting ) {
 			if ( isset( $controls[ $setting_key ]['prefix_class'] ) ) {
-				$class_settings[ $setting_key ] = $setting;
+				if ( isset( $controls[ $setting_key ]['classes_dictionary'][ $setting ] ) ) {
+					$value = $controls[ $setting_key ]['classes_dictionary'][ $setting ];
+				} else {
+					$value = $setting;
+				}
+
+				$class_settings[ $setting_key ] = $value;
 			}
 		}
 
@@ -843,9 +716,17 @@ abstract class Element_Base extends Controls_Stack {
 			$this->add_render_attribute( '_wrapper', 'class', $controls[ $setting_key ]['prefix_class'] . $setting );
 		}
 
-		if ( ! empty( $settings['animation'] ) || ! empty( $settings['_animation'] ) ) {
-			// Hide the element until the animation begins
-			$this->add_render_attribute( '_wrapper', 'class', 'elementor-invisible' );
+		$_animation = ! empty( $settings['_animation'] );
+		$animation = ! empty( $settings['animation'] );
+		$has_animation = $_animation && 'none' !== $settings['_animation'] || $animation && 'none' !== $settings['animation'];
+
+		if ( $has_animation ) {
+			$is_static_render_mode = Plugin::$instance->frontend->is_static_render_mode();
+
+			if ( ! $is_static_render_mode ) {
+				// Hide the element until the animation begins
+				$this->add_render_attribute( '_wrapper', 'class', 'elementor-invisible' );
+			}
 		}
 
 		if ( ! empty( $settings['_element_id'] ) ) {
@@ -866,6 +747,583 @@ abstract class Element_Base extends Controls_Stack {
 		 * @param Element_Base $this The element.
 		 */
 		do_action( 'elementor/element/after_add_attributes', $this );
+	}
+
+	/**
+	 * Register the Transform controls in the advanced tab of the element.
+	 *
+	 * Previously registered under the Widget_Common class, but registered a more fundamental level now to enable access from other widgets.
+	 *
+	 * @since 3.9.0
+	 * @access protected
+	 * @return void
+	 */
+	protected function register_transform_section( $element_selector = '' ) {
+		$default_unit_values_deg = [];
+		$default_unit_values_ms = [];
+
+		// Set the default unit sizes for all active breakpoints.
+		foreach ( Breakpoints_Manager::get_default_config() as $breakpoint_name => $breakpoint_config ) {
+			$default_unit_values_deg[ $breakpoint_name ] = [
+				'default' => [
+					'unit' => 'deg',
+				],
+			];
+
+			$default_unit_values_ms[ $breakpoint_name ] = [
+				'default' => [
+					'unit' => 'ms',
+				],
+			];
+		}
+
+		$this->start_controls_section(
+			'_section_transform',
+			[
+				'label' => esc_html__( 'Transform', 'elementor' ),
+				'tab' => Controls_Manager::TAB_ADVANCED,
+			]
+		);
+
+		$this->start_controls_tabs( '_tabs_positioning' );
+
+		$transform_prefix_class = 'e-';
+		$transform_return_value = 'transform';
+		$transform_selector_class = ' > .elementor-widget-container';
+		$transform_css_modifier = '';
+
+		if ( 'con' === $element_selector ) {
+			$transform_selector_class = '.e-' . $element_selector;
+			$transform_css_modifier = $element_selector . '-';
+		}
+
+		foreach ( [ '', '_hover' ] as $tab ) {
+			$state = '_hover' === $tab ? ':hover' : '';
+
+			$this->start_controls_tab(
+				"_tab_positioning{$tab}",
+				[
+					'label' => '' === $tab ? esc_html__( 'Normal', 'elementor' ) : esc_html__( 'Hover', 'elementor' ),
+				]
+			);
+
+			$this->add_control(
+				"_transform_rotate_popover{$tab}",
+				[
+					'label' => esc_html__( 'Rotate', 'elementor' ),
+					'type' => Controls_Manager::POPOVER_TOGGLE,
+					'prefix_class' => $transform_prefix_class,
+					'return_value' => $transform_return_value,
+				]
+			);
+
+			$this->start_popover();
+
+			$this->add_responsive_control(
+				"_transform_rotateZ_effect{$tab}",
+				[
+					'label' => esc_html__( 'Rotate', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'device_args' => $default_unit_values_deg,
+					'range' => [
+						'px' => [
+							'min' => -360,
+							'max' => 360,
+						],
+					],
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-rotateZ: {{SIZE}}deg',
+					],
+					'condition' => [
+						"_transform_rotate_popover{$tab}!" => '',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->add_control(
+				"_transform_rotate_3d{$tab}",
+				[
+					'label' => esc_html__( '3D Rotate', 'elementor' ),
+					'type' => Controls_Manager::SWITCHER,
+					'label_on' => esc_html__( 'On', 'elementor' ),
+					'label_off' => esc_html__( 'Off', 'elementor' ),
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-rotateX: 1{{UNIT}};  --e-' . $transform_css_modifier . 'transform-perspective: 20px;',
+					],
+					'condition' => [
+						"_transform_rotate_popover{$tab}!" => '',
+					],
+				]
+			);
+
+			$this->add_responsive_control(
+				"_transform_rotateX_effect{$tab}",
+				[
+					'label' => esc_html__( 'Rotate X', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'device_args' => $default_unit_values_deg,
+					'range' => [
+						'px' => [
+							'min' => -360,
+							'max' => 360,
+						],
+					],
+					'condition' => [
+						"_transform_rotate_3d{$tab}!" => '',
+						"_transform_rotate_popover{$tab}!" => '',
+					],
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-rotateX: {{SIZE}}deg;',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->add_responsive_control(
+				"_transform_rotateY_effect{$tab}",
+				[
+					'label' => esc_html__( 'Rotate Y', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'device_args' => $default_unit_values_deg,
+					'range' => [
+						'px' => [
+							'min' => -360,
+							'max' => 360,
+						],
+					],
+					'condition' => [
+						"_transform_rotate_3d{$tab}!" => '',
+						"_transform_rotate_popover{$tab}!" => '',
+					],
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-rotateY: {{SIZE}}deg;',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->add_responsive_control(
+				"_transform_perspective_effect{$tab}",
+				[
+					'label' => esc_html__( 'Perspective', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'range' => [
+						'px' => [
+							'min' => 0,
+							'max' => 1000,
+						],
+					],
+					'condition' => [
+						"_transform_rotate_popover{$tab}!" => '',
+						"_transform_rotate_3d{$tab}!" => '',
+					],
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-perspective: {{SIZE}}px',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->end_popover();
+
+			$this->add_control(
+				"_transform_translate_popover{$tab}",
+				[
+					'label' => esc_html__( 'Offset', 'elementor' ),
+					'type' => Controls_Manager::POPOVER_TOGGLE,
+					'prefix_class' => $transform_prefix_class,
+					'return_value' => $transform_return_value,
+				]
+			);
+
+			$this->start_popover();
+
+			$this->add_responsive_control(
+				"_transform_translateX_effect{$tab}",
+				[
+					'label' => esc_html__( 'Offset X', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+					'range' => [
+						'%' => [
+							'min' => -100,
+							'max' => 100,
+						],
+						'px' => [
+							'min' => -1000,
+							'max' => 1000,
+						],
+					],
+					'condition' => [
+						"_transform_translate_popover{$tab}!" => '',
+					],
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-translateX: {{SIZE}}{{UNIT}};',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->add_responsive_control(
+				"_transform_translateY_effect{$tab}",
+				[
+					'label' => esc_html__( 'Offset Y', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'size_units' => [ 'px', '%', 'em', 'rem', 'vh', 'custom' ],
+					'range' => [
+						'%' => [
+							'min' => -100,
+							'max' => 100,
+						],
+						'px' => [
+							'min' => -1000,
+							'max' => 1000,
+						],
+					],
+					'condition' => [
+						"_transform_translate_popover{$tab}!" => '',
+					],
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-translateY: {{SIZE}}{{UNIT}};',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->end_popover();
+
+			$this->add_control(
+				"_transform_scale_popover{$tab}",
+				[
+					'label' => esc_html__( 'Scale', 'elementor' ),
+					'type' => Controls_Manager::POPOVER_TOGGLE,
+					'prefix_class' => $transform_prefix_class,
+					'return_value' => $transform_return_value,
+				]
+			);
+
+			$this->start_popover();
+
+			$this->add_control(
+				"_transform_keep_proportions{$tab}",
+				[
+					'label' => esc_html__( 'Keep Proportions', 'elementor' ),
+					'type' => Controls_Manager::SWITCHER,
+					'label_on' => esc_html__( 'On', 'elementor' ),
+					'label_off' => esc_html__( 'Off', 'elementor' ),
+					'default' => 'yes',
+				]
+			);
+
+			$this->add_responsive_control(
+				"_transform_scale_effect{$tab}",
+				[
+					'label' => esc_html__( 'Scale', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'range' => [
+						'px' => [
+							'min' => 0,
+							'max' => 2,
+							'step' => 0.1,
+						],
+					],
+					'condition' => [
+						"_transform_scale_popover{$tab}!" => '',
+						"_transform_keep_proportions{$tab}!" => '',
+					],
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-scale: {{SIZE}};',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->add_responsive_control(
+				"_transform_scaleX_effect{$tab}",
+				[
+					'label' => esc_html__( 'Scale X', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'range' => [
+						'px' => [
+							'min' => 0,
+							'max' => 2,
+							'step' => 0.1,
+						],
+					],
+					'condition' => [
+						"_transform_scale_popover{$tab}!" => '',
+						"_transform_keep_proportions{$tab}" => '',
+					],
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-scaleX: {{SIZE}};',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->add_responsive_control(
+				"_transform_scaleY_effect{$tab}",
+				[
+					'label' => esc_html__( 'Scale Y', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'range' => [
+						'px' => [
+							'min' => 0,
+							'max' => 2,
+							'step' => 0.1,
+						],
+					],
+					'condition' => [
+						"_transform_scale_popover{$tab}!" => '',
+						"_transform_keep_proportions{$tab}" => '',
+					],
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-scaleY: {{SIZE}};',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->end_popover();
+
+			$this->add_control(
+				"_transform_skew_popover{$tab}",
+				[
+					'label' => esc_html__( 'Skew', 'elementor' ),
+					'type' => Controls_Manager::POPOVER_TOGGLE,
+					'prefix_class' => $transform_prefix_class,
+					'return_value' => $transform_return_value,
+				]
+			);
+
+			$this->start_popover();
+
+			$this->add_responsive_control(
+				"_transform_skewX_effect{$tab}",
+				[
+					'label' => esc_html__( 'Skew X', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'device_args' => $default_unit_values_deg,
+					'range' => [
+						'px' => [
+							'min' => -360,
+							'max' => 360,
+						],
+					],
+					'condition' => [
+						"_transform_skew_popover{$tab}!" => '',
+					],
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-skewX: {{SIZE}}deg;',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->add_responsive_control(
+				"_transform_skewY_effect{$tab}",
+				[
+					'label' => esc_html__( 'Skew Y', 'elementor' ),
+					'type' => Controls_Manager::SLIDER,
+					'device_args' => $default_unit_values_deg,
+					'range' => [
+						'px' => [
+							'min' => -360,
+							'max' => 360,
+						],
+					],
+					'condition' => [
+						"_transform_skew_popover{$tab}!" => '',
+					],
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-skewY: {{SIZE}}deg;',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->end_popover();
+
+			$this->add_control(
+				"_transform_flipX_effect{$tab}",
+				[
+					'label' => esc_html__( 'Flip Horizontal', 'elementor' ),
+					'type' => Controls_Manager::CHOOSE,
+					'options' => [
+						'transform' => [
+							'title' => esc_html__( 'Flip Horizontal', 'elementor' ),
+							'icon' => 'eicon-flip eicon-tilted',
+						],
+					],
+					'prefix_class' => $transform_prefix_class,
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-flipX: -1',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			$this->add_control(
+				"_transform_flipY_effect{$tab}",
+				[
+					'label' => esc_html__( 'Flip Vertical', 'elementor' ),
+					'type' => Controls_Manager::CHOOSE,
+					'options' => [
+						'transform' => [
+							'title' => esc_html__( 'Flip Vertical', 'elementor' ),
+							'icon' => 'eicon-flip',
+						],
+					],
+					'prefix_class' => $transform_prefix_class,
+					'selectors' => [
+						"{{WRAPPER}}{$transform_selector_class}{$state}" => '--e-' . $transform_css_modifier . 'transform-flipY: -1',
+					],
+					'frontend_available' => true,
+				]
+			);
+
+			if ( '_hover' === $tab ) {
+				$this->add_control(
+					'_transform_transition_hover',
+					[
+						'label' => esc_html__( 'Transition Duration', 'elementor' ) . ' (ms)',
+						'type' => Controls_Manager::SLIDER,
+						'device_args' => $default_unit_values_ms,
+						'range' => [
+							'px' => [
+								'min' => 100,
+								'max' => 10000,
+							],
+						],
+						'selectors' => [
+							'{{WRAPPER}}' => '--e-' . $transform_css_modifier . 'transform-transition-duration: {{SIZE}}ms',
+						],
+					]
+				);
+			}
+
+			${"transform_origin_conditions{$tab}"} = [
+				[
+					'name' => "_transform_scale_popover{$tab}",
+					'operator' => '!=',
+					'value' => '',
+				],
+				[
+					'name' => "_transform_rotate_popover{$tab}",
+					'operator' => '!=',
+					'value' => '',
+				],
+				[
+					'name' => "_transform_flipX_effect{$tab}",
+					'operator' => '!=',
+					'value' => '',
+				],
+				[
+					'name' => "_transform_flipY_effect{$tab}",
+					'operator' => '!=',
+					'value' => '',
+				],
+			];
+
+			$this->end_controls_tab();
+		}
+
+		$this->end_controls_tabs();
+
+		$transform_origin_conditions = [
+			'relation' => 'or',
+			'terms' => array_merge( $transform_origin_conditions, $transform_origin_conditions_hover ),
+		];
+
+		// Will override motion effect transform-origin
+		$this->add_responsive_control(
+			'motion_fx_transform_x_anchor_point',
+			[
+				'label' => esc_html__( 'X Anchor Point', 'elementor' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'left' => [
+						'title' => esc_html__( 'Left', 'elementor' ),
+						'icon' => 'eicon-h-align-left',
+					],
+					'center' => [
+						'title' => esc_html__( 'Center', 'elementor' ),
+						'icon' => 'eicon-h-align-center',
+					],
+					'right' => [
+						'title' => esc_html__( 'Right', 'elementor' ),
+						'icon' => 'eicon-h-align-right',
+					],
+				],
+				'conditions' => $transform_origin_conditions,
+				'separator' => 'before',
+				'selectors' => [
+					'{{WRAPPER}}' => '--e-' . $transform_css_modifier . 'transform-origin-x: {{VALUE}}',
+				],
+			]
+		);
+
+		// Will override motion effect transform-origin
+		$this->add_responsive_control(
+			'motion_fx_transform_y_anchor_point',
+			[
+				'label' => esc_html__( 'Y Anchor Point', 'elementor' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'top' => [
+						'title' => esc_html__( 'Top', 'elementor' ),
+						'icon' => 'eicon-v-align-top',
+					],
+					'center' => [
+						'title' => esc_html__( 'Center', 'elementor' ),
+						'icon' => 'eicon-v-align-middle',
+					],
+					'bottom' => [
+						'title' => esc_html__( 'Bottom', 'elementor' ),
+						'icon' => 'eicon-v-align-bottom',
+					],
+				],
+				'conditions' => $transform_origin_conditions,
+				'selectors' => [
+					'{{WRAPPER}}' => '--e-' . $transform_css_modifier . 'transform-origin-y: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Add Hidden Device Controls
+	 *
+	 * Adds controls for hiding elements within certain devices' viewport widths. Adds a control for each active device.
+	 *
+	 * @since 3.4.0
+	 * @access protected
+	 */
+	protected function add_hidden_device_controls() {
+		// The 'Hide On X' controls are displayed from largest to smallest, while the method returns smallest to largest.
+		$active_devices = Plugin::$instance->breakpoints->get_active_devices_list( [ 'reverse' => true ] );
+		$active_breakpoints = Plugin::$instance->breakpoints->get_active_breakpoints();
+
+		foreach ( $active_devices as $breakpoint_key ) {
+			$label = 'desktop' === $breakpoint_key ? esc_html__( 'Desktop', 'elementor' ) : $active_breakpoints[ $breakpoint_key ]->get_label();
+
+			$this->add_control(
+				'hide_' . $breakpoint_key,
+				[
+					/* translators: %s: Device name. */
+					'label' => sprintf( __( 'Hide On %s', 'elementor' ), $label ),
+					'type' => Controls_Manager::SWITCHER,
+					'default' => '',
+					'prefix_class' => 'elementor-',
+					'label_on' => esc_html__( 'Hide', 'elementor' ),
+					'label_off' => esc_html__( 'Show', 'elementor' ),
+					'return_value' => 'hidden-' . $breakpoint_key,
+				]
+			);
+		}
 	}
 
 	/**
@@ -896,8 +1354,23 @@ abstract class Element_Base extends Controls_Stack {
 	 *
 	 * @since 1.0.0
 	 * @access protected
+	 * @deprecated 3.1.0 Use `print_content()` method instead.
 	 */
 	protected function _print_content() {
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0', 'print_content()' );
+
+		$this->print_content();
+	}
+
+	/**
+	 * Print element content.
+	 *
+	 * Output the element final HTML on the frontend.
+	 *
+	 * @since 3.1.0
+	 * @access protected
+	 */
+	protected function print_content() {
 		foreach ( $this->get_children() as $child ) {
 			$child->print_element();
 		}
@@ -911,12 +1384,12 @@ abstract class Element_Base extends Controls_Stack {
 	 * Adds more configuration on top of the controls list and the tabs assigned
 	 * to the control. This method also adds element name, type, icon and more.
 	 *
-	 * @since 1.0.10
+	 * @since 2.9.0
 	 * @access protected
 	 *
 	 * @return array The initial config.
 	 */
-	protected function _get_initial_config() {
+	protected function get_initial_config() {
 		$config = [
 			'name' => $this->get_name(),
 			'elType' => $this->get_type(),
@@ -925,7 +1398,25 @@ abstract class Element_Base extends Controls_Stack {
 			'reload_preview' => $this->is_reload_preview_required(),
 		];
 
-		return array_merge( parent::_get_initial_config(), $config );
+		if ( preg_match( '/^' . __NAMESPACE__ . '(Pro)?\\\\/', get_called_class() ) ) {
+			$config['help_url'] = $this->get_help_url();
+		} else {
+			$config['help_url'] = $this->get_custom_help_url();
+		}
+
+		if ( ! $this->is_editable() ) {
+			$config['editable'] = false;
+		}
+
+		return $config;
+	}
+
+	/**
+	 * A Base method for sanitizing the settings before save.
+	 * This method is meant to be overridden by the element.
+	 */
+	protected function on_save( array $settings ) {
+		return $settings;
 	}
 
 	/**

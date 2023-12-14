@@ -23,21 +23,28 @@ class EVF_Field_Text extends EVF_Form_Fields {
 		$this->order    = 30;
 		$this->group    = 'general';
 		$this->settings = array(
-			'basic-options' => array(
+			'basic-options'    => array(
 				'field_options' => array(
 					'label',
 					'meta',
 					'description',
 					'required',
+					'required_field_message_setting',
+					'required_field_message',
 				),
 			),
 			'advanced-options' => array(
 				'field_options' => array(
 					'placeholder',
 					'label_hide',
+					'limit_length',
+					'min_length',
 					'default_value',
 					'css',
 					'input_mask',
+					'regex_validation',
+					'regex_value',
+					'regex_message',
 				),
 			),
 		);
@@ -49,13 +56,140 @@ class EVF_Field_Text extends EVF_Form_Fields {
 	 * Hook in tabs.
 	 */
 	public function init_hooks() {
+		add_action( 'everest_forms_shortcode_scripts', array( $this, 'load_assets' ) );
 		add_filter( 'everest_forms_field_properties_' . $this->type, array( $this, 'field_properties' ), 5, 3 );
+	}
+
+	/**
+	 * Limit length field option.
+	 *
+	 * @param array $field Field settings.
+	 */
+	public function limit_length( $field ) {
+		// Limit length.
+		$args = array(
+			'slug'    => 'limit_enabled',
+			'content' => $this->field_element(
+				'toggle',
+				$field,
+				array(
+					'slug'    => 'limit_enabled',
+					'value'   => isset( $field['limit_enabled'] ),
+					'desc'    => esc_html__( 'Limit Length', 'everest-forms' ),
+					'tooltip' => esc_html__( 'Check this option to specify maximum text length by characters or word count.', 'everest-forms' ),
+				),
+				false
+			),
+		);
+		$this->field_element( 'row', $field, $args );
+
+		// Limit controls.
+		$count = $this->field_element(
+			'text',
+			$field,
+			array(
+				'type'  => 'number',
+				'class' => 'small-text',
+				'slug'  => 'limit_count',
+				'attrs' => array(
+					'min'     => 1,
+					'step'    => 1,
+					'pattern' => '[0-9]',
+				),
+				'value' => ! empty( $field['limit_count'] ) ? absint( $field['limit_count'] ) : 1,
+			),
+			false
+		);
+
+		$mode = $this->field_element(
+			'select',
+			$field,
+			array(
+				'slug'    => 'limit_mode',
+				'class'   => 'limit-select',
+				'value'   => ! empty( $field['limit_mode'] ) ? esc_attr( $field['limit_mode'] ) : 'characters',
+				'options' => array(
+					'characters' => esc_html__( 'Characters', 'everest-forms' ),
+					'words'      => esc_html__( 'Words Count', 'everest-forms' ),
+				),
+			),
+			false
+		);
+		$args = array(
+			'slug'    => 'limit_controls',
+			'class'   => ! isset( $field['limit_enabled'] ) ? 'everest-forms-hidden' : '',
+			'content' => $count . $mode,
+		);
+		$this->field_element( 'row', $field, $args );
+	}
+
+	/**
+	 * Minimum Length length field option.
+	 *
+	 * @param array $field Field settings.
+	 */
+	public function min_length( $field ) {
+		// Minimum length.
+		$args = array(
+			'slug'    => 'min_length_enabled',
+			'content' => $this->field_element(
+				'toggle',
+				$field,
+				array(
+					'slug'    => 'min_length_enabled',
+					'value'   => isset( $field['min_length_enabled'] ),
+					'desc'    => esc_html__( 'Minimum Length', 'everest-forms' ),
+					'tooltip' => esc_html__( 'Check this option to specify minimum text length by characters or word count.', 'everest-forms' ),
+				),
+				false
+			),
+		);
+		$this->field_element( 'row', $field, $args );
+
+		// Minimum length controls.
+		$count = $this->field_element(
+			'text',
+			$field,
+			array(
+				'type'  => 'number',
+				'class' => 'small-text',
+				'slug'  => 'min_length_count',
+				'attrs' => array(
+					'min'     => 1,
+					'step'    => 1,
+					'pattern' => '[0-9]',
+				),
+				'value' => ! empty( $field['min_length_count'] ) ? absint( $field['min_length_count'] ) : 1,
+			),
+			false
+		);
+
+		$mode = $this->field_element(
+			'select',
+			$field,
+			array(
+				'slug'    => 'min_length_mode',
+				'class'   => 'min-length-select',
+				'value'   => ! empty( $field['min_length_mode'] ) ? esc_attr( $field['min_length_mode'] ) : 'characters',
+				'options' => array(
+					'characters' => esc_html__( 'Characters', 'everest-forms' ),
+					'words'      => esc_html__( 'Words Count', 'everest-forms' ),
+				),
+			),
+			false
+		);
+		$args = array(
+			'slug'    => 'min_length_controls',
+			'class'   => ! isset( $field['min_length_enabled'] ) ? 'everest-forms-hidden' : '',
+			'content' => $count . $mode,
+		);
+		$this->field_element( 'row', $field, $args );
 	}
 
 	/**
 	 * Input mask field option.
 	 *
-	 * @param array $field
+	 * @param array $field Field settings.
 	 */
 	public function input_mask( $field ) {
 		// Input Mask.
@@ -66,7 +200,7 @@ class EVF_Field_Text extends EVF_Form_Fields {
 				'slug'          => 'input_mask',
 				'value'         => esc_html__( 'Input Mask', 'everest-forms' ),
 				'tooltip'       => esc_html__( 'Enter your custom input mask.', 'everest-forms' ),
-				'after_tooltip' => '<a href="https://docs.wpeverest.com/docs/everest-forms/how-to-use-custom-input-mask/" class="after-label-description" target="_blank" rel="noopener noreferrer">' . esc_html__( 'See Examples & Docs', 'everest-forms' ) . '</a>',
+				'after_tooltip' => '<a href="https://docs.everestforms.net/docs/how-to-use-custom-input-mask/" class="after-label-description" target="_blank" rel="noopener noreferrer">' . esc_html__( 'See Examples & Docs', 'everest-forms' ) . '</a>',
 			),
 			false
 		);
@@ -79,26 +213,55 @@ class EVF_Field_Text extends EVF_Form_Fields {
 			),
 			false
 		);
-		$this->field_element( 'row', $field, array(
-			'slug'    => 'input_mask',
-			'content' => $lbl . $fld,
-		) );
+		$this->field_element(
+			'row',
+			$field,
+			array(
+				'slug'    => 'input_mask',
+				'content' => $lbl . $fld,
+			)
+		);
+	}
+
+	/**
+	 * Enqueue shortcode scripts.
+	 *
+	 * @param array $atts Shortcode Attributes.
+	 */
+	public function load_assets( $atts ) {
+		$form_id   = isset( $atts['id'] ) ? wp_unslash( $atts['id'] ) : ''; // WPCS: CSRF ok, input var ok, sanitization ok.
+		$form_obj  = evf()->form->get( $form_id );
+		$form_data = ! empty( $form_obj->post_content ) ? evf_decode( $form_obj->post_content ) : '';
+
+		// Leave only fields with limit.
+		if ( ! empty( $form_data['form_fields'] ) ) {
+			$form_fields = array_filter( $form_data['form_fields'], array( $this, 'field_is_limit' ) );
+
+			if ( count( $form_fields ) ) {
+				wp_enqueue_script( 'everest-forms-text-limit' );
+			}
+		}
 	}
 
 	/**
 	 * Define additional field properties.
 	 *
-	 * @param array $properties
-	 * @param array $field
-	 * @param array $form_data
+	 * @since 1.0.0
 	 *
-	 * @return array
+	 * @param array $properties Field properties.
+	 * @param array $field      Field settings.
+	 * @param array $form_data  Form data and settings.
+	 *
+	 * @return array of additional field properties.
 	 */
 	public function field_properties( $properties, $field, $form_data ) {
 		// Input primary: Detect custom input mask.
 		if ( ! empty( $field['input_mask'] ) ) {
 			// Add class that will trigger custom mask.
 			$properties['inputs']['primary']['class'][] = 'evf-masked-input';
+
+			// Register string for translation.
+			$field['input_mask'] = evf_string_translation( $form_data['id'], $field['id'], $field['input_mask'], '-input-mask' );
 
 			if ( false !== strpos( $field['input_mask'], 'alias:' ) ) {
 				$mask = str_replace( 'alias:', '', $field['input_mask'] );
@@ -121,10 +284,9 @@ class EVF_Field_Text extends EVF_Form_Fields {
 	/**
 	 * Field preview inside the builder.
 	 *
-	 * @param array $field
+	 * @param array $field Field data and settings.
 	 */
 	public function field_preview( $field ) {
-
 		// Define data.
 		$placeholder = ! empty( $field['placeholder'] ) ? esc_attr( $field['placeholder'] ) : '';
 
@@ -132,7 +294,7 @@ class EVF_Field_Text extends EVF_Form_Fields {
 		$this->field_preview_option( 'label', $field );
 
 		// Primary input.
-		echo '<input type="text" placeholder="' . $placeholder . '" class="widefat" disabled>';
+		echo '<input type="text" placeholder="' . esc_attr( $placeholder ) . '" class="widefat" disabled>';
 
 		// Description.
 		$this->field_preview_option( 'description', $field );
@@ -141,19 +303,56 @@ class EVF_Field_Text extends EVF_Form_Fields {
 	/**
 	 * Field display on the form front-end.
 	 *
-	 * @param array $field
-	 * @param array $deprecated
-	 * @param array $form_data
+	 * @since 1.0.0
+	 *
+	 * @param array $field Field Data.
+	 * @param array $field_atts Field attributes.
+	 * @param array $form_data All Form Data.
 	 */
-	public function field_display( $field, $deprecated, $form_data ) {
- 		// Define data.
-		$primary = $field['properties']['inputs']['primary'];
+	public function field_display( $field, $field_atts, $form_data ) {
+		// Define data.
+		$primary = apply_filters( 'everest_forms_default_values', $field['properties']['inputs']['primary'] );
 
-		// Primary field.
-		printf( '<input type="text" %s %s>',
+		// Limit length.
+		if ( isset( $field['limit_enabled'] ) ) {
+			$limit_count = isset( $field['limit_count'] ) ? absint( $field['limit_count'] ) : 0;
+			$limit_mode  = isset( $field['limit_mode'] ) ? sanitize_key( $field['limit_mode'] ) : 'characters';
+
+			$primary['data']['form-id']  = $form_data['id'];
+			$primary['data']['field-id'] = $field['id'];
+
+			if ( 'characters' === $limit_mode ) {
+				$primary['class'][]            = 'everest-forms-limit-characters-enabled';
+				$primary['attr']['maxlength']  = $limit_count;
+				$primary['data']['text-limit'] = $limit_count;
+			} else {
+				$primary['class'][]            = 'everest-forms-limit-words-enabled';
+				$primary['data']['text-limit'] = $limit_count;
+			}
+		}
+
+		// Minimum length.
+		if ( isset( $field['min_length_enabled'] ) ) {
+			$min_length_count = isset( $field['min_length_count'] ) ? absint( $field['min_length_count'] ) : 0;
+			$min_length_mode  = isset( $field['min_length_mode'] ) ? sanitize_key( $field['min_length_mode'] ) : 'characters';
+
+			$primary['data']['form-id']  = $form_data['id'];
+			$primary['data']['field-id'] = $field['id'];
+
+			if ( 'characters' === $min_length_mode ) {
+				$primary['class'][]                 = 'everest-forms-min-characters-length-enabled';
+				$primary['attr']['minlength']       = $min_length_count;
+				$primary['data']['text-min-length'] = $min_length_count;
+			} else {
+				$primary['class'][]                 = 'everest-forms-min-words-length-enabled';
+				$primary['data']['text-min-length'] = $min_length_count;
+			}
+		}
+
+		printf(
+			'<input type="text" %s %s>',
 			evf_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] ),
-			$primary['required']
+			esc_attr( $primary['required'] )
 		);
 	}
 }
-

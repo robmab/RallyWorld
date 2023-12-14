@@ -7,6 +7,11 @@
  */
 
 /*
+* file for upgrade to pro
+*/
+require fitness_hub_file_directory('acmethemes/customizer/customizer-pro/class-customize.php');
+
+/*
 * file for customizer core functions
 */
 require fitness_hub_file_directory('acmethemes/customizer/customizer-core.php');
@@ -80,6 +85,33 @@ function fitness_hub_customize_register( $wp_customize ) {
         $fitness_hub_home_section->title         = esc_html__( 'Home Main Content Area ', 'fitness-hub' );
         $fitness_hub_home_section->priority      = 80;
     }
+
+    /*customizing default colors section and adding new controls-setting too*/
+    $wp_customize->get_section( 'colors' )->panel = 'fitness-hub-design-panel';
+    $wp_customize->get_section( 'colors' )->title = esc_html__( 'Basic Color', 'fitness-hub' );
+    $wp_customize->get_section( 'background_image' )->priority = 100;
+
+    /*Background Image*/
+    $wp_customize->get_section( 'background_image' )->panel = 'fitness-hub-design-panel';
+    $wp_customize->get_section( 'background_image' )->priority = 60;
+
+    /*adding header image inside this panel*/
+    $wp_customize->get_section( 'header_image' )->panel = 'fitness-hub-header-panel';
+    $wp_customize->get_section( 'header_image' )->description = esc_html__( 'Applied to header image of inner pages.', 'fitness-hub' );
+
+    /*TODO 5.8*/
+    /*$fitness_hub_popup_widget_area = $wp_customize->get_section( 'sidebar-widgets-popup-widget-area' );
+    if ( ! empty( $fitness_hub_popup_widget_area ) ) {
+        $fitness_hub_popup_widget_area->panel = 'fitness-hub-header-panel';
+        $fitness_hub_popup_widget_area->title = esc_html__( 'Popup Widgets', 'fitness-hub' );
+        $fitness_hub_popup_widget_area->priority = 999;
+
+        $fitness_hub_popup_widget_title = $wp_customize->get_control( 'fitness_hub_theme_options[fitness-hub-popup-widget-title]' );
+        if ( ! empty( $fitness_hub_popup_widget_title ) ) {
+            $fitness_hub_popup_widget_title->section  = 'sidebar-widgets-popup-widget-area';
+            $fitness_hub_popup_widget_title->priority = -1;
+        }
+    }*/
 }
 add_action( 'customize_register', 'fitness_hub_customize_register' );
 

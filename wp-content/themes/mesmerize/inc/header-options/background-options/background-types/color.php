@@ -8,7 +8,7 @@ function mesmerize_header_background_color($types)
     return $types;
 }
 
-add_filter("mesmerize_header_background_atts", function ($attrs, $bg_type, $inner) {
+add_filter("mesmerize_header_background_attrs", function ($attrs, $bg_type, $inner) {
     $prefix       = $inner ? "inner_header" : "header";
     $show_overlay = get_theme_mod("" . $prefix . "_show_overlay", true);
     if ($show_overlay) {

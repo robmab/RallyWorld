@@ -125,4 +125,7 @@ require fitness_hub_file_directory('acmethemes/core.php');
 require fitness_hub_file_directory('acmethemes/gutenberg/gutenberg-init.php');
 
 /*themes info*/
-require fitness_hub_file_directory('acmethemes/at-theme-info/class-at-theme-info.php');
+if ( is_admin() ) {
+    require fitness_hub_file_directory('acmethemes/at-theme-info/class-at-theme-info.php');
+    require fitness_hub_file_directory('acmethemes/admin-notice/class-admin-notice-handler.php');
+}

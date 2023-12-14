@@ -4,12 +4,10 @@
  *
  * @version  1.0.0
  * @package  UserRegistration/Admin
- * @category Admin
- * @author   WPEverest
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
 if ( ! class_exists( 'UR_Settings_Page', false ) ) :
@@ -64,7 +62,7 @@ if ( ! class_exists( 'UR_Settings_Page', false ) ) :
 		/**
 		 * Add this page to settings.
 		 *
-		 * @param  array $pages
+		 * @param  array $pages Pages.
 		 * @return mixed
 		 */
 		public function add_settings_page( $pages ) {
@@ -103,15 +101,15 @@ if ( ! class_exists( 'UR_Settings_Page', false ) ) :
 				return;
 			}
 
-			echo '<ul class="subsubsub">';
+			echo '<div class="ur-scroll-ui__scroll-nav"><ul class="subsubsub  ur-scroll-ui__items">';
 
 			$array_keys = array_keys( $sections );
 
 			foreach ( $sections as $id => $label ) {
-				echo '<li><a href="' . admin_url( 'admin.php?page=user-registration-settings&tab=' . $this->id . '&section=' . sanitize_title( $id ) ) . '" class="' . ( $current_section == $id ? 'current' : '' ) . '">' . $label . '</a> ' . ( end( $array_keys ) == $id ? '' : '|' ) . ' </li>';
+				echo '<li><a href="' . esc_url( admin_url( 'admin.php?page=user-registration-settings&tab=' . $this->id . '&section=' . sanitize_title( $id ) ) ) . '" class="' . ( $current_section === $id ? 'current' : '' ) . ' ur-scroll-ui__item">' . esc_html( $label ) . '</a></li>';
 			}
 
-			echo '</ul><br class="clear" />';
+			echo '</ul></div>';
 		}
 
 		/**

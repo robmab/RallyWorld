@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Function which returns the same field-format over and over again.
  *
@@ -34,7 +35,7 @@ function wppb_manage_fields_display_field_title_slug( $form ){
         case 'Default - Username':
             $wppb_generalSettings = get_option( 'wppb_general_settings', 'not_found' );
             if ( $wppb_generalSettings != 'not_found' && $wppb_generalSettings['loginWith'] == 'email' ) {
-                $form .= '<div id="wppb-login-email-nag" class="wppb-backend-notice">' . sprintf(__('Login is set to be done using the E-mail. This field will NOT appear in the front-end! ( you can change these settings under the "%s" tab )', 'profile-builder'), '<a href="' . admin_url('admin.php?page=profile-builder-general-settings') . '" target="_blank">' . __('General Settings', 'profile-builder') . '</a>') . '</div>';
+                $form .= '<div id="wppb-login-email-nag" class="wppb-backend-notice">' . sprintf(__('Login is set to be done using the Email. This field will NOT appear in the front-end! ( you can change these settings under the "%s" tab )', 'profile-builder'), '<a href="' . admin_url('admin.php?page=profile-builder-general-settings') . '" target="_blank">' . __('General Settings', 'profile-builder') . '</a>') . '</div>';
             }
             break;
         case 'Default - Display name publicly as':
@@ -123,13 +124,14 @@ function wppb_password_check_on_profile_update( $errors, $update, $user ){
 /* on reset password */
 add_action( 'validate_password_reset', 'wppb_password_check_extra_conditions', 10, 2 );
 function wppb_password_check_extra_conditions( $errors, $user ){
-    $password = ( isset( $_POST[ 'pass1' ] ) && trim( $_POST[ 'pass1' ] ) ) ? $_POST[ 'pass1' ] : false;
+    $password = ( isset( $_POST[ 'pass1' ] ) && trim( $_POST[ 'pass1' ] ) ) ? $_POST[ 'pass1' ] : false; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 
-    if( $password ){
+    if( $password && ( !isset( $_POST['pw_weak'] ) || $_POST['pw_weak'] != 'on' ) ){
         $wppb_generalSettings = get_option( 'wppb_general_settings' );
+
         if( !empty( $wppb_generalSettings['minimum_password_length'] ) ){
             if( strlen( $password ) < $wppb_generalSettings['minimum_password_length'] )
-                $errors->add( 'pass', sprintf( __( '<strong>ERROR</strong>: The password must have the minimum length of %s characters', 'profile-builder' ), $wppb_generalSettings['minimum_password_length'] ) );
+                $errors->add( 'pass', sprintf( __( '<strong>ERROR:</strong> The password must have the minimum length of %s characters', 'profile-builder' ), $wppb_generalSettings['minimum_password_length'] ) );
         }
 
         if( isset( $_POST['wppb_password_strength'] ) && !empty( $wppb_generalSettings['minimum_password_strength'] ) ){
@@ -145,7 +147,7 @@ function wppb_password_check_extra_conditions( $errors, $user ){
 
             if( !empty( $password_strength_result_slug ) ){
                 if( $password_strength_array[$password_strength_result_slug] < $password_strength_array[$wppb_generalSettings['minimum_password_strength']] )
-                    $errors->add( 'pass', sprintf( __( '<strong>ERROR</strong>: The password must have a minimum strength of %s', 'profile-builder' ), $password_strength_text[$wppb_generalSettings['minimum_password_strength']] ) );
+                    $errors->add( 'pass', sprintf( __( '<strong>ERROR:</strong> The password must have a minimum strength of %s', 'profile-builder' ), $password_strength_text[$wppb_generalSettings['minimum_password_strength']] ) );
             }
         }
     }
@@ -157,7 +159,7 @@ function wppb_password_check_extra_conditions( $errors, $user ){
 add_action( 'admin_footer', 'wppb_add_hidden_password_strength_on_backend' );
 add_action( 'login_footer', 'wppb_add_hidden_password_strength_on_backend' );
 function wppb_add_hidden_password_strength_on_backend(){
-    if( $GLOBALS['pagenow'] == 'profile.php' || $GLOBALS['pagenow'] == 'user-new.php' || ( $GLOBALS['pagenow'] == 'wp-login.php' && isset( $_GET['action'] ) && ( $_GET['action'] == 'rp' || $_GET['action'] == 'resetpass' ) ) ){
+    if( $GLOBALS['pagenow'] == 'profile.php' || $GLOBALS['pagenow'] == 'user-new.php' || ( $GLOBALS['pagenow'] == 'wp-login.php' && isset( $_GET['action'] ) && ( $_GET['action'] === 'rp' || $_GET['action'] === 'resetpass' ) ) ){
         $wppb_generalSettings = get_option( 'wppb_general_settings' );
         if( !empty( $wppb_generalSettings['minimum_password_strength'] ) ){
             ?>
@@ -192,22 +194,6 @@ function wppb_change_add_entry_button( $string, $meta ){
     return $string;
 }
 
-/* Add admin footer text for encouraging users to leave a review of the plugin on wordpress.org */
-function wppb_admin_rate_us( $footer_text ) {
-    global $current_screen;
-
-    if ($current_screen->parent_base == 'profile-builder'){
-        $rate_text = sprintf( __( 'If you enjoy using <strong> %1$s </strong> please <a href="%2$s" target="_blank">rate us on WordPress.org</a>. More happy users means more features, less bugs and better support for everyone. ', 'profile-builder' ),
-            PROFILE_BUILDER,
-            'https://wordpress.org/support/view/plugin-reviews/profile-builder?filter=5#postform'
-        );
-        return '<span id="footer-thankyou">' .$rate_text . '</span>';
-    } else {
-        return $footer_text;
-    }
-}
-add_filter('admin_footer_text','wppb_admin_rate_us');
-
 /**
  * add links on plugin page
  */
@@ -237,7 +223,7 @@ add_filter( 'plugin_row_meta', 'wppb_plugin_row_meta', 10, 2 );
 function wppb_plugin_row_meta( $links, $file ) {
     if ( WPPB_PLUGIN_BASENAME == $file ) {
         $row_meta = array(
-            'docs'    => '<a href="' . esc_url( 'https://www.cozmoslabs.com/docs/profile-builder-2/' ) . '" target="_blank" aria-label="' . esc_attr__( 'View Profile Builder documentation', 'profile-builder' ) . '">' . esc_html__( 'Docs', 'profile-builder' ) . '</a>',
+            'docs'    => '<a href="' . esc_url( 'https://www.cozmoslabs.com/docs/profile-builder/' ) . '" target="_blank" aria-label="' . esc_attr__( 'View Profile Builder documentation', 'profile-builder' ) . '">' . esc_html__( 'Docs', 'profile-builder' ) . '</a>',
         );
 
         return array_merge( $links, $row_meta );
@@ -249,58 +235,289 @@ function wppb_plugin_row_meta( $links, $file ) {
 
 
 /* In plugin notifications */
-add_action( 'admin_init', 'wppb_add_plugin_notifications' );
-function wppb_add_plugin_notifications() {
-    /* initiate the plugin notifications class */
-    $notifications = WPPB_Plugin_Notifications::get_instance();
-    /* this must be unique */
-    $notification_id = 'wppb_new_feature_customization_toolbox';
+// add_action( 'admin_init', 'wppb_add_plugin_notifications' );
+// function wppb_add_plugin_notifications() {
+//     /* initiate the plugin notifications class */
+//     $notifications = WPPB_Plugin_Notifications::get_instance();
+//     /* this must be unique */
+//     // $notification_id = 'wppb_migrated_free_add_ons';
 
-	$message  = '<img style="float: left; margin: 10px 12px 10px 0; max-width: 100px;" src="https://www.cozmoslabs.com/wp-content/themes/cozmiclight/img/pb_addon_small_toolbox.png" alt="Customization Toolbox Add-on"/>';
-    $message .= '<p style="margin-top: 16px;">' . __( 'Check out the Customization Toolbox add-on which packs the most popular customization requests from Profile Builder.', 'profile-builder' ) . '</p>';
-    // be careful to use wppb_dismiss_admin_notification as query arg
-    $message .= '<p><a href="https://www.cozmoslabs.com/add-ons/customization-toolbox/" class="button-primary">' . __( 'See details', 'profile-builder' ) . '</a></p>';
-    $message .= '<a href="' . add_query_arg( array( 'wppb_dismiss_admin_notification' => $notification_id ) ) . '" type="button" class="notice-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice.', 'profile-builder' ) . '</span></a>';
+// 	// $message = '<p style="margin-top: 16px; font-size: 15px;">' . __( 'All the free add-ons have been migrated to the main plugin. Their old individual plugins have been disabled and you can delete them from your site if you were using them: <ul><li>Profile Builder - Custom CSS Classes on fields</li><li>Profile Builder - Customization Toolbox Add-On</li><li>Profile Builder - Email Confirmation Field</li><li>Profile Builder - GDPR Communication Preferences</li><li>Profile Builder - Import and Export Add-On</li><li>Profile Builder - Labels Edit Add-On</li><li>Profile Builder - Maximum Character Length Add-On</li><li>Profile Builder - Multiple Admin E-mails Add-On</li><li>Profile Builder - Placeholder Labels Add-On</li></ul>', 'profile-builder' ) . '</p>';
+//     // // be careful to use wppb_dismiss_admin_notification as query arg
+//     // $message .= '<p><a href="https://www.cozmoslabs.com/277540-profile-builder-enhancements-free-addons-now-part-of-main-plugin/" target="_blank" class="button-primary">' . __( 'See details', 'profile-builder' ) . '</a></p>';
+//     // $message .= '<a href="' . add_query_arg( array( 'wppb_dismiss_admin_notification' => $notification_id ) ) . '" type="button" class="notice-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice.', 'profile-builder' ) . '</span></a>';
 
-    $notifications->add_notification( $notification_id, $message, 'wppb-notice wppb-narrow notice notice-info', true, array( 'profile-builder-add-ons' ) );
-}
+//     // $notifications->add_notification( $notification_id, $message, 'wppb-notice notice notice-info', false );
+
+// 	if ( did_action( 'elementor/loaded' ) ) {
+
+// 		$notification_id = 'wppb_elementor_styling_notice';
+
+// 		$message  = '<img style="float: left; margin: 10px 12px 10px 0; max-width: 100px;" src="'.WPPB_PLUGIN_URL.'assets/images/elementor_logo.png" alt="Elementor Logo"/>';
+// 		$message .= '<p style="margin: 16px 16px 0; font-size: 14px;">' . sprintf( __( 'You can now style %s forms from the %s interface. To get started, add a form widget to a page through %s and go to the <strong>Style</strong> tab.', 'profile-builder' ), '<strong>Profile Builder</strong>', '<strong>Elementor</strong>', '<strong>Elementor</strong>') . '</p>';
+// 		// be careful to use wppb_dismiss_admin_notification as query arg
+// 		$message .= '<p><a href="https://www.cozmoslabs.com/docs/profile-builder/integration-with-elementor/" target="_blank" class="button-primary">' . __( 'See details', 'profile-builder' ) . '</a></p>';
+// 		$message .= '<a href="' . add_query_arg( array( 'wppb_dismiss_admin_notification' => $notification_id ) ) . '" type="button" class="notice-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice.', 'profile-builder' ) . '</span></a>';
+
+// 		$notifications->add_notification( $notification_id, $message, 'wppb-notice notice notice-info', false );
+
+// 	}
+// }
 
 
 /* hook to create pages for out forms when a user press the create pages/setup button */
 add_action( 'admin_init', 'wppb_create_form_pages' );
 function wppb_create_form_pages(){
-    if( isset( $_GET['page'] ) && $_GET['page'] == 'profile-builder-basic-info' && isset( $_GET['wppb_create_pages'] ) && $_GET['wppb_create_pages'] == 'true' ){
+    
+    if( !isset( $_GET['page'] ) || $_GET['page'] != 'profile-builder-basic-info' || !isset( $_GET['wppb_create_pages'] ) || $_GET['wppb_create_pages'] != 'true' )
+        return;
 
-        $wppb_pages_created = get_option( 'wppb_pages_created' );
+    if( !isset( $_GET['_wpnonce'] ) || !wp_verify_nonce( sanitize_text_field( $_GET['_wpnonce'] ), 'wppb_create_pages' ) )
+        return;
 
-        if( empty( $wppb_pages_created ) || ( isset( $_GET['wppb_force_create_pages'] ) && $_GET['wppb_force_create_pages'] == 'true' ) ) {
-            $register_page = array(
-                'post_title' => 'Register',
-                'post_content' => '[wppb-register]',
-                'post_status' => 'publish',
-                'post_type' => 'page'
-            );
-            $register_id = wp_insert_post($register_page);
+    if( !current_user_can( 'manage_options' ) )
+        return;
 
-            $edit_page = array(
-                'post_title' => 'Edit Profile',
-                'post_content' => '[wppb-edit-profile]',
-                'post_status' => 'publish',
-                'post_type' => 'page'
-            );
-            $edit_id = wp_insert_post($edit_page);
+    $wppb_pages_created = get_option( 'wppb_pages_created' );
 
-            $login_page = array(
-                'post_title' => 'Log In',
-                'post_content' => '[wppb-login]',
-                'post_status' => 'publish',
-                'post_type' => 'page'
-            );
-            $login_id = wp_insert_post($login_page);
+    if( empty( $wppb_pages_created ) || ( isset( $_GET['wppb_force_create_pages'] ) && $_GET['wppb_force_create_pages'] === 'true' ) ) {
+        $register_page = array(
+            'post_title' => 'Register',
+            'post_content' => '[wppb-register]',
+            'post_status' => 'publish',
+            'post_type' => 'page'
+        );
+        $register_id = wp_insert_post($register_page);
 
-            update_option('wppb_pages_created', 'true' );
+        $edit_page = array(
+            'post_title' => 'Edit Profile',
+            'post_content' => '[wppb-edit-profile]',
+            'post_status' => 'publish',
+            'post_type' => 'page'
+        );
+        $edit_id = wp_insert_post($edit_page);
 
-            wp_safe_redirect( admin_url('edit.php?s=%5Bwppb-&post_status=all&post_type=page&action=-1&m=0&paged=1&action2=-1') );
-        }
+        $login_page = array(
+            'post_title' => 'Log In',
+            'post_content' => '[wppb-login]',
+            'post_status' => 'publish',
+            'post_type' => 'page'
+        );
+        $login_id = wp_insert_post($login_page);
+
+        update_option('wppb_pages_created', 'true' );
+
+        wp_safe_redirect( admin_url('edit.php?s=%5Bwppb-&post_status=all&post_type=page&action=-1&m=0&paged=1&action2=-1') );
     }
 }
+
+/**
+ * Function that prepares labels to pass to the WCK api...we have a quirk in wck api that labels are wrapped
+ * in %label%...so if we want to have % inside the label for example 25% off...we will have a bad time
+ * @param string $label
+ * @return string|string[]
+ */
+function wppb_prepare_wck_labels( $label ){
+    return trim( str_replace( '%', '&#37;', $label ) );
+}
+
+/**
+ * Function that returns the reserved meta name list
+ */
+function wppb_get_reserved_meta_name_list( $all_fields, $posted_values ){
+
+    $unique_meta_name_list = array( 'first_name', 'last_name', 'nickname', 'description' );
+
+    // Default contact methods were removed in WP 3.6. A filter dictates contact methods.
+    if ( apply_filters( 'wppb_remove_default_contact_methods', get_site_option( 'initial_db_version' ) < 23588 ) ){
+        $unique_meta_name_list[] = 'aim';
+        $unique_meta_name_list[] = 'yim';
+        $unique_meta_name_list[] = 'jabber';
+    }
+
+    $add_reserved = true;
+
+    $reserved_meta_names = array( 'attachment', 'attachment_id', 'author', 'author_name', 'calendar', 'cat', 'category', 'category__and', 'category__in', 'category__not_in', 'category_name', 'comments_per_page',
+        'comments_popup', 'custom', 'customize_messenger_channel', 'customized', 'cpage', 'day', 'debug', 'embed', 'error', 'exact', 'feed', 'hour', 'link_category', 'm', 'map', 'minute', 'monthnum', 'more',
+        'name', 'nav_menu', 'nonce', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 'perm', 'post', 'post__in', 'post__not_in', 'post_format', 'post_mime_type',
+        'post_status', 'post_tag', 'post_type', 'posts', 'posts_per_archive_page', 'posts_per_page', 'preview', 'robots', 's', 'search', 'second', 'sentence', 'showposts', 'static', 'status', 'subpost',
+        'subpost_id', 'tag', 'tag__and', 'tag__in', 'tag__not_in', 'tag_id', 'tag_slug__and', 'tag_slug__in', 'taxonomy', 'tb', 'term', 'terms', 'theme', 'title', 'type', 'w', 'withcomments', 'withoutcomments', 'year' );
+
+    $args = array(
+        'public'   => true,
+        '_builtin' => true
+    );
+    $post_types = get_post_types( $args, 'names', 'or' );
+    $taxonomies = get_taxonomies( $args, 'names', 'or' );
+
+
+    /*reserved meta names were added in PB 3.1.2 so to avoid the situation where someone updates an already existing field
+     with a reserved name and gets an error check if it is an update or new field */
+    if( !empty( $all_fields ) && !empty($posted_values['id'] ) && !empty($posted_values['meta-name']) ){
+        foreach( $all_fields as $field ){
+            if( $field['id'] === $posted_values['id'] && $field['meta-name'] === $posted_values['meta-name'] ){//it is an update
+                $add_reserved = false;
+            }
+        }
+    }
+
+    if( $add_reserved )
+        $unique_meta_name_list = array_merge( $unique_meta_name_list, $reserved_meta_names, $post_types, $taxonomies );
+
+    return apply_filters ( 'wppb_unique_meta_name_list', $unique_meta_name_list );
+}
+
+
+/**
+ * Function that adds an admin notification about the PB Form Design Styles
+ *
+ */
+function wppb_form_design_new_styles_notification() {
+    /* initiate the plugin notifications class */
+    $notifications = WPPB_Plugin_Notifications::get_instance();
+    /* this must be unique */
+    $notification_id = 'wppb_form_design_new_styles';
+
+    if ( defined( 'WPPB_PAID_PLUGIN_DIR' ) && file_exists( WPPB_PAID_PLUGIN_DIR.'/features/form-designs/form-designs.php' ) )
+        $notification_message = '<p style="font-size: 15px; margin-top:4px;">' . sprintf( __( 'You can now beautify your Forms using new %1$sForm Styles%2$s by selecting and activating the one you like in %3$sProfile Builder -> Settings%4$s.', 'profile-builder' ), '<strong>', '</strong>', '<a href="'. get_site_url() .'/wp-admin/admin.php?page=profile-builder-general-settings#wppb-form_desings">', '</a>') . '</p>';
+    else
+        $notification_message = '<p style="font-size: 15px; margin-top:4px;">' . sprintf( __( 'You can now beautify your Forms using %1$sForm Styles%2$s. Have a look at the new Styles in %3$sProfile Builder -> Settings%4$s.', 'profile-builder' ), '<strong>', '</strong>', '<a href="'. get_site_url() .'/wp-admin/admin.php?page=profile-builder-general-settings#wppb-form_desings">', '</a>') . '</p>';
+
+    $ul_icon_url = ( file_exists( WPPB_PLUGIN_DIR . 'assets/images/pb-logo.svg' )) ? WPPB_PLUGIN_URL . 'assets/images/pb-logo.svg' : '';
+    $ul_icon = ( !empty($ul_icon_url)) ? '<img src="'. $ul_icon_url .'" width="64" height="64" style="float: left; margin: 15px 12px 15px 0; max-width: 100px;" alt="Profile Builder - Form Designs">' : '';
+
+    $message = $ul_icon;
+    $message .= '<h3 style="margin-bottom: 0;">Profile Builder PRO - Form Designs</h3>';
+    $message .= $notification_message;
+    $message .= '<a href="' . add_query_arg( array( 'wppb_dismiss_admin_notification' => $notification_id ) ) . '" type="button" class="notice-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice.', 'profile-builder' ) . '</span></a>';
+
+    $notifications->add_notification( $notification_id, $message, 'wppb-notice notice notice-info', false );
+}
+add_action( 'admin_init', 'wppb_form_design_new_styles_notification' );
+
+
+/**
+ * Get the Profile Builder Page or Post slug
+ *
+ */
+function wppb_get_pb_page_post_slug() {
+    if ( isset( $_GET['post_type'] ) )
+        $post_type = sanitize_text_field( $_GET['post_type'] );
+    elseif ( isset( $_GET['post'] ) )
+        $post_type = get_post_type( (int)$_GET['post'] );
+    elseif ( isset( $_GET['page'] ) )
+        $post_type = sanitize_text_field( $_GET['page'] );
+    else $post_type = '';
+
+    $possible_slugs = array(
+        'pb',
+        'wppb',
+        'profile-builder',
+        'user-email-customizer',
+        'admin-email-customizer',
+        'manage-fields',
+        'custom-redirects'
+    );
+
+    if ( !empty( $post_type ) ) {
+        foreach ( $possible_slugs as $slug ) {
+            if ( $post_type === $slug || strpos( $post_type, $slug ) === 0 ) {
+
+                return $post_type;
+
+            }
+        }
+    }
+
+    return '';
+}
+
+
+/**
+ * Insert the PB Admin area Header Banner
+ *
+ */
+function wppb_insert_page_banner() {
+    $pb_slug = wppb_get_pb_page_post_slug();
+
+    if ( $pb_slug === 'profile-builder-dashboard' && isset( $_GET['subpage'] ) && $_GET['subpage'] === 'wppb-setup' )
+        return;
+
+    $page_name = '';
+    if ( $pb_slug == 'profile-builder-add-ons' )
+        $page_name = ' Addons';
+
+    if ( !empty( $pb_slug ) )
+        wppb_output_page_banner($page_name);
+
+}
+add_action( 'in_admin_header', 'wppb_insert_page_banner' );
+
+
+/**
+ * Output the PB Admin area Header Banner content
+ *
+ */
+function wppb_output_page_banner( $page_name ) {
+
+    $upgrade_button = '<a class="cozmoslabs-banner-link cozmoslabs-upgrade-link" href="https://www.cozmoslabs.com/wordpress-profile-builder/?utm_source=wpbackend&utm_medium=clientsite&utm_content=upgrade-link&utm_campaign=PBFree#pricing" target="_blank">
+                         <img src="'. esc_url(WPPB_PLUGIN_URL) . 'assets/images/upgrade-link-icon.svg" alt="">
+                         Upgrade to PRO
+                       </a>';
+
+
+    $output = '<div class="cozmoslabs-banner">
+                   <div class="cozmoslabs-banner-title">
+                       <img src="'. esc_url(WPPB_PLUGIN_URL) . 'assets/images/pb-logo.svg" alt="">
+                       <h4>Profile Builder'. $page_name .'</h4>
+                   </div>
+                   <div class="cozmoslabs-banner-buttons">
+                       <a class="cozmoslabs-banner-link cozmoslabs-support-link" href="https://www.cozmoslabs.com/support?utm_source=wpbackend&utm_medium=pb-support&utm_campaign=PBSupport" target="_blank">
+                           <img src="'. esc_url(WPPB_PLUGIN_URL) . 'assets/images/support-link-icon.svg" alt="">
+                           Support
+                       </a>
+               
+                       <a class="cozmoslabs-banner-link cozmoslabs-documentation-link" href="https://www.cozmoslabs.com/docs/profile-builder?utm_source=wpbackend&utm_medium=pb-documentation&utm_campaign=PBDocs" target="_blank">
+                           <img src="'. esc_url(WPPB_PLUGIN_URL) . 'assets/images/docs-link-icon.svg" alt="">
+                           Documentation
+                       </a>';
+
+    if ( !defined( 'WPPB_PAID_PLUGIN_DIR' ) || PROFILE_BUILDER_PAID_VERSION === 'dev' )
+        $output .= $upgrade_button;
+
+    $output .= '    </div>
+                </div>';
+
+    echo $output; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+
+
+/**
+ * Remove PMS Styles from PB Pages and Posts
+ *
+ */
+function wppb_maybe_remove_pms_styles() {
+    if ( !empty( wppb_get_pb_page_post_slug() ) && wp_style_is('pms-style-back-end', 'enqueued') ) {
+        wp_dequeue_style('pms-style-back-end');
+    }
+}
+add_action('admin_enqueue_scripts', 'wppb_maybe_remove_pms_styles', 100);
+
+
+/**
+ * Update Two-Factor Authentication settings
+ *
+ */
+function wppb_two_factor_authentication_settings_update() {
+
+    if( !isset( $_POST['option_page'] ) || $_POST['option_page'] != 'wppb_general_settings' )
+        return;
+        
+    if ( isset( $_POST['wppb_two_factor_authentication_settings'] ) ) {
+        update_option( 'wppb_two_factor_authentication_settings', $_POST['wppb_two_factor_authentication_settings'] ); // phpcs:ignore  WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+    } else {
+        update_option( 'wppb_two_factor_authentication_settings', array( 'enabled' => 'no', 'roles' => array() ) ); // phpcs:ignore  WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+    }
+
+}
+add_action( 'admin_init', 'wppb_two_factor_authentication_settings_update' );

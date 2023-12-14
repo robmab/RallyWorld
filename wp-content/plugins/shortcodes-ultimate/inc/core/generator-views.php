@@ -49,7 +49,9 @@ class Su_Generator_Views {
 		$types = get_post_types( array(), 'objects', 'or' );
 
 		// Prepare empty array for values
-		$field['values'] = array();
+		$field['values'] = array(
+			'any' => _x( 'Any post type', 'shortcodes-ultimate' ),
+		);
 
 		// Fill the array
 		foreach( $types as $type ) {
@@ -140,13 +142,17 @@ class Su_Generator_Views {
 		$field = wp_parse_args( $field, array(
 				'default' => 'none'
 			) );
+
+		if ( ! isset( $field['media_sources'] ) ) {
+			$field['media_sources'] = array(
+				'media'         => __( 'Media library', 'shortcodes-ultimate' ),
+				'posts: recent' => __( 'Recent posts', 'shortcodes-ultimate' ),
+				'taxonomy'      => __( 'Taxonomy', 'shortcodes-ultimate' ),
+			);
+		}
+
 		$sources = su_html_dropdown( array(
-				'options'  => array(
-					'media'         => __( 'Media library', 'shortcodes-ultimate' ),
-					'posts: recent' => __( 'Recent posts', 'shortcodes-ultimate' ),
-					'category'      => __( 'Category', 'shortcodes-ultimate' ),
-					'taxonomy'      => __( 'Taxonomy', 'shortcodes-ultimate' )
-				),
+				'options'  => $field['media_sources'],
 				'selected' => '0',
 				'none'     => __( 'Select images source', 'shortcodes-ultimate' ) . '&hellip;',
 				'class'    => 'su-generator-isp-sources'
@@ -170,7 +176,7 @@ class Su_Generator_Views {
 				'disabled' => true,
 				'style'    => 'display:none'
 			) );
-		$return = '<div class="su-generator-isp">' . $sources . '<div class="su-generator-isp-source su-generator-isp-source-media"><div class="su-generator-clearfix"><a href="javascript:;" class="button button-primary su-generator-isp-add-media"><i class="fa fa-plus"></i>&nbsp;&nbsp;' . __( 'Add images', 'shortcodes-ultimate' ) . '</a></div><div class="su-generator-isp-images su-generator-clearfix"><em class="description">' . __( 'Click the button above and select images.<br>You can select multimple images with Ctrl (Cmd) key', 'shortcodes-ultimate' ) . '</em></div></div><div class="su-generator-isp-source su-generator-isp-source-category"><em class="description">' . __( 'Select categories to retrieve posts from.<br>You can select multiple categories with Ctrl (Cmd) key', 'shortcodes-ultimate' ) . '</em>' . $categories . '</div><div class="su-generator-isp-source su-generator-isp-source-taxonomy"><em class="description">' . __( 'Select taxonomy and it\'s terms.<br>You can select multiple terms with Ctrl (Cmd) key', 'shortcodes-ultimate' ) . '</em>' . $taxonomies . $terms . '</div><input type="hidden" name="' . $id . '" value="' . $field['default'] . '" id="su-generator-attr-' . $id . '" class="su-generator-attr" /></div>';
+		$return = '<div class="su-generator-isp">' . $sources . '<div class="su-generator-isp-source su-generator-isp-source-media"><div class="su-generator-clearfix"><a href="javascript:;" class="button button-primary su-generator-isp-add-media"><i class="sui sui-plus"></i>&nbsp;&nbsp;' . __( 'Add images', 'shortcodes-ultimate' ) . '</a></div><div class="su-generator-isp-images su-generator-clearfix"><em class="description">' . __( 'Click the button above and select images.<br>You can select multimple images with Ctrl (Cmd) key', 'shortcodes-ultimate' ) . '</em></div></div><div class="su-generator-isp-source su-generator-isp-source-category"><em class="description">' . __( 'Select categories to retrieve posts from.<br>You can select multiple categories with Ctrl (Cmd) key', 'shortcodes-ultimate' ) . '</em>' . $categories . '</div><div class="su-generator-isp-source su-generator-isp-source-taxonomy"><em class="description">' . __( 'Select taxonomy and it\'s terms.<br>You can select multiple terms with Ctrl (Cmd) key', 'shortcodes-ultimate' ) . '</em>' . $taxonomies . $terms . '</div><input type="hidden" name="' . $id . '" value="' . $field['default'] . '" id="su-generator-attr-' . $id . '" class="su-generator-attr" /></div>';
 		return $return;
 	}
 

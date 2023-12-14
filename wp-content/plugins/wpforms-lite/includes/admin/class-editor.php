@@ -1,13 +1,13 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Functionality related to the admin TinyMCE editor.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
+ * @since 1.0.0
  */
 class WPForms_Admin_Editor {
 
@@ -17,7 +17,8 @@ class WPForms_Admin_Editor {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'media_buttons', array( $this, 'media_button' ), 15 );
+
+		add_action( 'media_buttons', [ $this, 'media_button' ], 15 );
 	}
 
 	/**
@@ -25,14 +26,18 @@ class WPForms_Admin_Editor {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $editor_id
+	 * @param string $editor_id Editor Id.
 	 */
 	public function media_button( $editor_id ) {
 
+		if ( ! \wpforms_current_user_can( 'view_forms' ) ) {
+			return;
+		}
+
 		// Provide the ability to conditionally disable the button, so it can be
 		// disabled for custom fields or front-end use such as bbPress. We default
-		// to only showing within the admin panel.
-		if ( ! apply_filters( 'wpforms_display_media_button', is_admin(), $editor_id ) ) {
+		// to only showing within the post editor page.
+		if ( ! apply_filters( 'wpforms_display_media_button', $this->is_post_editor_page(), $editor_id ) ) {
 			return;
 		}
 
@@ -42,15 +47,47 @@ class WPForms_Admin_Editor {
 		printf(
 			'<a href="#" class="button wpforms-insert-form-button" data-editor="%s" title="%s">%s %s</a>',
 			esc_attr( $editor_id ),
-			esc_attr__( 'Add Form', 'wpforms' ),
+			esc_attr__( 'Add Form', 'wpforms-lite' ),
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			$icon,
-			__( 'Add Form', 'wpforms' )
+			esc_html__( 'Add Form', 'wpforms-lite' )
 		);
 
-		// If we have made it this far then load the JS.
-		wp_enqueue_script( 'wpforms-editor', WPFORMS_PLUGIN_URL . 'assets/js/admin-editor.js', array( 'jquery' ), WPFORMS_VERSION, true );
+		$min = wpforms_get_min_suffix();
 
-		add_action( 'admin_footer', array( $this, 'shortcode_modal' ) );
+		// If we have made it this far then load the JS.
+		wp_enqueue_script(
+			'wpforms-editor',
+			WPFORMS_PLUGIN_URL . "assets/js/admin-editor{$min}.js",
+			[ 'jquery' ],
+			WPFORMS_VERSION,
+			true
+		);
+
+		add_action( 'admin_footer', [ $this, 'shortcode_modal' ] );
+	}
+
+	/**
+	 * Check if we are on the post editor admin page.
+	 *
+	 * @since 1.6.2
+	 *
+	 * @returns boolean True if it is post editor admin page.
+	 */
+	public function is_post_editor_page() {
+
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		// get_current_screen() is loaded after 'admin_init' hook and may not exist yet.
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return false;
+		}
+
+		$screen = get_current_screen();
+
+		return $screen !== null && $screen->parent_base === 'edit';
 	}
 
 	/**
@@ -68,8 +105,8 @@ class WPForms_Admin_Editor {
 		<div id="wpforms-modal-wrap" style="display: none">
 			<form id="wpforms-modal" tabindex="-1">
 				<div id="wpforms-modal-title">
-					<?php esc_html_e( 'Insert Form', 'wpforms' ); ?>
-					<button type="button" id="wpforms-modal-close"><span class="screen-reader-text"><?php esc_html_e( 'Close', 'wpforms' ); ?></span></button>
+					<?php esc_html_e( 'Insert Form', 'wpforms-lite' ); ?>
+					<button type="button" id="wpforms-modal-close"><span class="screen-reader-text"><?php esc_html_e( 'Close', 'wpforms-lite' ); ?></span></button>
 				</div>
 				<div id="wpforms-modal-inner">
 
@@ -77,42 +114,41 @@ class WPForms_Admin_Editor {
 						<?php
 						echo '<p id="wpforms-modal-notice">';
 						printf(
-							wp_kses(
-								/* translators: %s - WPForms documenation link. */
-								__( 'Heads up! Don\'t forget to test your form. <a href="%s" target="_blank" rel="noopener noreferrer">Check out our complete guide</a>!', 'wpforms' ),
-								array(
-									'a' => array(
-										'href'   => array(),
-										'rel'    => array(),
-										'target' => array(),
-									),
-								)
+							wp_kses( /* translators: %s - WPForms documentation URL. */
+								__( 'Heads up! Don\'t forget to test your form. <a href="%s" target="_blank" rel="noopener noreferrer">Check out our complete guide</a>!', 'wpforms-lite' ),
+								[
+									'a' => [
+										'href'   => [],
+										'rel'    => [],
+										'target' => [],
+									],
+								]
 							),
 							'https://wpforms.com/docs/how-to-properly-test-your-wordpress-forms-before-launching-checklist/'
 						);
 						echo '</p>';
-						$args  = apply_filters( 'wpforms_modal_select', array() );
+						$args  = apply_filters( 'wpforms_modal_select', [] );
 						$forms = wpforms()->form->get( '', $args );
 						if ( ! empty( $forms ) ) {
-							printf( '<p><label for="wpforms-modal-select-form">%s</label></p>', esc_html__( 'Select a form below to insert', 'wpforms' ) );
+							printf( '<p><label for="wpforms-modal-select-form">%s</label></p>', esc_html__( 'Select a form below to insert', 'wpforms-lite' ) );
 							echo '<select id="wpforms-modal-select-form">';
 							foreach ( $forms as $form ) {
 								printf( '<option value="%d">%s</option>', $form->ID, esc_html( $form->post_title ) );
 							}
 							echo '</select><br>';
-							printf( '<p class="wpforms-modal-inline"><input type="checkbox" id="wpforms-modal-checkbox-title"><label for="wpforms-modal-checkbox-title">%s</label></p>', esc_html__( 'Show form name', 'wpforms' ) );
-							printf( '<p class="wpforms-modal-inline"><input type="checkbox" id="wpforms-modal-checkbox-description"><label for="wpforms-modal-checkbox-description">%s</label></p>', esc_html__( 'Show form description', 'wpforms' ) );
+							printf( '<p class="wpforms-modal-inline"><input type="checkbox" id="wpforms-modal-checkbox-title"><label for="wpforms-modal-checkbox-title">%s</label></p>', esc_html__( 'Show form name', 'wpforms-lite' ) );
+							printf( '<p class="wpforms-modal-inline"><input type="checkbox" id="wpforms-modal-checkbox-description"><label for="wpforms-modal-checkbox-description">%s</label></p>', esc_html__( 'Show form description', 'wpforms-lite' ) );
 						} else {
 							echo '<p>';
 							printf(
 								wp_kses(
 									/* translators: %s - WPForms Builder page. */
-									__( 'Whoops, you haven\'t created a form yet. Want to <a href="%s">give it a go</a>?', 'wpforms' ),
-									array(
-										'a' => array(
-											'href' => array(),
-										),
-									)
+									__( 'Whoops, you haven\'t created a form yet. Want to <a href="%s">give it a go</a>?', 'wpforms-lite' ),
+									[
+										'a' => [
+											'href' => [],
+										],
+									]
 								),
 								admin_url( 'admin.php?page=wpforms-builder' )
 							);
@@ -123,17 +159,25 @@ class WPForms_Admin_Editor {
 				</div>
 				<div class="submitbox">
 					<div id="wpforms-modal-cancel">
-						<a class="submitdelete deletion" href="#"><?php esc_html_e( 'Cancel', 'wpforms' ); ?></a>
+						<a class="submitdelete deletion" href="#"><?php esc_html_e( 'Cancel', 'wpforms-lite' ); ?></a>
 					</div>
 					<?php if ( ! empty( $forms ) ) : ?>
 						<div id="wpforms-modal-update">
-							<button class="button button-primary" id="wpforms-modal-submit"><?php esc_html_e( 'Add Form', 'wpforms' ); ?></button>
+							<button class="button button-primary" id="wpforms-modal-submit"><?php esc_html_e( 'Add Form', 'wpforms-lite' ); ?></button>
 						</div>
 					<?php endif; ?>
 				</div>
 			</form>
 		</div>
 		<style type="text/css">
+			.wpforms-insert-form-button svg path {
+				fill: #0071a1;
+			}
+
+			.wpforms-insert-form-button:hover svg path {
+				fill: #016087;
+			}
+
 			#wpforms-modal-wrap {
 				display: none;
 				background-color: #fff;
@@ -147,7 +191,7 @@ class WPForms_Admin_Editor {
 				position: fixed;
 				top: 50%;
 				left: 50%;
-				z-index: 100105;
+				z-index: 100205;
 				-webkit-transition: height 0.2s, margin-top 0.2s;
 				transition: height 0.2s, margin-top 0.2s;
 			}
@@ -163,7 +207,7 @@ class WPForms_Admin_Editor {
 				background: #000;
 				opacity: 0.7;
 				filter: alpha(opacity=70);
-				z-index: 100100;
+				z-index: 100200;
 			}
 
 			#wpforms-modal {
@@ -336,4 +380,4 @@ class WPForms_Admin_Editor {
 
 }
 
-new WPForms_Admin_Editor;
+new WPForms_Admin_Editor();

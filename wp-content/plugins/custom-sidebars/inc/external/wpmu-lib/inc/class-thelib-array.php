@@ -201,7 +201,8 @@ class TheLib_Array extends TheLib {
 	 */
 	public function equip_post( $fields ) {
 		$fields = is_array( $fields ) ? $fields : func_get_args();
-		return $this->equip( $_POST, $fields );
+        $post_fields = map_deep( $_POST, 'sanitize_text_field' );
+		return $this->equip( $post_fields, $fields );
 	}
 
 	/**
@@ -216,7 +217,8 @@ class TheLib_Array extends TheLib {
 	 */
 	public function equip_request( $fields ) {
 		$fields = is_array( $fields ) ? $fields : func_get_args();
-		return $this->equip( $_REQUEST, $fields );
+        $request_fields = map_deep( $_REQUEST, 'sanitize_text_field' );
+		return $this->equip( $request_fields, $fields );
 	}
 
 	/**
@@ -231,7 +233,8 @@ class TheLib_Array extends TheLib {
 	 */
 	public function equip_get( $fields ) {
 		$fields = is_array( $fields ) ? $fields : func_get_args();
-		return $this->equip( $_GET, $fields );
+        $get_data = map_deep($_GET,'sanitize_text_field');
+		return $this->equip( $get_data, $fields );
 	}
 
 	/**

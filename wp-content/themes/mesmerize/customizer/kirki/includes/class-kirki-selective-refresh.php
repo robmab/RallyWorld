@@ -19,6 +19,9 @@ class Kirki_Selective_Refresh {
 	 * Adds any necessary actions & filters.
 	 */
 	public function __construct() {
+		if ( ! Kirki::should_run() ) {
+			return;
+		}
 		add_action( 'customize_register', array( $this, 'register_partials' ), 99 );
 	}
 

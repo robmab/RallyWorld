@@ -1,4 +1,10 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+if( ! class_exists( 'CL_Addons_List_Table' ) ) {
+    require_once( WPPB_PLUGIN_DIR . '/assets/lib/cl-add-ons-listing/cl-add-ons-listing.php' );
+}
+
 /**
  * Function that creates the "Add-Ons" submenu page
  *
@@ -9,7 +15,7 @@
 function wppb_register_add_ons_submenu_page() {
     add_submenu_page( 'profile-builder', __( 'Add-Ons', 'profile-builder' ), __( 'Add-Ons', 'profile-builder' ), 'manage_options', 'profile-builder-add-ons', 'wppb_add_ons_content' );
 }
-add_action( 'admin_menu', 'wppb_register_add_ons_submenu_page', 19 );
+add_action( 'admin_menu', 'wppb_register_add_ons_submenu_page', 28 );
 
 
 /**
@@ -20,432 +26,367 @@ add_action( 'admin_menu', 'wppb_register_add_ons_submenu_page', 19 );
  * @return string
  */
 function wppb_add_ons_content() {
-
-    $version = 'Free';
-    $version = ( ( PROFILE_BUILDER == 'Profile Builder Pro' ) ? 'Pro' : $version );
-    $version = ( ( PROFILE_BUILDER == 'Profile Builder Hobbyist' ) ? 'Hobbyist' : $version );
-
-    $wppb_add_ons = wppb_add_ons_get_remote_content();
-    $wppb_get_all_plugins = get_plugins();
-    $wppb_get_active_plugins = get_option('active_plugins');
-    $ajax_nonce = wp_create_nonce("wppb-activate-addon");
-
-    ?>
-
-    <div class="wrap wppb-add-on-wrap">
-
-
-
-
-        <div>
-            <h2><?php _e( 'Recommended Plugins', 'profile-builder' ) ?></h2>
-
-
-            <?php
-            $trp_add_on_exists = 0;
-            $trp_add_on_is_active = 0;
-            $trp_add_on_is_network_active = 0;
-            // Check to see if add-on is in the plugins folder
-            foreach ($wppb_get_all_plugins as $wppb_plugin_key => $wppb_plugin) {
-                if( strtolower($wppb_plugin['Name']) == strtolower( 'TranslatePress - Multilingual' ) && strpos(strtolower($wppb_plugin['AuthorName']), strtolower('Cozmoslabs')) !== false) {
-                    $trp_add_on_exists = 1;
-                    if (in_array($wppb_plugin_key, $wppb_get_active_plugins)) {
-                        $trp_add_on_is_active = 1;
-                    }
-                    // Consider the add-on active if it's network active
-                    if (is_plugin_active_for_network($wppb_plugin_key)) {
-                        $trp_add_on_is_network_active = 1;
-                        $trp_add_on_is_active = 1;
-                    }
-                    $plugin_file = $wppb_plugin_key;
-                }
-            }
-            ?>
-            <div class="plugin-card wppb-recommended-plugin wppb-add-on">
-                <div class="plugin-card-top">
-                    <a target="_blank" href="https://wordpress.org/plugins/translatepress-multilingual/">
-                        <img src="<?php echo plugins_url( '../assets/images/trp-recommended.png', __FILE__ ); ?>" width="100%">
-                    </a>
-                    <h3 class="wppb-add-on-title">
-                        <a target="_blank" href="https://wordpress.org/plugins/translatepress-multilingual/">TranslatePress</a>
-                    </h3>
-                    <h3 class="wppb-add-on-price"><?php  _e( 'Free', 'profile-builder' ) ?></h3>
-                    <p class="wppb-add-on-description">
-                        <?php _e( 'Translate your Profile Builder forms with a WordPress translation plugin that anyone can use. It offers a simpler way to translate WordPress sites, with full support for WooCommerce and site builders.', 'profile-builder' ) ?>
-                        <a href="<?php admin_url();?>plugin-install.php?tab=plugin-information&plugin=translatepress-multilingual&TB_iframe=true&width=772&height=875" class="thickbox" aria-label="More information about TranslatePress - Multilingual" data-title="TranslatePress - Multilingual"><?php _e( 'More Details' ); ?></a>
-                    </p>
-                </div>
-                <div class="plugin-card-bottom wppb-add-on-compatible">
-                    <?php
-                    if ($trp_add_on_exists) {
-
-                        // Display activate/deactivate buttons
-                        if (!$trp_add_on_is_active) {
-                            echo '<a class="wppb-add-on-activate right button button-secondary" href="' . $plugin_file . '" data-nonce="' . $ajax_nonce . '">' . __('Activate', 'profile-builder') . '</a>';
-
-                            // If add-on is network activated don't allow deactivation
-                        } elseif (!$trp_add_on_is_network_active) {
-                            echo '<a class="wppb-add-on-deactivate right button button-secondary" href="' . $plugin_file . '" data-nonce="' . $ajax_nonce . '">' . __('Deactivate', 'profile-builder') . '</a>';
-                        }
-
-                        // Display message to the user
-                        if( !$trp_add_on_is_active ){
-                            echo '<span class="dashicons dashicons-no-alt"></span><span class="wppb-add-on-message">' . __('Plugin is <strong>inactive</strong>', 'profile-builder') . '</span>';
-                        } else {
-                            echo '<span class="dashicons dashicons-yes"></span><span class="wppb-add-on-message">' . __('Plugin is <strong>active</strong>', 'profile-builder') . '</span>';
-                        }
-
-                    } else {
-                        // handles the in-page download
-                        $wppb_paid_link_class = 'button-secondary';
-                        $wppb_paid_link_text = __('Install Now', 'profile-builder');
-
-                        echo '<a class="right install-now button ' . $wppb_paid_link_class . '" href="'. wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=translatepress-multilingual'), 'install-plugin_translatepress-multilingual') .'" data-add-on-slug="translatepress-multilingual" data-add-on-name="TranslatePress - Multilingual" data-nonce="' . $ajax_nonce . '">' . $wppb_paid_link_text . '</a>';
-                        echo '<span class="dashicons dashicons-yes"></span><span class="wppb-add-on-message">' . __('Compatible with your version of Profile Builder.', 'profile-builder') . '</span>';
-
-                    }
-                    ?>
-                    <div class="spinner"></div>
-                    <span class="wppb-add-on-user-messages wppb-error-manual-install"><?php printf(__('Could not install plugin. Retry or <a href="%s" target="_blank">install manually</a>.', 'profile-builder'), esc_url( 'https://www.wordpress.org/plugins/translatepress-multilingual' )) ?></a>.</span>
-                </div>
-            </div>
-
-
-
-            <?php
-            $pms_add_on_exists = 0;
-            $pms_add_on_is_active = 0;
-            $pms_add_on_is_network_active = 0;
-            // Check to see if add-on is in the plugins folder
-            foreach ($wppb_get_all_plugins as $wppb_plugin_key => $wppb_plugin) {
-                if( strtolower($wppb_plugin['Name']) == strtolower( 'Paid Member Subscriptions' ) && strpos(strtolower($wppb_plugin['AuthorName']), strtolower('Cozmoslabs')) !== false) {
-                    $pms_add_on_exists = 1;
-                    if (in_array($wppb_plugin_key, $wppb_get_active_plugins)) {
-                        $pms_add_on_is_active = 1;
-                    }
-                    // Consider the add-on active if it's network active
-                    if (is_plugin_active_for_network($wppb_plugin_key)) {
-                        $pms_add_on_is_network_active = 1;
-                        $pms_add_on_is_active = 1;
-                    }
-                    $plugin_file = $wppb_plugin_key;
-                }
-            }
-            ?>
-            <div class="plugin-card wppb-recommended-plugin wppb-add-on">
-                <div class="plugin-card-top">
-                    <a target="_blank" href="http://wordpress.org/plugins/paid-member-subscriptions/">
-                        <img src="<?php echo plugins_url( '../assets/images/pms-recommended.png', __FILE__ ); ?>" width="100%">
-                    </a>
-                    <h3 class="wppb-add-on-title">
-                        <a target="_blank" href="http://wordpress.org/plugins/paid-member-subscriptions/">Paid Member Subscriptions</a>
-                    </h3>
-                    <h3 class="wppb-add-on-price"><?php  _e( 'Free', 'profile-builder' ) ?></h3>
-                    <p class="wppb-add-on-description">
-                        <?php _e( 'Accept user payments, create subscription plans and restrict content on your membership site.', 'profile-builder' ) ?>
-                        <a href="<?php admin_url();?>plugin-install.php?tab=plugin-information&plugin=paid-member-subscriptions&TB_iframe=true&width=772&height=875" class="thickbox" aria-label="More information about Paid Member Subscriptions - membership & content restriction" data-title="Paid Member Subscriptions - membership & content restriction"><?php _e( 'More Details' ); ?></a>
-                    </p>
-                </div>
-                <div class="plugin-card-bottom wppb-add-on-compatible">
-                    <?php
-                    if ($pms_add_on_exists) {
-
-                        // Display activate/deactivate buttons
-                        if (!$pms_add_on_is_active) {
-                            echo '<a class="wppb-add-on-activate right button button-secondary" href="' . $plugin_file . '" data-nonce="' . $ajax_nonce . '">' . __('Activate', 'profile-builder') . '</a>';
-
-                            // If add-on is network activated don't allow deactivation
-                        } elseif (!$pms_add_on_is_network_active) {
-                            echo '<a class="wppb-add-on-deactivate right button button-secondary" href="' . $plugin_file . '" data-nonce="' . $ajax_nonce . '">' . __('Deactivate', 'profile-builder') . '</a>';
-                        }
-
-                        // Display message to the user
-                        if( !$pms_add_on_is_active ){
-                            echo '<span class="dashicons dashicons-no-alt"></span><span class="wppb-add-on-message">' . __('Plugin is <strong>inactive</strong>', 'profile-builder') . '</span>';
-                        } else {
-                            echo '<span class="dashicons dashicons-yes"></span><span class="wppb-add-on-message">' . __('Plugin is <strong>active</strong>', 'profile-builder') . '</span>';
-                        }
-
-                    } else {
-                        // handles the in-page download
-                        $wppb_paid_link_class = 'button-secondary';
-                        $wppb_paid_link_text = __('Install Now', 'profile-builder');
-
-                        echo '<a class="right install-now button ' . $wppb_paid_link_class . '" href="'. wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=paid-member-subscriptions'), 'install-plugin_paid-member-subscriptions') .'" data-add-on-slug="paid-member-subscriptions" data-add-on-name="Paid Member Subscriptions" data-nonce="' . $ajax_nonce . '">' . $wppb_paid_link_text . '</a>';
-                        echo '<span class="dashicons dashicons-yes"></span><span class="wppb-add-on-message">' . __('Compatible with your version of Profile Builder.', 'profile-builder') . '</span>';
-
-                    }
-                    ?>
-                    <div class="spinner"></div>
-                    <span class="wppb-add-on-user-messages wppb-error-manual-install"><?php printf(__('Could not install plugin. Retry or <a href="%s" target="_blank">install manually</a>.', 'profile-builder'), esc_url( 'http://www.wordpress.org/plugins/paid-member-subscriptions' )) ?></a>.</span>
-                </div>
-            </div>
-
-
-
-
-
-
-        </div>
-
-        <div class="clear"></div>
-
-        <h2><?php _e( 'Add-Ons', 'profile-builder' ); ?></h2>
-
-        <span id="wppb-add-on-activate-button-text" class="wppb-add-on-user-messages"><?php echo __( 'Activate', 'profile-builder' ); ?></span>
-
-        <span id="wppb-add-on-downloading-message-text" class="wppb-add-on-user-messages"><?php echo __( 'Downloading and installing...', 'profile-builder' ); ?></span>
-        <span id="wppb-add-on-download-finished-message-text" class="wppb-add-on-user-messages"><?php echo __( 'Installation complete', 'profile-builder' ); ?></span>
-
-        <span id="wppb-add-on-activated-button-text" class="wppb-add-on-user-messages"><?php echo __( 'Add-On is Active', 'profile-builder' ); ?></span>
-        <span id="wppb-add-on-activated-message-text" class="wppb-add-on-user-messages"><?php echo __( 'Add-On has been activated', 'profile-builder' ) ?></span>
-        <span id="wppb-add-on-activated-error-button-text" class="wppb-add-on-user-messages"><?php echo __( 'Retry Install', 'profile-builder' ) ?></span>
-
-        <span id="wppb-add-on-is-active-message-text" class="wppb-add-on-user-messages"><?php echo __( 'Add-On is <strong>active</strong>', 'profile-builder' ); ?></span>
-        <span id="wppb-add-on-is-not-active-message-text" class="wppb-add-on-user-messages"><?php echo __( 'Add-On is <strong>inactive</strong>', 'profile-builder' ); ?></span>
-
-        <span id="wppb-add-on-deactivate-button-text" class="wppb-add-on-user-messages"><?php echo __( 'Deactivate', 'profile-builder' ) ?></span>
-        <span id="wppb-add-on-deactivated-message-text" class="wppb-add-on-user-messages"><?php echo __( 'Add-On has been deactivated.', 'profile-builder' ) ?></span>
-
-        <div id="the-list">
-
-        <?php
-
-            if( $wppb_add_ons === false ) {
-
-                echo __('Something went wrong, we could not connect to the server. Please try again later.', 'profile-builder');
-
-            } else {
-
-                foreach( $wppb_add_ons as $key => $wppb_add_on ) {
-
-                    $wppb_add_on_exists = 0;
-                    $wppb_add_on_is_active = 0;
-                    $wppb_add_on_is_network_active = 0;
-
-                    // Check to see if add-on is in the plugins folder
-                    foreach ($wppb_get_all_plugins as $wppb_plugin_key => $wppb_plugin) {
-                        if (strpos(strtolower($wppb_plugin['Name']), strtolower($wppb_add_on['name'])) !== false && strpos(strtolower($wppb_plugin['AuthorName']), strtolower('Cozmoslabs')) !== false) {
-                            $wppb_add_on_exists = 1;
-
-                            if (in_array($wppb_plugin_key, $wppb_get_active_plugins)) {
-                                $wppb_add_on_is_active = 1;
-                            }
-
-                            // Consider the add-on active if it's network active
-                            if (is_plugin_active_for_network($wppb_plugin_key)) {
-                                $wppb_add_on_is_network_active = 1;
-                                $wppb_add_on_is_active = 1;
-                            }
-
-                            $wppb_add_on['plugin_file'] = $wppb_plugin_key;
-                        }
-                    }
-
-                    echo '<div class="plugin-card wppb-add-on">';
-                    echo '<div class="plugin-card-top">';
-
-                    echo '<a target="_blank" href="' . $wppb_add_on['url'] . '?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PB' . $version . '">';
-                    echo '<img src="' . $wppb_add_on['thumbnail_url'] . '" />';
-                    echo '</a>';
-
-                    echo '<h3 class="wppb-add-on-title">';
-                    echo '<a target="_blank" href="' . $wppb_add_on['url'] . '?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PB' . $version . '">';
-                    echo $wppb_add_on['name'];
-                    echo '</a>';
-                    echo '</h3>';
-
-                    //echo '<h3 class="wppb-add-on-price">' . $wppb_add_on['price'] . '</h3>';
-                    if( $wppb_add_on['type'] == 'paid' )
-                        echo '<h3 class="wppb-add-on-price">' . __( 'Available in Hobbyist and Pro Versions', 'profile-builder' ) . '</h3>';
-                    else
-                        echo '<h3 class="wppb-add-on-price">' . __( 'Available in All Versions', 'profile-builder' ) . '</h3>';
-
-                    echo '<p class="wppb-add-on-description">' . $wppb_add_on['description'] . '</p>';
-
-                    echo '</div>';
-
-                    $wppb_version_validation = version_compare(PROFILE_BUILDER_VERSION, $wppb_add_on['product_version']);
-
-                    ($wppb_version_validation != -1) ? $wppb_version_validation_class = 'wppb-add-on-compatible' : $wppb_version_validation_class = 'wppb-add-on-not-compatible';
-
-                    echo '<div class="plugin-card-bottom ' . $wppb_version_validation_class . '">';
-
-                    // PB minimum version number is all good
-                    if ($wppb_version_validation != -1) {
-
-                        // PB version type does match
-                        if (in_array(strtolower($version), $wppb_add_on['product_version_type'])) {
-
-                            if ($wppb_add_on_exists) {
-
-                                // Display activate/deactivate buttons
-                                if (!$wppb_add_on_is_active) {
-                                    echo '<a class="wppb-add-on-activate right button button-secondary" href="' . $wppb_add_on['plugin_file'] . '" data-nonce="' . $ajax_nonce . '">' . __('Activate', 'profile-builder') . '</a>';
-
-                                    // If add-on is network activated don't allow deactivation
-                                } elseif (!$wppb_add_on_is_network_active) {
-                                    echo '<a class="wppb-add-on-deactivate right button button-secondary" href="' . $wppb_add_on['plugin_file'] . '" data-nonce="' . $ajax_nonce . '">' . __('Deactivate', 'profile-builder') . '</a>';
-                                }
-
-                                // Display message to the user
-                                if (!$wppb_add_on_is_active) {
-                                    echo '<span class="dashicons dashicons-no-alt"></span><span class="wppb-add-on-message">' . __('Add-On is <strong>inactive</strong>', 'profile-builder') . '</span>';
-                                } else {
-                                    echo '<span class="dashicons dashicons-yes"></span><span class="wppb-add-on-message">' . __('Add-On is <strong>active</strong>', 'profile-builder') . '</span>';
-                                }
-
-                            } else {
-
-                                // If we're on a multisite don't add the wpp-add-on-download class to the button so we don't fire the js that
-                                // handles the in-page download
-                                ($wppb_add_on['paid']) ? $wppb_paid_link_class = 'button-primary' : $wppb_paid_link_class = 'button-secondary';
-                                ($wppb_add_on['paid']) ? $wppb_paid_link_text = __('Learn More', 'profile-builder') : $wppb_paid_link_text = __('Download Now', 'profile-builder');
-
-                                ($wppb_add_on['paid']) ? $wppb_paid_href_utm_text = '?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page-buy-button&utm_campaign=PB' . $version : $wppb_paid_href_utm_text = '?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PB' . $version;
-
-                                echo '<a target="_blank" class="right button ' . $wppb_paid_link_class . '" href="' . $wppb_add_on['url'] . $wppb_paid_href_utm_text . '" data-add-on-slug="profile-builder-' . $wppb_add_on['slug'] . '" data-add-on-name="' . $wppb_add_on['name'] . '" data-nonce="' . $ajax_nonce . '">' . $wppb_paid_link_text . '</a>';
-                                echo '<span class="dashicons dashicons-yes"></span><span class="wppb-add-on-message">' . __('Compatible with your version of Profile Builder.', 'profile-builder') . '</span>';
-
-                            }
-
-                            echo '<div class="spinner"></div>';
-
-                            // PB version type does not match
-                        } else {
-
-                            echo '<a target="_blank" class="button button-secondary right" href="https://www.cozmoslabs.com/wordpress-profile-builder/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page-upgrade-button&utm_campaign=PB' . $version . '">' . __('Upgrade Profile Builder', 'profile-builder') . '</a>';
-                            echo '<span class="dashicons dashicons-no-alt"></span><span class="wppb-add-on-message">' . __('Not compatible with Profile Builder', 'profile-builder') . ' ' . $version . '</span>';
-
-                        }
-
-                    } else {
-
-                        // If PB version is older than the minimum required version of the add-on
-                        echo ' ' . '<a class="button button-secondary right" href="' . admin_url('plugins.php') . '">' . __('Update', 'profile-builder') . '</a>';
-                        echo '<span class="wppb-add-on-message">' . __('Not compatible with your version of Profile Builder.', 'profile-builder') . '</span><br />';
-                        echo '<span class="wppb-add-on-message">' . __('Minimum required Profile Builder version:', 'profile-builder') . '<strong> ' . $wppb_add_on['product_version'] . '</strong></span>';
-
-                    }
-
-                    // We had to put this error here because we need the url of the add-on
-                    echo '<span class="wppb-add-on-user-messages wppb-error-manual-install">' . sprintf(__('Could not install add-on. Retry or <a href="%s" target="_blank">install manually</a>.', 'profile-builder'), esc_url($wppb_add_on['url'])) . '</span>';
-
-                    echo '</div>';
-                    echo '</div>';
-
-                } /* end $wppb_add_ons foreach */
-            }
-
-        ?>
-        </div>
-
-
-
-    </div>
-    <?php
-}
-
-/*
- * Function that returns the array of add-ons from cozmoslabs.com if it finds the file
- * If something goes wrong it returns false
- *
- * @since v.2.1.0
- */
-function wppb_add_ons_get_remote_content() {
-
-    $response = wp_remote_get('https://www.cozmoslabs.com/wp-content/plugins/cozmoslabs-products-add-ons/profile-builder-add-ons.json');
-
-    if( is_wp_error($response) ) {
-        return false;
-    } else {
-        $json_file_contents = $response['body'];
-        $wppb_add_ons = json_decode( $json_file_contents, true );
-    }
-
-    if( !is_object( $wppb_add_ons ) && !is_array( $wppb_add_ons ) ) {
-        return false;
-    }
-
-    return $wppb_add_ons;
-
+    //initialize the object
+    $pb_addons_listing = new CL_Addons_List_Table();
+    $pb_addons_listing->images_folder = WPPB_PLUGIN_URL.'assets/images/add-ons/';
+    $pb_addons_listing->text_domain = 'profile-builder';
+    $pb_addons_listing->header = array( 'title' => __('Profile Builder Add-ons', 'profile-builder' ) );
+    $pb_addons_listing->current_version = PROFILE_BUILDER;
+    $pb_addons_listing->tooltip_header = __( 'Profile Builder Add-ons', 'profile-builder' );
+    $pb_addons_listing->tooltip_content = sprintf( __( 'You must first purchase this version to have access to the addon %1$shere%2$s', 'profile-builder' ), '<a target="_blank" href="https://www.cozmoslabs.com/wordpress-profile-builder/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PB">', '</a>' );
+
+
+    //Add Pro Section
+    $pb_addons_listing->section_header = array( 'title' => __('Pro Add-ons', 'profile-builder' ), 'description' => __('These Add-ons are available with the Pro and Agency license', 'profile-builder')  );
+    $pb_addons_listing->section_versions = array( 'Profile Builder Pro', 'Profile Builder Agency', 'Profile Builder Unlimited' );
+    $pb_addons_listing->items = array(
+        array(  'slug' => 'wppb_multipleRegistrationForms',
+            'type' => 'add-on',
+            'name' => __( 'Multiple Registration Forms', 'profile-builder' ),
+            'description' => __( 'Set up multiple registration forms with different fields for certain user roles. Helps capture different information from different types of users.', 'profile-builder' ),
+            'icon' => 'pb-add-on-multiple-registration-forms-logo.png',
+            'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/modules/multiple-registration-forms/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'wppb_multipleEditProfileForms',
+            'type' => 'add-on',
+            'name' => __( 'Multiple Edit Profile Forms', 'profile-builder' ),
+            'description' => __( 'Allow different user roles to edit their specific information. Set up multiple edit-profile forms with different fields for certain user roles.', 'profile-builder' ),
+            'icon' => 'pb-add-on-multiple-edit-profile-forms-icon.png',
+            'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/modules/multiple-edit-profile-forms/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'wppb_userListing',
+            'type' => 'add-on',
+            'name' => __( 'User Listing', 'profile-builder' ),
+            'description' => __( 'Easy to edit templates for listing your users as well as creating single user pages.', 'profile-builder' ),
+            'icon' => 'pb-add-on-userlisting-logo.png',
+            'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/modules/user-listing/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'wppb_customRedirect',
+            'type' => 'add-on',
+            'name' => __( 'Custom Redirects', 'profile-builder' ),
+            'description' => __( 'Redirect users after login, after they first register or when they try to access the default WordPress dashboard, login, lost password and registration forms.', 'profile-builder' ),
+            'icon' => 'pb-add-on-custom-redirects-logo.png',
+            'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/modules/custom-redirects/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'wppb_repeaterFields',
+            'type' => 'add-on',
+            'name' => __( 'Repeater Fields', 'profile-builder' ),
+            'description' => __( 'The Repeater Field Module makes it really easy to add repeater front-end fields or groups of fields to your user profile. Integration with both the Email Customizer and User Listing modules, makes creating advanced user profiles possible.', 'profile-builder' ),
+            'icon' => 'pb-add-on-repeater-fields-logo.png',
+            'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/modules/repeater-fields/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'buddypress',
+            'type' => 'add-on',
+            'name' => __( 'BuddyPress', 'profile-builder' ),
+            'description' => __( 'This integration add-on allows extending BuddyPress user profiles with Profile Builder user fields.', 'profile-builder' ),
+            'icon' => 'pb-add-on-buddypress-logo.png',
+            'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/buddypress/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+            'download_url' => 'https://www.cozmoslabs.com/add-ons/buddypress/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+    );
+    $pb_addons_listing->add_section();
+
+    //Add Hobbyist section
+    $pb_addons_listing->section_header = array( 'title' => __('Basic Add-ons', 'profile-builder' ), 'description' => __('These Add-ons are available with the Basic, Pro and Agency license', 'profile-builder')  );
+    $pb_addons_listing->section_versions = array( 'Profile Builder Pro', 'Profile Builder Hobbyist', 'Profile Builder Basic', 'Profile Builder Agency', 'Profile Builder Unlimited' );
+    $pb_addons_listing->items = array(
+        array(  'slug' => 'social-connect',
+                'type' => 'add-on',
+                'name' => __( 'Social Connect', 'profile-builder' ),
+                'description' => __( 'Easily configure and enable social login on your website. Users can login with social platforms like Facebook, Google or Twitter.', 'profile-builder' ),
+                'icon' => 'pb-add-on-social-connect-logo.png',
+                'doc_url' => 'http://www.cozmoslabs.com/docs/profile-builder/add-ons/social-connect/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/social-connect/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro'
+        ),
+        array(  'slug' => 'woocommerce',
+                'type' => 'add-on',
+                'name' => __( 'WooCommerce Sync', 'profile-builder' ),
+                'description' => __( 'Syncs Profile Builder with WooCommerce, allowing you to manage the user Shipping and Billing fields from WooCommerce with Profile Builder.', 'profile-builder' ),
+                'icon' => 'pb-add-on-woocommerce-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/woocommerce-sync/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/woocommerce-sync/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'multi-step-forms',
+                'type' => 'add-on',
+                'name' => __( 'Multi Step Forms', 'profile-builder' ),
+                'description' => __( 'Extends the functionality of Profile Builder by adding the possibility of having multi-page registration and edit-profile forms.', 'profile-builder' ),
+                'icon' => 'pb-add-on-multi-step-forms-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/multi-step-forms/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/multi-step-forms/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'mailchimp-integration',
+                'type' => 'add-on',
+                'name' => __( 'MailChimp', 'profile-builder' ),
+                'description' => __( 'Easily associate MailChimp list fields with Profile Builder fields and set advanced settings for each list.', 'profile-builder' ),
+                'icon' => 'pb-add-on-mailchimp-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/mailchimp/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/profile-builder-mailchimp/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'bbpress',
+                'type' => 'add-on',
+                'name' => __( 'bbPress', 'profile-builder' ),
+                'description' => __( 'This add-on allows you to integrate Profile Builder with the popular forums plugin, bbPress.', 'profile-builder' ),
+                'icon' => 'pb-add-on-bbpress-logo.jpg',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/bbpress/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/bbpress/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'campaign-monitor',
+                'type' => 'add-on',
+                'name' => __( 'Campaign Monitor', 'profile-builder' ),
+                'description' => __( 'Easily associate Campaign Monitor client list fields with Profile Builder fields. Use Profile Builder Campaign Monitor Widget to add more subscribers to your lists.', 'profile-builder' ),
+                'icon' => 'pb-add-on-campaign-monitor-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/campaign-monitor/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/profile-builder-campaign-monitor/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'field-visibility',
+                'type' => 'add-on',
+                'name' => __( 'Field Visibility', 'profile-builder' ),
+                'description' => __( 'Extends the functionality of Profile Builder by allowing you to change visibility options for the extra fields.', 'profile-builder' ),
+                'icon' => 'pb-add-on-field-visibility-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/field-visibility/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/field-visibility/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'edit-profile-approved-by-admin',
+                'type' => 'add-on',
+                'name' => __( 'Edit Profile Approved by Admin', 'profile-builder' ),
+                'description' => __( 'Extends the functionality of Profile Builder by allowing administrators to approve profile changes made by users on individual fields.', 'profile-builder' ),
+                'icon' => 'pb-add-on-edit-profile-updates-approved-by-admins-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/edit-profile-approved-by-admin/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/edit-profile-approved-by-admin/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'custom-profile-menus',
+                'type' => 'add-on',
+                'name' => __( 'Custom Profile Menus', 'profile-builder' ),
+                'description' => __( 'Add custom menu items like Login/Logout or just Logout button and Login/Register/Edit Profile in iFrame Popup.', 'profile-builder' ),
+                'icon' => 'pb-add-on-custom-profile-menus-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/custom-profile-menus/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/custom-profile-menus/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+        array(  'slug' => 'mailpoet-integration',
+                'type' => 'add-on',
+                'name' => __( 'MailPoet', 'profile-builder' ),
+                'description' => __( 'Allow users to subscribe to your MailPoet lists directly from the Register and Edit Profile forms.', 'profile-builder' ),
+                'icon' => 'pb-add-on-mailpoet-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/mailpoet/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/mailpoet/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+        ),
+    );
+    $pb_addons_listing->add_section();
+
+    //Add Free section
+    $pb_addons_listing->section_header = array( 'title' => __('Free Add-ons', 'profile-builder' ), 'description' => __('These Add-ons are available in all versions of Profile Builder', 'profile-builder')  );
+    $pb_addons_listing->section_versions = array( 'Profile Builder Pro', 'Profile Builder Hobbyist', 'Profile Builder Free', 'Profile Builder Basic', 'Profile Builder Agency', 'Profile Builder Unlimited' );
+    $pb_addons_listing->items = array(
+        array(  'slug' => 'import-export',
+                'type' => 'add-on',
+                'name' => __( 'Import and Export', 'profile-builder' ),
+                'description' => __( 'With the help of this add-on you will be able to export all Profile Builder Settings data to a .json. You can then use this file as a back-up or you can import this data on another instance of Profile Builder.', 'profile-builder' ),
+                'icon' => 'pb-add-on-import-export-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/import-export-pb-settings/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/import-export/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro'
+        ),
+        array(  'slug' => 'custom-css-classes-on-fields',
+                'type' => 'add-on',
+                'name' => __( 'Custom CSS Classes on Fields', 'profile-builder' ),
+                'description' => __( 'This add-on extends the functionality of Profile Builder by allowing you to add custom css classes for fields.', 'profile-builder' ),
+                'icon' => 'pb-add-on-classes-on-fields-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/custom-css-classes-on-fields-for-profile-builder/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/custom-css-classes-fields/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro'
+        ),
+        array(  'slug' => 'maximum-character-length',
+                'type' => 'add-on',
+                'name' => __( 'Maximum Character Length', 'profile-builder' ),
+                'description' => __( 'Using this addon you can limit the maximum number of characters a user can type in a field added and managed with Profile Builder.', 'profile-builder' ),
+                'icon' => 'pb-add-on-maximum-character-length-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/maximum-character-length/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/maximum-character-length/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro'
+        ),
+        array(  'slug' => 'labels-edit',
+                'type' => 'add-on',
+                'name' => __( 'Labels Edit', 'profile-builder' ),
+                'description' => __( 'This add-on extends the functionality of our plugin and let us easily edit all Profile Builder labels.', 'profile-builder' ),
+                'icon' => 'pb-add-on-labels-edit-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder/add-ons/labels-edit/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/labels-edit/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro'
+        ),
+        array(  'slug' => 'gdpr-communication-preferences',
+                'type' => 'add-on',
+                'name' => __( 'GDPR Communication Preferences', 'profile-builder' ),
+                'description' => __( 'This add-on plugin adds a GDPR Communication preferences field to Profile Builder.', 'profile-builder' ),
+                'icon' => 'pb-add-on-gdpr-communication-preferences-logo.png',
+                'doc_url' => 'https://www.cozmoslabs.com/add-ons/gdpr-communication-preferences/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+                'download_url' => 'https://www.cozmoslabs.com/add-ons/gdpr-communication-preferences/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro'
+        ),
+    );
+    $pb_addons_listing->add_section();
+
+
+
+    //Add Recommended Plugins
+    $pb_addons_listing->section_header = array( 'title' => __('Recommended Plugins', 'profile-builder' ), 'description' => __('These plugins are compatible with all versions of Profile Builder', 'profile-builder')  );
+    $pb_addons_listing->section_versions = array( 'Profile Builder Pro', 'Profile Builder Hobbyist', 'Profile Builder Free', 'Profile Builder Basic', 'Profile Builder Agency', 'Profile Builder Unlimited' );
+    $pb_addons_listing->items = array(
+        array(  'slug' => 'translatepress-multilingual/index.php',
+            'type' => 'plugin',
+            'name' => __( 'TranslatePress', 'profile-builder' ),
+            'description' => __( 'Translate your Profile Builder forms with a WordPress translation plugin that anyone can use. It offers a simpler way to translate WordPress sites, with full support for WooCommerce and site builders.', 'profile-builder' ),
+            'icon' => 'pb-add-on-translatepress-logo.png',
+            'doc_url' => 'https://translatepress.com/docs/translatepress/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+            'download_url' => 'https://wordpress.org/plugins/translatepress-multilingual/'
+        ),
+        array(  'slug' => 'paid-member-subscriptions/index.php',
+            'type' => 'plugin',
+            'name' => __( 'Paid Member Subscriptions', 'profile-builder' ),
+            'description' => __( 'Accept user payments, create subscription plans and restrict content on your membership site.', 'profile-builder' ),
+            'icon' => 'pb-add-on-pms-logo.png',
+            'doc_url' => 'https://www.cozmoslabs.com/docs/paid-member-subscriptions/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+            'download_url' => 'https://wordpress.org/plugins/paid-member-subscriptions/'
+        ),
+//        array(  'slug' => 'wp-webhooks/index.php',
+        array(  'slug' => 'wp-webhooks/wp-webhooks.php',
+            'type' => 'plugin',
+            'name' => __( 'WP Webhooks Automations', 'profile-builder' ),
+            'description' => __( 'Easily create powerful no-code automations that connect your WordPress plugins, sites and apps together.', 'profile-builder' ),
+            'icon' => 'pb-add-on-wp-webhooks-icon.jpg',
+            'doc_url' => 'https://wp-webhooks.com/integrations?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+            'download_url' => 'https://wordpress.org/plugins/wp-webhooks/'
+        ),
+        array(  'slug' => 'client-portal/index.php',
+            'type' => 'plugin',
+            'name' => __( 'Client Portal', 'profile-builder' ),
+            'description' => __( 'Create private pages for your website users that only an administrator can edit.', 'profile-builder' ),
+            'icon' => 'pb-add-on-client-portal-logo.png',
+            'doc_url' => 'https://www.cozmoslabs.com/55726-how-to-wordpress-client-portal-plugin/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+            'download_url' => 'https://www.cozmoslabs.com/add-ons/client-portal/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro'
+        ),
+        array(  'slug' => 'custom-login-page-templates/custom-login-templates.php',
+            'type' => 'plugin',
+            'name' => __( 'Custom Login Page Templates', 'profile-builder' ),
+            'description' => __( 'Customizes the default WordPress Login Page with different templates, logo and background uploads and also adds support for custom CSS.', 'profile-builder' ),
+            'icon' => 'pb-add-on-custom-login-page-templates-logo.png',
+            'doc_url' => 'https://www.cozmoslabs.com/add-ons/custom-login-page-templates/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+            'download_url' => 'https://www.cozmoslabs.com/add-ons/custom-login-page-templates/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro'
+        ),
+        array(  'slug' => 'passwordless-login/passwordless_login.php',
+            'type' => 'plugin',
+            'name' => __( 'Passwordless Login', 'profile-builder' ),
+            'description' => __( 'WordPress Passwordless Login is a plugin that allows your users to login without a password.', 'profile-builder' ),
+            'icon' => 'pb-add-on-passwordless-login-logo.png',
+            'doc_url' => 'https://www.cozmoslabs.com/docs/profile-builder-2/add-ons/passwordless-login/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro',
+            'download_url' => 'https://www.cozmoslabs.com/add-ons/passwordless-login/?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PBPro'
+        ),
+    );
+    $pb_addons_listing->add_section();
+
+
+    //Display the whole listing
+    $pb_addons_listing->display_addons();
 }
 
 
-/*
- * Function that is triggered through Ajax to activate an add-on
- *
- * @since v.2.1.0
+/**
+ * Add this for generating default options on first install
  */
-function wppb_add_on_activate() {
-    check_ajax_referer( 'wppb-activate-addon', 'nonce' );
-    if( current_user_can( 'manage_options' ) ){
-        // Setup variables from POST
-        $wppb_add_on_to_activate = sanitize_text_field( $_POST['wppb_add_on_to_activate'] );
-        $response = filter_var( $_POST['wppb_add_on_index'], FILTER_SANITIZE_NUMBER_INT );
-
-        if( !empty( $wppb_add_on_to_activate ) && !is_plugin_active( $wppb_add_on_to_activate )) {
-            activate_plugin( $wppb_add_on_to_activate );
-        }
-
-        if( !empty( $response ) )
-            echo $response;
+add_action( 'admin_init', 'wppb_generate_modules_default_values' );
+function wppb_generate_modules_default_values(){
+    $wppb_module_settings = get_option( 'wppb_module_settings', 'not_found' );
+    if ( $wppb_module_settings == 'not_found' ){
+        $wppb_module_settings = 	array(	'wppb_userListing'					=> 'hide',
+                                            'wppb_customRedirect'				=> 'hide',
+                                            'wppb_emailCustomizer'				=> 'hide',
+                                            'wppb_multipleEditProfileForms'		=> 'hide',
+                                            'wppb_multipleRegistrationForms'	=> 'hide',
+                                            'wppb_repeaterFields'				=> 'hide'
+                                        );
+        update_option( 'wppb_module_settings', $wppb_module_settings );
     }
-    wp_die();
 }
-add_action( 'wp_ajax_wppb_add_on_activate', 'wppb_add_on_activate' );
 
 
-/*
- * Function that is triggered through Ajax to deactivate an add-on
- *
- * @since v.2.1.0
+/**
+ * For add-ons (not plugins) the implementation is speciffic to each plugin ( PB/PMS/TP ) and is done through filters in the plugin itself
  */
-function wppb_add_on_deactivate() {
-    check_ajax_referer( 'wppb-activate-addon', 'nonce' );
-    if( current_user_can( 'manage_options' ) ){
-        // Setup variables from POST
-        $wppb_add_on_to_deactivate = sanitize_text_field( $_POST['wppb_add_on_to_deactivate'] );
-        $response = filter_var( $_POST['wppb_add_on_index'], FILTER_SANITIZE_NUMBER_INT );
 
-        if( !empty( $wppb_add_on_to_deactivate ))
-            deactivate_plugins( $wppb_add_on_to_deactivate );
-
-        if( !empty( $response ) )
-            echo $response;
-    }
-    wp_die();
-
+/**
+ * Function that determines if a PB add-on is active
+ */
+add_filter( 'cl_add_on_is_active', 'wppb_check_add_ons_activation', 10, 2 );
+function wppb_check_add_ons_activation( $bool, $slug ){
+    return wppb_check_if_add_on_is_active($slug);
 }
-add_action( 'wp_ajax_wppb_add_on_deactivate', 'wppb_add_on_deactivate' );
 
-
-/*
- * Function that retrieves the data of the newly added plugin
- *
- * @since v.2.1.0
+/**
+ * Function that activates a PB add-on
  */
-function wppb_add_on_get_new_plugin_data() {
-	if(isset( $_POST['wppb_add_on_name'] ) ){
-    	$wppb_add_on_name = sanitize_text_field( $_POST['wppb_add_on_name'] );
-	}
+add_action( 'cl_add_ons_activate', 'wppb_activate_add_ons' );
+function wppb_activate_add_ons( $slug ){
+    wppb_activate_or_deactivate_add_on( $slug, 'show' );
 
-    $wppb_get_all_plugins = get_plugins();
-    foreach( $wppb_get_all_plugins as $wppb_plugin_key => $wppb_plugin ) {
+    do_action( 'wppb_add_ons_activate', $slug );
+}
 
-        if( strpos( $wppb_plugin['Name'], $wppb_add_on_name ) !== false && strpos( $wppb_plugin['AuthorName'], 'Cozmoslabs' ) !== false ) {
+/**
+ * Function that deactivates a PB add-on
+ */
+add_action( 'cl_add_ons_deactivate', 'wppb_deactivate_add_ons' );
+function wppb_deactivate_add_ons( $slug ){
+    wppb_activate_or_deactivate_add_on( $slug, 'hide' );
 
-            // Deactivate the add-on if it's active
-            if( is_plugin_active( $wppb_plugin_key )) {
-                deactivate_plugins( $wppb_plugin_key );
+    do_action( 'wppb_add_ons_deactivate', $slug );
+}
+
+
+/**
+ * Function used to activate or deactivate a PB add-on
+ */
+function wppb_activate_or_deactivate_add_on( $slug, $action ){
+    //the old modules part
+    $wppb_module_settings = get_option( 'wppb_module_settings', 'not_found' );
+    if ( $wppb_module_settings != 'not_found' ){
+        foreach( $wppb_module_settings as $add_on_slug => $status ){
+            if( $slug == $add_on_slug ){
+                $wppb_module_settings[$add_on_slug] = $action;
             }
-
-            // Return the plugin path
-            echo $wppb_plugin_key;
-            wp_die();
         }
     }
+    update_option( 'wppb_module_settings', $wppb_module_settings );
 
-    wp_die();
+    //the free addons part
+    $wppb_free_add_ons_settings = get_option( 'wppb_free_add_ons_settings', array() );
+    if ( !empty( $wppb_free_add_ons_settings ) ){
+        foreach( $wppb_free_add_ons_settings as $add_on_slug => $status ){
+            if( $slug == $add_on_slug ){
+                if( $action == 'show' )
+                    $wppb_free_add_ons_settings[$add_on_slug] = true;
+                elseif( $action == 'hide' )
+                    $wppb_free_add_ons_settings[$add_on_slug] = false;
+            }
+        }
+    }
+    update_option( 'wppb_free_add_ons_settings', $wppb_free_add_ons_settings );
+
+    //the advanced addons part
+    $wppb_advanced_add_ons_settings = get_option( 'wppb_advanced_add_ons_settings', array() );
+    if ( !empty( $wppb_advanced_add_ons_settings ) ){
+        foreach( $wppb_advanced_add_ons_settings as $add_on_slug => $status ){
+            if( $slug == $add_on_slug ){
+                if( $action == 'show' )
+                    $wppb_advanced_add_ons_settings[$add_on_slug] = true;
+                elseif( $action == 'hide' )
+                    $wppb_advanced_add_ons_settings[$add_on_slug] = false;
+            }
+        }
+    }
+    update_option( 'wppb_advanced_add_ons_settings', $wppb_advanced_add_ons_settings );
 }
-add_action( 'wp_ajax_wppb_add_on_get_new_plugin_data', 'wppb_add_on_get_new_plugin_data' );
+
+/**
+ * Add a notice on the add-ons page if the save was successful
+ */
+if ( isset($_GET['cl_add_ons_listing_success']) ){
+    if( class_exists('WPPB_Add_General_Notices') ) {
+        new WPPB_Add_General_Notices('cl_add_ons_listing_success',
+            sprintf(__('%1$sAdd-ons settings saved successfully%2$s', 'profile-builder'), "<p>", "</p>"),
+            'updated notice is-dismissible');
+    }
+}

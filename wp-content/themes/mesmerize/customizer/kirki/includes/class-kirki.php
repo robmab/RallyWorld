@@ -52,7 +52,7 @@ if ( ! class_exists( 'Kirki' ) ) {
 		 * @access public
 		 * @var array
 		 */
-		public static $config   = array();
+		public static $config = array();
 
 		/**
 		 * An array containing all fields.
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Kirki' ) ) {
 		 * @access public
 		 * @var array
 		 */
-		public static $fields   = array();
+		public static $fields = array();
 
 		/**
 		 * An array containing all panels.
@@ -70,7 +70,7 @@ if ( ! class_exists( 'Kirki' ) ) {
 		 * @access public
 		 * @var array
 		 */
-		public static $panels   = array();
+		public static $panels = array();
 
 		/**
 		 * An array containing all sections.
@@ -86,8 +86,10 @@ if ( ! class_exists( 'Kirki' ) ) {
 		 *
 		 * @static
 		 * @access public
+		 *
 		 * @param string $config_id The ID of the configuration corresponding to this field.
-		 * @param string $field_id  The field_id (defined as 'settings' in the field arguments).
+		 * @param string $field_id The field_id (defined as 'settings' in the field arguments).
+		 *
 		 * @return mixed The saved value of the field.
 		 */
 		public static function get_option( $config_id = '', $field_id = '' ) {
@@ -96,18 +98,21 @@ if ( ! class_exists( 'Kirki' ) ) {
 
 		}
 
+
+
 		/**
 		 * Sets the configuration options.
 		 *
 		 * @static
 		 * @access public
+		 *
 		 * @param string $config_id The configuration ID.
-		 * @param array  $args      The configuration options.
+		 * @param array $args The configuration options.
 		 */
 		public static function add_config( $config_id, $args = array() ) {
 
-			$config = Kirki_Config::get_instance( $config_id, $args );
-			$config_args = $config->get_config();
+			$config                             = Kirki_Config::get_instance( $config_id, $args );
+			$config_args                        = $config->get_config();
 			self::$config[ $config_args['id'] ] = $config_args;
 
 		}
@@ -117,8 +122,9 @@ if ( ! class_exists( 'Kirki' ) ) {
 		 *
 		 * @static
 		 * @access public
-		 * @param string $id   The ID for this panel.
-		 * @param array  $args The panel arguments.
+		 *
+		 * @param string $id The ID for this panel.
+		 * @param array $args The panel arguments.
 		 */
 		public static function add_panel( $id = '', $args = array() ) {
 
@@ -128,7 +134,10 @@ if ( ! class_exists( 'Kirki' ) ) {
 			$args['type']        = ( isset( $args['type'] ) ) ? $args['type'] : 'default';
 			$args['type']        = 'kirki-' . $args['type'];
 			if ( ! isset( $args['active_callback'] ) ) {
-				$args['active_callback'] = ( isset( $args['required'] ) ) ? array( 'Kirki_Active_Callback', 'evaluate' ) : '__return_true';
+				$args['active_callback'] = ( isset( $args['required'] ) ) ? array(
+					'Kirki_Active_Callback',
+					'evaluate'
+				) : '__return_true';
 			}
 
 			self::$panels[ $args['id'] ] = $args;
@@ -140,8 +149,9 @@ if ( ! class_exists( 'Kirki' ) ) {
 		 *
 		 * @static
 		 * @access public
-		 * @param string $id   The ID for this section.
-		 * @param array  $args The section arguments.
+		 *
+		 * @param string $id The ID for this section.
+		 * @param array $args The section arguments.
 		 */
 		public static function add_section( $id, $args ) {
 
@@ -152,7 +162,10 @@ if ( ! class_exists( 'Kirki' ) ) {
 			$args['type']        = ( isset( $args['type'] ) ) ? $args['type'] : 'default';
 			$args['type']        = 'kirki-' . $args['type'];
 			if ( ! isset( $args['active_callback'] ) ) {
-				$args['active_callback'] = ( isset( $args['required'] ) ) ? array( 'Kirki_Active_Callback', 'evaluate' ) : '__return_true';
+				$args['active_callback'] = ( isset( $args['required'] ) ) ? array(
+					'Kirki_Active_Callback',
+					'evaluate'
+				) : '__return_true';
 			}
 
 			self::$sections[ $args['id'] ] = $args;
@@ -164,16 +177,23 @@ if ( ! class_exists( 'Kirki' ) ) {
 		 *
 		 * @static
 		 * @access public
+		 *
 		 * @param string $config_id The configuration ID for this field.
-		 * @param array  $args      The field arguments.
+		 * @param array $args The field arguments.
 		 */
 		public static function add_field( $config_id, $args ) {
 
+			if ( ! static::should_run() ) {
+				return;
+			}
+
+
 			if ( isset( $args['type'] ) ) {
-				$str = str_replace( array( '-', '_' ), ' ', $args['type'] );
+				$str       = str_replace( array( '-', '_' ), ' ', $args['type'] );
 				$classname = 'Kirki_Field_' . str_replace( ' ', '_', ucwords( $str ) );
 				if ( class_exists( $classname ) ) {
 					new $classname( $config_id, $args );
+
 					return;
 				}
 			}

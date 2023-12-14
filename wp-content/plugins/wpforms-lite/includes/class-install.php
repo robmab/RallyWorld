@@ -1,13 +1,14 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
- * Handles plugin installation upon activation.
+ * Handle plugin installation upon activation.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
-*/
+ * @since 1.0.0
+ */
 class WPForms_Install {
 
 	/**
@@ -17,89 +18,140 @@ class WPForms_Install {
 	 */
 	public function __construct() {
 
-		// When activated, trigger install method
-		register_activation_hook( WPFORMS_PLUGIN_FILE, array( $this, 'install' ) );
+		// When activated, trigger install method.
+		register_activation_hook( WPFORMS_PLUGIN_FILE, [ $this, 'install' ] );
+		register_deactivation_hook( WPFORMS_PLUGIN_FILE, [ $this, 'deactivate' ] );
 
-		// Watch for new multisite blogs
-		add_action( 'wpmu_new_blog', array( $this, 'new_multisite_blog' ), 10, 6 );
+		// Watch for new multisite blogs.
+		add_action( 'wp_initialize_site', [ $this, 'new_multisite_blog' ], 10, 2 );
+
+		// Watch for delayed admin install.
+		add_action( 'admin_init', [ $this, 'admin' ] );
 	}
 
 	/**
-	 * Let's get the party started.
+	 * Perform certain actions on plugin activation.
 	 *
 	 * @since 1.0.0
-	 * @param boolean $network_wide
+	 *
+	 * @param bool $network_wide Whether to enable the plugin for all sites in the network
+	 *                           or just the current site. Multisite only. Default is false.
 	 */
 	public function install( $network_wide = false ) {
 
-		// Check if we are on multisite and network activating
+		// Check if we are on multisite and network activating.
 		if ( is_multisite() && $network_wide ) {
-			
-			// Multisite - go through each subsite and run the installer
-			if ( function_exists( 'get_sites' ) && class_exists( 'WP_Site_Query' ) ) {
-				
-				// WP 4.6+
-				$sites = get_sites();
-				
-				foreach ( $sites as $site ) {
-					
-					switch_to_blog( $site->blog_id );
-					$this->run_install();
-					restore_current_blog();
-				}
 
-			} else {
+			// Multisite - go through each subsite and run the installer.
+			$sites = get_sites(
+				[
+					'fields' => 'ids',
+					'number' => 0,
+				]
+			);
 
-				$sites = wp_get_sites( array( 'limit' => 0 ) );
-				
-				foreach ( $sites as $site ) {
-					
-					switch_to_blog( $site['blog_id'] );
-					$this->run_install();
-					restore_current_blog();
-				}
+			foreach ( $sites as $blog_id ) {
+				switch_to_blog( $blog_id );
+				$this->run();
+				restore_current_blog();
 			}
-
 		} else {
 
-			// Normal single site
-			$this->run_install();
+			// Normal single site.
+			$this->run();
 		}
 
+		set_transient( 'wpforms_just_activated', wpforms()->is_pro() ? 'pro' : 'lite', 60 );
 
-		// Abort so we only set the transient for single site installs
-		if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
+		// Abort so we only set the transient for single site installs.
+		if ( isset( $_GET['activate-multi'] ) || is_network_admin() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 
-		// Add transiet to trigger redirect to the Welcome screen
+		// Add transient to trigger redirect to the Welcome screen.
 		set_transient( 'wpforms_activation_redirect', true, 30 );
+	}
+
+	/**
+	 * Run manual installation.
+	 *
+	 * @since 1.5.4.2
+	 *
+	 * @param bool $silent Silent install, disables welcome page.
+	 */
+	public function manual( $silent = false ) {
+
+		$this->install( is_plugin_active_for_network( plugin_basename( WPFORMS_PLUGIN_FILE ) ) );
+
+		if ( $silent ) {
+			delete_transient( 'wpforms_activation_redirect' );
+		}
+	}
+
+	/**
+	 * Perform certain actions on plugin deactivation.
+	 *
+	 * @since 1.5.9
+	 */
+	public function deactivate() {
+
+		// Unschedule all ActionScheduler actions by group.
+		wpforms()->get( 'tasks' )->cancel_all();
+
+		// Remove plugin cron jobs.
+		wp_clear_scheduled_hook( 'wpforms_email_summaries_cron' );
+	}
+
+	/**
+	 * Watch for delayed install procedure from WPForms admin.
+	 *
+	 * @since 1.5.4.2
+	 */
+	public function admin() {
+
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$install = get_option( 'wpforms_install', false );
+
+		if ( empty( $install ) ) {
+			return;
+		}
+
+		$this->manual( true );
+
+		delete_option( 'wpforms_install' );
 	}
 
 	/**
 	 * Run the actual installer.
 	 *
-	 * @since 1.3.0
+	 * @since 1.5.4.2
 	 */
-	function run_install() {
+	protected function run() {
 
-		$wpforms_install           = new stdClass();
-		$wpforms_install->preview  = new WPForms_Preview;
+		// Create custom database tables.
+		$this->maybe_create_tables();
 
-		// Create form preview page
-		$wpforms_install->preview->form_preview_check();
-
-		// Hook for Pro users
+		// Hook for Pro users.
 		do_action( 'wpforms_install' );
 
-		// Set current version, to be referenced in future updates
+		/*
+		 * Set current version, to be referenced in future updates.
+		 */
+		// Used by Pro migrations.
 		update_option( 'wpforms_version', WPFORMS_VERSION );
+		// Used by Lite migrations.
+		update_option( 'wpforms_version_lite', WPFORMS_VERSION );
 
-		// Store the date when the initial activation was performed
-		$type      = class_exists( 'WPForms_Lite' ) ? 'lite' : 'pro';
-		$activated = get_option( 'wpforms_activated', array() );
-		if ( empty( $activated[$type] ) ) {
-			$activated[$type] = time();
+		// Store the date when the initial activation was performed.
+		$type      = class_exists( 'WPForms_Lite', false ) ? 'lite' : 'pro';
+		$activated = get_option( 'wpforms_activated', [] );
+
+		if ( empty( $activated[ $type ] ) ) {
+			$activated[ $type ] = time();
+
 			update_option( 'wpforms_activated', $activated );
 		}
 	}
@@ -109,22 +161,51 @@ class WPForms_Install {
 	 * and if so run the installer.
 	 *
 	 * @since 1.3.0
-	 * @param int $blog_id
-	 * @param int $user_id
-	 * @param string $domain
-	 * @param string $path
-	 * @param int $site_id
-	 * @param array $meta
+	 * @since 1.8.4 Added $new_site and $args parameters and removed $blog_id, $user_id, $domain, $path, $site_id,
+	 *        $meta parameters.
+	 *
+	 * @param WP_Site $new_site New site object.
+	 * @param array   $args     Arguments for the initialization.
+	 *
+	 * @noinspection PhpUnusedParameterInspection
 	 */
-	function new_multisite_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
+	public function new_multisite_blog( $new_site, $args ) {
 
 		if ( is_plugin_active_for_network( plugin_basename( WPFORMS_PLUGIN_FILE ) ) ) {
-
-			switch_to_blog( $blog_id );
-			$this->run_install();
+			switch_to_blog( $new_site->blog_id );
+			$this->run();
 			restore_current_blog();
-
 		}
 	}
+
+	/**
+	 * Create database tables if they do not exist.
+	 * It covers new installations.
+	 *
+	 * @since 1.8.2
+	 */
+	private function maybe_create_tables() {
+
+		array_map(
+			static function( $handler ) {
+
+				if ( ! method_exists( $handler, 'table_exists' ) ) {
+					return;
+				}
+
+				if ( $handler->table_exists() ) {
+					return;
+				}
+
+				$handler->create_table();
+			},
+			[
+				wpforms()->get( 'tasks_meta' ),
+				wpforms()->get( 'payment' ),
+				wpforms()->get( 'payment_meta' ),
+			]
+		);
+	}
 }
-new WPForms_Install;
+
+new WPForms_Install();

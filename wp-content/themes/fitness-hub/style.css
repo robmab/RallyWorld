@@ -3,12 +3,15 @@ Theme Name: Fitness Hub
 Theme URI: https://www.acmethemes.com/themes/fitness-hub
 Author: acmethemes
 Author URI: https://www.acmethemes.com/
-Description: Fitness Hub is a flexible and modern Fitness and Gym WordPress Theme, build mainly for fitness institutes, gym club, and a fitness center. The theme is crafted carefully keeping in mind health club,  yoga classes, weight loss centers, aerobics classes, healthcare centers, workout studios, and overall business & club related to fitness, gym, and health. With this theme, you can create a magnificent website to let people know all the amazing fitness services and classes your fitness club has to offer. Not only you can make an online presence of your company but also promote it worldwide and reach out to potential customers. Being a highly responsive theme, it easily fits in smartphones, tablets, and devices of any screen sizes. With its integration with WooCommerce, you can open an online store within the website and showcase your products such as gym equipment and materials etc. The theme is user-friendly and easily customizable. Since its compatibility with Site By Origin Page Builder, anyone can design the layout design of the site as desired. Other features included in the theme are Unlimited Slider, Advanced Logo Options, Custom Sidebar Areas, Layout Controls, Colors Options, Social Media Integration, Translation Ready, Browser Compatibility and much more.
-Version: 1.0.0
+Description: Fitness Hub is a flexible and modern Fitness and Gym WordPress Theme, build mainly for fitness institutes, gym club, and a fitness centre. The theme is crafted carefully keeping in mind health club,  yoga classes, weight loss centres, aerobics classes, healthcare centres, workout studios, and overall business & club related to fitness, gym, and health. With this theme, you can create a magnificent website to let people know all the amazing fitness services and classes your fitness club has to offer. Not only you can make an online presence of your company but also promote it worldwide and reach out to potential customers. Being a highly responsive theme, it easily fits in smartphones, tablets, and devices of any screen sizes. With its integration with WooCommerce, you can open an online store within the website and showcase your products such as gym equipment and materials etc. The theme is user-friendly and easily customizable. Since its compatibility with Site By Origin Page Builder, anyone can design the layout design of the site as desired. Other features included in the theme are Unlimited Slider, Advanced Logo Options, Custom Sidebar Areas, Layout Controls, Colors Options, Social Media Integration, Translation Ready, Browser Compatibility and much more.
+Version: 3.0.3
+Tested up to: 5.9
+Requires PHP: 5.6.20
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: fitness-hub
-Tags: one-column, two-columns, three-columns, four-columns, left-sidebar, right-sidebar, custom-background, custom-colors, custom-header, custom-menu, custom-logo, featured-images, footer-widgets, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready, portfolio, entertainment, education
+Tags: portfolio, entertainment, education, one-column, two-columns, three-columns, four-columns, left-sidebar, right-sidebar, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, full-width-template ,post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, wide-blocks
+
 */
 
 /*--------------------------------------------------------------
@@ -712,6 +715,7 @@ p:empty{
 	position: relative;
 }
 .navbar .search-wrap .search-icon:hover,
+.navbar .search-wrap .search-icon:focus,
 .navbar .cart-wrap .acme-cart-views a{
 	color: #2196f3;
 }
@@ -812,6 +816,12 @@ p:empty{
 	top: 100%;
 	z-index: 99;
 }
+.navbar .cart-wrap:focus-within .widget_shopping_cart {
+	opacity: 1;
+	visibility: visible;
+	top: 100%;
+	z-index: 99;
+}
 .navbar .cart-wrap .widget_shopping_cart ul {
 	margin: 0;
 }
@@ -842,7 +852,8 @@ p:empty{
 	margin-left: 7px;
 }
 .navbar-nav > li.menu-item-has-children ul > li.menu-item-has-children > a::after,
-.navbar-nav > li.menu-item-has-children > a:hover:after{
+.navbar-nav > li.menu-item-has-children > a:hover:after,
+.navbar-nav > li.menu-item-has-children > a:focus:after{
 	color: inherit;
 }
 .main-navigation ul ul {
@@ -873,6 +884,15 @@ p:empty{
 	left: auto;
 }
 .main-navigation ul ul li:hover > ul {
+	left: 100%;
+}
+.main-navigation li:focus-within > a {
+	background: transparent;
+}
+.main-navigation ul li:focus-within > ul {
+	left: auto;
+}
+.main-navigation ul ul li:focus-within > ul {
 	left: 100%;
 }
 
@@ -913,7 +933,8 @@ p:empty{
 		display: block;
 		width: auto;
 	}
-	.main-navigation ul ul a:hover {
+	.main-navigation ul ul a:hover,
+	.main-navigation ul ul a:focus{
 		background: rgba(0, 0, 0, 0);
 	}
 	.main-navigation a {
@@ -1439,7 +1460,8 @@ div.wpforms-container-full .wpforms-form textarea.wpforms-field-medium {
 	line-height: 32px;
 	transition-duration: 0.3s;
 }
-.top-header a:hover{
+.top-header a:hover,
+.top-header a:focus{
 	opacity: 0.9;
 }
 .top-header .text-right >:first-child,
@@ -1685,6 +1707,10 @@ div.wpforms-container-full .wpforms-form textarea.wpforms-field-medium {
 	opacity: 1;
 	visibility: visible;
 }
+.image-slider-wrapper:focus-within .slick-arrow{
+	opacity: 1;
+	visibility: visible;
+}
 .image-slider-wrapper .slick-arrow.prev {
 	left: 10px;
 }
@@ -1790,7 +1816,8 @@ div.wpforms-container-full .wpforms-form textarea.wpforms-field-medium {
 	border-radius: 50px;
 }
 .comment-form .form-submit input,
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:focus{
 	color: #ffffff;
 	/*margin: 10px;*/
 	-moz-osx-font-smoothing: grayscale;
@@ -1807,12 +1834,14 @@ div.wpforms-container-full .wpforms-form textarea.wpforms-field-medium {
 	-moz-transition:all 0.5s ease-in-out 0s;
 }
 .comment-form .form-submit input:hover,
+.comment-form .form-submit input:focus,
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
 	color: #fff;
 }
 .comment-form .form-submit input:hover::before,
+.comment-form .form-submit input:focus::before,
 .btn-primary:hover::before,
 .btn-primary:focus::before,
 .btn-primary:active::before {
@@ -2098,6 +2127,13 @@ a.more-link::after {
 	-o-transition: box-shadow 0.2s ease-in-out 0s;
 	transition: box-shadow 0.2s ease-in-out 0s;
 }
+.acme-services.normal .single-list:focus-within .single-item{
+	box-shadow: 0 5px 20px rgba(0,0,0,.1);
+	-webkit-box-shadow: 0 5px 15px rgba(0,0,0,.1);
+	-webkit-transition: box-shadow 0.2s ease-in-out 0s;
+	-o-transition: box-shadow 0.2s ease-in-out 0s;
+	transition: box-shadow 0.2s ease-in-out 0s;
+}
 .acme-services.normal .column .single-item i{
 	font-size: 40px;
 }
@@ -2292,6 +2328,10 @@ a.more-link::after {
 		padding: 10px 15px;
 	}
 	.team-item:hover {
+		-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4);
+		box-shadow: 0 0 10px rgba(0,0,0,0.4);
+	}
+	.team-item:focus-within {
 		-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4);
 		box-shadow: 0 0 10px rgba(0,0,0,0.4);
 	}
@@ -2609,6 +2649,20 @@ a.more-link::after {
 	bottom: 0;
 }
 
+.acme-gallery .gallery-inner-item:focus-within .at-bottom-lower{
+	visibility: visible;
+	opacity: 1;
+	-webkit-transition: all 0.5s ease-in-out 0s;
+	-o-transition: all 0.5s ease-in-out 0s;
+	transition: all 0.5s ease-in-out 0s;
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transform: scale(1);
+}
+.acme-gallery .gallery-inner-item:focus-within .at-bottom-lower .gallery-button{
+	bottom: 0;
+}
 
 .acme-gallery{
 	padding: 40px 0 0;
@@ -2628,6 +2682,12 @@ a.more-link::after {
 	transition: all 0.5s ease-in-out 0s;
 }
 .at-gallery-item:hover img{
+	-webkit-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	-o-transform: scale(1.2);
+	transform: scale(1.2);
+}
+.at-gallery-item:focus-within img{
 	-webkit-transform: scale(1.2);
 	-ms-transform: scale(1.2);
 	-o-transform: scale(1.2);
@@ -2738,6 +2798,12 @@ a.more-link::after {
 	transition: all 0.5s ease-in-out 0s;
 }
 .acme-col-posts article.post:hover .post-thumb img{
+	-webkit-transform: scale(1.3);
+	-ms-transform: scale(1.3);
+	-o-transform: scale(1.3);
+	transform: scale(1.3);
+}
+.acme-col-posts article.post:focus-within .post-thumb img{
 	-webkit-transform: scale(1.3);
 	-ms-transform: scale(1.3);
 	-o-transform: scale(1.3);
@@ -2932,6 +2998,8 @@ article.post .post-thumb .entry-header span{
 }
 .mfp-iframe-holder .mfp-close:hover,
 .mfp-image-holder .mfp-close:hover,
+.mfp-iframe-holder .mfp-close:focus,
+.mfp-image-holder .mfp-close:focus,
 .mfp-iframe-holder .mfp-close,
 .mfp-image-holder .mfp-close {
 	background: inherit;
@@ -3029,6 +3097,12 @@ text-align: center;
 	transition: all 0.5s ease-in-out;
 }
 .acme-classes .class-item:hover .class-img-box img{
+	-webkit-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	-o-transform: scale(1.2);
+	transform: scale(1.2);
+}
+.acme-classes .class-item:focus-within .class-img-box img{
 	-webkit-transform: scale(1.2);
 	-ms-transform: scale(1.2);
 	-o-transform: scale(1.2);
@@ -3267,7 +3341,8 @@ text-align: center;
 }
 /*social*/
 .socials a,
-.socials a:hover {
+.socials a:hover,
+.socials a:focus{
 	color: #ffffff;
 }
 .socials {
@@ -3307,7 +3382,8 @@ text-align: center;
 	line-height: 36px;
 	text-align: center;
 }
-.sm-up-container:hover {
+.sm-up-container:hover,
+.sm-up-container:focus{
 	background: #000;
 	color: #fff;
 }
@@ -3547,6 +3623,7 @@ text-align: center;
 .edit-link,
 .tags-links{
 	margin-right: 15px;
+	display: inline-block;
 }
 .posted-on a,
 .author.vcard a,
@@ -3665,6 +3742,9 @@ article.page .post-thumb a{
 	-moz-transition:all 0.5s ease-in-out 0s;
 }
 .post-thumb img:hover{
+	opacity: 0.6;
+}
+.post-thumb img:focus-within{
 	opacity: 0.6;
 }
 /*article post test end*/
@@ -4066,7 +4146,18 @@ article.page .post-thumb a{
 .woocommerce a.button.alt:hover,
 .woocommerce button.button.alt:hover,
 .woocommerce input.button.alt:hover,
-.woocommerce .widget_shopping_cart_content .buttons a.button:hover{
+.woocommerce .widget_shopping_cart_content .buttons a.button:hover,
+.woocommerce a.button.add_to_cart_button:focus,
+.woocommerce a.added_to_cart:focus,
+.woocommerce a.button.product_type_grouped:focus,
+.woocommerce a.button.product_type_external:focus,
+.woocommerce .cart .button:focus,
+.woocommerce .cart input.button:focus,
+.woocommerce #respond input#submit.alt:focus,
+.woocommerce a.button.alt:focus,
+.woocommerce button.button.alt:focus,
+.woocommerce input.button.alt:focus,
+.woocommerce .widget_shopping_cart_content .buttons a.button:focus{
 	background: #fff;
 }
 .single-product .yith-wcwl-add-to-wishlist,
@@ -4167,8 +4258,15 @@ article.page .post-thumb a{
 	border:none !important;
 	border-radius:0;
 }
+.woocommerce div.product .woocommerce-tabs ul.tabs li:focus-within{
+	border:none !important;
+	border-radius:0;
+}
 .woocommerce div.product .woocommerce-tabs ul.tabs li:hover a,
 .woocommerce div.product .woocommerce-tabs ul.tabs li.active a{
+	color:#fff;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs li:focus-within a{
 	color:#fff;
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs{
@@ -4713,7 +4811,26 @@ article.page .post-thumb a{
 	transition: all 0.5s ease-in-out 0s;
 }
 .at-pricing-box:hover .at-pricing-img-box img{
+	-webkit-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	-o-transform: scale(1.2);
+	transform: scale(1.2);
+}
 
+.at-pricing-box:focus-within .at-pricing-header h2{
+	-webkit-transition: all 0.5s ease-in-out 0s;
+	-o-transition: all 0.5s ease-in-out 0s;
+	transition: all 0.5s ease-in-out 0s;
+
+}
+.at-pricing-box:focus-within .at-pricing-img-box::before{
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	-webkit-transition: all 0.5s ease-in-out 0s;
+	-o-transition: all 0.5s ease-in-out 0s;
+	transition: all 0.5s ease-in-out 0s;
+}
+.at-pricing-box:focus-within .at-pricing-img-box img{
 	-webkit-transform: scale(1.2);
 	-ms-transform: scale(1.2);
 	-o-transform: scale(1.2);
@@ -4814,4 +4931,11 @@ article.page .post-thumb a{
 }
 .custom-background .acme-gallery .fullwidth-container .read-more:not(.is-checked){
 	border-color: #fff;
+}
+
+.entry-content p a,
+.comment-content p a,
+.comment-content li a,
+.textwidget a{
+	text-decoration: underline;
 }

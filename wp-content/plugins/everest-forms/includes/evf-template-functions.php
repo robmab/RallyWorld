@@ -4,10 +4,8 @@
  *
  * Functions for the templating system.
  *
- * @author   WPEveresst
- * @category Core
- * @package  EverestForms/Functions
- * @version  1.0.0
+ * @package EverestForms/Functions
+ * @version 1.0.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -34,6 +32,9 @@ function evf_body_class( $classes ) {
  * @since 1.2.0
  */
 function evf_no_js() {
+	if ( evf_is_amp() ) {
+		return;
+	}
 	?>
 	<script type="text/javascript">
 		var c = document.body.className;
@@ -46,8 +47,8 @@ function evf_no_js() {
 /**
  * Output generator tag to aid debugging.
  *
- * @param string $gen
- * @param string $type
+ * @param string $gen Generator.
+ * @param string $type Type.
  *
  * @return string
  */

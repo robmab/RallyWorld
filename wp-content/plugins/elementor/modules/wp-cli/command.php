@@ -29,19 +29,20 @@ class Command extends \WP_CLI_Command {
 	 *  2. wp elementor flush-css --network
 	 *      - This will flush the CSS files for elementor page builder for all the sites in the network.
 	 *
+	 * @since 2.1.0
+	 * @access public
 	 * @alias flush-css
 	 */
 	public function flush_css( $args, $assoc_args ) {
 		$network = ! empty( $assoc_args['network'] ) && is_multisite();
 
 		if ( $network ) {
-			/** @var \WP_Site[] $blogs */
-			$blogs = get_sites();
+			$blog_ids = get_sites( [
+				'fields' => 'ids',
+				'number' => 0,
+			] );
 
-			foreach ( $blogs as $keys => $blog ) {
-				// Cast $blog as an array instead of  object
-				$blog_id = $blog->blog_id;
-
+			foreach ( $blog_ids as $blog_id ) {
 				switch_to_blog( $blog_id );
 
 				Plugin::$instance->files_manager->clear_cache();
@@ -58,16 +59,38 @@ class Command extends \WP_CLI_Command {
 	}
 
 	/**
-	 * Replace old URLs with new URLs in all Elementor pages.
+	 * Print system info powered by Elementor
 	 *
 	 * ## EXAMPLES
 	 *
-	 *  1. wp elementor search-replace <old> <new>
+	 *  1. wp elementor system-info
+	 *      - This will print the System Info in JSON format
+	 *
+	 * @since 3.0.11
+	 * @access public
+	 * @alias system-info
+	 */
+	public function system_info() {
+		echo wp_json_encode( \Elementor\Tracker::get_tracking_data() );
+	}
+
+	/**
+	 * Replace old URLs with new URLs in all Elementor pages.
+	 *
+	 * [--force]
+	 *      Suppress error messages. instead, return "0 database rows affected.".
+	 *
+	 * ## EXAMPLES
+	 *
+	 *  1. wp elementor replace-urls <old> <new>
 	 *      - This will replace all <old> URLs with the <new> URL.
 	 *
+	 *  2. wp elementor replace-urls <old> <new> --force
+	 *      - This will replace all <old> URLs with the <new> URL without throw errors.
+	 *
+	 * @access public
 	 * @alias replace-urls
 	 */
-
 	public function replace_urls( $args, $assoc_args ) {
 		if ( empty( $args[0] ) ) {
 			\WP_CLI::error( 'Please set the `old` URL' );
@@ -81,7 +104,11 @@ class Command extends \WP_CLI_Command {
 			$results = Utils::replace_urls( $args[0], $args[1] );
 			\WP_CLI::success( $results );
 		} catch ( \Exception $e ) {
-			\WP_CLI::error( $e->getMessage() );
+			if ( isset( $assoc_args['force'] ) ) {
+				\WP_CLI::success( '0 database rows affected.' );
+			} else {
+				\WP_CLI::error( $e->getMessage() );
+			}
 		}
 	}
 
@@ -93,9 +120,14 @@ class Command extends \WP_CLI_Command {
 	 *  1. wp elementor sync-library
 	 *      - This will sync the library with Elementor cloud library.
 	 *
+	 * @since 2.1.0
+	 * @access public
 	 * @alias sync-library
 	 */
 	public function sync_library( $args, $assoc_args ) {
+		// TODO:
+		// \WP_CLI::warning( 'command is deprecated since 2.8.0 Please use: wp elementor library sync' );
+
 		$data = Api::get_library_data( true );
 
 		if ( empty( $data ) ) {
@@ -113,9 +145,14 @@ class Command extends \WP_CLI_Command {
 	 *  1. wp elementor import-library <file-path>
 	 *      - This will import a file or a zip of multiple files to the library.
 	 *
+	 * @since 2.1.0
+	 * @access public
 	 * @alias import-library
 	 */
 	public function import_library( $args, $assoc_args ) {
+		// TODO:
+		// \WP_CLI::warning( 'command is deprecated since 2.8.0 Please use: wp elementor library import' );
+
 		if ( empty( $args[0] ) ) {
 			\WP_CLI::error( 'Please set file path.' );
 		}

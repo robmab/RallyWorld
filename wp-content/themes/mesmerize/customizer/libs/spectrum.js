@@ -8,11 +8,9 @@
 
     if (typeof define === 'function' && define.amd) { // AMD
         define(['jquery'], factory);
-    }
-    else if (typeof exports == "object" && typeof module == "object") { // CommonJS
+    } else if (typeof exports == "object" && typeof module == "object") { // CommonJS
         module.exports = factory(require('jquery'));
-    }
-    else { // Browser
+    } else { // Browser
         factory(jQuery);
     }
 })(function ($, undefined) {
@@ -140,7 +138,7 @@
                 c += (tinycolor.equals(color, current)) ? " sp-thumb-active" : "";
                 var formattedString = tiny.toString(opts.preferredFormat || "rgb");
                 var swatchStyle = rgbaSupport ? ("background-color:" + tiny.toRgbString()) : "filter:" + tiny.toFilter();
-                html.push('<span title="' + formattedString + '" data-color="' + tiny.toRgbString() + '" class="' + c + '"><span class="sp-thumb-inner" style="' + swatchStyle + ';" /></span>');
+                html.push('<span title="' + formattedString + '" data-color="' + tiny.toRgbString() + '" class="' + c + '"><span class="sp-thumb-inner" style="' + swatchStyle + ';" ></span></span>');
             } else {
                 var cls = 'sp-clear-display';
                 html.push($('<div />')
@@ -176,6 +174,7 @@
     }
 
     function spectrum(element, o) {
+
 
         var opts = instanceOptions(o, element),
             flat = opts.flat,
@@ -239,6 +238,8 @@
             isEmpty = !initialColor,
             allowEmpty = opts.allowEmpty && !isInputTypeColor;
 
+        var observer = null;
+
         function applyOptions() {
 
             if (opts.showPaletteOnly) {
@@ -282,14 +283,7 @@
             applyOptions();
 
             if (shouldReplace) {
-
-                if (opts.instant) {
-                    boundElement.after(replacer).hide();
-                } else {
-                    setTimeout(function () {
-                        boundElement.after(replacer).hide();
-                    }, 500)
-                }
+                boundElement.after(replacer).hide();
             }
 
             if (!allowEmpty) {
@@ -297,34 +291,19 @@
             }
 
             if (flat) {
-
-                if (opts.instant) {
-                    boundElement.after(container).hide();
-                } else {
-                    setTimeout(function () {
-                        boundElement.after(container).hide();
-                    }, 500)
-                }
-
-            }
-            else {
+                boundElement.after(container).hide();
+            } else {
 
                 var appendTo = opts.appendTo === "parent" ? boundElement.parent() : $(opts.appendTo);
                 if (appendTo.length !== 1) {
                     appendTo = $("body");
                 }
 
-                if (opts.instant) {
-                    appendTo.append(container);
-                } else {
-                    setTimeout(function () {
-                        appendTo.append(container);
-                    }, 500)
-                }
-
+                appendTo.append(container);
             }
 
             updateSelectionPaletteFromStorage();
+
 
             offsetElement.on("click.spectrum touchstart.spectrum", function (e) {
                 if (!disabled) {
@@ -434,8 +413,7 @@
                 // shift+drag should snap the movement to either the x or y axis.
                 if (!e.shiftKey) {
                     shiftMovementDirection = null;
-                }
-                else if (!shiftMovementDirection) {
+                } else if (!shiftMovementDirection) {
                     var oldDragX = currentSaturation * dragWidth;
                     var oldDragY = dragHeight - (currentValue * dragHeight);
                     var furtherFromX = Math.abs(dragX - oldDragX) > Math.abs(dragY - oldDragY);
@@ -471,8 +449,7 @@
                 currentPreferredFormat = opts.preferredFormat || tinycolor(initialColor).format;
 
                 addColorToSelectionPalette(initialColor);
-            }
-            else {
+            } else {
                 updateUI();
             }
 
@@ -484,8 +461,7 @@
                 if (e.data && e.data.ignore) {
                     set($(e.target).closest(".sp-thumb-el").data("color"));
                     move();
-                }
-                else {
+                } else {
                     set($(e.target).closest(".sp-thumb-el").data("color"));
                     move();
 
@@ -520,14 +496,12 @@
                             addColorToSelectionPalette(c);
                         });
                     }
-                }
-                catch (e) {
+                } catch (e) {
                 }
 
                 try {
                     selectionPalette = window.localStorage[localStorageKey].split(";");
-                }
-                catch (e) {
+                } catch (e) {
                 }
             }
         }
@@ -545,8 +519,7 @@
                 if (localStorageKey && window.localStorage) {
                     try {
                         window.localStorage[localStorageKey] = selectionPalette.join(";");
-                    }
-                    catch (e) {
+                    } catch (e) {
                     }
                 }
             }
@@ -616,15 +589,13 @@
                 set(null);
                 move();
                 updateOriginalInput();
-            }
-            else {
+            } else {
                 var tiny = tinycolor(value);
                 if (tiny.isValid()) {
                     set(tiny);
                     move();
                     updateOriginalInput();
-                }
-                else {
+                } else {
                     textInput.addClass("sp-validation-error");
                 }
             }
@@ -633,8 +604,7 @@
         function toggle() {
             if (visible) {
                 hide();
-            }
-            else {
+            } else {
                 show();
             }
         }
@@ -646,6 +616,7 @@
                 reflow();
                 return;
             }
+
 
             boundElement.trigger(event, [get()]);
 
@@ -670,6 +641,19 @@
             drawInitial();
             callbacks.show(colorOnShow);
             boundElement.trigger('show.spectrum', [colorOnShow]);
+
+
+            var observerCallback = function () {
+                var parentEl = boundElement.parent();
+
+                if (!parentEl.is(':visible') || parentEl.css('visibility') === 'hidden'
+                ) {
+                    clearInterval(observer);
+                    hide();
+                }
+            };
+
+            observer = setInterval(observerCallback, 200)
         }
 
         function onkeydown(e) {
@@ -693,8 +677,7 @@
 
             if (clickoutFiresChange) {
                 updateOriginalInput(true);
-            }
-            else {
+            } else {
                 revert();
             }
             hide();
@@ -805,16 +788,14 @@
             if (!realColor && allowEmpty) {
                 // Update the replaced elements background with icon indicating no color selection
                 previewElement.addClass("sp-clear-display");
-            }
-            else {
+            } else {
                 var realHex = realColor.toHexString(),
                     realRgb = realColor.toRgbString();
 
                 // Update the replaced elements background color (with actual selected color)
                 if (rgbaSupport || realColor.alpha === 1) {
                     previewElement.css("background-color", realRgb);
-                }
-                else {
+                } else {
                     previewElement.css("background-color", "transparent");
                     previewElement.css("filter", realColor.toFilter());
                 }
@@ -827,8 +808,7 @@
 
                     if (IE) {
                         alphaSliderInner.css("filter", tinycolor(realAlpha).toFilter({gradientType: 1}, realHex));
-                    }
-                    else {
+                    } else {
                         alphaSliderInner.css("background", "-webkit-" + gradient);
                         alphaSliderInner.css("background", "-moz-" + gradient);
                         alphaSliderInner.css("background", "-ms-" + gradient);
@@ -862,8 +842,7 @@
                 alphaSlideHelper.hide();
                 slideHelper.hide();
                 dragHelper.hide();
-            }
-            else {
+            } else {
                 //make sure helpers are visible
                 alphaSlideHelper.show();
                 slideHelper.show();
@@ -1187,6 +1166,21 @@
         };
     }
 
+    function debounce(func, wait, immediate) {
+        var timeout;
+        return function () {
+            var context = this, args = arguments;
+            var later = function () {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+
     function inputTypeColorSupport() {
         return $.fn.spectrum.inputTypeColorSupport();
     }
@@ -1212,18 +1206,14 @@
 
                     if (opts == "get") {
                         returnValue = spect.get();
-                    }
-                    else if (opts == "container") {
+                    } else if (opts == "container") {
                         returnValue = spect.container;
-                    }
-                    else if (opts == "option") {
+                    } else if (opts == "option") {
                         returnValue = spect.option.apply(spect, args);
-                    }
-                    else if (opts == "destroy") {
+                    } else if (opts == "destroy") {
                         spect.destroy();
                         $(this).removeData(dataID);
-                    }
-                    else {
+                    } else {
                         method.apply(spect, args);
                     }
                 }
@@ -1393,7 +1383,12 @@
                     "rgba(" + mathRound(this._r) + ", " + mathRound(this._g) + ", " + mathRound(this._b) + ", " + this._roundA + ")";
             },
             toPercentageRgb: function () {
-                return {r: mathRound(bound01(this._r, 255) * 100) + "%", g: mathRound(bound01(this._g, 255) * 100) + "%", b: mathRound(bound01(this._b, 255) * 100) + "%", a: this._a};
+                return {
+                    r: mathRound(bound01(this._r, 255) * 100) + "%",
+                    g: mathRound(bound01(this._g, 255) * 100) + "%",
+                    b: mathRound(bound01(this._b, 255) * 100) + "%",
+                    a: this._a
+                };
             },
             toPercentageRgbString: function () {
                 return (this._a == 1) ?
@@ -1529,8 +1524,7 @@
                     if (color.hasOwnProperty(i)) {
                         if (i === "a") {
                             newColor[i] = color[i];
-                        }
-                        else {
+                        } else {
                             newColor[i] = convertToPercentage(color[i]);
                         }
                     }
@@ -1572,15 +1566,13 @@
                     rgb = rgbToRgb(color.r, color.g, color.b);
                     ok = true;
                     format = String(color.r).substr(-1) === "%" ? "prgb" : "rgb";
-                }
-                else if (color.hasOwnProperty("h") && color.hasOwnProperty("s") && color.hasOwnProperty("v")) {
+                } else if (color.hasOwnProperty("h") && color.hasOwnProperty("s") && color.hasOwnProperty("v")) {
                     color.s = convertToPercentage(color.s);
                     color.v = convertToPercentage(color.v);
                     rgb = hsvToRgb(color.h, color.s, color.v);
                     ok = true;
                     format = "hsv";
-                }
-                else if (color.hasOwnProperty("h") && color.hasOwnProperty("s") && color.hasOwnProperty("l")) {
+                } else if (color.hasOwnProperty("h") && color.hasOwnProperty("s") && color.hasOwnProperty("l")) {
                     color.s = convertToPercentage(color.s);
                     color.l = convertToPercentage(color.l);
                     rgb = hslToRgb(color.h, color.s, color.l);
@@ -1640,8 +1632,7 @@
 
             if (max == min) {
                 h = s = 0; // achromatic
-            }
-            else {
+            } else {
                 var d = max - min;
                 s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
                 switch (max) {
@@ -1684,8 +1675,7 @@
 
             if (s === 0) {
                 r = g = b = l; // achromatic
-            }
-            else {
+            } else {
                 var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
                 var p = 2 * l - q;
                 r = hue2rgb(p, q, h + 1 / 3);
@@ -1714,8 +1704,7 @@
 
             if (max == min) {
                 h = 0; // achromatic
-            }
-            else {
+            } else {
                 switch (max) {
                     case r:
                         h = (g - b) / d + (g < b ? 6 : 0);
@@ -2334,8 +2323,7 @@
             if (names[color]) {
                 color = names[color];
                 named = true;
-            }
-            else if (color == 'transparent') {
+            } else if (color == 'transparent') {
                 return {r: 0, g: 0, b: 0, a: 0, format: "name"};
             }
 
@@ -2399,5 +2387,6 @@
             $.fn.spectrum.processNativeColorInputs();
         }
     });
+
 
 });

@@ -1,112 +1,64 @@
 <?php
-
 /**
- * Code Snippets - An easy, clean and simple way to add code snippets to your site.
+ * Plugin Name:  Code Snippets
+ * Plugin URI:   https://codesnippets.pro
+ * Description:  An easy, clean and simple way to run code snippets on your site. No need to edit to your theme's functions.php file again!
+ * Author:       Code Snippets Pro
+ * Author URI:   https://codesnippets.pro
+ * License:      GPL-2.0-or-later
+ * License URI:  license.txt
+ * Text Domain:  code-snippets
+ * Version:      3.6.2
+ * Requires PHP: 7.4
+ * Requires at least: 5.0
  *
- * If you're interested in helping to develop Code Snippets, or perhaps contribute
- * to the localization, please see https://github.com/sheabunge/code-snippets
- *
+ * @version   3.6.2
  * @package   Code_Snippets
- * @author    Shea Bunge <shea@bungeshea.com>
- * @copyright 2012-2018 Shea Bunge
- * @license   MIT http://opensource.org/licenses/MIT
- * @version   2.12.0
- * @link      https://github.com/sheabunge/code-snippets
+ * @author    Shea Bunge <shea@codesnippets.pro>
+ * @copyright 2012-2023 Code Snippets Pro
+ * @license   GPL-2.0-or-later https://spdx.org/licenses/GPL-2.0-or-later.html
+ * @link      https://github.com/codesnippetspro/code-snippets
+ *
+ * phpcs:disable Modernize.FunctionCalls.Dirname.FileConstant
  */
 
-/*
-Plugin Name: Code Snippets
-Plugin URI:  https://github.com/sheabunge/code-snippets
-Description: An easy, clean and simple way to add code snippets to your site. No need to edit to your theme's functions.php file again!
-Author:      Shea Bunge
-Author URI:  https://bungeshea.com
-Version:     2.12.1
-License:     MIT
-License URI: license.txt
-Text Domain: code-snippets
-Domain Path: /languages
-*/
-
-/* Exit if accessed directly */
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	return;
 }
 
-/**
- * The version number for this release of the plugin.
- * This will later be used for upgrades and enqueuing files
- *
- * This should be set to the 'Plugin Version' value,
- * as defined above in the plugin header
- *
- * @since 2.0
- * @var string A PHP-standardized version number string
- */
-define( 'CODE_SNIPPETS_VERSION', '2.12.1' );
+// Halt loading here if the plugin is already loaded, or we're running an incompatible version of PHP.
+if ( ! defined( 'CODE_SNIPPETS_FILE' ) && version_compare( phpversion(), '7.4', '>=' ) ) {
 
-/**
- * The full path to the main file of this plugin
- *
- * This can later be passed to functions such as
- * plugin_dir_path(), plugins_url() and plugin_basename()
- * to retrieve information about plugin paths
- *
- * @since 2.0
- * @var string
- */
-define( 'CODE_SNIPPETS_FILE', __FILE__ );
+	/**
+	 * The current plugin version.
+	 *
+	 * Should be set to the same value as set above.
+	 *
+	 * @const string
+	 */
+	define( 'CODE_SNIPPETS_VERSION', '3.6.2' );
 
-/**
- * Enable autoloading of plugin classes
- * @param $class_name
- */
-function code_snippets_autoload( $class_name ) {
+	/**
+	 * The full path to the main file of this plugin.
+	 *
+	 * This can later be passed to functions such as plugin_dir_path(), plugins_url() and plugin_basename()
+	 * to retrieve information about plugin paths.
+	 *
+	 * @since 2.0.0
+	 * @const string
+	 */
+	define( 'CODE_SNIPPETS_FILE', __FILE__ );
 
-	/* Only autoload classes from this plugin */
-	if ( 'Code_Snippet' !== $class_name && 'Code_Snippets' !== substr( $class_name, 0, 13 ) ) {
-		return;
-	}
+	/**
+	 * Used to determine which version of Code Snippets is running.
+	 *
+	 * @since 3.0.0
+	 * @onst  boolean
+	 */
+	define( 'CODE_SNIPPETS_PRO', true );
 
-	/* Remove namespace from class name */
-	$class_file = str_replace( 'Code_Snippets_', '', $class_name );
-
-	if ( 'Code_Snippet' === $class_name ) {
-		$class_file = 'Snippet';
-	}
-
-	/* Convert class name format to file name format */
-	$class_file = strtolower( $class_file );
-	$class_file = str_replace( '_', '-', $class_file );
-
-	$class_path = dirname( __FILE__ ) . '/php/';
-
-	if ( 'Menu' === substr( $class_name, -4, 4 ) ) {
-		$class_path .= 'admin-menus/';
-	}
-
-	/* Load the class */
-	require_once $class_path . "class-{$class_file}.php";
+	require_once dirname( __FILE__ ) . '/php/load.php';
+} else {
+	require_once dirname( __FILE__ ) . '/php/deactivation-notice.php';
 }
-
-spl_autoload_register( 'code_snippets_autoload' );
-
-/**
- * Retrieve the instance of the main plugin class
- *
- * @since 2.6.0
- * @return Code_Snippets
- */
-function code_snippets() {
-	static $plugin;
-
-	if ( is_null( $plugin ) ) {
-		$plugin = new Code_Snippets( CODE_SNIPPETS_VERSION, __FILE__ );
-	}
-
-	return $plugin;
-}
-
-code_snippets()->load_plugin();
-
-/* Execute the snippets once the plugins are loaded */
-add_action( 'plugins_loaded', 'execute_active_snippets', 1 );

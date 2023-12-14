@@ -2,35 +2,77 @@
 /**
  * Theme Page Section for our theme.
  *
- * @package ThemeGrill
- * @subpackage ColorMag
- * @since ColorMag 1.0
+ * @package ColorMag
+ *
+ * @since   ColorMag 1.0.0
  */
-get_header(); ?>
 
-	<?php do_action( 'colormag_before_body_content' ); ?>
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-	<div id="primary">
-		<div id="content" class="clearfix">
-			<?php while ( have_posts() ) : the_post(); ?>
+get_header();
+?>
+<div class="cm-row">
+	<?php
 
-				<?php get_template_part( 'content', 'page' ); ?>
+	/**
+	 * Hook: colormag_before_body_content.
+	 */
+	do_action( 'colormag_before_body_content' );
+	?>
 
+		<div id="cm-primary" class="cm-primary">
+			<div class="cm-posts" class="clearfix">
 				<?php
+				/**
+				 * Hook: colormag_before_single_page_loop.
+				 */
+				do_action( 'colormag_before_single_page_loop' );
+
+				while ( have_posts() ) :
+					the_post();
+
+					get_template_part( 'template-parts/content', 'page' );
+
+					/**
+					 * Hook: colormag_before_comments_template.
+					 */
 					do_action( 'colormag_before_comments_template' );
-					// If comments are open or we have at least one comment, load up the comment template
-					if ( comments_open() || '0' != get_comments_number() )
-						comments_template();
-	      		do_action ( 'colormag_after_comments_template' );
+
+					/**
+					 * Functions hooked into colormag_action_after_inner_content action.
+					 *
+					 * @hooked colormag_render_comments - 10
+					 */
+					do_action( 'colormag_action_comments' );
+
+					/**
+					 * Hook: colormag_after_comments_template.
+					 */
+					do_action( 'colormag_after_comments_template' );
+
+				endwhile;
+
+				/**
+				 * Hook: colormag_after_single_page_loop.
+				 */
+				do_action( 'colormag_after_single_page_loop' );
 				?>
+			</div><!-- .cm-posts -->
+		</div><!-- #cm-primary -->
 
-			<?php endwhile; ?>
+	<?php
 
-		</div><!-- #content -->
-	</div><!-- #primary -->
+	colormag_sidebar_select();
 
-	<?php colormag_sidebar_select(); ?>
+	/**
+	 * Hook: colormag_after_body_content.
+	 */
+	do_action( 'colormag_after_body_content' );
+	?>
+</div>
 
-	<?php do_action( 'colormag_after_body_content' ); ?>
-
-<?php get_footer(); ?>
+<?php
+get_footer();

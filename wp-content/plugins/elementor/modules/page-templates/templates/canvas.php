@@ -1,5 +1,7 @@
 <?php
 
+use Elementor\Utils;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -12,16 +14,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<?php if ( ! current_theme_supports( 'title-tag' ) ) : ?>
-		<title><?php echo wp_get_document_title(); ?></title>
+		<title><?php echo wp_get_document_title(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></title>
 	<?php endif; ?>
 	<?php wp_head(); ?>
 	<?php
+
 	// Keep the following line after `wp_head()` call, to ensure it's not overridden by another templates.
+	Utils::print_unescaped_internal_string( Utils::get_meta_viewport( 'canvas' ) );
 	?>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 </head>
 <body <?php body_class(); ?>>
 	<?php
+	Elementor\Modules\PageTemplates\Module::body_open();
 	/**
 	 * Before canvas page template content.
 	 *

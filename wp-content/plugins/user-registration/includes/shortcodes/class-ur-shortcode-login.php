@@ -7,12 +7,10 @@
  * @class    UR_Shortcode_Login
  * @version  1.0.0
  * @package  UserRegistration/Shortcodes/Login
- * @category Shortcodes
- * @author   WPEverest
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly.
 }
 
 /**
@@ -23,7 +21,7 @@ class UR_Shortcode_Login {
 	/**
 	 * Get the shortcode content.
 	 *
-	 * @param array $atts
+	 * @param array $atts Shortcode attributes.
 	 * @return string
 	 */
 	public static function get( $atts ) {
@@ -33,30 +31,41 @@ class UR_Shortcode_Login {
 	/**
 	 * Output the shortcode.
 	 *
-	 * @param array $atts
+	 * @param array $atts Shortcode attributes.
 	 */
 	public static function output( $atts ) {
 		global $wp, $post;
 
-		$redirect_url      = isset( $atts['redirect_url']) ? $atts['redirect_url'] : '';
-		$recaptcha_enabled = get_option( 'user_registration_login_options_enable_recaptcha', 'no' );
-
-		if( 'yes' === $recaptcha_enabled ) {
-			wp_enqueue_script( 'user-registration' );
-		}
+		$redirect_url = isset( $atts['redirect_url'] ) ? trim( $atts['redirect_url'] ) : '';
+		$redirect_url = UR_Shortcodes::check_is_valid_redirect_url( $redirect_url );
 
 		if ( ! is_user_logged_in() ) {
-			$recaptcha_node = ur_get_recaptcha_node( $recaptcha_enabled, 'login' );
-
-			if ( isset( $wp->query_vars['lost-password'] ) ) {
+			// After password reset, add confirmation message.
+			$is_password_resetted = get_transient( 'ur_password_resetted_flag' );
+			if ( ! empty( $is_password_resetted ) ) {
+				ur_add_notice( __( 'Your password has been reset successfully.', 'user-registration' ) );
+				delete_transient( 'ur_password_resetted_flag' );
+			}
+			if ( isset( $wp->query_vars['ur-lost-password'] ) ) {
 				UR_Shortcode_My_Account::lost_password();
 			} else {
-				ur_get_template( 'myaccount/form-login.php', array( 'recaptcha_node' => $recaptcha_node ) );
+				$recaptcha_enabled = ur_option_checked( 'user_registration_login_options_enable_recaptcha', false );
+				wp_enqueue_script( 'ur-common' );
+				wp_enqueue_script( 'user-registration' );
+				$recaptcha_node = ur_get_recaptcha_node( 'login', $recaptcha_enabled );
+
+				ur_get_template(
+					'myaccount/form-login.php',
+					array(
+						'recaptcha_node' => $recaptcha_node,
+						'redirect'       => esc_url_raw( $redirect_url ),
+					)
+				);
 			}
-		}
-		else
-		{
-			echo apply_filters( 'user_registration_logged_in_message', sprintf( __( 'You are already logged in. <a href="%s">Log out?</a>', 'user-registration' ),  ur_logout_url() ) );
+		} else {
+
+			/* translators: %s - Link to logout. */
+			echo wp_kses_post( apply_filters( 'user_registration_logged_in_message', sprintf( __( 'You are already logged in. <a href="%s">Log out?</a>', 'user-registration' ), ur_logout_url() ) ) );
 		}
 	}
 }

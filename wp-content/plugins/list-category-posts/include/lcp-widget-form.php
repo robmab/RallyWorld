@@ -16,6 +16,7 @@
                     'excerpt_size' =>'',
                     'exclude'=>'',
                     'excludeposts'=>'',
+                    'includeposts'=>'',
                     'thumbnail' =>'',
                     'thumbnail_size' =>'',
                     'offset'=>'',
@@ -37,6 +38,7 @@
   $showauthor = strip_tags($instance['show_author']);
   $exclude = strip_tags($instance['exclude']);
   $excludeposts = strip_tags($instance['excludeposts']);
+  $includeposts = strip_tags($instance['includeposts']);
   $offset = strip_tags($instance['offset']);
   $showcatlink = strip_tags($instance['show_catlink']);
   $categoryid = strip_tags($instance['categoryid']);
@@ -167,6 +169,16 @@
 </p>
 
 <p>
+  <label for="<?php echo $this->get_field_id('includeposts'); ?>">
+    <?php _e("Include posts (id's)", 'list-category-posts')?>
+  </label>
+  <br/>
+  <input id="<?php echo $this->get_field_id('includeposts'); ?>"
+    name="<?php echo $this->get_field_name('includeposts'); ?>" type="text"
+    value="<?php echo esc_attr($includeposts); ?>" />
+</p>
+
+<p>
   <?php $image_sizes = get_intermediate_image_sizes() ?>
   <label><?php _e("Show", 'list-category-posts')?>: </label><br/>
   <input type="checkbox" <?php checked( (bool) $instance['thumbnail'], true ); ?>
@@ -259,7 +271,7 @@
   <br/>
   <select id="<?php echo $this->get_field_id('template'); ?>" name="<?php echo $this->get_field_name('template'); ?>">
     <?php
-      $templates = CatListDisplayer::get_templates();
+      $templates = LcpTemplater::get_templates();
       $templates[] = 'default';
       foreach ($templates as $tmp) :
         $option = '<option value="' . $tmp . '" ';

@@ -23,19 +23,25 @@ class EVF_Field_URL extends EVF_Form_Fields {
 		$this->order    = 10;
 		$this->group    = 'advanced';
 		$this->settings = array(
-			'basic-options' => array(
+			'basic-options'    => array(
 				'field_options' => array(
 					'label',
 					'meta',
 					'description',
 					'required',
+					'required_field_message_setting',
+					'required_field_message',
 				),
 			),
 			'advanced-options' => array(
 				'field_options' => array(
 					'placeholder',
 					'label_hide',
+					'default_value',
 					'css',
+					'regex_validation',
+					'regex_value',
+					'regex_message',
 				),
 			),
 		);
@@ -46,12 +52,11 @@ class EVF_Field_URL extends EVF_Form_Fields {
 	/**
 	 * Field preview inside the builder.
 	 *
-	 * @since      1.0.0
+	 * @since 1.0.0
 	 *
-	 * @param array $field
+	 * @param array $field Field data and settings.
 	 */
 	public function field_preview( $field ) {
-
 		// Define data.
 		$placeholder = ! empty( $field['placeholder'] ) ? esc_attr( $field['placeholder'] ) : '';
 
@@ -59,7 +64,7 @@ class EVF_Field_URL extends EVF_Form_Fields {
 		$this->field_preview_option( 'label', $field );
 
 		// Primary input.
-		echo '<input type="url" placeholder="' . $placeholder . '" class="widefat" disabled>';
+		echo '<input type="url" placeholder="' . esc_attr( $placeholder ) . '" class="widefat" disabled>';
 
 		// Description.
 		$this->field_preview_option( 'description', $field );
@@ -68,21 +73,21 @@ class EVF_Field_URL extends EVF_Form_Fields {
 	/**
 	 * Field display on the form front-end.
 	 *
-	 * @since      1.0.0
+	 * @since 1.0.0
 	 *
-	 * @param array $field
-	 * @param array $deprecated
-	 * @param array $form_data
+	 * @param array $field Field Data.
+	 * @param array $field_atts Field attributes.
+	 * @param array $form_data All Form Data.
 	 */
-	public function field_display( $field, $deprecated, $form_data ) {
-
- 		// Define data.
+	public function field_display( $field, $field_atts, $form_data ) {
+		// Define data.
 		$primary = $field['properties']['inputs']['primary'];
+
 		// Primary field.
-		printf( '<input type="url" %s %s>',
+		printf(
+			'<input type="url" %s %s >',
 			evf_html_attributes( $primary['id'], $primary['class'], $primary['data'], $primary['attr'] ),
-			$primary['required']
+			esc_attr( $primary['required'] )
 		);
 	}
 }
-

@@ -22,19 +22,19 @@ $csb_info = get_plugin_data( CSB_PLUGIN );
  * Helper function used only in this view.
  * It renders a list with sidebar-replacement details
  */
-function list_sidebar_replacement( $label, $list ) {
-	$import = CustomSidebarsExport::get_import_data();
-	$theme_sidebars = CustomSidebars::get_sidebars();
-
-	if ( is_array( $list ) ) {
-		foreach ( $list as $from_id => $to_id ) {
-			$from = $theme_sidebars[ $from_id ];
-			$to = array();
-			if ( isset( $theme_sidebars[ $to_id ] ) ) {
-				$to = $theme_sidebars[ $to_id ];
-			} else {
-				$to = $import['sidebars'][ $to_id ];
-			}
+if ( ! function_exists( 'list_sidebar_replacement' ) ) {
+	function list_sidebar_replacement( $label, $list ) {
+		$import = CustomSidebarsExport::get_import_data();
+		$theme_sidebars = CustomSidebars::get_sidebars();
+		if ( is_array( $list ) ) {
+			foreach ( $list as $from_id => $to_id ) {
+				$from = $theme_sidebars[ $from_id ];
+				$to = array();
+				if ( isset( $theme_sidebars[ $to_id ] ) ) {
+					$to = $theme_sidebars[ $to_id ];
+				} else {
+					$to = $import['sidebars'][ $to_id ];
+				}
 ?>
         <tr>
             <th scope="row"><?php echo esc_html( $label ); ?></th>
@@ -43,6 +43,7 @@ function list_sidebar_replacement( $label, $list ) {
             <td><?php echo esc_html( $to['name'] ); ?></td>
         </tr>
 <?php
+			}
 		}
 	}
 }
@@ -64,24 +65,24 @@ function list_sidebar_replacement( $label, $list ) {
 		$filename = $import['meta']['filename'];
 	}
 	?>
-	<h2 class="no-pad-top"><?php _e( 'Import', 'custom-sidebars' ); ?></h2>
+	<h2 class="no-pad-top"><?php esc_html_e( 'Import', 'custom-sidebars' ); ?></h2>
 	<div class="show-infos">
 		<i class="dashicons dashicons-info"></i>
 		<div class="export-infos" style="display:none">
 			<table cellspacing="1" cellpadding="4" class="csb-export-head">
 				<tbody>
 					<tr>
-						<th><?php _e( 'Filename', 'custom-sidebars' ); ?></th>
+						<th><?php esc_html_e( 'Filename', 'custom-sidebars' ); ?></th>
 						<td colspan="2"><?php echo esc_html( $filename ); ?></td>
 					</tr>
 					<tr>
-						<th><?php _e( 'Exported on', 'custom-sidebars' ); ?></th>
+						<th><?php esc_html_e( 'Exported on', 'custom-sidebars' ); ?></th>
 						<td colspan="2"><?php echo esc_html( ' ' . date( $date_format, $import['meta']['created'] ) ); ?></td>
 					</tr>
 				</tbody>
 			</table>
 
-			<div class="section"><?php _e( 'WordPress Settings', 'custom-sidebars' ); ?></div>
+			<div class="section"><?php esc_html_e( 'WordPress Settings', 'custom-sidebars' ); ?></div>
 			<table cellspacing="1" cellpadding="4" class="csb-export-head">
 				<thead>
 					<tr>
@@ -92,17 +93,17 @@ function list_sidebar_replacement( $label, $list ) {
 				</thead>
 				<tbody>
 					<tr>
-						<th><?php _e( 'WordPress Version', 'custom-sidebars' ); ?></th>
+						<th><?php esc_html_e( 'WordPress Version', 'custom-sidebars' ); ?></th>
 						<td><?php echo esc_html( $import['meta']['wp_version'] ); ?></td>
 						<td><?php echo esc_html( $wp_version ); ?></td>
 					</tr>
 					<tr>
-						<th><?php _e( 'Plugin Version', 'custom-sidebars' ); ?></th>
+						<th><?php esc_html_e( 'Plugin Version', 'custom-sidebars' ); ?></th>
 						<td><?php echo esc_html( $import['meta']['csb_version'] ); ?></td>
-						<td><?php echo esc_html( isset( $csb_info['Version'] )? $csb_info['Version'] : __( 'Unknown', 'custom-sidebars' ) ); ?></td>
+						<td><?php echo isset( $csb_info['Version'] )? esc_html($csb_info['Version']) : esc_html__( 'Unknown', 'custom-sidebars' ); ?></td>
 					</tr>
 					<tr>
-						<th><?php _e( 'Theme', 'custom-sidebars' ); ?></th>
+						<th><?php esc_html_e( 'Theme', 'custom-sidebars' ); ?></th>
 						<td><?php echo esc_html( $import['meta']['theme_name'] . ' (' . $import['meta']['theme_version'] . ')' ); ?></td>
 						<td><?php echo esc_html( $theme->get( 'Name' ) . ' (' . $theme->get( 'Version' ) . ')' ); ?></td>
 					</tr>
@@ -125,24 +126,24 @@ function list_sidebar_replacement( $label, $list ) {
 	 */
 	$alternate = '';
 	?>
-	<h3 class="title"><?php _e( 'Custom Sidebars', 'custom-sidebars' ); ?></h3>
+	<h3 class="title"><?php esc_html_e( 'Custom Sidebars', 'custom-sidebars' ); ?></h3>
 	<p>
-		<?php _e( 'Mark the sidebars that you want to import.', 'custom-sidebars' ); ?>
+		<?php esc_html_e( 'Mark the sidebars that you want to import.', 'custom-sidebars' ); ?>
 	</p>
 	<p>
 		<label for="import-widgets">
 			<input type="checkbox" id="import-widgets" name="import_widgets" />
-			<?php _e( 'Also import all widgets of the selected sidebars.', 'custom-sidebars' ); ?>
+			<?php esc_html_e( 'Also import all widgets of the selected sidebars.', 'custom-sidebars' ); ?>
 		</label>
 	</p>
 	<table class="widefat">
 		<thead>
 			<tr>
 				<th scope="col" id="cb" class="manage-column column-cb check-column"><input type="checkbox" /></th>
-				<th scope="col" id="name" class="manage-column column-name"><?php _e( 'Name', 'custom-sidebars' ); ?></th>
-				<th scope="col" id="description" class="manage-column column-description"><?php _e( 'Description', 'custom-sidebars' ); ?></th>
-				<th scope="col" id="note" class="manage-column column-note"><?php _e( 'Note', 'custom-sidebars' ); ?></th>
-				<th scope="col" id="widgets" class="manage-column column-widgets" style="display:none"><?php _e( 'Widgets', 'custom-sidebars' ); ?></th>
+				<th scope="col" id="name" class="manage-column column-name"><?php esc_html_e( 'Name', 'custom-sidebars' ); ?></th>
+				<th scope="col" id="description" class="manage-column column-description"><?php esc_html_e( 'Description', 'custom-sidebars' ); ?></th>
+				<th scope="col" id="note" class="manage-column column-note"><?php esc_html_e( 'Note', 'custom-sidebars' ); ?></th>
+				<th scope="col" id="widgets" class="manage-column column-widgets" style="display:none"><?php esc_html_e( 'Widgets', 'custom-sidebars' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -219,7 +220,7 @@ foreach ( $theme_sidebars as $sidebar ) {
             </th>
             <td class="name column-name"><label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $sidebar['name'] ); ?></label></td>
                 <td class="description column-description"><?php echo esc_html( $sidebar['description'] ); ?></td>
-                <td><em><?php _e( '(Theme sidebar)', 'custom-sidebars' ); ?></em></td>
+                <td><em><?php esc_html_e( '(Theme sidebar)', 'custom-sidebars' ); ?></em></td>
                 <td class="widgets column-widgets">
 <?php
 if ( count( $import_sidebar ) ) {
@@ -247,14 +248,14 @@ if ( count( $import_sidebar ) ) {
  */
 ?>
     <p>&nbsp;</p>
-    <h3 class="title"><?php _e( 'Configuration', 'custom-sidebars' ); ?>
+    <h3 class="title"><?php esc_html_e( 'Configuration', 'custom-sidebars' ); ?>
     <div class="show-infos">
         <i class="dashicons dashicons-info"></i>
         <div class="export-infos" style="display:none">
-    <div class="section"><?php _e( 'Replaceable Sidebars', 'custom-sidebars' ); ?></div>
+    <div class="section"><?php esc_html_e( 'Replaceable Sidebars', 'custom-sidebars' ); ?></div>
     <table cellspacing="1" cellpadding="4" class="csb-export-head">
         <tr>
-            <th scope="row"><?php _e( 'Replaceable Sidebars', 'custom-sidebars' ); ?></th>
+            <th scope="row"><?php esc_html_e( 'Replaceable Sidebars', 'custom-sidebars' ); ?></th>
             <td>
             <?php foreach ( $import['options']['modifiable'] as $sb_id ) : ?>
                 <?php echo esc_html( $theme_sidebars[ $sb_id ]['name'] ); ?><br />
@@ -302,7 +303,7 @@ if (
 	&& is_array( $import['options']['post_type_archive'] )
 ) {
 ?>
-	<div class="section"><?php _e( 'Post-Type Archives', 'custom-sidebars' ); ?></div>
+	<div class="section"><?php esc_html_e( 'Post-Type Archives', 'custom-sidebars' ); ?></div>
 	<table cellspacing="1" cellpadding="4" class="csb-export-head">
 <?php
 	$list = $import['options']['post_type_archive'];
@@ -323,7 +324,7 @@ if (
 ) {
 
 ?>
-	<div class="section"><?php _e( 'By Category', 'custom-sidebars' ); ?></div>
+	<div class="section"><?php esc_html_e( 'By Category', 'custom-sidebars' ); ?></div>
 	<table cellspacing="1" cellpadding="4" class="csb-export-head">
 <?php
 $list = $import['options']['category_single'];
@@ -343,7 +344,7 @@ if (
 	&& is_array( $import['options']['category_archive'] )
 ) {
 ?>
-	<div class="section"><?php _e( 'Category Archives', 'custom-sidebars' ); ?></div>
+	<div class="section"><?php esc_html_e( 'Category Archives', 'custom-sidebars' ); ?></div>
 	<table cellspacing="1" cellpadding="4" class="csb-export-head">
 <?php
 	$list = $import['options']['category_archive'];
@@ -361,7 +362,7 @@ foreach ( $list as $key => $values ) {
 }
 ?>
     <?php /* special pages */ ?>
-    <div class="section"><?php _e( 'Special Pages', 'custom-sidebars' ); ?></div>
+    <div class="section"><?php esc_html_e( 'Special Pages', 'custom-sidebars' ); ?></div>
     <table cellspacing="1" cellpadding="4" class="csb-export-head">
 <?php
 list_sidebar_replacement( __( 'Main Blog Page', 'custom-sidebars' ), $import['options']['blog'] );
@@ -378,7 +379,7 @@ list_sidebar_replacement( __( 'Search Results Page', 'custom-sidebars' ), $impor
     <p>
         <label for="import-config">
             <input type="checkbox" id="import-config" name="import_plugin_config" />
-            <?php _e( 'Replace the current plugin configuration with the imported configuration.', 'custom-sidebars' ); ?>
+            <?php esc_html_e( 'Replace the current plugin configuration with the imported configuration.', 'custom-sidebars' ); ?>
         </label>
     </p>
 

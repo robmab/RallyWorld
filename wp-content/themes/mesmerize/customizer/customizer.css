@@ -88,6 +88,7 @@
     padding: 0px 40px;
     max-width: 488px;
     width: 488px;
+    box-sizing: content-box;
 }
 
 #cp-items .customize-control-title {
@@ -1146,6 +1147,7 @@ li#accordion-section-header_layout {
     border-left: 0;
     color: #ffffff;
     background-image: linear-gradient(140deg, rgba(244, 59, 71, 0.73) 0%, rgba(69, 58, 148, 0.8) 100%);
+
 }
 
 #customize-controls li#accordion-section-header_layout:hover,
@@ -1158,11 +1160,12 @@ li#accordion-section-header_layout {
     color: #ffffff;
 }
 
+
 li#accordion-section-header_layout h3:before {
     width: 20px;
     height: 20px;
     font-size: 20px;
-    line-height: 1;
+    line-height: 30px;
     font-family: dashicons;
     text-decoration: inherit;
     font-weight: normal;
@@ -1170,6 +1173,7 @@ li#accordion-section-header_layout h3:before {
     vertical-align: top;
     text-align: center;
     content: "\f100";
+    margin-right: 8px;
 }
 
 /*WEB GRADIENTS*/
@@ -1609,6 +1613,7 @@ li.category-title.closeable {
     color: #ffffff;
     background-image: linear-gradient(140deg, rgb(78, 194, 246) 0%, rgba(69, 58, 148, 0.8) 100%);
     display: block !important;
+   
 }
 
 #customize-controls li#accordion-section-extendthemes_start_from_demo_site {
@@ -1631,7 +1636,7 @@ li#accordion-section-extendthemes_start_from_demo_site h3:before {
     width: 20px;
     height: 20px;
     font-size: 20px;
-    line-height: 1;
+    line-height: 30px;
     font-family: dashicons;
     text-decoration: inherit;
     font-weight: normal;
@@ -1639,6 +1644,7 @@ li#accordion-section-extendthemes_start_from_demo_site h3:before {
     vertical-align: top;
     text-align: center;
     content: "\f547";
+    margin-right: 8px;
 }
 
 #customize-controls li#accordion-section-extendthemes_start_from_demo_site h3:after {
@@ -1664,4 +1670,22 @@ li#accordion-section-extendthemes_start_from_demo_site h3:before {
 
 .customize-control-sidebar-button-group .wp-media-wrapper button {
     width: 20px;
+}
+
+li#accordion-section-header_layout3,
+li#accordion-section-extendthemes_start_from_demo_site {
+    box-sizing: border-box;
+}
+
+
+li#accordion-section-header_layout > h3,
+li#accordion-section-extendthemes_start_from_demo_site > h3 {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    line-height: 30px;
+}
+
+
+.customize-control-kirki-checkbox input[type=checkbox]:checked:before, .customize-control-kirki-multicheck input[type=checkbox]:checked:before, .customize-control-repeater input[type=checkbox]:checked:before {
+    line-height: 1;
 }

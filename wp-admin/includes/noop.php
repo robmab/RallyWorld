@@ -25,6 +25,13 @@ function add_filter() {}
 /**
  * @ignore
  */
+function has_filter() {
+	return false;
+}
+
+/**
+ * @ignore
+ */
 function esc_attr() {}
 
 /**
@@ -65,7 +72,9 @@ function get_bloginfo() {}
 /**
  * @ignore
  */
-function is_admin() {return true;}
+function is_admin() {
+	return true;
+}
 
 /**
  * @ignore
@@ -92,18 +101,9 @@ function includes_url() {}
  */
 function wp_guess_url() {}
 
-if ( ! function_exists( 'json_encode' ) ) :
-/**
- * @ignore
- */
-function json_encode() {}
-endif;
-
 function get_file( $path ) {
 
-	if ( function_exists('realpath') ) {
-		$path = realpath( $path );
-	}
+	$path = realpath( $path );
 
 	if ( ! $path || ! @is_file( $path ) ) {
 		return '';

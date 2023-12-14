@@ -1,6 +1,8 @@
 <?php
 namespace Elementor\Core\Base;
 
+use Elementor\Plugin;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -108,6 +110,10 @@ abstract class Module extends Base_Object {
 		return get_called_class();
 	}
 
+	public static function get_experimental_data() {
+		return [];
+	}
+
 	/**
 	 * Clone.
 	 *
@@ -120,8 +126,11 @@ abstract class Module extends Base_Object {
 	 * @access public
 	 */
 	public function __clone() {
-		// Cloning instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Something went wrong.', 'elementor' ), '1.0.0' );
+		_doing_it_wrong(
+			__FUNCTION__,
+			sprintf( 'Cloning instances of the singleton "%s" class is forbidden.', get_class( $this ) ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			'1.0.0'
+		);
 	}
 
 	/**
@@ -133,8 +142,11 @@ abstract class Module extends Base_Object {
 	 * @access public
 	 */
 	public function __wakeup() {
-		// Unserializing instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Something went wrong.', 'elementor' ), '1.0.0' );
+		_doing_it_wrong(
+			__FUNCTION__,
+			sprintf( 'Unserializing instances of the singleton "%s" class is forbidden.', get_class( $this ) ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			'1.0.0'
+		);
 	}
 
 	/**
@@ -165,6 +177,8 @@ abstract class Module extends Base_Object {
 	}
 
 	/**
+	 * @since 2.3.0
+	 * @access public
 	 * @return Module[]
 	 */
 	public function get_components() {
@@ -195,6 +209,7 @@ abstract class Module extends Base_Object {
 	/**
 	 * Get assets url.
 	 *
+	 * @since 2.3.0
 	 * @access protected
 	 *
 	 * @param string $file_name
@@ -215,7 +230,7 @@ abstract class Module extends Base_Object {
 			$relative_url = $this->get_assets_relative_url() . $file_extension . '/';
 		}
 
-		$url = ELEMENTOR_URL . $relative_url . $file_name;
+		$url = $this->get_assets_base_url() . $relative_url . $file_name;
 
 		if ( 'default' === $add_min_suffix ) {
 			$add_min_suffix = ! $is_test_mode;
@@ -231,6 +246,7 @@ abstract class Module extends Base_Object {
 	/**
 	 * Get js assets url
 	 *
+	 * @since 2.3.0
 	 * @access protected
 	 *
 	 * @param string $file_name
@@ -246,6 +262,7 @@ abstract class Module extends Base_Object {
 	/**
 	 * Get css assets url
 	 *
+	 * @since 2.3.0
 	 * @access protected
 	 *
 	 * @param string $file_name
@@ -270,13 +287,52 @@ abstract class Module extends Base_Object {
 	}
 
 	/**
+	 * Get assets base url
+	 *
+	 * @since 2.6.0
+	 * @access protected
+	 *
+	 * @return string
+	 */
+	protected function get_assets_base_url() {
+		return ELEMENTOR_URL;
+	}
+
+	/**
 	 * Get assets relative url
 	 *
+	 * @since 2.3.0
 	 * @access protected
 	 *
 	 * @return string
 	 */
 	protected function get_assets_relative_url() {
 		return 'assets/';
+	}
+
+	/**
+	 * Get the module's associated widgets.
+	 *
+	 * @return string[]
+	 */
+	protected function get_widgets() {
+		return [];
+	}
+
+	/**
+	 * Initialize the module related widgets.
+	 */
+	public function init_widgets() {
+		$widget_manager = Plugin::instance()->widgets_manager;
+
+		foreach ( $this->get_widgets() as $widget ) {
+			$class_name = $this->get_reflection()->getNamespaceName() . '\Widgets\\' . $widget;
+
+			$widget_manager->register( new $class_name() );
+		}
+	}
+
+	public function __construct() {
+		add_action( 'elementor/widgets/register', [ $this, 'init_widgets' ] );
 	}
 }

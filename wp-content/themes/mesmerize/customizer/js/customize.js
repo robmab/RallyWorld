@@ -110,7 +110,8 @@
 
             Utils: {
                 getGradientString: function (colors, angle) {
-                    var gradient = angle + "deg, " + colors[0].color + " 0%, " + colors[1].color + " 100%";
+                    if (!isNaN(angle)) angle += "deg";
+                    var gradient = angle + ", " + colors[0].color + " 0%, " + colors[1].color + " 100%";
                     gradient = 'linear-gradient(' + gradient + ')';
                     return gradient;
                 },
@@ -577,25 +578,19 @@
 
     jQuery(function () {
         if (!window.cpCustomizerGlobal) {
+
+            if (!wp.customize.section('extendthemes_start_from_demo_site')) {
+                return;
+            }
+
             var predefignedSitesSection = wp.customize.section('extendthemes_start_from_demo_site').container;
-            predefignedSitesSection.find('*').andSelf().off();
+            predefignedSitesSection.find('*').addBack().off();
 
             predefignedSitesSection.on('click', function (event) {
 
                 event.preventDefault();
                 event.stopPropagation();
-                var w = window;
-                w.tb_show('Mesmerize Companion', '#TB_inline?width=400&height=430&inlineId=mesmerize_homepage');
-                w.jQuery('#TB_closeWindowButton').hide();
-                w.jQuery('#TB_window').css({
-                    'z-index': '5000001',
-                    'height': '480px',
-                    'width': '780px'
-                });
-                w.jQuery('#TB_overlay').css({
-                    'z-index': '5000000'
-                });
-
+                window.location = window.__mesmerizeDemoImportInfoTabUrl;
                 return false;
 
             });

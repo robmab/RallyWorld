@@ -161,7 +161,7 @@ if ( ! class_exists( 'Fitness_Hub_Gallery' ) ) {
                     $fitness_hub_widget_column_numbers = fitness_hub_widget_column_number();
                     foreach ( $fitness_hub_widget_column_numbers as $key => $value ){
                         ?>
-                        <option value="<?php echo esc_attr( $key )?>" <?php selected( $key, $column_number ); ?>><?php echo esc_attr( $value );?></option>
+                        <option value="<?php echo esc_attr( $key )?>" <?php selected( $key, $column_number ); ?>><?php echo esc_html( $value );?></option>
                         <?php
                     }
                     ?>
@@ -174,7 +174,7 @@ if ( ! class_exists( 'Fitness_Hub_Gallery' ) ) {
                     $fitness_hub_gallery_image_popup = fitness_hub_gallery_image_popup();
                     foreach ( $fitness_hub_gallery_image_popup as $key => $value ){
                         ?>
-                        <option value="<?php echo esc_attr( $key )?>" <?php selected( $key, $image_popup_type ); ?>><?php echo esc_attr( $value );?></option>
+                        <option value="<?php echo esc_attr( $key )?>" <?php selected( $key, $image_popup_type ); ?>><?php echo esc_html( $value );?></option>
                         <?php
                     }
                     ?>

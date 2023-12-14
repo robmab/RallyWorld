@@ -1,68 +1,74 @@
 <?php
+
 /**
  * Plugin Name: Shortcodes Ultimate
  * Plugin URI: https://getshortcodes.com/
- * Version: 5.1.1
- * Author: Vladimir Anokhin
- * Author URI: https://vanokhin.com/
+ * Author: Vova Anokhin
+ * Author URI: https://getshortcodes.com/
  * Description: A comprehensive collection of visual components for WordPress
  * Text Domain: shortcodes-ultimate
- * Domain Path: /languages
  * License: GPLv3
- */
-
-/**
- * Define plugin constants.
- */
-define( 'SU_PLUGIN_FILE',    __FILE__ );
-define( 'SU_PLUGIN_VERSION', '5.1.1'  );
-
-/**
- * Load dependencies.
- */
-require_once 'inc/core/assets.php';
-require_once 'inc/core/tools.php';
-require_once 'inc/core/generator-views.php';
-require_once 'inc/core/generator.php';
-require_once 'inc/core/widget.php';
-
-/**
- * The code that runs during plugin activation.
+ * Version: 7.0.1
+ * Requires PHP: 5.4
+ * Requires at least: 5.0
+ * Tested up to: 6.4
  *
- * @since  5.0.0
  */
-function activate_shortcodes_ultimate() {
-
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-shortcodes-ultimate-activator.php';
-
-	Shortcodes_Ultimate_Activator::activate();
-
+if ( !defined( 'ABSPATH' ) ) {
+    exit;
 }
 
-register_activation_hook( __FILE__, 'activate_shortcodes_ultimate' );
-
-/**
- * Begins execution of the plugin.
- *
- * @since 5.0.0
- */
-function run_shortcodes_ultimate() {
-
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-shortcodes-ultimate.php';
-
-	$plugin = new Shortcodes_Ultimate( __FILE__, SU_PLUGIN_VERSION, 'shortcodes-ultimate-' );
-
-	do_action( 'su/ready' );
-
-}
-
-run_shortcodes_ultimate();
-
-/**
- * Retrieves instance of the main plugin class.
- *
- * @since  5.0.4
- */
-function shortcodes_ultimate() {
-	return Shortcodes_Ultimate::get_instance();
+if ( function_exists( 'su_fs' ) ) {
+    su_fs()->set_basename( false, __FILE__ );
+} else {
+    // DO NOT REMOVE THIS IF, IT IS ESSENTIAL FOR THE `function_exists` CALL ABOVE TO PROPERLY WORK.
+    if ( !function_exists( 'su_fs' ) ) {
+        
+        if ( !function_exists( 'su_fs' ) ) {
+            // Create a helper function for easy SDK access.
+            function su_fs()
+            {
+                global  $su_fs ;
+                
+                if ( !isset( $su_fs ) ) {
+                    // Include Freemius SDK.
+                    require_once dirname( __FILE__ ) . '/freemius/start.php';
+                    $su_fs = fs_dynamic_init( array(
+                        'id'                => '7180',
+                        'slug'              => 'shortcodes-ultimate',
+                        'premium_slug'      => 'shortcodes-ultimate-pro',
+                        'type'              => 'plugin',
+                        'public_key'        => 'pk_c9ecad02df10f17e67880ac6bd8fc',
+                        'is_premium'        => false,
+                        'premium_suffix'    => 'Pro',
+                        'has_addons'        => false,
+                        'has_paid_plans'    => true,
+                        'menu'              => array(
+                        'slug'       => 'shortcodes-ultimate',
+                        'first-path' => 'admin.php?page=shortcodes-ultimate',
+                        'contact'    => false,
+                        'support'    => false,
+                    ),
+                        'opt_in_moderation' => array(
+                        'new'       => 100,
+                        'updates'   => 0,
+                        'localhost' => true,
+                    ),
+                        'is_live'           => true,
+                    ) );
+                }
+                
+                return $su_fs;
+            }
+            
+            // Init Freemius.
+            su_fs();
+            // Signal that SDK was initiated.
+            do_action( 'su_fs_loaded' );
+        }
+    
+    }
+    define( 'SU_PLUGIN_FILE', __FILE__ );
+    define( 'SU_PLUGIN_VERSION', '7.0.1' );
+    require_once dirname( __FILE__ ) . '/plugin.php';
 }

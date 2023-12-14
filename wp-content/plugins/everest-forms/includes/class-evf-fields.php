@@ -27,7 +27,7 @@ class EVF_Fields {
 	 *
 	 * @var EVF_Fields
 	 */
-	protected static $_instance = null;
+	protected static $instance = null;
 
 	/**
 	 * Main EVF_Fields Instance.
@@ -37,10 +37,10 @@ class EVF_Fields {
 	 * @return EVF_Fields Main instance.
 	 */
 	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
 		}
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
@@ -72,19 +72,26 @@ class EVF_Fields {
 	 * Load fields and hook in functions.
 	 */
 	public function init() {
-		$load_fields = apply_filters( 'everest_forms_fields', array(
-			'EVF_Field_First_Name',
-			'EVF_Field_Last_Name',
-			'EVF_Field_Text',
-			'EVF_Field_Textarea',
-			'EVF_Field_Select',
-			'EVF_Field_Radio',
-			'EVF_Field_Checkbox',
-			'EVF_Field_Number',
-			'EVF_Field_Email',
-			'EVF_Field_URL',
-			'EVF_Field_Date',
-		) );
+		$load_fields = apply_filters(
+			'everest_forms_fields',
+			array(
+				'EVF_Field_First_Name',
+				'EVF_Field_Last_Name',
+				'EVF_Field_Text',
+				'EVF_Field_Textarea',
+				'EVF_Field_Select',
+				'EVF_Field_Radio',
+				'EVF_Field_Checkbox',
+				'EVF_Field_Number',
+				'EVF_Field_Email',
+				'EVF_Field_URL',
+				'EVF_Field_Date_Time',
+				'EVF_Field_AI',
+			)
+		);
+		if ( ! class_exists( '\EverestForms\AI' ) ) {
+			$load_fields = array_diff( $load_fields, array( 'EVF_Field_AI' ) );
+		}
 
 		// Get sort order.
 		$order_end = 999;
@@ -99,7 +106,7 @@ class EVF_Fields {
 			} else {
 				// Add to end of the array.
 				$this->form_fields[ $load_field->group ][ $order_end ] = $load_field;
-				$order_end++;
+				++$order_end;
 			}
 
 			ksort( $this->form_fields[ $load_field->group ] );

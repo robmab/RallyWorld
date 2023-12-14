@@ -174,37 +174,9 @@ class TheLib_Net extends TheLib {
 		header( 'Content-Length: ' . strlen( $contents ) );
 
 		// Finally send the export-file content.
-		echo $contents;
+		CustomSidebars::wp_kses_wf($contents);
 
 		exit;
-	}
-
-	/**
-	 * Checks if the specified URL is publicly reachable.
-	 *
-	 * @since  1.1.0
-	 * @api
-	 *
-	 * @param  string $url The URL to check.
-	 * @return bool If URL is online or not.
-	 */
-	public function is_online( $url ) {
-		static $Checked = array();
-
-		if ( ! isset( $Checked[$url] ) ) {
-			$check = 'http://www.isup.me/' . $url;
-			$res = wp_remote_get( $check, array( 'decompress' => false ) );
-
-			if ( is_wp_error( $res ) ) {
-				$state = false;
-			} else {
-				$state = ( false === stripos( $res['body'], 'not just you' ) );
-			}
-
-			$Checked[$url] = $state;
-		}
-
-		return $Checked[$url];
 	}
 
 }

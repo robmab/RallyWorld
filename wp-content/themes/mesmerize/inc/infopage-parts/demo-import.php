@@ -12,18 +12,18 @@
             $plugin_is_ready = $state['installed'] && $state['active'];
             if ( ! $plugin_is_ready) {
                 if ($state['installed']) {
-                    $link      = \Mesmerize\Companion_Plugin::get_activate_link($slug);
-                    $label     = esc_html__('Activate', 'mesmerize');
-                    $btn_class = "activate";
+                    $mesmerize_link = \Mesmerize\Companion_Plugin::get_activate_link($slug);
+                    $label        = esc_html__('Activate', 'mesmerize');
+                    $btn_class    = "activate";
                 } else {
-                    $link      = \Mesmerize\Companion_Plugin::get_install_link($slug);
-                    $label     = esc_html__('Install', 'mesmerize');
-                    $btn_class = "install-now";
+                    $mesmerize_link = \Mesmerize\Companion_Plugin::get_install_link($slug);
+                    $label        = esc_html__('Install', 'mesmerize');
+                    $btn_class    = "install-now";
                 }
             }
             
             ?>
-            <a class="<?php echo esc_attr($btn_class); ?> button" href="<?php echo esc_attr($link); ?>"><?php echo esc_html($label); ?></a>
+            <a class="<?php echo esc_attr($btn_class); ?> button" href="<?php echo esc_attr($mesmerize_link); ?>"><?php echo esc_html($label); ?></a>
             <p></p>
         </div>
     </div>

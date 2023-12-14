@@ -1,0 +1,239 @@
+# Translation of Plugins - Elementor Beta (Developer Edition) - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Elementor Beta (Developer Edition) - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-11-05 11:55:23+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.0-alpha.11\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Elementor Beta (Developer Edition) - Stable (latest release)\n"
+
+#: views/admin-notices/elementor-not-active.php:33
+msgid "Activate Now"
+msgstr "Activar ahora"
+
+#: modules/developer-edition/admin-bar.php:103
+#: modules/developer-edition/settings-page.php:52
+msgid "Elementor Pro"
+msgstr "Elementor Pro"
+
+#: modules/developer-edition/views/settings-page-get-updates.php:28
+msgid "and Elementor Pro %s"
+msgstr "y Elementor Pro %s"
+
+#: modules/developer-edition/views/settings-page-get-updates-pro.php:43
+msgid "Elementor Rollback screen."
+msgstr "Pantalla de control de versiones de Elementor."
+
+#: modules/developer-edition/views/settings-page-get-updates-pro.php:42
+msgid "If you wish to revert to the latest stable Pro version please use %s"
+msgstr "Si deseas volver a la última versión Pro estable, utiliza %s"
+
+#: modules/developer-edition/views/settings-page-get-updates-pro.php:23
+msgid "Hooray! You’re up to date with the latest versions of Elementor Pro."
+msgstr "¡Genial! Estás al día con las últimas versiones de Elementor Pro."
+
+#: modules/developer-edition/views/settings-page-get-updates-pro.php:22
+msgid "Updated version of Elementor Pro is available."
+msgstr "Una nueva versión de Elementor Pro esta disponible para descargar."
+
+#: views/admin-notices/elementor-not-installed.php:27
+msgid "Install & Activate"
+msgstr "Instalar y activar"
+
+#. translators: %s: Name of plugin
+#: views/admin-notices/elementor-not-installed.php:11
+msgid "%s requires Elementor for functioning properly. Please Install and Activate Elementor plugin"
+msgstr "%s necesita Elementor para funcionar correctamente. Por favor, instala y activa el plugin Elementor"
+
+#. translators: %s: Name of plugin
+#: views/admin-notices/elementor-not-active.php:13
+msgid "%s requires Elementor to be activate."
+msgstr "%s necesita que Elementor esté activado."
+
+#: modules/developer-edition/settings-page.php:164
+msgid "Settings"
+msgstr "Ajustes"
+
+#: modules/developer-edition/settings-page.php:149
+msgid "Let us know."
+msgstr "Háznoslo saber."
+
+#. translators: %s: Link to issues report
+#: modules/developer-edition/settings-page.php:148
+msgid "See something that isn’t working properly? %s"
+msgstr "¿Ves algo que no está funcionando correctamente? %s"
+
+#: modules/developer-edition/settings-page.php:107
+msgid "Usage Data Sharing"
+msgstr "Datos de uso compartidos"
+
+#: modules/developer-edition/settings-page.php:98
+msgid "Improve Elementor"
+msgstr "Mejorar Elementor"
+
+#: modules/developer-edition/settings-page.php:86
+msgid "Auto update Elementor"
+msgstr "Actualizar Elementor automáticametne"
+
+#: modules/developer-edition/settings-page.php:75
+msgid "Auto Plugin Updates"
+msgstr "Actualizaciones automáticas del plugin"
+
+#: modules/developer-edition/settings-page.php:31
+msgid "Get updates"
+msgstr "Obtener actualizaciones"
+
+#: modules/developer-edition/views/settings-page-auto-update.php:28
+msgid "Activating auto updates will periodically update your Elementor plugin to the latest available release."
+msgstr "Al activar las actualizaciones automáticas se actualizará periódicamente tu plugin Elementor con la última versión disponible."
+
+#: modules/developer-edition/views/settings-page-auto-update.php:24
+msgid "Activate Auto Updates"
+msgstr "Activar las actualizaciones automáticas"
+
+#: modules/developer-edition/views/settings-page.php:25
+msgid "This plugin gives you direct access into Elementor’s development process, and lets you take an active part in perfecting our product. Each Developer Edition release will contain experimental functionalities that developers will be able to use to get familiar with the next releases before they are published."
+msgstr "Este plugin te ofrece acceso directo al proceso de desarrollo de Elementor y te permite tomar parte activa en el perfeccionamiento de nuestro producto. Cada versión de la edición de desarrollador contendrá funcionalidades experimentales que los desarrolladores podrán usar para familiarizarse con las próximas versiones antes de que sean publicadas."
+
+#: modules/developer-edition/views/settings-page-get-updates-description.php:30
+msgid "Click here"
+msgstr "Haz clic aquí"
+
+#. translators: %s: email updates link
+#: modules/developer-edition/views/settings-page-get-updates-description.php:29
+msgid "%s to join our first-to-know email updates."
+msgstr "%s para unirte a nuestras primicias de actualizaciones por correo electrónico."
+
+#: modules/developer-edition/views/settings-page-get-updates-description.php:16
+msgid "%1$s about %2$s."
+msgstr "%1$s sobre la %2$s."
+
+#. translators: %s: Plugin name.
+#: modules/developer-edition/settings-page.php:24
+#: modules/developer-edition/settings-page.php:123
+#: modules/developer-edition/views/settings-page-get-updates-description.php:10
+#: modules/developer-edition/views/settings-page-get-updates-description.php:18
+#: views/admin-notices/elementor-not-active.php:18
+#: views/admin-notices/elementor-not-installed.php:16
+msgid "Elementor Developer Edition"
+msgstr "Edición de desarrollador de Elementor"
+
+#. translators: %s: Plugin name.
+#: modules/developer-edition/views/settings-page-get-updates-description.php:10
+msgid "%s is a testing tool for new features and should not be used on live sites. Use staging environments only, and backup all your data before updating."
+msgstr "%s es una versión de pruebas para nuevas características y no debería ser usada en sitio en producción. Usa solo entornos de desarrollo y, antes de actualizar, haz copia de seguridad de todos tus datos."
+
+#: modules/developer-edition/views/settings-page-get-updates-core.php:71
+msgid "Re-install Now"
+msgstr "Reinstalar ahora"
+
+#: modules/developer-edition/views/settings-page-get-updates-core.php:69
+msgid "Re-installing..."
+msgstr "Reinstalando..."
+
+#: modules/developer-edition/views/settings-page-get-updates-core.php:61
+msgid "If you need to re-install the latest stable version, you can do so here:"
+msgstr "Si necesitas reinstalar la última versión estable, puedes hacerlo aquí:"
+
+#: modules/developer-edition/views/settings-page-get-updates-core.php:55
+#: modules/developer-edition/views/settings-page-get-updates-pro.php:34
+msgid "Update Now"
+msgstr "Actualizar ahora"
+
+#: modules/developer-edition/views/settings-page-get-updates-core.php:53
+#: modules/developer-edition/views/settings-page-get-updates-pro.php:32
+msgid "Updating..."
+msgstr "Actualizando..."
+
+#: modules/developer-edition/views/settings-page-get-updates-core.php:44
+msgid "Hooray! You’re up to date with the latest versions of Elementor."
+msgstr "¡Genial! Estás al día con las últimas versiones de Elementor."
+
+#: modules/developer-edition/views/settings-page-get-updates-core.php:43
+msgid "Updated version of Elementor is available."
+msgstr "Está disponible una versión actualizada de Elementor."
+
+#: modules/developer-edition/views/settings-page-get-updates.php:33
+msgid "You can update to the latest development builds automatically:"
+msgstr "Puedes actualizar automáticamente a las últimas versiones de desarrollo:"
+
+#. translators: %s: elementor version.
+#: modules/developer-edition/views/settings-page-get-updates.php:23
+msgid "You are using Elementor %s"
+msgstr "Estás usando Elementor %s"
+
+#: modules/developer-edition/views/settings-page-get-updates-description.php:17
+#: modules/developer-edition/views/settings-page-improve-elementor.php:15
+msgid "Learn more"
+msgstr "Aprende más"
+
+#: modules/developer-edition/views/settings-page-improve-elementor.php:14
+msgid "Become a super contributor by opting in to share non-sensitive plugin data and to receive periodic email updates from us."
+msgstr "Conviértete en un súper colaborador aceptando compartir datos no sensibles del plugin y recibir nuestras actualizaciones periódicas por correo electrónico."
+
+#: modules/developer-edition/views/settings-page-get-updates-modal.php:32
+msgid "By clicking Sign Up, you agree to Elementor's <a href=\"%1$s\">Terms of Service</a> and <a href=\"%2$s\">Privacy Policy</a>"
+msgstr "Al hacer clic en «Registro», aceptas los <a href=\"%1$s\">términos del servicio</a> y la <a href=\"%2$s\">política de privacidad</a> de Elementor"
+
+#: modules/developer-edition/views/settings-page-get-updates-modal.php:28
+msgid "Sign Up"
+msgstr "Registro"
+
+#: modules/developer-edition/views/settings-page-get-updates-modal.php:23
+msgid "Your Email"
+msgstr "Tu correo electrónico"
+
+#: modules/developer-edition/views/settings-page-get-updates-modal.php:21
+msgid "You’ll receive an update that includes a developer version of Elementor, and it’s content directly to your Email"
+msgstr "Recibirás directamente en tu correo electrónico una actualización que incluye una versión de desarrollador de Elementor y su contenido"
+
+#: modules/developer-edition/views/settings-page-get-updates-modal.php:20
+msgid "Get Developer Updates"
+msgstr "Obtener actualizaciones de desarrollador"
+
+#: modules/developer-edition/admin-bar.php:95
+#: modules/developer-edition/settings-page.php:41
+msgid "Elementor"
+msgstr "Elementor"
+
+#: modules/developer-edition/admin-bar.php:66
+msgid "System info"
+msgstr "Información del sistema"
+
+#: modules/developer-edition/admin-bar.php:58
+#: modules/developer-edition/settings-page.php:124
+msgid "Developer Edition"
+msgstr "Edición de desarrollador"
+
+#: modules/developer-edition/admin-bar.php:52
+msgid "Elementor Debugger"
+msgstr "Depurador de Elementor"
+
+#: modules/developer-edition/admin-bar.php:38
+#: modules/developer-edition/admin-bar.php:77
+msgid "Report an issue"
+msgstr "Informar de un problema"
+
+#. Author URI of the plugin
+msgid "https://elementor.com/?utm_source=wp-plugins&utm_campaign=dev-author-uri&utm_medium=wp-dash"
+msgstr "https://elementor.com/?utm_source=wp-plugins&utm_campaign=dev-author-uri&utm_medium=wp-dash"
+
+#. Author of the plugin
+msgid "Elementor.com"
+msgstr "Elementor.com"
+
+#. Description of the plugin
+msgid "Elementor Developer Edition gives you direct access into Elementor’s development process, and lets you take an active part in perfecting our product. Each Developer Edition release will contain experimental functionalities that developers will be able to use to get familiar with the next releases before they are published."
+msgstr "La edición de desarrollador de Elementor te ofrece acceso directo al proceso de desarrollo de Elementor y te permite tomar parte activa en el perfeccionamiento de nuestro producto. Cada versión de la edición de desarrollador contendrá funcionalidades experimentales que los desarrolladores podrán usar para familiarizarse con las próximas versiones antes de que sean publicadas."
+
+#. Plugin URI of the plugin
+msgid "https://elementor.com"
+msgstr "https://elementor.com"
+
+#. Plugin Name of the plugin
+msgid "Elementor Beta (Developer Edition)"
+msgstr "Elementor Beta (Developer Edition)"

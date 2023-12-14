@@ -272,6 +272,13 @@ function mesmerize_get_offcanvas_primary_menu()
 
 function mesmerize_print_primary_menu($walker = '', $fallback = 'mesmerize_nomenu_cb')
 {
+    //add pen overlay to avoid clicking menu items and changing the page inside customizer
+	if (mesmerize_is_customize_preview()) {
+		?>
+            <div data-type="group" data-focus-control="nav_menu_locations[primary]" data-dynamic-mod="true">
+        <?php
+	}
+
 
     $drop_down_menu_classes = apply_filters('mesmerize_primary_drop_menu_classes', array('default'));
     $drop_down_menu_classes = array_merge($drop_down_menu_classes, array('main-menu', 'dropdown-menu'));
@@ -287,6 +294,12 @@ function mesmerize_print_primary_menu($walker = '', $fallback = 'mesmerize_nomen
     ));
 
     mesmerize_get_offcanvas_primary_menu();
+
+    if (mesmerize_is_customize_preview()) {
+        ?>
+            </div>
+        <?php
+	}
 }
 
 

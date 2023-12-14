@@ -21,10 +21,7 @@ if ( ! class_exists( 'Fitness_Hub_Theme_Info' ) ) {
         public function __construct( $config ) {
             $this->config = $config;
             $this->prepare_class();
-
-            /* activation notice */
-            add_action( 'load-themes.php', array( $this, 'activation_admin_notice' ) );
-
+            
             /*admin menu*/
             add_action( 'admin_menu', array( $this, 'at_admin_menu' ) );
 
@@ -33,25 +30,6 @@ if ( ! class_exists( 'Fitness_Hub_Theme_Info' ) ) {
 
             /* ajax callback for dismissable required actions */
             add_action( 'wp_ajax_at_theme_info_update_recommended_action', array( $this, 'update_recommended_action_callback' ) );
-        }
-
-        /**
-         * Adds an admin notice upon successful activation.
-         */
-        public function activation_admin_notice() {
-            global $pagenow;
-            if ( is_admin() && ( 'themes.php' == $pagenow ) && isset( $_GET['activated'] ) ) {
-                add_action( 'admin_notices', array( $this, 'at_theme_info_welcome_admin_notice' ), 99 );
-            }
-        }
-
-        /**
-         * Display an admin notice linking to the about page
-         */
-        public function at_theme_info_welcome_admin_notice() {
-            echo '<div class="updated notice is-dismissible">';
-            echo ( '<p>' . sprintf( __('Welcome! Thank you for choosing %1$s! To fully take advantage of the best our theme can offer please make sure you visit our %2$swelcome page%3$s.','fitness-hub'), $this->theme_name, '<a href="' . esc_url( admin_url( 'themes.php?page=' . $this->theme_slug . '-info' ) ) . '">', '</a>' ) . '</p><p><a href="' . esc_url( admin_url( 'themes.php?page=' . $this->theme_slug . '-info' ) ) . '" class="button text-decoration-none">' . sprintf( __('Get started with %s','fitness-hub'), $this->theme_name ) . '</a></p>' );
-            echo '</div>';
         }
 
         /**
@@ -233,6 +211,15 @@ if ( ! class_exists( 'Fitness_Hub_Theme_Info' ) ) {
                     echo '<div class="about-text">' . wp_kses_post( $welcome_content ) . '</div>';
                 }
 
+                $notice_nag = get_option( 'fitness_hub_admin_notice_welcome' );
+                if ( ! $notice_nag ) {
+                    echo '<div class="at-gsm-notice">
+                        <small class="plugin-install-notice">'.esc_html__('Clicking the button below will install and activate the Advanced Import plugin.','fitness-hub').'</small>
+                        <a class="at-gsm-btn button button-primary button-hero" href="#" data-name="" data-slug="" aria-label="'.esc_html__('Get started with Fitness Hub','fitness-hub').'">
+                         '.esc_html__('Get started with Fitness Hub','fitness-hub').'                   
+                         </a>
+                    </div>';
+                }
                 echo '<a href="https://www.acmethemes.com/" target="_blank" class="wp-badge epsilon-info-logo"></a>';
 
                 /*quick links*/
@@ -1151,9 +1138,9 @@ $config = array(
 
     // Plugins array.
     'recommended_plugins'        => array(
-	    'acme-demo-setup' => array(
-		    'slug' => 'acme-demo-setup'
-	    ),
+        'gutentor' => array(
+            'slug' => 'gutentor'
+        ),
 	    'siteorigin-panels' => array(
 		    'slug' => 'siteorigin-panels'
 	    ),

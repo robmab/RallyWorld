@@ -49,9 +49,31 @@ abstract class EVF_CSV_Exporter {
 	protected $columns_to_export = array();
 
 	/**
+	 * The delimiter parameter sets the field delimiter (one character only).
+	 *
+	 * @var string
+	 */
+	protected $delimiter = ',';
+
+	/**
 	 * Prepare data that will be exported.
 	 */
 	abstract public function prepare_data_to_export();
+
+	/**
+	 * Get quiz report in CSV format.
+	 */
+	abstract public function get_quiz_report();
+
+	/**
+	 * Return the delimiter to use in CSV file
+	 *
+	 * @since  1.7.0
+	 * @return string
+	 */
+	public function get_delimiter() {
+		return apply_filters( "everest_forms_{$this->export_type}_export_delimiter", $this->delimiter );
+	}
 
 	/**
 	 * Return an array of supported column names and ids.
@@ -136,13 +158,22 @@ abstract class EVF_CSV_Exporter {
 	}
 
 	/**
+	 * Export quiz report.
+	 */
+	public function export_quiz_report() {
+		$this->send_headers();
+		$this->send_content( $this->get_quiz_report() );
+		die();
+	}
+
+	/**
 	 * Set the export headers.
 	 *
 	 * @since 1.3.0
 	 */
 	public function send_headers() {
 		if ( function_exists( 'gc_enable' ) ) {
-			gc_enable(); // phpcs:ignore PHPCompatibility.PHP.NewFunctions.gc_enableFound
+			gc_enable(); // phpcs:ignore PHPCompatibility.FunctionUse.gc_enableFound
 		}
 		if ( function_exists( 'apache_setenv' ) ) {
 			@apache_setenv( 'no-gzip', 1 ); // @codingStandardsIgnoreLine
@@ -286,8 +317,8 @@ abstract class EVF_CSV_Exporter {
 	public function escape_data( $data ) {
 		$active_content_triggers = array( '=', '+', '-', '@' );
 
-		if ( in_array( mb_substr( $data, 0, 1 ), $active_content_triggers, true ) ) {
-			$data = "'" . $data . "'";
+		if ( in_array( mb_substr( $data, 0, 1 ), $active_content_triggers, true ) ) { // @codingStandardsIgnoreLine
+			$data = "'" . $data;
 		}
 
 		return $data;
@@ -307,7 +338,6 @@ abstract class EVF_CSV_Exporter {
 		}
 
 		$use_mb = function_exists( 'mb_convert_encoding' );
-		$data   = (string) urldecode( $data );
 
 		if ( $use_mb ) {
 			$encoding = mb_detect_encoding( $data, 'UTF-8, ISO-8859-1', true );
@@ -327,9 +357,18 @@ abstract class EVF_CSV_Exporter {
 	protected function implode_values( $values ) {
 		$values_to_implode = array();
 
-		foreach ( $values as $value ) {
-			$value               = (string) is_scalar( $value ) ? $value : '';
-			$values_to_implode[] = str_replace( ',', '\\,', $value );
+		// For checkbox and radio.
+		if ( ! empty( $values['label'] ) ) {
+			$values = $values['label'];
+		}
+
+		if ( is_array( $values ) ) {
+			foreach ( $values as $value ) {
+				$value               = is_scalar( $value ) ? (string) $value : '';
+				$values_to_implode[] = str_replace( ',', '\\,', $value );
+			}
+		} else {
+			$values_to_implode[] = str_replace( ',', '\\,', $values );
 		}
 
 		return implode( ', ', $values_to_implode );
@@ -353,13 +392,13 @@ abstract class EVF_CSV_Exporter {
 		if ( version_compare( PHP_VERSION, '5.5.4', '<' ) ) {
 			ob_start();
 			$temp = fopen( 'php://output', 'w' ); // @codingStandardsIgnoreLine
-    		fputcsv( $temp, $export_row, ",", '"' ); // @codingStandardsIgnoreLine
+    		fputcsv( $temp, $export_row, $this->get_delimiter(), '"' ); // @codingStandardsIgnoreLine
 			fclose( $temp ); // @codingStandardsIgnoreLine
 			$row = ob_get_clean();
 			$row = str_replace( '\\"', '\\""', $row );
 			fwrite( $buffer, $row ); // @codingStandardsIgnoreLine
 		} else {
-			fputcsv( $buffer, $export_row, ",", '"', "\0" ); // @codingStandardsIgnoreLine
+			fputcsv( $buffer, $export_row, $this->get_delimiter(), '"', "\0" ); // @codingStandardsIgnoreLine
 		}
 	}
 }

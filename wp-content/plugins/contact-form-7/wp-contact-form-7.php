@@ -1,18 +1,22 @@
 <?php
 /*
-Plugin Name: Contact Form 7
-Plugin URI: https://contactform7.com/
-Description: Just another contact form plugin. Simple but flexible.
-Author: Takayuki Miyoshi
-Author URI: https://ideasilo.wordpress.com/
-Text Domain: contact-form-7
-Domain Path: /languages/
-Version: 5.0.5
-*/
+ * Plugin Name: Contact Form 7
+ * Plugin URI: https://contactform7.com/
+ * Description: Just another contact form plugin. Simple but flexible.
+ * Author: Takayuki Miyoshi
+ * Author URI: https://ideasilo.wordpress.com/
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Version: 5.8.4
+ * Requires at least: 6.2
+ * Requires PHP: 7.4
+ */
 
-define( 'WPCF7_VERSION', '5.0.5' );
+define( 'WPCF7_VERSION', '5.8.4' );
 
-define( 'WPCF7_REQUIRED_WP_VERSION', '4.8' );
+define( 'WPCF7_REQUIRED_WP_VERSION', '6.2' );
+
+define( 'WPCF7_TEXT_DOMAIN', 'contact-form-7' );
 
 define( 'WPCF7_PLUGIN', __FILE__ );
 
@@ -61,6 +65,8 @@ if ( ! defined( 'WPCF7_VALIDATE_CONFIGURATION' ) ) {
 }
 
 // Deprecated, not used in the plugin core. Use wpcf7_plugin_url() instead.
-define( 'WPCF7_PLUGIN_URL', untrailingslashit( plugins_url( '', WPCF7_PLUGIN ) ) );
+define( 'WPCF7_PLUGIN_URL',
+	untrailingslashit( plugins_url( '', WPCF7_PLUGIN ) )
+);
 
-require_once WPCF7_PLUGIN_DIR . '/settings.php';
+require_once WPCF7_PLUGIN_DIR . '/load.php';

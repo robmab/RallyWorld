@@ -2,15 +2,13 @@
 /**
  * Email Footer.
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.1.3
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
-*/
+ * @since 1.1.3
+ */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 $background_color = wpforms_setting( 'email-background-color', '#e9eaec' );
 ?>
@@ -37,8 +35,8 @@ $background_color = wpforms_setting( 'email-background-color', '#e9eaec' );
 
 																<!-- Footer content -->
 																<?php
-																/* translators: %s - link to a site. */
-																$footer = sprintf( esc_html__( 'Sent from %s', 'wpforms' ), '<a href="' . esc_url( home_url() ) . '" style="color:#bbbbbb;">' . wp_specialchars_decode( get_bloginfo( 'name' ) ) . '</a>' );
+																/* translators: %s - link to the site. */
+																$footer = sprintf( esc_html__( 'Sent from %s', 'wpforms-lite' ), '<a href="' . esc_url( home_url() ) . '" style="color:#bbbbbb;">' . wp_specialchars_decode( get_bloginfo( 'name' ) ) . '</a>' );
 																echo apply_filters( 'wpforms_email_footer_text', $footer );
 																?>
 

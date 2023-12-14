@@ -11,12 +11,18 @@
  */
 class Shortcodes_Ultimate_Activator {
 
+	private static $required_php;
+	private static $required_wp;
+
 	/**
 	 * Plugin activation.
 	 *
 	 * @since    5.0.0
 	 */
 	public static function activate() {
+
+		self::$required_php = '5.4';
+		self::$required_wp  = '5.0';
 
 		self::check_php_version();
 		self::check_wp_version();
@@ -32,16 +38,20 @@ class Shortcodes_Ultimate_Activator {
 	 */
 	private static function check_php_version() {
 
-		$required = '5.2';
-		$current  = phpversion();
+		$current = phpversion();
 
-		if ( version_compare( $current, $required, '>=' ) ) {
+		if ( version_compare( $current, self::$required_php, '>=' ) ) {
 			return;
 		}
 
-		$message = __( 'Shortcodes Ultimate is not activated, because it requires PHP version %s (or higher). Current version of PHP is %s.', 'shortcodes-ultimate' );
+		$message = sprintf(
+			// Translators: %1$s - required version number, %2$s - current version number
+			__( 'Shortcodes Ultimate is not activated, because it requires PHP version %1$s (or higher). You have version %2$s.', 'shortcodes-ultimate' ),
+			self::$required_php,
+			$current
+		);
 
-		die( sprintf( $message, $required, $current ) );
+		die( esc_html( $message ) );
 
 	}
 
@@ -53,16 +63,20 @@ class Shortcodes_Ultimate_Activator {
 	 */
 	private static function check_wp_version() {
 
-		$required = '3.5';
-		$current  = get_bloginfo( 'version' );
+		$current = get_bloginfo( 'version' );
 
-		if ( version_compare( $current, $required, '>=' ) ) {
+		if ( version_compare( $current, self::$required_wp, '>=' ) ) {
 			return;
 		}
 
-		$message = __( 'Shortcodes Ultimate is not activated, because it requires WordPress version %s (or higher). Current version of WordPress is %s.', 'shortcodes-ultimate' );
+		$message = sprintf(
+			// Translators: %1$s - required version number, %2$s - current version number
+			__( 'Shortcodes Ultimate is not activated, because it requires WordPress version %1$s (or higher). You have version %2$s.', 'shortcodes-ultimate' ),
+			self::$required_wp,
+			$current
+		);
 
-		die( sprintf( $message, $required, $current ) );
+		die( esc_html( $message ) );
 
 	}
 
@@ -74,25 +88,17 @@ class Shortcodes_Ultimate_Activator {
 	 */
 	private static function setup_defaults() {
 
-		$defaults = array(
-			'su_option_custom-formatting' => 'on',
-			'su_option_skip'              => 'on',
-			'su_option_prefix'            => 'su_',
-			'su_option_custom-css'        => '',
-			'su_option_supported_blocks'  => array(
-				'core/paragraph',
-				'core/shortcode',
-				'core/freeform',
-			),
-		);
+		if ( ! function_exists( 'su_get_config' ) ) {
+			require_once 'functions-helpers.php';
+		}
+
+		$defaults = su_get_config( 'default-settings' );
 
 		foreach ( $defaults as $option => $value ) {
 
-			if ( get_option( $option, 0 ) !== 0 ) {
-				continue;
+			if ( get_option( $option, 0 ) === 0 ) {
+				add_option( $option, $value );
 			}
-
-			update_option( $option, $value, false );
 
 		}
 

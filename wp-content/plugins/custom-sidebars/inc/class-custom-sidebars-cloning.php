@@ -203,9 +203,9 @@ class CustomSidebarsCloning {
 		<input type="hidden" name="csb_clone[group]" class="csb-clone-group" value="<?php echo esc_attr( $data['group'] ); ?>" />
 		<input type="hidden" name="csb_clone[state]" class="csb-clone-state" value="<?php echo esc_attr( $data['state'] ); ?>" />
 		<?php if ( ! isset( $_POST['csb-clone-button'] ) && ( 'widgets' === get_current_screen()->id ) ) : ?>
-			<a href="#" class="button csb-clone-button"><?php _e( 'Clone', 'custom-sidebars' ); ?></a>
+			<a href="#" class="button csb-clone-button"><?php esc_html_e( 'Clone', 'custom-sidebars' ); ?></a>
 		<?php else : ?>
-			<script>jQuery(function() { jQuery('.csb-clone-<?php echo esc_js( $widget->id ); ?>').closest('.widget').trigger('csb:update'); }); </script>
+			<script>jQuery(function() { jQuery('.csb-clone-<?php esc_attr_e( $widget->id ); ?>').closest('.widget').trigger('csb:update'); }); </script>
 		<?php endif; ?>
 
 		</div>

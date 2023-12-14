@@ -1,91 +1,109 @@
 <?php
+/**
+ * Functions for using the built-in code editor library
+ *
+ * @package Code_Snippets
+ */
+
+namespace Code_Snippets;
+
+use function Code_Snippets\Settings\get_setting;
 
 /**
- * Get the attributes for the code editor
+ * Register and load the CodeMirror library.
  *
- * @param  array $override_atts Pass an array of attributes to override the saved ones
- * @param  bool  $json_encode Encode the data as JSON
- *
- * @return array|string Array if $json_encode is false, JSON string if it is true
+ * @param string               $type       Type of code editor – either 'php', 'css', 'js', or 'html'.
+ * @param array<string, mixed> $extra_atts Pass a list of attributes to override the saved ones.
  */
-function code_snippets_get_editor_atts( $override_atts, $json_encode ) {
-	$settings = code_snippets_get_settings();
-	$settings = $settings['editor'];
+function enqueue_code_editor( string $type, array $extra_atts = [] ) {
+	$plugin = code_snippets();
 
-	$fields = code_snippets_get_settings_fields();
-	$fields = $fields['editor'];
+	$modes = [
+		'css'  => 'text/css',
+		'php'  => 'php-snippet',
+		'js'   => 'javascript',
+		'html' => 'application/x-httpd-php',
+	];
 
-	$saved_atts = array(
-		'matchBrackets' => true,
-	);
-
-	foreach ( $fields as $field_id => $field ) {
-		$saved_atts[ $field['codemirror'] ] = $settings[ $field_id ];
+	if ( ! isset( $modes[ $type ] ) ) {
+		$type = 'php';
 	}
 
-	$atts = wp_parse_args( $override_atts, $saved_atts );
+	$default_atts = [
+		'mode'          => $modes[ $type ],
+		'inputStyle'    => 'textarea',
+		'matchBrackets' => true,
+		'extraKeys'     => [
+			'Alt-F'      => 'findPersistent',
+			'Ctrl-Space' => 'autocomplete',
+			'Ctrl-/'     => 'toggleComment',
+			'Cmd-/'      => 'toggleComment',
+			'Alt-Up'     => 'swapLineUp',
+			'Alt-Down'   => 'swapLineDown',
+		],
+		'gutters'       => [ 'CodeMirror-lint-markers', 'CodeMirror-foldgutter' ],
+		'lint'          => 'css' === $type || 'php' === $type,
+		'direction'     => 'ltr',
+		'colorpicker'   => [ 'mode' => 'edit' ],
+		'foldOptions'   => [ 'widget' => '...' ],
+	];
+
+	// Add relevant saved setting values to the default attributes.
+	$plugin_settings = Settings\get_settings_values();
+	$setting_fields = Settings\get_settings_fields();
+
+	foreach ( $setting_fields['editor'] as $field_id => $field ) {
+		// The 'codemirror' setting field specifies the name of the attribute.
+		$default_atts[ $field['codemirror'] ] = $plugin_settings['editor'][ $field_id ];
+	}
+
+	// Merge the default attributes with the ones passed into the function.
+	$atts = wp_parse_args( $default_atts, $extra_atts );
 	$atts = apply_filters( 'code_snippets_codemirror_atts', $atts );
 
-	if ( $json_encode ) {
-
-		/* JSON_UNESCAPED_SLASHES was added in PHP 5.4 */
-		if ( version_compare( phpversion(), '5.4.0', '>=' ) ) {
-			$atts = json_encode( $atts, JSON_UNESCAPED_SLASHES );
-		} else {
-			/* Use a fallback for < 5.4 */
-			$atts = str_replace( '\\/', '/', json_encode( $atts ) );
-		}
+	// Ensure number values are not formatted as strings.
+	foreach ( [ 'indentUnit', 'tabSize' ] as $number_att ) {
+		$atts[ $number_att ] = intval( $atts[ $number_att ] );
 	}
 
-	return $atts;
-}
-
-/**
- * Registers and loads the CodeMirror library
- *
- * @uses wp_enqueue_style() to add the stylesheets to the queue
- * @uses wp_enqueue_script() to add the scripts to the queue
- */
-function code_snippets_enqueue_codemirror() {
-	$codemirror_version = '5.41.0';
-	$url = plugin_dir_url( CODE_SNIPPETS_FILE );
-
-	/* Remove other CodeMirror styles */
-	wp_deregister_style( 'codemirror' );
-	wp_deregister_style( 'wpeditor' );
-
-	/* CodeMirror */
-	wp_enqueue_style(
-		'code-snippets-codemirror',
-		$url . 'css/min/codemirror.css',
-		false, $codemirror_version
+	wp_enqueue_code_editor(
+		[
+			'type'       => $modes[ $type ],
+			'codemirror' => $atts,
+		]
 	);
+
+	wp_enqueue_script( 'htmlhint' );
+	wp_enqueue_script( 'csslint' );
+	wp_enqueue_script( 'jshint' );
 
 	wp_enqueue_script(
-		'code-snippets-codemirror',
-		$url . 'js/min/codemirror.js',
-		false, $codemirror_version
+		'code-snippets-code-editor',
+		plugins_url( 'dist/editor.js', $plugin->file ),
+		[ 'code-editor' ],
+		$plugin->version,
+		true
 	);
 
-	/* CodeMirror Theme */
-	$theme = code_snippets_get_setting( 'editor', 'theme' );
+	// CodeMirror Theme.
+	$theme = get_setting( 'editor', 'theme' );
 
 	if ( 'default' !== $theme ) {
-
 		wp_enqueue_style(
-			'code-snippets-codemirror-theme-' . $theme,
-			$url . "css/min/cmthemes/$theme.css",
-			array( 'code-snippets-codemirror' ),
-			$codemirror_version
+			'code-snippets-editor-theme-' . $theme,
+			plugins_url( "dist/editor-themes/$theme.css", $plugin->file ),
+			[ 'code-editor' ],
+			$plugin->version
 		);
 	}
 }
 
 /**
- * Retrieve a list of the available CodeMirror themes
- * @return array the available themes
+ * Retrieve a list of the available CodeMirror themes.
+ *
+ * @return array<string> The available themes.
  */
-function code_snippets_get_available_themes() {
+function get_editor_themes(): array {
 	static $themes = null;
 
 	if ( ! is_null( $themes ) ) {
@@ -93,10 +111,11 @@ function code_snippets_get_available_themes() {
 	}
 
 	$themes = array();
-	$themes_dir = plugin_dir_path( CODE_SNIPPETS_FILE ) . 'css/min/cmthemes/';
+	$themes_dir = plugin_dir_path( PLUGIN_FILE ) . 'dist/editor-themes/';
+
 	$theme_files = glob( $themes_dir . '*.css' );
 
-	foreach ( $theme_files as $i => $theme ) {
+	foreach ( $theme_files as $theme ) {
 		$theme = str_replace( $themes_dir, '', $theme );
 		$theme = str_replace( '.css', '', $theme );
 		$themes[] = $theme;

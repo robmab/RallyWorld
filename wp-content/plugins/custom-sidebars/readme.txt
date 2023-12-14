@@ -1,25 +1,30 @@
-=== Custom Sidebars - Dynamic Widget Area Manager ===
-Contributors: WPMUDEV, marquex, WPMUDEV-Support2, WPMUDEV-Support1, WPMUDEV-Support6, WPMUDEV-Support4, iworks
-Tags: sidebar, widget, footer, custom, flexible layout, dynamic widgets, manage sidebars, replace widgets, custom widget area
-Requires at least: 3.8
-Tested up to: 4.9.8
-Stable tag: 3.2.2
+=== Custom Sidebars - Dynamic Sidebar Widget Area Manager ===
+Contributors: WebFactory
+Tags: sidebar, widget, custom sidebar, dynamic widgets, manage sidebars, flexible layout, replace widgets, custom widget area, footer
+Requires at least: 4.6
+Tested up to: 6.3
+Stable tag: 3.36
+Requires PHP: 5.6
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Flexible sidebars for custom widget configurations on every page, post and custom post type on your site.
+Flexible sidebars for custom widget configurations on any page or post. Create custom sidebars with ease!
 
 == Description ==
 
-** Manage and replace sidebars and other widget areas on your site with Custom Sidebars, a flexible widget area manager. **
+**Manage and replace sidebars and other widget areas on your site with Custom Sidebars, a flexible widget area manager.**
 
 Make custom sidebar configurations and be able to choose what widgets display on each page or post of your site.
+
+> Need to make a **widget sticky** or fixed? Try our free <a href="https://wordpress.org/plugins/sticky-menu-or-anything-on-scroll/">WP Sticky Anything</a> plugin.
+
+Custom Sidebars works ONLY with the classic widgets screen that was used in WordPress before version 5.8. If you want to use it with version 5.8 (and above) you have to install the official <a href="https://wordpress.org/plugins/classic-widgets/">Classic Widgets</a> plugin, or enable the classic widgets interface yourself. Once the classic widgets screen is activated the plugin will work the same as before.
+
+> Having problems setting up SSL or generating an SSL certificate? Install the free <a href="https://wordpress.org/plugins/wp-force-ssl/">WP Force SSL</a> plugin.
 
 = Display Different Sidebars on Pages and Posts =
 
 Custom Sidebars allows you to dynamically display custom widget configurations on any page, post, category, post type, or archive page.
-
-[youtube https://www.youtube.com/watch?v=7kgqwceGynA]
-
-Custom Sidebars allows you to display custom widget configurations on any page, post, category, post type, or archive page.
 
 ★★★★★
 > "Custom Sidebars will go on my "essential plugins" list from now on. I am pleased by how easy it was to figure out and by how many options are available in the free version." - [monkeyhateclean](https://profiles.wordpress.org/monkeyhateclean)
@@ -41,16 +46,6 @@ Every part of Custom Sidebars integrates seamlessly with the Widgets menu for si
 > * Import and export custom sidebars – backup and share sidebars
 >
 > Install Custom Sidebars and see for yourself why it's the most popular widget extension plugin available for WordPress with over 200,000 active installs.
-
-#### Custom Sidebars Is Fully-Loaded
-
-If you run a design agency, or just want to get rid of the ads, checkout [Custom Sidebars Pro](https://premium.wpmudev.org/project/custom-sidebars-pro):
-
-* Ad free
-* [24/7 support](https://premium.wpmudev.org/support/) for all things WordPress
-* [Upfront themes, 100+ premium plugins and WPMU DEV services](http://premium.wpmudev.org/join/) – Including speed optimization, managed backups with 10GB cloud storage and security hardening
-
-Get [Custom Sidebars Pro](https://premium.wpmudev.org/project/custom-sidebars-pro/) for targeted marketing, better widgets for each level of your membership site, or just to clean up bloated content on each page. Download and try it for free!
 
 == Screenshots ==
 
@@ -75,15 +70,9 @@ There are two ways of installing the plugin:
 
 Once you have the plugin activated you will find all new features inside your "Widgets" screen! There you will be able to create and manage your own sidebars.
 
-Find more usage information on the [Custom Sidebars Pro page](https://premium.wpmudev.org/project/custom-sidebars-pro/).
-
 [youtube https://www.youtube.com/watch?v=q05O9OFEYHM]
 
 == Frequently Asked Questions ==
-
-= How do I begin working with this plugin? =
-
-Please refer to [the usage section of Custom Sidebars Pro](https://premium.wpmudev.org/project/custom-sidebars-pro/#usage).
 
 = Why can't I see a widget menu? =
 
@@ -110,9 +99,39 @@ Any user that can switch themes, can create sidebars. Switch_themes is the capab
 Custom Sidebars has the same license as WordPress, so you can use it wherever you want for free. Yay!
 
 == Changelog ==
+= 3.36 =
+* 2022-11-26
+* Minor security fixes
+
+= 3.35 =
+* 2022-01-11
+* Improved the classic widgets screen detection - "Classic Widgets" plugin is no longer necessary if you add appropriate filters via some other plugin or theme
+
+= 3.32 =
+* 2021-07-18
+* Added notice for WP 5.8
+
+= 3.31 =
+* 2021-01-30
+* Minor fixes
+* Added action link to plugins table
+
+= 3.3 =
+* 2021-01-13
+* Minor fixes
+* WebFactory took over development
+
+= 3.2.4 =
+* Added deprecation notice
+
+= 3.2.3 =
+* Added "custom_sidebars_allowed_pages_array" filter to allow pages where Custom Sidebars can be loaded.
+* Fixed problem with double function declaration when Gutenberg is in use.
+* Removed "Sidebar Location" from build-in/theme sidebars to avoid misunderstandings.
+* Updated "WPMU Dev code library" to version 3.1.0.
 
 = 3.2.2 =
-* Fixed an unclosed A tag.
+* Fixed a unclosed A tag.
 
 = 3.2.1 =
 * Fixed a problem with sidebar replacement on front page.
@@ -475,8 +494,4 @@ This version adds several options for customize the sidebars by categories and r
 
 == Contact and Credits ==
 
-Custom sidebars is maintained and developed by [WPMU DEV](http://premium.wpmudev.org).
-
 Original development completed by [Javier Marquez](http://marquex.es/).
-
-Custom Sidebars uses the great jQuery plugin [Tiny Scrollbar](http://www.baijs.nl/tinyscrollbar/) by Maarten Baijs.

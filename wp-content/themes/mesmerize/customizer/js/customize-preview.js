@@ -441,9 +441,10 @@ function liveUpdate(setting, callback) {
     wp.customize('full_height_header', function (value) {
         value.bind(function (newval) {
             if (newval) {
-                $('.header-homepage').css('min-height', "100vh");
+                $('.header-homepage').addClass('header-full-height');
             } else {
                 $('.header-homepage').css('min-height', "");
+                $('.header-homepage').removeClass('header-full-height');
             }
         });
     });
@@ -635,14 +636,14 @@ function liveUpdate(setting, callback) {
     }
 
 
-    wp.customize('footer_paralax', function (value) {
+    wp.customize('footer_parallax', function (value) {
         value.bind(function (newval) {
             if (newval) {
-                $('.footer').addClass('paralax');
-                mesmerizeFooterParalax();
+                $('.footer').addClass('parallax');
+                mesmerizeFooterParallax();
             } else {
-                $('.footer').removeClass('paralax');
-                mesmerizeStopFooterParalax();
+                $('.footer').removeClass('parallax');
+                mesmerizeStopFooterParallax();
             }
         });
     });

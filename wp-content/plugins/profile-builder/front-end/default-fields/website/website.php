@@ -1,8 +1,10 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 /* handle field output */
 function wppb_website_handler( $output, $form_location, $field, $user_id, $field_check_errors, $request_data ){	
-	$item_title = apply_filters( 'wppb_'.$form_location.'_website_item_title', wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_title_translation', $field['field-title'] ) );
-	$item_description = wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_description_translation', $field['description'] );
+	$item_title = apply_filters( 'wppb_'.$form_location.'_website_item_title', wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_title_translation', $field['field-title'], true ) );
+	$item_description = wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_description_translation', $field['description'], true );
 	$input_value = '';
 	if( $form_location == 'edit_profile' )
 		$input_value = get_the_author_meta( 'user_url', $user_id );
@@ -22,7 +24,7 @@ function wppb_website_handler( $output, $form_location, $field, $user_id, $field
 
         $output = '
 			<label for="website">'.$item_title.$error_mark.'</label>
-			<input class="text-input default_field_website '. apply_filters( 'wppb_fields_extra_css_class', '', $field ) .'" name="website" maxlength="'. apply_filters( 'wppb_maximum_character_length', 70 ) .'" type="text" id="website" value="'.esc_url( wp_unslash( $input_value ) ).'" '. $extra_attr .'/>';
+			<input class="text-input default_field_website '. apply_filters( 'wppb_fields_extra_css_class', '', $field ) .'" name="website" maxlength="'. apply_filters( 'wppb_maximum_character_length', 70, $field ) .'" type="text" id="website" value="'.esc_url( wp_unslash( $input_value ) ).'" '. $extra_attr .'/>';
         if( !empty( $item_description ) )
             $output .= '<span class="wppb-description-delimiter">'. $item_description .'</span>';
 
@@ -47,10 +49,12 @@ add_filter( 'wppb_check_form_field_default-website', 'wppb_check_website_value',
 
 
 /* handle field save */
-function wppb_userdata_add_website( $userdata, $global_request ){
-	if ( isset( $global_request['website'] ) )
-		$userdata['user_url'] = esc_url_raw( trim( $global_request['website'] ) );
-	
+function wppb_userdata_add_website( $userdata, $global_request, $form_args ){
+    if( wppb_field_exists_in_form( 'Default - Website', $form_args ) ) {
+        if (isset($global_request['website']))
+            $userdata['user_url'] = esc_url_raw(trim($global_request['website']));
+    }
+
 	return $userdata;
 }
-add_filter( 'wppb_build_userdata', 'wppb_userdata_add_website', 10, 2 );
+add_filter( 'wppb_build_userdata', 'wppb_userdata_add_website', 10, 3 );

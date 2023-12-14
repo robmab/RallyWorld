@@ -19,6 +19,7 @@ class EVF_Admin_Forms {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'actions' ) );
 		add_action( 'deleted_post', array( $this, 'delete_entries' ) );
+		add_filter( 'wp_untrash_post_status', array( $this, 'untrash_form_status' ), 10, 2 );
 	}
 
 	/**
@@ -27,7 +28,7 @@ class EVF_Admin_Forms {
 	 * @return bool
 	 */
 	private function is_forms_page() {
-		return isset( $_GET['page'] ) && 'evf-builder' === $_GET['page']; // WPCS: input var okay, CSRF ok.
+		return isset( $_GET['page'] ) && 'evf-builder' === $_GET['page']; // phpcs:ignore WordPress.Security.NonceVerification
 	}
 
 	/**
@@ -36,14 +37,15 @@ class EVF_Admin_Forms {
 	public static function page_output() {
 		global $current_tab;
 
-		if ( isset( $_GET['form_id'] ) && $current_tab ) {
-			$form      = EVF()->form->get( absint( $_GET['form_id'] ) );
-			$form_id   = $form ? absint( $form->ID ) : absint( $_GET['form_id'] );
-			$form_data = $form ? evf_decode( $form->post_content ) : false;
+		if ( isset( $_GET['form_id'] ) && $current_tab ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$form      = evf()->form->get( absint( $_GET['form_id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
+			$form_id   = is_object( $form ) ? absint( $form->ID ) : absint( $_GET['form_id'] ); // phpcs:ignore WordPress.Security.NonceVerification
+			$form_data = is_object( $form ) ? evf_decode( $form->post_content ) : false;
 
 			include 'views/html-admin-page-builder.php';
-		} elseif ( isset( $_GET['create-form'] ) ) {
-			include 'views/html-admin-page-builder-setup.php';
+		} elseif ( isset( $_GET['create-form'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+
+			EVF_Admin_Form_Templates::load_template_view();
 		} else {
 			self::table_list_output();
 		}
@@ -60,7 +62,9 @@ class EVF_Admin_Forms {
 		?>
 		<div class="wrap">
 			<h1 class="wp-heading-inline"><?php esc_html_e( 'All Forms', 'everest-forms' ); ?></h1>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=evf-builder&create-form=1' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add New', 'everest-forms' ); ?></a>
+			<?php if ( current_user_can( 'everest_forms_create_forms' ) ) : ?>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=evf-builder&create-form=1' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add New', 'everest-forms' ); ?></a>
+			<?php endif; ?>
 			<hr class="wp-header-end">
 
 			<?php settings_errors(); ?>
@@ -85,12 +89,12 @@ class EVF_Admin_Forms {
 	public function actions() {
 		if ( $this->is_forms_page() ) {
 			// Empty trash.
-			if ( isset( $_REQUEST['delete_all'] ) || isset( $_REQUEST['delete_all2'] ) ) { // WPCS: input var okay, CSRF ok.
+			if ( isset( $_REQUEST['delete_all'] ) || isset( $_REQUEST['delete_all2'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 				$this->empty_trash();
 			}
 
 			// Duplicate form.
-			if ( isset( $_REQUEST['action'] ) && 'duplicate_form' === $_REQUEST['action'] ) { // WPCS: input var okay, CSRF ok.
+			if ( isset( $_REQUEST['action'] ) && 'duplicate_form' === $_REQUEST['action'] ) { // phpcs:ignore WordPress.Security.NonceVerification
 				$this->duplicate_form();
 			}
 		}
@@ -103,13 +107,15 @@ class EVF_Admin_Forms {
 		check_admin_referer( 'bulk-forms' );
 
 		$count    = 0;
-		$form_ids = get_posts( array(
-			'post_type'           => 'everest_form',
-			'ignore_sticky_posts' => true,
-			'nopaging'            => true,
-			'post_status'         => 'trash',
-			'fields'              => 'ids',
-		) );
+		$form_ids = get_posts(
+			array(
+				'post_type'           => 'everest_form',
+				'ignore_sticky_posts' => true,
+				'nopaging'            => true,
+				'post_status'         => 'trash',
+				'fields'              => 'ids',
+			)
+		);
 
 		foreach ( $form_ids as $form_id ) {
 			if ( wp_delete_post( $form_id, true ) ) {
@@ -131,7 +137,7 @@ class EVF_Admin_Forms {
 	 */
 	private function duplicate_form() {
 		if ( empty( $_REQUEST['form_id'] ) ) {
-			wp_die( __( 'No form to duplicate has been supplied!', 'everest-forms' ) );
+			wp_die( esc_html__( 'No form to duplicate has been supplied!', 'everest-forms' ) );
 		}
 
 		$form_id = isset( $_REQUEST['form_id'] ) ? absint( $_REQUEST['form_id'] ) : '';
@@ -141,7 +147,7 @@ class EVF_Admin_Forms {
 		$duplicate_id = evf()->form->duplicate( $form_id );
 
 		// Redirect to the edit screen for the new form page.
-		wp_redirect( admin_url( 'admin.php?page=evf-builder&tab=fields&form_id=' . $duplicate_id ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=evf-builder&tab=fields&form_id=' . $duplicate_id ) );
 		exit;
 	}
 
@@ -150,7 +156,7 @@ class EVF_Admin_Forms {
 	 *
 	 * When form is deleted then it also deletes its entries meta.
 	 *
-	 * @param int $post_id
+	 * @param int $postid Post ID.
 	 */
 	public function delete_entries( $postid ) {
 		global $wpdb;
@@ -164,6 +170,19 @@ class EVF_Admin_Forms {
 				$wpdb->delete( $wpdb->prefix . 'evf_entrymeta', array( 'entry_id' => $entry_id ), array( '%d' ) );
 			}
 		}
+	}
+
+	/**
+	 * Untrash form status.
+	 *
+	 * @since 1.7.5
+	 *
+	 * @param string $new_status The new status of the post being restored.
+	 * @param int    $post_id    The ID of the post being restored.
+	 * @return string
+	 */
+	public function untrash_form_status( $new_status, $post_id ) {
+		return current_user_can( 'everest_forms_edit_forms', $post_id ) ? 'publish' : $new_status;
 	}
 }
 

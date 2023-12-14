@@ -1,6 +1,9 @@
 <?php
 namespace Elementor;
 
+use Elementor\Core\Experiments\Manager;
+use Elementor\Includes\Elements\Container;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -115,7 +118,6 @@ class Elements_Manager {
 	 * Register new category for the element.
 	 *
 	 * @since 1.7.12
-	 * @since 2.0.0 The third parameter was deprecated.
 	 * @access public
 	 *
 	 * @param string $category_name       Category name.
@@ -232,64 +234,6 @@ class Elements_Manager {
 	}
 
 	/**
-	 * Ajax discard changes.
-	 *
-	 * Ajax handler for Elementor discard_changes. Handles the discarded changes
-	 * in the builder by deleting auto-saved revisions.
-	 *
-	 * Fired by `wp_ajax_elementor_discard_changes` action.
-	 *
-	 * @since 1.9.0
-	 * @deprecated 2.0.0 Use `Plugin::$instance->documents->ajax_discard_changes()` method instead.
-	 * @access public
-	 *
-	 * @param $request
-	 *
-	 * @return bool
-	 */
-	public function ajax_discard_changes( $request ) {
-		_deprecated_function( __METHOD__, '2.0.0', 'Plugin::$instance->documents->ajax_discard_changes()' );
-
-		return Plugin::$instance->documents->ajax_discard_changes( $request );
-	}
-
-	/**
-	 * Ajax save builder.
-	 *
-	 * Ajax handler for Elementor save_builder. Handles the saved data returned
-	 * by the builder.
-	 *
-	 * Fired by `wp_ajax_elementor_save_builder` action.
-	 *
-	 * @since 1.0.0
-	 * @deprecated 2.0.0 Use `Plugin::$instance->documents->ajax_save()` method instead.
-	 * @access public
-	 *
-	 * @param array $request
-	 *
-	 * @return mixed
-	 */
-	public function ajax_save_builder( $request ) {
-		_deprecated_function( __METHOD__, '2.0.0', 'Plugin::$instance->documents->ajax_save()' );
-
-		$return_data = Plugin::$instance->documents->ajax_save( $request );
-
-		/**
-		 * Returned ajax data.
-		 *
-		 * Filters the ajax data returned when saving the post on the builder.
-		 *
-		 * @since 1.0.0
-		 * @deprecated 2.0.0 Use `elementor/documents/ajax_save/return_data` filter instead.
-		 *
-		 * @param array $return_data The returned data. Default is an empty array.
-		 */
-		$return_data = apply_filters_deprecated( 'elementor/ajax_save_builder/return_data', [ $return_data, $request['editor_post_id'] ], '2.0.0', 'elementor/documents/ajax_save/return_data' );
-
-		return $return_data;
-	}
-
-	/**
 	 * Init elements.
 	 *
 	 * Initialize Elementor elements by registering the supported elements.
@@ -307,6 +251,12 @@ class Elements_Manager {
 			$this->register_element_type( new $class_name() );
 		}
 
+		$experiments_manager = Plugin::$instance->experiments;
+
+		if ( $experiments_manager->is_feature_active( 'container' ) ) {
+			$this->register_element_type( new Container() );
+		}
+
 		/**
 		 * After elements registered.
 		 *
@@ -314,7 +264,7 @@ class Elements_Manager {
 		 *
 		 * @since 1.0.0
 		 */
-		do_action( 'elementor/elements/elements_registered' );
+		do_action( 'elementor/elements/elements_registered', $this );
 	}
 
 	/**
@@ -327,26 +277,40 @@ class Elements_Manager {
 	 */
 	private function init_categories() {
 		$this->categories = [
+			'layout' => [
+				'title' => esc_html__( 'Layout', 'elementor' ),
+				'hideIfEmpty' => true,
+			],
 			'basic' => [
-				'title' => __( 'Basic', 'elementor' ),
+				'title' => esc_html__( 'Basic', 'elementor' ),
 				'icon' => 'eicon-font',
 			],
 			'pro-elements' => [
-				'title' => __( 'Pro', 'elementor' ),
+				'title' => esc_html__( 'Pro', 'elementor' ),
 			],
 			'general' => [
-				'title' => __( 'General', 'elementor' ),
+				'title' => esc_html__( 'General', 'elementor' ),
 				'icon' => 'eicon-font',
 			],
 			'theme-elements' => [
-				'title' => __( 'Site', 'elementor' ),
+				'title' => esc_html__( 'Site', 'elementor' ),
 				'active' => false,
 			],
 			'woocommerce-elements' => [
-				'title' => __( 'WooCommerce', 'elementor' ),
+				'title' => esc_html__( 'WooCommerce', 'elementor' ),
 				'active' => false,
 			],
 		];
+
+		// Not using the `add_category` because it doesn't allow 3rd party to inject a category on top the others.
+		$this->categories = array_merge_recursive( [
+			'favorites' => [
+				'title' => esc_html__( 'Favorites', 'elementor' ),
+				'icon' => 'eicon-heart',
+				'sort' => 'a-z',
+				'hideIfEmpty' => false,
+			],
+		], $this->categories );
 
 		/**
 		 * When categories are registered.
@@ -363,13 +327,8 @@ class Elements_Manager {
 		 */
 		do_action( 'elementor/elements/categories_registered', $this );
 
-		$this->categories['pojo'] = [
-			'title' => __( 'Pojo Themes', 'elementor' ),
-			'icon' => 'eicon-pojome',
-		];
-
 		$this->categories['wordpress'] = [
-			'title' => __( 'WordPress', 'elementor' ),
+			'title' => esc_html__( 'WordPress', 'elementor' ),
 			'icon' => 'eicon-wordpress',
 			'active' => false,
 		];

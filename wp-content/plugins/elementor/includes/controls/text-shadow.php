@@ -63,17 +63,17 @@ class Control_Text_Shadow extends Control_Base_Multiple {
 	public function get_sliders() {
 		return [
 			'blur' => [
-				'label' => __( 'Blur', 'elementor' ),
+				'label' => esc_html__( 'Blur', 'elementor' ),
 				'min' => 0,
 				'max' => 100,
 			],
 			'horizontal' => [
-				'label' => __( 'Horizontal', 'elementor' ),
+				'label' => esc_html__( 'Horizontal', 'elementor' ),
 				'min' => -100,
 				'max' => 100,
 			],
 			'vertical' => [
-				'label' => __( 'Vertical', 'elementor' ),
+				'label' => esc_html__( 'Vertical', 'elementor' ),
 				'min' => -100,
 				'max' => 100,
 			],
@@ -92,33 +92,27 @@ class Control_Text_Shadow extends Control_Base_Multiple {
 	 */
 	public function content_template() {
 		?>
-		<#
-		var defaultColorValue = '';
-
-		if ( data.default.color ) {
-			defaultColorValue = ' data-default-color=' + data.default.color; // Quotes added automatically.
-		}
-		#>
-		<div class="elementor-control-field">
-			<label class="elementor-control-title"><?php echo __( 'Color', 'elementor' ); ?></label>
-			<div class="elementor-control-input-wrapper">
-				<input data-setting="color" class="elementor-shadow-color-picker" type="text" placeholder="<?php echo esc_attr( 'Hex/rgba', 'elementor' ); ?>" data-alpha="true"{{{ defaultColorValue }}} />
-			</div>
-		</div>
-		<?php
-		foreach ( $this->get_sliders() as $slider_name => $slider ) :
-			$control_uid = $this->get_control_uid( $slider_name );
-			?>
-			<div class="elementor-shadow-slider">
-				<label for="<?php echo esc_attr( $control_uid ); ?>" class="elementor-control-title"><?php echo $slider['label']; ?></label>
-				<div class="elementor-control-input-wrapper">
-					<div class="elementor-slider" data-input="<?php echo esc_attr( $slider_name ); ?>"></div>
-					<div class="elementor-slider-input">
-						<input id="<?php echo esc_attr( $control_uid ); ?>" type="number" min="<?php echo esc_attr( $slider['min'] ); ?>" max="<?php echo esc_attr( $slider['max'] ); ?>" data-setting="<?php echo esc_attr( $slider_name ); ?>"/>
-					</div>
+		<div class="elementor-shadow-box">
+			<div class="elementor-control-field elementor-color-picker-wrapper">
+				<label class="elementor-control-title"><?php echo esc_html__( 'Color', 'elementor' ); ?></label>
+				<div class="elementor-control-input-wrapper elementor-control-unit-1">
+					<div class="elementor-color-picker-placeholder"></div>
 				</div>
 			</div>
-		<?php endforeach; ?>
+			<?php
+			foreach ( $this->get_sliders() as $slider_name => $slider ) :
+				?>
+				<div class="elementor-shadow-slider elementor-control-type-slider">
+					<label for="<?php $this->print_control_uid( $slider_name ); ?>" class="elementor-control-title"><?php echo esc_html( $slider['label'] ); ?></label>
+					<div class="elementor-control-input-wrapper">
+						<div class="elementor-slider" data-input="<?php echo esc_attr( $slider_name ); ?>"></div>
+						<div class="elementor-slider-input elementor-control-unit-2">
+							<input id="<?php $this->print_control_uid( $slider_name ); ?>" type="number" min="<?php echo esc_attr( $slider['min'] ); ?>" max="<?php echo esc_attr( $slider['max'] ); ?>" data-setting="<?php echo esc_attr( $slider_name ); ?>"/>
+						</div>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		</div>
 		<?php
 	}
 }

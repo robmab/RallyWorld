@@ -21,6 +21,12 @@ if ( ! class_exists( 'Kirki_Init' ) ) {
 		 * The class constructor.
 		 */
 		public function __construct() {
+
+			if ( ! static::should_run() ) {
+				return;
+			}
+
+
 			$this->set_url();
 			add_action( 'after_setup_theme', array( $this, 'set_url' ) );
 			add_action( 'customize_update_user_meta', array( $this, 'update_user_meta' ), 10, 2 );
@@ -34,37 +40,18 @@ if ( ! class_exists( 'Kirki_Init' ) ) {
 		 */
 		public function set_url() {
 
-			// The path of the Kirki's parent-folder.
-			$path = wp_normalize_path( dirname( Kirki::$path ) );
+			Kirki::$url = get_template_directory_uri() . "/customizer/kirki";
 
-			// Get parent-theme path.
-			$parent_theme_path = get_template_directory();
-			$parent_theme_path = wp_normalize_path( $parent_theme_path );
+		}
 
-			// Get child-theme path.
-			$child_theme_path = get_stylesheet_directory_uri();
-			$child_theme_path = wp_normalize_path( $child_theme_path );
-			Kirki::$url = plugin_dir_url( dirname( __FILE__ ) . 'kirki.php' );
+		public static function should_run() {
+			global $wp_customize;
 
-			// Is Kirki included in a parent theme?
-			if ( false !== strpos( Kirki::$path, $parent_theme_path ) ) {
-				Kirki::$url = get_template_directory_uri() . str_replace( $parent_theme_path, '', Kirki::$path );
+			if ( wp_doing_ajax() && ! $wp_customize ) {
+				return false;
 			}
 
-			// Is there a child-theme?
-			if ( $child_theme_path !== $parent_theme_path ) {
-				// Is Kirki included in a child theme?
-				if ( false !== strpos( Kirki::$path, $child_theme_path ) ) {
-					Kirki::$url = get_template_directory_uri() . str_replace( $child_theme_path, '', Kirki::$path );
-				}
-			}
-
-			// Apply the kirki/config filter.
-			$config = apply_filters( 'kirki/config', array() );
-			if ( isset( $config['url_path'] ) ) {
-				Kirki::$url = esc_url_raw( $config['url_path'] );
-			}
-
+			return true;
 		}
 
 		/**
@@ -138,8 +125,8 @@ if ( ! class_exists( 'Kirki_Init' ) ) {
 		/**
 		 * Register our sections to the WordPress Customizer.
 		 *
-		 * @var	object	The WordPress Customizer object
 		 * @return  void
+		 * @var    object    The WordPress Customizer object
 		 */
 		public function add_sections() {
 			if ( ! empty( Kirki::$sections ) ) {
@@ -152,8 +139,8 @@ if ( ! class_exists( 'Kirki_Init' ) ) {
 		/**
 		 * Create the settings and controls from the $fields array and register them.
 		 *
-		 * @var	object	The WordPress Customizer object
 		 * @return  void
+		 * @var    object    The WordPress Customizer object
 		 */
 		public function add_fields() {
 
@@ -183,7 +170,7 @@ if ( ! class_exists( 'Kirki_Init' ) ) {
 		/**
 		 * Build the variables.
 		 *
-		 * @return array 	('variable-name' => value)
+		 * @return array    ('variable-name' => value)
 		 */
 		public static function get_variables() {
 
@@ -211,7 +198,8 @@ if ( ! class_exists( 'Kirki_Init' ) ) {
 							// and run it through the callback function.
 							// If no callback is defined (false) then just get the value.
 							if ( $variable_callback ) {
-								$variables[ $variable_name ] = call_user_func( $field_variable['callback'], Kirki::get_option( $field['settings'] ) );
+								$variables[ $variable_name ] = call_user_func( $field_variable['callback'],
+									Kirki::get_option( $field['settings'] ) );
 							} else {
 								$variables[ $variable_name ] = Kirki::get_option( $field['settings'] );
 							}

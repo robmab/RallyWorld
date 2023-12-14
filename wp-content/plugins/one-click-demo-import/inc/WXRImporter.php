@@ -9,7 +9,7 @@
 
 namespace OCDI;
 
-class WXRImporter extends \ProteusThemes\WPContentImporter2\WXRImporter {
+class WXRImporter extends \AwesomeMotive\WPContentImporter2\WXRImporter {
 	/**
 	 * Constructor method.
 	 *
@@ -66,7 +66,7 @@ class WXRImporter extends \ProteusThemes\WPContentImporter2\WXRImporter {
 	 * Fixes: [WARNING] Failed to import pa_size L warnings in content import.
 	 * Code from: woocommerce/includes/admin/class-wc-admin-importers.php (ver 2.6.9).
 	 *
-	 * Github issue: https://github.com/proteusthemes/one-click-demo-import/issues/71
+	 * Github issue: https://github.com/awesomemotive/one-click-demo-import/issues/71
 	 *
 	 * @param  array $date The term data to import.
 	 * @return array       The unchanged term data.

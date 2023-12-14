@@ -2,127 +2,118 @@
 
 namespace Mesmerize\Customizer\Settings;
 
-class ObjectSetting extends \Mesmerize\Customizer\BaseSetting
-{
-    private $settingPattern = "";
+class ObjectSetting extends \Mesmerize\Customizer\BaseSetting {
 
-    public function init()
-    {
-        $this->settingPattern = '/'.$this->id.'\[(.*)\]/s';
+	private $settingPattern = '';
 
-        $controls = isset($this->cpData['controlsMap']) ? $this->cpData['controlsMap'] : array();
+	public function init() {
+		$this->settingPattern = '/' . $this->id . '\[(.*)\]/s';
 
-        if (isset($this->cpData['title'])) {
-            $titleControl =array(
-               'cp__element__title' => array(
-                    "class" => "\\Mesmerize\\Customizer\\Controls\\LabelControl",
-                    "wp_data" => array(
-                        "label" => $this->cpData['title']
-                    )
-                 )
-            );
+		$controls = isset( $this->cpData['controlsMap'] ) ? $this->cpData['controlsMap'] : array();
 
-            $controls = array_merge($titleControl, $controls);
-        }
-       
-        foreach ($controls as $key => $value) {
-            $this->companion()->customizer()->registerSettings(
-                $this->manager,
-                array(
-                    "{$this->id}[{$key}]"=> array(
-                       "section"=>$this->cpData['section'],
-                       "wp_data"=>array(
-                           'default'=> $this->companion()->getCustomizerData("customizer:settings:{$this->id}:wp_data:default:{$key}"),
-                           'tranport'=> $this->transport
-                       ),
-                       "control"=>$value
-                    )
-                )
-            );
-        }
-        
+		if ( isset( $this->cpData['title'] ) ) {
+			$titleControl = array(
+				'cp__element__title' => array(
+					'class'   => '\\Mesmerize\\Customizer\\Controls\\LabelControl',
+					'wp_data' => array(
+						'label' => $this->cpData['title'],
+					),
+				),
+			);
 
-        add_filter('cloudpress\customizer\temp_mod_exists', array($this, 'tempKeyExists'), 10, 2);
-        add_filter('cloudpress\customizer\temp_mod_content', array($this, '_tempContent'), 10, 2);
-    }
+			$controls = array_merge( $titleControl, $controls );
+		}
 
-    public function tempKeyExists($value, $mod)
-    {   
-        return ($value || ($mod === $this->id));
-    }
+		foreach ( $controls as $key => $value ) {
+			$this->companion()->customizer()->registerSettings(
+				$this->manager,
+				array(
+					"{$this->id}[{$key}]" => array(
+						'section' => $this->cpData['section'],
+						'wp_data' => array(
+							'default'  => $this->companion()->getCustomizerData( "customizer:settings:{$this->id}:wp_data:default:{$key}" ),
+							'tranport' => $this->transport,
+						),
+						'control' => $value,
+					),
+				)
+			);
+		}
 
-    
-    public function _tempContent($value, $mod)
-    {
-        if($mod === $this->id){
-            return $this->tempContent();
-        }
+		add_filter( 'cloudpress\customizer\temp_mod_exists', array( $this, 'tempKeyExists' ), 10, 2 );
+		add_filter( 'cloudpress\customizer\temp_mod_content', array( $this, '_tempContent' ), 10, 2 );
+	}
 
-        return $value;
-    }
-
-    public function tempContent(){
-        $settings = $this->manager->unsanitized_post_values();
+	public function tempKeyExists( $value, $mod ) {
+		return ( $value || ( $mod === $this->id ) );
+	}
 
 
-        $result = array();
-        foreach ($settings as $setting => $value) {
-            if (strpos($setting, $this->id . "[") ===0) {
-                $matches = array();
-                preg_match($this->settingPattern, $setting, $matches);
-               
-                $key = $matches[1];
-                $result[$key] = $value;
-            }
-        }
+	public function _tempContent( $value, $mod ) {
+		if ( $mod === $this->id ) {
+			return $this->tempContent();
+		}
 
-        $savedData = get_theme_mod($this->id);
-        $result = array_merge($savedData,$result);
+		return $value;
+	}
 
-        return $result;
-    }
+	public function tempContent() {
+		$settings = $this->manager->unsanitized_post_values();
 
+		$result = array();
+		foreach ( $settings as $setting => $value ) {
+			if ( strpos( $setting, $this->id . '[' ) === 0 ) {
+				$matches = array();
+				preg_match( $this->settingPattern, $setting, $matches );
 
-    public function setControl()
-    {
-    }
+				$key            = $matches[1];
+				$result[ $key ] = $value;
+			}
+		}
 
+		$savedData = get_theme_mod( $this->id );
+		$result    = array_merge( $savedData, $result );
 
-    public function update($value)
-    {
-        $value = $this->tempContent();
-        $value = array_merge($value, $currentValue);
-        
-
-        if (isset($value['cp__element__title'])) {
-            unset($value['cp__element__title']);
-        }
-
-        if (isset($value["{$this->id}[cp__element__title]"])) {
-            unset($value["{$this->id}[cp__element__title]"]);
-        }
-        
-        set_theme_mod($this->id, $value);
-    }
+		return $result;
+	}
 
 
-    public function value()
-    {
-        if ($this->is_previewed) {
-            $value = $this->tempContent();
-        } else {
-            $mod = $this->id;
-            $value = get_theme_mod($mod, false);
-        }
+	public function setControl() {
+	}
 
-        if (isset($value['cp__element__title'])) {
-            unset($value['cp__element__title']);
-        }
 
-        if (isset($value["{$this->id}[cp__element__title]"])) {
-            unset($value["{$this->id}[cp__element__title]"]);
-        }
+	public function update( $value ) {
+		$value = $this->tempContent();
+		$value = array_merge( $value, $currentValue );
 
-        return $value;
-    }
+		if ( isset( $value['cp__element__title'] ) ) {
+			unset( $value['cp__element__title'] );
+		}
+
+		if ( isset( $value[ "{$this->id}[cp__element__title]" ] ) ) {
+			unset( $value[ "{$this->id}[cp__element__title]" ] );
+		}
+
+		set_theme_mod( $this->id, $value );
+	}
+
+
+	public function value() {
+		if ( $this->is_previewed ) {
+			$value = $this->tempContent();
+		} else {
+			$mod   = $this->id;
+			$value = get_theme_mod( $mod, false );
+		}
+
+		if ( isset( $value['cp__element__title'] ) ) {
+			unset( $value['cp__element__title'] );
+		}
+
+		if ( isset( $value[ "{$this->id}[cp__element__title]" ] ) ) {
+			unset( $value[ "{$this->id}[cp__element__title]" ] );
+		}
+
+		return $value;
+	}
 }

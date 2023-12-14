@@ -74,7 +74,7 @@ if ( $is_front ) {
 		echo '-';
 	} else {
 		echo '<dl>';
-		echo $content;
+		CustomSidebars::wp_kses_wf( $content );
 		echo '</dl>';
 	}
 }

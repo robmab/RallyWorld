@@ -1,55 +1,13405 @@
-this.wp=this.wp||{},this.wp.editor=function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:r})},n.r=function(e){Object.defineProperty(e,"__esModule",{value:!0})},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=220)}([function(e,t){!function(){e.exports=this.wp.element}()},function(e,t){!function(){e.exports=this.wp.i18n}()},function(e,t){!function(){e.exports=this.lodash}()},function(e,t,n){"use strict";function r(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}n.d(t,"a",function(){return r})},function(e,t){!function(){e.exports=this.wp.components}()},function(e,t){!function(){e.exports=this.wp.data}()},,function(e,t){!function(){e.exports=this.wp.compose}()},function(e,t,n){"use strict";n.d(t,"a",function(){return o});var r=n(15);function o(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{},o=Object.keys(n);"function"==typeof Object.getOwnPropertySymbols&&(o=o.concat(Object.getOwnPropertySymbols(n).filter(function(e){return Object.getOwnPropertyDescriptor(n,e).enumerable}))),o.forEach(function(t){Object(r.a)(e,t,n[t])})}return e}},function(e,t,n){"use strict";function r(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}function o(e,t,n){return t&&r(e.prototype,t),n&&r(e,n),e}n.d(t,"a",function(){return o})},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}n.d(t,"a",function(){return r})},function(e,t){!function(){e.exports=this.wp.blocks}()},function(e,t,n){"use strict";n.d(t,"a",function(){return i});var r=n(28),o=n(3);function i(e,t){return!t||"object"!==Object(r.a)(t)&&"function"!=typeof t?Object(o.a)(e):t}},function(e,t,n){"use strict";function r(e,t){return(r=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function o(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&r(e,t)}n.d(t,"a",function(){return o})},function(e,t,n){"use strict";function r(e){return(r=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}n.d(t,"a",function(){return r})},function(e,t,n){"use strict";function r(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}n.d(t,"a",function(){return r})},function(e,t,n){var r;
-/*!
-  Copyright (c) 2016 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
-/*!
-  Copyright (c) 2016 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
-!function(){"use strict";var n={}.hasOwnProperty;function o(){for(var e=[],t=0;t<arguments.length;t++){var r=arguments[t];if(r){var i=typeof r;if("string"===i||"number"===i)e.push(r);else if(Array.isArray(r))e.push(o.apply(null,r));else if("object"===i)for(var c in r)n.call(r,c)&&r[c]&&e.push(c)}}return e.join(" ")}void 0!==e&&e.exports?e.exports=o:void 0===(r=function(){return o}.apply(t,[]))||(e.exports=r)}()},function(e,t){!function(){e.exports=this.wp.keycodes}()},function(e,t,n){"use strict";function r(){return(r=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}n.d(t,"a",function(){return r})},function(e,t,n){"use strict";var r=n(31);function o(e){return function(e){if(Array.isArray(e)){for(var t=0,n=new Array(e.length);t<e.length;t++)n[t]=e[t];return n}}(e)||Object(r.a)(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance")}()}n.d(t,"a",function(){return o})},function(e,t){!function(){e.exports=this.wp.richText}()},function(e,t,n){"use strict";function r(e,t){if(null==e)return{};var n,r,o=function(e,t){if(null==e)return{};var n,r,o={},i=Object.keys(e);for(r=0;r<i.length;r++)n=i[r],t.indexOf(n)>=0||(o[n]=e[n]);return o}(e,t);if(Object.getOwnPropertySymbols){var i=Object.getOwnPropertySymbols(e);for(r=0;r<i.length;r++)n=i[r],t.indexOf(n)>=0||Object.prototype.propertyIsEnumerable.call(e,n)&&(o[n]=e[n])}return o}n.d(t,"a",function(){return r})},function(e,t){!function(){e.exports=this.wp.dom}()},function(e,t){!function(){e.exports=this.wp.hooks}()},function(e,t){!function(){e.exports=this.wp.url}()},function(e,t,n){"use strict";var r=n(35);var o=n(34);function i(e,t){return Object(r.a)(e)||function(e,t){var n=[],r=!0,o=!1,i=void 0;try{for(var c,a=e[Symbol.iterator]();!(r=(c=a.next()).done)&&(n.push(c.value),!t||n.length!==t);r=!0);}catch(e){o=!0,i=e}finally{try{r||null==a.return||a.return()}finally{if(o)throw i}}return n}(e,t)||Object(o.a)()}n.d(t,"a",function(){return i})},function(e,t){!function(){e.exports=this.React}()},,function(e,t,n){"use strict";function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function o(e){return(o="function"==typeof Symbol&&"symbol"===r(Symbol.iterator)?function(e){return r(e)}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":r(e)})(e)}n.d(t,"a",function(){return o})},function(e,t){!function(){e.exports=this.wp.apiFetch}()},function(e,t,n){"use strict";var r,o;function i(e){return[e]}function c(e){return!!e&&"object"==typeof e}function a(){var e={clear:function(){e.head=null}};return e}function s(e,t,n){var r;if(e.length!==t.length)return!1;for(r=n;r<e.length;r++)if(e[r]!==t[r])return!1;return!0}r={},o="undefined"!=typeof WeakMap,t.a=function(e,t){var n,l;function u(){n=o?new WeakMap:a()}function d(){var n,r,o,i,c,a=arguments.length;for(i=new Array(a),o=0;o<a;o++)i[o]=arguments[o];for(c=t.apply(null,i),(n=l(c)).isUniqueByDependants||(n.lastDependants&&!s(c,n.lastDependants,0)&&n.clear(),n.lastDependants=c),r=n.head;r;){if(s(r.args,i,1))return r!==n.head&&(r.prev.next=r.next,r.next&&(r.next.prev=r.prev),r.next=n.head,r.prev=null,n.head.prev=r,n.head=r),r.val;r=r.next}return r={val:e.apply(null,i)},i[0]=null,r.args=i,n.head&&(n.head.prev=r,r.next=n.head),n.head=r,r.val}return t||(t=i),l=o?function(e){var t,o,i,s,l=n,u=!0;for(t=0;t<e.length;t++){if(!c(o=e[t])){u=!1;break}l.has(o)?l=l.get(o):(i=new WeakMap,l.set(o,i),l=i)}return l.has(r)||((s=a()).isUniqueByDependants=u,l.set(r,s)),l.get(r)}:function(){return n},d.getDependants=t,d.clear=u,u(),d}},function(e,t,n){"use strict";function r(e){if(Symbol.iterator in Object(e)||"[object Arguments]"===Object.prototype.toString.call(e))return Array.from(e)}n.d(t,"a",function(){return r})},function(e,t){!function(){e.exports=this.wp.blob}()},,function(e,t,n){"use strict";function r(){throw new TypeError("Invalid attempt to destructure non-iterable instance")}n.d(t,"a",function(){return r})},function(e,t,n){"use strict";function r(e){if(Array.isArray(e))return e}n.d(t,"a",function(){return r})},function(e,t){!function(){e.exports=this.wp.viewport}()},,function(e,t,n){"use strict";function r(e,t,n,r,o,i,c){try{var a=e[i](c),s=a.value}catch(e){return void n(e)}a.done?t(s):Promise.resolve(s).then(r,o)}function o(e){return function(){var t=this,n=arguments;return new Promise(function(o,i){var c=e.apply(t,n);function a(e){r(c,o,i,a,s,"next",e)}function s(e){r(c,o,i,a,s,"throw",e)}a(void 0)})}}n.d(t,"a",function(){return o})},,function(e,t){!function(){e.exports=this.wp.isShallowEqual}()},function(e,t,n){e.exports=function(e,t){var n,r,o,i=0;function c(){var t,c,a=r,s=arguments.length;e:for(;a;){if(a.args.length===arguments.length){for(c=0;c<s;c++)if(a.args[c]!==arguments[c]){a=a.next;continue e}return a!==r&&(a===o&&(o=a.prev),a.prev.next=a.next,a.next&&(a.next.prev=a.prev),a.next=r,a.prev=null,r.prev=a,r=a),a.val}a=a.next}for(t=new Array(s),c=0;c<s;c++)t[c]=arguments[c];return a={args:t,val:e.apply(null,t)},r?(r.prev=a,a.next=r):o=a,i===n?(o=o.prev).next=null:i++,r=a,a.val}return t&&t.maxSize&&(n=t.maxSize),c.clear=function(){r=null,o=null,i=0},c}},function(e,t,n){e.exports=n(116)()},,,function(e,t){!function(){e.exports=this.wp.a11y}()},function(e,t,n){var r;!function(o){var i=/^\s+/,c=/\s+$/,a=0,s=o.round,l=o.min,u=o.max,d=o.random;function p(e,t){if(e=e||"",t=t||{},e instanceof p)return e;if(!(this instanceof p))return new p(e,t);var n=function(e){var t={r:0,g:0,b:0},n=1,r=null,a=null,s=null,d=!1,p=!1;"string"==typeof e&&(e=function(e){e=e.replace(i,"").replace(c,"").toLowerCase();var t,n=!1;if(I[e])e=I[e],n=!0;else if("transparent"==e)return{r:0,g:0,b:0,a:0,format:"name"};if(t=U.rgb.exec(e))return{r:t[1],g:t[2],b:t[3]};if(t=U.rgba.exec(e))return{r:t[1],g:t[2],b:t[3],a:t[4]};if(t=U.hsl.exec(e))return{h:t[1],s:t[2],l:t[3]};if(t=U.hsla.exec(e))return{h:t[1],s:t[2],l:t[3],a:t[4]};if(t=U.hsv.exec(e))return{h:t[1],s:t[2],v:t[3]};if(t=U.hsva.exec(e))return{h:t[1],s:t[2],v:t[3],a:t[4]};if(t=U.hex8.exec(e))return{r:N(t[1]),g:N(t[2]),b:N(t[3]),a:M(t[4]),format:n?"name":"hex8"};if(t=U.hex6.exec(e))return{r:N(t[1]),g:N(t[2]),b:N(t[3]),format:n?"name":"hex"};if(t=U.hex4.exec(e))return{r:N(t[1]+""+t[1]),g:N(t[2]+""+t[2]),b:N(t[3]+""+t[3]),a:M(t[4]+""+t[4]),format:n?"name":"hex8"};if(t=U.hex3.exec(e))return{r:N(t[1]+""+t[1]),g:N(t[2]+""+t[2]),b:N(t[3]+""+t[3]),format:n?"name":"hex"};return!1}(e));"object"==typeof e&&(V(e.r)&&V(e.g)&&V(e.b)?(t=function(e,t,n){return{r:255*L(e,255),g:255*L(t,255),b:255*L(n,255)}}(e.r,e.g,e.b),d=!0,p="%"===String(e.r).substr(-1)?"prgb":"rgb"):V(e.h)&&V(e.s)&&V(e.v)?(r=D(e.s),a=D(e.v),t=function(e,t,n){e=6*L(e,360),t=L(t,100),n=L(n,100);var r=o.floor(e),i=e-r,c=n*(1-t),a=n*(1-i*t),s=n*(1-(1-i)*t),l=r%6;return{r:255*[n,a,c,c,s,n][l],g:255*[s,n,n,a,c,c][l],b:255*[c,c,s,n,n,a][l]}}(e.h,r,a),d=!0,p="hsv"):V(e.h)&&V(e.s)&&V(e.l)&&(r=D(e.s),s=D(e.l),t=function(e,t,n){var r,o,i;function c(e,t,n){return n<0&&(n+=1),n>1&&(n-=1),n<1/6?e+6*(t-e)*n:n<.5?t:n<2/3?e+(t-e)*(2/3-n)*6:e}if(e=L(e,360),t=L(t,100),n=L(n,100),0===t)r=o=i=n;else{var a=n<.5?n*(1+t):n+t-n*t,s=2*n-a;r=c(s,a,e+1/3),o=c(s,a,e),i=c(s,a,e-1/3)}return{r:255*r,g:255*o,b:255*i}}(e.h,r,s),d=!0,p="hsl"),e.hasOwnProperty("a")&&(n=e.a));return n=x(n),{ok:d,format:e.format||p,r:l(255,u(t.r,0)),g:l(255,u(t.g,0)),b:l(255,u(t.b,0)),a:n}}(e);this._originalInput=e,this._r=n.r,this._g=n.g,this._b=n.b,this._a=n.a,this._roundA=s(100*this._a)/100,this._format=t.format||n.format,this._gradientType=t.gradientType,this._r<1&&(this._r=s(this._r)),this._g<1&&(this._g=s(this._g)),this._b<1&&(this._b=s(this._b)),this._ok=n.ok,this._tc_id=a++}function b(e,t,n){e=L(e,255),t=L(t,255),n=L(n,255);var r,o,i=u(e,t,n),c=l(e,t,n),a=(i+c)/2;if(i==c)r=o=0;else{var s=i-c;switch(o=a>.5?s/(2-i-c):s/(i+c),i){case e:r=(t-n)/s+(t<n?6:0);break;case t:r=(n-e)/s+2;break;case n:r=(e-t)/s+4}r/=6}return{h:r,s:o,l:a}}function f(e,t,n){e=L(e,255),t=L(t,255),n=L(n,255);var r,o,i=u(e,t,n),c=l(e,t,n),a=i,s=i-c;if(o=0===i?0:s/i,i==c)r=0;else{switch(i){case e:r=(t-n)/s+(t<n?6:0);break;case t:r=(n-e)/s+2;break;case n:r=(e-t)/s+4}r/=6}return{h:r,s:o,v:a}}function h(e,t,n,r){var o=[R(s(e).toString(16)),R(s(t).toString(16)),R(s(n).toString(16))];return r&&o[0].charAt(0)==o[0].charAt(1)&&o[1].charAt(0)==o[1].charAt(1)&&o[2].charAt(0)==o[2].charAt(1)?o[0].charAt(0)+o[1].charAt(0)+o[2].charAt(0):o.join("")}function m(e,t,n,r){return[R(F(r)),R(s(e).toString(16)),R(s(t).toString(16)),R(s(n).toString(16))].join("")}function v(e,t){t=0===t?0:t||10;var n=p(e).toHsl();return n.s-=t/100,n.s=A(n.s),p(n)}function O(e,t){t=0===t?0:t||10;var n=p(e).toHsl();return n.s+=t/100,n.s=A(n.s),p(n)}function g(e){return p(e).desaturate(100)}function j(e,t){t=0===t?0:t||10;var n=p(e).toHsl();return n.l+=t/100,n.l=A(n.l),p(n)}function y(e,t){t=0===t?0:t||10;var n=p(e).toRgb();return n.r=u(0,l(255,n.r-s(-t/100*255))),n.g=u(0,l(255,n.g-s(-t/100*255))),n.b=u(0,l(255,n.b-s(-t/100*255))),p(n)}function k(e,t){t=0===t?0:t||10;var n=p(e).toHsl();return n.l-=t/100,n.l=A(n.l),p(n)}function _(e,t){var n=p(e).toHsl(),r=(n.h+t)%360;return n.h=r<0?360+r:r,p(n)}function E(e){var t=p(e).toHsl();return t.h=(t.h+180)%360,p(t)}function S(e){var t=p(e).toHsl(),n=t.h;return[p(e),p({h:(n+120)%360,s:t.s,l:t.l}),p({h:(n+240)%360,s:t.s,l:t.l})]}function C(e){var t=p(e).toHsl(),n=t.h;return[p(e),p({h:(n+90)%360,s:t.s,l:t.l}),p({h:(n+180)%360,s:t.s,l:t.l}),p({h:(n+270)%360,s:t.s,l:t.l})]}function w(e){var t=p(e).toHsl(),n=t.h;return[p(e),p({h:(n+72)%360,s:t.s,l:t.l}),p({h:(n+216)%360,s:t.s,l:t.l})]}function T(e,t,n){t=t||6,n=n||30;var r=p(e).toHsl(),o=360/n,i=[p(e)];for(r.h=(r.h-(o*t>>1)+720)%360;--t;)r.h=(r.h+o)%360,i.push(p(r));return i}function P(e,t){t=t||6;for(var n=p(e).toHsv(),r=n.h,o=n.s,i=n.v,c=[],a=1/t;t--;)c.push(p({h:r,s:o,v:i})),i=(i+a)%1;return c}p.prototype={isDark:function(){return this.getBrightness()<128},isLight:function(){return!this.isDark()},isValid:function(){return this._ok},getOriginalInput:function(){return this._originalInput},getFormat:function(){return this._format},getAlpha:function(){return this._a},getBrightness:function(){var e=this.toRgb();return(299*e.r+587*e.g+114*e.b)/1e3},getLuminance:function(){var e,t,n,r=this.toRgb();return e=r.r/255,t=r.g/255,n=r.b/255,.2126*(e<=.03928?e/12.92:o.pow((e+.055)/1.055,2.4))+.7152*(t<=.03928?t/12.92:o.pow((t+.055)/1.055,2.4))+.0722*(n<=.03928?n/12.92:o.pow((n+.055)/1.055,2.4))},setAlpha:function(e){return this._a=x(e),this._roundA=s(100*this._a)/100,this},toHsv:function(){var e=f(this._r,this._g,this._b);return{h:360*e.h,s:e.s,v:e.v,a:this._a}},toHsvString:function(){var e=f(this._r,this._g,this._b),t=s(360*e.h),n=s(100*e.s),r=s(100*e.v);return 1==this._a?"hsv("+t+", "+n+"%, "+r+"%)":"hsva("+t+", "+n+"%, "+r+"%, "+this._roundA+")"},toHsl:function(){var e=b(this._r,this._g,this._b);return{h:360*e.h,s:e.s,l:e.l,a:this._a}},toHslString:function(){var e=b(this._r,this._g,this._b),t=s(360*e.h),n=s(100*e.s),r=s(100*e.l);return 1==this._a?"hsl("+t+", "+n+"%, "+r+"%)":"hsla("+t+", "+n+"%, "+r+"%, "+this._roundA+")"},toHex:function(e){return h(this._r,this._g,this._b,e)},toHexString:function(e){return"#"+this.toHex(e)},toHex8:function(e){return function(e,t,n,r,o){var i=[R(s(e).toString(16)),R(s(t).toString(16)),R(s(n).toString(16)),R(F(r))];if(o&&i[0].charAt(0)==i[0].charAt(1)&&i[1].charAt(0)==i[1].charAt(1)&&i[2].charAt(0)==i[2].charAt(1)&&i[3].charAt(0)==i[3].charAt(1))return i[0].charAt(0)+i[1].charAt(0)+i[2].charAt(0)+i[3].charAt(0);return i.join("")}(this._r,this._g,this._b,this._a,e)},toHex8String:function(e){return"#"+this.toHex8(e)},toRgb:function(){return{r:s(this._r),g:s(this._g),b:s(this._b),a:this._a}},toRgbString:function(){return 1==this._a?"rgb("+s(this._r)+", "+s(this._g)+", "+s(this._b)+")":"rgba("+s(this._r)+", "+s(this._g)+", "+s(this._b)+", "+this._roundA+")"},toPercentageRgb:function(){return{r:s(100*L(this._r,255))+"%",g:s(100*L(this._g,255))+"%",b:s(100*L(this._b,255))+"%",a:this._a}},toPercentageRgbString:function(){return 1==this._a?"rgb("+s(100*L(this._r,255))+"%, "+s(100*L(this._g,255))+"%, "+s(100*L(this._b,255))+"%)":"rgba("+s(100*L(this._r,255))+"%, "+s(100*L(this._g,255))+"%, "+s(100*L(this._b,255))+"%, "+this._roundA+")"},toName:function(){return 0===this._a?"transparent":!(this._a<1)&&(B[h(this._r,this._g,this._b,!0)]||!1)},toFilter:function(e){var t="#"+m(this._r,this._g,this._b,this._a),n=t,r=this._gradientType?"GradientType = 1, ":"";if(e){var o=p(e);n="#"+m(o._r,o._g,o._b,o._a)}return"progid:DXImageTransform.Microsoft.gradient("+r+"startColorstr="+t+",endColorstr="+n+")"},toString:function(e){var t=!!e;e=e||this._format;var n=!1,r=this._a<1&&this._a>=0;return t||!r||"hex"!==e&&"hex6"!==e&&"hex3"!==e&&"hex4"!==e&&"hex8"!==e&&"name"!==e?("rgb"===e&&(n=this.toRgbString()),"prgb"===e&&(n=this.toPercentageRgbString()),"hex"!==e&&"hex6"!==e||(n=this.toHexString()),"hex3"===e&&(n=this.toHexString(!0)),"hex4"===e&&(n=this.toHex8String(!0)),"hex8"===e&&(n=this.toHex8String()),"name"===e&&(n=this.toName()),"hsl"===e&&(n=this.toHslString()),"hsv"===e&&(n=this.toHsvString()),n||this.toHexString()):"name"===e&&0===this._a?this.toName():this.toRgbString()},clone:function(){return p(this.toString())},_applyModification:function(e,t){var n=e.apply(null,[this].concat([].slice.call(t)));return this._r=n._r,this._g=n._g,this._b=n._b,this.setAlpha(n._a),this},lighten:function(){return this._applyModification(j,arguments)},brighten:function(){return this._applyModification(y,arguments)},darken:function(){return this._applyModification(k,arguments)},desaturate:function(){return this._applyModification(v,arguments)},saturate:function(){return this._applyModification(O,arguments)},greyscale:function(){return this._applyModification(g,arguments)},spin:function(){return this._applyModification(_,arguments)},_applyCombination:function(e,t){return e.apply(null,[this].concat([].slice.call(t)))},analogous:function(){return this._applyCombination(T,arguments)},complement:function(){return this._applyCombination(E,arguments)},monochromatic:function(){return this._applyCombination(P,arguments)},splitcomplement:function(){return this._applyCombination(w,arguments)},triad:function(){return this._applyCombination(S,arguments)},tetrad:function(){return this._applyCombination(C,arguments)}},p.fromRatio=function(e,t){if("object"==typeof e){var n={};for(var r in e)e.hasOwnProperty(r)&&(n[r]="a"===r?e[r]:D(e[r]));e=n}return p(e,t)},p.equals=function(e,t){return!(!e||!t)&&p(e).toRgbString()==p(t).toRgbString()},p.random=function(){return p.fromRatio({r:d(),g:d(),b:d()})},p.mix=function(e,t,n){n=0===n?0:n||50;var r=p(e).toRgb(),o=p(t).toRgb(),i=n/100;return p({r:(o.r-r.r)*i+r.r,g:(o.g-r.g)*i+r.g,b:(o.b-r.b)*i+r.b,a:(o.a-r.a)*i+r.a})},p.readability=function(e,t){var n=p(e),r=p(t);return(o.max(n.getLuminance(),r.getLuminance())+.05)/(o.min(n.getLuminance(),r.getLuminance())+.05)},p.isReadable=function(e,t,n){var r,o,i=p.readability(e,t);switch(o=!1,(r=function(e){var t,n;t=((e=e||{level:"AA",size:"small"}).level||"AA").toUpperCase(),n=(e.size||"small").toLowerCase(),"AA"!==t&&"AAA"!==t&&(t="AA");"small"!==n&&"large"!==n&&(n="small");return{level:t,size:n}}(n)).level+r.size){case"AAsmall":case"AAAlarge":o=i>=4.5;break;case"AAlarge":o=i>=3;break;case"AAAsmall":o=i>=7}return o},p.mostReadable=function(e,t,n){var r,o,i,c,a=null,s=0;o=(n=n||{}).includeFallbackColors,i=n.level,c=n.size;for(var l=0;l<t.length;l++)(r=p.readability(e,t[l]))>s&&(s=r,a=p(t[l]));return p.isReadable(e,a,{level:i,size:c})||!o?a:(n.includeFallbackColors=!1,p.mostReadable(e,["#fff","#000"],n))};var I=p.names={aliceblue:"f0f8ff",antiquewhite:"faebd7",aqua:"0ff",aquamarine:"7fffd4",azure:"f0ffff",beige:"f5f5dc",bisque:"ffe4c4",black:"000",blanchedalmond:"ffebcd",blue:"00f",blueviolet:"8a2be2",brown:"a52a2a",burlywood:"deb887",burntsienna:"ea7e5d",cadetblue:"5f9ea0",chartreuse:"7fff00",chocolate:"d2691e",coral:"ff7f50",cornflowerblue:"6495ed",cornsilk:"fff8dc",crimson:"dc143c",cyan:"0ff",darkblue:"00008b",darkcyan:"008b8b",darkgoldenrod:"b8860b",darkgray:"a9a9a9",darkgreen:"006400",darkgrey:"a9a9a9",darkkhaki:"bdb76b",darkmagenta:"8b008b",darkolivegreen:"556b2f",darkorange:"ff8c00",darkorchid:"9932cc",darkred:"8b0000",darksalmon:"e9967a",darkseagreen:"8fbc8f",darkslateblue:"483d8b",darkslategray:"2f4f4f",darkslategrey:"2f4f4f",darkturquoise:"00ced1",darkviolet:"9400d3",deeppink:"ff1493",deepskyblue:"00bfff",dimgray:"696969",dimgrey:"696969",dodgerblue:"1e90ff",firebrick:"b22222",floralwhite:"fffaf0",forestgreen:"228b22",fuchsia:"f0f",gainsboro:"dcdcdc",ghostwhite:"f8f8ff",gold:"ffd700",goldenrod:"daa520",gray:"808080",green:"008000",greenyellow:"adff2f",grey:"808080",honeydew:"f0fff0",hotpink:"ff69b4",indianred:"cd5c5c",indigo:"4b0082",ivory:"fffff0",khaki:"f0e68c",lavender:"e6e6fa",lavenderblush:"fff0f5",lawngreen:"7cfc00",lemonchiffon:"fffacd",lightblue:"add8e6",lightcoral:"f08080",lightcyan:"e0ffff",lightgoldenrodyellow:"fafad2",lightgray:"d3d3d3",lightgreen:"90ee90",lightgrey:"d3d3d3",lightpink:"ffb6c1",lightsalmon:"ffa07a",lightseagreen:"20b2aa",lightskyblue:"87cefa",lightslategray:"789",lightslategrey:"789",lightsteelblue:"b0c4de",lightyellow:"ffffe0",lime:"0f0",limegreen:"32cd32",linen:"faf0e6",magenta:"f0f",maroon:"800000",mediumaquamarine:"66cdaa",mediumblue:"0000cd",mediumorchid:"ba55d3",mediumpurple:"9370db",mediumseagreen:"3cb371",mediumslateblue:"7b68ee",mediumspringgreen:"00fa9a",mediumturquoise:"48d1cc",mediumvioletred:"c71585",midnightblue:"191970",mintcream:"f5fffa",mistyrose:"ffe4e1",moccasin:"ffe4b5",navajowhite:"ffdead",navy:"000080",oldlace:"fdf5e6",olive:"808000",olivedrab:"6b8e23",orange:"ffa500",orangered:"ff4500",orchid:"da70d6",palegoldenrod:"eee8aa",palegreen:"98fb98",paleturquoise:"afeeee",palevioletred:"db7093",papayawhip:"ffefd5",peachpuff:"ffdab9",peru:"cd853f",pink:"ffc0cb",plum:"dda0dd",powderblue:"b0e0e6",purple:"800080",rebeccapurple:"663399",red:"f00",rosybrown:"bc8f8f",royalblue:"4169e1",saddlebrown:"8b4513",salmon:"fa8072",sandybrown:"f4a460",seagreen:"2e8b57",seashell:"fff5ee",sienna:"a0522d",silver:"c0c0c0",skyblue:"87ceeb",slateblue:"6a5acd",slategray:"708090",slategrey:"708090",snow:"fffafa",springgreen:"00ff7f",steelblue:"4682b4",tan:"d2b48c",teal:"008080",thistle:"d8bfd8",tomato:"ff6347",turquoise:"40e0d0",violet:"ee82ee",wheat:"f5deb3",white:"fff",whitesmoke:"f5f5f5",yellow:"ff0",yellowgreen:"9acd32"},B=p.hexNames=function(e){var t={};for(var n in e)e.hasOwnProperty(n)&&(t[e[n]]=n);return t}(I);function x(e){return e=parseFloat(e),(isNaN(e)||e<0||e>1)&&(e=1),e}function L(e,t){(function(e){return"string"==typeof e&&-1!=e.indexOf(".")&&1===parseFloat(e)})(e)&&(e="100%");var n=function(e){return"string"==typeof e&&-1!=e.indexOf("%")}(e);return e=l(t,u(0,parseFloat(e))),n&&(e=parseInt(e*t,10)/100),o.abs(e-t)<1e-6?1:e%t/parseFloat(t)}function A(e){return l(1,u(0,e))}function N(e){return parseInt(e,16)}function R(e){return 1==e.length?"0"+e:""+e}function D(e){return e<=1&&(e=100*e+"%"),e}function F(e){return o.round(255*parseFloat(e)).toString(16)}function M(e){return N(e)/255}var U=function(){var e="(?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?)",t="[\\s|\\(]+("+e+")[,|\\s]+("+e+")[,|\\s]+("+e+")\\s*\\)?",n="[\\s|\\(]+("+e+")[,|\\s]+("+e+")[,|\\s]+("+e+")[,|\\s]+("+e+")\\s*\\)?";return{CSS_UNIT:new RegExp(e),rgb:new RegExp("rgb"+t),rgba:new RegExp("rgba"+n),hsl:new RegExp("hsl"+t),hsla:new RegExp("hsla"+n),hsv:new RegExp("hsv"+t),hsva:new RegExp("hsva"+n),hex3:/^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,hex6:/^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,hex4:/^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,hex8:/^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/}}();function V(e){return!!U.CSS_UNIT.exec(e)}void 0!==e&&e.exports?e.exports=p:void 0===(r=function(){return p}.call(t,n,t,e))||(e.exports=r)}(Math)},function(e,t){!function(){e.exports=this.wp.date}()},,,function(e,t){!function(){e.exports=this.wp.htmlEntities}()},,function(e,t){!function(){e.exports=this.wp.nux}()},function(e,t,n){e.exports=n(253)},function(e,t){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(n=window)}e.exports=n},function(e,t,n){"use strict";t.__esModule=!0;var r=n(252);t.default=r.default},,function(e,t,n){"use strict";e.exports=n(105)},function(e,t){!function(){e.exports=this.wp.autop}()},,,,,,,function(e,t){!function(){e.exports=this.wp.deprecated}()},,,,,,,,,,function(e,t,n){"use strict";var r=n(125),o=n(123);function i(){this.protocol=null,this.slashes=null,this.auth=null,this.host=null,this.port=null,this.hostname=null,this.hash=null,this.search=null,this.query=null,this.pathname=null,this.path=null,this.href=null}t.parse=g,t.resolve=function(e,t){return g(e,!1,!0).resolve(t)},t.resolveObject=function(e,t){return e?g(e,!1,!0).resolveObject(t):t},t.format=function(e){o.isString(e)&&(e=g(e));return e instanceof i?e.format():i.prototype.format.call(e)},t.Url=i;var c=/^([a-z0-9.+-]+:)/i,a=/:[0-9]*$/,s=/^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/,l=["{","}","|","\\","^","`"].concat(["<",">",'"',"`"," ","\r","\n","\t"]),u=["'"].concat(l),d=["%","/","?",";","#"].concat(u),p=["/","?","#"],b=/^[+a-z0-9A-Z_-]{0,63}$/,f=/^([+a-z0-9A-Z_-]{0,63})(.*)$/,h={javascript:!0,"javascript:":!0},m={javascript:!0,"javascript:":!0},v={http:!0,https:!0,ftp:!0,gopher:!0,file:!0,"http:":!0,"https:":!0,"ftp:":!0,"gopher:":!0,"file:":!0},O=n(122);function g(e,t,n){if(e&&o.isObject(e)&&e instanceof i)return e;var r=new i;return r.parse(e,t,n),r}i.prototype.parse=function(e,t,n){if(!o.isString(e))throw new TypeError("Parameter 'url' must be a string, not "+typeof e);var i=e.indexOf("?"),a=-1!==i&&i<e.indexOf("#")?"?":"#",l=e.split(a);l[0]=l[0].replace(/\\/g,"/");var g=e=l.join(a);if(g=g.trim(),!n&&1===e.split("#").length){var j=s.exec(g);if(j)return this.path=g,this.href=g,this.pathname=j[1],j[2]?(this.search=j[2],this.query=t?O.parse(this.search.substr(1)):this.search.substr(1)):t&&(this.search="",this.query={}),this}var y=c.exec(g);if(y){var k=(y=y[0]).toLowerCase();this.protocol=k,g=g.substr(y.length)}if(n||y||g.match(/^\/\/[^@\/]+@[^@\/]+/)){var _="//"===g.substr(0,2);!_||y&&m[y]||(g=g.substr(2),this.slashes=!0)}if(!m[y]&&(_||y&&!v[y])){for(var E,S,C=-1,w=0;w<p.length;w++){-1!==(T=g.indexOf(p[w]))&&(-1===C||T<C)&&(C=T)}-1!==(S=-1===C?g.lastIndexOf("@"):g.lastIndexOf("@",C))&&(E=g.slice(0,S),g=g.slice(S+1),this.auth=decodeURIComponent(E)),C=-1;for(w=0;w<d.length;w++){var T;-1!==(T=g.indexOf(d[w]))&&(-1===C||T<C)&&(C=T)}-1===C&&(C=g.length),this.host=g.slice(0,C),g=g.slice(C),this.parseHost(),this.hostname=this.hostname||"";var P="["===this.hostname[0]&&"]"===this.hostname[this.hostname.length-1];if(!P)for(var I=this.hostname.split(/\./),B=(w=0,I.length);w<B;w++){var x=I[w];if(x&&!x.match(b)){for(var L="",A=0,N=x.length;A<N;A++)x.charCodeAt(A)>127?L+="x":L+=x[A];if(!L.match(b)){var R=I.slice(0,w),D=I.slice(w+1),F=x.match(f);F&&(R.push(F[1]),D.unshift(F[2])),D.length&&(g="/"+D.join(".")+g),this.hostname=R.join(".");break}}}this.hostname.length>255?this.hostname="":this.hostname=this.hostname.toLowerCase(),P||(this.hostname=r.toASCII(this.hostname));var M=this.port?":"+this.port:"",U=this.hostname||"";this.host=U+M,this.href+=this.host,P&&(this.hostname=this.hostname.substr(1,this.hostname.length-2),"/"!==g[0]&&(g="/"+g))}if(!h[k])for(w=0,B=u.length;w<B;w++){var V=u[w];if(-1!==g.indexOf(V)){var H=encodeURIComponent(V);H===V&&(H=escape(V)),g=g.split(V).join(H)}}var K=g.indexOf("#");-1!==K&&(this.hash=g.substr(K),g=g.slice(0,K));var z=g.indexOf("?");if(-1!==z?(this.search=g.substr(z),this.query=g.substr(z+1),t&&(this.query=O.parse(this.query)),g=g.slice(0,z)):t&&(this.search="",this.query={}),g&&(this.pathname=g),v[k]&&this.hostname&&!this.pathname&&(this.pathname="/"),this.pathname||this.search){M=this.pathname||"";var W=this.search||"";this.path=M+W}return this.href=this.format(),this},i.prototype.format=function(){var e=this.auth||"";e&&(e=(e=encodeURIComponent(e)).replace(/%3A/i,":"),e+="@");var t=this.protocol||"",n=this.pathname||"",r=this.hash||"",i=!1,c="";this.host?i=e+this.host:this.hostname&&(i=e+(-1===this.hostname.indexOf(":")?this.hostname:"["+this.hostname+"]"),this.port&&(i+=":"+this.port)),this.query&&o.isObject(this.query)&&Object.keys(this.query).length&&(c=O.stringify(this.query));var a=this.search||c&&"?"+c||"";return t&&":"!==t.substr(-1)&&(t+=":"),this.slashes||(!t||v[t])&&!1!==i?(i="//"+(i||""),n&&"/"!==n.charAt(0)&&(n="/"+n)):i||(i=""),r&&"#"!==r.charAt(0)&&(r="#"+r),a&&"?"!==a.charAt(0)&&(a="?"+a),t+i+(n=n.replace(/[?#]/g,function(e){return encodeURIComponent(e)}))+(a=a.replace("#","%23"))+r},i.prototype.resolve=function(e){return this.resolveObject(g(e,!1,!0)).format()},i.prototype.resolveObject=function(e){if(o.isString(e)){var t=new i;t.parse(e,!1,!0),e=t}for(var n=new i,r=Object.keys(this),c=0;c<r.length;c++){var a=r[c];n[a]=this[a]}if(n.hash=e.hash,""===e.href)return n.href=n.format(),n;if(e.slashes&&!e.protocol){for(var s=Object.keys(e),l=0;l<s.length;l++){var u=s[l];"protocol"!==u&&(n[u]=e[u])}return v[n.protocol]&&n.hostname&&!n.pathname&&(n.path=n.pathname="/"),n.href=n.format(),n}if(e.protocol&&e.protocol!==n.protocol){if(!v[e.protocol]){for(var d=Object.keys(e),p=0;p<d.length;p++){var b=d[p];n[b]=e[b]}return n.href=n.format(),n}if(n.protocol=e.protocol,e.host||m[e.protocol])n.pathname=e.pathname;else{for(var f=(e.pathname||"").split("/");f.length&&!(e.host=f.shift()););e.host||(e.host=""),e.hostname||(e.hostname=""),""!==f[0]&&f.unshift(""),f.length<2&&f.unshift(""),n.pathname=f.join("/")}if(n.search=e.search,n.query=e.query,n.host=e.host||"",n.auth=e.auth,n.hostname=e.hostname||e.host,n.port=e.port,n.pathname||n.search){var h=n.pathname||"",O=n.search||"";n.path=h+O}return n.slashes=n.slashes||e.slashes,n.href=n.format(),n}var g=n.pathname&&"/"===n.pathname.charAt(0),j=e.host||e.pathname&&"/"===e.pathname.charAt(0),y=j||g||n.host&&e.pathname,k=y,_=n.pathname&&n.pathname.split("/")||[],E=(f=e.pathname&&e.pathname.split("/")||[],n.protocol&&!v[n.protocol]);if(E&&(n.hostname="",n.port=null,n.host&&(""===_[0]?_[0]=n.host:_.unshift(n.host)),n.host="",e.protocol&&(e.hostname=null,e.port=null,e.host&&(""===f[0]?f[0]=e.host:f.unshift(e.host)),e.host=null),y=y&&(""===f[0]||""===_[0])),j)n.host=e.host||""===e.host?e.host:n.host,n.hostname=e.hostname||""===e.hostname?e.hostname:n.hostname,n.search=e.search,n.query=e.query,_=f;else if(f.length)_||(_=[]),_.pop(),_=_.concat(f),n.search=e.search,n.query=e.query;else if(!o.isNullOrUndefined(e.search)){if(E)n.hostname=n.host=_.shift(),(P=!!(n.host&&n.host.indexOf("@")>0)&&n.host.split("@"))&&(n.auth=P.shift(),n.host=n.hostname=P.shift());return n.search=e.search,n.query=e.query,o.isNull(n.pathname)&&o.isNull(n.search)||(n.path=(n.pathname?n.pathname:"")+(n.search?n.search:"")),n.href=n.format(),n}if(!_.length)return n.pathname=null,n.search?n.path="/"+n.search:n.path=null,n.href=n.format(),n;for(var S=_.slice(-1)[0],C=(n.host||e.host||_.length>1)&&("."===S||".."===S)||""===S,w=0,T=_.length;T>=0;T--)"."===(S=_[T])?_.splice(T,1):".."===S?(_.splice(T,1),w++):w&&(_.splice(T,1),w--);if(!y&&!k)for(;w--;w)_.unshift("..");!y||""===_[0]||_[0]&&"/"===_[0].charAt(0)||_.unshift(""),C&&"/"!==_.join("/").substr(-1)&&_.push("");var P,I=""===_[0]||_[0]&&"/"===_[0].charAt(0);E&&(n.hostname=n.host=I?"":_.length?_.shift():"",(P=!!(n.host&&n.host.indexOf("@")>0)&&n.host.split("@"))&&(n.auth=P.shift(),n.host=n.hostname=P.shift()));return(y=y||n.host&&_.length)&&!I&&_.unshift(""),_.length?n.pathname=_.join("/"):(n.pathname=null,n.path=null),o.isNull(n.pathname)&&o.isNull(n.search)||(n.path=(n.pathname?n.pathname:"")+(n.search?n.search:"")),n.auth=e.auth||n.auth,n.slashes=n.slashes||e.slashes,n.href=n.format(),n},i.prototype.parseHost=function(){var e=this.host,t=a.exec(e);t&&(":"!==(t=t[0])&&(this.port=t.substr(1)),e=e.substr(0,e.length-t.length)),e&&(this.hostname=e)}},,,,,,,function(e,t){!function(){e.exports=this.wp.coreData}()},,,function(e,t,n){e.exports=function(){"use strict";return function(e){var t={};return function e(t,n){var r;if(Array.isArray(n))for(r=0;r<n.length;r++)e(t,n[r]);else for(r in n)t[r]=(t[r]||[]).concat(n[r])}(t,e),function(e){return function(n){return function(r){var o,i,c=t[r.type],a=n(r);if(c)for(o=0;o<c.length;o++)(i=c[o](r,e))&&e.dispatch(i);return a}}}}}()},,,,,,,,,,,,function(e,t){"function"==typeof Object.create?e.exports=function(e,t){e.super_=t,e.prototype=Object.create(t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}})}:e.exports=function(e,t){e.super_=t;var n=function(){};n.prototype=t.prototype,e.prototype=new n,e.prototype.constructor=e}},function(e,t){!function(){e.exports=this.wp.wordcount}()},,function(e,t){!function(){e.exports=this.jQuery}()},,function(e,t){!function(){e.exports=this.wp.notices}()},,function(e,t,n){"use strict";var r=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e},o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol?"symbol":typeof e};function i(e,t){var n=e["page"+(t?"Y":"X")+"Offset"],r="scroll"+(t?"Top":"Left");if("number"!=typeof n){var o=e.document;"number"!=typeof(n=o.documentElement[r])&&(n=o.body[r])}return n}function c(e){return i(e)}function a(e){return i(e,!0)}function s(e){var t=function(e){var t,n=void 0,r=void 0,o=e.ownerDocument,i=o.body,c=o&&o.documentElement;return n=(t=e.getBoundingClientRect()).left,r=t.top,{left:n-=c.clientLeft||i.clientLeft||0,top:r-=c.clientTop||i.clientTop||0}}(e),n=e.ownerDocument,r=n.defaultView||n.parentWindow;return t.left+=c(r),t.top+=a(r),t}var l=new RegExp("^("+/[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source+")(?!px)[a-z%]+$","i"),u=/^(top|right|bottom|left)$/,d="currentStyle",p="runtimeStyle",b="left",f="px";var h=void 0;function m(e,t){for(var n=0;n<e.length;n++)t(e[n])}function v(e){return"border-box"===h(e,"boxSizing")}"undefined"!=typeof window&&(h=window.getComputedStyle?function(e,t,n){var r="",o=e.ownerDocument,i=n||o.defaultView.getComputedStyle(e,null);return i&&(r=i.getPropertyValue(t)||i[t]),r}:function(e,t){var n=e[d]&&e[d][t];if(l.test(n)&&!u.test(t)){var r=e.style,o=r[b],i=e[p][b];e[p][b]=e[d][b],r[b]="fontSize"===t?"1em":n||0,n=r.pixelLeft+f,r[b]=o,e[p][b]=i}return""===n?"auto":n});var O=["margin","border","padding"],g=-1,j=2,y=1;function k(e,t,n){var r=0,o=void 0,i=void 0,c=void 0;for(i=0;i<t.length;i++)if(o=t[i])for(c=0;c<n.length;c++){var a=void 0;a="border"===o?o+n[c]+"Width":o+n[c],r+=parseFloat(h(e,a))||0}return r}function _(e){return null!=e&&e==e.window}var E={};function S(e,t,n){if(_(e))return"width"===t?E.viewportWidth(e):E.viewportHeight(e);if(9===e.nodeType)return"width"===t?E.docWidth(e):E.docHeight(e);var r="width"===t?["Left","Right"]:["Top","Bottom"],o="width"===t?e.offsetWidth:e.offsetHeight,i=(h(e),v(e)),c=0;(null==o||o<=0)&&(o=void 0,(null==(c=h(e,t))||Number(c)<0)&&(c=e.style[t]||0),c=parseFloat(c)||0),void 0===n&&(n=i?y:g);var a=void 0!==o||i,s=o||c;if(n===g)return a?s-k(e,["border","padding"],r):c;if(a){var l=n===j?-k(e,["border"],r):k(e,["margin"],r);return s+(n===y?0:l)}return c+k(e,O.slice(n),r)}m(["Width","Height"],function(e){E["doc"+e]=function(t){var n=t.document;return Math.max(n.documentElement["scroll"+e],n.body["scroll"+e],E["viewport"+e](n))},E["viewport"+e]=function(t){var n="client"+e,r=t.document,o=r.body,i=r.documentElement[n];return"CSS1Compat"===r.compatMode&&i||o&&o[n]||i}});var C={position:"absolute",visibility:"hidden",display:"block"};function w(e){var t=void 0,n=arguments;return 0!==e.offsetWidth?t=S.apply(void 0,n):function(e,t,n){var r={},o=e.style,i=void 0;for(i in t)t.hasOwnProperty(i)&&(r[i]=o[i],o[i]=t[i]);for(i in n.call(e),t)t.hasOwnProperty(i)&&(o[i]=r[i])}(e,C,function(){t=S.apply(void 0,n)}),t}function T(e,t,n){var r=n;if("object"!==(void 0===t?"undefined":o(t)))return void 0!==r?("number"==typeof r&&(r+="px"),void(e.style[t]=r)):h(e,t);for(var i in t)t.hasOwnProperty(i)&&T(e,i,t[i])}m(["width","height"],function(e){var t=e.charAt(0).toUpperCase()+e.slice(1);E["outer"+t]=function(t,n){return t&&w(t,e,n?0:y)};var n="width"===e?["Left","Right"]:["Top","Bottom"];E[e]=function(t,r){if(void 0===r)return t&&w(t,e,g);if(t){h(t);return v(t)&&(r+=k(t,["padding","border"],n)),T(t,e,r)}}}),e.exports=r({getWindow:function(e){var t=e.ownerDocument||e;return t.defaultView||t.parentWindow},offset:function(e,t){if(void 0===t)return s(e);!function(e,t){"static"===T(e,"position")&&(e.style.position="relative");var n=s(e),r={},o=void 0,i=void 0;for(i in t)t.hasOwnProperty(i)&&(o=parseFloat(T(e,i))||0,r[i]=o+t[i]-n[i]);T(e,r)}(e,t)},isWindow:_,each:m,css:T,clone:function(e){var t={};for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);if(e.overflow)for(var n in e)e.hasOwnProperty(n)&&(t.overflow[n]=e.overflow[n]);return t},scrollLeft:function(e,t){if(_(e)){if(void 0===t)return c(e);window.scrollTo(t,a(e))}else{if(void 0===t)return e.scrollLeft;e.scrollLeft=t}},scrollTop:function(e,t){if(_(e)){if(void 0===t)return a(e);window.scrollTo(c(e),t)}else{if(void 0===t)return e.scrollTop;e.scrollTop=t}},viewportWidth:0,viewportHeight:0},E)},function(e,t,n){"use strict";var r=n(104);e.exports=function(e,t,n){n=n||{},9===t.nodeType&&(t=r.getWindow(t));var o=n.allowHorizontalScroll,i=n.onlyScrollIfNeeded,c=n.alignWithTop,a=n.alignWithLeft,s=n.offsetTop||0,l=n.offsetLeft||0,u=n.offsetBottom||0,d=n.offsetRight||0;o=void 0===o||o;var p=r.isWindow(t),b=r.offset(e),f=r.outerHeight(e),h=r.outerWidth(e),m=void 0,v=void 0,O=void 0,g=void 0,j=void 0,y=void 0,k=void 0,_=void 0,E=void 0,S=void 0;p?(k=t,S=r.height(k),E=r.width(k),_={left:r.scrollLeft(k),top:r.scrollTop(k)},j={left:b.left-_.left-l,top:b.top-_.top-s},y={left:b.left+h-(_.left+E)+d,top:b.top+f-(_.top+S)+u},g=_):(m=r.offset(t),v=t.clientHeight,O=t.clientWidth,g={left:t.scrollLeft,top:t.scrollTop},j={left:b.left-(m.left+(parseFloat(r.css(t,"borderLeftWidth"))||0))-l,top:b.top-(m.top+(parseFloat(r.css(t,"borderTopWidth"))||0))-s},y={left:b.left+h-(m.left+O+(parseFloat(r.css(t,"borderRightWidth"))||0))+d,top:b.top+f-(m.top+v+(parseFloat(r.css(t,"borderBottomWidth"))||0))+u}),j.top<0||y.top>0?!0===c?r.scrollTop(t,g.top+j.top):!1===c?r.scrollTop(t,g.top+y.top):j.top<0?r.scrollTop(t,g.top+j.top):r.scrollTop(t,g.top+y.top):i||((c=void 0===c||!!c)?r.scrollTop(t,g.top+j.top):r.scrollTop(t,g.top+y.top)),o&&(j.left<0||y.left>0?!0===a?r.scrollLeft(t,g.left+j.left):!1===a?r.scrollLeft(t,g.left+y.left):j.left<0?r.scrollLeft(t,g.left+j.left):r.scrollLeft(t,g.left+y.left):i||((a=void 0===a||!!a)?r.scrollLeft(t,g.left+j.left):r.scrollLeft(t,g.left+y.left)))}},,,,,,,,function(e,t,n){"use strict";e.exports="SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED"},function(e,t,n){"use strict";var r=function(e){};e.exports=function(e,t,n,o,i,c,a,s){if(r(t),!e){var l;if(void 0===t)l=new Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.");else{var u=[n,o,i,c,a,s],d=0;(l=new Error(t.replace(/%s/g,function(){return u[d++]}))).name="Invariant Violation"}throw l.framesToPop=1,l}}},function(e,t,n){"use strict";function r(e){return function(){return e}}var o=function(){};o.thatReturns=r,o.thatReturnsFalse=r(!1),o.thatReturnsTrue=r(!0),o.thatReturnsNull=r(null),o.thatReturnsThis=function(){return this},o.thatReturnsArgument=function(e){return e},e.exports=o},function(e,t,n){"use strict";var r=n(115),o=n(114),i=n(113);e.exports=function(){function e(e,t,n,r,c,a){a!==i&&o(!1,"Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types")}function t(){return e}e.isRequired=e;var n={array:e,bool:e,func:e,number:e,object:e,string:e,symbol:e,any:e,arrayOf:t,element:e,instanceOf:t,node:e,objectOf:t,oneOf:t,oneOfType:t,shape:t};return n.checkPropTypes=r,n.PropTypes=n,n}},,,,function(e,t,n){"use strict";var r=function(e){switch(typeof e){case"string":return e;case"boolean":return e?"true":"false";case"number":return isFinite(e)?e:"";default:return""}};e.exports=function(e,t,n,a){return t=t||"&",n=n||"=",null===e&&(e=void 0),"object"==typeof e?i(c(e),function(c){var a=encodeURIComponent(r(c))+n;return o(e[c])?i(e[c],function(e){return a+encodeURIComponent(r(e))}).join(t):a+encodeURIComponent(r(e[c]))}).join(t):a?encodeURIComponent(r(a))+n+encodeURIComponent(r(e)):""};var o=Array.isArray||function(e){return"[object Array]"===Object.prototype.toString.call(e)};function i(e,t){if(e.map)return e.map(t);for(var n=[],r=0;r<e.length;r++)n.push(t(e[r],r));return n}var c=Object.keys||function(e){var t=[];for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&t.push(n);return t}},function(e,t,n){"use strict";function r(e,t){return Object.prototype.hasOwnProperty.call(e,t)}e.exports=function(e,t,n,i){t=t||"&",n=n||"=";var c={};if("string"!=typeof e||0===e.length)return c;var a=/\+/g;e=e.split(t);var s=1e3;i&&"number"==typeof i.maxKeys&&(s=i.maxKeys);var l=e.length;s>0&&l>s&&(l=s);for(var u=0;u<l;++u){var d,p,b,f,h=e[u].replace(a,"%20"),m=h.indexOf(n);m>=0?(d=h.substr(0,m),p=h.substr(m+1)):(d=h,p=""),b=decodeURIComponent(d),f=decodeURIComponent(p),r(c,b)?o(c[b])?c[b].push(f):c[b]=[c[b],f]:c[b]=f}return c};var o=Array.isArray||function(e){return"[object Array]"===Object.prototype.toString.call(e)}},function(e,t,n){"use strict";t.decode=t.parse=n(121),t.encode=t.stringify=n(120)},function(e,t,n){"use strict";e.exports={isString:function(e){return"string"==typeof e},isObject:function(e){return"object"==typeof e&&null!==e},isNull:function(e){return null===e},isNullOrUndefined:function(e){return null==e}}},function(e,t){e.exports=function(e){return e.webpackPolyfill||(e.deprecate=function(){},e.paths=[],e.children||(e.children=[]),Object.defineProperty(e,"loaded",{enumerable:!0,get:function(){return e.l}}),Object.defineProperty(e,"id",{enumerable:!0,get:function(){return e.i}}),e.webpackPolyfill=1),e}},function(e,t,n){(function(e,r){var o;/*! https://mths.be/punycode v1.4.1 by @mathias */!function(i){"object"==typeof t&&t&&t.nodeType,"object"==typeof e&&e&&e.nodeType;var c="object"==typeof r&&r;c.global!==c&&c.window!==c&&c.self;var a,s=2147483647,l=36,u=1,d=26,p=38,b=700,f=72,h=128,m="-",v=/^xn--/,O=/[^\x20-\x7E]/,g=/[\x2E\u3002\uFF0E\uFF61]/g,j={overflow:"Overflow: input needs wider integers to process","not-basic":"Illegal input >= 0x80 (not a basic code point)","invalid-input":"Invalid input"},y=l-u,k=Math.floor,_=String.fromCharCode;function E(e){throw new RangeError(j[e])}function S(e,t){for(var n=e.length,r=[];n--;)r[n]=t(e[n]);return r}function C(e,t){var n=e.split("@"),r="";return n.length>1&&(r=n[0]+"@",e=n[1]),r+S((e=e.replace(g,".")).split("."),t).join(".")}function w(e){for(var t,n,r=[],o=0,i=e.length;o<i;)(t=e.charCodeAt(o++))>=55296&&t<=56319&&o<i?56320==(64512&(n=e.charCodeAt(o++)))?r.push(((1023&t)<<10)+(1023&n)+65536):(r.push(t),o--):r.push(t);return r}function T(e){return S(e,function(e){var t="";return e>65535&&(t+=_((e-=65536)>>>10&1023|55296),e=56320|1023&e),t+=_(e)}).join("")}function P(e){return e-48<10?e-22:e-65<26?e-65:e-97<26?e-97:l}function I(e,t){return e+22+75*(e<26)-((0!=t)<<5)}function B(e,t,n){var r=0;for(e=n?k(e/b):e>>1,e+=k(e/t);e>y*d>>1;r+=l)e=k(e/y);return k(r+(y+1)*e/(e+p))}function x(e){var t,n,r,o,i,c,a,p,b,v,O=[],g=e.length,j=0,y=h,_=f;for((n=e.lastIndexOf(m))<0&&(n=0),r=0;r<n;++r)e.charCodeAt(r)>=128&&E("not-basic"),O.push(e.charCodeAt(r));for(o=n>0?n+1:0;o<g;){for(i=j,c=1,a=l;o>=g&&E("invalid-input"),((p=P(e.charCodeAt(o++)))>=l||p>k((s-j)/c))&&E("overflow"),j+=p*c,!(p<(b=a<=_?u:a>=_+d?d:a-_));a+=l)c>k(s/(v=l-b))&&E("overflow"),c*=v;_=B(j-i,t=O.length+1,0==i),k(j/t)>s-y&&E("overflow"),y+=k(j/t),j%=t,O.splice(j++,0,y)}return T(O)}function L(e){var t,n,r,o,i,c,a,p,b,v,O,g,j,y,S,C=[];for(g=(e=w(e)).length,t=h,n=0,i=f,c=0;c<g;++c)(O=e[c])<128&&C.push(_(O));for(r=o=C.length,o&&C.push(m);r<g;){for(a=s,c=0;c<g;++c)(O=e[c])>=t&&O<a&&(a=O);for(a-t>k((s-n)/(j=r+1))&&E("overflow"),n+=(a-t)*j,t=a,c=0;c<g;++c)if((O=e[c])<t&&++n>s&&E("overflow"),O==t){for(p=n,b=l;!(p<(v=b<=i?u:b>=i+d?d:b-i));b+=l)S=p-v,y=l-v,C.push(_(I(v+S%y,0))),p=k(S/y);C.push(_(I(p,0))),i=B(n,j,r==o),n=0,++r}++n,++t}return C.join("")}a={version:"1.4.1",ucs2:{decode:w,encode:T},decode:x,encode:L,toASCII:function(e){return C(e,function(e){return O.test(e)?"xn--"+L(e):e})},toUnicode:function(e){return C(e,function(e){return v.test(e)?x(e.slice(4).toLowerCase()):e})}},void 0===(o=function(){return a}.call(t,n,t,e))||(e.exports=o)}()}).call(this,n(124)(e),n(54))},,function(e,t){!function(){e.exports=this.wp.tokenList}()},,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,function(e,t){var n=e.exports=function(e){return new r(e)};function r(e){this.value=e}function o(e,t,n){var r=[],o=[],a=!0;return function e(d){var p={},b=!0,f={node:n?i(d):d,node_:d,path:[].concat(r),parent:o[o.length-1],parents:o,key:r.slice(-1)[0],isRoot:0===r.length,level:r.length,circular:null,update:function(e,t){f.isRoot||(f.parent.node[f.key]=e),f.node=e,t&&(b=!1)},delete:function(e){delete f.parent.node[f.key],e&&(b=!1)},remove:function(e){s(f.parent.node)?f.parent.node.splice(f.key,1):delete f.parent.node[f.key],e&&(b=!1)},keys:null,before:function(e){p.before=e},after:function(e){p.after=e},pre:function(e){p.pre=e},post:function(e){p.post=e},stop:function(){a=!1},block:function(){b=!1}};if(!a)return f;function h(){if("object"==typeof f.node&&null!==f.node){f.keys&&f.node_===f.node||(f.keys=c(f.node)),f.isLeaf=0==f.keys.length;for(var e=0;e<o.length;e++)if(o[e].node_===d){f.circular=o[e];break}}else f.isLeaf=!0,f.keys=null;f.notLeaf=!f.isLeaf,f.notRoot=!f.isRoot}h();var m=t.call(f,f.node);return void 0!==m&&f.update&&f.update(m),p.before&&p.before.call(f,f.node),b?("object"!=typeof f.node||null===f.node||f.circular||(o.push(f),h(),l(f.keys,function(t,o){r.push(t),p.pre&&p.pre.call(f,f.node[t],t);var i=e(f.node[t]);n&&u.call(f.node,t)&&(f.node[t]=i.node),i.isLast=o==f.keys.length-1,i.isFirst=0==o,p.post&&p.post.call(f,i),r.pop()}),o.pop()),p.after&&p.after.call(f,f.node),f):f}(e).node}function i(e){if("object"==typeof e&&null!==e){var t;if(s(e))t=[];else if(function(e){return"[object Date]"===a(e)}(e))t=new Date(e.getTime?e.getTime():e);else if(function(e){return"[object RegExp]"===a(e)}(e))t=new RegExp(e);else if(function(e){return"[object Error]"===a(e)}(e))t={message:e.message};else if(function(e){return"[object Boolean]"===a(e)}(e))t=new Boolean(e);else if(function(e){return"[object Number]"===a(e)}(e))t=new Number(e);else if(function(e){return"[object String]"===a(e)}(e))t=new String(e);else if(Object.create&&Object.getPrototypeOf)t=Object.create(Object.getPrototypeOf(e));else if(e.constructor===Object)t={};else{var n=e.constructor&&e.constructor.prototype||e.__proto__||{},r=function(){};r.prototype=n,t=new r}return l(c(e),function(n){t[n]=e[n]}),t}return e}r.prototype.get=function(e){for(var t=this.value,n=0;n<e.length;n++){var r=e[n];if(!t||!u.call(t,r)){t=void 0;break}t=t[r]}return t},r.prototype.has=function(e){for(var t=this.value,n=0;n<e.length;n++){var r=e[n];if(!t||!u.call(t,r))return!1;t=t[r]}return!0},r.prototype.set=function(e,t){for(var n=this.value,r=0;r<e.length-1;r++){var o=e[r];u.call(n,o)||(n[o]={}),n=n[o]}return n[e[r]]=t,t},r.prototype.map=function(e){return o(this.value,e,!0)},r.prototype.forEach=function(e){return this.value=o(this.value,e,!1),this.value},r.prototype.reduce=function(e,t){var n=1===arguments.length,r=n?this.value:t;return this.forEach(function(t){this.isRoot&&n||(r=e.call(this,r,t))}),r},r.prototype.paths=function(){var e=[];return this.forEach(function(t){e.push(this.path)}),e},r.prototype.nodes=function(){var e=[];return this.forEach(function(t){e.push(this.node)}),e},r.prototype.clone=function(){var e=[],t=[];return function n(r){for(var o=0;o<e.length;o++)if(e[o]===r)return t[o];if("object"==typeof r&&null!==r){var a=i(r);return e.push(r),t.push(a),l(c(r),function(e){a[e]=n(r[e])}),e.pop(),t.pop(),a}return r}(this.value)};var c=Object.keys||function(e){var t=[];for(var n in e)t.push(n);return t};function a(e){return Object.prototype.toString.call(e)}var s=Array.isArray||function(e){return"[object Array]"===Object.prototype.toString.call(e)},l=function(e,t){if(e.forEach)return e.forEach(t);for(var n=0;n<e.length;n++)t(e[n],n,e)};l(c(r.prototype),function(e){n[e]=function(t){var n=[].slice.call(arguments,1),o=new r(t);return o[e].apply(o,n)}});var u=Object.hasOwnProperty||function(e,t){return t in e}},function(e,t){!function(){e.exports=this.tinymce}()},function(e,t,n){
-/*!
+/******/ (function() { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
- diff v3.5.0
+/***/ 6411:
+/***/ (function(module, exports) {
 
-Software License Agreement (BSD License)
-
-Copyright (c) 2009-2015, Kevin Decker <kpdecker@gmail.com>
-
-All rights reserved.
-
-Redistribution and use of this software in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above
-  copyright notice, this list of conditions and the
-  following disclaimer.
-
-* Redistributions in binary form must reproduce the above
-  copyright notice, this list of conditions and the
-  following disclaimer in the documentation and/or other
-  materials provided with the distribution.
-
-* Neither the name of Kevin Decker nor the names of its
-  contributors may be used to endorse or promote products
-  derived from this software without specific prior
-  written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
-IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
-IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
-OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-@license
-*/
-!function(t,n){e.exports=n()}(0,function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={exports:{},id:r,loaded:!1};return e[r].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}return n.m=e,n.c=t,n.p="",n(0)}([function(e,t,n){"use strict";t.__esModule=!0,t.canonicalize=t.convertChangesToXML=t.convertChangesToDMP=t.merge=t.parsePatch=t.applyPatches=t.applyPatch=t.createPatch=t.createTwoFilesPatch=t.structuredPatch=t.diffArrays=t.diffJson=t.diffCss=t.diffSentences=t.diffTrimmedLines=t.diffLines=t.diffWordsWithSpace=t.diffWords=t.diffChars=t.Diff=void 0;var r=function(e){return e&&e.__esModule?e:{default:e}}(n(1)),o=n(2),i=n(3),c=n(5),a=n(6),s=n(7),l=n(8),u=n(9),d=n(10),p=n(11),b=n(13),f=n(14),h=n(16),m=n(17);t.Diff=r.default,t.diffChars=o.diffChars,t.diffWords=i.diffWords,t.diffWordsWithSpace=i.diffWordsWithSpace,t.diffLines=c.diffLines,t.diffTrimmedLines=c.diffTrimmedLines,t.diffSentences=a.diffSentences,t.diffCss=s.diffCss,t.diffJson=l.diffJson,t.diffArrays=u.diffArrays,t.structuredPatch=f.structuredPatch,t.createTwoFilesPatch=f.createTwoFilesPatch,t.createPatch=f.createPatch,t.applyPatch=d.applyPatch,t.applyPatches=d.applyPatches,t.parsePatch=p.parsePatch,t.merge=b.merge,t.convertChangesToDMP=h.convertChangesToDMP,t.convertChangesToXML=m.convertChangesToXML,t.canonicalize=l.canonicalize},function(e,t){"use strict";function n(){}function r(e,t,n,r,o){for(var i=0,c=t.length,a=0,s=0;i<c;i++){var l=t[i];if(l.removed){if(l.value=e.join(r.slice(s,s+l.count)),s+=l.count,i&&t[i-1].added){var u=t[i-1];t[i-1]=t[i],t[i]=u}}else{if(!l.added&&o){var d=n.slice(a,a+l.count);d=d.map(function(e,t){var n=r[s+t];return n.length>e.length?n:e}),l.value=e.join(d)}else l.value=e.join(n.slice(a,a+l.count));a+=l.count,l.added||(s+=l.count)}}var p=t[c-1];return c>1&&"string"==typeof p.value&&(p.added||p.removed)&&e.equals("",p.value)&&(t[c-2].value+=p.value,t.pop()),t}function o(e){return{newPos:e.newPos,components:e.components.slice(0)}}t.__esModule=!0,t.default=n,n.prototype={diff:function(e,t){var n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{},i=n.callback;"function"==typeof n&&(i=n,n={}),this.options=n;var c=this;function a(e){return i?(setTimeout(function(){i(void 0,e)},0),!0):e}e=this.castInput(e),t=this.castInput(t),e=this.removeEmpty(this.tokenize(e));var s=(t=this.removeEmpty(this.tokenize(t))).length,l=e.length,u=1,d=s+l,p=[{newPos:-1,components:[]}],b=this.extractCommon(p[0],t,e,0);if(p[0].newPos+1>=s&&b+1>=l)return a([{value:this.join(t),count:t.length}]);function f(){for(var n=-1*u;n<=u;n+=2){var i=void 0,d=p[n-1],b=p[n+1],f=(b?b.newPos:0)-n;d&&(p[n-1]=void 0);var h=d&&d.newPos+1<s,m=b&&0<=f&&f<l;if(h||m){if(!h||m&&d.newPos<b.newPos?(i=o(b),c.pushComponent(i.components,void 0,!0)):((i=d).newPos++,c.pushComponent(i.components,!0,void 0)),f=c.extractCommon(i,t,e,n),i.newPos+1>=s&&f+1>=l)return a(r(c,i.components,t,e,c.useLongestToken));p[n]=i}else p[n]=void 0}u++}if(i)!function e(){setTimeout(function(){if(u>d)return i();f()||e()},0)}();else for(;u<=d;){var h=f();if(h)return h}},pushComponent:function(e,t,n){var r=e[e.length-1];r&&r.added===t&&r.removed===n?e[e.length-1]={count:r.count+1,added:t,removed:n}:e.push({count:1,added:t,removed:n})},extractCommon:function(e,t,n,r){for(var o=t.length,i=n.length,c=e.newPos,a=c-r,s=0;c+1<o&&a+1<i&&this.equals(t[c+1],n[a+1]);)c++,a++,s++;return s&&e.components.push({count:s}),e.newPos=c,a},equals:function(e,t){return this.options.comparator?this.options.comparator(e,t):e===t||this.options.ignoreCase&&e.toLowerCase()===t.toLowerCase()},removeEmpty:function(e){for(var t=[],n=0;n<e.length;n++)e[n]&&t.push(e[n]);return t},castInput:function(e){return e},tokenize:function(e){return e.split("")},join:function(e){return e.join("")}}},function(e,t,n){"use strict";t.__esModule=!0,t.characterDiff=void 0,t.diffChars=function(e,t,n){return o.diff(e,t,n)};var r=function(e){return e&&e.__esModule?e:{default:e}}(n(1));var o=t.characterDiff=new r.default},function(e,t,n){"use strict";t.__esModule=!0,t.wordDiff=void 0,t.diffWords=function(e,t,n){return n=(0,o.generateOptions)(n,{ignoreWhitespace:!0}),a.diff(e,t,n)},t.diffWordsWithSpace=function(e,t,n){return a.diff(e,t,n)};var r=function(e){return e&&e.__esModule?e:{default:e}}(n(1)),o=n(4);var i=/^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/,c=/\S/,a=t.wordDiff=new r.default;a.equals=function(e,t){return this.options.ignoreCase&&(e=e.toLowerCase(),t=t.toLowerCase()),e===t||this.options.ignoreWhitespace&&!c.test(e)&&!c.test(t)},a.tokenize=function(e){for(var t=e.split(/(\s+|\b)/),n=0;n<t.length-1;n++)!t[n+1]&&t[n+2]&&i.test(t[n])&&i.test(t[n+2])&&(t[n]+=t[n+2],t.splice(n+1,2),n--);return t}},function(e,t){"use strict";t.__esModule=!0,t.generateOptions=function(e,t){if("function"==typeof e)t.callback=e;else if(e)for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);return t}},function(e,t,n){"use strict";t.__esModule=!0,t.lineDiff=void 0,t.diffLines=function(e,t,n){return i.diff(e,t,n)},t.diffTrimmedLines=function(e,t,n){var r=(0,o.generateOptions)(n,{ignoreWhitespace:!0});return i.diff(e,t,r)};var r=function(e){return e&&e.__esModule?e:{default:e}}(n(1)),o=n(4);var i=t.lineDiff=new r.default;i.tokenize=function(e){var t=[],n=e.split(/(\n|\r\n)/);n[n.length-1]||n.pop();for(var r=0;r<n.length;r++){var o=n[r];r%2&&!this.options.newlineIsToken?t[t.length-1]+=o:(this.options.ignoreWhitespace&&(o=o.trim()),t.push(o))}return t}},function(e,t,n){"use strict";t.__esModule=!0,t.sentenceDiff=void 0,t.diffSentences=function(e,t,n){return o.diff(e,t,n)};var r=function(e){return e&&e.__esModule?e:{default:e}}(n(1));var o=t.sentenceDiff=new r.default;o.tokenize=function(e){return e.split(/(\S.+?[.!?])(?=\s+|$)/)}},function(e,t,n){"use strict";t.__esModule=!0,t.cssDiff=void 0,t.diffCss=function(e,t,n){return o.diff(e,t,n)};var r=function(e){return e&&e.__esModule?e:{default:e}}(n(1));var o=t.cssDiff=new r.default;o.tokenize=function(e){return e.split(/([{}:;,]|\s+)/)}},function(e,t,n){"use strict";t.__esModule=!0,t.jsonDiff=void 0;var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};t.diffJson=function(e,t,n){return a.diff(e,t,n)},t.canonicalize=s;var o=function(e){return e&&e.__esModule?e:{default:e}}(n(1)),i=n(5);var c=Object.prototype.toString,a=t.jsonDiff=new o.default;function s(e,t,n,o,i){t=t||[],n=n||[],o&&(e=o(i,e));var a=void 0;for(a=0;a<t.length;a+=1)if(t[a]===e)return n[a];var l=void 0;if("[object Array]"===c.call(e)){for(t.push(e),l=new Array(e.length),n.push(l),a=0;a<e.length;a+=1)l[a]=s(e[a],t,n,o,i);return t.pop(),n.pop(),l}if(e&&e.toJSON&&(e=e.toJSON()),"object"===(void 0===e?"undefined":r(e))&&null!==e){t.push(e),l={},n.push(l);var u=[],d=void 0;for(d in e)e.hasOwnProperty(d)&&u.push(d);for(u.sort(),a=0;a<u.length;a+=1)l[d=u[a]]=s(e[d],t,n,o,d);t.pop(),n.pop()}else l=e;return l}a.useLongestToken=!0,a.tokenize=i.lineDiff.tokenize,a.castInput=function(e){var t=this.options,n=t.undefinedReplacement,r=t.stringifyReplacer,o=void 0===r?function(e,t){return void 0===t?n:t}:r;return"string"==typeof e?e:JSON.stringify(s(e,null,null,o),o,"  ")},a.equals=function(e,t){return o.default.prototype.equals.call(a,e.replace(/,([\r\n])/g,"$1"),t.replace(/,([\r\n])/g,"$1"))}},function(e,t,n){"use strict";t.__esModule=!0,t.arrayDiff=void 0,t.diffArrays=function(e,t,n){return o.diff(e,t,n)};var r=function(e){return e&&e.__esModule?e:{default:e}}(n(1));var o=t.arrayDiff=new r.default;o.tokenize=function(e){return e.slice()},o.join=o.removeEmpty=function(e){return e}},function(e,t,n){"use strict";t.__esModule=!0,t.applyPatch=i,t.applyPatches=function(e,t){"string"==typeof e&&(e=(0,r.parsePatch)(e));var n=0;!function r(){var o=e[n++];if(!o)return t.complete();t.loadFile(o,function(e,n){if(e)return t.complete(e);var c=i(n,o,t);t.patched(o,c,function(e){if(e)return t.complete(e);r()})})}()};var r=n(11),o=function(e){return e&&e.__esModule?e:{default:e}}(n(12));function i(e,t){var n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};if("string"==typeof t&&(t=(0,r.parsePatch)(t)),Array.isArray(t)){if(t.length>1)throw new Error("applyPatch only works with a single input.");t=t[0]}var i=e.split(/\r\n|[\n\v\f\r\x85]/),c=e.match(/\r\n|[\n\v\f\r\x85]/g)||[],a=t.hunks,s=n.compareLine||function(e,t,n,r){return t===r},l=0,u=n.fuzzFactor||0,d=0,p=0,b=void 0,f=void 0;function h(e,t){for(var n=0;n<e.lines.length;n++){var r=e.lines[n],o=r.length>0?r[0]:" ",c=r.length>0?r.substr(1):r;if(" "===o||"-"===o){if(!s(t+1,i[t],o,c)&&++l>u)return!1;t++}}return!0}for(var m=0;m<a.length;m++){for(var v=a[m],O=i.length-v.oldLines,g=0,j=p+v.oldStart-1,y=(0,o.default)(j,d,O);void 0!==g;g=y())if(h(v,j+g)){v.offset=p+=g;break}if(void 0===g)return!1;d=v.offset+v.oldStart+v.oldLines}for(var k=0,_=0;_<a.length;_++){var E=a[_],S=E.oldStart+E.offset+k-1;k+=E.newLines-E.oldLines,S<0&&(S=0);for(var C=0;C<E.lines.length;C++){var w=E.lines[C],T=w.length>0?w[0]:" ",P=w.length>0?w.substr(1):w,I=E.linedelimiters[C];if(" "===T)S++;else if("-"===T)i.splice(S,1),c.splice(S,1);else if("+"===T)i.splice(S,0,P),c.splice(S,0,I),S++;else if("\\"===T){var B=E.lines[C-1]?E.lines[C-1][0]:null;"+"===B?b=!0:"-"===B&&(f=!0)}}}if(b)for(;!i[i.length-1];)i.pop(),c.pop();else f&&(i.push(""),c.push("\n"));for(var x=0;x<i.length-1;x++)i[x]=i[x]+c[x];return i.join("")}},function(e,t){"use strict";t.__esModule=!0,t.parsePatch=function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},n=e.split(/\r\n|[\n\v\f\r\x85]/),r=e.match(/\r\n|[\n\v\f\r\x85]/g)||[],o=[],i=0;function c(){var e={};for(o.push(e);i<n.length;){var r=n[i];if(/^(\-\-\-|\+\+\+|@@)\s/.test(r))break;var c=/^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(r);c&&(e.index=c[1]),i++}for(a(e),a(e),e.hunks=[];i<n.length;){var l=n[i];if(/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(l))break;if(/^@@/.test(l))e.hunks.push(s());else{if(l&&t.strict)throw new Error("Unknown line "+(i+1)+" "+JSON.stringify(l));i++}}}function a(e){var t=/^(---|\+\+\+)\s+(.*)$/.exec(n[i]);if(t){var r="---"===t[1]?"old":"new",o=t[2].split("\t",2),c=o[0].replace(/\\\\/g,"\\");/^".*"$/.test(c)&&(c=c.substr(1,c.length-2)),e[r+"FileName"]=c,e[r+"Header"]=(o[1]||"").trim(),i++}}function s(){for(var e=i,o=n[i++],c=o.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/),a={oldStart:+c[1],oldLines:+c[2]||1,newStart:+c[3],newLines:+c[4]||1,lines:[],linedelimiters:[]},s=0,l=0;i<n.length&&!(0===n[i].indexOf("--- ")&&i+2<n.length&&0===n[i+1].indexOf("+++ ")&&0===n[i+2].indexOf("@@"));i++){var u=0==n[i].length&&i!=n.length-1?" ":n[i][0];if("+"!==u&&"-"!==u&&" "!==u&&"\\"!==u)break;a.lines.push(n[i]),a.linedelimiters.push(r[i]||"\n"),"+"===u?s++:"-"===u?l++:" "===u&&(s++,l++)}if(s||1!==a.newLines||(a.newLines=0),l||1!==a.oldLines||(a.oldLines=0),t.strict){if(s!==a.newLines)throw new Error("Added line count did not match for hunk at line "+(e+1));if(l!==a.oldLines)throw new Error("Removed line count did not match for hunk at line "+(e+1))}return a}for(;i<n.length;)c();return o}},function(e,t){"use strict";t.__esModule=!0,t.default=function(e,t,n){var r=!0,o=!1,i=!1,c=1;return function a(){if(r&&!i){if(o?c++:r=!1,e+c<=n)return c;i=!0}if(!o)return i||(r=!0),t<=e-c?-c++:(o=!0,a())}}},function(e,t,n){"use strict";t.__esModule=!0,t.calcLineCount=a,t.merge=function(e,t,n){e=s(e,n),t=s(t,n);var r={};(e.index||t.index)&&(r.index=e.index||t.index);(e.newFileName||t.newFileName)&&(l(e)?l(t)?(r.oldFileName=u(r,e.oldFileName,t.oldFileName),r.newFileName=u(r,e.newFileName,t.newFileName),r.oldHeader=u(r,e.oldHeader,t.oldHeader),r.newHeader=u(r,e.newHeader,t.newHeader)):(r.oldFileName=e.oldFileName,r.newFileName=e.newFileName,r.oldHeader=e.oldHeader,r.newHeader=e.newHeader):(r.oldFileName=t.oldFileName||e.oldFileName,r.newFileName=t.newFileName||e.newFileName,r.oldHeader=t.oldHeader||e.oldHeader,r.newHeader=t.newHeader||e.newHeader));r.hunks=[];var o=0,i=0,c=0,a=0;for(;o<e.hunks.length||i<t.hunks.length;){var f=e.hunks[o]||{oldStart:1/0},h=t.hunks[i]||{oldStart:1/0};if(d(f,h))r.hunks.push(p(f,c)),o++,a+=f.newLines-f.oldLines;else if(d(h,f))r.hunks.push(p(h,a)),i++,c+=h.newLines-h.oldLines;else{var m={oldStart:Math.min(f.oldStart,h.oldStart),oldLines:0,newStart:Math.min(f.newStart+c,h.oldStart+a),newLines:0,lines:[]};b(m,f.oldStart,f.lines,h.oldStart,h.lines),i++,o++,r.hunks.push(m)}}return r};var r=n(14),o=n(11),i=n(15);function c(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}function a(e){var t=function e(t){var n=0;var r=0;t.forEach(function(t){if("string"!=typeof t){var o=e(t.mine),i=e(t.theirs);void 0!==n&&(o.oldLines===i.oldLines?n+=o.oldLines:n=void 0),void 0!==r&&(o.newLines===i.newLines?r+=o.newLines:r=void 0)}else void 0===r||"+"!==t[0]&&" "!==t[0]||r++,void 0===n||"-"!==t[0]&&" "!==t[0]||n++});return{oldLines:n,newLines:r}}(e.lines),n=t.oldLines,r=t.newLines;void 0!==n?e.oldLines=n:delete e.oldLines,void 0!==r?e.newLines=r:delete e.newLines}function s(e,t){if("string"==typeof e){if(/^@@/m.test(e)||/^Index:/m.test(e))return(0,o.parsePatch)(e)[0];if(!t)throw new Error("Must provide a base reference or pass in a patch");return(0,r.structuredPatch)(void 0,void 0,t,e)}return e}function l(e){return e.newFileName&&e.newFileName!==e.oldFileName}function u(e,t,n){return t===n?t:(e.conflict=!0,{mine:t,theirs:n})}function d(e,t){return e.oldStart<t.oldStart&&e.oldStart+e.oldLines<t.oldStart}function p(e,t){return{oldStart:e.oldStart,oldLines:e.oldLines,newStart:e.newStart+t,newLines:e.newLines,lines:e.lines}}function b(e,t,n,r,o){var i={offset:t,lines:n,index:0},s={offset:r,lines:o,index:0};for(v(e,i,s),v(e,s,i);i.index<i.lines.length&&s.index<s.lines.length;){var l=i.lines[i.index],u=s.lines[s.index];if("-"!==l[0]&&"+"!==l[0]||"-"!==u[0]&&"+"!==u[0])if("+"===l[0]&&" "===u[0]){var d;(d=e.lines).push.apply(d,c(g(i)))}else if("+"===u[0]&&" "===l[0]){var p;(p=e.lines).push.apply(p,c(g(s)))}else"-"===l[0]&&" "===u[0]?h(e,i,s):"-"===u[0]&&" "===l[0]?h(e,s,i,!0):l===u?(e.lines.push(l),i.index++,s.index++):m(e,g(i),g(s));else f(e,i,s)}O(e,i),O(e,s),a(e)}function f(e,t,n){var r=g(t),o=g(n);if(j(r)&&j(o)){var a,s;if((0,i.arrayStartsWith)(r,o)&&y(n,r,r.length-o.length))return void(a=e.lines).push.apply(a,c(r));if((0,i.arrayStartsWith)(o,r)&&y(t,o,o.length-r.length))return void(s=e.lines).push.apply(s,c(o))}else if((0,i.arrayEqual)(r,o)){var l;return void(l=e.lines).push.apply(l,c(r))}m(e,r,o)}function h(e,t,n,r){var o,i=g(t),a=function(e,t){var n=[],r=[],o=0,i=!1,c=!1;for(;o<t.length&&e.index<e.lines.length;){var a=e.lines[e.index],s=t[o];if("+"===s[0])break;if(i=i||" "!==a[0],r.push(s),o++,"+"===a[0])for(c=!0;"+"===a[0];)n.push(a),a=e.lines[++e.index];s.substr(1)===a.substr(1)?(n.push(a),e.index++):c=!0}"+"===(t[o]||"")[0]&&i&&(c=!0);if(c)return n;for(;o<t.length;)r.push(t[o++]);return{merged:r,changes:n}}(n,i);a.merged?(o=e.lines).push.apply(o,c(a.merged)):m(e,r?a:i,r?i:a)}function m(e,t,n){e.conflict=!0,e.lines.push({conflict:!0,mine:t,theirs:n})}function v(e,t,n){for(;t.offset<n.offset&&t.index<t.lines.length;){var r=t.lines[t.index++];e.lines.push(r),t.offset++}}function O(e,t){for(;t.index<t.lines.length;){var n=t.lines[t.index++];e.lines.push(n)}}function g(e){for(var t=[],n=e.lines[e.index][0];e.index<e.lines.length;){var r=e.lines[e.index];if("-"===n&&"+"===r[0]&&(n="+"),n!==r[0])break;t.push(r),e.index++}return t}function j(e){return e.reduce(function(e,t){return e&&"-"===t[0]},!0)}function y(e,t,n){for(var r=0;r<n;r++){var o=t[t.length-n+r].substr(1);if(e.lines[e.index+r]!==" "+o)return!1}return e.index+=n,!0}},function(e,t,n){"use strict";t.__esModule=!0,t.structuredPatch=i,t.createTwoFilesPatch=c,t.createPatch=function(e,t,n,r,o,i){return c(e,e,t,n,r,o,i)};var r=n(5);function o(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}function i(e,t,n,i,c,a,s){s||(s={}),void 0===s.context&&(s.context=4);var l=(0,r.diffLines)(n,i,s);function u(e){return e.map(function(e){return" "+e})}l.push({value:"",lines:[]});for(var d=[],p=0,b=0,f=[],h=1,m=1,v=function(e){var t=l[e],r=t.lines||t.value.replace(/\n$/,"").split("\n");if(t.lines=r,t.added||t.removed){var c;if(!p){var a=l[e-1];p=h,b=m,a&&(f=s.context>0?u(a.lines.slice(-s.context)):[],p-=f.length,b-=f.length)}(c=f).push.apply(c,o(r.map(function(e){return(t.added?"+":"-")+e}))),t.added?m+=r.length:h+=r.length}else{if(p)if(r.length<=2*s.context&&e<l.length-2){var v;(v=f).push.apply(v,o(u(r)))}else{var O,g=Math.min(r.length,s.context);(O=f).push.apply(O,o(u(r.slice(0,g))));var j={oldStart:p,oldLines:h-p+g,newStart:b,newLines:m-b+g,lines:f};if(e>=l.length-2&&r.length<=s.context){var y=/\n$/.test(n),k=/\n$/.test(i);0!=r.length||y?y&&k||f.push("\\ No newline at end of file"):f.splice(j.oldLines,0,"\\ No newline at end of file")}d.push(j),p=0,b=0,f=[]}h+=r.length,m+=r.length}},O=0;O<l.length;O++)v(O);return{oldFileName:e,newFileName:t,oldHeader:c,newHeader:a,hunks:d}}function c(e,t,n,r,o,c,a){var s=i(e,t,n,r,o,c,a),l=[];e==t&&l.push("Index: "+e),l.push("==================================================================="),l.push("--- "+s.oldFileName+(void 0===s.oldHeader?"":"\t"+s.oldHeader)),l.push("+++ "+s.newFileName+(void 0===s.newHeader?"":"\t"+s.newHeader));for(var u=0;u<s.hunks.length;u++){var d=s.hunks[u];l.push("@@ -"+d.oldStart+","+d.oldLines+" +"+d.newStart+","+d.newLines+" @@"),l.push.apply(l,d.lines)}return l.join("\n")+"\n"}},function(e,t){"use strict";function n(e,t){if(t.length>e.length)return!1;for(var n=0;n<t.length;n++)if(t[n]!==e[n])return!1;return!0}t.__esModule=!0,t.arrayEqual=function(e,t){if(e.length!==t.length)return!1;return n(e,t)},t.arrayStartsWith=n},function(e,t){"use strict";t.__esModule=!0,t.convertChangesToDMP=function(e){for(var t=[],n=void 0,r=void 0,o=0;o<e.length;o++)n=e[o],r=n.added?1:n.removed?-1:0,t.push([r,n.value]);return t}},function(e,t){"use strict";function n(e){var t=e;return t=(t=(t=(t=t.replace(/&/g,"&amp;")).replace(/</g,"&lt;")).replace(/>/g,"&gt;")).replace(/"/g,"&quot;")}t.__esModule=!0,t.convertChangesToXML=function(e){for(var t=[],r=0;r<e.length;r++){var o=e[r];o.added?t.push("<ins>"):o.removed&&t.push("<del>"),t.push(n(o.value)),o.added?t.push("</ins>"):o.removed&&t.push("</del>")}return t.join("")}}])})},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default=function(e){var t=e.dispatch;return function(e){return function(n){return Array.isArray(n)?n.filter(Boolean).map(t):e(n)}}}},,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,function(e,t,n){"use strict";n.r(t);var r={};n.d(r,"setupEditor",function(){return W}),n.d(r,"resetPost",function(){return q}),n.d(r,"resetAutosave",function(){return G}),n.d(r,"updatePost",function(){return $}),n.d(r,"setupEditorState",function(){return Y}),n.d(r,"resetBlocks",function(){return Q}),n.d(r,"receiveBlocks",function(){return X}),n.d(r,"updateBlockAttributes",function(){return Z}),n.d(r,"updateBlock",function(){return J}),n.d(r,"selectBlock",function(){return ee}),n.d(r,"startMultiSelect",function(){return te}),n.d(r,"stopMultiSelect",function(){return ne}),n.d(r,"multiSelect",function(){return re}),n.d(r,"clearSelectedBlock",function(){return oe}),n.d(r,"toggleSelection",function(){return ie}),n.d(r,"replaceBlocks",function(){return ce}),n.d(r,"replaceBlock",function(){return ae}),n.d(r,"moveBlocksDown",function(){return le}),n.d(r,"moveBlocksUp",function(){return ue}),n.d(r,"moveBlockToPosition",function(){return de}),n.d(r,"insertBlock",function(){return pe}),n.d(r,"insertBlocks",function(){return be}),n.d(r,"showInsertionPoint",function(){return fe}),n.d(r,"hideInsertionPoint",function(){return he}),n.d(r,"setTemplateValidity",function(){return me}),n.d(r,"synchronizeTemplate",function(){return ve}),n.d(r,"editPost",function(){return Oe}),n.d(r,"savePost",function(){return ge}),n.d(r,"refreshPost",function(){return je}),n.d(r,"trashPost",function(){return ye}),n.d(r,"mergeBlocks",function(){return ke}),n.d(r,"autosave",function(){return _e}),n.d(r,"redo",function(){return Ee}),n.d(r,"undo",function(){return Se}),n.d(r,"createUndoLevel",function(){return Ce}),n.d(r,"removeBlocks",function(){return we}),n.d(r,"removeBlock",function(){return Te}),n.d(r,"toggleBlockMode",function(){return Pe}),n.d(r,"startTyping",function(){return Ie}),n.d(r,"stopTyping",function(){return Be}),n.d(r,"enterFormattedText",function(){return xe}),n.d(r,"exitFormattedText",function(){return Le}),n.d(r,"updatePostLock",function(){return Ae}),n.d(r,"__experimentalFetchReusableBlocks",function(){return Ne}),n.d(r,"__experimentalReceiveReusableBlocks",function(){return Re}),n.d(r,"__experimentalSaveReusableBlock",function(){return De}),n.d(r,"__experimentalDeleteReusableBlock",function(){return Fe}),n.d(r,"__experimentalUpdateReusableBlockTitle",function(){return Me}),n.d(r,"__experimentalConvertBlockToStatic",function(){return Ue}),n.d(r,"__experimentalConvertBlockToReusable",function(){return Ve}),n.d(r,"insertDefaultBlock",function(){return He}),n.d(r,"updateBlockListSettings",function(){return Ke}),n.d(r,"updateEditorSettings",function(){return ze}),n.d(r,"enablePublishSidebar",function(){return We}),n.d(r,"disablePublishSidebar",function(){return qe}),n.d(r,"lockPostSaving",function(){return Ge}),n.d(r,"unlockPostSaving",function(){return $e});var o={};n.d(o,"POST_UPDATE_TRANSACTION_ID",function(){return Ze}),n.d(o,"INSERTER_UTILITY_HIGH",function(){return et}),n.d(o,"INSERTER_UTILITY_MEDIUM",function(){return tt}),n.d(o,"INSERTER_UTILITY_LOW",function(){return nt}),n.d(o,"INSERTER_UTILITY_NONE",function(){return rt}),n.d(o,"hasEditorUndo",function(){return ct}),n.d(o,"hasEditorRedo",function(){return at}),n.d(o,"isEditedPostNew",function(){return st}),n.d(o,"hasChangedContent",function(){return lt}),n.d(o,"isEditedPostDirty",function(){return ut}),n.d(o,"isCleanNewPost",function(){return dt}),n.d(o,"getCurrentPost",function(){return pt}),n.d(o,"getCurrentPostType",function(){return bt}),n.d(o,"getCurrentPostId",function(){return ft}),n.d(o,"getCurrentPostRevisionsCount",function(){return ht}),n.d(o,"getCurrentPostLastRevisionId",function(){return mt}),n.d(o,"getPostEdits",function(){return vt}),n.d(o,"getReferenceByDistinctEdits",function(){return Ot}),n.d(o,"getCurrentPostAttribute",function(){return gt}),n.d(o,"getEditedPostAttribute",function(){return jt}),n.d(o,"getAutosaveAttribute",function(){return yt}),n.d(o,"getEditedPostVisibility",function(){return kt}),n.d(o,"isCurrentPostPending",function(){return _t}),n.d(o,"isCurrentPostPublished",function(){return Et}),n.d(o,"isCurrentPostScheduled",function(){return St}),n.d(o,"isEditedPostPublishable",function(){return Ct}),n.d(o,"isEditedPostSaveable",function(){return wt}),n.d(o,"isEditedPostEmpty",function(){return Tt}),n.d(o,"isEditedPostAutosaveable",function(){return Pt}),n.d(o,"getAutosave",function(){return It}),n.d(o,"hasAutosave",function(){return Bt}),n.d(o,"isEditedPostBeingScheduled",function(){return xt}),n.d(o,"isEditedPostDateFloating",function(){return Lt}),n.d(o,"getBlockDependantsCacheBust",function(){return At}),n.d(o,"getBlockName",function(){return Nt}),n.d(o,"isBlockValid",function(){return Rt}),n.d(o,"getBlock",function(){return Dt}),n.d(o,"getBlocks",function(){return Ft}),n.d(o,"getClientIdsOfDescendants",function(){return Mt}),n.d(o,"getClientIdsWithDescendants",function(){return Ut}),n.d(o,"getGlobalBlockCount",function(){return Vt}),n.d(o,"getBlocksByClientId",function(){return Ht}),n.d(o,"getBlockCount",function(){return Kt}),n.d(o,"getBlockSelectionStart",function(){return zt}),n.d(o,"getBlockSelectionEnd",function(){return Wt}),n.d(o,"getSelectedBlockCount",function(){return qt}),n.d(o,"hasSelectedBlock",function(){return Gt}),n.d(o,"getSelectedBlockClientId",function(){return $t}),n.d(o,"getSelectedBlock",function(){return Yt}),n.d(o,"getBlockRootClientId",function(){return Qt}),n.d(o,"getBlockHierarchyRootClientId",function(){return Xt}),n.d(o,"getAdjacentBlockClientId",function(){return Zt}),n.d(o,"getPreviousBlockClientId",function(){return Jt}),n.d(o,"getNextBlockClientId",function(){return en}),n.d(o,"getSelectedBlocksInitialCaretPosition",function(){return tn}),n.d(o,"getMultiSelectedBlockClientIds",function(){return nn}),n.d(o,"getMultiSelectedBlocks",function(){return rn}),n.d(o,"getFirstMultiSelectedBlockClientId",function(){return on}),n.d(o,"getLastMultiSelectedBlockClientId",function(){return cn}),n.d(o,"isFirstMultiSelectedBlock",function(){return sn}),n.d(o,"isBlockMultiSelected",function(){return ln}),n.d(o,"isAncestorMultiSelected",function(){return un}),n.d(o,"getMultiSelectedBlocksStartClientId",function(){return dn}),n.d(o,"getMultiSelectedBlocksEndClientId",function(){return pn}),n.d(o,"getBlockOrder",function(){return bn}),n.d(o,"getBlockIndex",function(){return fn}),n.d(o,"isBlockSelected",function(){return hn}),n.d(o,"hasSelectedInnerBlock",function(){return mn}),n.d(o,"isBlockWithinSelection",function(){return vn}),n.d(o,"hasMultiSelection",function(){return On}),n.d(o,"isMultiSelecting",function(){return gn}),n.d(o,"isSelectionEnabled",function(){return jn}),n.d(o,"getBlockMode",function(){return yn}),n.d(o,"isTyping",function(){return kn}),n.d(o,"isCaretWithinFormattedText",function(){return _n}),n.d(o,"getBlockInsertionPoint",function(){return En}),n.d(o,"isBlockInsertionPointVisible",function(){return Sn}),n.d(o,"isValidTemplate",function(){return Cn}),n.d(o,"getTemplate",function(){return wn}),n.d(o,"getTemplateLock",function(){return Tn}),n.d(o,"isSavingPost",function(){return Pn}),n.d(o,"didPostSaveRequestSucceed",function(){return In}),n.d(o,"didPostSaveRequestFail",function(){return Bn}),n.d(o,"isAutosavingPost",function(){return xn}),n.d(o,"isPreviewingPost",function(){return Ln}),n.d(o,"getEditedPostPreviewLink",function(){return An}),n.d(o,"getSuggestedPostFormat",function(){return Nn}),n.d(o,"getBlocksForSerialization",function(){return Rn}),n.d(o,"getEditedPostContent",function(){return Dn}),n.d(o,"canInsertBlockType",function(){return Mn}),n.d(o,"getInserterItems",function(){return Kn}),n.d(o,"hasInserterItems",function(){return zn}),n.d(o,"__experimentalGetReusableBlock",function(){return Wn}),n.d(o,"__experimentalIsSavingReusableBlock",function(){return qn}),n.d(o,"__experimentalIsFetchingReusableBlock",function(){return Gn}),n.d(o,"__experimentalGetReusableBlocks",function(){return $n}),n.d(o,"getStateBeforeOptimisticTransaction",function(){return Yn}),n.d(o,"isPublishingPost",function(){return Qn}),n.d(o,"isPermalinkEditable",function(){return Xn}),n.d(o,"getPermalink",function(){return Zn}),n.d(o,"getPermalinkParts",function(){return Jn}),n.d(o,"inSomeHistory",function(){return er}),n.d(o,"getBlockListSettings",function(){return tr}),n.d(o,"getEditorSettings",function(){return nr}),n.d(o,"getTokenSettings",function(){return rr}),n.d(o,"isPostLocked",function(){return or}),n.d(o,"isPostSavingLocked",function(){return ir}),n.d(o,"isPostLockTakeover",function(){return cr}),n.d(o,"getPostLockUser",function(){return ar}),n.d(o,"getActivePostLock",function(){return sr}),n.d(o,"canUserUseUnfilteredHTML",function(){return lr}),n.d(o,"isPublishSidebarEnabled",function(){return ur});var i=n(11),c=(n(82),n(102),n(52)),a=n(20),s=n(36),l=n(5),u=n(25),d=n(8),p=n(21),b=n(19),f=n(15),h=n(28),m=n(53),v=n.n(m),O=n(2),g=n(24),j={resetTypes:[],ignoreTypes:[],shouldOverwriteState:function(){return!1}},y=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};return function(t){(e=Object(d.a)({},j,e)).shouldOverwriteState=Object(O.overSome)([e.shouldOverwriteState,function(t){return Object(O.includes)(e.ignoreTypes,t.type)}]);var n={past:[],present:t(void 0,{}),future:[],lastAction:null,shouldCreateUndoLevel:!1},r=e,o=r.resetTypes,i=void 0===o?[]:o,c=r.shouldOverwriteState,a=void 0===c?function(){return!1}:c;return function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:n,r=arguments.length>1?arguments[1]:void 0,o=e.past,c=e.present,s=e.future,l=e.lastAction,u=e.shouldCreateUndoLevel,p=l;switch(r.type){case"UNDO":return o.length?{past:Object(O.dropRight)(o),present:Object(O.last)(o),future:[c].concat(Object(b.a)(s)),lastAction:null,shouldCreateUndoLevel:!1}:e;case"REDO":return s.length?{past:Object(b.a)(o).concat([c]),present:Object(O.first)(s),future:Object(O.drop)(s),lastAction:null,shouldCreateUndoLevel:!1}:e;case"CREATE_UNDO_LEVEL":return Object(d.a)({},e,{lastAction:null,shouldCreateUndoLevel:!0})}var f=t(c,r);if(Object(O.includes)(i,r.type))return{past:[],present:f,future:[],lastAction:null,shouldCreateUndoLevel:!1};if(c===f)return e;var h=o,m=p;return!u&&o.length&&a(r,p)||(h=Object(b.a)(o).concat([c]),m=r),{past:h,present:f,future:[],shouldCreateUndoLevel:!1,lastAction:m}}}},k=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};return function(t){return function(n,r){var o=t(n,r),i=void 0===n||Object(O.includes)(e.resetTypes,r.type),c=n!==o;if(!c&&!i)return n;c&&void 0!==n||(o=Object(d.a)({},o));var a=Object(O.includes)(e.ignoreTypes,r.type);return o.isDirty=a?n.isDirty:!i&&c,o}}},_=n(1),E={insertUsage:{},isPublishSidebarEnabled:!0},S={alignWide:!1,colors:[{name:Object(_.__)("Pale pink"),slug:"pale-pink",color:"#f78da7"},{name:Object(_.__)("Vivid red"),slug:"vivid-red",color:"#cf2e2e"},{name:Object(_.__)("Luminous vivid orange"),slug:"luminous-vivid-orange",color:"#ff6900"},{name:Object(_.__)("Luminous vivid amber"),slug:"luminous-vivid-amber",color:"#fcb900"},{name:Object(_.__)("Light green cyan"),slug:"light-green-cyan",color:"#7bdcb5"},{name:Object(_.__)("Vivid green cyan"),slug:"vivid-green-cyan",color:"#00d084"},{name:Object(_.__)("Pale cyan blue"),slug:"pale-cyan-blue",color:"#8ed1fc"},{name:Object(_.__)("Vivid cyan blue"),slug:"vivid-cyan-blue",color:"#0693e3"},{name:Object(_.__)("Very light gray"),slug:"very-light-gray",color:"#eeeeee"},{name:Object(_.__)("Cyan bluish gray"),slug:"cyan-bluish-gray",color:"#abb8c3"},{name:Object(_.__)("Very dark gray"),slug:"very-dark-gray",color:"#313131"}],fontSizes:[{name:Object(_._x)("Small","font size name"),size:13,slug:"small"},{name:Object(_._x)("Normal","font size name"),size:16,slug:"normal"},{name:Object(_._x)("Medium","font size name"),size:20,slug:"medium"},{name:Object(_._x)("Large","font size name"),size:36,slug:"large"},{name:Object(_._x)("Huge","font size name"),size:48,slug:"huge"}],imageSizes:[{slug:"thumbnail",label:Object(_.__)("Thumbnail")},{slug:"medium",label:Object(_.__)("Medium")},{slug:"large",label:Object(_.__)("Large")},{slug:"full",label:Object(_.__)("Full Size")}],maxWidth:580,allowedBlockTypes:!0,maxUploadFileSize:0,allowedMimeTypes:null,richEditingEnabled:!0},C={};function w(e,t,n){return Object(b.a)(e.slice(0,n)).concat(Object(b.a)(Object(O.castArray)(t)),Object(b.a)(e.slice(n)))}function T(e,t,n){var r=arguments.length>3&&void 0!==arguments[3]?arguments[3]:1,o=Object(b.a)(e);return o.splice(t,r),w(o,e.slice(t,t+r),n)}var P=new Set(["meta"]);function I(e){return e&&"object"===Object(h.a)(e)&&"raw"in e?e.raw:e}function B(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"",n=Object(f.a)({},t,[]);return e.forEach(function(e){var r=e.clientId,o=e.innerBlocks;n[t].push(r),Object.assign(n,B(o,r))}),n}function x(e){for(var t={},n=Object(b.a)(e);n.length;){var r=n.shift(),o=r.innerBlocks,i=Object(p.a)(r,["innerBlocks"]);n.push.apply(n,Object(b.a)(o)),t[i.clientId]=i}return t}function L(e,t){return e===t?Object(d.a)({},e):t}function A(e,t){return Object(O.isEqual)(Object(O.keys)(e),Object(O.keys)(t))}function N(e,t){return"UPDATE_BLOCK_ATTRIBUTES"===e.type&&e.clientId===t.clientId&&A(e.attributes,t.attributes)}function R(e,t){return"EDIT_POST"===e.type&&A(e.edits,t.edits)}var D=Object(O.flow)([l.combineReducers,function(e){return function(t,n){if(t&&"REMOVE_BLOCKS"===n.type){for(var r=Object(b.a)(n.clientIds),o=0;o<r.length;o++)r.push.apply(r,Object(b.a)(t.blocks.order[r[o]]));n=Object(d.a)({},n,{clientIds:r})}return e(t,n)}},y({resetTypes:["SETUP_EDITOR_STATE"],ignoreTypes:["RECEIVE_BLOCKS","RESET_POST","UPDATE_POST"],shouldOverwriteState:function(e,t){return!(!t||e.type!==t.type)&&Object(O.overSome)([N,R])(e,t)}})])({edits:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"EDIT_POST":return Object(O.reduce)(t.edits,function(t,n,r){return n!==e[r]&&(t=L(e,t),P.has(r)?t[r]=Object(d.a)({},t[r],n):t[r]=n),t},e);case"RESET_BLOCKS":return"content"in e?Object(O.omit)(e,"content"):e;case"UPDATE_POST":case"RESET_POST":var n="UPDATE_POST"===t.type?function(e){return t.edits[e]}:function(e){return I(t.post[e])};return Object(O.reduce)(e,function(t,r,o){return Object(O.isEqual)(r,n(o))?(delete(t=L(e,t))[o],t):t},e)}return e},blocks:Object(O.flow)([l.combineReducers,function(e){return function(t,n){if(t&&"RESET_BLOCKS"===n.type){var r=function e(t){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"";return Object(O.reduce)(t[n],function(n,r){return Object(b.a)(n).concat([r],Object(b.a)(e(t,r)))},[])}(t.order);return Object(d.a)({},t,{byClientId:Object(d.a)({},Object(O.omit)(t.byClientId,r),x(n.blocks)),order:Object(d.a)({},Object(O.omit)(t.order,r),B(n.blocks))})}return e(t,n)}},k({resetTypes:["SETUP_EDITOR_STATE","REQUEST_POST_UPDATE_START"],ignoreTypes:["RECEIVE_BLOCKS","RESET_POST","UPDATE_POST"]})])({byClientId:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"SETUP_EDITOR_STATE":return x(t.blocks);case"RECEIVE_BLOCKS":return Object(d.a)({},e,x(t.blocks));case"UPDATE_BLOCK_ATTRIBUTES":if(!e[t.clientId])return e;var n=Object(O.reduce)(t.attributes,function(n,r,o){return r!==n[o]&&((n=L(e[t.clientId].attributes,n))[o]=r),n},e[t.clientId].attributes);return n===e[t.clientId].attributes?e:Object(d.a)({},e,Object(f.a)({},t.clientId,Object(d.a)({},e[t.clientId],{attributes:n})));case"UPDATE_BLOCK":return e[t.clientId]?Object(d.a)({},e,Object(f.a)({},t.clientId,Object(d.a)({},e[t.clientId],t.updates))):e;case"INSERT_BLOCKS":return Object(d.a)({},e,x(t.blocks));case"REPLACE_BLOCKS":return t.blocks?Object(d.a)({},Object(O.omit)(e,t.clientIds),x(t.blocks)):e;case"REMOVE_BLOCKS":return Object(O.omit)(e,t.clientIds);case"SAVE_REUSABLE_BLOCK_SUCCESS":var r=t.id,o=t.updatedId;return r===o?e:Object(O.mapValues)(e,function(e){return"core/block"===e.name&&e.attributes.ref===r?Object(d.a)({},e,{attributes:Object(d.a)({},e.attributes,{ref:o})}):e})}return e},order:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"SETUP_EDITOR_STATE":return B(t.blocks);case"RECEIVE_BLOCKS":return Object(d.a)({},e,Object(O.omit)(B(t.blocks),""));case"INSERT_BLOCKS":var n=t.rootClientId,r=void 0===n?"":n,o=t.blocks,i=e[r]||[],c=B(o,r),a=t.index,s=void 0===a?i.length:a;return Object(d.a)({},e,c,Object(f.a)({},r,w(i,c[r],s)));case"MOVE_BLOCK_TO_POSITION":var l,u=t.fromRootClientId,p=void 0===u?"":u,h=t.toRootClientId,m=void 0===h?"":h,v=t.clientId,g=t.index,j=void 0===g?e[m].length:g;if(p===m){var y=e[m].indexOf(v);return Object(d.a)({},e,Object(f.a)({},m,T(e[m],y,j)))}return Object(d.a)({},e,(l={},Object(f.a)(l,p,Object(O.without)(e[p],v)),Object(f.a)(l,m,w(e[m],v,j)),l));case"MOVE_BLOCKS_UP":var k=t.clientIds,_=t.rootClientId,E=void 0===_?"":_,S=Object(O.first)(k),C=e[E];if(!C.length||S===Object(O.first)(C))return e;var P=C.indexOf(S);return Object(d.a)({},e,Object(f.a)({},E,T(C,P,P-1,k.length)));case"MOVE_BLOCKS_DOWN":var I=t.clientIds,x=t.rootClientId,L=void 0===x?"":x,A=Object(O.first)(I),N=Object(O.last)(I),R=e[L];if(!R.length||N===Object(O.last)(R))return e;var D=R.indexOf(A);return Object(d.a)({},e,Object(f.a)({},L,T(R,D,D+1,I.length)));case"REPLACE_BLOCKS":var F=t.blocks,M=t.clientIds;if(!F)return e;var U=B(F);return Object(O.flow)([function(e){return Object(O.omit)(e,M)},function(e){return Object(d.a)({},e,Object(O.omit)(U,""))},function(e){return Object(O.mapValues)(e,function(e){return Object(O.reduce)(e,function(e,t){return t===M[0]?Object(b.a)(e).concat(Object(b.a)(U[""])):(-1===M.indexOf(t)&&e.push(t),e)},[])})}])(e);case"REMOVE_BLOCKS":return Object(O.flow)([function(e){return Object(O.omit)(e,t.clientIds)},function(e){return Object(O.mapValues)(e,function(e){return O.without.apply(void 0,[e].concat(Object(b.a)(t.clientIds)))})}])(e)}return e}})});var F=Object(l.combineReducers)({data:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"RECEIVE_REUSABLE_BLOCKS":return Object(O.reduce)(t.results,function(t,n){var r=n.reusableBlock,o=r.id,i=r.title,c={clientId:n.parsedBlock.clientId,title:i};return Object(O.isEqual)(t[o],c)||((t=L(e,t))[o]=c),t},e);case"UPDATE_REUSABLE_BLOCK_TITLE":var n=t.id,r=t.title;return e[n]&&e[n].title!==r?Object(d.a)({},e,Object(f.a)({},n,Object(d.a)({},e[n],{title:r}))):e;case"SAVE_REUSABLE_BLOCK_SUCCESS":var o=t.id,i=t.updatedId;if(o===i)return e;var c=e[o];return Object(d.a)({},Object(O.omit)(e,o),Object(f.a)({},i,c));case"REMOVE_REUSABLE_BLOCK":var a=t.id;return Object(O.omit)(e,a)}return e},isFetching:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"FETCH_REUSABLE_BLOCKS":var n=t.id;return n?Object(d.a)({},e,Object(f.a)({},n,!0)):e;case"FETCH_REUSABLE_BLOCKS_SUCCESS":case"FETCH_REUSABLE_BLOCKS_FAILURE":var r=t.id;return Object(O.omit)(e,r)}return e},isSaving:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"SAVE_REUSABLE_BLOCK":return Object(d.a)({},e,Object(f.a)({},t.id,!0));case"SAVE_REUSABLE_BLOCK_SUCCESS":case"SAVE_REUSABLE_BLOCK_FAILURE":var n=t.id;return Object(O.omit)(e,n)}return e}});var M=v()(Object(l.combineReducers)({editor:D,initialEdits:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:C,t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"SETUP_EDITOR":if(!t.edits)break;return t.edits;case"SETUP_EDITOR_STATE":return"content"in e?Object(O.omit)(e,"content"):e;case"UPDATE_POST":return Object(O.reduce)(t.edits,function(t,n,r){return t.hasOwnProperty(r)?(delete(t=L(e,t))[r],t):t},e);case"RESET_POST":return C}return e},currentPost:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"SETUP_EDITOR_STATE":case"RESET_POST":case"UPDATE_POST":var n;if(t.post)n=t.post;else{if(!t.edits)return e;n=Object(d.a)({},e,t.edits)}return Object(O.mapValues)(n,I)}return e},isTyping:function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0];switch((arguments.length>1?arguments[1]:void 0).type){case"START_TYPING":return!0;case"STOP_TYPING":return!1}return e},isCaretWithinFormattedText:function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0];switch((arguments.length>1?arguments[1]:void 0).type){case"ENTER_FORMATTED_TEXT":return!0;case"EXIT_FORMATTED_TEXT":return!1}return e},blockSelection:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{start:null,end:null,isMultiSelecting:!1,isEnabled:!0,initialPosition:null},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"CLEAR_SELECTED_BLOCK":return null!==e.start||null!==e.end||e.isMultiSelecting?Object(d.a)({},e,{start:null,end:null,isMultiSelecting:!1,initialPosition:null}):e;case"START_MULTI_SELECT":return e.isMultiSelecting?e:Object(d.a)({},e,{isMultiSelecting:!0,initialPosition:null});case"STOP_MULTI_SELECT":return e.isMultiSelecting?Object(d.a)({},e,{isMultiSelecting:!1,initialPosition:null}):e;case"MULTI_SELECT":return Object(d.a)({},e,{start:t.start,end:t.end,initialPosition:null});case"SELECT_BLOCK":return t.clientId===e.start&&t.clientId===e.end?e:Object(d.a)({},e,{start:t.clientId,end:t.clientId,initialPosition:t.initialPosition});case"INSERT_BLOCKS":return t.updateSelection?Object(d.a)({},e,{start:t.blocks[0].clientId,end:t.blocks[0].clientId,initialPosition:null,isMultiSelecting:!1}):e;case"REMOVE_BLOCKS":return t.clientIds&&t.clientIds.length&&-1!==t.clientIds.indexOf(e.start)?Object(d.a)({},e,{start:null,end:null,initialPosition:null,isMultiSelecting:!1}):e;case"REPLACE_BLOCKS":if(-1===t.clientIds.indexOf(e.start))return e;var n=Object(O.get)(t.blocks,[0,"clientId"],null);return Object(d.a)({},e,{start:n,end:n,initialPosition:null,isMultiSelecting:!1});case"TOGGLE_SELECTION":return Object(d.a)({},e,{isEnabled:t.isSelectionEnabled})}return e},blocksMode:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1?arguments[1]:void 0;if("TOGGLE_BLOCK_MODE"===t.type){var n=t.clientId;return Object(d.a)({},e,Object(f.a)({},n,e[n]&&"html"===e[n]?"visual":"html"))}return e},blockListSettings:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"REPLACE_BLOCKS":case"REMOVE_BLOCKS":return Object(O.omit)(e,t.clientIds);case"UPDATE_BLOCK_LIST_SETTINGS":var n=t.clientId;return t.settings?Object(O.isEqual)(e[n],t.settings)?e:Object(d.a)({},e,Object(f.a)({},n,t.settings)):e.hasOwnProperty(n)?Object(O.omit)(e,n):e}return e},insertionPoint:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null,t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"SHOW_INSERTION_POINT":return{rootClientId:t.rootClientId,index:t.index};case"HIDE_INSERTION_POINT":return null}return e},preferences:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:E,t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"INSERT_BLOCKS":case"REPLACE_BLOCKS":return t.blocks.reduce(function(e,n){var r=n.name,o={name:n.name};return Object(i.isReusableBlock)(n)&&(o.ref=n.attributes.ref,r+="/"+n.attributes.ref),Object(d.a)({},e,{insertUsage:Object(d.a)({},e.insertUsage,Object(f.a)({},r,{time:t.time,count:e.insertUsage[r]?e.insertUsage[r].count+1:1,insert:o}))})},e);case"REMOVE_REUSABLE_BLOCK":return Object(d.a)({},e,{insertUsage:Object(O.omitBy)(e.insertUsage,function(e){return e.insert.ref===t.id})});case"ENABLE_PUBLISH_SIDEBAR":return Object(d.a)({},e,{isPublishSidebarEnabled:!0});case"DISABLE_PUBLISH_SIDEBAR":return Object(d.a)({},e,{isPublishSidebarEnabled:!1})}return e},saving:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"REQUEST_POST_UPDATE_START":return{requesting:!0,successful:!1,error:null,options:t.options||{}};case"REQUEST_POST_UPDATE_SUCCESS":return{requesting:!1,successful:!0,error:null,options:t.options||{}};case"REQUEST_POST_UPDATE_FAILURE":return{requesting:!1,successful:!1,error:t.error,options:t.options||{}}}return e},postLock:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{isLocked:!1},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"UPDATE_POST_LOCK":return t.lock}return e},reusableBlocks:F,template:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{isValid:!0},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"SET_TEMPLATE_VALIDITY":return Object(d.a)({},e,{isValid:t.isValid})}return e},autosave:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null,t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"RESET_AUTOSAVE":var n=t.post,r=["title","excerpt","content"].map(function(e){return I(n[e])}),o=Object(u.a)(r,3);return{title:o[0],excerpt:o[1],content:o[2]}}return e},previewLink:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null,t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"REQUEST_POST_UPDATE_SUCCESS":return t.post.preview_link||Object(g.addQueryArgs)(t.post.link,{preview:!0});case"REQUEST_POST_UPDATE_START":if(e&&t.options.isPreview)return null}return e},settings:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:S,t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"UPDATE_EDITOR_SETTINGS":return Object(d.a)({},e,t.settings)}return e},postSavingLock:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1?arguments[1]:void 0;switch(t.type){case"LOCK_POST_SAVING":return Object(d.a)({},e,Object(f.a)({},t.lockName,!0));case"UNLOCK_POST_SAVING":return Object(O.omit)(e,t.lockName)}return e}})),U=n(85),V=n.n(U),H=n(187),K=n.n(H),z=n(45);function W(e,t){return{type:"SETUP_EDITOR",post:e,edits:t}}function q(e){return{type:"RESET_POST",post:e}}function G(e){return{type:"RESET_AUTOSAVE",post:e}}function $(e){return{type:"UPDATE_POST",edits:e}}function Y(e,t){return{type:"SETUP_EDITOR_STATE",post:e,blocks:t}}function Q(e){return{type:"RESET_BLOCKS",blocks:e}}function X(e){return{type:"RECEIVE_BLOCKS",blocks:e}}function Z(e,t){return{type:"UPDATE_BLOCK_ATTRIBUTES",clientId:e,attributes:t}}function J(e,t){return{type:"UPDATE_BLOCK",clientId:e,updates:t}}function ee(e){return{type:"SELECT_BLOCK",initialPosition:arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,clientId:e}}function te(){return{type:"START_MULTI_SELECT"}}function ne(){return{type:"STOP_MULTI_SELECT"}}function re(e,t){return{type:"MULTI_SELECT",start:e,end:t}}function oe(){return{type:"CLEAR_SELECTED_BLOCK"}}function ie(){return{type:"TOGGLE_SELECTION",isSelectionEnabled:!(arguments.length>0&&void 0!==arguments[0])||arguments[0]}}function ce(e,t){return{type:"REPLACE_BLOCKS",clientIds:Object(O.castArray)(e),blocks:Object(O.castArray)(t),time:Date.now()}}function ae(e,t){return ce(e,t)}function se(e){return function(t,n){return{clientIds:Object(O.castArray)(t),type:e,rootClientId:n}}}var le=se("MOVE_BLOCKS_DOWN"),ue=se("MOVE_BLOCKS_UP");function de(e,t,n,r){return{type:"MOVE_BLOCK_TO_POSITION",fromRootClientId:t,toRootClientId:n,clientId:e,index:r}}function pe(e,t,n){return be([e],t,n,!(arguments.length>3&&void 0!==arguments[3])||arguments[3])}function be(e,t,n){var r=!(arguments.length>3&&void 0!==arguments[3])||arguments[3];return{type:"INSERT_BLOCKS",blocks:Object(O.castArray)(e),index:t,rootClientId:n,time:Date.now(),updateSelection:r}}function fe(e,t){return{type:"SHOW_INSERTION_POINT",rootClientId:e,index:t}}function he(){return{type:"HIDE_INSERTION_POINT"}}function me(e){return{type:"SET_TEMPLATE_VALIDITY",isValid:e}}function ve(){return{type:"SYNCHRONIZE_TEMPLATE"}}function Oe(e){return{type:"EDIT_POST",edits:e}}function ge(){return{type:"REQUEST_POST_UPDATE",options:arguments.length>0&&void 0!==arguments[0]?arguments[0]:{}}}function je(){return{type:"REFRESH_POST"}}function ye(e,t){return{type:"TRASH_POST",postId:e,postType:t}}function ke(e,t){return{type:"MERGE_BLOCKS",blocks:[e,t]}}function _e(e){return ge(Object(d.a)({isAutosave:!0},e))}function Ee(){return{type:"REDO"}}function Se(){return{type:"UNDO"}}function Ce(){return{type:"CREATE_UNDO_LEVEL"}}function we(e){var t=!(arguments.length>1&&void 0!==arguments[1])||arguments[1];return{type:"REMOVE_BLOCKS",clientIds:Object(O.castArray)(e),selectPrevious:t}}function Te(e,t){return we([e],t)}function Pe(e){return{type:"TOGGLE_BLOCK_MODE",clientId:e}}function Ie(){return{type:"START_TYPING"}}function Be(){return{type:"STOP_TYPING"}}function xe(){return{type:"ENTER_FORMATTED_TEXT"}}function Le(){return{type:"EXIT_FORMATTED_TEXT"}}function Ae(e){return{type:"UPDATE_POST_LOCK",lock:e}}function Ne(e){return{type:"FETCH_REUSABLE_BLOCKS",id:e}}function Re(e){return{type:"RECEIVE_REUSABLE_BLOCKS",results:e}}function De(e){return{type:"SAVE_REUSABLE_BLOCK",id:e}}function Fe(e){return{type:"DELETE_REUSABLE_BLOCK",id:e}}function Me(e,t){return{type:"UPDATE_REUSABLE_BLOCK_TITLE",id:e,title:t}}function Ue(e){return{type:"CONVERT_BLOCK_TO_STATIC",clientId:e}}function Ve(e){return{type:"CONVERT_BLOCK_TO_REUSABLE",clientIds:Object(O.castArray)(e)}}function He(e,t,n){return pe(Object(i.createBlock)(Object(i.getDefaultBlockName)(),e),n,t)}function Ke(e,t){return{type:"UPDATE_BLOCK_LIST_SETTINGS",clientId:e,settings:t}}function ze(e){return{type:"UPDATE_EDITOR_SETTINGS",settings:e}}function We(){return{type:"ENABLE_PUBLISH_SIDEBAR"}}function qe(){return{type:"DISABLE_PUBLISH_SIDEBAR"}}function Ge(e){return{type:"LOCK_POST_SAVING",lockName:e}}function $e(e){return{type:"UNLOCK_POST_SAVING",lockName:e}}var Ye=n(30),Qe=n(47),Xe=n(58),Ze="post-update",Je=/%(?:postname|pagename)%/,et=3,tt=2,nt=1,rt=0,ot=6e4,it=[];function ct(e){return e.editor.past.length>0}function at(e){return e.editor.future.length>0}function st(e){return"auto-draft"===pt(e).status}function lt(e){return e.editor.present.blocks.isDirty||"content"in e.editor.present.edits}function ut(e){return!!lt(e)||(Object.keys(e.editor.present.edits).length>0||er(e,ut))}function dt(e){return!ut(e)&&st(e)}function pt(e){return e.currentPost}function bt(e){return e.currentPost.type}function ft(e){return pt(e).id||null}function ht(e){return Object(O.get)(pt(e),["_links","version-history",0,"count"],0)}function mt(e){return Object(O.get)(pt(e),["_links","predecessor-version",0,"id"],null)}var vt=Object(Ye.a)(function(e){return Object(d.a)({},e.initialEdits,e.editor.present.edits)},function(e){return[e.editor.present.edits,e.initialEdits]}),Ot=Object(Ye.a)(function(){return[]},function(e){return[e.editor]});function gt(e,t){var n=pt(e);if(n.hasOwnProperty(t))return n[t]}function jt(e,t){var n=vt(e);switch(t){case"content":return Dn(e)}return n.hasOwnProperty(t)?n[t]:gt(e,t)}function yt(e,t){if(!Bt(e))return null;var n=It(e);return n.hasOwnProperty(t)?n[t]:void 0}function kt(e){var t=jt(e,"status"),n=jt(e,"password");return"private"===t?"private":n?"password":"public"}function _t(e){return"pending"===pt(e).status}function Et(e){var t=pt(e);return-1!==["publish","private"].indexOf(t.status)||"future"===t.status&&!Object(Qe.isInTheFuture)(new Date(Number(Object(Qe.getDate)(t.date))-ot))}function St(e){return"future"===pt(e).status&&!Et(e)}function Ct(e){var t=pt(e);return ut(e)||-1===["publish","private","future"].indexOf(t.status)}function wt(e){return!Pn(e)&&(!!jt(e,"title")||!!jt(e,"excerpt")||!Tt(e))}function Tt(e){var t=Rn(e);if(t.length&&!("content"in vt(e))){if(t.length>1)return!1;if(t[0].name!==Object(i.getFreeformContentHandlerName)())return!1}return!Dn(e)}function Pt(e){if(!wt(e))return!1;if(!Bt(e))return!0;if(lt(e))return!0;var t=It(e);return["title","excerpt"].some(function(n){return t[n]!==jt(e,n)})}function It(e){return e.autosave}function Bt(e){return!!It(e)}function xt(e){var t=jt(e,"date"),n=new Date(Number(Object(Qe.getDate)(t))-ot);return Object(Qe.isInTheFuture)(n)}function Lt(e){var t=jt(e,"date"),n=jt(e,"modified"),r=jt(e,"status");return("draft"===r||"auto-draft"===r)&&t===n}var At=Object(Ye.a)(function(){return[]},function(e,t){return Object(O.map)(bn(e,t),function(t){return Dt(e,t)})});function Nt(e,t){var n=e.editor.present.blocks.byClientId[t];return n?n.name:null}function Rt(e,t){var n=e.editor.present.blocks.byClientId[t];return!!n&&n.isValid}var Dt=Object(Ye.a)(function(e,t){var n=e.editor.present.blocks.byClientId[t];if(!n)return null;var r=n.attributes,o=Object(i.getBlockType)(n.name);return o&&(r=Object(O.reduce)(o.attributes,function(t,n,o){return"meta"===n.source&&(t===r&&(t=Object(d.a)({},t)),t[o]=function(e,t){return Object(O.has)(e,["editor","present","edits","meta",t])?Object(O.get)(e,["editor","present","edits","meta",t]):Object(O.get)(e,["currentPost","meta",t])}(e,n.meta)),t},r)),Object(d.a)({},n,{attributes:r,innerBlocks:Ft(e,t)})},function(e,t){return[e.editor.present.blocks.byClientId[t],At(e,t),e.editor.present.edits.meta,e.initialEdits.meta,e.currentPost.meta]});var Ft=Object(Ye.a)(function(e,t){return Object(O.map)(bn(e,t),function(t){return Dt(e,t)})},function(e){return[e.editor.present.blocks]}),Mt=function e(t,n){return Object(O.flatMap)(n,function(n){var r=bn(t,n);return Object(b.a)(r).concat(Object(b.a)(e(t,r)))})},Ut=Object(Ye.a)(function(e){var t=bn(e);return Object(b.a)(t).concat(Object(b.a)(Mt(e,t)))},function(e){return[e.editor.present.blocks.order]}),Vt=Object(Ye.a)(function(e,t){var n=Ut(e);return t?Object(O.reduce)(n,function(n,r){return e.editor.present.blocks.byClientId[r].name===t?n+1:n},0):n.length},function(e){return[e.editor.present.blocks.order,e.editor.present.blocks.byClientId]}),Ht=Object(Ye.a)(function(e,t){return Object(O.map)(Object(O.castArray)(t),function(t){return Dt(e,t)})},function(e){return[e.editor.present.edits.meta,e.initialEdits.meta,e.currentPost.meta,e.editor.present.blocks]});function Kt(e,t){return bn(e,t).length}function zt(e){return e.blockSelection.start}function Wt(e){return e.blockSelection.end}function qt(e){var t=nn(e).length;return t||(e.blockSelection.start?1:0)}function Gt(e){var t=e.blockSelection,n=t.start,r=t.end;return!!n&&n===r}function $t(e){var t=e.blockSelection,n=t.start;return n===t.end&&n?n:null}function Yt(e){var t=$t(e);return t?Dt(e,t):null}var Qt=Object(Ye.a)(function(e,t){var n=e.editor.present.blocks.order;for(var r in n)if(Object(O.includes)(n[r],t))return r;return null},function(e){return[e.editor.present.blocks.order]}),Xt=Object(Ye.a)(function(e,t){for(var n=t,r=t;n;)n=Qt(e,r=n);return r},function(e){return[e.editor.present.blocks.order]});function Zt(e,t){var n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:1;if(void 0===t&&(t=$t(e)),void 0===t&&(t=n<0?on(e):cn(e)),!t)return null;var r=Qt(e,t);if(null===r)return null;var o=e.editor.present.blocks.order[r],i=o.indexOf(t)+1*n;return i<0?null:i===o.length?null:o[i]}function Jt(e,t){return Zt(e,t,-1)}function en(e,t){return Zt(e,t,1)}function tn(e){var t=e.blockSelection,n=t.start;return n===t.end&&n?e.blockSelection.initialPosition:null}var nn=Object(Ye.a)(function(e){var t=e.blockSelection,n=t.start,r=t.end;if(n===r)return[];var o=Qt(e,n);if(null===o)return[];var i=bn(e,o),c=i.indexOf(n),a=i.indexOf(r);return c>a?i.slice(a,c+1):i.slice(c,a+1)},function(e){return[e.editor.present.blocks.order,e.blockSelection.start,e.blockSelection.end]}),rn=Object(Ye.a)(function(e){var t=nn(e);return t.length?t.map(function(t){return Dt(e,t)}):it},function(e){return[e.editor.present.blocks.order,e.blockSelection.start,e.blockSelection.end,e.editor.present.blocks.byClientId,e.editor.present.edits.meta,e.initialEdits.meta,e.currentPost.meta]});function on(e){return Object(O.first)(nn(e))||null}function cn(e){return Object(O.last)(nn(e))||null}var an=Object(Ye.a)(function(e,t,n){for(var r=n;t!==r&&r;)r=Qt(e,r);return t===r},function(e){return[e.editor.present.blocks]});function sn(e,t){return on(e)===t}function ln(e,t){return-1!==nn(e).indexOf(t)}var un=Object(Ye.a)(function(e,t){for(var n=t,r=!1;n&&!r;)r=ln(e,n=Qt(e,n));return r},function(e){return[e.editor.present.blocks.order,e.blockSelection.start,e.blockSelection.end]});function dn(e){var t=e.blockSelection,n=t.start;return n===t.end?null:n||null}function pn(e){var t=e.blockSelection,n=t.start,r=t.end;return n===r?null:r||null}function bn(e,t){return e.editor.present.blocks.order[t||""]||it}function fn(e,t,n){return bn(e,n).indexOf(t)}function hn(e,t){var n=e.blockSelection,r=n.start;return r===n.end&&r===t}function mn(e,t){var n=arguments.length>2&&void 0!==arguments[2]&&arguments[2];return Object(O.some)(bn(e,t),function(t){return hn(e,t)||ln(e,t)||n&&mn(e,t,n)})}function vn(e,t){if(!t)return!1;var n=nn(e),r=n.indexOf(t);return r>-1&&r<n.length-1}function On(e){var t=e.blockSelection;return t.start!==t.end}function gn(e){return e.blockSelection.isMultiSelecting}function jn(e){return e.blockSelection.isEnabled}function yn(e,t){return e.blocksMode[t]||"visual"}function kn(e){return e.isTyping}function _n(e){return e.isCaretWithinFormattedText}function En(e){var t,n,r=e.insertionPoint,o=e.blockSelection;if(null!==r)return r;var i=o.end;return n=i?fn(e,i,t=Qt(e,i)||void 0)+1:bn(e).length,{rootClientId:t,index:n}}function Sn(e){return null!==e.insertionPoint}function Cn(e){return e.template.isValid}function wn(e){return e.settings.template}function Tn(e,t){if(!t)return e.settings.templateLock;var n=tr(e,t);return n?n.templateLock:null}function Pn(e){return e.saving.requesting}function In(e){return e.saving.successful}function Bn(e){return!!e.saving.error}function xn(e){return Pn(e)&&!!e.saving.options.isAutosave}function Ln(e){return Pn(e)&&!!e.saving.options.isPreview}function An(e){var t=jt(e,"featured_media"),n=e.previewLink;return n&&t?Object(g.addQueryArgs)(n,{_thumbnail_id:t}):n}function Nn(e){var t,n=bn(e);switch(1===n.length&&(t=Nt(e,n[0])),2===n.length&&"core/paragraph"===Nt(e,n[1])&&(t=Nt(e,n[0])),t){case"core/image":return"image";case"core/quote":case"core/pullquote":return"quote";case"core/gallery":return"gallery";case"core/video":case"core-embed/youtube":case"core-embed/vimeo":return"video";case"core/audio":case"core-embed/spotify":case"core-embed/soundcloud":return"audio"}return null}function Rn(e){var t=Ft(e);return 1===t.length&&Object(i.isUnmodifiedDefaultBlock)(t[0])?[]:t}var Dn=Object(Ye.a)(function(e){var t=vt(e);if("content"in t)return t.content;var n=Rn(e),r=Object(i.serialize)(n);return 1===n.length&&n[0].name===Object(i.getFreeformContentHandlerName)()?Object(Xe.removep)(r):r},function(e){return[e.editor.present.blocks,e.editor.present.edits.content,e.initialEdits.content]}),Fn=function(e,t){var n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null,r=function(e,t){var n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null;return Object(O.isBoolean)(e)?e:Object(O.isArray)(e)?Object(O.includes)(e,t):n},o=Object(i.getBlockType)(t);if(!o)return!1;if(!r(nr(e).allowedBlockTypes,t,!0))return!1;if(!!Tn(e,n))return!1;var c=tr(e,n),a=r(Object(O.get)(c,["allowedBlocks"]),t),s=r(o.parent,Nt(e,n));return null!==a&&null!==s?a||s:null!==a?a:null===s||s},Mn=Object(Ye.a)(Fn,function(e,t,n){return[e.blockListSettings[n],e.editor.present.blocks.byClientId[n],e.settings.allowedBlockTypes,e.settings.templateLock]});function Un(e,t){return e.preferences.insertUsage[t]||null}var Vn=function(e,t,n){return!!Object(i.hasBlockSupport)(t,"inserter",!0)&&Fn(e,t.name,n)},Hn=function(e,t,n){if(!Fn(e,"core/block",n))return!1;var r=Nt(e,t.clientId);return!!r&&(!!Object(i.getBlockType)(r)&&(!!Fn(e,r,n)&&!an(e,t.clientId,n)))},Kn=Object(Ye.a)(function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,n=function(e,t,n){return n?et:t>0?tt:"common"===e?nt:rt},r=function(e,t){if(!e)return t;var n=Date.now()-e;switch(!0){case n<36e5:return 4*t;case n<864e5:return 2*t;case n<6048e5:return t/2;default:return t/4}},o=Object(i.getBlockTypes)().filter(function(n){return Vn(e,n,t)}).map(function(t){var o=t.name,c=!1;Object(i.hasBlockSupport)(t.name,"multiple",!0)||(c=Object(O.some)(Ht(e,Ut(e)),{name:t.name}));var a=Object(O.isArray)(t.parent),s=Un(e,o)||{},l=s.time,u=s.count,d=void 0===u?0:u;return{id:o,name:t.name,initialAttributes:{},title:t.title,icon:t.icon,category:t.category,keywords:t.keywords,isDisabled:c,utility:n(t.category,d,a),frecency:r(l,d),hasChildBlocksWithInserterSupport:Object(i.hasChildBlocksWithInserterSupport)(t.name)}}),c=$n(e).filter(function(n){return Hn(e,n,t)}).map(function(t){var o="core/block/".concat(t.id),c=Nt(e,t.clientId),a=Object(i.getBlockType)(c),s=Un(e,o)||{},l=s.time,u=s.count,d=void 0===u?0:u,p=n("reusable",d,!1),b=r(l,d);return{id:o,name:"core/block",initialAttributes:{ref:t.id},title:t.title,icon:a.icon,category:"reusable",keywords:[],isDisabled:!1,utility:p,frecency:b}});return Object(O.orderBy)(Object(b.a)(o).concat(Object(b.a)(c)),["utility","frecency"],["desc","desc"])},function(e,t){return[e.blockListSettings[t],e.editor.present.blocks,e.preferences.insertUsage,e.settings.allowedBlockTypes,e.settings.templateLock,e.reusableBlocks.data,Object(i.getBlockTypes)()]}),zn=Object(Ye.a)(function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return!!Object(O.some)(Object(i.getBlockTypes)(),function(n){return Vn(e,n,t)})||Object(O.some)($n(e),function(n){return Hn(e,n,t)})},function(e,t){return[e.blockListSettings[t],e.editor.present.blocks,e.settings.allowedBlockTypes,e.settings.templateLock,e.reusableBlocks.data,Object(i.getBlockTypes)()]}),Wn=Object(Ye.a)(function(e,t){var n=e.reusableBlocks.data[t];if(!n)return null;var r=isNaN(parseInt(t));return Object(d.a)({},n,{id:r?t:+t,isTemporary:r})},function(e,t){return[e.reusableBlocks.data[t]]});function qn(e,t){return e.reusableBlocks.isSaving[t]||!1}function Gn(e,t){return!!e.reusableBlocks.isFetching[t]}function $n(e){return Object(O.map)(e.reusableBlocks.data,function(t,n){return Wn(e,n)})}function Yn(e,t){var n=Object(O.find)(e.optimist,function(e){return e.beforeState&&Object(O.get)(e.action,["optimist","id"])===t});return n?n.beforeState:null}function Qn(e){if(!Pn(e))return!1;if(!Et(e))return!1;var t=Yn(e,Ze);return!!t&&!Et(t)}function Xn(e){var t=jt(e,"permalink_template");return Je.test(t)}function Zn(e){var t=Jn(e),n=t.prefix,r=t.postName,o=t.suffix;return Xn(e)?n+r+o:n}function Jn(e){var t=jt(e,"permalink_template"),n=jt(e,"slug")||jt(e,"generated_slug"),r=t.split(Je),o=Object(u.a)(r,2);return{prefix:o[0],postName:n,suffix:o[1]}}function er(e,t){var n=e.optimist;return!!n&&n.some(function(e){var n=e.beforeState;return n&&t(n)})}function tr(e,t){return e.blockListSettings[t]}function nr(e){return e.settings}function rr(e,t){return t?e.tokens[t]:e.tokens}function or(e){return e.postLock.isLocked}function ir(e){return Object.keys(e.postSavingLock).length>0}function cr(e){return e.postLock.isTakeover}function ar(e){return e.postLock.user}function sr(e){return e.postLock.activePostLock}function lr(e){return Object(O.has)(pt(e),["_links","wp:action-unfiltered-html"])}function ur(e){return e.preferences.hasOwnProperty("isPublishSidebarEnabled")?e.preferences.isPublishSidebarEnabled:E.isPublishSidebarEnabled}var dr=n(38),pr=n(29),br=n.n(pr),fr=function(){var e=Object(dr.a)(regeneratorRuntime.mark(function e(t,n){var r,o,c,a,s;return regeneratorRuntime.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:return r=t.id,o=n.dispatch,e.next=4,br()({path:"/wp/v2/types/wp_block"});case 4:if(c=e.sent){e.next=7;break}return e.abrupt("return");case 7:return a=r?br()({path:"/wp/v2/".concat(c.rest_base,"/").concat(r)}):br()({path:"/wp/v2/".concat(c.rest_base,"?per_page=-1")}),e.prev=8,e.next=11,a;case 11:s=e.sent,o(Re(Object(O.map)(Object(O.castArray)(s),function(e){var t=Object(i.parse)(e.content.raw);return{reusableBlock:{id:e.id,title:I(e.title)},parsedBlock:1===t.length?t[0]:Object(i.createBlock)("core/template",{},t)}}))),o({type:"FETCH_REUSABLE_BLOCKS_SUCCESS",id:r}),e.next=19;break;case 16:e.prev=16,e.t0=e.catch(8),o({type:"FETCH_REUSABLE_BLOCKS_FAILURE",id:r,error:e.t0});case 19:case"end":return e.stop()}},e,this,[[8,16]])}));return function(t,n){return e.apply(this,arguments)}}(),hr=function(){var e=Object(dr.a)(regeneratorRuntime.mark(function e(t,n){var r,o,c,a,s,u,d,p,b,f,h,m,v,O,g;return regeneratorRuntime.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,br()({path:"/wp/v2/types/wp_block"});case 2:if(r=e.sent){e.next=5;break}return e.abrupt("return");case 5:return o=t.id,c=n.dispatch,a=n.getState(),s=Wn(a,o),u=s.clientId,d=s.title,p=s.isTemporary,b=Dt(a,u),f=Object(i.serialize)("core/template"===b.name?b.innerBlocks:b),h=p?{title:d,content:f,status:"publish"}:{id:o,title:d,content:f,status:"publish"},m=p?"/wp/v2/".concat(r.rest_base):"/wp/v2/".concat(r.rest_base,"/").concat(o),v=p?"POST":"PUT",e.prev=14,e.next=17,br()({path:m,data:h,method:v});case 17:O=e.sent,c({type:"SAVE_REUSABLE_BLOCK_SUCCESS",updatedId:O.id,id:o}),g=p?Object(_.__)("Block created."):Object(_.__)("Block updated."),Object(l.dispatch)("core/notices").createSuccessNotice(g,{id:"REUSABLE_BLOCK_NOTICE_ID"}),e.next=27;break;case 23:e.prev=23,e.t0=e.catch(14),c({type:"SAVE_REUSABLE_BLOCK_FAILURE",id:o}),Object(l.dispatch)("core/notices").createErrorNotice(e.t0.message,{id:"REUSABLE_BLOCK_NOTICE_ID"});case 27:case"end":return e.stop()}},e,this,[[14,23]])}));return function(t,n){return e.apply(this,arguments)}}(),mr=function(){var e=Object(dr.a)(regeneratorRuntime.mark(function e(t,n){var r,o,c,a,s,u,d,p,f,h;return regeneratorRuntime.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,br()({path:"/wp/v2/types/wp_block"});case 2:if(r=e.sent){e.next=5;break}return e.abrupt("return");case 5:if(o=t.id,c=n.getState,a=n.dispatch,(s=Wn(c(),o))&&!s.isTemporary){e.next=10;break}return e.abrupt("return");case 10:return u=Ft(c()),d=u.filter(function(e){return Object(i.isReusableBlock)(e)&&e.attributes.ref===o}),p=d.map(function(e){return e.clientId}),f=Object(O.uniqueId)(),a({type:"REMOVE_REUSABLE_BLOCK",id:o,optimist:{type:m.BEGIN,id:f}}),a(we(Object(b.a)(p).concat([s.clientId]))),e.prev=16,e.next=19,br()({path:"/wp/v2/".concat(r.rest_base,"/").concat(o),method:"DELETE"});case 19:a({type:"DELETE_REUSABLE_BLOCK_SUCCESS",id:o,optimist:{type:m.COMMIT,id:f}}),h=Object(_.__)("Block deleted."),Object(l.dispatch)("core/notices").createSuccessNotice(h,{id:"REUSABLE_BLOCK_NOTICE_ID"}),e.next=28;break;case 24:e.prev=24,e.t0=e.catch(16),a({type:"DELETE_REUSABLE_BLOCK_FAILURE",id:o,optimist:{type:m.REVERT,id:f}}),Object(l.dispatch)("core/notices").createErrorNotice(e.t0.message,{id:"REUSABLE_BLOCK_NOTICE_ID"});case 28:case"end":return e.stop()}},e,this,[[16,24]])}));return function(t,n){return e.apply(this,arguments)}}();function vr(e,t){for(var n=arguments.length,r=new Array(n>2?n-2:0),o=2;o<n;o++)r[o-2]=arguments[o];return new Promise(function(n){var o=function(){return Object(l.select)("core/data").hasFinishedResolution(e,t,r)},i=function(){return Object(l.select)(e)[t].apply(null,r)},c=i();if(o())return n(c);var a=Object(l.subscribe)(function(){o()&&(a(),n(i()))})})}var Or=function(){var e=Object(dr.a)(regeneratorRuntime.mark(function e(t,n){var r,o,i,c,a,s,u,p,b,f,h;return regeneratorRuntime.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:if(r=n.dispatch,o=n.getState,i=o(),c=pt(i),a=!!t.options.isAutosave,wt(i)){e.next=6;break}return e.abrupt("return");case 6:return s=vt(i),a&&(s=Object(O.pick)(s,["title","content","excerpt"])),st(i)&&(s=Object(d.a)({status:"draft"},s)),u=Object(d.a)({},s,{content:Dn(i),id:c.id}),e.next=12,vr("core","getPostType",bt(i));case 12:return p=e.sent,r({type:"REQUEST_POST_UPDATE_START",optimist:{type:m.BEGIN,id:Ze},options:t.options}),r(Object(d.a)({},$(u),{optimist:{id:Ze}})),a?(u=Object(d.a)({},Object(O.pick)(c,["title","content","excerpt"]),It(i),u),b=br()({path:"/wp/v2/".concat(p.rest_base,"/").concat(c.id,"/autosaves"),method:"POST",data:u})):(Object(l.dispatch)("core/notices").removeNotice("SAVE_POST_NOTICE_ID"),Object(l.dispatch)("core/notices").removeNotice("autosave-exists"),b=br()({path:"/wp/v2/".concat(p.rest_base,"/").concat(c.id),method:"PUT",data:u})),e.prev=16,e.next=19,b;case 19:f=e.sent,r((a?G:q)(f)),h=f.id!==c.id,r({type:"REQUEST_POST_UPDATE_SUCCESS",previousPost:c,post:f,optimist:{type:h?m.REVERT:m.COMMIT,id:Ze},options:t.options,postType:p}),e.next=29;break;case 26:e.prev=26,e.t0=e.catch(16),r({type:"REQUEST_POST_UPDATE_FAILURE",optimist:{type:m.REVERT,id:Ze},post:c,edits:s,error:e.t0,options:t.options});case 29:case"end":return e.stop()}},e,this,[[16,26]])}));return function(t,n){return e.apply(this,arguments)}}(),gr=function(){var e=Object(dr.a)(regeneratorRuntime.mark(function e(t,n){var r,o,i,c,a,s;return regeneratorRuntime.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:return r=n.dispatch,o=n.getState,i=t.postId,c=bt(o()),e.next=5,vr("core","getPostType",c);case 5:return a=e.sent,Object(l.dispatch)("core/notices").removeNotice("TRASH_POST_NOTICE_ID"),e.prev=7,e.next=10,br()({path:"/wp/v2/".concat(a.rest_base,"/").concat(i),method:"DELETE"});case 10:s=pt(o()),r(q(Object(d.a)({},s,{status:"trash"}))),e.next=17;break;case 14:e.prev=14,e.t0=e.catch(7),r(Object(d.a)({},t,{type:"TRASH_POST_FAILURE",error:e.t0}));case 17:case"end":return e.stop()}},e,this,[[7,14]])}));return function(t,n){return e.apply(this,arguments)}}(),jr=function(){var e=Object(dr.a)(regeneratorRuntime.mark(function e(t,n){var r,o,i,c,a,s,l;return regeneratorRuntime.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:return r=n.dispatch,o=n.getState,i=o(),c=pt(i),a=bt(o()),e.next=6,vr("core","getPostType",a);case 6:return s=e.sent,e.next=9,br()({path:"/wp/v2/".concat(s.rest_base,"/").concat(c.id,"?context=edit&_timestamp=").concat(Date.now())});case 9:l=e.sent,r(q(l));case 11:case"end":return e.stop()}},e,this)}));return function(t,n){return e.apply(this,arguments)}}();function yr(e,t){var n=t.getState(),r=wn(n),o=Tn(n),c=!r||"all"!==o||Object(i.doBlocksMatchTemplate)(e.blocks,r);if(c!==Cn(n))return me(c)}function kr(e,t){if(!Kt(t.getState()))return He()}var _r={REQUEST_POST_UPDATE:function(e,t){Or(e,t)},REQUEST_POST_UPDATE_SUCCESS:function(e){var t=e.previousPost,n=e.post,r=e.postType;if(!Object(O.get)(e.options,["isAutosave"])){var o,i=["publish","private","future"],c=Object(O.includes)(i,t.status),a=Object(O.includes)(i,n.status),s=Object(O.get)(r,["viewable"],!1);if(c||a?c&&!a?(o=r.labels.item_reverted_to_draft,s=!1):o=!c&&a?{publish:r.labels.item_published,private:r.labels.item_published_privately,future:r.labels.item_scheduled}[n.status]:r.labels.item_updated:o=null,o){var u=[];s&&u.push({label:r.labels.view_item,url:n.link}),Object(l.dispatch)("core/notices").createSuccessNotice(o,{id:"SAVE_POST_NOTICE_ID",actions:u})}}},REQUEST_POST_UPDATE_FAILURE:function(e){var t=e.post,n=e.edits,r=e.error;if(!r||"rest_autosave_no_changes"!==r.code){var o=["publish","private","future"],i=-1!==o.indexOf(t.status),c={publish:Object(_.__)("Publishing failed"),private:Object(_.__)("Publishing failed"),future:Object(_.__)("Scheduling failed")},a=i||-1===o.indexOf(n.status)?Object(_.__)("Updating failed"):c[n.status];Object(l.dispatch)("core/notices").createErrorNotice(a,{id:"SAVE_POST_NOTICE_ID"})}},TRASH_POST:function(e,t){gr(e,t)},TRASH_POST_FAILURE:function(e){var t=e.error.message&&"unknown_error"!==e.error.code?e.error.message:Object(_.__)("Trashing failed");Object(l.dispatch)("core/notices").createErrorNotice(t,{id:"TRASH_POST_NOTICE_ID"})},REFRESH_POST:function(e,t){jr(e,t)},MERGE_BLOCKS:function(e,t){var n=t.dispatch,r=t.getState(),o=Object(u.a)(e.blocks,2),c=o[0],a=o[1],s=Dt(r,c),l=Dt(r,a),p=Object(i.getBlockType)(s.name);if(p.merge){var f=s.name===l.name?[l]:Object(i.switchToBlockType)(l,s.name);if(f&&f.length){var h=p.merge(s.attributes,f[0].attributes);n(ee(s.clientId,-1)),n(ce([s.clientId,l.clientId],[Object(d.a)({},s,{attributes:Object(d.a)({},s.attributes,h)})].concat(Object(b.a)(f.slice(1)))))}}else n(ee(s.clientId))},SETUP_EDITOR:function(e,t){var n,r=e.post,o=e.edits,c=t.getState();n=Object(O.has)(o,["content"])?o.content:r.content.raw;var a=Object(i.parse)(n),s="auto-draft"===r.status,l=wn(c);s&&l&&(a=Object(i.synchronizeBlocksWithTemplate)(a,l));var u=Y(r,a);return Object(O.compact)([u,yr(u,t)])},RESET_BLOCKS:[yr],SYNCHRONIZE_TEMPLATE:function(e,t){var n=(0,t.getState)(),r=Ft(n),o=wn(n);return Q(Object(i.synchronizeBlocksWithTemplate)(r,o))},FETCH_REUSABLE_BLOCKS:function(e,t){fr(e,t)},SAVE_REUSABLE_BLOCK:function(e,t){hr(e,t)},DELETE_REUSABLE_BLOCK:function(e,t){mr(e,t)},RECEIVE_REUSABLE_BLOCKS:function(e){return X(Object(O.map)(e.results,"parsedBlock"))},CONVERT_BLOCK_TO_STATIC:function(e,t){var n,r=t.getState(),o=Dt(r,e.clientId),c=Wn(r,o.attributes.ref),a=Dt(r,c.clientId);n="core/template"===a.name?a.innerBlocks.map(function(e){return Object(i.cloneBlock)(e)}):[Object(i.cloneBlock)(a)],t.dispatch(ce(o.clientId,n))},CONVERT_BLOCK_TO_REUSABLE:function(e,t){var n,r=t.getState,o=t.dispatch;1===e.clientIds.length?n=Dt(r(),e.clientIds[0]):o(X([n=Object(i.createBlock)("core/template",{},Ht(r(),e.clientIds))]));var c={id:Object(O.uniqueId)("reusable"),clientId:n.clientId,title:Object(_.__)("Untitled Reusable Block")};o(Re([{reusableBlock:c,parsedBlock:n}])),o(De(c.id)),o(ce(e.clientIds,Object(i.createBlock)("core/block",{ref:c.id}))),o(X([n]))},REMOVE_BLOCKS:[function(e,t){if(e.selectPrevious){var n=e.clientIds[0],r=t.getState(),o=$t(r),i=Object(d.a)({},r,{editor:{present:Object(O.last)(r.editor.past)}}),c=Qt(i,n),a=Jt(i,n)||c;return a!==o?ee(a,-1):void 0}},kr],REPLACE_BLOCKS:[kr],MULTI_SELECT:function(e,t){var n=qt((0,t.getState)());Object(z.speak)(Object(_.sprintf)(Object(_._n)("%s block selected.","%s blocks selected.",n),n),"assertive")}};var Er=function(e){var t,n=[V()(_r),K.a],r=function(){throw new Error("Dispatching while constructing your middleware is not allowed. Other middleware would not be applied to this dispatch.")},o={getState:e.getState,dispatch:function(){return r.apply(void 0,arguments)}};return t=n.map(function(e){return e(o)}),r=O.flowRight.apply(void 0,Object(b.a)(t))(e.dispatch),e.dispatch=r,e},Sr=Object(l.registerStore)("core/editor",{reducer:M,selectors:o,actions:r,persist:["preferences"]});Er(Sr);var Cr=n(18),wr=n(0),Tr=n(16),Pr=n.n(Tr),Ir=n(7),Br=n(23),xr=n(10),Lr=n(9),Ar=n(12),Nr=n(14),Rr=n(13),Dr=n(3),Fr=n(4),Mr=Object(wr.createContext)({name:"",isSelected:!1,focusedElement:null,setFocusedElement:O.noop,clientId:null}),Ur=Mr.Consumer,Vr=Mr.Provider,Hr=function(e){return Object(Ir.createHigherOrderComponent)(function(t){return function(n){return Object(wr.createElement)(Ur,null,function(r){return Object(wr.createElement)(t,Object(Cr.a)({},n,e(r,n)))})}},"withBlockEditContext")},Kr=Object(Ir.createHigherOrderComponent)(function(e){return function(t){return Object(wr.createElement)(Ur,null,function(n){return n.isSelected&&Object(wr.createElement)(e,t)})}},"ifBlockEditSelected"),zr=[];var Wr=Object(Ir.compose)([Hr(function(e){return{blockName:e.name}}),function(e){return function(t){function n(){var e;return Object(xr.a)(this,n),(e=Object(Ar.a)(this,Object(Nr.a)(n).call(this))).state={completers:zr},e.saveParentRef=e.saveParentRef.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onFocus=e.onFocus.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(n,t),Object(Lr.a)(n,[{key:"componentDidUpdate",value:function(){this.parentNode.contains(document.activeElement)&&this.hasStaleCompleters()&&this.updateCompletersState()}},{key:"onFocus",value:function(){this.hasStaleCompleters()&&this.updateCompletersState()}},{key:"hasStaleCompleters",value:function(){return!("lastFilteredCompletersProp"in this.state)||this.state.lastFilteredCompletersProp!==this.props.completers}},{key:"updateCompletersState",value:function(){var e=this.props,t=e.blockName,n=e.completers,r=n;Object(Br.hasFilter)("editor.Autocomplete.completers")&&(n=Object(Br.applyFilters)("editor.Autocomplete.completers",n&&n.map(O.clone),t)),this.setState({lastFilteredCompletersProp:r,completers:n||zr})}},{key:"saveParentRef",value:function(e){this.parentNode=e}},{key:"render",value:function(){var t=this.state.completers,n=Object(d.a)({},this.props,{completers:t});return Object(wr.createElement)("div",{onFocus:this.onFocus,ref:this.saveParentRef},Object(wr.createElement)(e,Object(Cr.a)({onFocus:this.onFocus},n)))}}]),n}(wr.Component)}])(Fr.Autocomplete);function qr(e){var t=e.icon,n=e.showColors,r=void 0!==n&&n,o=e.className;"block-default"===Object(O.get)(t,["src"])&&(t={src:Object(wr.createElement)(Fr.SVG,{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"},Object(wr.createElement)(Fr.Path,{d:"M19 7h-1V5h-4v2h-4V5H6v2H5c-1.1 0-2 .9-2 2v10h18V9c0-1.1-.9-2-2-2zm0 10H5V9h14v8z"}))});var i=Object(wr.createElement)(Fr.Icon,{icon:t&&t.src?t.src:t}),c=r?{backgroundColor:t&&t.background,color:t&&t.foreground}:{};return Object(wr.createElement)("span",{style:c,className:Pr()("editor-block-icon",o,{"has-colors":r})},i)}function Gr(){return Object(l.select)("core/editor").getBlockInsertionPoint().rootClientId}function $r(e){return Object(l.select)("core/editor").getInserterItems(e)}function Yr(){var e=Object(l.select)("core/editor"),t=e.getSelectedBlockClientId,n=e.getBlockName,r=t();return r?n(r):null}var Qr=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=e.getBlockInsertionParentClientId,n=void 0===t?Gr:t,r=e.getInserterItems,o=void 0===r?$r:r,c=e.getSelectedBlockName,a=void 0===c?Yr:c;return{name:"blocks",className:"editor-autocompleters__block",triggerPrefix:"/",options:function(){var e=a();return o(n()).filter(function(t){return e!==t.name})},getOptionKeywords:function(e){var t=e.title,n=e.keywords,r=void 0===n?[]:n;return Object(b.a)(r).concat([t])},getOptionLabel:function(e){var t=e.icon,n=e.title;return[Object(wr.createElement)(qr,{key:"icon",icon:t,showColors:!0}),n]},allowContext:function(e,t){return!(/\S/.test(e)||/\S/.test(t))},getOptionCompletion:function(e){var t=e.name,n=e.initialAttributes;return{action:"replace",value:Object(i.createBlock)(t,n)}},isOptionDisabled:function(e){return e.isDisabled}}}(),Xr={name:"users",className:"editor-autocompleters__user",triggerPrefix:"@",options:function(e){var t="";return e&&(t="?search="+encodeURIComponent(e)),br()({path:"/wp/v2/users"+t})},isDebounced:!0,getOptionKeywords:function(e){return[e.slug,e.name]},getOptionLabel:function(e){return[Object(wr.createElement)("img",{key:"avatar",className:"editor-autocompleters__user-avatar",alt:"",src:e.avatar_urls[24]}),Object(wr.createElement)("span",{key:"name",className:"editor-autocompleters__user-name"},e.name),Object(wr.createElement)("span",{key:"slug",className:"editor-autocompleters__user-slug"},e.slug)]},getOptionCompletion:function(e){return"@".concat(e.slug)}},Zr=[{icon:"editor-alignleft",title:Object(_.__)("Align text left"),align:"left"},{icon:"editor-aligncenter",title:Object(_.__)("Align text center"),align:"center"},{icon:"editor-alignright",title:Object(_.__)("Align text right"),align:"right"}];var Jr=Object(Ir.compose)(Hr(function(e){return{clientId:e.clientId}}),Object(s.withViewportMatch)({isLargeViewport:"medium"}),Object(l.withSelect)(function(e,t){var n=t.clientId,r=t.isLargeViewport,o=t.isCollapsed,i=e("core/editor"),c=i.getBlockRootClientId,a=i.getEditorSettings;return{isCollapsed:o||!r||!a().hasFixedToolbar&&c(n)}}))(function(e){var t=e.isCollapsed,n=e.value,r=e.onChange,o=e.alignmentControls,i=void 0===o?Zr:o,c=Object(O.find)(i,function(e){return e.align===n});return Object(wr.createElement)(Fr.Toolbar,{isCollapsed:t,icon:c?c.icon:"editor-alignleft",label:Object(_.__)("Change Text Alignment"),controls:i.map(function(e){var t=e.align,o=n===t;return Object(d.a)({},e,{isActive:o,onClick:function(e){return function(){return r(n===e?void 0:e)}}(t)})})})}),eo={left:{icon:"align-left",title:Object(_.__)("Align left")},center:{icon:"align-center",title:Object(_.__)("Align center")},right:{icon:"align-right",title:Object(_.__)("Align right")},wide:{icon:"align-wide",title:Object(_.__)("Wide width")},full:{icon:"align-full-width",title:Object(_.__)("Full width")}},to=["left","center","right","wide","full"],no=["wide","full"];var ro=Object(Ir.compose)(Hr(function(e){return{clientId:e.clientId}}),Object(s.withViewportMatch)({isLargeViewport:"medium"}),Object(l.withSelect)(function(e,t){var n=t.clientId,r=t.isLargeViewport,o=t.isCollapsed,i=e("core/editor"),c=i.getBlockRootClientId,a=i.getEditorSettings;return{wideControlsEnabled:e("core/editor").getEditorSettings().alignWide,isCollapsed:o||!r||!a().hasFixedToolbar&&c(n)}}))(function(e){var t=e.isCollapsed,n=e.value,r=e.onChange,o=e.controls,i=void 0===o?to:o,c=e.wideControlsEnabled,a=void 0!==c&&c?i:i.filter(function(e){return-1===no.indexOf(e)}),s=eo[n];return Object(wr.createElement)(Fr.Toolbar,{isCollapsed:t,icon:s?s.icon:"align-left",label:Object(_.__)("Change Alignment"),controls:a.map(function(e){return Object(d.a)({},eo[e],{isActive:n===e,onClick:function(e){return function(){return r(n===e?void 0:e)}}(e)})})})}),oo=Object(Fr.createSlotFill)("BlockControls"),io=oo.Fill,co=oo.Slot,ao=Kr(function(e){var t=e.controls,n=e.children;return Object(wr.createElement)(io,null,Object(wr.createElement)(Fr.Toolbar,{controls:t}),n)});ao.Slot=co;var so=ao,lo=Object(Fr.withFilters)("editor.BlockEdit")(function(e){var t=e.attributes,n=void 0===t?{}:t,r=e.name,o=Object(i.getBlockType)(r);if(!o)return null;var c=Object(i.hasBlockSupport)(o,"className",!0)?Object(i.getBlockDefaultClassName)(r):null,a=Pr()(c,n.className),s=o.edit||o.save;return Object(wr.createElement)(s,Object(Cr.a)({},e,{className:a}))}),uo=function(e){function t(e){var n;return Object(xr.a)(this,t),(n=Object(Ar.a)(this,Object(Nr.a)(t).call(this,e))).setFocusedElement=n.setFocusedElement.bind(Object(Dr.a)(Object(Dr.a)(n))),n.state={focusedElement:null,setFocusedElement:n.setFocusedElement},n}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"setFocusedElement",value:function(e){this.setState(function(t){return t.focusedElement===e?null:{focusedElement:e}})}},{key:"render",value:function(){return Object(wr.createElement)(Vr,{value:this.state},Object(wr.createElement)(lo,this.props))}}],[{key:"getDerivedStateFromProps",value:function(e){var t=e.clientId;return{name:e.name,isSelected:e.isSelected,clientId:t}}}]),t}(wr.Component),po=Object(Fr.createSlotFill)("BlockFormatControls"),bo=po.Fill,fo=po.Slot,ho=Kr(bo);ho.Slot=fo;var mo=ho,vo=n(17);function Oo(e){var t=e.blocks,n=e.selectedBlockClientId,r=e.selectBlock,o=e.showNestedBlocks;return Object(wr.createElement)("ul",{className:"editor-block-navigation__list",role:"list"},Object(O.map)(t,function(e){var t=Object(i.getBlockType)(e.name),c=e.clientId===n;return Object(wr.createElement)("li",{key:e.clientId},Object(wr.createElement)("div",{className:"editor-block-navigation__item"},Object(wr.createElement)(Fr.Button,{className:Pr()("editor-block-navigation__item-button",{"is-selected":e.clientId===n}),onClick:function(){return r(e.clientId)},isSelected:c},Object(wr.createElement)(qr,{icon:t.icon,showColors:!0}),t.title,c&&Object(wr.createElement)("span",{className:"screen-reader-text"},Object(_.__)("(selected block)")))),o&&!!e.innerBlocks&&!!e.innerBlocks.length&&Object(wr.createElement)(Oo,{blocks:e.innerBlocks,selectedBlockClientId:n,selectBlock:r,showNestedBlocks:!0}))}))}var go=Object(Ir.compose)(Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getSelectedBlockClientId,r=t.getBlockHierarchyRootClientId,o=t.getBlock,i=t.getBlocks,c=n();return{rootBlocks:i(),rootBlock:c?o(r(c)):null,selectedBlockClientId:c}}),Object(l.withDispatch)(function(e,t){var n=t.onSelect,r=void 0===n?O.noop:n;return{selectBlock:function(t){e("core/editor").selectBlock(t),r(t)}}}))(function(e){var t=e.rootBlock,n=e.rootBlocks,r=e.selectedBlockClientId,o=e.selectBlock,i=t&&(t.clientId!==r||t.innerBlocks&&0!==t.innerBlocks.length);return Object(wr.createElement)(Fr.NavigableMenu,{role:"presentation",className:"editor-block-navigation__container"},Object(wr.createElement)("p",{className:"editor-block-navigation__label"},Object(_.__)("Block Navigation")),i&&Object(wr.createElement)(Oo,{blocks:[t],selectedBlockClientId:r,selectBlock:o,showNestedBlocks:!0}),!i&&Object(wr.createElement)(Oo,{blocks:n,selectedBlockClientId:r,selectBlock:o}),(!n||0===n.length)&&Object(wr.createElement)("p",{className:"editor-block-navigation__paragraph"},Object(_.__)("No blocks created yet.")))}),jo=Object(wr.createElement)(Fr.SVG,{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24",width:"20",height:"20"},Object(wr.createElement)(Fr.Path,{d:"M5 5H3v2h2V5zm3 8h11v-2H8v2zm9-8H6v2h11V5zM7 11H5v2h2v-2zm0 8h2v-2H7v2zm3-2v2h11v-2H10z"}));var yo=function(){return Object(wr.createElement)(Fr.Dropdown,{renderToggle:function(e){var t=e.isOpen,n=e.onToggle;return Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)(Fr.KeyboardShortcuts,{bindGlobal:!0,shortcuts:Object(f.a)({},vo.rawShortcut.access("o"),n)}),Object(wr.createElement)(Fr.IconButton,{icon:jo,"aria-expanded":t,onClick:n,label:Object(_.__)("Block Navigation"),className:"editor-block-navigation",shortcut:vo.displayShortcut.access("o")}))},renderContent:function(e){var t=e.onClose;return Object(wr.createElement)(go,{onSelect:t})}})},ko=Object(Ir.createHigherOrderComponent)(Object(l.withSelect)(function(e,t){var n=e("core/editor").getEditorSettings(),r=void 0===t.colors?n.colors:t.colors,o=void 0===t.disableCustomColors?n.disableCustomColors:t.disableCustomColors;return{colors:r,disableCustomColors:o,hasColorsToChoose:!Object(O.isEmpty)(r)||!o}}),"withColorContext"),_o=ko(Fr.ColorPalette),Eo=n(46),So=n.n(Eo),Co=function(e,t,n){if(t){var r=Object(O.find)(e,{slug:t});if(r)return r}return{color:n}},wo=function(e,t){return Object(O.find)(e,{color:t})};function To(e,t){if(e&&t)return"has-".concat(Object(O.kebabCase)(t),"-").concat(e)}var Po=[],Io=function(){for(var e=arguments.length,t=new Array(e),n=0;n<e;n++)t[n]=arguments[n];var r=Object(O.reduce)(t,function(e,t){return Object(d.a)({},e,Object(O.isString)(t)?Object(f.a)({},t,Object(O.kebabCase)(t)):t)},{});return Object(Ir.createHigherOrderComponent)(Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor").getEditorSettings();return{colors:Object(O.get)(t,["colors"],Po)}}),function(e){return function(t){function n(e){var t;return Object(xr.a)(this,n),(t=Object(Ar.a)(this,Object(Nr.a)(n).call(this,e))).setters=t.createSetters(),t.colorUtils={getMostReadableColor:t.getMostReadableColor.bind(Object(Dr.a)(Object(Dr.a)(t)))},t.state={},t}return Object(Rr.a)(n,t),Object(Lr.a)(n,[{key:"getMostReadableColor",value:function(e){return function(e,t){return So.a.mostReadable(t,Object(O.map)(e,"color")).toHexString()}(this.props.colors,e)}},{key:"createSetters",value:function(){var e=this;return Object(O.reduce)(r,function(t,n,r){var o=Object(O.upperFirst)(r),i="custom".concat(o);return t["set".concat(o)]=e.createSetColor(r,i),t},{})}},{key:"createSetColor",value:function(e,t){var n=this;return function(r){var o,i=wo(n.props.colors,r);n.props.setAttributes((o={},Object(f.a)(o,e,i&&i.slug?i.slug:void 0),Object(f.a)(o,t,i&&i.slug?void 0:r),o))}}},{key:"render",value:function(){return Object(wr.createElement)(e,Object(d.a)({},this.props,{colors:void 0},this.state,this.setters,{colorUtils:this.colorUtils}))}}],[{key:"getDerivedStateFromProps",value:function(e,t){var n=e.attributes,o=e.colors;return Object(O.reduce)(r,function(e,r,i){var c=Co(o,n[i],n["custom".concat(Object(O.upperFirst)(i))]),a=t[i];return Object(O.get)(a,["color"])===c.color&&a?e[i]=a:e[i]=Object(d.a)({},c,{class:To(r,c.slug)}),e},{})}}]),n}(wr.Component)}]),"withColors")};var Bo=function(e){var t=e.backgroundColor,n=e.fallbackBackgroundColor,r=e.fallbackTextColor,o=e.fontSize,i=e.isLargeText,c=e.textColor;if(!t&&!n||!c&&!r)return null;var a=So()(t||n),s=So()(c||r);if(1!==a.getAlpha()||1!==s.getAlpha()||So.a.isReadable(a,s,{level:"AA",size:i||!1!==i&&o>=24?"large":"small"}))return null;var l=a.getBrightness()<s.getBrightness()?Object(_.__)("This color combination may be hard for people to read. Try using a darker background color and/or a brighter text color."):Object(_.__)("This color combination may be hard for people to read. Try using a brighter background color and/or a darker text color.");return Object(wr.createElement)("div",{className:"editor-contrast-checker"},Object(wr.createElement)(Fr.Notice,{status:"warning",isDismissible:!1},l))},xo=function(e,t,n){if(t){var r=Object(O.find)(e,{slug:t});if(r)return r}return{size:n}};function Lo(e){if(e)return"has-".concat(Object(O.kebabCase)(e),"-font-size")}var Ao=Object(l.withSelect)(function(e){var t=e("core/editor").getEditorSettings();return{disableCustomFontSizes:t.disableCustomFontSizes,fontSizes:t.fontSizes}})(Fr.FontSizePicker),No=function(){for(var e=arguments.length,t=new Array(e),n=0;n<e;n++)t[n]=arguments[n];var r=Object(O.reduce)(t,function(e,t){return e[t]="custom".concat(Object(O.upperFirst)(t)),e},{});return Object(Ir.createHigherOrderComponent)(Object(Ir.compose)([Object(l.withSelect)(function(e){return{fontSizes:e("core/editor").getEditorSettings().fontSizes}}),function(e){return function(t){function n(e){var t;return Object(xr.a)(this,n),(t=Object(Ar.a)(this,Object(Nr.a)(n).call(this,e))).setters=t.createSetters(),t.state={},t}return Object(Rr.a)(n,t),Object(Lr.a)(n,[{key:"createSetters",value:function(){var e=this;return Object(O.reduce)(r,function(t,n,r){var o=Object(O.upperFirst)(r);return t["set".concat(o)]=e.createSetFontSize(r,n),t},{})}},{key:"createSetFontSize",value:function(e,t){var n=this;return function(r){var o,i=Object(O.find)(n.props.fontSizes,{size:r});n.props.setAttributes((o={},Object(f.a)(o,e,i&&i.slug?i.slug:void 0),Object(f.a)(o,t,i&&i.slug?void 0:r),o))}}},{key:"render",value:function(){return Object(wr.createElement)(e,Object(d.a)({},this.props,{fontSizes:void 0},this.state,this.setters))}}],[{key:"getDerivedStateFromProps",value:function(e,t){var n=e.attributes,o=e.fontSizes,i=function(e,r){return!t[r]||(n[r]?n[r]!==t[r].slug:t[r].size!==n[e])};if(!Object(O.some)(r,i))return null;var c=Object(O.reduce)(Object(O.pickBy)(r,i),function(e,t,r){var i=n[r],c=xo(o,i,n[t]);return e[r]=Object(d.a)({},c,{class:Lo(i)}),e},{});return Object(d.a)({},t,c)}}]),n}(wr.Component)}]),"withFontSizes")},Ro=n(40),Do=n.n(Ro),Fo=n(22);function Mo(e,t,n,r,o,i){var c=n+1;return e>1?function(e,t,n,r,o){var i=t+1;if(o<0&&n)return Object(_.__)("Blocks cannot be moved up as they are already at the top");if(o>0&&r)return Object(_.__)("Blocks cannot be moved down as they are already at the bottom");if(o<0&&!n)return Object(_.sprintf)(Object(_._n)("Move %1$d block from position %2$d up by one place","Move %1$d blocks from position %2$d up by one place",e),e,i);if(o>0&&!r)return Object(_.sprintf)(Object(_._n)("Move %1$d block from position %2$d down by one place","Move %1$d blocks from position %2$d down by one place",e),e,i)}(e,n,r,o,i):r&&o?Object(_.sprintf)(Object(_.__)("Block %s is the only block, and cannot be moved"),t):i>0&&!o?Object(_.sprintf)(Object(_.__)("Move %1$s block from position %2$d down to position %3$d"),t,c,c+1):i>0&&o?Object(_.sprintf)(Object(_.__)("Block %s is at the end of the content and can’t be moved down"),t):i<0&&!r?Object(_.sprintf)(Object(_.__)("Move %1$s block from position %2$d up to position %3$d"),t,c,c-1):i<0&&r?Object(_.sprintf)(Object(_.__)("Block %s is at the beginning of the content and can’t be moved up"),t):void 0}var Uo=Object(wr.createElement)(Fr.SVG,{width:"18",height:"18",xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 18 18"},Object(wr.createElement)(Fr.Polygon,{points:"9,4.5 3.3,10.1 4.8,11.5 9,7.3 13.2,11.5 14.7,10.1 "})),Vo=Object(wr.createElement)(Fr.SVG,{width:"18",height:"18",xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 18 18"},Object(wr.createElement)(Fr.Polygon,{points:"9,13.5 14.7,7.9 13.2,6.5 9,10.7 4.8,6.5 3.3,7.9 "})),Ho=Object(wr.createElement)(Fr.SVG,{width:"18",height:"18",xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 18 18"},Object(wr.createElement)(Fr.Path,{d:"M13,8c0.6,0,1-0.4,1-1s-0.4-1-1-1s-1,0.4-1,1S12.4,8,13,8z M5,6C4.4,6,4,6.4,4,7s0.4,1,1,1s1-0.4,1-1S5.6,6,5,6z M5,10 c-0.6,0-1,0.4-1,1s0.4,1,1,1s1-0.4,1-1S5.6,10,5,10z M13,10c-0.6,0-1,0.4-1,1s0.4,1,1,1s1-0.4,1-1S13.6,10,13,10z M9,6 C8.4,6,8,6.4,8,7s0.4,1,1,1s1-0.4,1-1S9.6,6,9,6z M9,10c-0.6,0-1,0.4-1,1s0.4,1,1,1s1-0.4,1-1S9.6,10,9,10z"})),Ko=Object(l.withSelect)(function(e,t){var n=t.clientId,r=e("core/editor"),o=r.getBlockIndex,i=r.getBlockRootClientId;return{index:o(n),rootClientId:i(n)}})(function(e){var t=e.children,n=e.clientId,r=e.rootClientId,o=e.blockElementId,i=e.index,c=e.onDragStart,a=e.onDragEnd,s={type:"block",srcIndex:i,srcRootClientId:r,srcClientId:n};return Object(wr.createElement)(Fr.Draggable,{elementId:o,transferData:s,onDragStart:c,onDragEnd:a},function(e){var n=e.onDraggableStart,r=e.onDraggableEnd;return t({onDraggableStart:n,onDraggableEnd:r})})}),zo=function(e){var t=e.isVisible,n=e.className,r=e.icon,o=e.onDragStart,i=e.onDragEnd,c=e.blockElementId,a=e.clientId;if(!t)return null;var s=Pr()("editor-block-mover__control-drag-handle",n);return Object(wr.createElement)(Ko,{clientId:a,blockElementId:c,onDragStart:o,onDragEnd:i},function(e){var t=e.onDraggableStart,n=e.onDraggableEnd;return Object(wr.createElement)("div",{className:s,"aria-hidden":"true",onDragStart:t,onDragEnd:n,draggable:!0},r)})},Wo=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={isFocused:!1},e.onFocus=e.onFocus.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onBlur=e.onBlur.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"onFocus",value:function(){this.setState({isFocused:!0})}},{key:"onBlur",value:function(){this.setState({isFocused:!1})}},{key:"render",value:function(){var e=this.props,t=e.onMoveUp,n=e.onMoveDown,r=e.isFirst,o=e.isLast,i=e.isDraggable,c=e.onDragStart,a=e.onDragEnd,s=e.clientIds,l=e.blockElementId,u=e.blockType,d=e.firstIndex,p=e.isLocked,b=e.instanceId,f=e.isHidden,h=this.state.isFocused,m=Object(O.castArray)(s).length;return p||r&&o?null:Object(wr.createElement)("div",{className:Pr()("editor-block-mover",{"is-visible":h||!f})},Object(wr.createElement)(Fr.IconButton,{className:"editor-block-mover__control",onClick:r?null:t,icon:Uo,label:Object(_.__)("Move up"),"aria-describedby":"editor-block-mover__up-description-".concat(b),"aria-disabled":r,onFocus:this.onFocus,onBlur:this.onBlur}),Object(wr.createElement)(zo,{className:"editor-block-mover__control",icon:Ho,clientId:s,blockElementId:l,isVisible:i,onDragStart:c,onDragEnd:a}),Object(wr.createElement)(Fr.IconButton,{className:"editor-block-mover__control",onClick:o?null:n,icon:Vo,label:Object(_.__)("Move down"),"aria-describedby":"editor-block-mover__down-description-".concat(b),"aria-disabled":o,onFocus:this.onFocus,onBlur:this.onBlur}),Object(wr.createElement)("span",{id:"editor-block-mover__up-description-".concat(b),className:"editor-block-mover__description"},Mo(m,u&&u.title,d,r,o,-1)),Object(wr.createElement)("span",{id:"editor-block-mover__down-description-".concat(b),className:"editor-block-mover__description"},Mo(m,u&&u.title,d,r,o,1)))}}]),t}(wr.Component),qo=Object(Ir.compose)(Object(l.withSelect)(function(e,t){var n=t.clientIds,r=e("core/editor"),o=r.getBlock,c=r.getBlockIndex,a=r.getTemplateLock,s=r.getBlockRootClientId,l=Object(O.first)(Object(O.castArray)(n)),u=o(l),d=s(Object(O.first)(Object(O.castArray)(n)));return{firstIndex:c(l,d),blockType:u?Object(i.getBlockType)(u.name):null,isLocked:"all"===a(d),rootClientId:d}}),Object(l.withDispatch)(function(e,t){var n=t.clientIds,r=t.rootClientId,o=e("core/editor"),i=o.moveBlocksDown,c=o.moveBlocksUp;return{onMoveDown:Object(O.partial)(i,n,r),onMoveUp:Object(O.partial)(c,n,r)}}),Ir.withInstanceId)(Wo);var Go=Object(l.withSelect)(function(e){return{hasUploadPermissions:(0,e("core").hasUploadPermissions)()}})(function(e){var t=e.hasUploadPermissions,n=e.fallback,r=void 0===n?null:n,o=e.children;return t?o:r}),$o=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).onFilesDrop=e.onFilesDrop.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onHTMLDrop=e.onHTMLDrop.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onDrop=e.onDrop.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"getInsertIndex",value:function(e){var t=this.props.index;if(void 0!==t)return"top"===e.y?t:t+1}},{key:"onFilesDrop",value:function(e,t){var n=Object(i.findTransform)(Object(i.getBlockTransforms)("from"),function(t){return"files"===t.type&&t.isMatch(e)});if(n){var r=this.getInsertIndex(t),o=n.transform(e,this.props.updateBlockAttributes);this.props.insertBlocks(o,r)}}},{key:"onHTMLDrop",value:function(e,t){var n=Object(i.pasteHandler)({HTML:e,mode:"BLOCKS"});n.length&&this.props.insertBlocks(n,this.getInsertIndex(t))}},{key:"onDrop",value:function(e,t){var n=this.props,r=n.rootClientId,o=n.clientId,i=n.index,c=n.getClientIdsOfDescendants,a=function(e){var t={srcRootClientId:null,srcClientId:null,srcIndex:null,type:null};if(!e.dataTransfer)return t;try{t=Object.assign(t,JSON.parse(e.dataTransfer.getData("text")))}catch(e){return t}return t}(e),s=a.srcRootClientId,l=a.srcClientId,u=a.srcIndex;if(function(e){return"block"===e}(a.type)&&!function(e,t){return e===t}(l,o)&&!function(e,t){return c([e]).some(function(e){return e===t})}(l,o)){var d=this.getInsertIndex(t),p=i&&u<i&&function(e,t){return e===t||1==!e&&1==!t}(s,r)?d-1:d;this.props.moveBlockToPosition(l,s,p)}}},{key:"render",value:function(){var e=this.props,t=e.isLocked,n=e.index;if(t)return null;var r=void 0===n;return Object(wr.createElement)(Go,null,Object(wr.createElement)(Fr.DropZone,{className:Pr()("editor-block-drop-zone",{"is-appender":r}),onFilesDrop:this.onFilesDrop,onHTMLDrop:this.onHTMLDrop,onDrop:this.onDrop}))}}]),t}(wr.Component),Yo=Object(Ir.compose)(Object(l.withDispatch)(function(e,t){var n=e("core/editor"),r=n.insertBlocks,o=n.updateBlockAttributes,i=n.moveBlockToPosition;return{insertBlocks:function(e,n){var o=t.rootClientId;r(e,n,o)},updateBlockAttributes:function(){o.apply(void 0,arguments)},moveBlockToPosition:function(e,n,r){var o=t.rootClientId;i(e,n,o,r)}}}),Object(l.withSelect)(function(e,t){var n=t.rootClientId,r=e("core/editor"),o=r.getClientIdsOfDescendants;return{isLocked:!!(0,r.getTemplateLock)(n),getClientIdsOfDescendants:o}}),Object(Fr.withFilters)("editor.BlockDropZone"))($o);var Qo=function(e){var t=e.className,n=e.actions,r=e.children,o=e.secondaryActions;return Object(wr.createElement)("div",{className:Pr()(t,"editor-warning")},Object(wr.createElement)("div",{className:"editor-warning__contents"},Object(wr.createElement)("p",{className:"editor-warning__message"},r),wr.Children.count(n)>0&&Object(wr.createElement)("div",{className:"editor-warning__actions"},wr.Children.map(n,function(e,t){return Object(wr.createElement)("span",{key:t,className:"editor-warning__action"},e)}))),o&&Object(wr.createElement)(Fr.Dropdown,{className:"editor-warning__secondary",position:"bottom left",renderToggle:function(e){var t=e.isOpen,n=e.onToggle;return Object(wr.createElement)(Fr.IconButton,{icon:"ellipsis",label:Object(_.__)("More options"),onClick:n,"aria-expanded":t})},renderContent:function(){return Object(wr.createElement)(Fr.MenuGroup,{label:Object(_.__)("More options")},o.map(function(e,t){return Object(wr.createElement)(Fr.MenuItem,{onClick:e.onClick,key:t},e.title)}))}}))},Xo=n(186),Zo=function(e){var t=e.title,n=e.rawContent,r=e.renderedContent,o=e.action,i=e.actionText,c=e.className;return Object(wr.createElement)("div",{className:c},Object(wr.createElement)("div",{className:"editor-block-compare__content"},Object(wr.createElement)("h1",{className:"editor-block-compare__heading"},t),Object(wr.createElement)("div",{className:"editor-block-compare__html"},n),Object(wr.createElement)("div",{className:"editor-block-compare__preview edit-post-visual-editor"},r)),Object(wr.createElement)("div",{className:"editor-block-compare__action"},Object(wr.createElement)(Fr.Button,{isLarge:!0,tabIndex:"0",onClick:o},i)))},Jo=function(e){function t(){return Object(xr.a)(this,t),Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"getDifference",value:function(e,t){return Object(Xo.diffChars)(e,t).map(function(e,t){var n=Pr()({"editor-block-compare__added":e.added,"editor-block-compare__removed":e.removed});return Object(wr.createElement)("span",{key:t,className:n},e.value)})}},{key:"getOriginalContent",value:function(e){return{rawContent:e.originalContent,renderedContent:Object(i.getSaveElement)(e.name,e.attributes)}}},{key:"getConvertedContent",value:function(e){var t=Object(O.castArray)(e),n=t.map(function(e){return Object(i.getSaveContent)(e.name,e.attributes,e.innerBlocks)}),r=t.map(function(e){return Object(i.getSaveElement)(e.name,e.attributes,e.innerBlocks)});return{rawContent:n.join(""),renderedContent:r}}},{key:"render",value:function(){var e=this.props,t=e.block,n=e.onKeep,r=e.onConvert,o=e.convertor,i=e.convertButtonText,c=this.getOriginalContent(t),a=this.getConvertedContent(o(t)),s=this.getDifference(c.rawContent,a.rawContent);return Object(wr.createElement)("div",{className:"editor-block-compare__wrapper"},Object(wr.createElement)(Zo,{title:Object(_.__)("Current"),className:"editor-block-compare__current",action:n,actionText:Object(_.__)("Convert to HTML"),rawContent:c.rawContent,renderedContent:c.renderedContent}),Object(wr.createElement)(Zo,{title:Object(_.__)("After Conversion"),className:"editor-block-compare__converted",action:r,actionText:i,rawContent:s,renderedContent:a.renderedContent}))}}]),t}(wr.Component),ei=function(e){function t(e){var n;return Object(xr.a)(this,t),(n=Object(Ar.a)(this,Object(Nr.a)(t).call(this,e))).state={compare:!1},n.onCompare=n.onCompare.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onCompareClose=n.onCompareClose.bind(Object(Dr.a)(Object(Dr.a)(n))),n}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"onCompare",value:function(){this.setState({compare:!0})}},{key:"onCompareClose",value:function(){this.setState({compare:!1})}},{key:"render",value:function(){var e=this.props,t=e.convertToHTML,n=e.convertToBlocks,r=e.convertToClassic,o=e.block,c=!!Object(i.getBlockType)("core/html"),a=this.state.compare,s=[{title:Object(_.__)("Convert to Classic Block"),onClick:r}];return a?Object(wr.createElement)(Fr.Modal,{title:Object(_.__)("Resolve Block"),onRequestClose:this.onCompareClose,className:"editor-block-compare"},Object(wr.createElement)(Jo,{block:o,onKeep:t,onConvert:n,convertor:ti,convertButtonText:Object(_.__)("Convert to Blocks")})):Object(wr.createElement)(Qo,{actions:[Object(wr.createElement)(Fr.Button,{key:"convert",onClick:this.onCompare,isLarge:!0,isPrimary:!c},Object(_._x)("Resolve","imperative verb")),c&&Object(wr.createElement)(Fr.Button,{key:"edit",onClick:t,isLarge:!0,isPrimary:!0},Object(_.__)("Convert to HTML"))],secondaryActions:s},Object(_.__)("This block contains unexpected or invalid content."))}}]),t}(wr.Component),ti=function(e){return Object(i.rawHandler)({HTML:e.originalContent})},ni=Object(l.withDispatch)(function(e,t){var n=t.block,r=e("core/editor").replaceBlock;return{convertToClassic:function(){r(n.clientId,function(e){return Object(i.createBlock)("core/freeform",{content:e.originalContent})}(n))},convertToHTML:function(){r(n.clientId,function(e){return Object(i.createBlock)("core/html",{content:e.originalContent})}(n))},convertToBlocks:function(){r(n.clientId,ti(n))}}})(ei),ri=Object(wr.createElement)(Qo,null,Object(_.__)("This block has encountered an error and cannot be previewed.")),oi=function(){return ri},ii=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={hasError:!1},e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidCatch",value:function(e){this.props.onError(e),this.setState({hasError:!0})}},{key:"render",value:function(){return this.state.hasError?null:this.props.children}}]),t}(wr.Component),ci=n(55),ai=n.n(ci),si=function(e){function t(e){var n;return Object(xr.a)(this,t),(n=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).onChange=n.onChange.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onBlur=n.onBlur.bind(Object(Dr.a)(Object(Dr.a)(n))),n.state={html:e.block.isValid?Object(i.getBlockContent)(e.block):e.block.originalContent},n}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidUpdate",value:function(e){Object(O.isEqual)(this.props.block.attributes,e.block.attributes)||this.setState({html:Object(i.getBlockContent)(this.props.block)})}},{key:"onBlur",value:function(){var e=this.state.html,t=Object(i.getBlockType)(this.props.block.name),n=Object(i.getBlockAttributes)(t,e,this.props.block.attributes),r=e||Object(i.getSaveContent)(t,n),o=!e||Object(i.isValidBlockContent)(t,n,r);this.props.onChange(this.props.clientId,n,r,o),e||this.setState({html:r})}},{key:"onChange",value:function(e){this.setState({html:e.target.value})}},{key:"render",value:function(){var e=this.state.html;return Object(wr.createElement)(ai.a,{className:"editor-block-list__block-html-textarea",value:e,onBlur:this.onBlur,onChange:this.onChange})}}]),t}(wr.Component),li=Object(Ir.compose)([Object(l.withSelect)(function(e,t){return{block:e("core/editor").getBlock(t.clientId)}}),Object(l.withDispatch)(function(e){return{onChange:function(t,n,r,o){e("core/editor").updateBlock(t,{attributes:n,originalContent:r,isValid:o})}}})])(si);var ui=Object(l.withSelect)(function(e,t){return{name:(0,e("core/editor").getBlockName)(t.clientId)}})(function(e){var t=e.name;if(!t)return null;var n=Object(i.getBlockType)(t);return n?n.title:null}),di=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={isFocused:!1},e.onFocus=e.onFocus.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onBlur=e.onBlur.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"onFocus",value:function(e){this.setState({isFocused:!0}),e.stopPropagation()}},{key:"onBlur",value:function(){this.setState({isFocused:!1})}},{key:"render",value:function(){var e=this.props,t=e.clientId,n=e.rootClientId;return Object(wr.createElement)("div",{className:"editor-block-list__breadcrumb"},Object(wr.createElement)(Fr.Toolbar,null,n&&Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)(ui,{clientId:n}),Object(wr.createElement)("span",{className:"editor-block-list__descendant-arrow"})),Object(wr.createElement)(ui,{clientId:t})))}}]),t}(wr.Component),pi=Object(Ir.compose)([Object(l.withSelect)(function(e,t){return{rootClientId:(0,e("core/editor").getBlockRootClientId)(t.clientId)}})])(di),bi=window,fi=bi.Node,hi=bi.getSelection,mi=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).focusToolbar=e.focusToolbar.bind(Object(Dr.a)(Object(Dr.a)(e))),e.focusSelection=e.focusSelection.bind(Object(Dr.a)(Object(Dr.a)(e))),e.switchOnKeyDown=Object(O.cond)([[Object(O.matchesProperty)(["keyCode"],vo.ESCAPE),e.focusSelection]]),e.toolbar=Object(wr.createRef)(),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"focusToolbar",value:function(){var e=Fo.focus.tabbable.find(this.toolbar.current);e.length&&e[0].focus()}},{key:"focusSelection",value:function(){var e=hi();if(e){var t=e.focusNode;t.nodeType!==fi.ELEMENT_NODE&&(t=t.parentElement),t&&t.focus()}}},{key:"componentDidMount",value:function(){this.props.focusOnMount&&this.focusToolbar()}},{key:"render",value:function(){var e=this.props,t=e.children,n=Object(p.a)(e,["children"]);return Object(wr.createElement)(Fr.NavigableMenu,Object(Cr.a)({orientation:"horizontal",role:"toolbar",ref:this.toolbar,onKeyDown:this.switchOnKeyDown},Object(O.omit)(n,["focusOnMount"])),Object(wr.createElement)(Fr.KeyboardShortcuts,{bindGlobal:!0,eventName:"keydown",shortcuts:{"alt+f10":this.focusToolbar}}),t)}}]),t}(wr.Component);var vi=function(e){var t=e.focusOnMount;return Object(wr.createElement)(mi,{focusOnMount:t,className:"editor-block-contextual-toolbar","aria-label":Object(_.__)("Block tools")},Object(wr.createElement)(Rl,null))};var Oi=Object(l.withSelect)(function(e,t){var n=t.clientId,r=e("core/editor"),o=r.getMultiSelectedBlockClientIds,i=r.isMultiSelecting,c=r.getBlockIndex,a=r.getBlockCount,s=o(),l=c(Object(O.first)(s),n),u=c(Object(O.last)(s),n);return{multiSelectedBlockClientIds:s,isSelecting:i(),isFirst:0===l,isLast:u+1===a()}})(function(e){var t=e.multiSelectedBlockClientIds,n=e.clientId,r=e.isSelecting,o=e.isFirst,i=e.isLast;return r?null:Object(wr.createElement)(qo,{key:"mover",clientId:n,clientIds:t,isFirst:o,isLast:i})}),gi=n(57),ji=n.n(gi);function yi(e){var t=e.name,n=e.attributes,r=Object(i.createBlock)(t,n);return Object(wr.createElement)(Fr.Disabled,{className:"editor-block-preview__content editor-styles-wrapper","aria-hidden":!0},Object(wr.createElement)(uo,{name:t,focus:!1,attributes:r.attributes,setAttributes:O.noop}))}var ki=function(e){return Object(wr.createElement)("div",{className:"editor-block-preview"},Object(wr.createElement)("div",{className:"editor-block-preview__title"},Object(_.__)("Preview")),Object(wr.createElement)(yi,e))};var _i=function(e){var t=e.icon,n=e.hasChildBlocksWithInserterSupport,r=e.onClick,o=e.isDisabled,i=e.title,c=e.className,a=Object(p.a)(e,["icon","hasChildBlocksWithInserterSupport","onClick","isDisabled","title","className"]),s=t?{backgroundColor:t.background,color:t.foreground}:{},l=t&&t.shadowColor?{backgroundColor:t.shadowColor}:{};return Object(wr.createElement)("li",{className:"editor-block-types-list__list-item"},Object(wr.createElement)("button",Object(Cr.a)({className:Pr()("editor-block-types-list__item",c,{"editor-block-types-list__item-has-children":n}),onClick:function(e){e.preventDefault(),r()},disabled:o,"aria-label":i},a),Object(wr.createElement)("span",{className:"editor-block-types-list__item-icon",style:s},Object(wr.createElement)(qr,{icon:t,showColors:!0}),n&&Object(wr.createElement)("span",{className:"editor-block-types-list__item-icon-stack",style:l})),Object(wr.createElement)("span",{className:"editor-block-types-list__item-title"},i)))};var Ei=function(e){var t=e.items,n=e.onSelect,r=e.onHover,o=void 0===r?function(){}:r,c=e.children;return Object(wr.createElement)("ul",{role:"list",className:"editor-block-types-list"},t&&t.map(function(e){return Object(wr.createElement)(_i,{key:e.id,className:Object(i.getBlockMenuDefaultClassName)(e.id),icon:e.icon,hasChildBlocksWithInserterSupport:e.hasChildBlocksWithInserterSupport,onClick:function(){n(e),o(null)},onFocus:function(){return o(e)},onMouseEnter:function(){return o(e)},onMouseLeave:function(){return o(null)},onBlur:function(){return o(null)},isDisabled:e.isDisabled,title:e.title})}),c)};var Si=Object(Ir.compose)(Object(Ir.ifCondition)(function(e){var t=e.items;return t&&t.length>0}),Object(l.withSelect)(function(e,t){var n=t.rootClientId,r=(0,e("core/blocks").getBlockType)((0,e("core/editor").getBlockName)(n));return{rootBlockTitle:r&&r.title,rootBlockIcon:r&&r.icon}}))(function(e){var t=e.rootBlockIcon,n=e.rootBlockTitle,r=e.items,o=Object(p.a)(e,["rootBlockIcon","rootBlockTitle","items"]);return Object(wr.createElement)("div",{className:"editor-inserter__child-blocks"},(t||n)&&Object(wr.createElement)("div",{className:"editor-inserter__parent-block-header"},Object(wr.createElement)(qr,{icon:t,showColors:!0}),n&&Object(wr.createElement)("h2",null,n)),Object(wr.createElement)(Ei,Object(Cr.a)({items:r},o)))}),Ci=function(e){var t=e.filterValue;return Object(wr.createElement)(Fr.Slot,{name:"Inserter.InlineElements",fillProps:{filterValue:t}},function(e){return!Object(O.isEmpty)(e)&&Object(wr.createElement)(Fr.PanelBody,{title:Object(_.__)("Inline Elements"),initialOpen:!1,className:"editor-inserter__inline-elements"},Object(wr.createElement)(Ei,null,e))})},wi=function(e){return e.stopPropagation()},Ti=function(e){return e=(e=(e=(e=Object(O.deburr)(e)).replace(/^\//,"")).toLowerCase()).trim()},Pi=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={childItems:[],filterValue:"",hoveredItem:null,suggestedItems:[],reusableItems:[],itemsPerCategory:{},openPanels:["suggested"]},e.onChangeSearchInput=e.onChangeSearchInput.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onHover=e.onHover.bind(Object(Dr.a)(Object(Dr.a)(e))),e.panels={},e.inserterResults=Object(wr.createRef)(),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){this.props.fetchReusableBlocks(),this.filter()}},{key:"componentDidUpdate",value:function(e){e.items!==this.props.items&&this.filter(this.state.filterValue)}},{key:"onChangeSearchInput",value:function(e){this.filter(e.target.value)}},{key:"onHover",value:function(e){this.setState({hoveredItem:e});var t=this.props,n=t.showInsertionPoint,r=t.hideInsertionPoint;if(e){var o=this.props;n(o.rootClientId,o.index)}else r()}},{key:"bindPanel",value:function(e){var t=this;return function(n){t.panels[e]=n}}},{key:"onTogglePanel",value:function(e){var t=this;return function(){-1!==t.state.openPanels.indexOf(e)?t.setState({openPanels:Object(O.without)(t.state.openPanels,e)}):(t.setState({openPanels:Object(b.a)(t.state.openPanels).concat([e])}),t.props.setTimeout(function(){ji()(t.panels[e],t.inserterResults.current,{alignWithTop:!0})}))}}},{key:"filter",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"",t=this.props,n=t.debouncedSpeak,r=t.items,o=t.rootChildBlocks,c=function(e,t){var n=Ti(t),r=function(e){return-1!==Ti(e).indexOf(n)},o=Object(i.getCategories)();return e.filter(function(e){var t=Object(O.find)(o,{slug:e.category});return r(e.title)||Object(O.some)(e.keywords,r)||t&&r(t.title)})}(r,e),a=Object(O.filter)(c,function(e){var t=e.name;return Object(O.includes)(o,t)}),s=[];if(!e){var l=this.props.maxSuggestedItems||9;s=Object(O.filter)(r,function(e){return e.utility>0}).slice(0,l)}var u=Object(O.filter)(c,{category:"reusable"}),d=function(e){return Object(O.findIndex)(Object(i.getCategories)(),function(t){return t.slug===e.category})},p=Object(O.flow)(function(e){return Object(O.filter)(e,function(e){return"reusable"!==e.category})},function(e){return Object(O.sortBy)(e,d)},function(e){return Object(O.groupBy)(e,"category")})(c),b=this.state.openPanels;if(e!==this.state.filterValue)if(e){if(u.length)b=["reusable"];else if(c.length){b=[Object(O.find)(Object(i.getCategories)(),function(e){var t=e.slug;return p[t]&&p[t].length}).slug]}}else b=["suggested"];this.setState({hoveredItem:null,childItems:a,filterValue:e,suggestedItems:s,reusableItems:u,itemsPerCategory:p,openPanels:b});var f=Object.keys(p).reduce(function(e,t){return e+p[t].length},0);n(Object(_.sprintf)(Object(_._n)("%d result found.","%d results found.",f),f),"assertive")}},{key:"onKeyDown",value:function(e){Object(O.includes)([vo.LEFT,vo.DOWN,vo.RIGHT,vo.UP,vo.BACKSPACE,vo.ENTER],e.keyCode)&&e.stopPropagation()}},{key:"render",value:function(){var e=this,t=this.props,n=t.instanceId,r=t.onSelect,o=t.rootClientId,c=this.state,a=c.childItems,s=c.filterValue,l=c.hoveredItem,u=c.suggestedItems,d=c.reusableItems,p=c.itemsPerCategory,b=c.openPanels,f=function(e){return-1!==b.indexOf(e)},h=!!s;return Object(wr.createElement)("div",{className:"editor-inserter__menu",onKeyPress:wi,onKeyDown:this.onKeyDown},Object(wr.createElement)("label",{htmlFor:"editor-inserter__search-".concat(n),className:"screen-reader-text"},Object(_.__)("Search for a block")),Object(wr.createElement)("input",{id:"editor-inserter__search-".concat(n),type:"search",placeholder:Object(_.__)("Search for a block"),className:"editor-inserter__search",autoFocus:!0,onChange:this.onChangeSearchInput}),Object(wr.createElement)("div",{className:"editor-inserter__results",ref:this.inserterResults,tabIndex:"0",role:"region","aria-label":Object(_.__)("Available block types")},Object(wr.createElement)(Si,{rootClientId:o,items:a,onSelect:r,onHover:this.onHover}),!!u.length&&Object(wr.createElement)(Fr.PanelBody,{title:Object(_._x)("Most Used","blocks"),opened:f("suggested"),onToggle:this.onTogglePanel("suggested"),ref:this.bindPanel("suggested")},Object(wr.createElement)(Ei,{items:u,onSelect:r,onHover:this.onHover})),Object(wr.createElement)(Ci,{filterValue:s}),Object(O.map)(Object(i.getCategories)(),function(t){var n=p[t.slug];return n&&n.length?Object(wr.createElement)(Fr.PanelBody,{key:t.slug,title:t.title,icon:t.icon,opened:h||f(t.slug),onToggle:e.onTogglePanel(t.slug),ref:e.bindPanel(t.slug)},Object(wr.createElement)(Ei,{items:n,onSelect:r,onHover:e.onHover})):null}),!!d.length&&Object(wr.createElement)(Fr.PanelBody,{className:"editor-inserter__reusable-blocks-panel",title:Object(_.__)("Reusable"),opened:f("reusable"),onToggle:this.onTogglePanel("reusable"),icon:"controls-repeat",ref:this.bindPanel("reusable")},Object(wr.createElement)(Ei,{items:d,onSelect:r,onHover:this.onHover}),Object(wr.createElement)("a",{className:"editor-inserter__manage-reusable-blocks",href:"edit.php?post_type=wp_block"},Object(_.__)("Manage All Reusable Blocks"))),Object(O.isEmpty)(u)&&Object(O.isEmpty)(d)&&Object(O.isEmpty)(p)&&Object(wr.createElement)("p",{className:"editor-inserter__no-results"},Object(_.__)("No blocks found."))),l&&Object(i.isReusableBlock)(l)&&Object(wr.createElement)(ki,{name:l.name,attributes:l.initialAttributes}))}}]),t}(wr.Component),Ii=Object(Ir.compose)(Object(l.withSelect)(function(e,t){var n=t.rootClientId,r=e("core/editor"),o=r.getEditedPostAttribute,i=r.getSelectedBlock,c=r.getInserterItems,a=r.getBlockName,s=e("core/blocks").getChildBlockNames,l=a(n);return{selectedBlock:i(),rootChildBlocks:s(l),title:o("title"),items:c(n),rootClientId:n}}),Object(l.withDispatch)(function(e,t){var n=e("core/editor");return{fetchReusableBlocks:n.__experimentalFetchReusableBlocks,showInsertionPoint:n.showInsertionPoint,hideInsertionPoint:n.hideInsertionPoint,onSelect:function(n){var r=e("core/editor"),o=r.replaceBlocks,c=r.insertBlock,a=t.selectedBlock,s=t.index,l=t.rootClientId,u=n.name,d=n.initialAttributes,p=Object(i.createBlock)(u,d);a&&Object(i.isUnmodifiedDefaultBlock)(a)?o(a.clientId,p):c(p,s,l),t.onSelect()}}}),Fr.withSpokenMessages,Ir.withInstanceId,Ir.withSafeTimeout)(Pi),Bi=function(e){var t=e.onToggle,n=e.disabled,r=e.isOpen;return Object(wr.createElement)(Fr.IconButton,{icon:"insert",label:Object(_.__)("Add block"),onClick:t,className:"editor-inserter__toggle","aria-haspopup":"true","aria-expanded":r,disabled:n})},xi=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).onToggle=e.onToggle.bind(Object(Dr.a)(Object(Dr.a)(e))),e.renderToggle=e.renderToggle.bind(Object(Dr.a)(Object(Dr.a)(e))),e.renderContent=e.renderContent.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"onToggle",value:function(e){var t=this.props.onToggle;t&&t(e)}},{key:"renderToggle",value:function(e){var t=e.onToggle,n=e.isOpen,r=this.props,o=r.disabled,i=r.renderToggle,c=void 0===i?Bi:i;return c({onToggle:t,isOpen:n,disabled:o})}},{key:"renderContent",value:function(e){var t=e.onClose,n=this.props,r=n.rootClientId,o=n.index;return Object(wr.createElement)(Ii,{onSelect:t,rootClientId:r,index:o})}},{key:"render",value:function(){var e=this.props,t=e.position,n=e.title;return Object(wr.createElement)(Fr.Dropdown,{className:"editor-inserter",contentClassName:"editor-inserter__popover",position:t,onToggle:this.onToggle,expandOnMobile:!0,headerTitle:n,renderToggle:this.renderToggle,renderContent:this.renderContent})}}]),t}(wr.Component),Li=Object(Ir.compose)([Object(l.withSelect)(function(e,t){var n=t.rootClientId,r=t.index,o=e("core/editor"),i=o.getEditedPostAttribute,c=o.getBlockInsertionPoint,a=o.hasInserterItems;if(void 0===n&&void 0===r){var s=c();n=s.rootClientId,r=s.index}return{title:i("title"),hasItems:a(n),rootClientId:n,index:r}}),Object(Ir.ifCondition)(function(e){return e.hasItems})])(xi);var Ai=Object(s.ifViewportMatches)("< small")(function(e){var t=e.clientId;return Object(wr.createElement)("div",{className:"editor-block-list__block-mobile-toolbar"},Object(wr.createElement)(Li,null),Object(wr.createElement)(qo,{clientIds:[t]}))}),Ni=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={isInserterFocused:!1},e.onBlurInserter=e.onBlurInserter.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onFocusInserter=e.onFocusInserter.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"onFocusInserter",value:function(e){e.stopPropagation(),this.setState({isInserterFocused:!0})}},{key:"onBlurInserter",value:function(){this.setState({isInserterFocused:!1})}},{key:"render",value:function(){var e=this.state.isInserterFocused,t=this.props,n=t.showInsertionPoint,r=t.canShowInserter,o=t.rootClientId,i=t.insertIndex;return Object(wr.createElement)("div",{className:"editor-block-list__insertion-point"},n&&Object(wr.createElement)("div",{className:"editor-block-list__insertion-point-indicator"}),r&&Object(wr.createElement)("div",{onFocus:this.onFocusInserter,onBlur:this.onBlurInserter,tabIndex:-1,className:Pr()("editor-block-list__insertion-point-inserter",{"is-visible":e})},Object(wr.createElement)(Li,{rootClientId:o,index:i})))}}]),t}(wr.Component),Ri=Object(l.withSelect)(function(e,t){var n=t.clientId,r=t.rootClientId,o=e("core/editor"),c=o.getBlockIndex,a=o.getBlockInsertionPoint,s=o.getBlock,l=o.isBlockInsertionPointVisible,u=c(n,r),d=a(),p=s(n);return{showInsertionPoint:l()&&d.index===u&&d.rootClientId===r&&!Object(i.isUnmodifiedDefaultBlock)(p),insertIndex:u}})(Ni),Di=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).proxyEvent=e.proxyEvent.bind(Object(Dr.a)(Object(Dr.a)(e))),e.eventMap={},e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"proxyEvent",value:function(e){var t=!!e.nativeEvent._blockHandled;e.nativeEvent._blockHandled=!0;var n=this.eventMap[e.type];t&&(n+="Handled"),this.props[n]&&this.props[n](e)}},{key:"render",value:function(){var e=this,t=this.props,n=t.childHandledEvents,r=void 0===n?[]:n,o=t.forwardedRef,i=Object(p.a)(t,["childHandledEvents","forwardedRef"]),c=Object(O.reduce)(Object(b.a)(r).concat(Object(b.a)(Object.keys(i))),function(t,n){var r=n.match(/^on([A-Z][a-zA-Z]+?)(Handled)?$/);if(r){!!r[2]&&delete i[n];var o="on"+r[1];t[o]=e.proxyEvent,e.eventMap[r[1].toLowerCase()]=o}return t},{});return Object(wr.createElement)("div",Object(Cr.a)({ref:o},i,c))}}]),t}(wr.Component),Fi=function(e,t){return Object(wr.createElement)(Di,Object(Cr.a)({},e,{forwardedRef:t}))};Fi.displayName="IgnoreNestedEvents";var Mi=Object(wr.forwardRef)(Fi);var Ui=Object(Ir.compose)(Object(l.withSelect)(function(e,t){var n=t.rootClientId,r=e("core/editor"),o=r.getInserterItems,i=r.getTemplateLock;return{items:o(n),isLocked:!!i(n)}}),Object(l.withDispatch)(function(e,t){var n=t.clientId,r=t.rootClientId;return{onInsert:function(t){var o=t.name,c=t.initialAttributes,a=Object(i.createBlock)(o,c);n?e("core/editor").replaceBlocks(n,a):e("core/editor").insertBlock(a,void 0,r)}}}))(function(e){var t=e.items,n=e.isLocked,r=e.onInsert;if(n)return null;var o=Object(O.filter)(t,function(e){return!(e.isDisabled||e.name===Object(i.getDefaultBlockName)()&&Object(O.isEmpty)(e.initialAttributes))}).slice(0,3);return Object(wr.createElement)("div",{className:"editor-inserter-with-shortcuts"},o.map(function(e){return Object(wr.createElement)(Fr.IconButton,{key:e.id,className:"editor-inserter-with-shortcuts__block",onClick:function(){return r(e)},label:Object(_.sprintf)(Object(_.__)("Add %s"),e.title),icon:Object(wr.createElement)(qr,{icon:e.icon})})}))}),Vi=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={hoverArea:null},e.onMouseLeave=e.onMouseLeave.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onMouseMove=e.onMouseMove.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentWillUnmount",value:function(){this.props.container&&this.toggleListeners(this.props.container,!1)}},{key:"componentDidMount",value:function(){this.props.container&&this.toggleListeners(this.props.container)}},{key:"componentDidUpdate",value:function(e){e.container!==this.props.container&&(e.container&&this.toggleListeners(e.container,!1),this.props.container&&this.toggleListeners(this.props.container,!0))}},{key:"toggleListeners",value:function(e){var t=!(arguments.length>1&&void 0!==arguments[1])||arguments[1]?"addEventListener":"removeEventListener";e[t]("mousemove",this.onMouseMove),e[t]("mouseleave",this.onMouseLeave)}},{key:"onMouseLeave",value:function(){this.state.hoverArea&&this.setState({hoverArea:null})}},{key:"onMouseMove",value:function(e){var t=this.props,n=t.isRTL,r=t.container.getBoundingClientRect(),o=r.width,i=r.left,c=r.right,a=null;e.clientX-i<o/3?a=n?"right":"left":c-e.clientX<o/3&&(a=n?"left":"right"),a!==this.state.hoverArea&&this.setState({hoverArea:a})}},{key:"render",value:function(){var e=this.state.hoverArea;return(0,this.props.children)({hoverArea:e})}}]),t}(wr.Component),Hi=Object(l.withSelect)(function(e){return{isRTL:e("core/editor").getEditorSettings().isRTL}})(Vi);function Ki(e){return document.querySelector('[data-block="'+e+'"]')}var zi=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).setBlockListRef=e.setBlockListRef.bind(Object(Dr.a)(Object(Dr.a)(e))),e.bindBlockNode=e.bindBlockNode.bind(Object(Dr.a)(Object(Dr.a)(e))),e.setAttributes=e.setAttributes.bind(Object(Dr.a)(Object(Dr.a)(e))),e.maybeHover=e.maybeHover.bind(Object(Dr.a)(Object(Dr.a)(e))),e.forceFocusedContextualToolbar=e.forceFocusedContextualToolbar.bind(Object(Dr.a)(Object(Dr.a)(e))),e.hideHoverEffects=e.hideHoverEffects.bind(Object(Dr.a)(Object(Dr.a)(e))),e.mergeBlocks=e.mergeBlocks.bind(Object(Dr.a)(Object(Dr.a)(e))),e.insertBlocksAfter=e.insertBlocksAfter.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onFocus=e.onFocus.bind(Object(Dr.a)(Object(Dr.a)(e))),e.preventDrag=e.preventDrag.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onPointerDown=e.onPointerDown.bind(Object(Dr.a)(Object(Dr.a)(e))),e.deleteOrInsertAfterWrapper=e.deleteOrInsertAfterWrapper.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onBlockError=e.onBlockError.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onTouchStart=e.onTouchStart.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onClick=e.onClick.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onDragStart=e.onDragStart.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onDragEnd=e.onDragEnd.bind(Object(Dr.a)(Object(Dr.a)(e))),e.selectOnOpen=e.selectOnOpen.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onShiftSelection=e.onShiftSelection.bind(Object(Dr.a)(Object(Dr.a)(e))),e.hadTouchStart=!1,e.state={error:null,dragging:!1,isHovered:!1},e.isForcingContextualToolbar=!1,e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){this.props.isSelected&&this.focusTabbable()}},{key:"componentDidUpdate",value:function(e){this.isForcingContextualToolbar&&(this.isForcingContextualToolbar=!1),(this.props.isTypingWithinBlock||this.props.isSelected)&&this.hideHoverEffects(),this.props.isSelected&&!e.isSelected&&this.focusTabbable(!0),this.props.isFirstMultiSelected&&!e.isFirstMultiSelected&&this.wrapperNode.focus()}},{key:"setBlockListRef",value:function(e){this.wrapperNode=e,this.props.blockRef(e,this.props.clientId),this.forceUpdate()}},{key:"bindBlockNode",value:function(e){this.node=e}},{key:"focusTabbable",value:function(e){var t=this,n=this.props.initialPosition;if(!this.wrapperNode.contains(document.activeElement)){var r=Fo.focus.tabbable.find(this.node).filter(Fo.isTextField).filter(function(n){return!e||function(e,t){var n=e.querySelector(".editor-block-list__layout");return e.contains(t)&&(!n||!n.contains(t))}(t.node,n)}),o=-1===n,i=(o?O.last:O.first)(r);i?(i.focus(),o&&(Object(Fo.placeCaretAtHorizontalEdge)(i,!0),Object(Fo.placeCaretAtVerticalEdge)(i,!0))):this.wrapperNode.focus()}}},{key:"setAttributes",value:function(e){var t=this.props,n=t.block,r=t.onChange,o=Object(i.getBlockType)(n.name);r(n.clientId,e);var c=Object(O.reduce)(e,function(e,t,n){return"meta"===Object(O.get)(o,["attributes",n,"source"])&&(e[o.attributes[n].meta]=t),e},{});Object(O.size)(c)&&this.props.onMetaChange(c)}},{key:"onTouchStart",value:function(){this.hadTouchStart=!0}},{key:"onClick",value:function(){this.hadTouchStart=!1}},{key:"maybeHover",value:function(){var e=this.props,t=e.isPartOfMultiSelection,n=e.isSelected;this.state.isHovered||t||n||this.props.isMultiSelecting||this.hadTouchStart||this.setState({isHovered:!0})}},{key:"hideHoverEffects",value:function(){this.state.isHovered&&this.setState({isHovered:!1})}},{key:"mergeBlocks",value:function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0],t=this.props,n=t.block,r=t.previousBlockClientId,o=t.nextBlockClientId,i=t.onMerge;!e&&!r||e&&!o||(e?i(n.clientId,o):i(r,n.clientId))}},{key:"insertBlocksAfter",value:function(e){this.props.onInsertBlocks(e,this.props.order+1)}},{key:"onFocus",value:function(){this.props.isSelected||this.props.isPartOfMultiSelection||this.props.onSelect()}},{key:"preventDrag",value:function(e){e.preventDefault()}},{key:"onPointerDown",value:function(e){0===e.button&&(e.shiftKey?this.props.isSelected||(this.onShiftSelection(),e.preventDefault()):(this.props.onSelectionStart(this.props.clientId),this.props.isPartOfMultiSelection&&this.props.onSelect()))}},{key:"deleteOrInsertAfterWrapper",value:function(e){var t=e.keyCode,n=e.target;if(this.props.isSelected&&n===this.wrapperNode&&!this.props.isLocked)switch(t){case vo.ENTER:this.props.onInsertDefaultBlockAfter(),e.preventDefault();break;case vo.BACKSPACE:case vo.DELETE:var r=this.props,o=r.clientId;(0,r.onRemove)(o),e.preventDefault()}}},{key:"onBlockError",value:function(e){this.setState({error:e})}},{key:"onDragStart",value:function(){this.setState({dragging:!0})}},{key:"onDragEnd",value:function(){this.setState({dragging:!1})}},{key:"selectOnOpen",value:function(e){e&&!this.props.isSelected&&this.props.onSelect()}},{key:"onShiftSelection",value:function(){if(this.props.isSelectionEnabled){var e=this.props,t=e.getBlockSelectionStart,n=e.onMultiSelect,r=e.onSelect;t()?n(t(),this.props.clientId):r(this.props.clientId)}}},{key:"forceFocusedContextualToolbar",value:function(){this.isForcingContextualToolbar=!0,this.setState(function(){return{}})}},{key:"render",value:function(){var e=this;return Object(wr.createElement)(Hi,{container:this.wrapperNode},function(t){var n=t.hoverArea,r=e.props,o=r.block,c=r.order,a=r.mode,s=r.isFocusMode,l=r.hasFixedToolbar,u=r.isLocked,p=r.isFirst,b=r.isLast,f=r.clientId,h=r.rootClientId,m=r.isSelected,v=r.isPartOfMultiSelection,O=r.isFirstMultiSelected,g=r.isTypingWithinBlock,j=r.isCaretWithinFormattedText,y=r.isMultiSelecting,k=r.isEmptyDefaultBlock,E=r.isMovable,S=r.isPreviousBlockADefaultEmptyBlock,C=r.isParentOfSelectedBlock,w=r.isDraggable,T=r.className,P=e.state.isHovered&&!y,I=o.name,B=o.isValid,x=Object(i.getBlockType)(I),L=Object(_.sprintf)(Object(_.__)("Block: %s"),x.title),A=o.name===Object(i.getUnregisteredTypeHandlerName)(),N=(m||P)&&k&&B,R=(m||P)&&k,D=!s&&!R&&m&&!g,F=!s&&!l&&P&&!k,M=!s&&(m||"left"===n)&&!N&&!y&&!v&&!g,U=!s&&P&&!k,V=!l&&!R&&(m&&(!g||j)||O),H=D,K=e.state,z=K.error,W=K.dragging,q=v&&O||!v,G=!k&&!S,$=Pr()("wp-block editor-block-list__block",{"has-warning":!B||!!z||A,"is-selected":D,"is-multi-selected":v,"is-hovered":F,"is-reusable":Object(i.isReusableBlock)(x),"is-dragging":W,"is-typing":g,"is-focused":s&&(m||C),"is-focus-mode":s},T),Y=e.props.onReplace,Q=e.props.wrapperProps;x.getEditWrapperProps&&(Q=Object(d.a)({},Q,x.getEditWrapperProps(o.attributes)));var X="block-".concat(f),Z=Object(wr.createElement)(uo,{name:I,isSelected:m,attributes:o.attributes,setAttributes:e.setAttributes,insertBlocksAfter:u?void 0:e.insertBlocksAfter,onReplace:u?void 0:Y,mergeBlocks:u?void 0:e.mergeBlocks,clientId:f,isSelectionEnabled:e.props.isSelectionEnabled,toggleSelection:e.props.toggleSelection});return"visual"!==a&&(Z=Object(wr.createElement)("div",{style:{display:"none"}},Z)),Object(wr.createElement)(Mi,Object(Cr.a)({id:X,ref:e.setBlockListRef,onMouseOver:e.maybeHover,onMouseOverHandled:e.hideHoverEffects,onMouseLeave:e.hideHoverEffects,className:$,"data-type":o.name,onTouchStart:e.onTouchStart,onFocus:e.onFocus,onClick:e.onClick,onKeyDown:e.deleteOrInsertAfterWrapper,tabIndex:"0","aria-label":L,childHandledEvents:["onDragStart","onMouseDown"]},Q),q&&Object(wr.createElement)(Ri,{clientId:f,rootClientId:h,canShowInserter:G}),Object(wr.createElement)(Yo,{index:c,clientId:f,rootClientId:h}),M&&Object(wr.createElement)(qo,{clientIds:f,blockElementId:X,isFirst:p,isLast:b,isHidden:!(P||m)||"left"!==n,isDraggable:!1!==w&&!v&&E,onDragStart:e.onDragStart,onDragEnd:e.onDragEnd}),O&&Object(wr.createElement)(Oi,{rootClientId:h}),Object(wr.createElement)("div",{className:"editor-block-list__block-edit"},U&&Object(wr.createElement)(pi,{clientId:f,isHidden:!(P||m)||"left"!==n}),(V||e.isForcingContextualToolbar)&&Object(wr.createElement)(vi,{focusOnMount:e.isForcingContextualToolbar}),!V&&m&&!l&&!k&&Object(wr.createElement)(Fr.KeyboardShortcuts,{bindGlobal:!0,eventName:"keydown",shortcuts:{"alt+f10":e.forceFocusedContextualToolbar}}),Object(wr.createElement)(Mi,{ref:e.bindBlockNode,onDragStart:e.preventDrag,onMouseDown:e.onPointerDown,"data-block":f},Object(wr.createElement)(ii,{onError:e.onBlockError},B&&Z,B&&"html"===a&&Object(wr.createElement)(li,{clientId:f}),!B&&[Object(wr.createElement)(ni,{key:"invalid-warning",block:o}),Object(wr.createElement)("div",{key:"invalid-preview"},Object(i.getSaveElement)(x,o.attributes))]),H&&Object(wr.createElement)(Ai,{clientId:f}),!!z&&Object(wr.createElement)(oi,null))),N&&Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)("div",{className:"editor-block-list__side-inserter"},Object(wr.createElement)(Ui,{clientId:f,rootClientId:h,onToggle:e.selectOnOpen})),Object(wr.createElement)("div",{className:"editor-block-list__empty-block-inserter"},Object(wr.createElement)(Li,{position:"top right",onToggle:e.selectOnOpen}))))})}}]),t}(wr.Component),Wi=Object(l.withSelect)(function(e,t){var n=t.clientId,r=t.rootClientId,o=t.isLargeViewport,c=e("core/editor"),a=c.isBlockSelected,s=c.getPreviousBlockClientId,l=c.getNextBlockClientId,u=c.getBlock,d=c.isAncestorMultiSelected,p=c.isBlockMultiSelected,b=c.isFirstMultiSelectedBlock,f=c.isMultiSelecting,h=c.isTyping,m=c.isCaretWithinFormattedText,v=c.getBlockIndex,O=c.getBlockMode,g=c.isSelectionEnabled,j=c.getSelectedBlocksInitialCaretPosition,y=c.getEditorSettings,k=c.hasSelectedInnerBlock,_=c.getTemplateLock,E=c.getBlockSelectionStart,S=a(n),C=y(),w=C.hasFixedToolbar,T=C.focusMode,P=u(n),I=s(n),B=u(I),x=_(r),L=k(n,!0);return{nextBlockClientId:l(n),isPartOfMultiSelection:p(n)||d(n),isFirstMultiSelected:b(n),isMultiSelecting:f(),isTypingWithinBlock:(S||L)&&h(),isCaretWithinFormattedText:m(),order:v(n,r),mode:O(n),isSelectionEnabled:g(),initialPosition:j(),isEmptyDefaultBlock:P&&Object(i.isUnmodifiedDefaultBlock)(P),isPreviousBlockADefaultEmptyBlock:B&&Object(i.isUnmodifiedDefaultBlock)(B),isMovable:"all"!==x,isLocked:!!x,isFocusMode:T&&o,hasFixedToolbar:w&&o,previousBlockClientId:I,block:P,isSelected:S,isParentOfSelectedBlock:L,getBlockSelectionStart:E}}),qi=Object(l.withDispatch)(function(e,t){var n=e("core/editor"),r=n.updateBlockAttributes,o=n.selectBlock,i=n.multiSelect,c=n.insertBlocks,a=n.insertDefaultBlock,s=n.removeBlock,l=n.mergeBlocks,u=n.replaceBlocks,d=n.editPost,p=n.toggleSelection;return{onChange:function(e,t){r(e,t)},onSelect:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:t.clientId,n=arguments.length>1?arguments[1]:void 0;o(e,n)},onMultiSelect:i,onInsertBlocks:function(e,n){var r=t.rootClientId;c(e,n,r)},onInsertDefaultBlockAfter:function(){var e=t.order,n=t.rootClientId;a({},n,e+1)},onRemove:function(e){s(e)},onMerge:function(){l.apply(void 0,arguments)},onReplace:function(e){u([t.clientId],e)},onMetaChange:function(e){d({meta:e})},toggleSelection:function(e){p(e)}}}),Gi=Object(Ir.compose)(Object(s.withViewportMatch)({isLargeViewport:"medium"}),Wi,qi,Object(Fr.withFilters)("editor.BlockListBlock"))(zi),$i=n(50);var Yi=Object(Ir.compose)(Object(l.withSelect)(function(e,t){var n=e("core/editor"),r=n.getBlockCount,o=n.getBlockName,c=n.isBlockValid,a=n.getEditorSettings,s=n.getTemplateLock,l=!r(t.rootClientId),u=o(t.lastBlockClientId)===Object(i.getDefaultBlockName)(),d=c(t.lastBlockClientId),p=a().bodyPlaceholder;return{isVisible:l||!u||!d,showPrompt:l,isLocked:!!s(t.rootClientId),placeholder:p}}),Object(l.withDispatch)(function(e,t){var n=e("core/editor"),r=n.insertDefaultBlock,o=n.startTyping;return{onAppend:function(){var e=t.rootClientId;r(void 0,e),o()}}}))(function(e){var t=e.isLocked,n=e.isVisible,r=e.onAppend,o=e.showPrompt,i=e.placeholder,c=e.rootClientId;if(t||!n)return null;var a=Object($i.decodeEntities)(i)||Object(_.__)("Start writing or type / to choose a block");return Object(wr.createElement)("div",{"data-root-client-id":c||"",className:"wp-block editor-default-block-appender"},Object(wr.createElement)(Yo,{rootClientId:c}),Object(wr.createElement)(ai.a,{role:"button","aria-label":Object(_.__)("Add block"),className:"editor-default-block-appender__content",readOnly:!0,onFocus:r,value:o?a:""}),Object(wr.createElement)(Ui,{rootClientId:c}),Object(wr.createElement)(Li,{position:"top right"}))});var Qi=Object(l.withSelect)(function(e,t){var n=t.rootClientId,r=e("core/editor"),o=r.getBlockOrder,c=r.canInsertBlockType;return{isLocked:!!(0,r.getTemplateLock)(n),blockClientIds:o(n),canInsertDefaultBlock:c(Object(i.getDefaultBlockName)(),n)}})(function(e){var t=e.blockClientIds,n=e.rootClientId,r=e.canInsertDefaultBlock;return e.isLocked?null:r?Object(wr.createElement)(Mi,{childHandledEvents:["onFocus","onClick","onKeyDown"]},Object(wr.createElement)(Yi,{rootClientId:n,lastBlockClientId:Object(O.last)(t)})):Object(wr.createElement)("div",{className:"block-list-appender"},Object(wr.createElement)(Li,{rootClientId:n,renderToggle:function(e){var t=e.onToggle,n=e.disabled,r=e.isOpen;return Object(wr.createElement)(Fr.Button,{"aria-label":Object(_.__)("Add block"),onClick:t,className:"block-list-appender__toggle","aria-haspopup":"true","aria-expanded":r,disabled:n},Object(wr.createElement)(Fr.Dashicon,{icon:"insert"}))}}))}),Xi=function(e){function t(e){var n;return Object(xr.a)(this,t),(n=Object(Ar.a)(this,Object(Nr.a)(t).call(this,e))).onSelectionStart=n.onSelectionStart.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onSelectionEnd=n.onSelectionEnd.bind(Object(Dr.a)(Object(Dr.a)(n))),n.setBlockRef=n.setBlockRef.bind(Object(Dr.a)(Object(Dr.a)(n))),n.setLastClientY=n.setLastClientY.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onPointerMove=Object(O.throttle)(n.onPointerMove.bind(Object(Dr.a)(Object(Dr.a)(n))),100),n.onScroll=function(){return n.onPointerMove({clientY:n.lastClientY})},n.lastClientY=0,n.nodes={},n}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){window.addEventListener("mousemove",this.setLastClientY)}},{key:"componentWillUnmount",value:function(){window.removeEventListener("mousemove",this.setLastClientY)}},{key:"setLastClientY",value:function(e){var t=e.clientY;this.lastClientY=t}},{key:"setBlockRef",value:function(e,t){null===e?delete this.nodes[t]:this.nodes=Object(d.a)({},this.nodes,Object(f.a)({},t,e))}},{key:"onPointerMove",value:function(e){var t=e.clientY;this.props.isMultiSelecting||this.props.onStartMultiSelect();var n=Ki(this.selectionAtStart).getBoundingClientRect();if(!(t>=n.top&&t<=n.bottom)){var r=t-n.top,o=Object(O.findLast)(this.coordMapKeys,function(e){return e<r});this.onSelectionChange(this.coordMap[o])}}},{key:"onSelectionStart",value:function(e){if(this.props.isSelectionEnabled){var t=this.nodes[e].getBoundingClientRect(),n=Object(O.mapValues)(this.nodes,function(e){return e.getBoundingClientRect().top-t.top});this.coordMap=Object(O.invert)(n),this.coordMapKeys=Object(O.sortBy)(Object.values(n)),this.selectionAtStart=e,window.addEventListener("mousemove",this.onPointerMove),window.addEventListener("scroll",this.onScroll,!0),window.addEventListener("mouseup",this.onSelectionEnd)}}},{key:"onSelectionChange",value:function(e){var t=this.props,n=t.onMultiSelect,r=t.selectionStart,o=t.selectionEnd,i=this.selectionAtStart,c=i===e;i&&this.props.isSelectionEnabled&&(c&&r&&n(null,null),c||o===e||n(i,e))}},{key:"onSelectionEnd",value:function(){this.onPointerMove.cancel(),delete this.coordMap,delete this.coordMapKeys,delete this.selectionAtStart,window.removeEventListener("mousemove",this.onPointerMove),window.removeEventListener("scroll",this.onScroll,!0),window.removeEventListener("mouseup",this.onSelectionEnd),this.props.isMultiSelecting&&this.props.onStopMultiSelect()}},{key:"render",value:function(){var e=this,t=this.props,n=t.blockClientIds,r=t.rootClientId,o=t.isDraggable;return Object(wr.createElement)("div",{className:"editor-block-list__layout"},Object(O.map)(n,function(t,i){return Object(wr.createElement)(Gi,{key:"block-"+t,index:i,clientId:t,blockRef:e.setBlockRef,onSelectionStart:e.onSelectionStart,rootClientId:r,isFirst:0===i,isLast:i===n.length-1,isDraggable:o})}),Object(wr.createElement)(Qi,{rootClientId:r}))}}]),t}(wr.Component),Zi=Object(Ir.compose)([Object(l.withSelect)(function(e,t){var n=e("core/editor"),r=n.getBlockOrder,o=n.isSelectionEnabled,i=n.isMultiSelecting,c=n.getMultiSelectedBlocksStartClientId,a=n.getMultiSelectedBlocksEndClientId;return{blockClientIds:r(t.rootClientId),selectionStart:c(),selectionEnd:a(),isSelectionEnabled:o(),isMultiSelecting:i()}}),Object(l.withDispatch)(function(e){var t=e("core/editor");return{onStartMultiSelect:t.startMultiSelect,onStopMultiSelect:t.stopMultiSelect,onMultiSelect:t.multiSelect}})])(Xi),Ji=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={templateInProcess:!!e.props.template},e.updateNestedSettings(),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"getTemplateLock",value:function(){var e=this.props,t=e.templateLock,n=e.parentLock;return void 0===t?n:t}},{key:"componentDidMount",value:function(){0!==this.props.block.innerBlocks.length&&"all"!==this.getTemplateLock()||this.synchronizeBlocksWithTemplate(),this.state.templateInProcess&&this.setState({templateInProcess:!1})}},{key:"componentDidUpdate",value:function(e){var t=this.props,n=t.template,r=t.block.innerBlocks;(this.updateNestedSettings(),0===r.length||"all"===this.getTemplateLock())&&(!Object(O.isEqual)(n,e.template)&&this.synchronizeBlocksWithTemplate())}},{key:"synchronizeBlocksWithTemplate",value:function(){var e=this.props,t=e.template,n=e.block,r=e.replaceInnerBlocks,o=n.innerBlocks,c=Object(i.synchronizeBlocksWithTemplate)(o,t);Object(O.isEqual)(c,o)||r(c)}},{key:"updateNestedSettings",value:function(){var e=this.props,t=e.blockListSettings,n=e.allowedBlocks,r=e.updateNestedSettings,o={allowedBlocks:n,templateLock:this.getTemplateLock()};Do()(t,o)||r(o)}},{key:"render",value:function(){var e=this.props,t=e.clientId,n=e.isSmallScreen,r=e.isSelectedBlockInRoot,o=this.state.templateInProcess,i=Pr()("editor-inner-blocks",{"has-overlay":n&&!r});return Object(wr.createElement)("div",{className:i},!o&&Object(wr.createElement)(Zi,{rootClientId:t}))}}]),t}(wr.Component);(Ji=Object(Ir.compose)([Hr(function(e){return Object(O.pick)(e,["clientId"])}),Object(s.withViewportMatch)({isSmallScreen:"< medium"}),Object(l.withSelect)(function(e,t){var n=e("core/editor"),r=n.isBlockSelected,o=n.hasSelectedInnerBlock,i=n.getBlock,c=n.getBlockListSettings,a=n.getBlockRootClientId,s=n.getTemplateLock,l=t.clientId,u=a(l);return{isSelectedBlockInRoot:r(l)||o(l),block:i(l),blockListSettings:c(l),parentLock:s(u)}}),Object(l.withDispatch)(function(e,t){var n=e("core/editor"),r=n.replaceBlocks,o=n.insertBlocks,i=n.updateBlockListSettings,c=t.block,a=t.clientId,s=t.templateInsertUpdatesSelection,l=void 0===s||s;return{replaceInnerBlocks:function(e){var t=Object(O.map)(c.innerBlocks,"clientId");t.length?r(t,e):o(e,void 0,a,l)},updateNestedSettings:function(t){e(i(a,t))}}})])(Ji)).Content=Object(i.withBlockContentContext)(function(e){var t=e.BlockContent;return Object(wr.createElement)(t,null)});var ec=Ji,tc=Object(Fr.createSlotFill)("InspectorAdvancedControls"),nc=tc.Fill,rc=tc.Slot,oc=Kr(nc);oc.Slot=rc;var ic=oc,cc=Object(Fr.createSlotFill)("InspectorControls"),ac=cc.Fill,sc=cc.Slot,lc=Kr(ac);lc.Slot=sc;var uc=lc,dc=Object(_.__)("(current %s: %s)");var pc=Object(Ir.compose)([ko,Object(Ir.ifCondition)(function(e){return e.hasColorsToChoose})])(function(e){var t=e.colors,n=e.disableCustomColors,r=e.label,o=e.onChange,i=e.value,c=wo(t,i),a=c&&c.name,s=Object(_.sprintf)(dc,r.toLowerCase(),a||i),l=Object(wr.createElement)(wr.Fragment,null,r,i&&Object(wr.createElement)(Fr.ColorIndicator,{colorValue:i,"aria-label":s}));return Object(wr.createElement)(Fr.BaseControl,{className:"editor-color-palette-control",label:l},Object(wr.createElement)(_o,Object(Cr.a)({className:"editor-color-palette-control__color-palette",value:i,onChange:o},{colors:t,disableCustomColors:n})))}),bc=Object(_.__)("(%s: %s)"),fc=Object(Ir.ifCondition)(function(e){var t=e.colors,n=e.disableCustomColors,r=e.colorSettings;return Object(O.some)(r,function(e){return function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1?arguments[1]:void 0,n=arguments.length>2?arguments[2]:void 0;return!function(e,t){return void 0!==t.disableCustomColors?t.disableCustomColors:e}(t,n)||(n.colors||e).length>0}(t,n,e)})})(function(e){var t=e.children,n=e.colors,r=e.colorSettings,o=e.disableCustomColors,i=e.title,c=Object(p.a)(e,["children","colors","colorSettings","disableCustomColors","title"]),a=Object(wr.createElement)("span",{className:"".concat("editor-panel-color-settings","__panel-title")},i,function(e,t){return e.map(function(e,n){var r=e.value,o=e.label,i=e.colors;if(!r)return null;var c=wo(i||t,r),a=c&&c.name,s=Object(_.sprintf)(bc,o.toLowerCase(),a||r);return Object(wr.createElement)(Fr.ColorIndicator,{key:n,colorValue:r,"aria-label":s})})}(r,n));return Object(wr.createElement)(Fr.PanelBody,Object(Cr.a)({className:"editor-panel-color-settings",title:a},c),r.map(function(e,t){return Object(wr.createElement)(pc,Object(Cr.a)({key:t},Object(d.a)({colors:n,disableCustomColors:o},e)))}),t)}),hc=ko(fc);var mc=function(e){var t=e.onChange,n=e.className,r=Object(p.a)(e,["onChange","className"]);return Object(wr.createElement)(ai.a,Object(Cr.a)({className:Pr()("editor-plain-text",n),onChange:function(e){return t(e.target.value)}},r))},vc=n(41),Oc=n.n(vc),gc=n(32),jc=n(65),yc=n.n(jc),kc=Object(l.withSelect)(function(e){return{formatTypes:(0,e("core/rich-text").getFormatTypes)()}})(function(e){var t=e.formatTypes,n=e.onChange,r=e.value;return Object(wr.createElement)(wr.Fragment,null,t.map(function(e){var t=e.name,o=e.edit;if(!o)return null;var i=Object(a.getActiveFormat)(r,t),c=void 0!==i,s=c&&i.attributes||{};return Object(wr.createElement)(o,{key:t,isActive:c,activeAttributes:s,value:r,onChange:n})}))}),_c=function(e){var t=e.controls;return Object(wr.createElement)("div",{className:"editor-format-toolbar"},Object(wr.createElement)(Fr.Toolbar,null,t.map(function(e){return Object(wr.createElement)(Fr.Slot,{name:"RichText.ToolbarControls.".concat(e),key:e})}),Object(wr.createElement)(Fr.Slot,{name:"RichText.ToolbarControls"})))},Ec=n(185),Sc=n.n(Ec),Cc=function(e){return Object(O.pickBy)(e,function(e,t){return function(e){return Object(O.startsWith)(e,"aria-")}(t)&&!Object(O.isNil)(e)})},wc=window.getSelection,Tc=window.Node.TEXT_NODE;var Pc=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).call(this))).bindEditorNode=e.bindEditorNode.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onFocus=e.onFocus.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onKeyDown=e.onKeyDown.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"onFocus",value:function(){this.props.onFocus&&this.props.onFocus(),this.initialize()}},{key:"shouldComponentUpdate",value:function(e){var t=this;this.configureIsPlaceholderVisible(e.isPlaceholderVisible),Object(O.isEqual)(this.props.style,e.style)||(this.editorNode.setAttribute("style",""),Object.assign(this.editorNode.style,e.style)),Object(O.isEqual)(this.props.className,e.className)||(this.editorNode.className=Pr()(e.className,"editor-rich-text__tinymce"));var n=function(e,t){var n=Object(O.keys)(Cc(e)),r=Object(O.keys)(Cc(t));return{removedKeys:Object(O.difference)(n,r),updatedKeys:r.filter(function(n){return!Object(O.isEqual)(e[n],t[n])})}}(this.props,e),r=n.removedKeys,o=n.updatedKeys;return r.forEach(function(e){return t.editorNode.removeAttribute(e)}),o.forEach(function(n){return t.editorNode.setAttribute(n,e[n])}),!1}},{key:"componentWillUnmount",value:function(){this.editor&&(this.editor.destroy(),delete this.editor)}},{key:"configureIsPlaceholderVisible",value:function(e){var t=String(!!e);this.editorNode.getAttribute("data-is-placeholder-visible")!==t&&this.editorNode.setAttribute("data-is-placeholder-visible",t)}},{key:"initialize",value:function(){var e=this,t=this.props.multilineTag,n={theme:!1,inline:!0,toolbar:!1,browser_spellcheck:!0,entity_encoding:"raw",convert_urls:!1,verify_html:!1,inline_boundaries_selector:"a[href],code,b,i,strong,em,del,ins,sup,sub",plugins:[],forced_root_block:t||!1,custom_undo_redo_levels:1,lists_indent_on_tab:!1};"li"===t&&n.plugins.push("lists"),Sc.a.init(Object(d.a)({},n,{target:this.editorNode,setup:function(t){var n;e.editor=t,e.props.onSetup(t),t.on("preinit",function(){n=t.dom.setHTML,t.dom.setHTML=function(){}}),t.on("init",function(){["z","y"].forEach(function(e){t.shortcuts.remove("meta+".concat(e))}),t.shortcuts.remove("meta+shift+z"),["b","i","u"].forEach(function(e){t.shortcuts.remove("meta+".concat(e))}),[1,2,3,4,5,6,7,8,9].forEach(function(e){t.shortcuts.remove("access+".concat(e))}),t.dom.setHTML=n}),t.on("keydown",e.onKeyDown,!0)}}))}},{key:"bindEditorNode",value:function(e){this.editorNode=e,this.props.setRef&&this.props.setRef(e),this.removeInternetExplorerInputFix&&(this.removeInternetExplorerInputFix(),this.removeInternetExplorerInputFix=null),e&&function(e){return/Trident/.test(window.navigator.userAgent)&&!/input/i.test(e.tagName)&&!/textarea/i.test(e.tagName)}(e)&&(this.removeInternetExplorerInputFix=function(e){function t(e){e.stopImmediatePropagation();var t=document.createEvent("Event");t.initEvent("input",!0,!1),t.data=e.data,e.target.dispatchEvent(t)}function n(t){var n=t.target,r=t.keyCode;if((vo.BACKSPACE===r||vo.DELETE===r)&&e.contains(n)){var o=document.createEvent("Event");o.initEvent("input",!0,!1),o.data=null,n.dispatchEvent(o)}}return e.addEventListener("textinput",t),document.addEventListener("keyup",n,!0),function(){e.removeEventListener("textinput",t),document.removeEventListener("keyup",n,!0)}}(e))}},{key:"onKeyDown",value:function(e){var t=e.keyCode,n=t===vo.DELETE||t===vo.BACKSPACE;if(t===vo.ENTER||n&&Object(Fo.isEntirelySelected)(this.editorNode))return e.preventDefault(),!1;if(t===vo.LEFT||t===vo.RIGHT){var r=wc().focusNode,o=r.nodeType,i=r.nodeValue;if(o===Tc)if(1===i.length&&"\ufeff"===i[0])r[e.keyCode===vo.LEFT?"previousSibling":"nextSibling"]||(e.preventDefault=O.noop)}}},{key:"render",value:function(){var e,t=Cc(this.props),n=this.props,r=n.tagName,o=void 0===r?"div":r,i=n.style,c=n.defaultValue,a=n.className,s=n.isPlaceholderVisible,l=n.onPaste,u=n.onInput,p=n.onKeyDown,b=n.onCompositionEnd;return"table"!==o&&(t.role="textbox",t["aria-multiline"]=!0),Object(wr.createElement)(o,Object(d.a)({},t,(e={className:Pr()(a,"editor-rich-text__tinymce"),contentEditable:!0},Object(f.a)(e,"data-is-placeholder-visible",s),Object(f.a)(e,"ref",this.bindEditorNode),Object(f.a)(e,"style",i),Object(f.a)(e,"suppressContentEditableWarning",!0),Object(f.a)(e,"dangerouslySetInnerHTML",{__html:c}),Object(f.a)(e,"onPaste",l),Object(f.a)(e,"onInput",u),Object(f.a)(e,"onFocus",this.onFocus),Object(f.a)(e,"onKeyDown",p),Object(f.a)(e,"onCompositionEnd",b),e)))}}]),t}(wr.Component);var Ic=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).onUse=e.onUse.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"onUse",value:function(){return this.props.onUse(),!1}},{key:"render",value:function(){var e=this.props,t=e.character,n=e.type;return Object(wr.createElement)(Fr.KeyboardShortcuts,{bindGlobal:!0,shortcuts:Object(f.a)({},vo.rawShortcut[n](t),this.onUse)})}}]),t}(wr.Component);function Bc(e){return!e.selection||e.selection.getNode().closest("ol,ul")===e.getBody()}function xc(e,t,n){if(document.activeElement!==e.getBody())return t===n;var r=e.selection.getNode().closest("ol,ul");return r?r.nodeName.toLowerCase()===t:void 0}var Lc=function(e){var t=e.editor,n=e.onTagNameChange,r=e.tagName,o=e.onSyncDOM;return Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)(Ic,{type:"primary",character:"[",onUse:function(){t.execCommand("Outdent"),o()}}),Object(wr.createElement)(Ic,{type:"primary",character:"]",onUse:function(){t.execCommand("Indent"),o()}}),Object(wr.createElement)(Ic,{type:"primary",character:"m",onUse:function(){t.execCommand("Indent"),o()}}),Object(wr.createElement)(Ic,{type:"primaryShift",character:"m",onUse:function(){t.execCommand("Outdent"),o()}}),Object(wr.createElement)(mo,null,Object(wr.createElement)(Fr.Toolbar,{controls:[{icon:"editor-ul",title:Object(_.__)("Convert to unordered list"),isActive:xc(t,"ul",r),onClick:function(){Bc(t)?n("ul"):(t.execCommand("InsertUnorderedList"),o())}},{icon:"editor-ol",title:Object(_.__)("Convert to ordered list"),isActive:xc(t,"ol",r),onClick:function(){Bc(t)?n("ol"):(t.execCommand("InsertOrderedList"),o())}},{icon:"editor-outdent",title:Object(_.__)("Outdent list item"),onClick:function(){t.execCommand("Outdent"),o()}},{icon:"editor-indent",title:Object(_.__)("Indent list item"),onClick:function(){t.execCommand("Indent"),o()}}]})))},Ac=[vo.rawShortcut.primary("z"),vo.rawShortcut.primaryShift("z"),vo.rawShortcut.primary("y")],Nc=Object(wr.createElement)(Fr.KeyboardShortcuts,{bindGlobal:!0,shortcuts:Object(O.fromPairs)(Ac.map(function(e){return[e,function(e){return e.preventDefault()}]}))}),Rc=function(){return Nc};function Dc(e){var t,n=e.name,r=e.shortcutType,o=e.shortcutCharacter,i=Object(p.a)(e,["name","shortcutType","shortcutCharacter"]),c="RichText.ToolbarControls";return n&&(c+=".".concat(n)),r&&o&&(t=vo.displayShortcut[r](o)),Object(wr.createElement)(Fr.Fill,{name:c},Object(wr.createElement)(Fr.ToolbarButton,Object(Cr.a)({},i,{shortcut:t})))}var Fc=Object(l.withSelect)(function(e,t){var n=t.name;return{formatType:e("core/rich-text").getFormatType(n)}})(function(e){return Object(wr.createElement)(Fr.Fill,{name:"Inserter.InlineElements"},function(t){var n=t.filterValue,r=e.formatType,o=r.keywords,c=void 0===o?[]:o,a=r.title;return c.push(a,e.title),n&&!function(e,t){return e.some(function(e){return-1!==Ti(e).indexOf(Ti(t))})}(c,n)?null:Object(wr.createElement)(_i,Object(Cr.a)({},e,{icon:Object(i.normalizeIconObject)(e.icon)}))})}),Mc=window.getSelection,Uc=function(e){function t(e){var n,r=e.value,o=e.onReplace,c=e.multiline;return Object(xr.a)(this,t),n=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments)),!0!==c&&"p"!==c&&"li"!==c||(n.multilineTag=!0===c?"p":c),"li"===n.multilineTag&&(n.multilineWrapperTags=["ul","ol"]),n.props.onSplit?(n.onSplit=n.props.onSplit,yc()("wp.editor.RichText onSplit prop",{plugin:"Gutenberg",alternative:"wp.editor.RichText unstableOnSplit prop"})):n.props.unstableOnSplit&&(n.onSplit=n.props.unstableOnSplit),n.onSetup=n.onSetup.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onFocus=n.onFocus.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onChange=n.onChange.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onDeleteKeyDown=n.onDeleteKeyDown.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onKeyDown=n.onKeyDown.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onPaste=n.onPaste.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onCreateUndoLevel=n.onCreateUndoLevel.bind(Object(Dr.a)(Object(Dr.a)(n))),n.setFocusedElement=n.setFocusedElement.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onInput=n.onInput.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onCompositionEnd=n.onCompositionEnd.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onSelectionChange=n.onSelectionChange.bind(Object(Dr.a)(Object(Dr.a)(n))),n.getRecord=n.getRecord.bind(Object(Dr.a)(Object(Dr.a)(n))),n.createRecord=n.createRecord.bind(Object(Dr.a)(Object(Dr.a)(n))),n.applyRecord=n.applyRecord.bind(Object(Dr.a)(Object(Dr.a)(n))),n.isEmpty=n.isEmpty.bind(Object(Dr.a)(Object(Dr.a)(n))),n.valueToFormat=n.valueToFormat.bind(Object(Dr.a)(Object(Dr.a)(n))),n.setRef=n.setRef.bind(Object(Dr.a)(Object(Dr.a)(n))),n.isActive=n.isActive.bind(Object(Dr.a)(Object(Dr.a)(n))),n.formatToValue=Oc()(n.formatToValue.bind(Object(Dr.a)(Object(Dr.a)(n))),{size:1}),n.savedContent=r,n.patterns=function(e){var t=e.onReplace,n=e.valueToFormat,r=e.onCreateUndoLevel,o=e.onChange,c=Object(i.getBlockTransforms)("from").filter(function(e){return"prefix"===e.type});return[function(e){if(!t)return e;var o=Object(a.getSelectionStart)(e),s=Object(a.getTextContent)(e),l=s.slice(o-1,o);if(!/\s/.test(l))return e;var u=s.slice(0,o).trim(),d=Object(i.findTransform)(c,function(e){var t=e.prefix;return u===t});if(!d)return e;var p=n(Object(a.slice)(e,o,s.length)),b=d.transform(p);return r(),t([b]),e},function(e){var t=Object(a.getSelectionStart)(e),n=Object(a.getTextContent)(e);if("`"!==n.slice(t-1,t))return e;var r=n.slice(0,t-1).lastIndexOf("`");if(-1===r)return e;var i=r,c=t-2;return i===c?e:(o(e),e=Object(a.remove)(e,i,i+1),e=Object(a.remove)(e,c,c+1),e=Object(a.applyFormat)(e,{type:"code"},i,c))}]}({onReplace:o,onCreateUndoLevel:n.onCreateUndoLevel,valueToFormat:n.valueToFormat,onChange:n.onChange}),n.enterPatterns=Object(i.getBlockTransforms)("from").filter(function(e){return"enter"===e.type}),n.state={},n.usedDeprecatedChildrenSource=Array.isArray(r),n.lastHistoryValue=r,n}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){document.addEventListener("selectionchange",this.onSelectionChange)}},{key:"componentWillUnmount",value:function(){document.removeEventListener("selectionchange",this.onSelectionChange)}},{key:"setRef",value:function(e){this.editableRef=e}},{key:"isActive",value:function(){return this.editableRef===document.activeElement}},{key:"onSetup",value:function(e){this.editor=e}},{key:"setFocusedElement",value:function(){this.props.setFocusedElement&&this.props.setFocusedElement(this.props.instanceId)}},{key:"getRecord",value:function(){var e=this.formatToValue(this.props.value),t=e.formats,n=e.text,r=this.state;return{formats:t,text:n,start:r.start,end:r.end}}},{key:"createRecord",value:function(){var e=Mc().getRangeAt(0);return Object(a.create)({element:this.editableRef,range:e,multilineTag:this.multilineTag,multilineWrapperTags:this.multilineWrapperTags,removeNode:function(e){return"all"===e.getAttribute("data-mce-bogus")},unwrapNode:function(e){return!!e.getAttribute("data-mce-bogus")},removeAttribute:function(e){return 0===e.indexOf("data-mce-")},filterString:function(e){return e.replace("\ufeff","")},prepareEditableTree:this.props.prepareEditableTree})}},{key:"applyRecord",value:function(e){Object(a.apply)({value:e,current:this.editableRef,multilineTag:this.multilineTag,multilineWrapperTags:this.multilineWrapperTags,createLinePadding:function(e){var t=e.createElement("br");return t.setAttribute("data-mce-bogus","1"),t},prepareEditableTree:this.props.prepareEditableTree})}},{key:"isEmpty",value:function(){return Object(a.isEmpty)(this.formatToValue(this.props.value))}},{key:"onPaste",value:function(e){var t=e.clipboardData,n=t.items,r=t.files;n=Object(O.isNil)(n)?[]:n,r=Object(O.isNil)(r)?[]:r;var o=Object(O.find)(Object(b.a)(n).concat(Object(b.a)(r)),function(e){var t=e.type;return/^image\/(?:jpe?g|png|gif)$/.test(t)}),c="",s="";try{c=t.getData("text/plain"),s=t.getData("text/html")}catch(e){try{s=t.getData("Text")}catch(e){return}}if(e.preventDefault(),window.console.log("Received HTML:\n\n",s),window.console.log("Received plain text:\n\n",c),o&&!s){var l=o.getAsFile?o.getAsFile():o,u=Object(i.pasteHandler)({HTML:'<img src="'.concat(Object(gc.createBlobURL)(l),'">'),mode:"BLOCKS",tagName:this.props.tagName}),d=this.props.onReplace&&this.isEmpty();return window.console.log("Received item:\n\n",l),void(d?this.props.onReplace(u):this.onSplit&&this.splitContent(u))}var p=this.getRecord();if(!Object(a.isCollapsed)(p)){var f=(s||c).replace(/<[^>]+>/g,"").trim();if(Object(g.isURL)(f))return this.onChange(Object(a.applyFormat)(p,{type:"a",attributes:{href:Object($i.decodeEntities)(f)}})),void window.console.log("Created link:\n\n",f)}var h=this.props.onReplace&&this.isEmpty(),m="INLINE";h?m="BLOCKS":this.onSplit&&(m="AUTO");var v=Object(i.pasteHandler)({HTML:s,plainText:c,mode:m,tagName:this.props.tagName,canUserUseUnfilteredHTML:this.props.canUserUseUnfilteredHTML});if("string"==typeof v){var j=Object(a.create)({html:v});this.onChange(Object(a.insert)(p,j))}else if(this.onSplit){if(!v.length)return;h?this.props.onReplace(v):this.splitContent(v,{paste:!0})}}},{key:"onFocus",value:function(){var e=this.props.unstableOnFocus;e&&e()}},{key:"onInput",value:function(e){if(!e.nativeEvent.isComposing){var t=this.createRecord(),n=this.patterns.reduce(function(e,t){return t(e)},t);this.onChange(n,{withoutHistory:!0}),this.props.clearTimeout(this.onInput.timeout),this.onInput.timeout=this.props.setTimeout(this.onCreateUndoLevel,1e3)}}},{key:"onCompositionEnd",value:function(){this.onChange(this.createRecord())}},{key:"onSelectionChange",value:function(){if(this.isActive()){var e=this.createRecord(),t=e.start,n=e.end,r=e.formats;if(t!==this.state.start||n!==this.state.end){var o=this.props.isCaretWithinFormattedText;!o&&r[t]?this.props.onEnterFormattedText():o&&!r[t]&&this.props.onExitFormattedText(),this.setState({start:t,end:n})}}}},{key:"onChangeEditableValue",value:function(e){var t=e.formats,n=e.text;Object(O.get)(this.props,["onChangeEditableValue"],[]).forEach(function(e){e(t,n)})}},{key:"onChange",value:function(e){var t=(arguments.length>1&&void 0!==arguments[1]?arguments[1]:{}).withoutHistory;this.applyRecord(e);var n=e.start,r=e.end;this.onChangeEditableValue(e),this.savedContent=this.valueToFormat(e),this.props.onChange(this.savedContent),this.setState({start:n,end:r}),t||this.onCreateUndoLevel()}},{key:"onCreateUndoLevel",value:function(){this.lastHistoryValue!==this.savedContent&&(this.props.onCreateUndoLevel(),this.lastHistoryValue=this.savedContent)}},{key:"onDeleteKeyDown",value:function(e){var t=this.props,n=t.onMerge,r=t.onRemove;if(n||r){var o=e.keyCode===vo.BACKSPACE;if(Object(a.isCollapsed)(this.createRecord())){var i=this.isEmpty();(i||Object(Fo.isHorizontalEdge)(this.editableRef,o))&&(n&&n(!o),r&&i&&o&&r(!o),e.preventDefault())}}}},{key:"onKeyDown",value:function(e){var t=e.keyCode;if(t===vo.DELETE||t===vo.BACKSPACE){var n,r=this.createRecord(),o=Object(a.getSelectionStart)(r),c=Object(a.getSelectionEnd)(r);if(0===o&&0!==c&&c===r.text.length)return this.onChange(Object(a.remove)(r)),void e.preventDefault();if(this.multilineTag)t===vo.BACKSPACE?Object(a.charAt)(r,o-1)===a.LINE_SEPARATOR&&(n=Object(a.remove)(r,Object(a.isCollapsed)(r)?o-1:o,c)):Object(a.charAt)(r,c)===a.LINE_SEPARATOR&&(n=Object(a.remove)(r,o,Object(a.isCollapsed)(r)?c+1:c)),n&&(this.onChange(n),e.preventDefault());this.onDeleteKeyDown(e)}else if(t===vo.ENTER){e.preventDefault();var s=this.createRecord();if(this.props.onReplace){var l=Object(a.getTextContent)(s),u=Object(i.findTransform)(this.enterPatterns,function(e){return e.regExp.test(l)});if(u)return void this.props.onReplace([u.transform({content:l})])}if(this.multilineTag)this.onSplit&&Object(a.isEmptyLine)(s)?this.onSplit.apply(this,Object(b.a)(Object(a.split)(s).map(this.valueToFormat))):this.onChange(Object(a.insertLineSeparator)(s));else if(e.shiftKey||!this.onSplit){var d=Object(a.getTextContent)(s),p=d.length,f="\n";s.end!==p||"\n"===d.charAt(p-1)&&0!==p||(f="\n\n"),this.onChange(Object(a.insert)(s,f))}else this.splitContent()}}},{key:"splitContent",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},n=this.createRecord();if(this.onSplit){var r=Object(a.split)(n),o=Object(u.a)(r,2),i=o[0],c=o[1];Object(a.isEmpty)(c)?i=n:Object(a.isEmpty)(i)&&(c=n),t.paste&&(i=Object(a.isEmpty)(i)?null:i,c=Object(a.isEmpty)(c)?null:c),i&&(i=this.valueToFormat(i)),c&&(c=this.valueToFormat(c)),this.onSplit.apply(this,[i,c].concat(Object(b.a)(e)))}}},{key:"componentDidUpdate",value:function(e){var t=this,n=this.props,r=n.tagName,o=n.value,i=n.isSelected;if(r===e.tagName&&o!==e.value&&o!==this.savedContent){if(Array.isArray(o)&&Object(O.isEqual)(o,this.savedContent))return;var c=this.formatToValue(o);if(i){var s=this.formatToValue(e.value),l=Object(a.getTextContent)(s).length;c.start=l,c.end=l}this.applyRecord(c),this.savedContent=o}if(i&&!e.isSelected&&!this.isActive()){var u=this.formatToValue(o),d=this.formatToValue(e.value),p=Object(a.getTextContent)(d).length;u.start=p,u.end=p,this.applyRecord(u)}if(Object.keys(this.props).some(function(n){return 0===n.indexOf("format_")&&(Object(O.isPlainObject)(t.props[n])?Object.keys(t.props[n]).some(function(r){return t.props[n][r]!==e[n][r]}):t.props[n]!==e[n])})){var b=this.formatToValue(o);b.start=this.state.start,b.end=this.state.end,this.applyRecord(b)}}},{key:"getFormatProps",value:function(){return Object(O.pickBy)(this.props,function(e,t){return t.startsWith("format_")})}},{key:"formatToValue",value:function(e){return Array.isArray(e)?Object(a.create)({html:i.children.toHTML(e),multilineTag:this.multilineTag,multilineWrapperTags:this.multilineWrapperTags}):"string"===this.props.format?Object(a.create)({html:e,multilineTag:this.multilineTag,multilineWrapperTags:this.multilineWrapperTags}):null===e?Object(a.create)():e}},{key:"valueToEditableHTML",value:function(e){return Object(a.unstableToDom)({value:e,multilineTag:this.multilineTag,multilineWrapperTags:this.multilineWrapperTags,createLinePadding:function(e){var t=e.createElement("br");return t.setAttribute("data-mce-bogus","1"),t},prepareEditableTree:this.props.prepareEditableTree}).body.innerHTML}},{key:"removeEditorOnlyFormats",value:function(e){return this.props.formatTypes.forEach(function(t){t.__experimentalCreatePrepareEditableTree&&(e=Object(a.removeFormat)(e,t.name,0,e.text.length))}),e}},{key:"valueToFormat",value:function(e){return e=this.removeEditorOnlyFormats(e),this.usedDeprecatedChildrenSource?i.children.fromDOM(Object(a.unstableToDom)({value:e,multilineTag:this.multilineTag,multilineWrapperTags:this.multilineWrapperTags}).body.childNodes):"string"===this.props.format?Object(a.toHTMLString)({value:e,multilineTag:this.multilineTag,multilineWrapperTags:this.multilineWrapperTags}):e}},{key:"render",value:function(){var e=this,t=this.props,n=t.tagName,r=void 0===n?"div":n,o=t.style,i=t.wrapperClassName,c=t.className,a=t.inlineToolbar,s=void 0!==a&&a,l=t.formattingControls,u=t.placeholder,d=t.keepPlaceholderOnFocus,p=void 0!==d&&d,b=t.isSelected,f=t.autocompleters,h=t.onTagNameChange,m=this.multilineTag,v=Cc(this.props),O=["editor",r].join(),g=u&&(!b||p)&&this.isEmpty(),j=Pr()(i,"editor-rich-text"),y=this.getRecord();return Object(wr.createElement)("div",{className:j,onFocus:this.setFocusedElement},b&&this.editor&&"li"===this.multilineTag&&Object(wr.createElement)(Lc,{editor:this.editor,onTagNameChange:h,tagName:r,onSyncDOM:function(){return e.onChange(e.createRecord())}}),b&&!s&&Object(wr.createElement)(mo,null,Object(wr.createElement)(_c,{controls:l})),b&&s&&Object(wr.createElement)(Fr.IsolatedEventContainer,{className:"editor-rich-text__inline-toolbar"},Object(wr.createElement)(_c,{controls:l})),Object(wr.createElement)(Wr,{onReplace:this.props.onReplace,completers:f,record:y,onChange:this.onChange},function(t){var n=t.isExpanded,i=t.listBoxId,a=t.activeId;return Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)(Pc,Object(Cr.a)({tagName:r,onSetup:e.onSetup,style:o,defaultValue:e.valueToEditableHTML(y),isPlaceholderVisible:g,"aria-label":u,"aria-autocomplete":"list","aria-expanded":n,"aria-owns":i,"aria-activedescendant":a},v,{className:c,key:O,onPaste:e.onPaste,onInput:e.onInput,onCompositionEnd:e.onCompositionEnd,onKeyDown:e.onKeyDown,onFocus:e.onFocus,multilineTag:e.multilineTag,multilineWrapperTags:e.multilineWrapperTags,setRef:e.setRef})),g&&Object(wr.createElement)(r,{className:Pr()("editor-rich-text__tinymce",c),style:o},m?Object(wr.createElement)(m,null,u):u),b&&Object(wr.createElement)(kc,{value:y,onChange:e.onChange}))}),b&&Object(wr.createElement)(Rc,null))}}]),t}(wr.Component);Uc.defaultProps={formattingControls:["bold","italic","link","strikethrough"],format:"string",value:""};var Vc=Object(Ir.compose)([Ir.withInstanceId,Hr(function(e,t){return!1===t.isSelected?{clientId:e.clientId}:!0===t.isSelected?{isSelected:e.isSelected,clientId:e.clientId}:{isSelected:e.isSelected&&e.focusedElement===t.instanceId,setFocusedElement:e.setFocusedElement,clientId:e.clientId}}),Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.canUserUseUnfilteredHTML,r=t.isCaretWithinFormattedText,o=e("core/rich-text").getFormatTypes;return{canUserUseUnfilteredHTML:n(),isCaretWithinFormattedText:r(),formatTypes:o()}}),Object(l.withDispatch)(function(e){var t=e("core/editor");return{onCreateUndoLevel:t.createUndoLevel,onRedo:t.redo,onUndo:t.undo,onEnterFormattedText:t.enterFormattedText,onExitFormattedText:t.exitFormattedText}}),Ir.withSafeTimeout,Object(Fr.withFilters)("experimentalRichText")])(Uc);Vc.Content=function(e){var t,n=e.value,r=e.tagName,o=e.multiline,c=Object(p.a)(e,["value","tagName","multiline"]),a=n;!0!==o&&"p"!==o&&"li"!==o||(t=!0===o?"p":o),Array.isArray(n)&&(a=i.children.toHTML(n)),!a&&t&&(a="<".concat(t,"></").concat(t,">"));var s=Object(wr.createElement)(wr.RawHTML,null,a);return r?Object(wr.createElement)(r,Object(O.omit)(c,["format"]),s):s},Vc.isEmpty=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"";return Array.isArray(e)&&!e||0===e.length},Vc.Content.defaultProps={format:"string",value:""};var Hc=Vc,Kc=function(e){var t=e.urlQueryArgs,n=void 0===t?{}:t,r=Object(p.a)(e,["urlQueryArgs"]),o=Object(l.select)("core/editor").getCurrentPostId;return n=Object(d.a)({post_id:o()},n),Object(wr.createElement)(Fr.ServerSideRender,Object(Cr.a)({urlQueryArgs:n},r))},zc=Object(Fr.withFilters)("editor.MediaUpload")(function(){return null}),Wc=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).toggleSettingsVisibility=e.toggleSettingsVisibility.bind(Object(Dr.a)(Object(Dr.a)(e))),e.state={isSettingsExpanded:!1},e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"toggleSettingsVisibility",value:function(){this.setState({isSettingsExpanded:!this.state.isSettingsExpanded})}},{key:"render",value:function(){var e=this.props,t=e.children,n=e.renderSettings,r=e.onClose,o=e.onClickOutside,i=e.position,c=void 0===i?"bottom center":i,a=e.focusOnMount,s=void 0===a?"firstElement":a,l=this.state.isSettingsExpanded,u=!!n&&l;return Object(wr.createElement)(Fr.Popover,{className:"editor-url-popover",focusOnMount:s,position:c,onClose:r,onClickOutside:o},Object(wr.createElement)("div",{className:"editor-url-popover__row"},t,!!n&&Object(wr.createElement)(Fr.IconButton,{className:"editor-url-popover__settings-toggle",icon:"ellipsis",label:Object(_.__)("Link Settings"),onClick:this.toggleSettingsVisibility,"aria-expanded":l})),u&&Object(wr.createElement)("div",{className:"editor-url-popover__row editor-url-popover__settings"},n()))}}]),t}(wr.Component);function qc(e){return e?Object(O.flatMap)(e,function(e,t){var n=e.split("/"),r=Object(u.a)(n,1)[0],o=t.split("|");return[e].concat(Object(b.a)(Object(O.map)(o,function(e){return"".concat(r,"/").concat(e)})))}):e}function Gc(){return(Gc=Object(dr.a)(regeneratorRuntime.mark(function e(t){var n,r,o,i,c,a,s,l,u,p,f,h,m,v,g,j,y,k,E,S,C,w,T,P,I,B,x,L,A;return regeneratorRuntime.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:n=t.allowedTypes,r=t.additionalData,o=void 0===r?{}:r,i=t.filesList,c=t.maxUploadFileSize,a=t.onError,s=void 0===a?O.noop:a,l=t.onFileChange,u=t.wpAllowedMimeTypes,p=void 0===u?null:u,f=Object(b.a)(i),h=[],m=function(e,t){Object(gc.revokeBlobURL)(Object(O.get)(h,[e,"url"])),h[e]=t,l(Object(O.compact)(h))},v=function(e){return!n||Object(O.some)(n,function(t){return Object(O.includes)(t,"/")?t===e:Object(O.startsWith)(e,"".concat(t,"/"))})},g=qc(p),j=function(e){return Object(O.includes)(g,e)},y=function(e){e.message=[Object(wr.createElement)("strong",{key:"filename"},e.file.name),": ",e.message],s(e)},k=[],E=!0,S=!1,C=void 0,e.prev=12,w=f[Symbol.iterator]();case 14:if(E=(T=w.next()).done){e.next=34;break}if(P=T.value,!g||j(P.type)){e.next=19;break}return y({code:"MIME_TYPE_NOT_ALLOWED_FOR_USER",message:Object(_.__)("Sorry, this file type is not permitted for security reasons."),file:P}),e.abrupt("continue",31);case 19:if(v(P.type)){e.next=22;break}return y({code:"MIME_TYPE_NOT_SUPPORTED",message:Object(_.__)("Sorry, this file type is not supported here."),file:P}),e.abrupt("continue",31);case 22:if(!(c&&P.size>c)){e.next=25;break}return y({code:"SIZE_ABOVE_LIMIT",message:Object(_.__)("This file exceeds the maximum upload size for this site."),file:P}),e.abrupt("continue",31);case 25:if(!(P.size<=0)){e.next=28;break}return y({code:"EMPTY_FILE",message:Object(_.__)("This file is empty."),file:P}),e.abrupt("continue",31);case 28:k.push(P),h.push({url:Object(gc.createBlobURL)(P)}),l(h);case 31:E=!0,e.next=14;break;case 34:e.next=40;break;case 36:e.prev=36,e.t0=e.catch(12),S=!0,C=e.t0;case 40:e.prev=40,e.prev=41,E||null==w.return||w.return();case 43:if(e.prev=43,!S){e.next=46;break}throw C;case 46:return e.finish(43);case 47:return e.finish(40);case 48:I=0;case 49:if(!(I<k.length)){e.next=68;break}return B=k[I],e.prev=51,e.next=54,$c(B,o);case 54:x=e.sent,L=Object(d.a)({},Object(O.omit)(x,["alt_text","source_url"]),{alt:x.alt_text,caption:Object(O.get)(x,["caption","raw"],""),title:x.title.raw,url:x.source_url}),m(I,L),e.next=65;break;case 59:e.prev=59,e.t1=e.catch(51),m(I,null),A=void 0,A=Object(O.has)(e.t1,["message"])?Object(O.get)(e.t1,["message"]):Object(_.sprintf)(Object(_.__)("Error while uploading file %s to the media library."),B.name),s({code:"GENERAL",message:A,file:B});case 65:++I,e.next=49;break;case 68:case"end":return e.stop()}},e,this,[[12,36,40,48],[41,,43,47],[51,59]])}))).apply(this,arguments)}function $c(e,t){var n=new window.FormData;return n.append("file",e,e.name||e.type.replace("/",".")),n.append("title",e.name?e.name.replace(/\.[^.]+$/,""):e.type.replace("/",".")),Object(O.forEach)(t,function(e,t){return n.append(t,e)}),br()({path:"/wp/v2/media",body:n,method:"POST"})}var Yc=function(e){var t=e.allowedTypes,n=e.filesList,r=e.maxUploadFileSize,o=e.onError,i=void 0===o?O.noop:o,c=e.onFileChange,a=Object(l.select)("core/editor"),s=a.getCurrentPostId,u=a.getEditorSettings,d=u().allowedMimeTypes;r=r||u().maxUploadFileSize,function(e){Gc.apply(this,arguments)}({allowedTypes:t,filesList:n,onFileChange:c,additionalData:{post:s()},maxUploadFileSize:r,onError:function(e){var t=e.message;return i(t)},wpAllowedMimeTypes:d})};function Qc(e,t){return Object(g.addQueryArgs)(e,t)}function Xc(e){return Object(O.toLower)(Object(O.deburr)(Object(O.trim)(e.replace(/[\s\./_]+/g,"-"),"-")))}var Zc=function(e){var t=e.src,n=e.onChange,r=e.onSubmit,o=e.onClose;return Object(wr.createElement)(Wc,{onClose:o},Object(wr.createElement)("form",{className:"editor-media-placeholder__url-input-form",onSubmit:r},Object(wr.createElement)("input",{className:"editor-media-placeholder__url-input-field",type:"url","aria-label":Object(_.__)("URL"),placeholder:Object(_.__)("Paste or type URL"),onChange:n,value:t}),Object(wr.createElement)(Fr.IconButton,{className:"editor-media-placeholder__url-input-submit-button",icon:"editor-break",label:Object(_.__)("Apply"),type:"submit"})))},Jc=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={src:"",isURLInputVisible:!1},e.onChangeSrc=e.onChangeSrc.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onSubmitSrc=e.onSubmitSrc.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onUpload=e.onUpload.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onFilesUpload=e.onFilesUpload.bind(Object(Dr.a)(Object(Dr.a)(e))),e.openURLInput=e.openURLInput.bind(Object(Dr.a)(Object(Dr.a)(e))),e.closeURLInput=e.closeURLInput.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"onlyAllowsImages",value:function(){var e=this.props.allowedTypes;return!!e&&Object(O.every)(e,function(e){return"image"===e||Object(O.startsWith)(e,"image/")})}},{key:"componentDidMount",value:function(){this.setState({src:Object(O.get)(this.props.value,["src"],"")})}},{key:"componentDidUpdate",value:function(e){Object(O.get)(e.value,["src"],"")!==Object(O.get)(this.props.value,["src"],"")&&this.setState({src:Object(O.get)(this.props.value,["src"],"")})}},{key:"onChangeSrc",value:function(e){this.setState({src:e.target.value})}},{key:"onSubmitSrc",value:function(e){e.preventDefault(),this.state.src&&this.props.onSelectURL&&(this.props.onSelectURL(this.state.src),this.closeURLInput())}},{key:"onUpload",value:function(e){this.onFilesUpload(e.target.files)}},{key:"onFilesUpload",value:function(e){var t=this.props,n=t.onSelect,r=t.multiple,o=t.onError,i=t.allowedTypes;Yc({allowedTypes:i,filesList:e,onFileChange:r?n:function(e){var t=Object(u.a)(e,1)[0];return n(t)},onError:o})}},{key:"openURLInput",value:function(){this.setState({isURLInputVisible:!0})}},{key:"closeURLInput",value:function(){this.setState({isURLInputVisible:!1})}},{key:"render",value:function(){var e=this.props,t=e.accept,n=e.icon,r=e.className,o=e.labels,i=void 0===o?{}:o,c=e.onSelect,a=e.value,s=void 0===a?{}:a,l=e.onSelectURL,u=e.onHTMLDrop,d=void 0===u?O.noop:u,p=e.multiple,b=void 0!==p&&p,f=e.notices,h=e.allowedTypes,m=void 0===h?[]:h,v=e.hasUploadPermissions,g=this.state,j=g.isURLInputVisible,y=g.src,k=i.instructions||"",E=i.title||"";if(v||l||(k=Object(_.__)("To edit this block, you need permission to upload media.")),!k||!E){var S=1===m.length,C=S&&"audio"===m[0],w=S&&"image"===m[0],T=S&&"video"===m[0];k||(v?(k=Object(_.__)("Drag a media file, upload a new one or select a file from your library."),C?k=Object(_.__)("Drag an audio, upload a new one or select a file from your library."):w?k=Object(_.__)("Drag an image, upload a new one or select a file from your library."):T&&(k=Object(_.__)("Drag a video, upload a new one or select a file from your library."))):!v&&l&&(k=Object(_.__)("Given your current role, you can only link a media file, you cannot upload."),C?k=Object(_.__)("Given your current role, you can only link an audio, you cannot upload."):w?k=Object(_.__)("Given your current role, you can only link an image, you cannot upload."):T&&(k=Object(_.__)("Given your current role, you can only link a video, you cannot upload.")))),E||(E=Object(_.__)("Media"),C?E=Object(_.__)("Audio"):w?E=Object(_.__)("Image"):T&&(E=Object(_.__)("Video")))}return Object(wr.createElement)(Fr.Placeholder,{icon:n,label:E,instructions:k,className:Pr()("editor-media-placeholder",r),notices:f},Object(wr.createElement)(Go,null,Object(wr.createElement)(Fr.DropZone,{onFilesDrop:this.onFilesUpload,onHTMLDrop:d}),Object(wr.createElement)(Fr.FormFileUpload,{isLarge:!0,className:"editor-media-placeholder__button",onChange:this.onUpload,accept:t,multiple:b},Object(_.__)("Upload")),Object(wr.createElement)(zc,{gallery:b&&this.onlyAllowsImages(),multiple:b,onSelect:c,allowedTypes:m,value:s.id,render:function(e){var t=e.open;return Object(wr.createElement)(Fr.Button,{isLarge:!0,className:"editor-media-placeholder__button",onClick:t},Object(_.__)("Media Library"))}})),l&&Object(wr.createElement)("div",{className:"editor-media-placeholder__url-input-container"},Object(wr.createElement)(Fr.Button,{className:"editor-media-placeholder__button",onClick:this.openURLInput,isToggled:j,isLarge:!0},Object(_.__)("Insert from URL")),j&&Object(wr.createElement)(Zc,{src:y,onChange:this.onChangeSrc,onSubmit:this.onSubmitSrc,onClose:this.closeURLInput})))}}]),t}(wr.Component),ea=Object(l.withSelect)(function(e){return{hasUploadPermissions:(0,e("core").hasUploadPermissions)()}}),ta=Object(Ir.compose)(ea,Object(Fr.withFilters)("editor.MediaPlaceholder"))(Jc),na=function(e){return e.stopPropagation()},ra=function(e){function t(e){var n,r=e.autocompleteRef;return Object(xr.a)(this,t),(n=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).onChange=n.onChange.bind(Object(Dr.a)(Object(Dr.a)(n))),n.onKeyDown=n.onKeyDown.bind(Object(Dr.a)(Object(Dr.a)(n))),n.autocompleteRef=r||Object(wr.createRef)(),n.inputRef=Object(wr.createRef)(),n.updateSuggestions=Object(O.throttle)(n.updateSuggestions.bind(Object(Dr.a)(Object(Dr.a)(n))),200),n.suggestionNodes=[],n.state={posts:[],showSuggestions:!1,selectedSuggestion:null},n}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidUpdate",value:function(){var e=this,t=this.state,n=t.showSuggestions,r=t.selectedSuggestion;n&&null!==r&&!this.scrollingIntoView&&(this.scrollingIntoView=!0,ji()(this.suggestionNodes[r],this.autocompleteRef.current,{onlyScrollIfNeeded:!0}),setTimeout(function(){e.scrollingIntoView=!1},100))}},{key:"componentWillUnmount",value:function(){delete this.suggestionsRequest}},{key:"bindSuggestionNode",value:function(e){var t=this;return function(n){t.suggestionNodes[e]=n}}},{key:"updateSuggestions",value:function(e){var t=this;if(e.length<2||/^https?:/.test(e))this.setState({showSuggestions:!1,selectedSuggestion:null,loading:!1});else{this.setState({showSuggestions:!0,selectedSuggestion:null,loading:!0});var n=br()({path:Object(g.addQueryArgs)("/wp/v2/search",{search:e,per_page:20,type:"post"})});n.then(function(e){t.suggestionsRequest===n&&(t.setState({posts:e,loading:!1}),e.length?t.props.debouncedSpeak(Object(_.sprintf)(Object(_._n)("%d result found, use up and down arrow keys to navigate.","%d results found, use up and down arrow keys to navigate.",e.length),e.length),"assertive"):t.props.debouncedSpeak(Object(_.__)("No results."),"assertive"))}).catch(function(){t.suggestionsRequest===n&&t.setState({loading:!1})}),this.suggestionsRequest=n}}},{key:"onChange",value:function(e){var t=e.target.value;this.props.onChange(t),this.updateSuggestions(t)}},{key:"onKeyDown",value:function(e){var t=this.state,n=t.showSuggestions,r=t.selectedSuggestion,o=t.posts,i=t.loading;if(n&&o.length&&!i){var c=this.state.posts[this.state.selectedSuggestion];switch(e.keyCode){case vo.UP:e.stopPropagation(),e.preventDefault();var a=r?r-1:o.length-1;this.setState({selectedSuggestion:a});break;case vo.DOWN:e.stopPropagation(),e.preventDefault();var s=null===r||r===o.length-1?0:r+1;this.setState({selectedSuggestion:s});break;case vo.TAB:null!==this.state.selectedSuggestion&&(this.selectLink(c),this.props.speak(Object(_.__)("Link selected")));break;case vo.ENTER:null!==this.state.selectedSuggestion&&(e.stopPropagation(),this.selectLink(c))}}else switch(e.keyCode){case vo.UP:0!==e.target.selectionStart&&(e.stopPropagation(),e.preventDefault(),e.target.setSelectionRange(0,0));break;case vo.DOWN:this.props.value.length!==e.target.selectionStart&&(e.stopPropagation(),e.preventDefault(),e.target.setSelectionRange(this.props.value.length,this.props.value.length))}}},{key:"selectLink",value:function(e){this.props.onChange(e.url,e),this.setState({selectedSuggestion:null,showSuggestions:!1})}},{key:"handleOnClick",value:function(e){this.selectLink(e),this.inputRef.current.focus()}},{key:"render",value:function(){var e=this,t=this.props,n=t.value,r=void 0===n?"":n,o=t.autoFocus,i=void 0===o||o,c=t.instanceId,a=this.state,s=a.showSuggestions,l=a.posts,u=a.selectedSuggestion,d=a.loading;return Object(wr.createElement)("div",{className:"editor-url-input"},Object(wr.createElement)("input",{autoFocus:i,type:"text","aria-label":Object(_.__)("URL"),required:!0,value:r,onChange:this.onChange,onInput:na,placeholder:Object(_.__)("Paste URL or type to search"),onKeyDown:this.onKeyDown,role:"combobox","aria-expanded":s,"aria-autocomplete":"list","aria-owns":"editor-url-input-suggestions-".concat(c),"aria-activedescendant":null!==u?"editor-url-input-suggestion-".concat(c,"-").concat(u):void 0,ref:this.inputRef}),d&&Object(wr.createElement)(Fr.Spinner,null),s&&!!l.length&&Object(wr.createElement)(Fr.Popover,{position:"bottom",noArrow:!0,focusOnMount:!1},Object(wr.createElement)("div",{className:"editor-url-input__suggestions",id:"editor-url-input-suggestions-".concat(c),ref:this.autocompleteRef,role:"listbox"},l.map(function(t,n){return Object(wr.createElement)("button",{key:t.id,role:"option",tabIndex:"-1",id:"editor-url-input-suggestion-".concat(c,"-").concat(n),ref:e.bindSuggestionNode(n),className:Pr()("editor-url-input__suggestion",{"is-selected":n===u}),onClick:function(){return e.handleOnClick(t)},"aria-selected":n===u},Object($i.decodeEntities)(t.title)||Object(_.__)("(no title)"))}))))}}]),t}(wr.Component),oa=Object(Fr.withSpokenMessages)(Object(Ir.withInstanceId)(ra)),ia=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).toggle=e.toggle.bind(Object(Dr.a)(Object(Dr.a)(e))),e.submitLink=e.submitLink.bind(Object(Dr.a)(Object(Dr.a)(e))),e.state={expanded:!1},e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"toggle",value:function(){this.setState({expanded:!this.state.expanded})}},{key:"submitLink",value:function(e){e.preventDefault(),this.toggle()}},{key:"render",value:function(){var e=this.props,t=e.url,n=e.onChange,r=this.state.expanded,o=t?Object(_.__)("Edit Link"):Object(_.__)("Insert Link");return Object(wr.createElement)("div",{className:"editor-url-input__button"},Object(wr.createElement)(Fr.IconButton,{icon:"admin-links",label:o,onClick:this.toggle,className:Pr()("components-toolbar__control",{"is-active":t})}),r&&Object(wr.createElement)("form",{className:"editor-url-input__button-modal",onSubmit:this.submitLink},Object(wr.createElement)("div",{className:"editor-url-input__button-modal-line"},Object(wr.createElement)(Fr.IconButton,{className:"editor-url-input__back",icon:"arrow-left-alt",label:Object(_.__)("Close"),onClick:this.toggle}),Object(wr.createElement)(oa,{value:t||"",onChange:n}),Object(wr.createElement)(Fr.IconButton,{icon:"editor-break",label:Object(_.__)("Submit"),type:"submit"}))))}}]),t}(wr.Component),ca=function(e){function t(){return Object(xr.a)(this,t),Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidUpdate",value:function(e){var t=this.props,n=t.isDirty,r=t.editsReference,o=t.isAutosaveable;e.isDirty===n&&e.isAutosaveable===o&&e.editsReference===r||this.toggleTimer(n&&o)}},{key:"componentWillUnmount",value:function(){this.toggleTimer(!1)}},{key:"toggleTimer",value:function(e){var t=this;clearTimeout(this.pendingSave);var n=this.props.autosaveInterval;e&&(this.pendingSave=setTimeout(function(){return t.props.autosave()},1e3*n))}},{key:"render",value:function(){return null}}]),t}(wr.Component),aa=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.isEditedPostDirty,r=t.isEditedPostAutosaveable,o=t.getEditorSettings,i=t.getReferenceByDistinctEdits,c=o().autosaveInterval;return{isDirty:n(),isAutosaveable:r(),editsReference:i(),autosaveInterval:c}}),Object(l.withDispatch)(function(e){return{autosave:e("core/editor").autosave}})])(ca),sa=function(e){var t=e.children,n=e.isValid,r=e.level,o=e.onClick,i=e.path,c=void 0===i?[]:i;return Object(wr.createElement)("li",{className:Pr()("document-outline__item","is-".concat(r.toLowerCase()),{"is-invalid":!n})},Object(wr.createElement)("button",{className:"document-outline__button",onClick:o},Object(wr.createElement)("span",{className:"document-outline__emdash","aria-hidden":"true"}),c.map(function(e,t){var n=e.clientId;return Object(wr.createElement)("strong",{key:t,className:"document-outline__level"},Object(wr.createElement)(ui,{clientId:n}))}),Object(wr.createElement)("strong",{className:"document-outline__level"},r),Object(wr.createElement)("span",{className:"document-outline__item-content"},t),Object(wr.createElement)("span",{className:"screen-reader-text"},Object(_.__)("(Click to focus this heading)"))))},la=Object(wr.createElement)("em",null,Object(_.__)("(Empty heading)")),ua=[Object(wr.createElement)("br",{key:"incorrect-break"}),Object(wr.createElement)("em",{key:"incorrect-message"},Object(_.__)("(Incorrect heading level)"))],da=[Object(wr.createElement)("br",{key:"incorrect-break-h1"}),Object(wr.createElement)("em",{key:"incorrect-message-h1"},Object(_.__)("(Your theme may already use a H1 for the post title)"))],pa=[Object(wr.createElement)("br",{key:"incorrect-break-multiple-h1"}),Object(wr.createElement)("em",{key:"incorrect-message-multiple-h1"},Object(_.__)("(Multiple H1 headings are not recommended)"))],ba=function(e){return!e.attributes.content||0===e.attributes.content.length},fa=Object(Ir.compose)(Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getEditedPostAttribute,r=t.getBlocks,o=(0,e("core").getPostType)(n("type"));return{title:n("title"),blocks:r(),isTitleSupported:Object(O.get)(o,["supports","title"],!1)}}),Object(l.withDispatch)(function(e){return{onSelect:e("core/editor").selectBlock}}))(function(e){var t=e.blocks,n=void 0===t?[]:t,r=e.title,o=e.onSelect,i=e.isTitleSupported,c=function e(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:[];return Object(O.flatMap)(t,function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};return"core/heading"===t.name?Object(d.a)({},t,{path:n,level:t.attributes.level,isEmpty:ba(t)}):e(t.innerBlocks,Object(b.a)(n).concat([t]))})}(n);if(c.length<1)return null;var a=1,s=i&&r,l=Object(O.countBy)(c,"level")[1]>1;return Object(wr.createElement)("div",{className:"document-outline"},Object(wr.createElement)("ul",null,s&&Object(wr.createElement)(sa,{level:Object(_.__)("Title"),isValid:!0,onClick:function(){var e=document.querySelector(".editor-post-title__input");e&&e.focus()}},r),c.map(function(e,t){var n=e.level>a+1,r=!(e.isEmpty||n||!e.level||1===e.level&&(l||s));return a=e.level,Object(wr.createElement)(sa,{key:t,level:"H".concat(e.level),isValid:r,onClick:function(){return function(e){return o(e)}(e.clientId)},path:e.path},e.isEmpty?la:Object(wr.createElement)(Hc.Content,{tagName:"span",value:e.attributes.content}),n&&ua,1===e.level&&l&&pa,s&&1===e.level&&!l&&da)})))});var ha=Object(l.withSelect)(function(e){return{blocks:e("core/editor").getBlocks()}})(function(e){var t=e.blocks,n=e.children;return Object(O.filter)(t,function(e){return"core/heading"===e.name}).length<1?null:n});var ma=Object(Ir.compose)([Object(l.withSelect)(function(e,t){var n=e("core/editor"),r=n.getBlocksByClientId,o=n.getBlockIndex,c=n.getTemplateLock,a=n.getBlockRootClientId,s=r(t.clientIds),l=Object(O.every)(s,function(e){return!!e&&Object(i.hasBlockSupport)(e.name,"multiple",!0)}),u=a(t.clientIds[0]);return{firstSelectedIndex:o(Object(O.first)(Object(O.castArray)(t.clientIds)),u),lastSelectedIndex:o(Object(O.last)(Object(O.castArray)(t.clientIds)),u),isLocked:!!c(u),blocks:s,canDuplicate:l,rootClientId:u,extraProps:t}}),Object(l.withDispatch)(function(e,t){var n=t.clientIds,r=t.rootClientId,o=t.blocks,c=t.firstSelectedIndex,a=t.lastSelectedIndex,s=t.isLocked,l=t.canDuplicate,u=e("core/editor"),d=u.insertBlocks,p=u.multiSelect,b=u.removeBlocks,f=u.insertDefaultBlock;return{onDuplicate:function(){if(!s&&l){var e=o.map(function(e){return Object(i.cloneBlock)(e)});d(e,a+1,r),e.length>1&&p(Object(O.first)(e).clientId,Object(O.last)(e).clientId)}},onRemove:function(){s||b(n)},onInsertBefore:function(){s||f({},r,c)},onInsertAfter:function(){s||f({},r,a+1)}}})])(function(e){var t=e.onDuplicate,n=e.onRemove,r=e.onInsertBefore,o=e.onInsertAfter,i=e.isLocked,c=e.canDuplicate;return(0,e.children)({onDuplicate:t,onRemove:n,onInsertAfter:o,onInsertBefore:r,isLocked:i,canDuplicate:c})}),va=function(e){return e.preventDefault(),e},Oa={duplicate:{raw:vo.rawShortcut.primaryShift("d"),display:vo.displayShortcut.primaryShift("d")},removeBlock:{raw:vo.rawShortcut.access("z"),display:vo.displayShortcut.access("z")},insertBefore:{raw:vo.rawShortcut.primaryAlt("t"),display:vo.displayShortcut.primaryAlt("t")},insertAfter:{raw:vo.rawShortcut.primaryAlt("y"),display:vo.displayShortcut.primaryAlt("y")}},ga=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).selectAll=e.selectAll.bind(Object(Dr.a)(Object(Dr.a)(e))),e.undoOrRedo=e.undoOrRedo.bind(Object(Dr.a)(Object(Dr.a)(e))),e.save=e.save.bind(Object(Dr.a)(Object(Dr.a)(e))),e.deleteSelectedBlocks=e.deleteSelectedBlocks.bind(Object(Dr.a)(Object(Dr.a)(e))),e.clearMultiSelection=e.clearMultiSelection.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"selectAll",value:function(e){var t=this.props,n=t.rootBlocksClientIds,r=t.onMultiSelect;e.preventDefault(),r(Object(O.first)(n),Object(O.last)(n))}},{key:"undoOrRedo",value:function(e){var t=this.props,n=t.onRedo,r=t.onUndo;e.shiftKey?n():r(),e.preventDefault()}},{key:"save",value:function(e){e.preventDefault(),this.props.onSave()}},{key:"deleteSelectedBlocks",value:function(e){var t=this.props,n=t.selectedBlockClientIds,r=t.hasMultiSelection,o=t.onRemove,i=t.isLocked;r&&(e.preventDefault(),i||o(n))}},{key:"clearMultiSelection",value:function(){var e=this.props,t=e.hasMultiSelection,n=e.clearSelectedBlock;t&&(n(),window.getSelection().removeAllRanges())}},{key:"render",value:function(){var e,t=this.props.selectedBlockClientIds;return Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)(Fr.KeyboardShortcuts,{shortcuts:(e={},Object(f.a)(e,vo.rawShortcut.primary("a"),this.selectAll),Object(f.a)(e,vo.rawShortcut.primary("z"),this.undoOrRedo),Object(f.a)(e,vo.rawShortcut.primaryShift("z"),this.undoOrRedo),Object(f.a)(e,"backspace",this.deleteSelectedBlocks),Object(f.a)(e,"del",this.deleteSelectedBlocks),Object(f.a)(e,"escape",this.clearMultiSelection),e)}),Object(wr.createElement)(Fr.KeyboardShortcuts,{bindGlobal:!0,shortcuts:Object(f.a)({},vo.rawShortcut.primary("s"),this.save)}),t.length>0&&Object(wr.createElement)(ma,{clientIds:t},function(e){var t,n=e.onDuplicate,r=e.onRemove,o=e.onInsertAfter,i=e.onInsertBefore;return Object(wr.createElement)(Fr.KeyboardShortcuts,{bindGlobal:!0,shortcuts:(t={},Object(f.a)(t,Oa.duplicate.raw,Object(O.flow)(va,n)),Object(f.a)(t,Oa.removeBlock.raw,Object(O.flow)(va,r)),Object(f.a)(t,Oa.insertBefore.raw,Object(O.flow)(va,i)),Object(f.a)(t,Oa.insertAfter.raw,Object(O.flow)(va,o)),t)})}))}}]),t}(wr.Component),ja=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getBlockOrder,r=t.getMultiSelectedBlockClientIds,o=t.hasMultiSelection,i=t.isEditedPostDirty,c=t.getBlockRootClientId,a=t.getTemplateLock,s=(0,t.getSelectedBlockClientId)(),l=s?[s]:r();return{rootBlocksClientIds:n(),hasMultiSelection:o(),isLocked:Object(O.some)(l,function(e){return!!a(c(e))}),isDirty:i(),selectedBlockClientIds:l}}),Object(l.withDispatch)(function(e,t){var n=e("core/editor"),r=n.clearSelectedBlock,o=n.multiSelect,i=n.redo,c=n.undo,a=n.removeBlocks,s=n.savePost;return{onSave:function(){t.isDirty&&s()},clearSelectedBlock:r,onMultiSelect:o,onRedo:i,onUndo:c,onRemove:a}})])(ga);var ya=Object(Ir.compose)([Object(l.withSelect)(function(e){return{hasRedo:e("core/editor").hasEditorRedo()}}),Object(l.withDispatch)(function(e){return{redo:e("core/editor").redo}})])(function(e){var t=e.hasRedo,n=e.redo;return Object(wr.createElement)(Fr.IconButton,{icon:"redo",label:Object(_.__)("Redo"),shortcut:vo.displayShortcut.primaryShift("z"),"aria-disabled":!t,onClick:t?n:void 0,className:"editor-history__redo"})});var ka=Object(Ir.compose)([Object(l.withSelect)(function(e){return{hasUndo:e("core/editor").hasEditorUndo()}}),Object(l.withDispatch)(function(e){return{undo:e("core/editor").undo}})])(function(e){var t=e.hasUndo,n=e.undo;return Object(wr.createElement)(Fr.IconButton,{icon:"undo",label:Object(_.__)("Undo"),shortcut:vo.displayShortcut.primary("z"),"aria-disabled":!t,onClick:t?n:void 0,className:"editor-history__undo"})});var _a=Object(Ir.compose)([Object(l.withSelect)(function(e){return{isValid:e("core/editor").isValidTemplate()}}),Object(l.withDispatch)(function(e){var t=e("core/editor"),n=t.setTemplateValidity;return{resetTemplateValidity:function(){return n(!0)},synchronizeTemplate:t.synchronizeTemplate}})])(function(e){var t=e.isValid,n=Object(p.a)(e,["isValid"]);return t?null:Object(wr.createElement)(Fr.Notice,{className:"editor-template-validation-notice",isDismissible:!1,status:"warning"},Object(wr.createElement)("p",null,Object(_.__)("The content of your post doesn’t match the template assigned to your post type.")),Object(wr.createElement)("div",null,Object(wr.createElement)(Fr.Button,{isDefault:!0,onClick:n.resetTemplateValidity},Object(_.__)("Keep it as is")),Object(wr.createElement)(Fr.Button,{onClick:function(){window.confirm(Object(_.__)("Resetting the template may result in loss of content, do you want to continue?"))&&n.synchronizeTemplate()},isPrimary:!0},Object(_.__)("Reset the template"))))});var Ea=Object(Ir.compose)([Object(l.withSelect)(function(e){return{notices:e("core/notices").getNotices()}}),Object(l.withDispatch)(function(e){return{onRemove:e("core/notices").removeNotice}})])(function(e){return Object(wr.createElement)(Fr.NoticeList,e,Object(wr.createElement)(_a,null))});var Sa=Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getEditedPostAttribute,r=t.getEditorSettings,o=e("core").getPostType,i=r().availableTemplates;return{postType:o(n("type")),availableTemplates:i}})(function(e){var t=e.availableTemplates,n=e.postType,r=e.children;return!Object(O.get)(n,["supports","page-attributes"],!1)&&Object(O.isEmpty)(t)?null:r});var Ca=Object(l.withSelect)(function(e){var t=e("core/editor").getEditedPostAttribute;return{postType:(0,e("core").getPostType)(t("type"))}})(function(e){var t=e.postType,n=e.children,r=e.supportKeys,o=!0;return t&&(o=Object(O.some)(Object(O.castArray)(r),function(e){return!!t.supports[e]})),o?n:null}),wa=Object(Ir.withState)({orderInput:null})(function(e){var t=e.onUpdateOrder,n=e.order,r=void 0===n?0:n,o=e.orderInput,i=e.setState,c=null===o?r:o;return Object(wr.createElement)(Fr.TextControl,{className:"editor-page-attributes__order",type:"number",label:Object(_.__)("Order"),value:c,onChange:function(e){i({orderInput:e});var n=Number(e);Number.isInteger(n)&&""!==Object(O.invoke)(e,["trim"])&&t(Number(e))},size:6,onBlur:function(){i({orderInput:null})}})});var Ta=Object(Ir.compose)([Object(l.withSelect)(function(e){return{order:e("core/editor").getEditedPostAttribute("menu_order")}}),Object(l.withDispatch)(function(e){return{onUpdateOrder:function(t){e("core/editor").editPost({menu_order:t})}}})])(function(e){return Object(wr.createElement)(Ca,{supportKeys:"page-attributes"},Object(wr.createElement)(wa,e))});function Pa(e){var t=Object(O.groupBy)(e,"parent");return function e(n){return n.map(function(n){var r=t[n.id];return Object(d.a)({},n,{children:r&&r.length?e(r):[]})})}(t[0]||[])}var Ia=Object(l.withSelect)(function(e){var t=e("core"),n=t.getPostType,r=t.getEntityRecords,o=e("core/editor"),i=o.getCurrentPostId,c=o.getEditedPostAttribute,a=c("type"),s=n(a),l=i(),u=Object(O.get)(s,["hierarchical"],!1),d={per_page:-1,exclude:l,parent_exclude:l,orderby:"menu_order",order:"asc"};return{parent:c("parent"),items:u?r("postType",a,d):[],postType:s}}),Ba=Object(l.withDispatch)(function(e){var t=e("core/editor").editPost;return{onUpdateParent:function(e){t({parent:e||0})}}}),xa=Object(Ir.compose)([Ia,Ba])(function(e){var t=e.parent,n=e.postType,r=e.items,o=e.onUpdateParent,i=Object(O.get)(n,["hierarchical"],!1),c=Object(O.get)(n,["labels","parent_item_colon"]),a=r||[];if(!i||!c||!a.length)return null;var s=Pa(a.map(function(e){return{id:e.id,parent:e.parent,name:e.title.raw?e.title.raw:"#".concat(e.id," (").concat(Object(_.__)("no title"),")")}}));return Object(wr.createElement)(Fr.TreeSelect,{label:c,noOptionLabel:"(".concat(Object(_.__)("no parent"),")"),tree:s,selectedId:t,onChange:o})});var La=Object(Ir.compose)(Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getEditedPostAttribute,r=(0,t.getEditorSettings)().availableTemplates;return{selectedTemplate:n("template"),availableTemplates:r}}),Object(l.withDispatch)(function(e){return{onUpdate:function(t){e("core/editor").editPost({template:t||""})}}}))(function(e){var t=e.availableTemplates,n=e.selectedTemplate,r=e.onUpdate;return Object(O.isEmpty)(t)?null:Object(wr.createElement)(Fr.SelectControl,{label:Object(_.__)("Template:"),value:n,onChange:r,className:"editor-page-attributes__template",options:Object(O.map)(t,function(e,t){return{value:t,label:e}})})});var Aa=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor").getCurrentPost();return{hasAssignAuthorAction:Object(O.get)(t,["_links","wp:action-assign-author"],!1),postType:e("core/editor").getCurrentPostType(),authors:e("core").getAuthors()}}),Ir.withInstanceId])(function(e){var t=e.hasAssignAuthorAction,n=e.authors,r=e.children;return!t||n.length<2?null:Object(wr.createElement)(Ca,{supportKeys:"author"},r)}),Na=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).setAuthorId=e.setAuthorId.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"setAuthorId",value:function(e){var t=this.props.onUpdateAuthor,n=e.target.value;t(Number(n))}},{key:"render",value:function(){var e=this.props,t=e.postAuthor,n=e.instanceId,r=e.authors,o="post-author-selector-"+n;return Object(wr.createElement)(Aa,null,Object(wr.createElement)("label",{htmlFor:o},Object(_.__)("Author")),Object(wr.createElement)("select",{id:o,value:t,onChange:this.setAuthorId,className:"editor-post-author__select"},r.map(function(e){return Object(wr.createElement)("option",{key:e.id,value:e.id},e.name)})))}}]),t}(wr.Component),Ra=Object(Ir.compose)([Object(l.withSelect)(function(e){return{postAuthor:e("core/editor").getEditedPostAttribute("author"),authors:e("core").getAuthors()}}),Object(l.withDispatch)(function(e){return{onUpdateAuthor:function(t){e("core/editor").editPost({author:t})}}}),Ir.withInstanceId])(Na);var Da=Object(Ir.compose)([Object(l.withSelect)(function(e){return{commentStatus:e("core/editor").getEditedPostAttribute("comment_status")}}),Object(l.withDispatch)(function(e){return{editPost:e("core/editor").editPost}})])(function(e){var t=e.commentStatus,n=void 0===t?"open":t,r=Object(p.a)(e,["commentStatus"]);return Object(wr.createElement)(Fr.CheckboxControl,{label:Object(_.__)("Allow Comments"),checked:"open"===n,onChange:function(){return r.editPost({comment_status:"open"===n?"closed":"open"})}})});var Fa=Object(Ir.compose)([Object(l.withSelect)(function(e){return{excerpt:e("core/editor").getEditedPostAttribute("excerpt")}}),Object(l.withDispatch)(function(e){return{onUpdateExcerpt:function(t){e("core/editor").editPost({excerpt:t})}}})])(function(e){var t=e.excerpt,n=e.onUpdateExcerpt;return Object(wr.createElement)("div",{className:"editor-post-excerpt"},Object(wr.createElement)(Fr.TextareaControl,{label:Object(_.__)("Write an excerpt (optional)"),className:"editor-post-excerpt__textarea",onChange:function(e){return n(e)},value:t}),Object(wr.createElement)(Fr.ExternalLink,{href:"https://codex.wordpress.org/Excerpt"},Object(_.__)("Learn more about manual excerpts")))});var Ma=function(e){return Object(wr.createElement)(Ca,Object(Cr.a)({},e,{supportKeys:"excerpt"}))};var Ua=Object(l.withSelect)(function(e){var t=e("core").getThemeSupports;return{postType:(0,e("core/editor").getEditedPostAttribute)("type"),themeSupports:t()}})(function(e){var t=e.themeSupports,n=e.children,r=e.postType,o=e.supportKeys;return Object(O.some)(Object(O.castArray)(o),function(e){var n=Object(O.get)(t,[e],!1);return"post-thumbnails"===e&&Object(O.isArray)(n)?Object(O.includes)(n,r):n})?n:null});var Va=function(e){return Object(wr.createElement)(Ua,{supportKeys:"post-thumbnails"},Object(wr.createElement)(Ca,Object(Cr.a)({},e,{supportKeys:"thumbnail"})))},Ha=["image"],Ka=Object(_.__)("Featured Image"),za=Object(_.__)("Set featured image"),Wa=Object(_.__)("Remove image");var qa=Object(l.withSelect)(function(e){var t=e("core"),n=t.getMedia,r=t.getPostType,o=e("core/editor"),i=o.getCurrentPostId,c=o.getEditedPostAttribute,a=c("featured_media");return{media:a?n(a):null,currentPostId:i(),postType:r(c("type")),featuredImageId:a}}),Ga=Object(l.withDispatch)(function(e){var t=e("core/editor").editPost;return{onUpdateImage:function(e){t({featured_media:e.id})},onRemoveImage:function(){t({featured_media:0})}}}),$a=Object(Ir.compose)(qa,Ga,Object(Fr.withFilters)("editor.PostFeaturedImage"))(function(e){var t,n,r,o=e.currentPostId,i=e.featuredImageId,c=e.onUpdateImage,a=e.onRemoveImage,s=e.media,l=e.postType,u=Object(O.get)(l,["labels"],{}),d=Object(wr.createElement)("p",null,Object(_.__)("To edit the featured image, you need permission to upload media."));if(s){var p=Object(Br.applyFilters)("editor.PostFeaturedImage.imageSize","post-thumbnail",s.id,o);Object(O.has)(s,["media_details","sizes",p])?(t=s.media_details.sizes[p].width,n=s.media_details.sizes[p].height,r=s.media_details.sizes[p].source_url):(t=s.media_details.width,n=s.media_details.height,r=s.source_url)}return Object(wr.createElement)(Va,null,Object(wr.createElement)("div",{className:"editor-post-featured-image"},!!i&&Object(wr.createElement)(Go,{fallback:d},Object(wr.createElement)(zc,{title:u.featured_image||Ka,onSelect:c,allowedTypes:Ha,modalClass:"editor-post-featured-image__media-modal",render:function(e){var o=e.open;return Object(wr.createElement)(Fr.Button,{className:"editor-post-featured-image__preview",onClick:o,"aria-label":Object(_.__)("Edit or update the image")},s&&Object(wr.createElement)(Fr.ResponsiveWrapper,{naturalWidth:t,naturalHeight:n},Object(wr.createElement)("img",{src:r,alt:""})),!s&&Object(wr.createElement)(Fr.Spinner,null))},value:i})),!!i&&s&&!s.isLoading&&Object(wr.createElement)(Go,null,Object(wr.createElement)(zc,{title:u.featured_image||Ka,onSelect:c,allowedTypes:Ha,modalClass:"editor-post-featured-image__media-modal",render:function(e){var t=e.open;return Object(wr.createElement)(Fr.Button,{onClick:t,isDefault:!0,isLarge:!0},Object(_.__)("Replace image"))}})),!i&&Object(wr.createElement)("div",null,Object(wr.createElement)(Go,{fallback:d},Object(wr.createElement)(zc,{title:u.featured_image||Ka,onSelect:c,allowedTypes:Ha,modalClass:"editor-post-featured-image__media-modal",render:function(e){var t=e.open;return Object(wr.createElement)(Fr.Button,{className:"editor-post-featured-image__toggle",onClick:t},u.set_featured_image||za)}}))),!!i&&Object(wr.createElement)(Go,null,Object(wr.createElement)(Fr.Button,{onClick:a,isLink:!0,isDestructive:!0},u.remove_featured_image||Wa))))});var Ya=Object(l.withSelect)(function(e){return{disablePostFormats:e("core/editor").getEditorSettings().disablePostFormats}})(function(e){var t=e.disablePostFormats,n=Object(p.a)(e,["disablePostFormats"]);return!t&&Object(wr.createElement)(Ca,Object(Cr.a)({},n,{supportKeys:"post-formats"}))}),Qa=[{id:"aside",caption:Object(_.__)("Aside")},{id:"gallery",caption:Object(_.__)("Gallery")},{id:"link",caption:Object(_.__)("Link")},{id:"image",caption:Object(_.__)("Image")},{id:"quote",caption:Object(_.__)("Quote")},{id:"standard",caption:Object(_.__)("Standard")},{id:"status",caption:Object(_.__)("Status")},{id:"video",caption:Object(_.__)("Video")},{id:"audio",caption:Object(_.__)("Audio")},{id:"chat",caption:Object(_.__)("Chat")}];var Xa=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getEditedPostAttribute,r=t.getSuggestedPostFormat,o=n("format"),i=e("core").getThemeSupports();return{postFormat:o,supportedFormats:Object(O.union)([o],Object(O.get)(i,["formats"],[])),suggestedFormat:r()}}),Object(l.withDispatch)(function(e){return{onUpdatePostFormat:function(t){e("core/editor").editPost({format:t})}}}),Ir.withInstanceId])(function(e){var t=e.onUpdatePostFormat,n=e.postFormat,r=void 0===n?"standard":n,o=e.supportedFormats,i=e.suggestedFormat,c="post-format-selector-"+e.instanceId,a=Qa.filter(function(e){return Object(O.includes)(o,e.id)}),s=Object(O.find)(a,function(e){return e.id===i});return Object(wr.createElement)(Ya,null,Object(wr.createElement)("div",{className:"editor-post-format"},Object(wr.createElement)("div",{className:"editor-post-format__content"},Object(wr.createElement)("label",{htmlFor:c},Object(_.__)("Post Format")),Object(wr.createElement)(Fr.SelectControl,{value:r,onChange:function(e){return t(e)},id:c,options:a.map(function(e){return{label:e.caption,value:e.id}})})),s&&s.id!==r&&Object(wr.createElement)("div",{className:"editor-post-format__suggestion"},Object(_.__)("Suggestion:")," ",Object(wr.createElement)(Fr.Button,{isLink:!0,onClick:function(){return t(s.id)}},s.caption))))});var Za=Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getCurrentPostLastRevisionId,r=t.getCurrentPostRevisionsCount;return{lastRevisionId:n(),revisionsCount:r()}})(function(e){var t=e.lastRevisionId,n=e.revisionsCount,r=e.children;return!t||n<2?null:Object(wr.createElement)(Ca,{supportKeys:"revisions"},r)});var Ja=Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getCurrentPostLastRevisionId,r=t.getCurrentPostRevisionsCount;return{lastRevisionId:n(),revisionsCount:r()}})(function(e){var t=e.lastRevisionId,n=e.revisionsCount;return Object(wr.createElement)(Za,null,Object(wr.createElement)(Fr.IconButton,{href:Qc("revision.php",{revision:t,gutenberg:!0}),className:"editor-post-last-revision__title",icon:"backup"},Object(_.sprintf)(Object(_._n)("%d Revision","%d Revisions",n),n)))}),es=n(100),ts=n.n(es);var ns=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).openPreviewWindow=e.openPreviewWindow.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidUpdate",value:function(e){var t=this.props.previewLink;t&&!e.previewLink&&this.setPreviewWindowLink(t)}},{key:"setPreviewWindowLink",value:function(e){var t=this.previewWindow;t&&!t.closed&&(t.location=e)}},{key:"getWindowTarget",value:function(){var e=this.props.postId;return"wp-preview-".concat(e)}},{key:"openPreviewWindow",value:function(e){e.preventDefault(),this.previewWindow&&!this.previewWindow.closed||(this.previewWindow=window.open("",this.getWindowTarget())),this.previewWindow.focus(),this.props.isAutosaveable?(this.props.isDraft?this.props.savePost({isPreview:!0}):this.props.autosave({isPreview:!0}),function(e){var t=Object(wr.renderToString)(Object(wr.createElement)("div",{className:"editor-post-preview-button__interstitial-message"},Object(wr.createElement)(Fr.SVG,{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 96 96"},Object(wr.createElement)(Fr.Path,{className:"outer",d:"M48 12c19.9 0 36 16.1 36 36S67.9 84 48 84 12 67.9 12 48s16.1-36 36-36",fill:"none"}),Object(wr.createElement)(Fr.Path,{className:"inner",d:"M69.5 46.4c0-3.9-1.4-6.7-2.6-8.8-1.6-2.6-3.1-4.9-3.1-7.5 0-2.9 2.2-5.7 5.4-5.7h.4C63.9 19.2 56.4 16 48 16c-11.2 0-21 5.7-26.7 14.4h2.1c3.3 0 8.5-.4 8.5-.4 1.7-.1 1.9 2.4.2 2.6 0 0-1.7.2-3.7.3L40 67.5l7-20.9L42 33c-1.7-.1-3.3-.3-3.3-.3-1.7-.1-1.5-2.7.2-2.6 0 0 5.3.4 8.4.4 3.3 0 8.5-.4 8.5-.4 1.7-.1 1.9 2.4.2 2.6 0 0-1.7.2-3.7.3l11.5 34.3 3.3-10.4c1.6-4.5 2.4-7.8 2.4-10.5zM16.1 48c0 12.6 7.3 23.5 18 28.7L18.8 35c-1.7 4-2.7 8.4-2.7 13zm32.5 2.8L39 78.6c2.9.8 5.9 1.3 9 1.3 3.7 0 7.3-.6 10.6-1.8-.1-.1-.2-.3-.2-.4l-9.8-26.9zM76.2 36c0 3.2-.6 6.9-2.4 11.4L64 75.6c9.5-5.5 15.9-15.8 15.9-27.6 0-5.5-1.4-10.8-3.9-15.3.1 1 .2 2.1.2 3.3z",fill:"none"})),Object(wr.createElement)("p",null,Object(_.__)("Generating preview…"))));t+='\n\t\t<style>\n\t\t\tbody {\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t\t.editor-post-preview-button__interstitial-message {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\theight: 100vh;\n\t\t\t\twidth: 100vw;\n\t\t\t}\n\t\t\t@-webkit-keyframes paint {\n\t\t\t\t0% {\n\t\t\t\t\tstroke-dashoffset: 0;\n\t\t\t\t}\n\t\t\t}\n\t\t\t@-moz-keyframes paint {\n\t\t\t\t0% {\n\t\t\t\t\tstroke-dashoffset: 0;\n\t\t\t\t}\n\t\t\t}\n\t\t\t@-o-keyframes paint {\n\t\t\t\t0% {\n\t\t\t\t\tstroke-dashoffset: 0;\n\t\t\t\t}\n\t\t\t}\n\t\t\t@keyframes paint {\n\t\t\t\t0% {\n\t\t\t\t\tstroke-dashoffset: 0;\n\t\t\t\t}\n\t\t\t}\n\t\t\t.editor-post-preview-button__interstitial-message svg {\n\t\t\t\twidth: 192px;\n\t\t\t\theight: 192px;\n\t\t\t\tstroke: #555d66;\n\t\t\t\tstroke-width: 0.75;\n\t\t\t}\n\t\t\t.editor-post-preview-button__interstitial-message svg .outer,\n\t\t\t.editor-post-preview-button__interstitial-message svg .inner {\n\t\t\t\tstroke-dasharray: 280;\n\t\t\t\tstroke-dashoffset: 280;\n\t\t\t\t-webkit-animation: paint 1.5s ease infinite alternate;\n\t\t\t\t-moz-animation: paint 1.5s ease infinite alternate;\n\t\t\t\t-o-animation: paint 1.5s ease infinite alternate;\n\t\t\t\tanimation: paint 1.5s ease infinite alternate;\n\t\t\t}\n\t\t\tp {\n\t\t\t\ttext-align: center;\n\t\t\t\tfont-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;\n\t\t\t}\n\t\t</style>\n\t',e.write(t),e.close()}(this.previewWindow.document)):this.setPreviewWindowLink(e.target.href)}},{key:"render",value:function(){var e=this.props,t=e.previewLink,n=e.currentPostLink,r=e.isSaveable,o=t||n;return Object(wr.createElement)(Fr.Button,{isLarge:!0,className:"editor-post-preview",href:o,target:this.getWindowTarget(),disabled:!r,onClick:this.openPreviewWindow},Object(_._x)("Preview","imperative verb"),Object(wr.createElement)("span",{className:"screen-reader-text"},Object(_.__)("(opens in a new tab)")),Object(wr.createElement)(c.DotTip,{tipId:"core/editor.preview"},Object(_.__)("Click “Preview” to load a preview of this page, so you can make sure you’re happy with your blocks.")))}}]),t}(wr.Component),rs=Object(Ir.compose)([Object(l.withSelect)(function(e,t){var n=t.forcePreviewLink,r=t.forceIsAutosaveable,o=e("core/editor"),i=o.getCurrentPostId,c=o.getCurrentPostAttribute,a=o.getEditedPostAttribute,s=o.isEditedPostSaveable,l=o.isEditedPostAutosaveable,u=o.getEditedPostPreviewLink,d=e("core").getPostType,p=u(),b=d(a("type"));return{postId:i(),currentPostLink:c("link"),previewLink:void 0!==n?n:p,isSaveable:s(),isAutosaveable:r||l(),isViewable:Object(O.get)(b,["viewable"],!1),isDraft:-1!==["draft","auto-draft"].indexOf(a("status"))}}),Object(l.withDispatch)(function(e){return{autosave:e("core/editor").autosave,savePost:e("core/editor").savePost}}),Object(Ir.ifCondition)(function(e){return e.isViewable})])(ns),os=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).sendPostLock=e.sendPostLock.bind(Object(Dr.a)(Object(Dr.a)(e))),e.receivePostLock=e.receivePostLock.bind(Object(Dr.a)(Object(Dr.a)(e))),e.releasePostLock=e.releasePostLock.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){ts()(document).on("heartbeat-send.refresh-lock",this.sendPostLock).on("heartbeat-tick.refresh-lock",this.receivePostLock)}},{key:"componentWillUnmount",value:function(){ts()(document).off("heartbeat-send.refresh-lock",this.sendPostLock).off("heartbeat-tick.refresh-lock",this.receivePostLock)}},{key:"sendPostLock",value:function(e,t){var n=this.props,r=n.isLocked,o=n.activePostLock,i=n.postId;r||(t["wp-refresh-post-lock"]={lock:o,post_id:i})}},{key:"receivePostLock",value:function(e,t){if(t["wp-refresh-post-lock"]){var n=this.props,r=n.autosave,o=n.updatePostLock,i=t["wp-refresh-post-lock"];i.lock_error?(r(),o({isLocked:!0,isTakeover:!0,user:{avatar:i.lock_error.avatar_src}})):i.new_lock&&o({isLocked:!1,activePostLock:i.new_lock})}}},{key:"releasePostLock",value:function(){var e=this.props,t=e.isLocked,n=e.activePostLock,r=e.postLockUtils,o=e.postId;if(!t&&n){var i={action:"wp-remove-post-lock",_wpnonce:r.unlockNonce,post_ID:o,active_post_lock:n};ts.a.post({async:!1,url:r.ajaxUrl,data:i})}}},{key:"render",value:function(){var e=this.props,t=e.user,n=e.postId,r=e.isLocked,o=e.isTakeover,i=e.postLockUtils,c=e.postType;if(!r)return null;var a=t.name,s=t.avatar,l=Object(g.addQueryArgs)("post.php",{"get-post-lock":"1",lockKey:!0,post:n,action:"edit",_wpnonce:i.nonce}),u=Qc("edit.php",{post_type:Object(O.get)(c,["slug"])}),d=Object(O.get)(c,["labels","all_items"]);return Object(wr.createElement)(Fr.Modal,{title:o?Object(_.__)("Someone else has taken over this post."):Object(_.__)("This post is already being edited."),focusOnMount:!0,shouldCloseOnClickOutside:!1,shouldCloseOnEsc:!1,isDismissable:!1,className:"editor-post-locked-modal"},!!s&&Object(wr.createElement)("img",{src:s,alt:Object(_.__)("Avatar"),className:"editor-post-locked-modal__avatar"}),!!o&&Object(wr.createElement)("div",null,Object(wr.createElement)("div",null,a?Object(_.sprintf)(Object(_.__)("%s now has editing control of this post. Don’t worry, your changes up to this moment have been saved."),a):Object(_.__)("Another user now has editing control of this post. Don’t worry, your changes up to this moment have been saved.")),Object(wr.createElement)("div",{className:"editor-post-locked-modal__buttons"},Object(wr.createElement)(Fr.Button,{isPrimary:!0,isLarge:!0,href:u},d))),!o&&Object(wr.createElement)("div",null,Object(wr.createElement)("div",null,a?Object(_.sprintf)(Object(_.__)("%s is currently working on this post, which means you cannot make changes, unless you take over."),a):Object(_.__)("Another user is currently working on this post, which means you cannot make changes, unless you take over.")),Object(wr.createElement)("div",{className:"editor-post-locked-modal__buttons"},Object(wr.createElement)(Fr.Button,{isDefault:!0,isLarge:!0,href:u},d),Object(wr.createElement)(rs,null),Object(wr.createElement)(Fr.Button,{isPrimary:!0,isLarge:!0,href:l},Object(_.__)("Take Over")))))}}]),t}(wr.Component),is=Object(Ir.compose)(Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getEditorSettings,r=t.isPostLocked,o=t.isPostLockTakeover,i=t.getPostLockUser,c=t.getCurrentPostId,a=t.getActivePostLock,s=t.getEditedPostAttribute,l=e("core").getPostType;return{isLocked:r(),isTakeover:o(),user:i(),postId:c(),postLockUtils:n().postLockUtils,activePostLock:a(),postType:l(s("type"))}}),Object(l.withDispatch)(function(e){var t=e("core/editor");return{autosave:t.autosave,updatePostLock:t.updatePostLock}}),Object(Ir.withGlobalEvents)({beforeunload:"releasePostLock"}))(os);var cs=Object(Ir.compose)(Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.isCurrentPostPublished,r=t.getCurrentPostType,o=t.getCurrentPost;return{hasPublishAction:Object(O.get)(o(),["_links","wp:action-publish"],!1),isPublished:n(),postType:r()}}))(function(e){var t=e.hasPublishAction,n=e.isPublished,r=e.children;return n||!t?null:r});var as=Object(Ir.compose)(Object(l.withSelect)(function(e){return{status:e("core/editor").getEditedPostAttribute("status")}}),Object(l.withDispatch)(function(e){return{onUpdateStatus:function(t){e("core/editor").editPost({status:t})}}}))(function(e){var t=e.status,n=e.onUpdateStatus;return Object(wr.createElement)(cs,null,Object(wr.createElement)(Fr.CheckboxControl,{label:Object(_.__)("Pending Review"),checked:"pending"===t,onChange:function(){n("pending"===t?"draft":"pending")}}))});var ss=Object(Ir.compose)([Object(l.withSelect)(function(e){return{pingStatus:e("core/editor").getEditedPostAttribute("ping_status")}}),Object(l.withDispatch)(function(e){return{editPost:e("core/editor").editPost}})])(function(e){var t=e.pingStatus,n=void 0===t?"open":t,r=Object(p.a)(e,["pingStatus"]);return Object(wr.createElement)(Fr.CheckboxControl,{label:Object(_.__)("Allow Pingbacks & Trackbacks"),checked:"open"===n,onChange:function(){return r.editPost({ping_status:"open"===n?"closed":"open"})}})});var ls=Object(Ir.compose)([Object(l.withSelect)(function(e,t){var n=t.forceIsSaving,r=e("core/editor"),o=r.isCurrentPostPublished,i=r.isEditedPostBeingScheduled,c=r.isSavingPost,a=r.isPublishingPost,s=r.getCurrentPost,l=r.getCurrentPostType,u=r.isAutosavingPost;return{isPublished:o(),isBeingScheduled:i(),isSaving:n||c(),isPublishing:a(),hasPublishAction:Object(O.get)(s(),["_links","wp:action-publish"],!1),postType:l(),isAutosaving:u()}})])(function(e){var t=e.isPublished,n=e.isBeingScheduled,r=e.isSaving,o=e.isPublishing,i=e.hasPublishAction,c=e.isAutosaving;return o?Object(_.__)("Publishing…"):t&&r&&!c?Object(_.__)("Updating…"):n&&r&&!c?Object(_.__)("Scheduling…"):i?t?Object(_.__)("Update"):n?Object(_.__)("Schedule"):Object(_.__)("Publish"):Object(_.__)("Submit for Review")}),us=function(e){function t(e){var n;return Object(xr.a)(this,t),(n=Object(Ar.a)(this,Object(Nr.a)(t).call(this,e))).buttonNode=Object(wr.createRef)(),n}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){this.props.focusOnMount&&this.buttonNode.current.focus()}},{key:"render",value:function(){var e,t=this.props,n=t.forceIsDirty,r=t.forceIsSaving,o=t.hasPublishAction,i=t.isBeingScheduled,a=t.isOpen,s=t.isPostSavingLocked,l=t.isPublishable,u=t.isPublished,d=t.isSaveable,p=t.isSaving,b=t.isToggle,f=t.onSave,h=t.onStatusChange,m=t.onSubmit,v=void 0===m?O.noop:m,g=t.onToggle,j=t.visibility;e=o?i?"future":"private"===j?"private":"publish":"pending";var y={"aria-disabled":p||r||!d||s||!l&&!n,className:"editor-post-publish-button",isBusy:p&&u,isLarge:!0,isPrimary:!0,onClick:function(){v(),h(e),f()}},k={"aria-disabled":u||p||r||!d||!l&&!n,"aria-expanded":a,className:"editor-post-publish-panel__toggle",isBusy:p&&u,isPrimary:!0,onClick:g},E=i?Object(_.__)("Schedule…"):Object(_.__)("Publish…"),S=Object(wr.createElement)(ls,{forceIsSaving:r}),C=b?k:y,w=b?E:S;return Object(wr.createElement)(Fr.Button,Object(Cr.a)({ref:this.buttonNode},C),w,Object(wr.createElement)(c.DotTip,{tipId:"core/editor.publish"},Object(_.__)("Finished writing? That’s great, let’s get this published right now. Just click “Publish” and you’re good to go.")))}}]),t}(wr.Component),ds=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.isSavingPost,r=t.isEditedPostBeingScheduled,o=t.getEditedPostVisibility,i=t.isCurrentPostPublished,c=t.isEditedPostSaveable,a=t.isEditedPostPublishable,s=t.isPostSavingLocked,l=t.getCurrentPost,u=t.getCurrentPostType;return{isSaving:n(),isBeingScheduled:r(),visibility:o(),isSaveable:c(),isPostSavingLocked:s(),isPublishable:a(),isPublished:i(),hasPublishAction:Object(O.get)(l(),["_links","wp:action-publish"],!1),postType:u()}}),Object(l.withDispatch)(function(e){var t=e("core/editor"),n=t.editPost;return{onStatusChange:function(e){return n({status:e})},onSave:t.savePost}})])(us),ps=[{value:"public",label:Object(_.__)("Public"),info:Object(_.__)("Visible to everyone.")},{value:"private",label:Object(_.__)("Private"),info:Object(_.__)("Only visible to site admins and editors.")},{value:"password",label:Object(_.__)("Password Protected"),info:Object(_.__)("Protected with a password you choose. Only those with the password can view this post.")}],bs=function(e){function t(e){var n;return Object(xr.a)(this,t),(n=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).setPublic=n.setPublic.bind(Object(Dr.a)(Object(Dr.a)(n))),n.setPrivate=n.setPrivate.bind(Object(Dr.a)(Object(Dr.a)(n))),n.setPasswordProtected=n.setPasswordProtected.bind(Object(Dr.a)(Object(Dr.a)(n))),n.updatePassword=n.updatePassword.bind(Object(Dr.a)(Object(Dr.a)(n))),n.state={hasPassword:!!e.password},n}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"setPublic",value:function(){var e=this.props,t=e.visibility,n=e.onUpdateVisibility,r=e.status;n("private"===t?"draft":r),this.setState({hasPassword:!1})}},{key:"setPrivate",value:function(){if(window.confirm(Object(_.__)("Would you like to privately publish this post now?"))){var e=this.props,t=e.onUpdateVisibility,n=e.onSave;t("private"),this.setState({hasPassword:!1}),n()}}},{key:"setPasswordProtected",value:function(){var e=this.props,t=e.visibility,n=e.onUpdateVisibility,r=e.status,o=e.password;n("private"===t?"draft":r,o||""),this.setState({hasPassword:!0})}},{key:"updatePassword",value:function(e){var t=this.props,n=t.status;(0,t.onUpdateVisibility)(n,e.target.value)}},{key:"render",value:function(){var e=this.props,t=e.visibility,n=e.password,r=e.instanceId,o={public:{onSelect:this.setPublic,checked:"public"===t&&!this.state.hasPassword},private:{onSelect:this.setPrivate,checked:"private"===t},password:{onSelect:this.setPasswordProtected,checked:this.state.hasPassword}};return[Object(wr.createElement)("fieldset",{key:"visibility-selector",className:"editor-post-visibility__dialog-fieldset"},Object(wr.createElement)("legend",{className:"editor-post-visibility__dialog-legend"},Object(_.__)("Post Visibility")),ps.map(function(e){var t=e.value,n=e.label,i=e.info;return Object(wr.createElement)("div",{key:t,className:"editor-post-visibility__choice"},Object(wr.createElement)("input",{type:"radio",name:"editor-post-visibility__setting-".concat(r),value:t,onChange:o[t].onSelect,checked:o[t].checked,id:"editor-post-".concat(t,"-").concat(r),"aria-describedby":"editor-post-".concat(t,"-").concat(r,"-description"),className:"editor-post-visibility__dialog-radio"}),Object(wr.createElement)("label",{htmlFor:"editor-post-".concat(t,"-").concat(r),className:"editor-post-visibility__dialog-label"},n),Object(wr.createElement)("p",{id:"editor-post-".concat(t,"-").concat(r,"-description"),className:"editor-post-visibility__dialog-info"},i))})),this.state.hasPassword&&Object(wr.createElement)("div",{className:"editor-post-visibility__dialog-password",key:"password-selector"},Object(wr.createElement)("label",{htmlFor:"editor-post-visibility__dialog-password-input-".concat(r),className:"screen-reader-text"},Object(_.__)("Create password")),Object(wr.createElement)("input",{className:"editor-post-visibility__dialog-password-input",id:"editor-post-visibility__dialog-password-input-".concat(r),type:"text",onChange:this.updatePassword,value:n,placeholder:Object(_.__)("Use a secure password")}))]}}]),t}(wr.Component),fs=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getEditedPostAttribute,r=t.getEditedPostVisibility;return{status:n("status"),visibility:r(),password:n("password")}}),Object(l.withDispatch)(function(e){var t=e("core/editor"),n=t.savePost,r=t.editPost;return{onSave:n,onUpdateVisibility:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;r({status:e,password:t})}}}),Ir.withInstanceId])(bs);var hs=Object(l.withSelect)(function(e){return{visibility:e("core/editor").getEditedPostVisibility()}})(function(e){var t=e.visibility;return Object(O.find)(ps,{value:t}).label});var ms=Object(Ir.compose)([Object(l.withSelect)(function(e){return{date:e("core/editor").getEditedPostAttribute("date")}}),Object(l.withDispatch)(function(e){return{onUpdateDate:function(t){e("core/editor").editPost({date:t})}}})])(function(e){var t=e.date,n=e.onUpdateDate,r=Object(Qe.__experimentalGetSettings)(),o=/a(?!\\)/i.test(r.formats.time.toLowerCase().replace(/\\\\/g,"").split("").reverse().join(""));return Object(wr.createElement)(Fr.DateTimePicker,{key:"date-time-picker",currentDate:t,onChange:n,is12Hour:o})});var vs=Object(l.withSelect)(function(e){return{date:e("core/editor").getEditedPostAttribute("date"),isFloating:e("core/editor").isEditedPostDateFloating()}})(function(e){var t=e.date,n=e.isFloating,r=Object(Qe.__experimentalGetSettings)();return t&&!n?Object(Qe.dateI18n)(r.formats.datetimeAbbreviated,t):Object(_.__)("Immediately")}),Os={per_page:-1,orderby:"count",order:"desc",_fields:"id,name"},gs=function(e,t){return e.toLowerCase()===t.toLowerCase()},js=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).onChange=e.onChange.bind(Object(Dr.a)(Object(Dr.a)(e))),e.searchTerms=Object(O.throttle)(e.searchTerms.bind(Object(Dr.a)(Object(Dr.a)(e))),500),e.findOrCreateTerm=e.findOrCreateTerm.bind(Object(Dr.a)(Object(Dr.a)(e))),e.state={loading:!1,availableTerms:[],selectedTerms:[]},e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){var e=this;Object(O.isEmpty)(this.props.terms)||(this.setState({loading:!1}),this.initRequest=this.fetchTerms({include:this.props.terms.join(","),per_page:-1}),this.initRequest.then(function(){e.setState({loading:!1})},function(t){"abort"!==t.statusText&&e.setState({loading:!1})}))}},{key:"componentWillUnmount",value:function(){Object(O.invoke)(this.initRequest,["abort"]),Object(O.invoke)(this.searchRequest,["abort"])}},{key:"componentDidUpdate",value:function(e){e.terms!==this.props.terms&&this.updateSelectedTerms(this.props.terms)}},{key:"fetchTerms",value:function(){var e=this,t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},n=this.props.taxonomy,r=Object(d.a)({},Os,t),o=br()({path:Object(g.addQueryArgs)("/wp/v2/".concat(n.rest_base),r)});return o.then(function(t){e.setState(function(e){return{availableTerms:e.availableTerms.concat(t.filter(function(t){return!Object(O.find)(e.availableTerms,function(e){return e.id===t.id})}))}}),e.updateSelectedTerms(e.props.terms)}),o}},{key:"updateSelectedTerms",value:function(){var e=this,t=(arguments.length>0&&void 0!==arguments[0]?arguments[0]:[]).reduce(function(t,n){var r=Object(O.find)(e.state.availableTerms,function(e){return e.id===n});return r&&t.push(r.name),t},[]);this.setState({selectedTerms:t})}},{key:"findOrCreateTerm",value:function(e){var t=this,n=this.props.taxonomy;return br()({path:"/wp/v2/".concat(n.rest_base),method:"POST",data:{name:e}}).catch(function(r){return"term_exists"===r.code?(t.addRequest=br()({path:Object(g.addQueryArgs)("/wp/v2/".concat(n.rest_base),Object(d.a)({},Os,{search:e}))}),t.addRequest.then(function(t){return Object(O.find)(t,function(t){return gs(t.name,e)})})):Promise.reject(r)})}},{key:"onChange",value:function(e){var t=this,n=Object(O.uniqBy)(e,function(e){return e.toLowerCase()});this.setState({selectedTerms:n});var r=n.filter(function(e){return!Object(O.find)(t.state.availableTerms,function(t){return gs(t.name,e)})}),o=function(e,t){return e.map(function(e){return Object(O.find)(t,function(t){return gs(t.name,e)}).id})};if(0===r.length)return this.props.onUpdateTerms(o(n,this.state.availableTerms),this.props.taxonomy.rest_base);Promise.all(r.map(this.findOrCreateTerm)).then(function(e){var r=t.state.availableTerms.concat(e);return t.setState({availableTerms:r}),t.props.onUpdateTerms(o(n,r),t.props.taxonomy.rest_base)})}},{key:"searchTerms",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"";Object(O.invoke)(this.searchRequest,["abort"]),this.searchRequest=this.fetchTerms({search:e})}},{key:"render",value:function(){var e=this.props,t=e.slug,n=e.taxonomy;if(!e.hasAssignAction)return null;var r=this.state,o=r.loading,i=r.availableTerms,c=r.selectedTerms,a=i.map(function(e){return e.name}),s=Object(O.get)(n,["labels","add_new_item"],"post_tag"===t?Object(_.__)("Add New Tag"):Object(_.__)("Add New Term")),l=Object(O.get)(n,["labels","singular_name"],"post_tag"===t?Object(_.__)("Tag"):Object(_.__)("Term")),u=Object(_.sprintf)(Object(_._x)("%s added","term"),l),d=Object(_.sprintf)(Object(_._x)("%s removed","term"),l),p=Object(_.sprintf)(Object(_._x)("Remove %s","term"),l);return Object(wr.createElement)(Fr.FormTokenField,{value:c,displayTransform:O.unescape,suggestions:a,onChange:this.onChange,onInputChange:this.searchTerms,maxSuggestions:20,disabled:o,label:s,messages:{added:u,removed:d,remove:p}})}}]),t}(wr.Component),ys=Object(Ir.compose)(Object(l.withSelect)(function(e,t){var n=t.slug,r=e("core/editor").getCurrentPost,o=(0,e("core").getTaxonomy)(n);return{hasCreateAction:!!o&&Object(O.get)(r(),["_links","wp:action-create-"+o.rest_base],!1),hasAssignAction:!!o&&Object(O.get)(r(),["_links","wp:action-assign-"+o.rest_base],!1),terms:o?e("core/editor").getEditedPostAttribute(o.rest_base):[],taxonomy:o}}),Object(l.withDispatch)(function(e){return{onUpdateTerms:function(t,n){e("core/editor").editPost(Object(f.a)({},n,t))}}}),Object(Fr.withFilters)("editor.PostTaxonomyType"))(js),ks=function(){var e=[Object(_.__)("Suggestion:"),Object(wr.createElement)("span",{className:"editor-post-publish-panel__link",key:"label"},Object(_.__)("Add tags"))];return Object(wr.createElement)(Fr.PanelBody,{initialOpen:!1,title:e},Object(wr.createElement)("p",null,Object(_.__)("Tags help users and search engines navigate your site and find your content. Add a few keywords to describe your post.")),Object(wr.createElement)(ys,{slug:"post_tag"}))},_s=function(e){function t(e){var n;return Object(xr.a)(this,t),(n=Object(Ar.a)(this,Object(Nr.a)(t).call(this,e))).state={hadTagsWhenOpeningThePanel:e.hasTags},n}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"render",value:function(){return this.state.hadTagsWhenOpeningThePanel?null:Object(wr.createElement)(ks,null)}}]),t}(wr.Component),Es=Object(Ir.compose)(Object(l.withSelect)(function(e){var t=e("core/editor").getCurrentPostType(),n=e("core").getTaxonomy("post_tag"),r=n&&e("core/editor").getEditedPostAttribute(n.rest_base);return{areTagsFetched:void 0!==n,isPostTypeSupported:n&&Object(O.some)(n.types,function(e){return e===t}),hasTags:r&&r.length}}),Object(Ir.ifCondition)(function(e){var t=e.areTagsFetched;return e.isPostTypeSupported&&t}))(_s),Ss=function(e){var t=e.suggestedPostFormat,n=e.suggestionText,r=e.onUpdatePostFormat;return Object(wr.createElement)(Fr.Button,{isLink:!0,onClick:function(){return r(t)}},n)},Cs=Object(Ir.compose)(Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getEditedPostAttribute,r=t.getSuggestedPostFormat,o=Object(O.get)(e("core").getThemeSupports(),["formats"],[]);return{currentPostFormat:n("format"),suggestion:function(e,t){var n=Qa.filter(function(t){return Object(O.includes)(e,t.id)});return Object(O.find)(n,function(e){return e.id===t})}(o,r())}}),Object(l.withDispatch)(function(e){return{onUpdatePostFormat:function(t){e("core/editor").editPost({format:t})}}}),Object(Ir.ifCondition)(function(e){var t=e.suggestion,n=e.currentPostFormat;return t&&t.id!==n}))(function(e){var t=e.suggestion,n=e.onUpdatePostFormat,r=[Object(_.__)("Suggestion:"),Object(wr.createElement)("span",{className:"editor-post-publish-panel__link",key:"label"},Object(_.__)("Use a post format"))];return Object(wr.createElement)(Fr.PanelBody,{initialOpen:!1,title:r},Object(wr.createElement)("p",null,Object(_.__)("Your theme uses post formats to highlight different kinds of content, like images or videos. Apply a post format to see this special styling.")),Object(wr.createElement)("p",null,Object(wr.createElement)(Ss,{onUpdatePostFormat:n,suggestedPostFormat:t.id,suggestionText:Object(_.sprintf)(Object(_.__)('Apply the "%1$s" format.'),t.caption)})))});var ws=Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getCurrentPost,r=t.isEditedPostBeingScheduled;return{hasPublishAction:Object(O.get)(n(),["_links","wp:action-publish"],!1),isBeingScheduled:r()}})(function(e){var t,n,r=e.hasPublishAction,o=e.isBeingScheduled,i=e.children;return r?o?(t=Object(_.__)("Are you ready to schedule?"),n=Object(_.__)("Your work will be published at the specified date and time.")):(t=Object(_.__)("Are you ready to publish?"),n=Object(_.__)("Double-check your settings before publishing.")):(t=Object(_.__)("Are you ready to submit for review?"),n=Object(_.__)("When you’re ready, submit your work for review, and an Editor will be able to approve it for you.")),Object(wr.createElement)("div",{className:"editor-post-publish-panel__prepublish"},Object(wr.createElement)("div",null,Object(wr.createElement)("strong",null,t)),Object(wr.createElement)("p",null,n),r&&Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)(Fr.PanelBody,{initialOpen:!1,title:[Object(_.__)("Visibility:"),Object(wr.createElement)("span",{className:"editor-post-publish-panel__link",key:"label"},Object(wr.createElement)(hs,null))]},Object(wr.createElement)(fs,null)),Object(wr.createElement)(Fr.PanelBody,{initialOpen:!1,title:[Object(_.__)("Publish:"),Object(wr.createElement)("span",{className:"editor-post-publish-panel__link",key:"label"},Object(wr.createElement)(vs,null))]},Object(wr.createElement)(ms,null)),Object(wr.createElement)(Cs,null),Object(wr.createElement)(Es,null),i))}),Ts=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={showCopyConfirmation:!1},e.onCopy=e.onCopy.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onSelectInput=e.onSelectInput.bind(Object(Dr.a)(Object(Dr.a)(e))),e.postLink=Object(wr.createRef)(),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){this.props.focusOnMount&&this.postLink.current.focus()}},{key:"componentWillUnmount",value:function(){clearTimeout(this.dismissCopyConfirmation)}},{key:"onCopy",value:function(){var e=this;this.setState({showCopyConfirmation:!0}),clearTimeout(this.dismissCopyConfirmation),this.dismissCopyConfirmation=setTimeout(function(){e.setState({showCopyConfirmation:!1})},4e3)}},{key:"onSelectInput",value:function(e){e.target.select()}},{key:"render",value:function(){var e=this.props,t=e.children,n=e.isScheduled,r=e.post,o=e.postType,i=Object(O.get)(o,["labels","singular_name"]),c=Object(O.get)(o,["labels","view_item"]),a=n?Object(wr.createElement)(wr.Fragment,null,Object(_.__)("is now scheduled. It will go live on")," ",Object(wr.createElement)(vs,null),"."):Object(_.__)("is now live.");return Object(wr.createElement)("div",{className:"post-publish-panel__postpublish"},Object(wr.createElement)(Fr.PanelBody,{className:"post-publish-panel__postpublish-header"},Object(wr.createElement)("a",{ref:this.postLink,href:r.link},r.title||Object(_.__)("(no title)"))," ",a),Object(wr.createElement)(Fr.PanelBody,null,Object(wr.createElement)("p",{className:"post-publish-panel__postpublish-subheader"},Object(wr.createElement)("strong",null,Object(_.__)("What’s next?"))),Object(wr.createElement)(Fr.TextControl,{className:"post-publish-panel__postpublish-post-address",readOnly:!0,label:Object(_.sprintf)(Object(_.__)("%s address"),i),value:r.link,onFocus:this.onSelectInput}),Object(wr.createElement)("div",{className:"post-publish-panel__postpublish-buttons"},!n&&Object(wr.createElement)(Fr.Button,{isDefault:!0,href:r.link},c),Object(wr.createElement)(Fr.ClipboardButton,{isDefault:!0,text:r.link,onCopy:this.onCopy},this.state.showCopyConfirmation?Object(_.__)("Copied!"):Object(_.__)("Copy Link")))),t)}}]),t}(wr.Component),Ps=Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getEditedPostAttribute,r=t.getCurrentPost,o=t.isCurrentPostScheduled,i=e("core").getPostType;return{post:r(),postType:i(n("type")),isScheduled:o()}})(Ts),Is=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).onSubmit=e.onSubmit.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidUpdate",value:function(e){e.isPublished&&!this.props.isSaving&&this.props.isDirty&&this.props.onClose()}},{key:"onSubmit",value:function(){var e=this.props,t=e.onClose,n=e.hasPublishAction,r=e.isPostTypeViewable;n&&r||t()}},{key:"render",value:function(){var e=this.props,t=e.forceIsDirty,n=e.forceIsSaving,r=e.isBeingScheduled,o=e.isPublished,i=e.isPublishSidebarEnabled,c=e.isScheduled,a=e.isSaving,s=e.onClose,l=e.onTogglePublishSidebar,u=e.PostPublishExtension,d=e.PrePublishExtension,b=Object(p.a)(e,["forceIsDirty","forceIsSaving","isBeingScheduled","isPublished","isPublishSidebarEnabled","isScheduled","isSaving","onClose","onTogglePublishSidebar","PostPublishExtension","PrePublishExtension"]),f=Object(O.omit)(b,["hasPublishAction","isDirty","isPostTypeViewable"]),h=o||c&&r,m=!h&&!a,v=h&&!a;return Object(wr.createElement)("div",Object(Cr.a)({className:"editor-post-publish-panel"},f),Object(wr.createElement)("div",{className:"editor-post-publish-panel__header"},v?Object(wr.createElement)("div",{className:"editor-post-publish-panel__header-published"},c?Object(_.__)("Scheduled"):Object(_.__)("Published")):Object(wr.createElement)("div",{className:"editor-post-publish-panel__header-publish-button"},Object(wr.createElement)(ds,{focusOnMount:!0,onSubmit:this.onSubmit,forceIsDirty:t,forceIsSaving:n}),Object(wr.createElement)("span",{className:"editor-post-publish-panel__spacer"})),Object(wr.createElement)(Fr.IconButton,{"aria-expanded":!0,onClick:s,icon:"no-alt",label:Object(_.__)("Close panel")})),Object(wr.createElement)("div",{className:"editor-post-publish-panel__content"},m&&Object(wr.createElement)(ws,null,d&&Object(wr.createElement)(d,null)),v&&Object(wr.createElement)(Ps,{focusOnMount:!0},u&&Object(wr.createElement)(u,null)),a&&Object(wr.createElement)(Fr.Spinner,null)),Object(wr.createElement)("div",{className:"editor-post-publish-panel__footer"},Object(wr.createElement)(Fr.CheckboxControl,{label:Object(_.__)("Always show pre-publish checks."),checked:i,onChange:l})))}}]),t}(wr.Component),Bs=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core").getPostType,n=e("core/editor"),r=n.getCurrentPost,o=n.getEditedPostAttribute,i=n.isCurrentPostPublished,c=n.isCurrentPostScheduled,a=n.isEditedPostBeingScheduled,s=n.isEditedPostDirty,l=n.isSavingPost,u=e("core/editor").isPublishSidebarEnabled,d=t(o("type"));return{hasPublishAction:Object(O.get)(r(),["_links","wp:action-publish"],!1),isPostTypeViewable:Object(O.get)(d,["viewable"],!1),isBeingScheduled:a(),isDirty:s(),isPublished:i(),isPublishSidebarEnabled:u(),isSaving:l(),isScheduled:c()}}),Object(l.withDispatch)(function(e,t){var n=t.isPublishSidebarEnabled,r=e("core/editor"),o=r.disablePublishSidebar,i=r.enablePublishSidebar;return{onTogglePublishSidebar:function(){n?o():i()}}}),Fr.withFocusReturn,Fr.withConstrainedTabbing])(Is);var xs=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.isSavingPost,r=t.isCurrentPostPublished,o=t.isCurrentPostScheduled;return{isSaving:n(),isPublished:r(),isScheduled:o()}}),Object(l.withDispatch)(function(e){var t=e("core/editor"),n=t.editPost,r=t.savePost;return{onClick:function(){n({status:"draft"}),r()}}})])(function(e){var t=e.isSaving,n=e.isPublished,r=e.isScheduled,o=e.onClick;return n||r?Object(wr.createElement)(Fr.Button,{className:"editor-post-switch-to-draft",onClick:function(){var e;n?e=Object(_.__)("Are you sure you want to unpublish this post?"):r&&(e=Object(_.__)("Are you sure you want to unschedule this post?")),window.confirm(e)&&o()},disabled:t,isTertiary:!0},Object(_.__)("Switch to Draft")):null}),Ls=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={forceSavedMessage:!1},e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidUpdate",value:function(e){var t=this;e.isSaving&&!this.props.isSaving&&(this.setState({forceSavedMessage:!0}),this.props.setTimeout(function(){t.setState({forceSavedMessage:!1})},1e3))}},{key:"render",value:function(){var e=this.props,t=e.post,n=e.isNew,r=e.isScheduled,o=e.isPublished,i=e.isDirty,c=e.isSaving,a=e.isSaveable,s=e.onSave,l=e.isAutosaving,u=e.isPending,d=e.isLargeViewport,p=this.state.forceSavedMessage,b=Object(O.get)(t,["_links","wp:action-publish"],!1);if(c){var f=Pr()("editor-post-saved-state","is-saving",{"is-autosaving":l});return Object(wr.createElement)("span",{className:f},Object(wr.createElement)(Fr.Dashicon,{icon:"cloud"}),l?Object(_.__)("Autosaving"):Object(_.__)("Saving"))}if(o||r)return Object(wr.createElement)(xs,null);if(!a)return null;if(p||!n&&!i)return Object(wr.createElement)("span",{className:"editor-post-saved-state is-saved"},Object(wr.createElement)(Fr.Dashicon,{icon:"saved"}),Object(_.__)("Saved"));if(!b&&u)return null;var h=u?Object(_.__)("Save as Pending"):Object(_.__)("Save Draft");return d?Object(wr.createElement)(Fr.Button,{className:"editor-post-save-draft",onClick:s,shortcut:vo.displayShortcut.primary("s"),isTertiary:!0},h):Object(wr.createElement)(Fr.IconButton,{className:"editor-post-save-draft",label:h,onClick:s,shortcut:vo.displayShortcut.primary("s"),icon:"cloud-upload"})}}]),t}(wr.Component),As=Object(Ir.compose)([Object(l.withSelect)(function(e,t){var n=t.forceIsDirty,r=t.forceIsSaving,o=e("core/editor"),i=o.isEditedPostNew,c=o.isCurrentPostPublished,a=o.isCurrentPostScheduled,s=o.isEditedPostDirty,l=o.isSavingPost,u=o.isEditedPostSaveable,d=o.getCurrentPost,p=o.isAutosavingPost,b=o.getEditedPostAttribute;return{post:d(),isNew:i(),isPublished:c(),isScheduled:a(),isDirty:n||s(),isSaving:r||l(),isSaveable:u(),isAutosaving:p(),isPending:"pending"===b("status")}}),Object(l.withDispatch)(function(e){return{onSave:e("core/editor").savePost}}),Ir.withSafeTimeout,Object(s.withViewportMatch)({isLargeViewport:"medium"})])(Ls);var Ns=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getCurrentPost,r=t.getCurrentPostType;return{hasPublishAction:Object(O.get)(n(),["_links","wp:action-publish"],!1),postType:r()}})])(function(e){var t=e.hasPublishAction,n=e.children;return t?n:null});var Rs=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor").getCurrentPost();return{hasStickyAction:Object(O.get)(t,["_links","wp:action-sticky"],!1),postType:e("core/editor").getCurrentPostType()}})])(function(e){var t=e.hasStickyAction,n=e.postType,r=e.children;return"post"===n&&t?r:null});var Ds=Object(Ir.compose)([Object(l.withSelect)(function(e){return{postSticky:e("core/editor").getEditedPostAttribute("sticky")}}),Object(l.withDispatch)(function(e){return{onUpdateSticky:function(t){e("core/editor").editPost({sticky:t})}}})])(function(e){var t=e.onUpdateSticky,n=e.postSticky,r=void 0!==n&&n;return Object(wr.createElement)(Rs,null,Object(wr.createElement)(Fr.CheckboxControl,{label:Object(_.__)("Stick to the Front Page"),checked:r,onChange:function(){return t(!r)}}))}),Fs={per_page:-1,orderby:"name",order:"asc",_fields:"id,name,parent"},Ms=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).findTerm=e.findTerm.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onChange=e.onChange.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onChangeFormName=e.onChangeFormName.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onChangeFormParent=e.onChangeFormParent.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onAddTerm=e.onAddTerm.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onToggleForm=e.onToggleForm.bind(Object(Dr.a)(Object(Dr.a)(e))),e.setFilterValue=e.setFilterValue.bind(Object(Dr.a)(Object(Dr.a)(e))),e.sortBySelected=e.sortBySelected.bind(Object(Dr.a)(Object(Dr.a)(e))),e.state={loading:!0,availableTermsTree:[],availableTerms:[],adding:!1,formName:"",formParent:"",showForm:!1,filterValue:"",filteredTermsTree:[]},e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"onChange",value:function(e){var t=this.props,n=t.onUpdateTerms,r=t.terms,o=void 0===r?[]:r,i=t.taxonomy,c=parseInt(e.target.value,10);n(-1!==o.indexOf(c)?Object(O.without)(o,c):Object(b.a)(o).concat([c]),i.rest_base)}},{key:"onChangeFormName",value:function(e){var t=""===e.target.value.trim()?"":e.target.value;this.setState({formName:t})}},{key:"onChangeFormParent",value:function(e){this.setState({formParent:e})}},{key:"onToggleForm",value:function(){this.setState(function(e){return{showForm:!e.showForm}})}},{key:"findTerm",value:function(e,t,n){return Object(O.find)(e,function(e){return(!e.parent&&!t||parseInt(e.parent)===parseInt(t))&&e.name.toLowerCase()===n.toLowerCase()})}},{key:"onAddTerm",value:function(e){var t=this;e.preventDefault();var n=this.props,r=n.onUpdateTerms,o=n.taxonomy,i=n.terms,c=n.slug,a=this.state,s=a.formName,l=a.formParent,u=a.adding,p=a.availableTerms;if(""!==s&&!u){var f=this.findTerm(p,l,s);if(f)return Object(O.some)(i,function(e){return e===f.id})||r(Object(b.a)(i).concat([f.id]),o.rest_base),void this.setState({formName:"",formParent:""});this.setState({adding:!0}),this.addRequest=br()({path:"/wp/v2/".concat(o.rest_base),method:"POST",data:{name:s,parent:l||void 0}}),this.addRequest.catch(function(e){return"term_exists"===e.code?(t.addRequest=br()({path:Object(g.addQueryArgs)("/wp/v2/".concat(o.rest_base),Object(d.a)({},Fs,{parent:l||0,search:s}))}),t.addRequest.then(function(e){return t.findTerm(e,l,s)})):Promise.reject(e)}).then(function(e){var n=!!Object(O.find)(t.state.availableTerms,function(t){return t.id===e.id})?t.state.availableTerms:[e].concat(Object(b.a)(t.state.availableTerms)),a=Object(_.sprintf)(Object(_._x)("%s added","term"),Object(O.get)(t.props.taxonomy,["labels","singular_name"],"category"===c?Object(_.__)("Category"):Object(_.__)("Term")));t.props.speak(a,"assertive"),t.addRequest=null,t.setState({adding:!1,formName:"",formParent:"",availableTerms:n,availableTermsTree:t.sortBySelected(Pa(n))}),r(Object(b.a)(i).concat([e.id]),o.rest_base)},function(e){"abort"!==e.statusText&&(t.addRequest=null,t.setState({adding:!1}))})}}},{key:"componentDidMount",value:function(){this.fetchTerms()}},{key:"componentWillUnmount",value:function(){Object(O.invoke)(this.fetchRequest,["abort"]),Object(O.invoke)(this.addRequest,["abort"])}},{key:"componentDidUpdate",value:function(e){this.props.taxonomy!==e.taxonomy&&this.fetchTerms()}},{key:"fetchTerms",value:function(){var e=this,t=this.props.taxonomy;t&&(this.fetchRequest=br()({path:Object(g.addQueryArgs)("/wp/v2/".concat(t.rest_base),Fs)}),this.fetchRequest.then(function(t){var n=e.sortBySelected(Pa(t));e.fetchRequest=null,e.setState({loading:!1,availableTermsTree:n,availableTerms:t})},function(t){"abort"!==t.statusText&&(e.fetchRequest=null,e.setState({loading:!1}))}))}},{key:"sortBySelected",value:function(e){var t=this.props.terms,n=function e(n){return-1!==t.indexOf(n.id)||void 0!==n.children&&!!(n.children.map(e).filter(function(e){return e}).length>0)};return e.sort(function(e,t){var r=n(e),o=n(t);return r===o?0:r&&!o?-1:!r&&o?1:0}),e}},{key:"setFilterValue",value:function(e){var t=this.state.availableTermsTree,n=e.target.value,r=t.map(this.getFilterMatcher(n)).filter(function(e){return e});this.setState({filterValue:n,filteredTermsTree:r});var o=function e(t){for(var n=0,r=0;r<t.length;r++)n++,void 0!==t[r].children&&(n+=e(t[r].children));return n}(r),i=Object(_.sprintf)(Object(_._n)("%d result found.","%d results found.",o),o);this.props.debouncedSpeak(i,"assertive")}},{key:"getFilterMatcher",value:function(e){return function t(n){if(""===e)return n;var r=Object(d.a)({},n);return r.children.length>0&&(r.children=r.children.map(t).filter(function(e){return e})),(-1!==r.name.toLowerCase().indexOf(e)||r.children.length>0)&&r}}},{key:"renderTerms",value:function(e){var t=this,n=this.props.terms,r=void 0===n?[]:n;return e.map(function(e){var n="editor-post-taxonomies-hierarchical-term-".concat(e.id);return Object(wr.createElement)("div",{key:e.id,className:"editor-post-taxonomies__hierarchical-terms-choice"},Object(wr.createElement)("input",{id:n,className:"editor-post-taxonomies__hierarchical-terms-input",type:"checkbox",checked:-1!==r.indexOf(e.id),value:e.id,onChange:t.onChange}),Object(wr.createElement)("label",{htmlFor:n},Object(O.unescape)(e.name)),!!e.children.length&&Object(wr.createElement)("div",{className:"editor-post-taxonomies__hierarchical-terms-subchoices"},t.renderTerms(e.children)))})}},{key:"render",value:function(){var e=this.props,t=e.slug,n=e.taxonomy,r=e.instanceId,o=e.hasCreateAction;if(!e.hasAssignAction)return null;var i=this.state,c=i.availableTermsTree,a=i.availableTerms,s=i.filteredTermsTree,l=i.formName,u=i.formParent,d=i.loading,p=i.showForm,b=i.filterValue,f=function(e,r,o){return Object(O.get)(n,["labels",e],"category"===t?r:o)},h=f("add_new_item",Object(_.__)("Add new category"),Object(_.__)("Add new term")),m=f("new_item_name",Object(_.__)("Add new category"),Object(_.__)("Add new term")),v=f("parent_item",Object(_.__)("Parent Category"),Object(_.__)("Parent Term")),g="— ".concat(v," —"),j=h,y="editor-post-taxonomies__hierarchical-terms-input-".concat(r),k="editor-post-taxonomies__hierarchical-terms-filter-".concat(r),E=Object(_.sprintf)(Object(_._x)("Search %s","term"),Object(O.get)(this.props.taxonomy,["name"],"category"===t?Object(_.__)("Categories"):Object(_.__)("Terms"))),S=Object(_.sprintf)(Object(_._x)("Available %s","term"),Object(O.get)(this.props.taxonomy,["name"],"category"===t?Object(_.__)("Categories"):Object(_.__)("Terms"))),C=a.length>=8;return[C&&Object(wr.createElement)("label",{key:"filter-label",htmlFor:k},E),C&&Object(wr.createElement)("input",{type:"search",id:k,value:b,onChange:this.setFilterValue,className:"editor-post-taxonomies__hierarchical-terms-filter",key:"term-filter-input"}),Object(wr.createElement)("div",{className:"editor-post-taxonomies__hierarchical-terms-list",key:"term-list",tabIndex:"0",role:"group","aria-label":S},this.renderTerms(""!==b?s:c)),!d&&o&&Object(wr.createElement)(Fr.Button,{key:"term-add-button",onClick:this.onToggleForm,className:"editor-post-taxonomies__hierarchical-terms-add","aria-expanded":p,isLink:!0},h),p&&Object(wr.createElement)("form",{onSubmit:this.onAddTerm,key:"hierarchical-terms-form"},Object(wr.createElement)("label",{htmlFor:y,className:"editor-post-taxonomies__hierarchical-terms-label"},m),Object(wr.createElement)("input",{type:"text",id:y,className:"editor-post-taxonomies__hierarchical-terms-input",value:l,onChange:this.onChangeFormName,required:!0}),!!a.length&&Object(wr.createElement)(Fr.TreeSelect,{label:v,noOptionLabel:g,onChange:this.onChangeFormParent,selectedId:u,tree:c}),Object(wr.createElement)(Fr.Button,{isDefault:!0,type:"submit",className:"editor-post-taxonomies__hierarchical-terms-submit"},j))]}}]),t}(wr.Component),Us=Object(Ir.compose)([Object(l.withSelect)(function(e,t){var n=t.slug,r=e("core/editor").getCurrentPost,o=(0,e("core").getTaxonomy)(n);return{hasCreateAction:!!o&&Object(O.get)(r(),["_links","wp:action-create-"+o.rest_base],!1),hasAssignAction:!!o&&Object(O.get)(r(),["_links","wp:action-assign-"+o.rest_base],!1),terms:o?e("core/editor").getEditedPostAttribute(o.rest_base):[],taxonomy:o}}),Object(l.withDispatch)(function(e){return{onUpdateTerms:function(t,n){e("core/editor").editPost(Object(f.a)({},n,t))}}}),Fr.withSpokenMessages,Ir.withInstanceId,Object(Fr.withFilters)("editor.PostTaxonomyType")])(Ms);var Vs=Object(Ir.compose)([Object(l.withSelect)(function(e){return{postType:e("core/editor").getCurrentPostType(),taxonomies:e("core").getTaxonomies({per_page:-1})}})])(function(e){var t=e.postType,n=e.taxonomies,r=e.taxonomyWrapper,o=void 0===r?O.identity:r,i=Object(O.filter)(n,function(e){return Object(O.includes)(e.types,t)});return Object(O.filter)(i,function(e){return e.visibility.show_ui}).map(function(e){var t=e.hierarchical?Us:ys;return Object(wr.createElement)(wr.Fragment,{key:"taxonomy-".concat(e.slug)},o(Object(wr.createElement)(t,{slug:e.slug}),e))})});var Hs=Object(Ir.compose)([Object(l.withSelect)(function(e){return{postType:e("core/editor").getCurrentPostType(),taxonomies:e("core").getTaxonomies()}})])(function(e){var t=e.postType,n=e.taxonomies,r=e.children;return Object(O.some)(n,function(e){return Object(O.includes)(e.types,t)})?r:null}),Ks=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).edit=e.edit.bind(Object(Dr.a)(Object(Dr.a)(e))),e.stopEditing=e.stopEditing.bind(Object(Dr.a)(Object(Dr.a)(e))),e.state={},e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"edit",value:function(e){var t=e.target.value;this.props.onChange(t),this.setState({value:t,isDirty:!0})}},{key:"stopEditing",value:function(){this.state.isDirty&&(this.props.onPersist(this.state.value),this.setState({isDirty:!1}))}},{key:"render",value:function(){var e=this.state.value,t=this.props.instanceId;return Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)("label",{htmlFor:"post-content-".concat(t),className:"screen-reader-text"},Object(_.__)("Type text or HTML")),Object(wr.createElement)(ai.a,{autoComplete:"off",dir:"auto",value:e,onChange:this.edit,onBlur:this.stopEditing,className:"editor-post-text-editor",id:"post-content-".concat(t),placeholder:Object(_.__)("Start writing with text or HTML")}))}}],[{key:"getDerivedStateFromProps",value:function(e,t){return t.isDirty?null:{value:e.value,isDirty:!1}}}]),t}(wr.Component),zs=Object(Ir.compose)([Object(l.withSelect)(function(e){return{value:(0,e("core/editor").getEditedPostContent)()}}),Object(l.withDispatch)(function(e){var t=e("core/editor"),n=t.editPost,r=t.resetBlocks;return{onChange:function(e){n({content:e})},onPersist:function(e){r(Object(i.parse)(e))}}}),Ir.withInstanceId])(Ks),Ws=function(e){function t(e){var n,r=e.permalinkParts,o=e.slug;return Object(xr.a)(this,t),(n=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={editedPostName:o||r.postName},n.onSavePermalink=n.onSavePermalink.bind(Object(Dr.a)(Object(Dr.a)(n))),n}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"onSavePermalink",value:function(e){var t=Xc(this.state.editedPostName);e.preventDefault(),this.props.onSave(),t!==this.props.postName&&(this.props.editPost({slug:t}),this.setState({editedPostName:t}))}},{key:"render",value:function(){var e=this,t=this.props.permalinkParts,n=t.prefix,r=t.suffix,o=this.state.editedPostName;return Object(wr.createElement)("form",{className:"editor-post-permalink-editor",onSubmit:this.onSavePermalink},Object(wr.createElement)("span",{className:"editor-post-permalink__editor-container"},Object(wr.createElement)("span",{className:"editor-post-permalink-editor__prefix"},n),Object(wr.createElement)("input",{className:"editor-post-permalink-editor__edit","aria-label":Object(_.__)("Edit post permalink"),value:o,onChange:function(t){return e.setState({editedPostName:t.target.value})},type:"text",autoFocus:!0}),Object(wr.createElement)("span",{className:"editor-post-permalink-editor__suffix"},r),"‎"),Object(wr.createElement)(Fr.Button,{className:"editor-post-permalink-editor__save",isLarge:!0,onClick:this.onSavePermalink},Object(_.__)("Save")))}}]),t}(wr.Component),qs=Object(Ir.compose)([Object(l.withSelect)(function(e){return{permalinkParts:(0,e("core/editor").getPermalinkParts)()}}),Object(l.withDispatch)(function(e){return{editPost:e("core/editor").editPost}})])(Ws),Gs=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).addVisibilityCheck=e.addVisibilityCheck.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onVisibilityChange=e.onVisibilityChange.bind(Object(Dr.a)(Object(Dr.a)(e))),e.state={isCopied:!1,isEditingPermalink:!1},e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"addVisibilityCheck",value:function(){window.addEventListener("visibilitychange",this.onVisibilityChange)}},{key:"onVisibilityChange",value:function(){var e=this.props,t=e.isEditable,n=e.refreshPost;t||"visible"!==document.visibilityState||n()}},{key:"componentDidUpdate",value:function(e,t){t.isEditingPermalink&&!this.state.isEditingPermalink&&this.linkElement.focus()}},{key:"componentWillUnmount",value:function(){window.removeEventListener("visibilitychange",this.addVisibilityCheck)}},{key:"render",value:function(){var e=this,t=this.props,n=t.isNew,r=t.postLink,o=t.permalinkParts,i=t.postSlug,c=t.postTitle,a=t.postID,s=t.isEditable,l=t.isPublished;if(n||!r)return null;var u=this.state,d=u.isCopied,p=u.isEditingPermalink,b=d?Object(_.__)("Permalink copied"):Object(_.__)("Copy the permalink"),f=o.prefix,h=o.suffix,m=i||Xc(c)||a,v=s?f+m+h:f;return Object(wr.createElement)("div",{className:"editor-post-permalink"},Object(wr.createElement)(Fr.ClipboardButton,{className:Pr()("editor-post-permalink__copy",{"is-copied":d}),text:v,label:b,onCopy:function(){return e.setState({isCopied:!0})},"aria-disabled":d,icon:"admin-links"}),Object(wr.createElement)("span",{className:"editor-post-permalink__label"},Object(_.__)("Permalink:")),!p&&Object(wr.createElement)(Fr.ExternalLink,{className:"editor-post-permalink__link",href:l?v:r,target:"_blank",ref:function(t){return e.linkElement=t}},Object(g.safeDecodeURI)(v),"‎"),p&&Object(wr.createElement)(qs,{slug:m,onSave:function(){return e.setState({isEditingPermalink:!1})}}),s&&!p&&Object(wr.createElement)(Fr.Button,{className:"editor-post-permalink__edit",isLarge:!0,onClick:function(){return e.setState({isEditingPermalink:!0})}},Object(_.__)("Edit")),!s&&Object(wr.createElement)(Fr.Button,{className:"editor-post-permalink__change",isLarge:!0,href:Qc("options-permalink.php"),onClick:this.addVisibilityCheck,target:"_blank"},Object(_.__)("Change Permalinks")))}}]),t}(wr.Component),$s=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.isEditedPostNew,r=t.isPermalinkEditable,o=t.getCurrentPost,i=t.getPermalinkParts,c=t.getEditedPostAttribute,a=t.isCurrentPostPublished,s=o(),l=s.id,u=s.link;return{isNew:n(),postLink:u,permalinkParts:i(),postSlug:c("slug"),isEditable:r(),isPublished:a(),postTitle:c("title"),postID:l}}),Object(l.withDispatch)(function(e){return{refreshPost:e("core/editor").refreshPost}})])(Gs),Ys=/[\r\n]+/g,Qs=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).onChange=e.onChange.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onSelect=e.onSelect.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onUnselect=e.onUnselect.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onKeyDown=e.onKeyDown.bind(Object(Dr.a)(Object(Dr.a)(e))),e.redirectHistory=e.redirectHistory.bind(Object(Dr.a)(Object(Dr.a)(e))),e.state={isSelected:!1},e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"handleFocusOutside",value:function(){this.onUnselect()}},{key:"onSelect",value:function(){this.setState({isSelected:!0}),this.props.clearSelectedBlock()}},{key:"onUnselect",value:function(){this.setState({isSelected:!1})}},{key:"onChange",value:function(e){var t=e.target.value.replace(Ys," ");this.props.onUpdate(t)}},{key:"onKeyDown",value:function(e){e.keyCode===vo.ENTER&&(e.preventDefault(),this.props.onEnterPress())}},{key:"redirectHistory",value:function(e){e.shiftKey?this.props.onRedo():this.props.onUndo(),e.preventDefault()}},{key:"render",value:function(){var e=this.props,t=e.hasFixedToolbar,n=e.isCleanNewPost,r=e.isFocusMode,o=e.isPostTypeViewable,i=e.instanceId,c=e.placeholder,a=e.title,s=this.state.isSelected,l=Pr()("wp-block editor-post-title__block",{"is-selected":s,"is-focus-mode":r,"has-fixed-toolbar":t}),u=Object($i.decodeEntities)(c);return Object(wr.createElement)(Ca,{supportKeys:"title"},Object(wr.createElement)("div",{className:"editor-post-title"},Object(wr.createElement)("div",{className:l},Object(wr.createElement)(Fr.KeyboardShortcuts,{shortcuts:{"mod+z":this.redirectHistory,"mod+shift+z":this.redirectHistory}},Object(wr.createElement)("label",{htmlFor:"post-title-".concat(i),className:"screen-reader-text"},u||Object(_.__)("Add title")),Object(wr.createElement)(ai.a,{id:"post-title-".concat(i),className:"editor-post-title__input",value:a,onChange:this.onChange,placeholder:u||Object(_.__)("Add title"),onFocus:this.onSelect,onKeyDown:this.onKeyDown,onKeyPress:this.onUnselect,autoFocus:n})),s&&o&&Object(wr.createElement)($s,null))))}}]),t}(wr.Component),Xs=Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getEditedPostAttribute,r=t.getEditorSettings,o=t.isCleanNewPost,i=(0,e("core").getPostType)(n("type")),c=r(),a=c.titlePlaceholder,s=c.focusMode,l=c.hasFixedToolbar;return{isCleanNewPost:o(),title:n("title"),isPostTypeViewable:Object(O.get)(i,["viewable"],!1),placeholder:a,isFocusMode:s,hasFixedToolbar:l}}),Zs=Object(l.withDispatch)(function(e){var t=e("core/editor"),n=t.insertDefaultBlock,r=t.editPost,o=t.clearSelectedBlock;return{onEnterPress:function(){n(void 0,void 0,0)},onUpdate:function(e){r({title:e})},onUndo:t.undo,onRedo:t.redo,clearSelectedBlock:o}}),Js=Object(Ir.compose)(Xs,Zs,Ir.withInstanceId,Fr.withFocusOutside)(Qs);var el=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.isEditedPostNew,r=t.getCurrentPostId,o=t.getCurrentPostType;return{isNew:n(),postId:r(),postType:o()}}),Object(l.withDispatch)(function(e){return{trashPost:e("core/editor").trashPost}})])(function(e){var t=e.isNew,n=e.postId,r=e.postType,o=Object(p.a)(e,["isNew","postId","postType"]);return t||!n?null:Object(wr.createElement)(Fr.Button,{className:"editor-post-trash button-link-delete",onClick:function(){return o.trashPost(n,r)},isDefault:!0,isLarge:!0},Object(_.__)("Move to trash"))});var tl=Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.isEditedPostNew,r=t.getCurrentPostId;return{isNew:n(),postId:r()}})(function(e){var t=e.isNew,n=e.postId,r=e.children;return t||!n?null:r});var nl=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getCurrentPost,r=t.getCurrentPostType;return{hasPublishAction:Object(O.get)(n(),["_links","wp:action-publish"],!1),postType:r()}})])(function(e){var t=e.hasPublishAction;return(0,e.render)({canEdit:t})}),rl=n(98);var ol=Object(l.withSelect)(function(e){return{content:e("core/editor").getEditedPostAttribute("content")}})(function(e){var t=e.content;return Object(wr.createElement)("span",{className:"word-count"},Object(rl.count)(t,"words"))});var il=Object(l.withSelect)(function(e){var t=e("core/editor").getGlobalBlockCount;return{headingCount:t("core/heading"),paragraphCount:t("core/paragraph"),numberOfBlocks:t()}})(function(e){var t=e.headingCount,n=e.paragraphCount,r=e.numberOfBlocks;return Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)("div",{className:"table-of-contents__counts",role:"note","aria-label":Object(_.__)("Document Statistics"),tabIndex:"0"},Object(wr.createElement)("div",{className:"table-of-contents__count"},Object(_.__)("Words"),Object(wr.createElement)(ol,null)),Object(wr.createElement)("div",{className:"table-of-contents__count"},Object(_.__)("Headings"),Object(wr.createElement)("span",{className:"table-of-contents__number"},t)),Object(wr.createElement)("div",{className:"table-of-contents__count"},Object(_.__)("Paragraphs"),Object(wr.createElement)("span",{className:"table-of-contents__number"},n)),Object(wr.createElement)("div",{className:"table-of-contents__count"},Object(_.__)("Blocks"),Object(wr.createElement)("span",{className:"table-of-contents__number"},r))),t>0&&Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)("hr",null),Object(wr.createElement)("span",{className:"table-of-contents__title"},Object(_.__)("Document Outline")),Object(wr.createElement)(fa,null)))});var cl=Object(l.withSelect)(function(e){return{hasBlocks:!!e("core/editor").getBlockCount()}})(function(e){var t=e.hasBlocks;return Object(wr.createElement)(Fr.Dropdown,{position:"bottom",className:"table-of-contents",contentClassName:"table-of-contents__popover",renderToggle:function(e){var n=e.isOpen,r=e.onToggle;return Object(wr.createElement)(Fr.IconButton,{onClick:r,icon:"info-outline","aria-expanded":n,label:Object(_.__)("Content structure"),disabled:!t})},renderContent:function(){return Object(wr.createElement)(il,null)}})}),al=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).warnIfUnsavedChanges=e.warnIfUnsavedChanges.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){window.addEventListener("beforeunload",this.warnIfUnsavedChanges)}},{key:"componentWillUnmount",value:function(){window.removeEventListener("beforeunload",this.warnIfUnsavedChanges)}},{key:"warnIfUnsavedChanges",value:function(e){if(this.props.isDirty)return e.returnValue=Object(_.__)("You have unsaved changes. If you proceed, they will be lost."),e.returnValue}},{key:"render",value:function(){return null}}]),t}(wr.Component),sl=Object(l.withSelect)(function(e){return{isDirty:e("core/editor").isEditedPostDirty()}})(al),ll=Object(l.withSelect)(function(e){return{selectedBlockClientId:e("core/editor").getBlockSelectionStart()}})(function(e){var t=e.selectedBlockClientId;return t&&Object(wr.createElement)(Fr.Button,{isDefault:!0,type:"button",className:"editor-skip-to-selected-block",onClick:function(){(function(e){return Ki(e).closest(".editor-block-list__block")})(t).focus()}},Object(_.__)("Skip to the selected block"))}),ul=n(127),dl=n.n(ul);function pl(e,t,n){var r=new dl.a(e);return t&&r.remove("is-style-"+t.name),r.add("is-style-"+n.name),r.value}var bl=Object(Ir.compose)([Object(l.withSelect)(function(e,t){var n=t.clientId,r=e("core/editor").getBlock,o=e("core/blocks").getBlockStyles,i=r(n);return{name:i.name,attributes:i.attributes,className:i.attributes.className||"",styles:o(i.name)}}),Object(l.withDispatch)(function(e,t){var n=t.clientId;return{onChangeClassName:function(t){e("core/editor").updateBlockAttributes(n,{className:t})}}})])(function(e){var t=e.styles,n=e.className,r=e.onChangeClassName,o=e.name,i=e.attributes,c=e.onSwitch,a=void 0===c?O.noop:c,s=e.onHoverClassName,l=void 0===s?O.noop:s;if(!t||0===t.length)return null;var u=function(e,t){var n=!0,r=!1,o=void 0;try{for(var i,c=new dl.a(t).values()[Symbol.iterator]();!(n=(i=c.next()).done);n=!0){var a=i.value;if(-1!==a.indexOf("is-style-")){var s=a.substring(9),l=Object(O.find)(e,{name:s});if(l)return l}}}catch(e){r=!0,o=e}finally{try{n||null==c.return||c.return()}finally{if(r)throw o}}return Object(O.find)(e,"isDefault")}(t,n);function p(e){var t=pl(n,u,e);r(t),a()}return Object(wr.createElement)("div",{className:"editor-block-styles"},t.map(function(e){var t=pl(n,u,e);return Object(wr.createElement)("div",{key:e.name,className:Pr()("editor-block-styles__item",{"is-active":u===e}),onClick:function(){return p(e)},onKeyDown:function(t){vo.ENTER!==t.keyCode&&vo.SPACE!==t.keyCode||(t.preventDefault(),p(e))},onMouseEnter:function(){return l(t)},onMouseLeave:function(){return l(null)},role:"button",tabIndex:"0","aria-label":e.label||e.name},Object(wr.createElement)("div",{className:"editor-block-styles__item-preview"},Object(wr.createElement)(yi,{name:o,attributes:Object(d.a)({},i,{className:t})})),Object(wr.createElement)("div",{className:"editor-block-styles__item-label"},e.label||e.name))}))});var fl=Object(l.withSelect)(function(e){return{blocks:(0,e("core/editor").getMultiSelectedBlocks)()}})(function(e){var t=e.blocks,n=Object(rl.count)(Object(i.serialize)(t),"words");return Object(wr.createElement)("div",{className:"editor-multi-selection-inspector__card"},Object(wr.createElement)(qr,{icon:Object(wr.createElement)(Fr.SVG,{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"},Object(wr.createElement)(Fr.Path,{d:"M3 5H1v16c0 1.1.9 2 2 2h16v-2H3V5zm18-4H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 16H7V3h14v14z"})),showColors:!0}),Object(wr.createElement)("div",{className:"editor-multi-selection-inspector__card-content"},Object(wr.createElement)("div",{className:"editor-multi-selection-inspector__card-title"},Object(_.sprintf)(Object(_._n)("%d block","%d blocks",t.length),t.length)),Object(wr.createElement)("div",{className:"editor-multi-selection-inspector__card-description"},Object(_.sprintf)(Object(_._n)("%d word","%d words",n),n))))}),hl=Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getSelectedBlockClientId,r=t.getSelectedBlockCount,o=t.getBlockName,c=e("core/blocks").getBlockStyles,a=n(),s=a&&o(a),l=a&&Object(i.getBlockType)(s),u=a&&c(s);return{count:r(),hasBlockStyles:u&&u.length>0,selectedBlockName:s,selectedBlockClientId:a,blockType:l}})(function(e){var t=e.selectedBlockClientId,n=e.selectedBlockName,r=e.blockType,o=e.count,c=e.hasBlockStyles;if(o>1)return Object(wr.createElement)(fl,null);var a=n===Object(i.getUnregisteredTypeHandlerName)();return r&&t&&!a?Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)("div",{className:"editor-block-inspector__card"},Object(wr.createElement)(qr,{icon:r.icon,showColors:!0}),Object(wr.createElement)("div",{className:"editor-block-inspector__card-content"},Object(wr.createElement)("div",{className:"editor-block-inspector__card-title"},r.title),Object(wr.createElement)("div",{className:"editor-block-inspector__card-description"},r.description))),c&&Object(wr.createElement)("div",null,Object(wr.createElement)(Fr.PanelBody,{title:Object(_.__)("Styles"),initialOpen:!1},Object(wr.createElement)(bl,{clientId:t}))),Object(wr.createElement)("div",null,Object(wr.createElement)(uc.Slot,null)),Object(wr.createElement)("div",null,Object(wr.createElement)(ic.Slot,null,function(e){return!Object(O.isEmpty)(e)&&Object(wr.createElement)(Fr.PanelBody,{className:"editor-block-inspector__advanced",title:Object(_.__)("Advanced"),initialOpen:!1},e)})),Object(wr.createElement)(ll,{key:"back"})):Object(wr.createElement)("span",{className:"editor-block-inspector__no-blocks"},Object(_.__)("No block selected."))}),ml=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).bindContainer=e.bindContainer.bind(Object(Dr.a)(Object(Dr.a)(e))),e.clearSelectionIfFocusTarget=e.clearSelectionIfFocusTarget.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"bindContainer",value:function(e){this.container=e}},{key:"clearSelectionIfFocusTarget",value:function(e){var t=this.props,n=t.hasSelectedBlock,r=t.hasMultiSelection,o=t.clearSelectedBlock,i=n||r;e.target===this.container&&i&&o()}},{key:"render",value:function(){return Object(wr.createElement)("div",Object(Cr.a)({tabIndex:-1,onFocus:this.clearSelectionIfFocusTarget,ref:this.bindContainer},Object(O.omit)(this.props,["clearSelectedBlock","hasSelectedBlock","hasMultiSelection"])))}}]),t}(wr.Component),vl=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.hasSelectedBlock,r=t.hasMultiSelection;return{hasSelectedBlock:n(),hasMultiSelection:r()}}),Object(l.withDispatch)(function(e){return{clearSelectedBlock:e("core/editor").clearSelectedBlock}})])(ml);var Ol=Object(Ir.compose)([Object(l.withSelect)(function(e,t){var n=t.clientId,r=e("core/editor"),o=r.getBlock,c=r.getBlockMode,a=o(n);return{mode:c(n),blockType:a?Object(i.getBlockType)(a.name):null}}),Object(l.withDispatch)(function(e,t){var n=t.onToggle,r=void 0===n?O.noop:n,o=t.clientId;return{onToggleMode:function(){e("core/editor").toggleBlockMode(o),r()}}})])(function(e){var t=e.blockType,n=e.mode,r=e.onToggleMode,o=e.small,c=void 0!==o&&o;if(!Object(i.hasBlockSupport)(t,"html",!0))return null;var a="visual"===n?Object(_.__)("Edit as HTML"):Object(_.__)("Edit visually");return Object(wr.createElement)(Fr.MenuItem,{className:"editor-block-settings-menu__control",onClick:r,icon:"html",label:c?a:void 0},!c&&a)});var gl=Object(Ir.compose)([Object(l.withSelect)(function(e,t){var n=t.clientIds,r=e("core/editor"),o=r.getBlocksByClientId,c=r.canInsertBlockType,a=r.__experimentalGetReusableBlock,s=o(n),l=c("core/block")&&Object(O.every)(s,function(e){return!!e&&e.isValid&&Object(i.hasBlockSupport)(e.name,"reusable",!0)});return{isVisible:l,isStaticBlock:l&&(1!==s.length||!Object(i.isReusableBlock)(s[0])||!a(s[0].attributes.ref))}}),Object(l.withDispatch)(function(e,t){var n=t.clientIds,r=t.onToggle,o=void 0===r?O.noop:r,i=e("core/editor"),c=i.__experimentalConvertBlockToReusable,a=i.__experimentalConvertBlockToStatic;return{onConvertToStatic:function(){1===n.length&&(a(n[0]),o())},onConvertToReusable:function(){c(n),o()}}})])(function(e){var t=e.isVisible,n=e.isStaticBlock,r=e.onConvertToStatic,o=e.onConvertToReusable;return t?Object(wr.createElement)(wr.Fragment,null,n&&Object(wr.createElement)(Fr.MenuItem,{className:"editor-block-settings-menu__control",icon:"controls-repeat",onClick:o},Object(_.__)("Add to Reusable Blocks")),!n&&Object(wr.createElement)(Fr.MenuItem,{className:"editor-block-settings-menu__control",icon:"controls-repeat",onClick:r},Object(_.__)("Convert to Regular Block"))):null});var jl=Object(Ir.compose)([Object(l.withSelect)(function(e,t){var n=t.clientId,r=e("core/editor"),o=r.getBlock,c=r.__experimentalGetReusableBlock,a=o(n);return{reusableBlock:a&&Object(i.isReusableBlock)(a)?c(a.attributes.ref):null}}),Object(l.withDispatch)(function(e,t){var n=t.onToggle,r=void 0===n?O.noop:n,o=e("core/editor").__experimentalDeleteReusableBlock;return{onDelete:function(e){window.confirm(Object(_.__)("Are you sure you want to delete this Reusable Block?\n\nIt will be permanently removed from all posts and pages that use it."))&&(o(e),r())}}})])(function(e){var t=e.reusableBlock,n=e.onDelete;return t?Object(wr.createElement)(Fr.MenuItem,{className:"editor-block-settings-menu__control",icon:"no",disabled:t.isTemporary,onClick:function(){return n(t.id)}},Object(_.__)("Remove from Reusable Blocks")):null});function yl(e){var t=e.shouldRender,n=e.onClick,r=e.small;if(!t)return null;var o=Object(_.__)("Convert to Blocks");return Object(wr.createElement)(Fr.MenuItem,{className:"editor-block-settings-menu__control",onClick:n,icon:"screenoptions",label:r?o:void 0},!r&&o)}var kl=Object(Ir.compose)(Object(l.withSelect)(function(e,t){var n=t.clientId,r=e("core/editor").getBlock(n);return{block:r,shouldRender:r&&"core/html"===r.name}}),Object(l.withDispatch)(function(e,t){var n=t.block;return{onClick:function(){return e("core/editor").replaceBlocks(n.clientId,Object(i.rawHandler)({HTML:Object(i.getBlockContent)(n)}))}}}))(yl),_l=Object(Ir.compose)(Object(l.withSelect)(function(e,t){var n=t.clientId,r=e("core/editor").getBlock(n);return{block:r,shouldRender:r&&r.name===Object(i.getFreeformContentHandlerName)()}}),Object(l.withDispatch)(function(e,t){var n=t.block;return{onClick:function(){return e("core/editor").replaceBlocks(n.clientId,Object(i.rawHandler)({HTML:Object(i.serialize)(n)}))}}}))(yl),El=Object(Fr.createSlotFill)("_BlockSettingsMenuFirstItem"),Sl=El.Fill,Cl=El.Slot;Sl.Slot=Cl;var wl=Sl,Tl=Object(Fr.createSlotFill)("_BlockSettingsMenuPluginsExtension"),Pl=Tl.Fill,Il=Tl.Slot;Pl.Slot=Il;var Bl=Pl;var xl=Object(l.withDispatch)(function(e){var t=e("core/editor").selectBlock;return{onSelect:function(e){t(e)}}})(function(e){var t=e.clientIds,n=e.onSelect,r=Object(O.castArray)(t),o=r.length,i=r[0];return Object(wr.createElement)(ma,{clientIds:t},function(e){var r=e.onDuplicate,c=e.onRemove,a=e.onInsertAfter,s=e.onInsertBefore,l=e.canDuplicate,u=e.isLocked;return Object(wr.createElement)(Fr.Dropdown,{contentClassName:"editor-block-settings-menu__popover",position:"bottom right",renderToggle:function(e){var t=e.onToggle,r=e.isOpen,c=Pr()("editor-block-settings-menu__toggle",{"is-opened":r}),a=r?Object(_.__)("Hide options"):Object(_.__)("More options");return Object(wr.createElement)(Fr.Toolbar,{controls:[{icon:"ellipsis",title:a,onClick:function(){1===o&&n(i),t()},className:c,extraProps:{"aria-expanded":r}}]})},renderContent:function(e){var n=e.onClose;return Object(wr.createElement)(Fr.NavigableMenu,{className:"editor-block-settings-menu__content"},Object(wr.createElement)(wl.Slot,{fillProps:{onClose:n}}),1===o&&Object(wr.createElement)(_l,{clientId:i}),1===o&&Object(wr.createElement)(kl,{clientId:i}),!u&&l&&Object(wr.createElement)(Fr.MenuItem,{className:"editor-block-settings-menu__control",onClick:r,icon:"admin-page",shortcut:Oa.duplicate.display},Object(_.__)("Duplicate")),!u&&Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)(Fr.MenuItem,{className:"editor-block-settings-menu__control",onClick:s,icon:"insert-before",shortcut:Oa.insertBefore.display},Object(_.__)("Insert Before")),Object(wr.createElement)(Fr.MenuItem,{className:"editor-block-settings-menu__control",onClick:a,icon:"insert-after",shortcut:Oa.insertAfter.display},Object(_.__)("Insert After"))),1===o&&Object(wr.createElement)(Ol,{clientId:i,onToggle:n}),Object(wr.createElement)(gl,{clientIds:t,onToggle:n}),Object(wr.createElement)(Bl.Slot,{fillProps:{clientIds:t,onClose:n}}),Object(wr.createElement)("div",{className:"editor-block-settings-menu__separator"}),1===o&&Object(wr.createElement)(jl,{clientId:i,onToggle:n}),!u&&Object(wr.createElement)(Fr.MenuItem,{className:"editor-block-settings-menu__control",onClick:c,icon:"trash",shortcut:Oa.removeBlock.display},Object(_.__)("Remove Block")))}})})}),Ll=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).state={hoveredClassName:null},e.onHoverClassName=e.onHoverClassName.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"onHoverClassName",value:function(e){this.setState({hoveredClassName:e})}},{key:"render",value:function(){var e=this,t=this.props,n=t.blocks,r=t.onTransform,o=t.inserterItems,c=t.hasBlockStyles,a=this.state.hoveredClassName;if(!n||!n.length)return null;var s=Object(O.mapKeys)(o,function(e){return e.name}),l=Object(O.orderBy)(Object(O.filter)(Object(i.getPossibleBlockTransformations)(n),function(e){return!!s[e.name]}),function(e){return s[e.name].frecency},"desc"),u=n[0].name,p=Object(i.getBlockType)(u);return c||l.length?Object(wr.createElement)(Fr.Dropdown,{position:"bottom right",className:"editor-block-switcher",contentClassName:"editor-block-switcher__popover",renderToggle:function(e){var t=e.onToggle,r=e.isOpen,o=1===n.length?Object(_.__)("Change block type"):Object(_.sprintf)(Object(_._n)("Change type of %d block","Change type of %d blocks",n.length),n.length);return Object(wr.createElement)(Fr.Toolbar,null,Object(wr.createElement)(Fr.IconButton,{className:"editor-block-switcher__toggle",onClick:t,"aria-haspopup":"true","aria-expanded":r,label:o,tooltip:o,onKeyDown:function(e){r||e.keyCode!==vo.DOWN||(e.preventDefault(),e.stopPropagation(),t())}},Object(wr.createElement)(qr,{icon:p.icon,showColors:!0}),Object(wr.createElement)(Fr.SVG,{className:"editor-block-switcher__transform",xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"},Object(wr.createElement)(Fr.Path,{d:"M6.5 8.9c.6-.6 1.4-.9 2.2-.9h6.9l-1.3 1.3 1.4 1.4L19.4 7l-3.7-3.7-1.4 1.4L15.6 6H8.7c-1.4 0-2.6.5-3.6 1.5l-2.8 2.8 1.4 1.4 2.8-2.8zm13.8 2.4l-2.8 2.8c-.6.6-1.3.9-2.1.9h-7l1.3-1.3-1.4-1.4L4.6 16l3.7 3.7 1.4-1.4L8.4 17h6.9c1.3 0 2.6-.5 3.5-1.5l2.8-2.8-1.3-1.4z"}))))},renderContent:function(t){var o=t.onClose;return Object(wr.createElement)(wr.Fragment,null,c&&Object(wr.createElement)(Fr.PanelBody,{title:Object(_.__)("Block Styles"),initialOpen:!0},Object(wr.createElement)(bl,{clientId:n[0].clientId,onSwitch:o,onHoverClassName:e.onHoverClassName})),0!==l.length&&Object(wr.createElement)(Fr.PanelBody,{title:Object(_.__)("Transform To:"),initialOpen:!0},Object(wr.createElement)(Ei,{items:l.map(function(e){return{id:e.name,icon:e.icon,title:e.title,hasChildBlocksWithInserterSupport:Object(i.hasChildBlocksWithInserterSupport)(e.name)}}),onSelect:function(e){r(n,e.id),o()}})),null!==a&&Object(wr.createElement)(ki,{name:n[0].name,attributes:Object(d.a)({},n[0].attributes,{className:a})}))}}):n.length>1?null:Object(wr.createElement)(Fr.Toolbar,null,Object(wr.createElement)(Fr.IconButton,{disabled:!0,className:"editor-block-switcher__no-switcher-icon",label:Object(_.__)("Block icon")},Object(wr.createElement)(qr,{icon:p.icon,showColors:!0})))}}]),t}(wr.Component),Al=Object(Ir.compose)(Object(l.withSelect)(function(e,t){var n=t.clientIds,r=e("core/editor"),o=r.getBlocksByClientId,i=r.getBlockRootClientId,c=r.getInserterItems,a=e("core/blocks").getBlockStyles,s=i(Object(O.first)(Object(O.castArray)(n))),l=o(n),u=l&&1===l.length?l[0]:null,d=u&&a(u.name);return{blocks:l,inserterItems:c(s),hasBlockStyles:d&&d.length>0}}),Object(l.withDispatch)(function(e,t){return{onTransform:function(n,r){e("core/editor").replaceBlocks(t.clientIds,Object(i.switchToBlockType)(n,r))}}}))(Ll);var Nl=Object(l.withSelect)(function(e){var t=e("core/editor").getMultiSelectedBlockClientIds();return{isMultiBlockSelection:t.length>1,selectedBlockClientIds:t}})(function(e){var t=e.isMultiBlockSelection,n=e.selectedBlockClientIds;return t?Object(wr.createElement)(Al,{key:"switcher",clientIds:n}):null});var Rl=Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getSelectedBlockClientId,r=t.getBlockMode,o=t.getMultiSelectedBlockClientIds,i=t.isBlockValid,c=n();return{blockClientIds:c?[c]:o(),isValid:c?i(c):null,mode:c?r(c):null}})(function(e){var t=e.blockClientIds,n=e.isValid,r=e.mode;return 0===t.length?null:t.length>1?Object(wr.createElement)("div",{className:"editor-block-toolbar"},Object(wr.createElement)(Nl,null),Object(wr.createElement)(xl,{clientIds:t})):Object(wr.createElement)("div",{className:"editor-block-toolbar"},"visual"===r&&n&&Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)(Al,{clientIds:t}),Object(wr.createElement)(so.Slot,null),Object(wr.createElement)(mo.Slot,null)),Object(wr.createElement)(xl,{clientIds:t}))}),Dl=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).onCopy=e.onCopy.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onCut=e.onCut.bind(Object(Dr.a)(Object(Dr.a)(e))),e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){document.addEventListener("copy",this.onCopy),document.addEventListener("cut",this.onCut)}},{key:"componentWillUnmount",value:function(){document.removeEventListener("copy",this.onCopy),document.removeEventListener("cut",this.onCut)}},{key:"onCopy",value:function(e){var t=this.props,n=t.hasMultiSelection,r=t.selectedBlockClientIds,o=t.getBlocksByClientId;if(0!==r.length&&(n||!Object(Fo.documentHasSelection)())){var c=Object(i.serialize)(o(r));e.clipboardData.setData("text/plain",c),e.clipboardData.setData("text/html",c),e.preventDefault()}}},{key:"onCut",value:function(e){var t=this.props,n=t.hasMultiSelection,r=t.selectedBlockClientIds;this.onCopy(e),n&&this.props.onRemove(r)}},{key:"render",value:function(){return null}}]),t}(wr.Component),Fl=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getMultiSelectedBlockClientIds,r=t.getSelectedBlockClientId,o=t.getBlocksByClientId,i=t.hasMultiSelection,c=r(),a=c?[c]:n();return{hasMultiSelection:i(),selectedBlockClientIds:a,getBlocksByClientId:o}}),Object(l.withDispatch)(function(e){return{onRemove:e("core/editor").removeBlocks}})])(Dl),Ml=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).reboot=e.reboot.bind(Object(Dr.a)(Object(Dr.a)(e))),e.getContent=e.getContent.bind(Object(Dr.a)(Object(Dr.a)(e))),e.state={error:null},e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidCatch",value:function(e){this.setState({error:e})}},{key:"reboot",value:function(){this.props.onError()}},{key:"getContent",value:function(){try{return Object(l.select)("core/editor").getEditedPostContent()}catch(e){}}},{key:"render",value:function(){var e=this.state.error;return e?Object(wr.createElement)(Qo,{className:"editor-error-boundary",actions:[Object(wr.createElement)(Fr.Button,{key:"recovery",onClick:this.reboot,isLarge:!0},Object(_.__)("Attempt Recovery")),Object(wr.createElement)(Fr.ClipboardButton,{key:"copy-post",text:this.getContent,isLarge:!0},Object(_.__)("Copy Post Text")),Object(wr.createElement)(Fr.ClipboardButton,{key:"copy-error",text:e.stack,isLarge:!0},Object(_.__)("Copy Error"))]},Object(_.__)("The editor has encountered an unexpected error.")):this.props.children}}]),t}(wr.Component),Ul=function(e){function t(){return Object(xr.a)(this,t),Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidUpdate",value:function(){this.scrollIntoView()}},{key:"scrollIntoView",value:function(){var e=this.props.extentClientId;if(e){var t=Ki(e);if(t){var n=Object(Fo.getScrollContainer)(t);n&&ji()(t,n,{onlyScrollIfNeeded:!0})}}}},{key:"render",value:function(){return null}}]),t}(wr.Component),Vl=Object(l.withSelect)(function(e){return{extentClientId:(0,e("core/editor").getLastMultiSelectedBlockClientId)()}})(Ul),Hl=[vo.UP,vo.RIGHT,vo.DOWN,vo.LEFT,vo.ENTER,vo.BACKSPACE];var Kl=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).stopTypingOnSelectionUncollapse=e.stopTypingOnSelectionUncollapse.bind(Object(Dr.a)(Object(Dr.a)(e))),e.stopTypingOnMouseMove=e.stopTypingOnMouseMove.bind(Object(Dr.a)(Object(Dr.a)(e))),e.startTypingInTextField=e.startTypingInTextField.bind(Object(Dr.a)(Object(Dr.a)(e))),e.stopTypingOnNonTextField=e.stopTypingOnNonTextField.bind(Object(Dr.a)(Object(Dr.a)(e))),e.stopTypingOnEscapeKey=e.stopTypingOnEscapeKey.bind(Object(Dr.a)(Object(Dr.a)(e))),e.onKeyDown=Object(O.over)([e.startTypingInTextField,e.stopTypingOnEscapeKey]),e.lastMouseMove=null,e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){this.toggleEventBindings(this.props.isTyping)}},{key:"componentDidUpdate",value:function(e){this.props.isTyping!==e.isTyping&&this.toggleEventBindings(this.props.isTyping)}},{key:"componentWillUnmount",value:function(){this.toggleEventBindings(!1)}},{key:"toggleEventBindings",value:function(e){var t=e?"addEventListener":"removeEventListener";document[t]("selectionchange",this.stopTypingOnSelectionUncollapse),document[t]("mousemove",this.stopTypingOnMouseMove)}},{key:"stopTypingOnMouseMove",value:function(e){var t=e.clientX,n=e.clientY;if(this.lastMouseMove){var r=this.lastMouseMove,o=r.clientX,i=r.clientY;o===t&&i===n||this.props.onStopTyping()}this.lastMouseMove={clientX:t,clientY:n}}},{key:"stopTypingOnSelectionUncollapse",value:function(){var e=window.getSelection();e.rangeCount>0&&e.getRangeAt(0).collapsed||this.props.onStopTyping()}},{key:"stopTypingOnEscapeKey",value:function(e){this.props.isTyping&&e.keyCode===vo.ESCAPE&&this.props.onStopTyping()}},{key:"startTypingInTextField",value:function(e){var t=this.props,n=t.isTyping,r=t.onStartTyping,o=e.type,i=e.target;n||!Object(Fo.isTextField)(i)||i.closest(".editor-block-toolbar")||("keydown"!==o||function(e){var t=e.keyCode;return!e.shiftKey&&Object(O.includes)(Hl,t)}(e))&&r()}},{key:"stopTypingOnNonTextField",value:function(e){var t=this;e.persist(),this.props.setTimeout(function(){var n=t.props,r=n.isTyping,o=n.onStopTyping,i=e.target;r&&!Object(Fo.isTextField)(i)&&o()})}},{key:"render",value:function(){var e=this.props.children;return Object(wr.createElement)("div",{onFocus:this.stopTypingOnNonTextField,onKeyPress:this.startTypingInTextField,onKeyDown:this.onKeyDown},e)}}]),t}(wr.Component),zl=Object(Ir.compose)([Object(l.withSelect)(function(e){return{isTyping:(0,e("core/editor").isTyping)()}}),Object(l.withDispatch)(function(e){var t=e("core/editor");return{onStartTyping:t.startTyping,onStopTyping:t.stopTyping}}),Ir.withSafeTimeout])(Kl),Wl=function(e){function t(){return Object(xr.a)(this,t),Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"getSnapshotBeforeUpdate",value:function(e){var t=this.props,n=t.blockOrder,r=t.selectionStart;return n!==e.blockOrder&&r?this.getOffset(r):null}},{key:"componentDidUpdate",value:function(e,t,n){n&&this.restorePreviousOffset(n)}},{key:"getOffset",value:function(e){var t=Ki(e);return t?t.getBoundingClientRect().top:null}},{key:"restorePreviousOffset",value:function(e){var t=Ki(this.props.selectionStart);if(t){var n=Object(Fo.getScrollContainer)(t);n&&(n.scrollTop=n.scrollTop+t.getBoundingClientRect().top-e)}}},{key:"render",value:function(){return null}}]),t}(wr.Component),ql=Object(l.withSelect)(function(e){return{blockOrder:e("core/editor").getBlockOrder(),selectionStart:e("core/editor").getBlockSelectionStart()}})(Wl),Gl=window.getSelection,$l=Object(O.overEvery)([Fo.isTextField,Fo.focus.tabbable.isTabbableIndex]);var Yl=function(e){function t(){var e;return Object(xr.a)(this,t),(e=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments))).onKeyDown=e.onKeyDown.bind(Object(Dr.a)(Object(Dr.a)(e))),e.bindContainer=e.bindContainer.bind(Object(Dr.a)(Object(Dr.a)(e))),e.clearVerticalRect=e.clearVerticalRect.bind(Object(Dr.a)(Object(Dr.a)(e))),e.focusLastTextField=e.focusLastTextField.bind(Object(Dr.a)(Object(Dr.a)(e))),e.verticalRect=null,e}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"bindContainer",value:function(e){this.container=e}},{key:"clearVerticalRect",value:function(){this.verticalRect=null}},{key:"getClosestTabbable",value:function(e,t){var n=Fo.focus.focusable.find(this.container);return t&&(n=Object(O.reverse)(n)),n=n.slice(n.indexOf(e)+1),Object(O.find)(n,function t(n,r,o){if(!Fo.focus.tabbable.isTabbableIndex(n))return!1;if(Object(Fo.isTextField)(n))return!0;if(!function(e){return e.classList.contains("editor-block-list__block")}(n))return!1;if(function(e){return!!e.querySelector(".editor-block-list__layout")}(n))return!0;if(n.contains(e))return!1;for(var i,c=1;(i=o[r+c])&&n.contains(i);c++)if(t(i,r+c,o))return!1;return!0})}},{key:"expandSelection",value:function(e){var t=this.props,n=t.selectedBlockClientId,r=t.selectionStartClientId,o=t.selectionBeforeEndClientId,i=t.selectionAfterEndClientId,c=e?o:i;c&&this.props.onMultiSelect(r||n,c)}},{key:"moveSelection",value:function(e){var t=this.props,n=t.selectedFirstClientId,r=t.selectedLastClientId,o=e?n:r;o&&this.props.onSelectBlock(o)}},{key:"isTabbableEdge",value:function(e,t){var n=this.getClosestTabbable(e,t);return!n||!function(e,t){return e.closest("[data-block]")===t.closest("[data-block]")}(e,n)}},{key:"onKeyDown",value:function(e){var t=this.props,n=t.hasMultiSelection,r=t.onMultiSelect,o=t.blocks,i=e.keyCode,c=e.target,a=i===vo.UP,s=i===vo.DOWN,l=i===vo.LEFT,u=i===vo.RIGHT,d=a||l,p=l||u,b=a||s,f=p||b,h=e.shiftKey,m=h||e.ctrlKey||e.altKey||e.metaKey,v=b?Fo.isVerticalEdge:Fo.isHorizontalEdge;if(!f)return vo.isKeyboardEvent.primary(e)&&(this.isEntirelySelected=Object(Fo.isEntirelySelected)(c)),void(vo.isKeyboardEvent.primary(e,"a")&&((c.isContentEditable?this.isEntirelySelected:Object(Fo.isEntirelySelected)(c))&&(r(Object(O.first)(o),Object(O.last)(o)),e.preventDefault()),this.isEntirelySelected=!0));if(!e.nativeEvent.defaultPrevented&&function(e,t,n){if((t===vo.UP||t===vo.DOWN)&&!n)return!0;var r=e.tagName;return"INPUT"!==r&&"TEXTAREA"!==r}(c,i,m))if(b?this.verticalRect||(this.verticalRect=Object(Fo.computeCaretRect)(c)):this.verticalRect=null,h&&(n||this.isTabbableEdge(c,d)&&v(c,d)))this.expandSelection(d),e.preventDefault();else if(n)this.moveSelection(d),e.preventDefault();else if(b&&Object(Fo.isVerticalEdge)(c,d)){var g=this.getClosestTabbable(c,d);g&&(Object(Fo.placeCaretAtVerticalEdge)(g,d,this.verticalRect),e.preventDefault())}else if(p&&Gl().isCollapsed&&Object(Fo.isHorizontalEdge)(c,d)){var j=this.getClosestTabbable(c,d);Object(Fo.placeCaretAtHorizontalEdge)(j,d),e.preventDefault()}}},{key:"focusLastTextField",value:function(){var e=Fo.focus.focusable.find(this.container),t=Object(O.findLast)(e,$l);t&&Object(Fo.placeCaretAtHorizontalEdge)(t,!0)}},{key:"render",value:function(){var e=this.props.children;return Object(wr.createElement)("div",{className:"editor-writing-flow"},Object(wr.createElement)("div",{ref:this.bindContainer,onKeyDown:this.onKeyDown,onMouseDown:this.clearVerticalRect},e),Object(wr.createElement)("div",{"aria-hidden":!0,tabIndex:-1,onClick:this.focusLastTextField,className:"wp-block editor-writing-flow__click-redirect"}))}}]),t}(wr.Component),Ql=Object(Ir.compose)([Object(l.withSelect)(function(e){var t=e("core/editor"),n=t.getSelectedBlockClientId,r=t.getMultiSelectedBlocksStartClientId,o=t.getMultiSelectedBlocksEndClientId,i=t.getPreviousBlockClientId,c=t.getNextBlockClientId,a=t.getFirstMultiSelectedBlockClientId,s=t.getLastMultiSelectedBlockClientId,l=t.hasMultiSelection,u=t.getBlockOrder,d=n(),p=r(),b=o();return{selectedBlockClientId:d,selectionStartClientId:p,selectionBeforeEndClientId:i(b||d),selectionAfterEndClientId:c(b||d),selectedFirstClientId:a(),selectedLastClientId:s(),hasMultiSelection:l(),blocks:u()}}),Object(l.withDispatch)(function(e){var t=e("core/editor");return{onMultiSelect:t.multiSelect,onSelectBlock:t.selectBlock}})])(Yl),Xl=/\/\*[^*]*\*+([^/*][^*]*\*+)*\//g,Zl=function(e,t){t=t||{};var n=1,r=1;function o(e){var t=e.match(/\n/g);t&&(n+=t.length);var o=e.lastIndexOf("\n");r=~o?e.length-o:r+e.length}function i(){var e={line:n,column:r};return function(t){return t.position=new c(e),b(),t}}function c(e){this.start=e,this.end={line:n,column:r},this.source=t.source}c.prototype.content=e;var a=[];function s(o){var i=new Error(t.source+":"+n+":"+r+": "+o);if(i.reason=o,i.filename=t.source,i.line=n,i.column=r,i.source=e,!t.silent)throw i;a.push(i)}function l(){return p(/^{\s*/)}function u(){return p(/^}/)}function d(){var t,n=[];for(b(),f(n);e.length&&"}"!==e.charAt(0)&&(t=S()||C());)!1!==t&&(n.push(t),f(n));return n}function p(t){var n=t.exec(e);if(n){var r=n[0];return o(r),e=e.slice(r.length),n}}function b(){p(/^\s*/)}function f(e){var t;for(e=e||[];t=m();)!1!==t&&e.push(t);return e}function m(){var t=i();if("/"===e.charAt(0)&&"*"===e.charAt(1)){for(var n=2;""!==e.charAt(n)&&("*"!==e.charAt(n)||"/"!==e.charAt(n+1));)++n;if(n+=2,""===e.charAt(n-1))return s("End of comment missing");var c=e.slice(2,n-2);return r+=2,o(c),e=e.slice(n),r+=2,t({type:"comment",comment:c})}}function v(){var e=p(/^([^{]+)/);if(e)return Jl(e[0]).replace(/\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*\/+/g,"").replace(/"(?:\\"|[^"])*"|'(?:\\'|[^'])*'/g,function(e){return e.replace(/,/g,"‌")}).split(/\s*(?![^(]*\)),\s*/).map(function(e){return e.replace(/\u200C/g,",")})}function O(){var e=i(),t=p(/^(\*?[-#\/\*\\\w]+(\[[0-9a-z_-]+\])?)\s*/);if(t){if(t=Jl(t[0]),!p(/^:\s*/))return s("property missing ':'");var n=p(/^((?:'(?:\\'|.)*?'|"(?:\\"|.)*?"|\([^\)]*?\)|[^};])+)/),r=e({type:"declaration",property:t.replace(Xl,""),value:n?Jl(n[0]).replace(Xl,""):""});return p(/^[;\s]*/),r}}function g(){var e,t=[];if(!l())return s("missing '{'");for(f(t);e=O();)!1!==e&&(t.push(e),f(t));return u()?t:s("missing '}'")}function j(){for(var e,t=[],n=i();e=p(/^((\d+\.\d+|\.\d+|\d+)%?|[a-z]+)\s*/);)t.push(e[1]),p(/^,\s*/);if(t.length)return n({type:"keyframe",values:t,declarations:g()})}var y=E("import"),k=E("charset"),_=E("namespace");function E(e){var t=new RegExp("^@"+e+"\\s*([^;]+);");return function(){var n=i(),r=p(t);if(r){var o={type:e};return o[e]=r[1].trim(),n(o)}}}function S(){if("@"===e[0])return function(){var e=i(),t=p(/^@([-\w]+)?keyframes\s*/);if(t){var n=t[1];if(!(t=p(/^([-\w]+)\s*/)))return s("@keyframes missing name");var r,o=t[1];if(!l())return s("@keyframes missing '{'");for(var c=f();r=j();)c.push(r),c=c.concat(f());return u()?e({type:"keyframes",name:o,vendor:n,keyframes:c}):s("@keyframes missing '}'")}}()||function(){var e=i(),t=p(/^@media *([^{]+)/);if(t){var n=Jl(t[1]);if(!l())return s("@media missing '{'");var r=f().concat(d());return u()?e({type:"media",media:n,rules:r}):s("@media missing '}'")}}()||function(){var e=i(),t=p(/^@custom-media\s+(--[^\s]+)\s*([^{;]+);/);if(t)return e({type:"custom-media",name:Jl(t[1]),media:Jl(t[2])})}()||function(){var e=i(),t=p(/^@supports *([^{]+)/);if(t){var n=Jl(t[1]);if(!l())return s("@supports missing '{'");var r=f().concat(d());return u()?e({type:"supports",supports:n,rules:r}):s("@supports missing '}'")}}()||y()||k()||_()||function(){var e=i(),t=p(/^@([-\w]+)?document *([^{]+)/);if(t){var n=Jl(t[1]),r=Jl(t[2]);if(!l())return s("@document missing '{'");var o=f().concat(d());return u()?e({type:"document",document:r,vendor:n,rules:o}):s("@document missing '}'")}}()||function(){var e=i();if(p(/^@page */)){var t=v()||[];if(!l())return s("@page missing '{'");for(var n,r=f();n=O();)r.push(n),r=r.concat(f());return u()?e({type:"page",selectors:t,declarations:r}):s("@page missing '}'")}}()||function(){var e=i();if(p(/^@host\s*/)){if(!l())return s("@host missing '{'");var t=f().concat(d());return u()?e({type:"host",rules:t}):s("@host missing '}'")}}()||function(){var e=i();if(p(/^@font-face\s*/)){if(!l())return s("@font-face missing '{'");for(var t,n=f();t=O();)n.push(t),n=n.concat(f());return u()?e({type:"font-face",declarations:n}):s("@font-face missing '}'")}}()}function C(){var e=i(),t=v();return t?(f(),e({type:"rule",selectors:t,declarations:g()})):s("selector missing")}return function e(t,n){var r=t&&"string"==typeof t.type;var o=r?t:n;for(var i in t){var c=t[i];Array.isArray(c)?c.forEach(function(t){e(t,o)}):c&&"object"===Object(h.a)(c)&&e(c,o)}r&&Object.defineProperty(t,"parent",{configurable:!0,writable:!0,enumerable:!1,value:n||null});return t}(function(){var e=d();return{type:"stylesheet",stylesheet:{source:t.source,rules:e,parsingErrors:a}}}())};function Jl(e){return e?e.replace(/^\s+|\s+$/g,""):""}var eu=n(97),tu=n.n(eu),nu=ru;function ru(e){this.options=e||{}}ru.prototype.emit=function(e){return e},ru.prototype.visit=function(e){return this[e.type](e)},ru.prototype.mapVisit=function(e,t){var n="";t=t||"";for(var r=0,o=e.length;r<o;r++)n+=this.visit(e[r]),t&&r<o-1&&(n+=this.emit(t));return n};var ou=iu;function iu(e){nu.call(this,e)}tu()(iu,nu),iu.prototype.compile=function(e){return e.stylesheet.rules.map(this.visit,this).join("")},iu.prototype.comment=function(e){return this.emit("",e.position)},iu.prototype.import=function(e){return this.emit("@import "+e.import+";",e.position)},iu.prototype.media=function(e){return this.emit("@media "+e.media,e.position)+this.emit("{")+this.mapVisit(e.rules)+this.emit("}")},iu.prototype.document=function(e){var t="@"+(e.vendor||"")+"document "+e.document;return this.emit(t,e.position)+this.emit("{")+this.mapVisit(e.rules)+this.emit("}")},iu.prototype.charset=function(e){return this.emit("@charset "+e.charset+";",e.position)},iu.prototype.namespace=function(e){return this.emit("@namespace "+e.namespace+";",e.position)},iu.prototype.supports=function(e){return this.emit("@supports "+e.supports,e.position)+this.emit("{")+this.mapVisit(e.rules)+this.emit("}")},iu.prototype.keyframes=function(e){return this.emit("@"+(e.vendor||"")+"keyframes "+e.name,e.position)+this.emit("{")+this.mapVisit(e.keyframes)+this.emit("}")},iu.prototype.keyframe=function(e){var t=e.declarations;return this.emit(e.values.join(","),e.position)+this.emit("{")+this.mapVisit(t)+this.emit("}")},iu.prototype.page=function(e){var t=e.selectors.length?e.selectors.join(", "):"";return this.emit("@page "+t,e.position)+this.emit("{")+this.mapVisit(e.declarations)+this.emit("}")},iu.prototype["font-face"]=function(e){return this.emit("@font-face",e.position)+this.emit("{")+this.mapVisit(e.declarations)+this.emit("}")},iu.prototype.host=function(e){return this.emit("@host",e.position)+this.emit("{")+this.mapVisit(e.rules)+this.emit("}")},iu.prototype["custom-media"]=function(e){return this.emit("@custom-media "+e.name+" "+e.media+";",e.position)},iu.prototype.rule=function(e){var t=e.declarations;return t.length?this.emit(e.selectors.join(","),e.position)+this.emit("{")+this.mapVisit(t)+this.emit("}"):""},iu.prototype.declaration=function(e){return this.emit(e.property+":"+e.value,e.position)+this.emit(";")};var cu=au;function au(e){e=e||{},nu.call(this,e),this.indentation=e.indent}tu()(au,nu),au.prototype.compile=function(e){return this.stylesheet(e)},au.prototype.stylesheet=function(e){return this.mapVisit(e.stylesheet.rules,"\n\n")},au.prototype.comment=function(e){return this.emit(this.indent()+"/*"+e.comment+"*/",e.position)},au.prototype.import=function(e){return this.emit("@import "+e.import+";",e.position)},au.prototype.media=function(e){return this.emit("@media "+e.media,e.position)+this.emit(" {\n"+this.indent(1))+this.mapVisit(e.rules,"\n\n")+this.emit(this.indent(-1)+"\n}")},au.prototype.document=function(e){var t="@"+(e.vendor||"")+"document "+e.document;return this.emit(t,e.position)+this.emit("  {\n"+this.indent(1))+this.mapVisit(e.rules,"\n\n")+this.emit(this.indent(-1)+"\n}")},au.prototype.charset=function(e){return this.emit("@charset "+e.charset+";",e.position)},au.prototype.namespace=function(e){return this.emit("@namespace "+e.namespace+";",e.position)},au.prototype.supports=function(e){return this.emit("@supports "+e.supports,e.position)+this.emit(" {\n"+this.indent(1))+this.mapVisit(e.rules,"\n\n")+this.emit(this.indent(-1)+"\n}")},au.prototype.keyframes=function(e){return this.emit("@"+(e.vendor||"")+"keyframes "+e.name,e.position)+this.emit(" {\n"+this.indent(1))+this.mapVisit(e.keyframes,"\n")+this.emit(this.indent(-1)+"}")},au.prototype.keyframe=function(e){var t=e.declarations;return this.emit(this.indent())+this.emit(e.values.join(", "),e.position)+this.emit(" {\n"+this.indent(1))+this.mapVisit(t,"\n")+this.emit(this.indent(-1)+"\n"+this.indent()+"}\n")},au.prototype.page=function(e){var t=e.selectors.length?e.selectors.join(", ")+" ":"";return this.emit("@page "+t,e.position)+this.emit("{\n")+this.emit(this.indent(1))+this.mapVisit(e.declarations,"\n")+this.emit(this.indent(-1))+this.emit("\n}")},au.prototype["font-face"]=function(e){return this.emit("@font-face ",e.position)+this.emit("{\n")+this.emit(this.indent(1))+this.mapVisit(e.declarations,"\n")+this.emit(this.indent(-1))+this.emit("\n}")},au.prototype.host=function(e){return this.emit("@host",e.position)+this.emit(" {\n"+this.indent(1))+this.mapVisit(e.rules,"\n\n")+this.emit(this.indent(-1)+"\n}")},au.prototype["custom-media"]=function(e){return this.emit("@custom-media "+e.name+" "+e.media+";",e.position)},au.prototype.rule=function(e){var t=this.indent(),n=e.declarations;return n.length?this.emit(e.selectors.map(function(e){return t+e}).join(",\n"),e.position)+this.emit(" {\n")+this.emit(this.indent(1))+this.mapVisit(n,"\n")+this.emit(this.indent(-1))+this.emit("\n"+this.indent()+"}"):""},au.prototype.declaration=function(e){return this.emit(this.indent())+this.emit(e.property+": "+e.value,e.position)+this.emit(";")},au.prototype.indent=function(e){return this.level=this.level||1,null!==e?(this.level+=e,""):Array(this.level).join(this.indentation||"  ")};var su=function(e,t){return((t=t||{}).compress?new ou(t):new cu(t)).compile(e)},lu=n(184),uu=n.n(lu);var du=function(e,t){try{var n=Zl(e),r=uu.a.map(n,function(e){if(!e)return e;var n=t(e);return this.update(n)});return su(r)}catch(e){return console.warn("Error while traversing the CSS: "+e),null}},pu=n(75);function bu(e){return 0!==e.value.indexOf("data:")&&0!==e.value.indexOf("#")&&(!function(e){return/^\/(?!\/)/.test(e)}(e.value)&&!function(e){return/^(?:https?:)?\/\//.test(e)}(e.value))}function fu(e){return function(t){var n=function(e,t){var n=Object(pu.parse)(e).pathname;return Object(pu.resolve)(t,n)}(t.value,e);return Object(d.a)({},t,{newUrl:"url("+t.before+t.quote+n+t.quote+t.after+")"})}}var hu=function(e){return function(t){if("declaration"===t.type){var n=function(e){for(var t,n=/url\((\s*)(['"]?)(.+?)\2(\s*)\)/g,r=[];null!==(t=n.exec(e));){var o={source:t[0],before:t[1],quote:t[2],value:t[3],after:t[4]};bu(o)&&r.push(o)}return r}(t.value).map(fu(e));return Object(d.a)({},t,{value:function(e,t){return t.forEach(function(t){e=e.replace(t.source,t.newUrl)}),e}(t.value,n)})}return t}},mu=/^(body|html).*$/,vu=function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:[];return function(n){return"rule"===n.type?Object(d.a)({},n,{selectors:n.selectors.map(function(n){return Object(O.includes)(t,n.trim())?n:n.match(mu)?n.replace(/^(body|html)/,e):e+" "+n})}):n}},Ou=function(e){function t(e){var n;return Object(xr.a)(this,t),n=Object(Ar.a)(this,Object(Nr.a)(t).apply(this,arguments)),e.recovery?Object(Ar.a)(n):(e.updateEditorSettings(e.settings),e.updatePostLock(e.settings.postLock),e.setupEditor(e.post,e.initialEdits),e.settings.autosave&&e.createWarningNotice(Object(_.__)("There is an autosave of this post that is more recent than the version below."),{id:"autosave-exists",actions:[{label:Object(_.__)("View the autosave"),url:e.settings.autosave.editLink}]}),n)}return Object(Rr.a)(t,e),Object(Lr.a)(t,[{key:"componentDidMount",value:function(){this.props.settings.styles&&Object(O.map)(this.props.settings.styles,function(e){var t=e.css,n=e.baseURL,r=[vu(".editor-styles-wrapper")];n&&r.push(hu(n));var o=du(t,Object(Ir.compose)(r));if(o){var i=document.createElement("style");i.innerHTML=o,document.body.appendChild(i)}})}},{key:"componentDidUpdate",value:function(e){this.props.settings!==e.settings&&this.props.updateEditorSettings(this.props.settings)}},{key:"render",value:function(){var e=this.props.children,t=[[Fr.SlotFillProvider],[Fr.DropZoneProvider]];return Object(O.flow)(t.map(function(e){var t=Object(u.a)(e,2),n=t[0],r=t[1];return function(e){return Object(wr.createElement)(n,r,e)}}))(e)}}]),t}(wr.Component),gu=Object(l.withDispatch)(function(e){var t=e("core/editor");return{setupEditor:t.setupEditor,updateEditorSettings:t.updateEditorSettings,updatePostLock:t.updatePostLock,createWarningNotice:e("core/notices").createWarningNotice}})(Ou),ju=["left","center","right","wide","full"],yu=["wide","full"];function ku(e){var t,n=!(arguments.length>1&&void 0!==arguments[1])||arguments[1],r=!(arguments.length>2&&void 0!==arguments[2])||arguments[2];return t=Array.isArray(e)?e:!0===e?ju:[],!r||!0===e&&!n?O.without.apply(void 0,[t].concat(yu)):t}var _u=Object(Ir.createHigherOrderComponent)(function(e){return function(t){var n=t.name,r=ku(Object(i.getBlockSupport)(n,"align"),Object(i.hasBlockSupport)(n,"alignWide",!0));return[r.length>0&&t.isSelected&&Object(wr.createElement)(so,{key:"align-controls"},Object(wr.createElement)(ro,{value:t.attributes.align,onChange:function(e){if(!e){var n=Object(i.getBlockType)(t.name);Object(O.get)(n,["attributes","align","default"])&&(e="")}t.setAttributes({align:e})},controls:r})),Object(wr.createElement)(e,Object(Cr.a)({key:"edit"},t))]}},"withToolbarControls"),Eu=Object(Ir.createHigherOrderComponent)(Object(Ir.compose)([Object(l.withSelect)(function(e){return{hasWideEnabled:!!(0,e("core/editor").getEditorSettings)().alignWide}}),function(e){return function(t){var n=t.block,r=t.hasWideEnabled,o=n.name,c=n.attributes.align,a=ku(Object(i.getBlockSupport)(o,"align"),Object(i.hasBlockSupport)(o,"alignWide",!0),r),s=t.wrapperProps;return Object(O.includes)(a,c)&&(s=Object(d.a)({},s,{"data-align":c})),Object(wr.createElement)(e,Object(Cr.a)({},t,{wrapperProps:s}))}}]));Object(Br.addFilter)("blocks.registerBlockType","core/align/addAttribute",function(e){return Object(O.has)(e.attributes,["align","type"])?e:(Object(i.hasBlockSupport)(e,"align")&&(e.attributes=Object(O.assign)(e.attributes,{align:{type:"string"}})),e)}),Object(Br.addFilter)("editor.BlockListBlock","core/editor/align/with-data-align",Eu),Object(Br.addFilter)("editor.BlockEdit","core/editor/align/with-toolbar-controls",_u),Object(Br.addFilter)("blocks.getSaveContent.extraProps","core/align/addAssignedAlign",function(e,t,n){var r=n.align,o=Object(i.getBlockSupport)(t,"align"),c=Object(i.hasBlockSupport)(t,"alignWide",!0);return Object(O.includes)(ku(o,c),r)&&(e.className=Pr()("align".concat(r),e.className)),e});var Su=/[\s#]/g;var Cu=Object(Ir.createHigherOrderComponent)(function(e){return function(t){return Object(i.hasBlockSupport)(t.name,"anchor")&&t.isSelected?Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)(e,t),Object(wr.createElement)(ic,null,Object(wr.createElement)(Fr.TextControl,{label:Object(_.__)("HTML Anchor"),help:Object(_.__)("Anchors lets you link directly to a section on a page."),value:t.attributes.anchor||"",onChange:function(e){e=e.replace(Su,"-"),t.setAttributes({anchor:e})}}))):Object(wr.createElement)(e,t)}},"withInspectorControl");Object(Br.addFilter)("blocks.registerBlockType","core/anchor/attribute",function(e){return Object(i.hasBlockSupport)(e,"anchor")&&(e.attributes=Object(O.assign)(e.attributes,{anchor:{type:"string",source:"attribute",attribute:"id",selector:"*"}})),e}),Object(Br.addFilter)("editor.BlockEdit","core/editor/anchor/with-inspector-control",Cu),Object(Br.addFilter)("blocks.getSaveContent.extraProps","core/anchor/save-props",function(e,t,n){return Object(i.hasBlockSupport)(t,"anchor")&&(e.id=n.anchor),e});var wu=Object(Ir.createHigherOrderComponent)(function(e){return function(t){return Object(i.hasBlockSupport)(t.name,"customClassName",!0)&&t.isSelected?Object(wr.createElement)(wr.Fragment,null,Object(wr.createElement)(e,t),Object(wr.createElement)(ic,null,Object(wr.createElement)(Fr.TextControl,{label:Object(_.__)("Additional CSS Class"),value:t.attributes.className||"",onChange:function(e){t.setAttributes({className:e})}}))):Object(wr.createElement)(e,t)}},"withInspectorControl");function Tu(e){e="<div data-custom-class-name>".concat(e,"</div>");var t=Object(i.parseWithAttributeSchema)(e,{type:"string",source:"attribute",selector:"[data-custom-class-name] > *",attribute:"class"});return t?t.trim().split(/\s+/):[]}Object(Br.addFilter)("blocks.registerBlockType","core/custom-class-name/attribute",function(e){return Object(i.hasBlockSupport)(e,"customClassName",!0)&&(e.attributes=Object(O.assign)(e.attributes,{className:{type:"string"}})),e}),Object(Br.addFilter)("editor.BlockEdit","core/editor/custom-class-name/with-inspector-control",wu),Object(Br.addFilter)("blocks.getSaveContent.extraProps","core/custom-class-name/save-props",function(e,t,n){return Object(i.hasBlockSupport)(t,"customClassName",!0)&&n.className&&(e.className=Pr()(e.className,n.className)),e}),Object(Br.addFilter)("blocks.getBlockAttributes","core/custom-class-name/addParsedDifference",function(e,t,n){if(Object(i.hasBlockSupport)(t,"customClassName",!0)){var r=Object(O.omit)(e,["className"]),o=Object(i.getSaveContent)(t,r),c=Tu(o),a=Tu(n),s=Object(O.difference)(a,c);s.length?e.className=s.join(" "):o&&delete e.className}return e});var Pu=[Xr],Iu=Object(O.once)(function(){return Object(l.dispatch)("core/editor").__experimentalFetchReusableBlocks()});Object(Br.addFilter)("editor.Autocomplete.completers","editor/autocompleters/set-default-completers",function(e,t){return e||(e=Pu.map(O.clone),t===Object(i.getDefaultBlockName)()&&(e.push(Object(O.clone)(Qr)),Iu())),e}),Object(Br.addFilter)("blocks.getSaveContent.extraProps","core/generated-class-name/save-props",function(e,t){return Object(i.hasBlockSupport)(t,"className",!0)&&("string"==typeof e.className?e.className=Object(O.uniq)([Object(i.getBlockDefaultClassName)(t.name)].concat(Object(b.a)(e.className.split(" ")))).join(" ").trim():e.className=Object(i.getBlockDefaultClassName)(t.name)),e}),n.d(t,"Autocomplete",function(){return Wr}),n.d(t,"AlignmentToolbar",function(){return Jr}),n.d(t,"BlockAlignmentToolbar",function(){return ro}),n.d(t,"BlockControls",function(){return so}),n.d(t,"BlockEdit",function(){return uo}),n.d(t,"BlockFormatControls",function(){return mo}),n.d(t,"BlockNavigationDropdown",function(){return yo}),n.d(t,"BlockIcon",function(){return qr}),n.d(t,"ColorPalette",function(){return _o}),n.d(t,"withColorContext",function(){return ko}),n.d(t,"ContrastChecker",function(){return Bo}),n.d(t,"InnerBlocks",function(){return ec}),n.d(t,"InspectorAdvancedControls",function(){return ic}),n.d(t,"InspectorControls",function(){return uc}),n.d(t,"PanelColorSettings",function(){return hc}),n.d(t,"PlainText",function(){return mc}),n.d(t,"RichText",function(){return Hc}),n.d(t,"RichTextShortcut",function(){return Ic}),n.d(t,"RichTextToolbarButton",function(){return Dc}),n.d(t,"RichTextInserterItem",function(){return Fc}),n.d(t,"ServerSideRender",function(){return Kc}),n.d(t,"MediaPlaceholder",function(){return ta}),n.d(t,"MediaUpload",function(){return zc}),n.d(t,"MediaUploadCheck",function(){return Go}),n.d(t,"URLInput",function(){return oa}),n.d(t,"URLInputButton",function(){return ia}),n.d(t,"URLPopover",function(){return Wc}),n.d(t,"AutosaveMonitor",function(){return aa}),n.d(t,"DocumentOutline",function(){return fa}),n.d(t,"DocumentOutlineCheck",function(){return ha}),n.d(t,"EditorGlobalKeyboardShortcuts",function(){return ja}),n.d(t,"EditorHistoryRedo",function(){return ya}),n.d(t,"EditorHistoryUndo",function(){return ka}),n.d(t,"EditorNotices",function(){return Ea}),n.d(t,"PageAttributesCheck",function(){return Sa}),n.d(t,"PageAttributesOrder",function(){return Ta}),n.d(t,"PageAttributesParent",function(){return xa}),n.d(t,"PageTemplate",function(){return La}),n.d(t,"PostAuthor",function(){return Ra}),n.d(t,"PostAuthorCheck",function(){return Aa}),n.d(t,"PostComments",function(){return Da}),n.d(t,"PostExcerpt",function(){return Fa}),n.d(t,"PostExcerptCheck",function(){return Ma}),n.d(t,"PostFeaturedImage",function(){return $a}),n.d(t,"PostFeaturedImageCheck",function(){return Va}),n.d(t,"PostFormat",function(){return Xa}),n.d(t,"PostFormatCheck",function(){return Ya}),n.d(t,"PostLastRevision",function(){return Ja}),n.d(t,"PostLastRevisionCheck",function(){return Za}),n.d(t,"PostLockedModal",function(){return is}),n.d(t,"PostPendingStatus",function(){return as}),n.d(t,"PostPendingStatusCheck",function(){return cs}),n.d(t,"PostPingbacks",function(){return ss}),n.d(t,"PostPreviewButton",function(){return rs}),n.d(t,"PostPublishButton",function(){return ds}),n.d(t,"PostPublishButtonLabel",function(){return ls}),n.d(t,"PostPublishPanel",function(){return Bs}),n.d(t,"PostSavedState",function(){return As}),n.d(t,"PostSchedule",function(){return ms}),n.d(t,"PostScheduleCheck",function(){return Ns}),n.d(t,"PostScheduleLabel",function(){return vs}),n.d(t,"PostSticky",function(){return Ds}),n.d(t,"PostStickyCheck",function(){return Rs}),n.d(t,"PostSwitchToDraftButton",function(){return xs}),n.d(t,"PostTaxonomies",function(){return Vs}),n.d(t,"PostTaxonomiesCheck",function(){return Hs}),n.d(t,"PostTextEditor",function(){return zs}),n.d(t,"PostTitle",function(){return Js}),n.d(t,"PostTrash",function(){return el}),n.d(t,"PostTrashCheck",function(){return tl}),n.d(t,"PostTypeSupportCheck",function(){return Ca}),n.d(t,"PostVisibility",function(){return fs}),n.d(t,"PostVisibilityLabel",function(){return hs}),n.d(t,"PostVisibilityCheck",function(){return nl}),n.d(t,"TableOfContents",function(){return cl}),n.d(t,"UnsavedChangesWarning",function(){return sl}),n.d(t,"WordCount",function(){return ol}),n.d(t,"BlockInspector",function(){return hl}),n.d(t,"BlockList",function(){return Zi}),n.d(t,"BlockMover",function(){return qo}),n.d(t,"BlockSelectionClearer",function(){return vl}),n.d(t,"BlockSettingsMenu",function(){return xl}),n.d(t,"_BlockSettingsMenuFirstItem",function(){return wl}),n.d(t,"_BlockSettingsMenuPluginsExtension",function(){return Bl}),n.d(t,"BlockTitle",function(){return ui}),n.d(t,"BlockToolbar",function(){return Rl}),n.d(t,"CopyHandler",function(){return Fl}),n.d(t,"DefaultBlockAppender",function(){return Yi}),n.d(t,"ErrorBoundary",function(){return Ml}),n.d(t,"Inserter",function(){return Li}),n.d(t,"MultiBlocksSwitcher",function(){return Nl}),n.d(t,"MultiSelectScrollIntoView",function(){return Vl}),n.d(t,"NavigableToolbar",function(){return mi}),n.d(t,"ObserveTyping",function(){return zl}),n.d(t,"PreserveScrollInReorder",function(){return ql}),n.d(t,"SkipToSelectedBlock",function(){return ll}),n.d(t,"Warning",function(){return Qo}),n.d(t,"WritingFlow",function(){return Ql}),n.d(t,"EditorProvider",function(){return gu}),n.d(t,"blockAutocompleter",function(){return Qr}),n.d(t,"userAutocompleter",function(){return Xr}),n.d(t,"getColorClassName",function(){return To}),n.d(t,"getColorObjectByAttributeValues",function(){return Co}),n.d(t,"getColorObjectByColorValue",function(){return wo}),n.d(t,"withColors",function(){return Io}),n.d(t,"getFontSize",function(){return xo}),n.d(t,"getFontSizeClass",function(){return Lo}),n.d(t,"FontSizePicker",function(){return Ao}),n.d(t,"withFontSizes",function(){return No}),n.d(t,"mediaUpload",function(){return Yc}),n.d(t,"cleanForSlug",function(){return Xc})},,,,,,,,,,,,,,,,,,,,,,,,,,,,,function(e,t){e.exports=function(e,t,n){return((n=window.getComputedStyle)?n(e):e.currentStyle)[t.replace(/-(\w)/gi,function(e,t){return t.toUpperCase()})]}},function(e,t,n){var r=n(249);e.exports=function(e){var t=r(e,"line-height"),n=parseFloat(t,10);if(t===n+""){var o=e.style.lineHeight;e.style.lineHeight=t+"em",t=r(e,"line-height"),n=parseFloat(t,10),o?e.style.lineHeight=o:delete e.style.lineHeight}if(-1!==t.indexOf("pt")?(n*=4,n/=3):-1!==t.indexOf("mm")?(n*=96,n/=25.4):-1!==t.indexOf("cm")?(n*=96,n/=2.54):-1!==t.indexOf("in")?n*=96:-1!==t.indexOf("pc")&&(n*=16),n=Math.round(n),"normal"===t){var i=e.nodeName,c=document.createElement(i);c.innerHTML="&nbsp;","TEXTAREA"===i.toUpperCase()&&c.setAttribute("rows","1");var a=r(e,"font-size");c.style.fontSize=a,c.style.padding="0px",c.style.border="0px";var s=document.body;s.appendChild(c),n=c.offsetHeight,s.removeChild(c)}return n}},function(e,t,n){var r,o,i;
-/*!
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	autosize 4.0.2
 	license: MIT
 	http://www.jacklmoore.com/autosize
-*/o=[e,t],void 0===(i="function"==typeof(r=function(e,t){"use strict";var n="function"==typeof Map?new Map:function(){var e=[],t=[];return{has:function(t){return e.indexOf(t)>-1},get:function(n){return t[e.indexOf(n)]},set:function(n,r){-1===e.indexOf(n)&&(e.push(n),t.push(r))},delete:function(n){var r=e.indexOf(n);r>-1&&(e.splice(r,1),t.splice(r,1))}}}(),r=function(e){return new Event(e,{bubbles:!0})};try{new Event("test")}catch(e){r=function(e){var t=document.createEvent("Event");return t.initEvent(e,!0,!1),t}}function o(e){if(e&&e.nodeName&&"TEXTAREA"===e.nodeName&&!n.has(e)){var t=null,o=null,i=null,c=function(){e.clientWidth!==o&&u()},a=function(t){window.removeEventListener("resize",c,!1),e.removeEventListener("input",u,!1),e.removeEventListener("keyup",u,!1),e.removeEventListener("autosize:destroy",a,!1),e.removeEventListener("autosize:update",u,!1),Object.keys(t).forEach(function(n){e.style[n]=t[n]}),n.delete(e)}.bind(e,{height:e.style.height,resize:e.style.resize,overflowY:e.style.overflowY,overflowX:e.style.overflowX,wordWrap:e.style.wordWrap});e.addEventListener("autosize:destroy",a,!1),"onpropertychange"in e&&"oninput"in e&&e.addEventListener("keyup",u,!1),window.addEventListener("resize",c,!1),e.addEventListener("input",u,!1),e.addEventListener("autosize:update",u,!1),e.style.overflowX="hidden",e.style.wordWrap="break-word",n.set(e,{destroy:a,update:u}),function(){var n=window.getComputedStyle(e,null);"vertical"===n.resize?e.style.resize="none":"both"===n.resize&&(e.style.resize="horizontal"),t="content-box"===n.boxSizing?-(parseFloat(n.paddingTop)+parseFloat(n.paddingBottom)):parseFloat(n.borderTopWidth)+parseFloat(n.borderBottomWidth),isNaN(t)&&(t=0),u()}()}function s(t){var n=e.style.width;e.style.width="0px",e.offsetWidth,e.style.width=n,e.style.overflowY=t}function l(){if(0!==e.scrollHeight){var n=function(e){for(var t=[];e&&e.parentNode&&e.parentNode instanceof Element;)e.parentNode.scrollTop&&t.push({node:e.parentNode,scrollTop:e.parentNode.scrollTop}),e=e.parentNode;return t}(e),r=document.documentElement&&document.documentElement.scrollTop;e.style.height="",e.style.height=e.scrollHeight+t+"px",o=e.clientWidth,n.forEach(function(e){e.node.scrollTop=e.scrollTop}),r&&(document.documentElement.scrollTop=r)}}function u(){l();var t=Math.round(parseFloat(e.style.height)),n=window.getComputedStyle(e,null),o="content-box"===n.boxSizing?Math.round(parseFloat(n.height)):e.offsetHeight;if(o<t?"hidden"===n.overflowY&&(s("scroll"),l(),o="content-box"===n.boxSizing?Math.round(parseFloat(window.getComputedStyle(e,null).height)):e.offsetHeight):"hidden"!==n.overflowY&&(s("hidden"),l(),o="content-box"===n.boxSizing?Math.round(parseFloat(window.getComputedStyle(e,null).height)):e.offsetHeight),i!==o){i=o;var c=r("autosize:resized");try{e.dispatchEvent(c)}catch(e){}}}}function i(e){var t=n.get(e);t&&t.destroy()}function c(e){var t=n.get(e);t&&t.update()}var a=null;"undefined"==typeof window||"function"!=typeof window.getComputedStyle?((a=function(e){return e}).destroy=function(e){return e},a.update=function(e){return e}):((a=function(e,t){return e&&Array.prototype.forEach.call(e.length?e:[e],function(e){return o(e)}),e}).destroy=function(e){return e&&Array.prototype.forEach.call(e.length?e:[e],i),e},a.update=function(e){return e&&Array.prototype.forEach.call(e.length?e:[e],c),e}),t.default=a,e.exports=t.default})?r.apply(t,o):r)||(e.exports=i)},function(e,t,n){"use strict";var r=this&&this.__extends||function(){var e=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(e,t){e.__proto__=t}||function(e,t){for(var n in t)t.hasOwnProperty(n)&&(e[n]=t[n])};return function(t,n){function r(){this.constructor=t}e(t,n),t.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}(),o=this&&this.__assign||Object.assign||function(e){for(var t,n=1,r=arguments.length;n<r;n++)for(var o in t=arguments[n])Object.prototype.hasOwnProperty.call(t,o)&&(e[o]=t[o]);return e},i=this&&this.__rest||function(e,t){var n={};for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&t.indexOf(r)<0&&(n[r]=e[r]);if(null!=e&&"function"==typeof Object.getOwnPropertySymbols){var o=0;for(r=Object.getOwnPropertySymbols(e);o<r.length;o++)t.indexOf(r[o])<0&&(n[r[o]]=e[r[o]])}return n};t.__esModule=!0;var c=n(26),a=n(42),s=n(251),l=n(250),u=function(e){function t(){var t=null!==e&&e.apply(this,arguments)||this;return t.state={lineHeight:null},t.dispatchEvent=function(e){var n=document.createEvent("Event");n.initEvent(e,!0,!1),t.textarea.dispatchEvent(n)},t.updateLineHeight=function(){t.setState({lineHeight:l(t.textarea)})},t.onChange=function(e){var n=t.props.onChange;t.currentValue=e.currentTarget.value,n&&n(e)},t.saveDOMNodeRef=function(e){var n=t.props.innerRef;n&&n(e),t.textarea=e},t.getLocals=function(){var e=t,n=e.props,r=(n.onResize,n.maxRows),c=(n.onChange,n.style),a=(n.innerRef,i(n,["onResize","maxRows","onChange","style","innerRef"])),s=e.state.lineHeight,l=e.saveDOMNodeRef,u=r&&s?s*r:null;return o({},a,{saveDOMNodeRef:l,style:u?o({},c,{maxHeight:u}):c,onChange:t.onChange})},t}return r(t,e),t.prototype.componentDidMount=function(){var e=this,t=this.props,n=t.onResize;"number"==typeof t.maxRows&&this.updateLineHeight(),setTimeout(function(){return s(e.textarea)}),n&&this.textarea.addEventListener("autosize:resized",n)},t.prototype.componentWillUnmount=function(){var e=this.props.onResize;e&&this.textarea.removeEventListener("autosize:resized",e),this.dispatchEvent("autosize:destroy")},t.prototype.render=function(){var e=this.getLocals(),t=e.children,n=e.saveDOMNodeRef,r=i(e,["children","saveDOMNodeRef"]);return c.createElement("textarea",o({},r,{ref:n}),t)},t.prototype.componentDidUpdate=function(){this.props.value!==this.currentValue&&this.dispatchEvent("autosize:update")},t.defaultProps={rows:1},t.propTypes={rows:a.number,maxRows:a.number,onResize:a.func,innerRef:a.func},t}(c.Component);t.default=u},function(e,t,n){"use strict";var r=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e};var o="BEGIN",i="COMMIT",c="REVERT",a=[];function s(e,t){return e.optimist&&e.optimist.id===t}function l(e,t){if(!e||"object"!=typeof e||Array.isArray(e))throw new TypeError('Error while handling "'+t.type+'": Optimist requires that state is always a plain object.')}function u(e){if(e){var t=e.optimist;return{optimist:void 0===t?a:t,innerState:function(e,t){var n={};for(var r in e)t.indexOf(r)>=0||Object.prototype.hasOwnProperty.call(e,r)&&(n[r]=e[r]);return n}(e,["optimist"])}}return{optimist:a,innerState:e}}e.exports=function(e){function t(t,n,o){return t.length&&(t=t.concat([{action:o}])),l(n=e(n,o),o),r({optimist:t},n)}return function(n,a){if(a.optimist)switch(a.optimist.type){case o:return function(t,n){var o=u(t),i=o.optimist,c=o.innerState;return i=i.concat([{beforeState:c,action:n}]),l(c=e(c,n),n),r({optimist:i},c)}(n,a);case i:return function(e,n){var r=u(e),o=r.optimist,i=r.innerState,c=[],a=!1,l=!1;o.forEach(function(e){a?e.beforeState&&s(e.action,n.optimist.id)?(l=!0,c.push({action:e.action})):c.push(e):e.beforeState&&!s(e.action,n.optimist.id)?(a=!0,c.push(e)):e.beforeState&&s(e.action,n.optimist.id)&&(l=!0)}),l||console.error('Cannot commit transaction with id "'+n.optimist.id+'" because it does not exist');return t(o=c,i,n)}(n,a);case c:return function(n,r){var o=u(n),i=o.optimist,c=o.innerState,a=[],d=!1,p=!1,b=c;i.forEach(function(t){t.beforeState&&s(t.action,r.optimist.id)&&(b=t.beforeState,p=!0),s(t.action,r.optimist.id)||(t.beforeState&&(d=!0),d&&(p&&t.beforeState?a.push({beforeState:b,action:t.action}):a.push(t)),p&&(b=e(b,t.action),l(c,r)))}),p||console.error('Cannot revert transaction with id "'+r.optimist.id+'" because it does not exist');return t(i=a,b,r)}(n,a)}var d=u(n),p=d.optimist,b=d.innerState;if(n&&!p.length){var f=e(b,a);return f===b?n:(l(f,a),r({optimist:p},f))}return t(p,b,a)}},e.exports.BEGIN=o,e.exports.COMMIT=i,e.exports.REVERT=c}]);
+*/
+(function (global, factory) {
+	if (true) {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+		(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else { var mod; }
+})(this, function (module, exports) {
+	'use strict';
+
+	var map = typeof Map === "function" ? new Map() : function () {
+		var keys = [];
+		var values = [];
+
+		return {
+			has: function has(key) {
+				return keys.indexOf(key) > -1;
+			},
+			get: function get(key) {
+				return values[keys.indexOf(key)];
+			},
+			set: function set(key, value) {
+				if (keys.indexOf(key) === -1) {
+					keys.push(key);
+					values.push(value);
+				}
+			},
+			delete: function _delete(key) {
+				var index = keys.indexOf(key);
+				if (index > -1) {
+					keys.splice(index, 1);
+					values.splice(index, 1);
+				}
+			}
+		};
+	}();
+
+	var createEvent = function createEvent(name) {
+		return new Event(name, { bubbles: true });
+	};
+	try {
+		new Event('test');
+	} catch (e) {
+		// IE does not support `new Event()`
+		createEvent = function createEvent(name) {
+			var evt = document.createEvent('Event');
+			evt.initEvent(name, true, false);
+			return evt;
+		};
+	}
+
+	function assign(ta) {
+		if (!ta || !ta.nodeName || ta.nodeName !== 'TEXTAREA' || map.has(ta)) return;
+
+		var heightOffset = null;
+		var clientWidth = null;
+		var cachedHeight = null;
+
+		function init() {
+			var style = window.getComputedStyle(ta, null);
+
+			if (style.resize === 'vertical') {
+				ta.style.resize = 'none';
+			} else if (style.resize === 'both') {
+				ta.style.resize = 'horizontal';
+			}
+
+			if (style.boxSizing === 'content-box') {
+				heightOffset = -(parseFloat(style.paddingTop) + parseFloat(style.paddingBottom));
+			} else {
+				heightOffset = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+			}
+			// Fix when a textarea is not on document body and heightOffset is Not a Number
+			if (isNaN(heightOffset)) {
+				heightOffset = 0;
+			}
+
+			update();
+		}
+
+		function changeOverflow(value) {
+			{
+				// Chrome/Safari-specific fix:
+				// When the textarea y-overflow is hidden, Chrome/Safari do not reflow the text to account for the space
+				// made available by removing the scrollbar. The following forces the necessary text reflow.
+				var width = ta.style.width;
+				ta.style.width = '0px';
+				// Force reflow:
+				/* jshint ignore:start */
+				ta.offsetWidth;
+				/* jshint ignore:end */
+				ta.style.width = width;
+			}
+
+			ta.style.overflowY = value;
+		}
+
+		function getParentOverflows(el) {
+			var arr = [];
+
+			while (el && el.parentNode && el.parentNode instanceof Element) {
+				if (el.parentNode.scrollTop) {
+					arr.push({
+						node: el.parentNode,
+						scrollTop: el.parentNode.scrollTop
+					});
+				}
+				el = el.parentNode;
+			}
+
+			return arr;
+		}
+
+		function resize() {
+			if (ta.scrollHeight === 0) {
+				// If the scrollHeight is 0, then the element probably has display:none or is detached from the DOM.
+				return;
+			}
+
+			var overflows = getParentOverflows(ta);
+			var docTop = document.documentElement && document.documentElement.scrollTop; // Needed for Mobile IE (ticket #240)
+
+			ta.style.height = '';
+			ta.style.height = ta.scrollHeight + heightOffset + 'px';
+
+			// used to check if an update is actually necessary on window.resize
+			clientWidth = ta.clientWidth;
+
+			// prevents scroll-position jumping
+			overflows.forEach(function (el) {
+				el.node.scrollTop = el.scrollTop;
+			});
+
+			if (docTop) {
+				document.documentElement.scrollTop = docTop;
+			}
+		}
+
+		function update() {
+			resize();
+
+			var styleHeight = Math.round(parseFloat(ta.style.height));
+			var computed = window.getComputedStyle(ta, null);
+
+			// Using offsetHeight as a replacement for computed.height in IE, because IE does not account use of border-box
+			var actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(computed.height)) : ta.offsetHeight;
+
+			// The actual height not matching the style height (set via the resize method) indicates that 
+			// the max-height has been exceeded, in which case the overflow should be allowed.
+			if (actualHeight < styleHeight) {
+				if (computed.overflowY === 'hidden') {
+					changeOverflow('scroll');
+					resize();
+					actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(window.getComputedStyle(ta, null).height)) : ta.offsetHeight;
+				}
+			} else {
+				// Normally keep overflow set to hidden, to avoid flash of scrollbar as the textarea expands.
+				if (computed.overflowY !== 'hidden') {
+					changeOverflow('hidden');
+					resize();
+					actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(window.getComputedStyle(ta, null).height)) : ta.offsetHeight;
+				}
+			}
+
+			if (cachedHeight !== actualHeight) {
+				cachedHeight = actualHeight;
+				var evt = createEvent('autosize:resized');
+				try {
+					ta.dispatchEvent(evt);
+				} catch (err) {
+					// Firefox will throw an error on dispatchEvent for a detached element
+					// https://bugzilla.mozilla.org/show_bug.cgi?id=889376
+				}
+			}
+		}
+
+		var pageResize = function pageResize() {
+			if (ta.clientWidth !== clientWidth) {
+				update();
+			}
+		};
+
+		var destroy = function (style) {
+			window.removeEventListener('resize', pageResize, false);
+			ta.removeEventListener('input', update, false);
+			ta.removeEventListener('keyup', update, false);
+			ta.removeEventListener('autosize:destroy', destroy, false);
+			ta.removeEventListener('autosize:update', update, false);
+
+			Object.keys(style).forEach(function (key) {
+				ta.style[key] = style[key];
+			});
+
+			map.delete(ta);
+		}.bind(ta, {
+			height: ta.style.height,
+			resize: ta.style.resize,
+			overflowY: ta.style.overflowY,
+			overflowX: ta.style.overflowX,
+			wordWrap: ta.style.wordWrap
+		});
+
+		ta.addEventListener('autosize:destroy', destroy, false);
+
+		// IE9 does not fire onpropertychange or oninput for deletions,
+		// so binding to onkeyup to catch most of those events.
+		// There is no way that I know of to detect something like 'cut' in IE9.
+		if ('onpropertychange' in ta && 'oninput' in ta) {
+			ta.addEventListener('keyup', update, false);
+		}
+
+		window.addEventListener('resize', pageResize, false);
+		ta.addEventListener('input', update, false);
+		ta.addEventListener('autosize:update', update, false);
+		ta.style.overflowX = 'hidden';
+		ta.style.wordWrap = 'break-word';
+
+		map.set(ta, {
+			destroy: destroy,
+			update: update
+		});
+
+		init();
+	}
+
+	function destroy(ta) {
+		var methods = map.get(ta);
+		if (methods) {
+			methods.destroy();
+		}
+	}
+
+	function update(ta) {
+		var methods = map.get(ta);
+		if (methods) {
+			methods.update();
+		}
+	}
+
+	var autosize = null;
+
+	// Do nothing in Node.js environment and IE8 (or lower)
+	if (typeof window === 'undefined' || typeof window.getComputedStyle !== 'function') {
+		autosize = function autosize(el) {
+			return el;
+		};
+		autosize.destroy = function (el) {
+			return el;
+		};
+		autosize.update = function (el) {
+			return el;
+		};
+	} else {
+		autosize = function autosize(el, options) {
+			if (el) {
+				Array.prototype.forEach.call(el.length ? el : [el], function (x) {
+					return assign(x, options);
+				});
+			}
+			return el;
+		};
+		autosize.destroy = function (el) {
+			if (el) {
+				Array.prototype.forEach.call(el.length ? el : [el], destroy);
+			}
+			return el;
+		};
+		autosize.update = function (el) {
+			if (el) {
+				Array.prototype.forEach.call(el.length ? el : [el], update);
+			}
+			return el;
+		};
+	}
+
+	exports.default = autosize;
+	module.exports = exports['default'];
+});
+
+/***/ }),
+
+/***/ 4403:
+/***/ (function(module, exports) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2018 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames() {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				if (arg.length) {
+					var inner = classNames.apply(null, arg);
+					if (inner) {
+						classes.push(inner);
+					}
+				}
+			} else if (argType === 'object') {
+				if (arg.toString === Object.prototype.toString) {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				} else {
+					classes.push(arg.toString());
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if ( true && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+}());
+
+
+/***/ }),
+
+/***/ 4827:
+/***/ (function(module) {
+
+// This code has been refactored for 140 bytes
+// You can see the original here: https://github.com/twolfson/computedStyle/blob/04cd1da2e30fa45844f95f5cb1ac898e9b9ef050/lib/computedStyle.js
+var computedStyle = function (el, prop, getComputedStyle) {
+  getComputedStyle = window.getComputedStyle;
+
+  // In one fell swoop
+  return (
+    // If we have getComputedStyle
+    getComputedStyle ?
+      // Query it
+      // TODO: From CSS-Query notes, we might need (node, null) for FF
+      getComputedStyle(el) :
+
+    // Otherwise, we are in IE and use currentStyle
+      el.currentStyle
+  )[
+    // Switch to camelCase for CSSOM
+    // DEV: Grabbed from jQuery
+    // https://github.com/jquery/jquery/blob/1.9-stable/src/css.js#L191-L194
+    // https://github.com/jquery/jquery/blob/1.9-stable/src/core.js#L593-L597
+    prop.replace(/-(\w)/gi, function (word, letter) {
+      return letter.toUpperCase();
+    })
+  ];
+};
+
+module.exports = computedStyle;
+
+
+/***/ }),
+
+/***/ 9894:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+// Load in dependencies
+var computedStyle = __webpack_require__(4827);
+
+/**
+ * Calculate the `line-height` of a given node
+ * @param {HTMLElement} node Element to calculate line height of. Must be in the DOM.
+ * @returns {Number} `line-height` of the element in pixels
+ */
+function lineHeight(node) {
+  // Grab the line-height via style
+  var lnHeightStr = computedStyle(node, 'line-height');
+  var lnHeight = parseFloat(lnHeightStr, 10);
+
+  // If the lineHeight did not contain a unit (i.e. it was numeric), convert it to ems (e.g. '2.3' === '2.3em')
+  if (lnHeightStr === lnHeight + '') {
+    // Save the old lineHeight style and update the em unit to the element
+    var _lnHeightStyle = node.style.lineHeight;
+    node.style.lineHeight = lnHeightStr + 'em';
+
+    // Calculate the em based height
+    lnHeightStr = computedStyle(node, 'line-height');
+    lnHeight = parseFloat(lnHeightStr, 10);
+
+    // Revert the lineHeight style
+    if (_lnHeightStyle) {
+      node.style.lineHeight = _lnHeightStyle;
+    } else {
+      delete node.style.lineHeight;
+    }
+  }
+
+  // If the lineHeight is in `pt`, convert it to pixels (4px for 3pt)
+  // DEV: `em` units are converted to `pt` in IE6
+  // Conversion ratio from https://developer.mozilla.org/en-US/docs/Web/CSS/length
+  if (lnHeightStr.indexOf('pt') !== -1) {
+    lnHeight *= 4;
+    lnHeight /= 3;
+  // Otherwise, if the lineHeight is in `mm`, convert it to pixels (96px for 25.4mm)
+  } else if (lnHeightStr.indexOf('mm') !== -1) {
+    lnHeight *= 96;
+    lnHeight /= 25.4;
+  // Otherwise, if the lineHeight is in `cm`, convert it to pixels (96px for 2.54cm)
+  } else if (lnHeightStr.indexOf('cm') !== -1) {
+    lnHeight *= 96;
+    lnHeight /= 2.54;
+  // Otherwise, if the lineHeight is in `in`, convert it to pixels (96px for 1in)
+  } else if (lnHeightStr.indexOf('in') !== -1) {
+    lnHeight *= 96;
+  // Otherwise, if the lineHeight is in `pc`, convert it to pixels (12pt for 1pc)
+  } else if (lnHeightStr.indexOf('pc') !== -1) {
+    lnHeight *= 16;
+  }
+
+  // Continue our computation
+  lnHeight = Math.round(lnHeight);
+
+  // If the line-height is "normal", calculate by font-size
+  if (lnHeightStr === 'normal') {
+    // Create a temporary node
+    var nodeName = node.nodeName;
+    var _node = document.createElement(nodeName);
+    _node.innerHTML = '&nbsp;';
+
+    // If we have a text area, reset it to only 1 row
+    // https://github.com/twolfson/line-height/issues/4
+    if (nodeName.toUpperCase() === 'TEXTAREA') {
+      _node.setAttribute('rows', '1');
+    }
+
+    // Set the font-size of the element
+    var fontSizeStr = computedStyle(node, 'font-size');
+    _node.style.fontSize = fontSizeStr;
+
+    // Remove default padding/border which can affect offset height
+    // https://github.com/twolfson/line-height/issues/4
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetHeight
+    _node.style.padding = '0px';
+    _node.style.border = '0px';
+
+    // Append it to the body
+    var body = document.body;
+    body.appendChild(_node);
+
+    // Assume the line height of the element is the height
+    var height = _node.offsetHeight;
+    lnHeight = height;
+
+    // Remove our child from the DOM
+    body.removeChild(_node);
+  }
+
+  // Return the calculated height
+  return lnHeight;
+}
+
+// Export lineHeight
+module.exports = lineHeight;
+
+
+/***/ }),
+
+/***/ 5372:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactPropTypesSecret = __webpack_require__(9567);
+
+function emptyFunction() {}
+function emptyFunctionWithReset() {}
+emptyFunctionWithReset.resetWarningCache = emptyFunction;
+
+module.exports = function() {
+  function shim(props, propName, componentName, location, propFullName, secret) {
+    if (secret === ReactPropTypesSecret) {
+      // It is still safe when called from React.
+      return;
+    }
+    var err = new Error(
+      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+      'Use PropTypes.checkPropTypes() to call them. ' +
+      'Read more at http://fb.me/use-check-prop-types'
+    );
+    err.name = 'Invariant Violation';
+    throw err;
+  };
+  shim.isRequired = shim;
+  function getShim() {
+    return shim;
+  };
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+  var ReactPropTypes = {
+    array: shim,
+    bool: shim,
+    func: shim,
+    number: shim,
+    object: shim,
+    string: shim,
+    symbol: shim,
+
+    any: shim,
+    arrayOf: getShim,
+    element: shim,
+    elementType: shim,
+    instanceOf: getShim,
+    node: shim,
+    objectOf: getShim,
+    oneOf: getShim,
+    oneOfType: getShim,
+    shape: getShim,
+    exact: getShim,
+
+    checkPropTypes: emptyFunctionWithReset,
+    resetWarningCache: emptyFunction
+  };
+
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
+};
+
+
+/***/ }),
+
+/***/ 2652:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+if (false) { var throwOnDirectAccess, ReactIs; } else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = __webpack_require__(5372)();
+}
+
+
+/***/ }),
+
+/***/ 9567:
+/***/ (function(module) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+module.exports = ReactPropTypesSecret;
+
+
+/***/ }),
+
+/***/ 5438:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
+exports.__esModule = true;
+var React = __webpack_require__(9196);
+var PropTypes = __webpack_require__(2652);
+var autosize = __webpack_require__(6411);
+var _getLineHeight = __webpack_require__(9894);
+var getLineHeight = _getLineHeight;
+var RESIZED = "autosize:resized";
+/**
+ * A light replacement for built-in textarea component
+ * which automaticaly adjusts its height to match the content
+ */
+var TextareaAutosizeClass = /** @class */ (function (_super) {
+    __extends(TextareaAutosizeClass, _super);
+    function TextareaAutosizeClass() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.state = {
+            lineHeight: null
+        };
+        _this.textarea = null;
+        _this.onResize = function (e) {
+            if (_this.props.onResize) {
+                _this.props.onResize(e);
+            }
+        };
+        _this.updateLineHeight = function () {
+            if (_this.textarea) {
+                _this.setState({
+                    lineHeight: getLineHeight(_this.textarea)
+                });
+            }
+        };
+        _this.onChange = function (e) {
+            var onChange = _this.props.onChange;
+            _this.currentValue = e.currentTarget.value;
+            onChange && onChange(e);
+        };
+        return _this;
+    }
+    TextareaAutosizeClass.prototype.componentDidMount = function () {
+        var _this = this;
+        var _a = this.props, maxRows = _a.maxRows, async = _a.async;
+        if (typeof maxRows === "number") {
+            this.updateLineHeight();
+        }
+        if (typeof maxRows === "number" || async) {
+            /*
+              the defer is needed to:
+                - force "autosize" to activate the scrollbar when this.props.maxRows is passed
+                - support StyledComponents (see #71)
+            */
+            setTimeout(function () { return _this.textarea && autosize(_this.textarea); });
+        }
+        else {
+            this.textarea && autosize(this.textarea);
+        }
+        if (this.textarea) {
+            this.textarea.addEventListener(RESIZED, this.onResize);
+        }
+    };
+    TextareaAutosizeClass.prototype.componentWillUnmount = function () {
+        if (this.textarea) {
+            this.textarea.removeEventListener(RESIZED, this.onResize);
+            autosize.destroy(this.textarea);
+        }
+    };
+    TextareaAutosizeClass.prototype.render = function () {
+        var _this = this;
+        var _a = this, _b = _a.props, onResize = _b.onResize, maxRows = _b.maxRows, onChange = _b.onChange, style = _b.style, innerRef = _b.innerRef, children = _b.children, props = __rest(_b, ["onResize", "maxRows", "onChange", "style", "innerRef", "children"]), lineHeight = _a.state.lineHeight;
+        var maxHeight = maxRows && lineHeight ? lineHeight * maxRows : null;
+        return (React.createElement("textarea", __assign({}, props, { onChange: this.onChange, style: maxHeight ? __assign({}, style, { maxHeight: maxHeight }) : style, ref: function (element) {
+                _this.textarea = element;
+                if (typeof _this.props.innerRef === 'function') {
+                    _this.props.innerRef(element);
+                }
+                else if (_this.props.innerRef) {
+                    _this.props.innerRef.current = element;
+                }
+            } }), children));
+    };
+    TextareaAutosizeClass.prototype.componentDidUpdate = function () {
+        this.textarea && autosize.update(this.textarea);
+    };
+    TextareaAutosizeClass.defaultProps = {
+        rows: 1,
+        async: false
+    };
+    TextareaAutosizeClass.propTypes = {
+        rows: PropTypes.number,
+        maxRows: PropTypes.number,
+        onResize: PropTypes.func,
+        innerRef: PropTypes.any,
+        async: PropTypes.bool
+    };
+    return TextareaAutosizeClass;
+}(React.Component));
+exports.TextareaAutosize = React.forwardRef(function (props, ref) {
+    return React.createElement(TextareaAutosizeClass, __assign({}, props, { innerRef: ref }));
+});
+
+
+/***/ }),
+
+/***/ 773:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+__webpack_unused_export__ = true;
+var TextareaAutosize_1 = __webpack_require__(5438);
+exports.Z = TextareaAutosize_1.TextareaAutosize;
+
+
+/***/ }),
+
+/***/ 4793:
+/***/ (function(module) {
+
+var characterMap = {
+	"À": "A",
+	"Á": "A",
+	"Â": "A",
+	"Ã": "A",
+	"Ä": "A",
+	"Å": "A",
+	"Ấ": "A",
+	"Ắ": "A",
+	"Ẳ": "A",
+	"Ẵ": "A",
+	"Ặ": "A",
+	"Æ": "AE",
+	"Ầ": "A",
+	"Ằ": "A",
+	"Ȃ": "A",
+	"Ả": "A",
+	"Ạ": "A",
+	"Ẩ": "A",
+	"Ẫ": "A",
+	"Ậ": "A",
+	"Ç": "C",
+	"Ḉ": "C",
+	"È": "E",
+	"É": "E",
+	"Ê": "E",
+	"Ë": "E",
+	"Ế": "E",
+	"Ḗ": "E",
+	"Ề": "E",
+	"Ḕ": "E",
+	"Ḝ": "E",
+	"Ȇ": "E",
+	"Ẻ": "E",
+	"Ẽ": "E",
+	"Ẹ": "E",
+	"Ể": "E",
+	"Ễ": "E",
+	"Ệ": "E",
+	"Ì": "I",
+	"Í": "I",
+	"Î": "I",
+	"Ï": "I",
+	"Ḯ": "I",
+	"Ȋ": "I",
+	"Ỉ": "I",
+	"Ị": "I",
+	"Ð": "D",
+	"Ñ": "N",
+	"Ò": "O",
+	"Ó": "O",
+	"Ô": "O",
+	"Õ": "O",
+	"Ö": "O",
+	"Ø": "O",
+	"Ố": "O",
+	"Ṍ": "O",
+	"Ṓ": "O",
+	"Ȏ": "O",
+	"Ỏ": "O",
+	"Ọ": "O",
+	"Ổ": "O",
+	"Ỗ": "O",
+	"Ộ": "O",
+	"Ờ": "O",
+	"Ở": "O",
+	"Ỡ": "O",
+	"Ớ": "O",
+	"Ợ": "O",
+	"Ù": "U",
+	"Ú": "U",
+	"Û": "U",
+	"Ü": "U",
+	"Ủ": "U",
+	"Ụ": "U",
+	"Ử": "U",
+	"Ữ": "U",
+	"Ự": "U",
+	"Ý": "Y",
+	"à": "a",
+	"á": "a",
+	"â": "a",
+	"ã": "a",
+	"ä": "a",
+	"å": "a",
+	"ấ": "a",
+	"ắ": "a",
+	"ẳ": "a",
+	"ẵ": "a",
+	"ặ": "a",
+	"æ": "ae",
+	"ầ": "a",
+	"ằ": "a",
+	"ȃ": "a",
+	"ả": "a",
+	"ạ": "a",
+	"ẩ": "a",
+	"ẫ": "a",
+	"ậ": "a",
+	"ç": "c",
+	"ḉ": "c",
+	"è": "e",
+	"é": "e",
+	"ê": "e",
+	"ë": "e",
+	"ế": "e",
+	"ḗ": "e",
+	"ề": "e",
+	"ḕ": "e",
+	"ḝ": "e",
+	"ȇ": "e",
+	"ẻ": "e",
+	"ẽ": "e",
+	"ẹ": "e",
+	"ể": "e",
+	"ễ": "e",
+	"ệ": "e",
+	"ì": "i",
+	"í": "i",
+	"î": "i",
+	"ï": "i",
+	"ḯ": "i",
+	"ȋ": "i",
+	"ỉ": "i",
+	"ị": "i",
+	"ð": "d",
+	"ñ": "n",
+	"ò": "o",
+	"ó": "o",
+	"ô": "o",
+	"õ": "o",
+	"ö": "o",
+	"ø": "o",
+	"ố": "o",
+	"ṍ": "o",
+	"ṓ": "o",
+	"ȏ": "o",
+	"ỏ": "o",
+	"ọ": "o",
+	"ổ": "o",
+	"ỗ": "o",
+	"ộ": "o",
+	"ờ": "o",
+	"ở": "o",
+	"ỡ": "o",
+	"ớ": "o",
+	"ợ": "o",
+	"ù": "u",
+	"ú": "u",
+	"û": "u",
+	"ü": "u",
+	"ủ": "u",
+	"ụ": "u",
+	"ử": "u",
+	"ữ": "u",
+	"ự": "u",
+	"ý": "y",
+	"ÿ": "y",
+	"Ā": "A",
+	"ā": "a",
+	"Ă": "A",
+	"ă": "a",
+	"Ą": "A",
+	"ą": "a",
+	"Ć": "C",
+	"ć": "c",
+	"Ĉ": "C",
+	"ĉ": "c",
+	"Ċ": "C",
+	"ċ": "c",
+	"Č": "C",
+	"č": "c",
+	"C̆": "C",
+	"c̆": "c",
+	"Ď": "D",
+	"ď": "d",
+	"Đ": "D",
+	"đ": "d",
+	"Ē": "E",
+	"ē": "e",
+	"Ĕ": "E",
+	"ĕ": "e",
+	"Ė": "E",
+	"ė": "e",
+	"Ę": "E",
+	"ę": "e",
+	"Ě": "E",
+	"ě": "e",
+	"Ĝ": "G",
+	"Ǵ": "G",
+	"ĝ": "g",
+	"ǵ": "g",
+	"Ğ": "G",
+	"ğ": "g",
+	"Ġ": "G",
+	"ġ": "g",
+	"Ģ": "G",
+	"ģ": "g",
+	"Ĥ": "H",
+	"ĥ": "h",
+	"Ħ": "H",
+	"ħ": "h",
+	"Ḫ": "H",
+	"ḫ": "h",
+	"Ĩ": "I",
+	"ĩ": "i",
+	"Ī": "I",
+	"ī": "i",
+	"Ĭ": "I",
+	"ĭ": "i",
+	"Į": "I",
+	"į": "i",
+	"İ": "I",
+	"ı": "i",
+	"Ĳ": "IJ",
+	"ĳ": "ij",
+	"Ĵ": "J",
+	"ĵ": "j",
+	"Ķ": "K",
+	"ķ": "k",
+	"Ḱ": "K",
+	"ḱ": "k",
+	"K̆": "K",
+	"k̆": "k",
+	"Ĺ": "L",
+	"ĺ": "l",
+	"Ļ": "L",
+	"ļ": "l",
+	"Ľ": "L",
+	"ľ": "l",
+	"Ŀ": "L",
+	"ŀ": "l",
+	"Ł": "l",
+	"ł": "l",
+	"Ḿ": "M",
+	"ḿ": "m",
+	"M̆": "M",
+	"m̆": "m",
+	"Ń": "N",
+	"ń": "n",
+	"Ņ": "N",
+	"ņ": "n",
+	"Ň": "N",
+	"ň": "n",
+	"ŉ": "n",
+	"N̆": "N",
+	"n̆": "n",
+	"Ō": "O",
+	"ō": "o",
+	"Ŏ": "O",
+	"ŏ": "o",
+	"Ő": "O",
+	"ő": "o",
+	"Œ": "OE",
+	"œ": "oe",
+	"P̆": "P",
+	"p̆": "p",
+	"Ŕ": "R",
+	"ŕ": "r",
+	"Ŗ": "R",
+	"ŗ": "r",
+	"Ř": "R",
+	"ř": "r",
+	"R̆": "R",
+	"r̆": "r",
+	"Ȓ": "R",
+	"ȓ": "r",
+	"Ś": "S",
+	"ś": "s",
+	"Ŝ": "S",
+	"ŝ": "s",
+	"Ş": "S",
+	"Ș": "S",
+	"ș": "s",
+	"ş": "s",
+	"Š": "S",
+	"š": "s",
+	"Ţ": "T",
+	"ţ": "t",
+	"ț": "t",
+	"Ț": "T",
+	"Ť": "T",
+	"ť": "t",
+	"Ŧ": "T",
+	"ŧ": "t",
+	"T̆": "T",
+	"t̆": "t",
+	"Ũ": "U",
+	"ũ": "u",
+	"Ū": "U",
+	"ū": "u",
+	"Ŭ": "U",
+	"ŭ": "u",
+	"Ů": "U",
+	"ů": "u",
+	"Ű": "U",
+	"ű": "u",
+	"Ų": "U",
+	"ų": "u",
+	"Ȗ": "U",
+	"ȗ": "u",
+	"V̆": "V",
+	"v̆": "v",
+	"Ŵ": "W",
+	"ŵ": "w",
+	"Ẃ": "W",
+	"ẃ": "w",
+	"X̆": "X",
+	"x̆": "x",
+	"Ŷ": "Y",
+	"ŷ": "y",
+	"Ÿ": "Y",
+	"Y̆": "Y",
+	"y̆": "y",
+	"Ź": "Z",
+	"ź": "z",
+	"Ż": "Z",
+	"ż": "z",
+	"Ž": "Z",
+	"ž": "z",
+	"ſ": "s",
+	"ƒ": "f",
+	"Ơ": "O",
+	"ơ": "o",
+	"Ư": "U",
+	"ư": "u",
+	"Ǎ": "A",
+	"ǎ": "a",
+	"Ǐ": "I",
+	"ǐ": "i",
+	"Ǒ": "O",
+	"ǒ": "o",
+	"Ǔ": "U",
+	"ǔ": "u",
+	"Ǖ": "U",
+	"ǖ": "u",
+	"Ǘ": "U",
+	"ǘ": "u",
+	"Ǚ": "U",
+	"ǚ": "u",
+	"Ǜ": "U",
+	"ǜ": "u",
+	"Ứ": "U",
+	"ứ": "u",
+	"Ṹ": "U",
+	"ṹ": "u",
+	"Ǻ": "A",
+	"ǻ": "a",
+	"Ǽ": "AE",
+	"ǽ": "ae",
+	"Ǿ": "O",
+	"ǿ": "o",
+	"Þ": "TH",
+	"þ": "th",
+	"Ṕ": "P",
+	"ṕ": "p",
+	"Ṥ": "S",
+	"ṥ": "s",
+	"X́": "X",
+	"x́": "x",
+	"Ѓ": "Г",
+	"ѓ": "г",
+	"Ќ": "К",
+	"ќ": "к",
+	"A̋": "A",
+	"a̋": "a",
+	"E̋": "E",
+	"e̋": "e",
+	"I̋": "I",
+	"i̋": "i",
+	"Ǹ": "N",
+	"ǹ": "n",
+	"Ồ": "O",
+	"ồ": "o",
+	"Ṑ": "O",
+	"ṑ": "o",
+	"Ừ": "U",
+	"ừ": "u",
+	"Ẁ": "W",
+	"ẁ": "w",
+	"Ỳ": "Y",
+	"ỳ": "y",
+	"Ȁ": "A",
+	"ȁ": "a",
+	"Ȅ": "E",
+	"ȅ": "e",
+	"Ȉ": "I",
+	"ȉ": "i",
+	"Ȍ": "O",
+	"ȍ": "o",
+	"Ȑ": "R",
+	"ȑ": "r",
+	"Ȕ": "U",
+	"ȕ": "u",
+	"B̌": "B",
+	"b̌": "b",
+	"Č̣": "C",
+	"č̣": "c",
+	"Ê̌": "E",
+	"ê̌": "e",
+	"F̌": "F",
+	"f̌": "f",
+	"Ǧ": "G",
+	"ǧ": "g",
+	"Ȟ": "H",
+	"ȟ": "h",
+	"J̌": "J",
+	"ǰ": "j",
+	"Ǩ": "K",
+	"ǩ": "k",
+	"M̌": "M",
+	"m̌": "m",
+	"P̌": "P",
+	"p̌": "p",
+	"Q̌": "Q",
+	"q̌": "q",
+	"Ř̩": "R",
+	"ř̩": "r",
+	"Ṧ": "S",
+	"ṧ": "s",
+	"V̌": "V",
+	"v̌": "v",
+	"W̌": "W",
+	"w̌": "w",
+	"X̌": "X",
+	"x̌": "x",
+	"Y̌": "Y",
+	"y̌": "y",
+	"A̧": "A",
+	"a̧": "a",
+	"B̧": "B",
+	"b̧": "b",
+	"Ḑ": "D",
+	"ḑ": "d",
+	"Ȩ": "E",
+	"ȩ": "e",
+	"Ɛ̧": "E",
+	"ɛ̧": "e",
+	"Ḩ": "H",
+	"ḩ": "h",
+	"I̧": "I",
+	"i̧": "i",
+	"Ɨ̧": "I",
+	"ɨ̧": "i",
+	"M̧": "M",
+	"m̧": "m",
+	"O̧": "O",
+	"o̧": "o",
+	"Q̧": "Q",
+	"q̧": "q",
+	"U̧": "U",
+	"u̧": "u",
+	"X̧": "X",
+	"x̧": "x",
+	"Z̧": "Z",
+	"z̧": "z",
+	"й":"и",
+	"Й":"И",
+	"ё":"е",
+	"Ё":"Е",
+};
+
+var chars = Object.keys(characterMap).join('|');
+var allAccents = new RegExp(chars, 'g');
+var firstAccent = new RegExp(chars, '');
+
+function matcher(match) {
+	return characterMap[match];
+}
+
+var removeAccents = function(string) {
+	return string.replace(allAccents, matcher);
+};
+
+var hasAccents = function(string) {
+	return !!string.match(firstAccent);
+};
+
+module.exports = removeAccents;
+module.exports.has = hasAccents;
+module.exports.remove = removeAccents;
+
+
+/***/ }),
+
+/***/ 9196:
+/***/ (function(module) {
+
+"use strict";
+module.exports = window["React"];
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+!function() {
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  AlignmentToolbar: function() { return /* reexport */ AlignmentToolbar; },
+  Autocomplete: function() { return /* reexport */ Autocomplete; },
+  AutosaveMonitor: function() { return /* reexport */ autosave_monitor; },
+  BlockAlignmentToolbar: function() { return /* reexport */ BlockAlignmentToolbar; },
+  BlockControls: function() { return /* reexport */ BlockControls; },
+  BlockEdit: function() { return /* reexport */ BlockEdit; },
+  BlockEditorKeyboardShortcuts: function() { return /* reexport */ BlockEditorKeyboardShortcuts; },
+  BlockFormatControls: function() { return /* reexport */ BlockFormatControls; },
+  BlockIcon: function() { return /* reexport */ BlockIcon; },
+  BlockInspector: function() { return /* reexport */ BlockInspector; },
+  BlockList: function() { return /* reexport */ BlockList; },
+  BlockMover: function() { return /* reexport */ BlockMover; },
+  BlockNavigationDropdown: function() { return /* reexport */ BlockNavigationDropdown; },
+  BlockSelectionClearer: function() { return /* reexport */ BlockSelectionClearer; },
+  BlockSettingsMenu: function() { return /* reexport */ BlockSettingsMenu; },
+  BlockTitle: function() { return /* reexport */ BlockTitle; },
+  BlockToolbar: function() { return /* reexport */ BlockToolbar; },
+  CharacterCount: function() { return /* reexport */ CharacterCount; },
+  ColorPalette: function() { return /* reexport */ ColorPalette; },
+  ContrastChecker: function() { return /* reexport */ ContrastChecker; },
+  CopyHandler: function() { return /* reexport */ CopyHandler; },
+  DefaultBlockAppender: function() { return /* reexport */ DefaultBlockAppender; },
+  DocumentOutline: function() { return /* reexport */ document_outline; },
+  DocumentOutlineCheck: function() { return /* reexport */ check; },
+  EditorHistoryRedo: function() { return /* reexport */ editor_history_redo; },
+  EditorHistoryUndo: function() { return /* reexport */ editor_history_undo; },
+  EditorKeyboardShortcuts: function() { return /* reexport */ EditorKeyboardShortcuts; },
+  EditorKeyboardShortcutsRegister: function() { return /* reexport */ register_shortcuts; },
+  EditorNotices: function() { return /* reexport */ editor_notices; },
+  EditorProvider: function() { return /* reexport */ provider; },
+  EditorSnackbars: function() { return /* reexport */ EditorSnackbars; },
+  EntitiesSavedStates: function() { return /* reexport */ EntitiesSavedStates; },
+  ErrorBoundary: function() { return /* reexport */ error_boundary; },
+  FontSizePicker: function() { return /* reexport */ FontSizePicker; },
+  InnerBlocks: function() { return /* reexport */ InnerBlocks; },
+  Inserter: function() { return /* reexport */ Inserter; },
+  InspectorAdvancedControls: function() { return /* reexport */ InspectorAdvancedControls; },
+  InspectorControls: function() { return /* reexport */ InspectorControls; },
+  LocalAutosaveMonitor: function() { return /* reexport */ local_autosave_monitor; },
+  MediaPlaceholder: function() { return /* reexport */ MediaPlaceholder; },
+  MediaUpload: function() { return /* reexport */ MediaUpload; },
+  MediaUploadCheck: function() { return /* reexport */ MediaUploadCheck; },
+  MultiSelectScrollIntoView: function() { return /* reexport */ MultiSelectScrollIntoView; },
+  NavigableToolbar: function() { return /* reexport */ NavigableToolbar; },
+  ObserveTyping: function() { return /* reexport */ ObserveTyping; },
+  PageAttributesCheck: function() { return /* reexport */ page_attributes_check; },
+  PageAttributesOrder: function() { return /* reexport */ PageAttributesOrderWithChecks; },
+  PageAttributesParent: function() { return /* reexport */ page_attributes_parent; },
+  PageTemplate: function() { return /* reexport */ post_template; },
+  PanelColorSettings: function() { return /* reexport */ PanelColorSettings; },
+  PlainText: function() { return /* reexport */ PlainText; },
+  PostAuthor: function() { return /* reexport */ post_author; },
+  PostAuthorCheck: function() { return /* reexport */ PostAuthorCheck; },
+  PostAuthorPanel: function() { return /* reexport */ panel; },
+  PostComments: function() { return /* reexport */ post_comments; },
+  PostExcerpt: function() { return /* reexport */ post_excerpt; },
+  PostExcerptCheck: function() { return /* reexport */ post_excerpt_check; },
+  PostFeaturedImage: function() { return /* reexport */ post_featured_image; },
+  PostFeaturedImageCheck: function() { return /* reexport */ post_featured_image_check; },
+  PostFormat: function() { return /* reexport */ PostFormat; },
+  PostFormatCheck: function() { return /* reexport */ post_format_check; },
+  PostLastRevision: function() { return /* reexport */ post_last_revision; },
+  PostLastRevisionCheck: function() { return /* reexport */ post_last_revision_check; },
+  PostLockedModal: function() { return /* reexport */ PostLockedModal; },
+  PostPendingStatus: function() { return /* reexport */ post_pending_status; },
+  PostPendingStatusCheck: function() { return /* reexport */ post_pending_status_check; },
+  PostPingbacks: function() { return /* reexport */ post_pingbacks; },
+  PostPreviewButton: function() { return /* reexport */ PostPreviewButton; },
+  PostPublishButton: function() { return /* reexport */ post_publish_button; },
+  PostPublishButtonLabel: function() { return /* reexport */ label; },
+  PostPublishPanel: function() { return /* reexport */ post_publish_panel; },
+  PostSavedState: function() { return /* reexport */ PostSavedState; },
+  PostSchedule: function() { return /* reexport */ PostSchedule; },
+  PostScheduleCheck: function() { return /* reexport */ post_schedule_check; },
+  PostScheduleLabel: function() { return /* reexport */ PostScheduleLabel; },
+  PostSchedulePanel: function() { return /* reexport */ PostSchedulePanel; },
+  PostSlug: function() { return /* reexport */ post_slug; },
+  PostSlugCheck: function() { return /* reexport */ PostSlugCheck; },
+  PostSticky: function() { return /* reexport */ PostSticky; },
+  PostStickyCheck: function() { return /* reexport */ PostStickyCheck; },
+  PostSwitchToDraftButton: function() { return /* reexport */ PostSwitchToDraftButton; },
+  PostSyncStatus: function() { return /* reexport */ PostSyncStatus; },
+  PostSyncStatusModal: function() { return /* reexport */ PostSyncStatusModal; },
+  PostTaxonomies: function() { return /* reexport */ post_taxonomies; },
+  PostTaxonomiesCheck: function() { return /* reexport */ post_taxonomies_check; },
+  PostTaxonomiesFlatTermSelector: function() { return /* reexport */ FlatTermSelector; },
+  PostTaxonomiesHierarchicalTermSelector: function() { return /* reexport */ HierarchicalTermSelector; },
+  PostTextEditor: function() { return /* reexport */ PostTextEditor; },
+  PostTitle: function() { return /* reexport */ post_title; },
+  PostTitleRaw: function() { return /* reexport */ post_title_raw; },
+  PostTrash: function() { return /* reexport */ PostTrash; },
+  PostTrashCheck: function() { return /* reexport */ post_trash_check; },
+  PostTypeSupportCheck: function() { return /* reexport */ post_type_support_check; },
+  PostURL: function() { return /* reexport */ PostURL; },
+  PostURLCheck: function() { return /* reexport */ PostURLCheck; },
+  PostURLLabel: function() { return /* reexport */ PostURLLabel; },
+  PostURLPanel: function() { return /* reexport */ PostURLPanel; },
+  PostVisibility: function() { return /* reexport */ PostVisibility; },
+  PostVisibilityCheck: function() { return /* reexport */ post_visibility_check; },
+  PostVisibilityLabel: function() { return /* reexport */ PostVisibilityLabel; },
+  RichText: function() { return /* reexport */ RichText; },
+  RichTextShortcut: function() { return /* reexport */ RichTextShortcut; },
+  RichTextToolbarButton: function() { return /* reexport */ RichTextToolbarButton; },
+  ServerSideRender: function() { return /* reexport */ (external_wp_serverSideRender_default()); },
+  SkipToSelectedBlock: function() { return /* reexport */ SkipToSelectedBlock; },
+  TableOfContents: function() { return /* reexport */ table_of_contents; },
+  TextEditorGlobalKeyboardShortcuts: function() { return /* reexport */ TextEditorGlobalKeyboardShortcuts; },
+  ThemeSupportCheck: function() { return /* reexport */ theme_support_check; },
+  TimeToRead: function() { return /* reexport */ TimeToRead; },
+  URLInput: function() { return /* reexport */ URLInput; },
+  URLInputButton: function() { return /* reexport */ URLInputButton; },
+  URLPopover: function() { return /* reexport */ URLPopover; },
+  UnsavedChangesWarning: function() { return /* reexport */ UnsavedChangesWarning; },
+  VisualEditorGlobalKeyboardShortcuts: function() { return /* reexport */ VisualEditorGlobalKeyboardShortcuts; },
+  Warning: function() { return /* reexport */ Warning; },
+  WordCount: function() { return /* reexport */ WordCount; },
+  WritingFlow: function() { return /* reexport */ WritingFlow; },
+  __unstableRichTextInputEvent: function() { return /* reexport */ __unstableRichTextInputEvent; },
+  cleanForSlug: function() { return /* reexport */ cleanForSlug; },
+  createCustomColorsHOC: function() { return /* reexport */ createCustomColorsHOC; },
+  getColorClassName: function() { return /* reexport */ getColorClassName; },
+  getColorObjectByAttributeValues: function() { return /* reexport */ getColorObjectByAttributeValues; },
+  getColorObjectByColorValue: function() { return /* reexport */ getColorObjectByColorValue; },
+  getFontSize: function() { return /* reexport */ getFontSize; },
+  getFontSizeClass: function() { return /* reexport */ getFontSizeClass; },
+  getTemplatePartIcon: function() { return /* reexport */ getTemplatePartIcon; },
+  mediaUpload: function() { return /* reexport */ mediaUpload; },
+  privateApis: function() { return /* reexport */ privateApis; },
+  store: function() { return /* reexport */ store_store; },
+  storeConfig: function() { return /* reexport */ storeConfig; },
+  transformStyles: function() { return /* reexport */ external_wp_blockEditor_namespaceObject.transformStyles; },
+  useEntitiesSavedStatesIsDirty: function() { return /* reexport */ useIsDirty; },
+  usePostScheduleLabel: function() { return /* reexport */ usePostScheduleLabel; },
+  usePostURLLabel: function() { return /* reexport */ usePostURLLabel; },
+  usePostVisibilityLabel: function() { return /* reexport */ usePostVisibilityLabel; },
+  userAutocompleter: function() { return /* reexport */ user; },
+  withColorContext: function() { return /* reexport */ withColorContext; },
+  withColors: function() { return /* reexport */ withColors; },
+  withFontSizes: function() { return /* reexport */ withFontSizes; }
+});
+
+// NAMESPACE OBJECT: ./packages/editor/build-module/store/selectors.js
+var selectors_namespaceObject = {};
+__webpack_require__.r(selectors_namespaceObject);
+__webpack_require__.d(selectors_namespaceObject, {
+  __experimentalGetDefaultTemplatePartAreas: function() { return __experimentalGetDefaultTemplatePartAreas; },
+  __experimentalGetDefaultTemplateType: function() { return __experimentalGetDefaultTemplateType; },
+  __experimentalGetDefaultTemplateTypes: function() { return __experimentalGetDefaultTemplateTypes; },
+  __experimentalGetTemplateInfo: function() { return __experimentalGetTemplateInfo; },
+  __unstableIsEditorReady: function() { return __unstableIsEditorReady; },
+  canInsertBlockType: function() { return canInsertBlockType; },
+  canUserUseUnfilteredHTML: function() { return canUserUseUnfilteredHTML; },
+  didPostSaveRequestFail: function() { return didPostSaveRequestFail; },
+  didPostSaveRequestSucceed: function() { return didPostSaveRequestSucceed; },
+  getActivePostLock: function() { return getActivePostLock; },
+  getAdjacentBlockClientId: function() { return getAdjacentBlockClientId; },
+  getAutosaveAttribute: function() { return getAutosaveAttribute; },
+  getBlock: function() { return getBlock; },
+  getBlockAttributes: function() { return getBlockAttributes; },
+  getBlockCount: function() { return getBlockCount; },
+  getBlockHierarchyRootClientId: function() { return getBlockHierarchyRootClientId; },
+  getBlockIndex: function() { return getBlockIndex; },
+  getBlockInsertionPoint: function() { return getBlockInsertionPoint; },
+  getBlockListSettings: function() { return getBlockListSettings; },
+  getBlockMode: function() { return getBlockMode; },
+  getBlockName: function() { return getBlockName; },
+  getBlockOrder: function() { return getBlockOrder; },
+  getBlockRootClientId: function() { return getBlockRootClientId; },
+  getBlockSelectionEnd: function() { return getBlockSelectionEnd; },
+  getBlockSelectionStart: function() { return getBlockSelectionStart; },
+  getBlocks: function() { return getBlocks; },
+  getBlocksByClientId: function() { return getBlocksByClientId; },
+  getClientIdsOfDescendants: function() { return getClientIdsOfDescendants; },
+  getClientIdsWithDescendants: function() { return getClientIdsWithDescendants; },
+  getCurrentPost: function() { return getCurrentPost; },
+  getCurrentPostAttribute: function() { return getCurrentPostAttribute; },
+  getCurrentPostId: function() { return getCurrentPostId; },
+  getCurrentPostLastRevisionId: function() { return getCurrentPostLastRevisionId; },
+  getCurrentPostRevisionsCount: function() { return getCurrentPostRevisionsCount; },
+  getCurrentPostType: function() { return getCurrentPostType; },
+  getEditedPostAttribute: function() { return getEditedPostAttribute; },
+  getEditedPostContent: function() { return getEditedPostContent; },
+  getEditedPostPreviewLink: function() { return getEditedPostPreviewLink; },
+  getEditedPostSlug: function() { return getEditedPostSlug; },
+  getEditedPostVisibility: function() { return getEditedPostVisibility; },
+  getEditorBlocks: function() { return getEditorBlocks; },
+  getEditorSelection: function() { return getEditorSelection; },
+  getEditorSelectionEnd: function() { return getEditorSelectionEnd; },
+  getEditorSelectionStart: function() { return getEditorSelectionStart; },
+  getEditorSettings: function() { return getEditorSettings; },
+  getFirstMultiSelectedBlockClientId: function() { return getFirstMultiSelectedBlockClientId; },
+  getGlobalBlockCount: function() { return getGlobalBlockCount; },
+  getInserterItems: function() { return getInserterItems; },
+  getLastMultiSelectedBlockClientId: function() { return getLastMultiSelectedBlockClientId; },
+  getMultiSelectedBlockClientIds: function() { return getMultiSelectedBlockClientIds; },
+  getMultiSelectedBlocks: function() { return getMultiSelectedBlocks; },
+  getMultiSelectedBlocksEndClientId: function() { return getMultiSelectedBlocksEndClientId; },
+  getMultiSelectedBlocksStartClientId: function() { return getMultiSelectedBlocksStartClientId; },
+  getNextBlockClientId: function() { return getNextBlockClientId; },
+  getPermalink: function() { return getPermalink; },
+  getPermalinkParts: function() { return getPermalinkParts; },
+  getPostEdits: function() { return getPostEdits; },
+  getPostLockUser: function() { return getPostLockUser; },
+  getPostTypeLabel: function() { return getPostTypeLabel; },
+  getPreviousBlockClientId: function() { return getPreviousBlockClientId; },
+  getRenderingMode: function() { return getRenderingMode; },
+  getSelectedBlock: function() { return getSelectedBlock; },
+  getSelectedBlockClientId: function() { return getSelectedBlockClientId; },
+  getSelectedBlockCount: function() { return getSelectedBlockCount; },
+  getSelectedBlocksInitialCaretPosition: function() { return getSelectedBlocksInitialCaretPosition; },
+  getStateBeforeOptimisticTransaction: function() { return getStateBeforeOptimisticTransaction; },
+  getSuggestedPostFormat: function() { return getSuggestedPostFormat; },
+  getTemplate: function() { return getTemplate; },
+  getTemplateLock: function() { return getTemplateLock; },
+  hasChangedContent: function() { return hasChangedContent; },
+  hasEditorRedo: function() { return hasEditorRedo; },
+  hasEditorUndo: function() { return hasEditorUndo; },
+  hasInserterItems: function() { return hasInserterItems; },
+  hasMultiSelection: function() { return hasMultiSelection; },
+  hasNonPostEntityChanges: function() { return hasNonPostEntityChanges; },
+  hasSelectedBlock: function() { return hasSelectedBlock; },
+  hasSelectedInnerBlock: function() { return hasSelectedInnerBlock; },
+  inSomeHistory: function() { return inSomeHistory; },
+  isAncestorMultiSelected: function() { return isAncestorMultiSelected; },
+  isAutosavingPost: function() { return isAutosavingPost; },
+  isBlockInsertionPointVisible: function() { return isBlockInsertionPointVisible; },
+  isBlockMultiSelected: function() { return isBlockMultiSelected; },
+  isBlockSelected: function() { return isBlockSelected; },
+  isBlockValid: function() { return isBlockValid; },
+  isBlockWithinSelection: function() { return isBlockWithinSelection; },
+  isCaretWithinFormattedText: function() { return isCaretWithinFormattedText; },
+  isCleanNewPost: function() { return isCleanNewPost; },
+  isCurrentPostPending: function() { return isCurrentPostPending; },
+  isCurrentPostPublished: function() { return isCurrentPostPublished; },
+  isCurrentPostScheduled: function() { return isCurrentPostScheduled; },
+  isDeletingPost: function() { return isDeletingPost; },
+  isEditedPostAutosaveable: function() { return isEditedPostAutosaveable; },
+  isEditedPostBeingScheduled: function() { return isEditedPostBeingScheduled; },
+  isEditedPostDateFloating: function() { return isEditedPostDateFloating; },
+  isEditedPostDirty: function() { return isEditedPostDirty; },
+  isEditedPostEmpty: function() { return isEditedPostEmpty; },
+  isEditedPostNew: function() { return isEditedPostNew; },
+  isEditedPostPublishable: function() { return isEditedPostPublishable; },
+  isEditedPostSaveable: function() { return isEditedPostSaveable; },
+  isFirstMultiSelectedBlock: function() { return isFirstMultiSelectedBlock; },
+  isMultiSelecting: function() { return isMultiSelecting; },
+  isPermalinkEditable: function() { return isPermalinkEditable; },
+  isPostAutosavingLocked: function() { return isPostAutosavingLocked; },
+  isPostLockTakeover: function() { return isPostLockTakeover; },
+  isPostLocked: function() { return isPostLocked; },
+  isPostSavingLocked: function() { return isPostSavingLocked; },
+  isPreviewingPost: function() { return isPreviewingPost; },
+  isPublishSidebarEnabled: function() { return isPublishSidebarEnabled; },
+  isPublishingPost: function() { return isPublishingPost; },
+  isSavingNonPostEntityChanges: function() { return isSavingNonPostEntityChanges; },
+  isSavingPost: function() { return isSavingPost; },
+  isSelectionEnabled: function() { return isSelectionEnabled; },
+  isTyping: function() { return isTyping; },
+  isValidTemplate: function() { return isValidTemplate; }
+});
+
+// NAMESPACE OBJECT: ./packages/editor/build-module/store/actions.js
+var actions_namespaceObject = {};
+__webpack_require__.r(actions_namespaceObject);
+__webpack_require__.d(actions_namespaceObject, {
+  __experimentalTearDownEditor: function() { return __experimentalTearDownEditor; },
+  __unstableSaveForPreview: function() { return __unstableSaveForPreview; },
+  autosave: function() { return autosave; },
+  clearSelectedBlock: function() { return clearSelectedBlock; },
+  createUndoLevel: function() { return createUndoLevel; },
+  disablePublishSidebar: function() { return disablePublishSidebar; },
+  editPost: function() { return editPost; },
+  enablePublishSidebar: function() { return enablePublishSidebar; },
+  enterFormattedText: function() { return enterFormattedText; },
+  exitFormattedText: function() { return exitFormattedText; },
+  hideInsertionPoint: function() { return hideInsertionPoint; },
+  insertBlock: function() { return insertBlock; },
+  insertBlocks: function() { return insertBlocks; },
+  insertDefaultBlock: function() { return insertDefaultBlock; },
+  lockPostAutosaving: function() { return lockPostAutosaving; },
+  lockPostSaving: function() { return lockPostSaving; },
+  mergeBlocks: function() { return mergeBlocks; },
+  moveBlockToPosition: function() { return moveBlockToPosition; },
+  moveBlocksDown: function() { return moveBlocksDown; },
+  moveBlocksUp: function() { return moveBlocksUp; },
+  multiSelect: function() { return multiSelect; },
+  receiveBlocks: function() { return receiveBlocks; },
+  redo: function() { return redo; },
+  refreshPost: function() { return refreshPost; },
+  removeBlock: function() { return removeBlock; },
+  removeBlocks: function() { return removeBlocks; },
+  replaceBlock: function() { return replaceBlock; },
+  replaceBlocks: function() { return replaceBlocks; },
+  resetBlocks: function() { return resetBlocks; },
+  resetEditorBlocks: function() { return resetEditorBlocks; },
+  resetPost: function() { return resetPost; },
+  savePost: function() { return savePost; },
+  selectBlock: function() { return selectBlock; },
+  setRenderingMode: function() { return setRenderingMode; },
+  setTemplateValidity: function() { return setTemplateValidity; },
+  setupEditor: function() { return setupEditor; },
+  setupEditorState: function() { return setupEditorState; },
+  showInsertionPoint: function() { return showInsertionPoint; },
+  startMultiSelect: function() { return startMultiSelect; },
+  startTyping: function() { return startTyping; },
+  stopMultiSelect: function() { return stopMultiSelect; },
+  stopTyping: function() { return stopTyping; },
+  synchronizeTemplate: function() { return synchronizeTemplate; },
+  toggleBlockMode: function() { return toggleBlockMode; },
+  toggleSelection: function() { return toggleSelection; },
+  trashPost: function() { return trashPost; },
+  undo: function() { return undo; },
+  unlockPostAutosaving: function() { return unlockPostAutosaving; },
+  unlockPostSaving: function() { return unlockPostSaving; },
+  updateBlock: function() { return updateBlock; },
+  updateBlockAttributes: function() { return updateBlockAttributes; },
+  updateBlockListSettings: function() { return updateBlockListSettings; },
+  updateEditorSettings: function() { return updateEditorSettings; },
+  updatePost: function() { return updatePost; },
+  updatePostLock: function() { return updatePostLock; }
+});
+
+// EXTERNAL MODULE: external "React"
+var external_React_ = __webpack_require__(9196);
+;// CONCATENATED MODULE: external ["wp","data"]
+var external_wp_data_namespaceObject = window["wp"]["data"];
+;// CONCATENATED MODULE: external ["wp","coreData"]
+var external_wp_coreData_namespaceObject = window["wp"]["coreData"];
+;// CONCATENATED MODULE: external ["wp","element"]
+var external_wp_element_namespaceObject = window["wp"]["element"];
+;// CONCATENATED MODULE: external ["wp","compose"]
+var external_wp_compose_namespaceObject = window["wp"]["compose"];
+;// CONCATENATED MODULE: external ["wp","hooks"]
+var external_wp_hooks_namespaceObject = window["wp"]["hooks"];
+;// CONCATENATED MODULE: external ["wp","blockEditor"]
+var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/store/defaults.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * The default post editor settings.
+ *
+ * @property {boolean|Array} allowedBlockTypes     Allowed block types
+ * @property {boolean}       richEditingEnabled    Whether rich editing is enabled or not
+ * @property {boolean}       codeEditingEnabled    Whether code editing is enabled or not
+ * @property {boolean}       enableCustomFields    Whether the WordPress custom fields are enabled or not.
+ *                                                 true  = the user has opted to show the Custom Fields panel at the bottom of the editor.
+ *                                                 false = the user has opted to hide the Custom Fields panel at the bottom of the editor.
+ *                                                 undefined = the current environment does not support Custom Fields, so the option toggle in Preferences -> Panels to enable the Custom Fields panel is not displayed.
+ * @property {number}        autosaveInterval      How often in seconds the post will be auto-saved via the REST API.
+ * @property {number}        localAutosaveInterval How often in seconds the post will be backed up to sessionStorage.
+ * @property {Array?}        availableTemplates    The available post templates
+ * @property {boolean}       disablePostFormats    Whether or not the post formats are disabled
+ * @property {Array?}        allowedMimeTypes      List of allowed mime types and file extensions
+ * @property {number}        maxUploadFileSize     Maximum upload file size
+ * @property {boolean}       supportsLayout        Whether the editor supports layouts.
+ */
+const EDITOR_SETTINGS_DEFAULTS = {
+  ...external_wp_blockEditor_namespaceObject.SETTINGS_DEFAULTS,
+  richEditingEnabled: true,
+  codeEditingEnabled: true,
+  enableCustomFields: undefined
+};
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/store/reducer.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Returns a post attribute value, flattening nested rendered content using its
+ * raw value in place of its original object form.
+ *
+ * @param {*} value Original value.
+ *
+ * @return {*} Raw value.
+ */
+function getPostRawValue(value) {
+  if (value && 'object' === typeof value && 'raw' in value) {
+    return value.raw;
+  }
+  return value;
+}
+
+/**
+ * Returns true if the two object arguments have the same keys, or false
+ * otherwise.
+ *
+ * @param {Object} a First object.
+ * @param {Object} b Second object.
+ *
+ * @return {boolean} Whether the two objects have the same keys.
+ */
+function hasSameKeys(a, b) {
+  const keysA = Object.keys(a).sort();
+  const keysB = Object.keys(b).sort();
+  return keysA.length === keysB.length && keysA.every((key, index) => keysB[index] === key);
+}
+
+/**
+ * Returns true if, given the currently dispatching action and the previously
+ * dispatched action, the two actions are editing the same post property, or
+ * false otherwise.
+ *
+ * @param {Object} action         Currently dispatching action.
+ * @param {Object} previousAction Previously dispatched action.
+ *
+ * @return {boolean} Whether actions are updating the same post property.
+ */
+function isUpdatingSamePostProperty(action, previousAction) {
+  return action.type === 'EDIT_POST' && hasSameKeys(action.edits, previousAction.edits);
+}
+
+/**
+ * Returns true if, given the currently dispatching action and the previously
+ * dispatched action, the two actions are modifying the same property such that
+ * undo history should be batched.
+ *
+ * @param {Object} action         Currently dispatching action.
+ * @param {Object} previousAction Previously dispatched action.
+ *
+ * @return {boolean} Whether to overwrite present state.
+ */
+function shouldOverwriteState(action, previousAction) {
+  if (action.type === 'RESET_EDITOR_BLOCKS') {
+    return !action.shouldCreateUndoLevel;
+  }
+  if (!previousAction || action.type !== previousAction.type) {
+    return false;
+  }
+  return isUpdatingSamePostProperty(action, previousAction);
+}
+function postId(state = null, action) {
+  switch (action.type) {
+    case 'SETUP_EDITOR_STATE':
+      return action.post.id;
+  }
+  return state;
+}
+function postType(state = null, action) {
+  switch (action.type) {
+    case 'SETUP_EDITOR_STATE':
+      return action.post.type;
+  }
+  return state;
+}
+
+/**
+ * Reducer returning whether the post blocks match the defined template or not.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {boolean} Updated state.
+ */
+function template(state = {
+  isValid: true
+}, action) {
+  switch (action.type) {
+    case 'SET_TEMPLATE_VALIDITY':
+      return {
+        ...state,
+        isValid: action.isValid
+      };
+  }
+  return state;
+}
+
+/**
+ * Reducer returning current network request state (whether a request to
+ * the WP REST API is in progress, successful, or failed).
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+function saving(state = {}, action) {
+  switch (action.type) {
+    case 'REQUEST_POST_UPDATE_START':
+    case 'REQUEST_POST_UPDATE_FINISH':
+      return {
+        pending: action.type === 'REQUEST_POST_UPDATE_START',
+        options: action.options || {}
+      };
+  }
+  return state;
+}
+
+/**
+ * Reducer returning deleting post request state.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+function deleting(state = {}, action) {
+  switch (action.type) {
+    case 'REQUEST_POST_DELETE_START':
+    case 'REQUEST_POST_DELETE_FINISH':
+      return {
+        pending: action.type === 'REQUEST_POST_DELETE_START'
+      };
+  }
+  return state;
+}
+
+/**
+ * Post Lock State.
+ *
+ * @typedef {Object} PostLockState
+ *
+ * @property {boolean}  isLocked       Whether the post is locked.
+ * @property {?boolean} isTakeover     Whether the post editing has been taken over.
+ * @property {?boolean} activePostLock Active post lock value.
+ * @property {?Object}  user           User that took over the post.
+ */
+
+/**
+ * Reducer returning the post lock status.
+ *
+ * @param {PostLockState} state  Current state.
+ * @param {Object}        action Dispatched action.
+ *
+ * @return {PostLockState} Updated state.
+ */
+function postLock(state = {
+  isLocked: false
+}, action) {
+  switch (action.type) {
+    case 'UPDATE_POST_LOCK':
+      return action.lock;
+  }
+  return state;
+}
+
+/**
+ * Post saving lock.
+ *
+ * When post saving is locked, the post cannot be published or updated.
+ *
+ * @param {PostLockState} state  Current state.
+ * @param {Object}        action Dispatched action.
+ *
+ * @return {PostLockState} Updated state.
+ */
+function postSavingLock(state = {}, action) {
+  switch (action.type) {
+    case 'LOCK_POST_SAVING':
+      return {
+        ...state,
+        [action.lockName]: true
+      };
+    case 'UNLOCK_POST_SAVING':
+      {
+        const {
+          [action.lockName]: removedLockName,
+          ...restState
+        } = state;
+        return restState;
+      }
+  }
+  return state;
+}
+
+/**
+ * Post autosaving lock.
+ *
+ * When post autosaving is locked, the post will not autosave.
+ *
+ * @param {PostLockState} state  Current state.
+ * @param {Object}        action Dispatched action.
+ *
+ * @return {PostLockState} Updated state.
+ */
+function postAutosavingLock(state = {}, action) {
+  switch (action.type) {
+    case 'LOCK_POST_AUTOSAVING':
+      return {
+        ...state,
+        [action.lockName]: true
+      };
+    case 'UNLOCK_POST_AUTOSAVING':
+      {
+        const {
+          [action.lockName]: removedLockName,
+          ...restState
+        } = state;
+        return restState;
+      }
+  }
+  return state;
+}
+
+/**
+ * Reducer returning whether the editor is ready to be rendered.
+ * The editor is considered ready to be rendered once
+ * the post object is loaded properly and the initial blocks parsed.
+ *
+ * @param {boolean} state
+ * @param {Object}  action
+ *
+ * @return {boolean} Updated state.
+ */
+function isReady(state = false, action) {
+  switch (action.type) {
+    case 'SETUP_EDITOR_STATE':
+      return true;
+    case 'TEAR_DOWN_EDITOR':
+      return false;
+  }
+  return state;
+}
+
+/**
+ * Reducer returning the post editor setting.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+function editorSettings(state = EDITOR_SETTINGS_DEFAULTS, action) {
+  switch (action.type) {
+    case 'UPDATE_EDITOR_SETTINGS':
+      return {
+        ...state,
+        ...action.settings
+      };
+  }
+  return state;
+}
+function renderingMode(state = 'all', action) {
+  switch (action.type) {
+    case 'SET_RENDERING_MODE':
+      return action.mode;
+  }
+  return state;
+}
+/* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
+  postId,
+  postType,
+  saving,
+  deleting,
+  postLock,
+  template,
+  postSavingLock,
+  isReady,
+  editorSettings,
+  postAutosavingLock,
+  renderingMode
+}));
+
+;// CONCATENATED MODULE: ./node_modules/rememo/rememo.js
+
+
+/** @typedef {(...args: any[]) => *[]} GetDependants */
+
+/** @typedef {() => void} Clear */
+
+/**
+ * @typedef {{
+ *   getDependants: GetDependants,
+ *   clear: Clear
+ * }} EnhancedSelector
+ */
+
+/**
+ * Internal cache entry.
+ *
+ * @typedef CacheNode
+ *
+ * @property {?CacheNode|undefined} [prev] Previous node.
+ * @property {?CacheNode|undefined} [next] Next node.
+ * @property {*[]} args Function arguments for cache entry.
+ * @property {*} val Function result.
+ */
+
+/**
+ * @typedef Cache
+ *
+ * @property {Clear} clear Function to clear cache.
+ * @property {boolean} [isUniqueByDependants] Whether dependants are valid in
+ * considering cache uniqueness. A cache is unique if dependents are all arrays
+ * or objects.
+ * @property {CacheNode?} [head] Cache head.
+ * @property {*[]} [lastDependants] Dependants from previous invocation.
+ */
+
+/**
+ * Arbitrary value used as key for referencing cache object in WeakMap tree.
+ *
+ * @type {{}}
+ */
+var LEAF_KEY = {};
+
+/**
+ * Returns the first argument as the sole entry in an array.
+ *
+ * @template T
+ *
+ * @param {T} value Value to return.
+ *
+ * @return {[T]} Value returned as entry in array.
+ */
+function arrayOf(value) {
+	return [value];
+}
+
+/**
+ * Returns true if the value passed is object-like, or false otherwise. A value
+ * is object-like if it can support property assignment, e.g. object or array.
+ *
+ * @param {*} value Value to test.
+ *
+ * @return {boolean} Whether value is object-like.
+ */
+function isObjectLike(value) {
+	return !!value && 'object' === typeof value;
+}
+
+/**
+ * Creates and returns a new cache object.
+ *
+ * @return {Cache} Cache object.
+ */
+function createCache() {
+	/** @type {Cache} */
+	var cache = {
+		clear: function () {
+			cache.head = null;
+		},
+	};
+
+	return cache;
+}
+
+/**
+ * Returns true if entries within the two arrays are strictly equal by
+ * reference from a starting index.
+ *
+ * @param {*[]} a First array.
+ * @param {*[]} b Second array.
+ * @param {number} fromIndex Index from which to start comparison.
+ *
+ * @return {boolean} Whether arrays are shallowly equal.
+ */
+function isShallowEqual(a, b, fromIndex) {
+	var i;
+
+	if (a.length !== b.length) {
+		return false;
+	}
+
+	for (i = fromIndex; i < a.length; i++) {
+		if (a[i] !== b[i]) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/**
+ * Returns a memoized selector function. The getDependants function argument is
+ * called before the memoized selector and is expected to return an immutable
+ * reference or array of references on which the selector depends for computing
+ * its own return value. The memoize cache is preserved only as long as those
+ * dependant references remain the same. If getDependants returns a different
+ * reference(s), the cache is cleared and the selector value regenerated.
+ *
+ * @template {(...args: *[]) => *} S
+ *
+ * @param {S} selector Selector function.
+ * @param {GetDependants=} getDependants Dependant getter returning an array of
+ * references used in cache bust consideration.
+ */
+/* harmony default export */ function rememo(selector, getDependants) {
+	/** @type {WeakMap<*,*>} */
+	var rootCache;
+
+	/** @type {GetDependants} */
+	var normalizedGetDependants = getDependants ? getDependants : arrayOf;
+
+	/**
+	 * Returns the cache for a given dependants array. When possible, a WeakMap
+	 * will be used to create a unique cache for each set of dependants. This
+	 * is feasible due to the nature of WeakMap in allowing garbage collection
+	 * to occur on entries where the key object is no longer referenced. Since
+	 * WeakMap requires the key to be an object, this is only possible when the
+	 * dependant is object-like. The root cache is created as a hierarchy where
+	 * each top-level key is the first entry in a dependants set, the value a
+	 * WeakMap where each key is the next dependant, and so on. This continues
+	 * so long as the dependants are object-like. If no dependants are object-
+	 * like, then the cache is shared across all invocations.
+	 *
+	 * @see isObjectLike
+	 *
+	 * @param {*[]} dependants Selector dependants.
+	 *
+	 * @return {Cache} Cache object.
+	 */
+	function getCache(dependants) {
+		var caches = rootCache,
+			isUniqueByDependants = true,
+			i,
+			dependant,
+			map,
+			cache;
+
+		for (i = 0; i < dependants.length; i++) {
+			dependant = dependants[i];
+
+			// Can only compose WeakMap from object-like key.
+			if (!isObjectLike(dependant)) {
+				isUniqueByDependants = false;
+				break;
+			}
+
+			// Does current segment of cache already have a WeakMap?
+			if (caches.has(dependant)) {
+				// Traverse into nested WeakMap.
+				caches = caches.get(dependant);
+			} else {
+				// Create, set, and traverse into a new one.
+				map = new WeakMap();
+				caches.set(dependant, map);
+				caches = map;
+			}
+		}
+
+		// We use an arbitrary (but consistent) object as key for the last item
+		// in the WeakMap to serve as our running cache.
+		if (!caches.has(LEAF_KEY)) {
+			cache = createCache();
+			cache.isUniqueByDependants = isUniqueByDependants;
+			caches.set(LEAF_KEY, cache);
+		}
+
+		return caches.get(LEAF_KEY);
+	}
+
+	/**
+	 * Resets root memoization cache.
+	 */
+	function clear() {
+		rootCache = new WeakMap();
+	}
+
+	/* eslint-disable jsdoc/check-param-names */
+	/**
+	 * The augmented selector call, considering first whether dependants have
+	 * changed before passing it to underlying memoize function.
+	 *
+	 * @param {*}    source    Source object for derivation.
+	 * @param {...*} extraArgs Additional arguments to pass to selector.
+	 *
+	 * @return {*} Selector result.
+	 */
+	/* eslint-enable jsdoc/check-param-names */
+	function callSelector(/* source, ...extraArgs */) {
+		var len = arguments.length,
+			cache,
+			node,
+			i,
+			args,
+			dependants;
+
+		// Create copy of arguments (avoid leaking deoptimization).
+		args = new Array(len);
+		for (i = 0; i < len; i++) {
+			args[i] = arguments[i];
+		}
+
+		dependants = normalizedGetDependants.apply(null, args);
+		cache = getCache(dependants);
+
+		// If not guaranteed uniqueness by dependants (primitive type), shallow
+		// compare against last dependants and, if references have changed,
+		// destroy cache to recalculate result.
+		if (!cache.isUniqueByDependants) {
+			if (
+				cache.lastDependants &&
+				!isShallowEqual(dependants, cache.lastDependants, 0)
+			) {
+				cache.clear();
+			}
+
+			cache.lastDependants = dependants;
+		}
+
+		node = cache.head;
+		while (node) {
+			// Check whether node arguments match arguments
+			if (!isShallowEqual(node.args, args, 1)) {
+				node = node.next;
+				continue;
+			}
+
+			// At this point we can assume we've found a match
+
+			// Surface matched node to head if not already
+			if (node !== cache.head) {
+				// Adjust siblings to point to each other.
+				/** @type {CacheNode} */ (node.prev).next = node.next;
+				if (node.next) {
+					node.next.prev = node.prev;
+				}
+
+				node.next = cache.head;
+				node.prev = null;
+				/** @type {CacheNode} */ (cache.head).prev = node;
+				cache.head = node;
+			}
+
+			// Return immediately
+			return node.val;
+		}
+
+		// No cached value found. Continue to insertion phase:
+
+		node = /** @type {CacheNode} */ ({
+			// Generate the result from original function
+			val: selector.apply(null, args),
+		});
+
+		// Avoid including the source object in the cache.
+		args[0] = null;
+		node.args = args;
+
+		// Don't need to check whether node is already head, since it would
+		// have been returned above already if it was
+
+		// Shift existing head down list
+		if (cache.head) {
+			cache.head.prev = node;
+			node.next = cache.head;
+		}
+
+		cache.head = node;
+
+		return node.val;
+	}
+
+	callSelector.getDependants = normalizedGetDependants;
+	callSelector.clear = clear;
+	clear();
+
+	return /** @type {S & EnhancedSelector} */ (callSelector);
+}
+
+;// CONCATENATED MODULE: external ["wp","blocks"]
+var external_wp_blocks_namespaceObject = window["wp"]["blocks"];
+;// CONCATENATED MODULE: external ["wp","date"]
+var external_wp_date_namespaceObject = window["wp"]["date"];
+;// CONCATENATED MODULE: external ["wp","url"]
+var external_wp_url_namespaceObject = window["wp"]["url"];
+;// CONCATENATED MODULE: external ["wp","deprecated"]
+var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
+var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
+;// CONCATENATED MODULE: external ["wp","primitives"]
+var external_wp_primitives_namespaceObject = window["wp"]["primitives"];
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/layout.js
+
+/**
+ * WordPress dependencies
+ */
+
+const layout = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M18 5.5H6a.5.5 0 00-.5.5v3h13V6a.5.5 0 00-.5-.5zm.5 5H10v8h8a.5.5 0 00.5-.5v-7.5zm-10 0h-3V18a.5.5 0 00.5.5h2.5v-8zM6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
+}));
+/* harmony default export */ var library_layout = (layout);
+
+;// CONCATENATED MODULE: external ["wp","preferences"]
+var external_wp_preferences_namespaceObject = window["wp"]["preferences"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/store/constants.js
+/**
+ * Set of post properties for which edits should assume a merging behavior,
+ * assuming an object value.
+ *
+ * @type {Set}
+ */
+const EDIT_MERGE_PROPERTIES = new Set(['meta']);
+
+/**
+ * Constant for the store module (or reducer) key.
+ *
+ * @type {string}
+ */
+const STORE_NAME = 'core/editor';
+const SAVE_POST_NOTICE_ID = 'SAVE_POST_NOTICE_ID';
+const TRASH_POST_NOTICE_ID = 'TRASH_POST_NOTICE_ID';
+const PERMALINK_POSTNAME_REGEX = /%(?:postname|pagename)%/;
+const ONE_MINUTE_IN_MS = 60 * 1000;
+const AUTOSAVE_PROPERTIES = ['title', 'excerpt', 'content'];
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/header.js
+
+/**
+ * WordPress dependencies
+ */
+
+const header = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M18.5 10.5H10v8h8a.5.5 0 00.5-.5v-7.5zm-10 0h-3V18a.5.5 0 00.5.5h2.5v-8zM6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
+}));
+/* harmony default export */ var library_header = (header);
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/footer.js
+
+/**
+ * WordPress dependencies
+ */
+
+const footer = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  fillRule: "evenodd",
+  d: "M18 5.5h-8v8h8.5V6a.5.5 0 00-.5-.5zm-9.5 8h-3V6a.5.5 0 01.5-.5h2.5v8zM6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
+}));
+/* harmony default export */ var library_footer = (footer);
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/sidebar.js
+
+/**
+ * WordPress dependencies
+ */
+
+const sidebar = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M18 5.5H6a.5.5 0 00-.5.5v3h13V6a.5.5 0 00-.5-.5zm.5 5H10v8h8a.5.5 0 00.5-.5v-7.5zM6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
+}));
+/* harmony default export */ var library_sidebar = (sidebar);
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/symbol-filled.js
+
+/**
+ * WordPress dependencies
+ */
+
+const symbolFilled = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M21.3 10.8l-5.6-5.6c-.7-.7-1.8-.7-2.5 0l-5.6 5.6c-.7.7-.7 1.8 0 2.5l5.6 5.6c.3.3.8.5 1.2.5s.9-.2 1.2-.5l5.6-5.6c.8-.7.8-1.9.1-2.5zm-17.6 1L10 5.5l-1-1-6.3 6.3c-.7.7-.7 1.8 0 2.5L9 19.5l1.1-1.1-6.3-6.3c-.2 0-.2-.2-.1-.3z"
+}));
+/* harmony default export */ var symbol_filled = (symbolFilled);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/utils/get-template-part-icon.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Helper function to retrieve the corresponding icon by name.
+ *
+ * @param {string} iconName The name of the icon.
+ *
+ * @return {Object} The corresponding icon.
+ */
+function getTemplatePartIcon(iconName) {
+  if ('header' === iconName) {
+    return library_header;
+  } else if ('footer' === iconName) {
+    return library_footer;
+  } else if ('sidebar' === iconName) {
+    return library_sidebar;
+  }
+  return symbol_filled;
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/store/selectors.js
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+/**
+ * Shared reference to an empty object for cases where it is important to avoid
+ * returning a new object reference on every invocation, as in a connected or
+ * other pure component which performs `shouldComponentUpdate` check on props.
+ * This should be used as a last resort, since the normalized data should be
+ * maintained by the reducer result in state.
+ */
+const EMPTY_OBJECT = {};
+
+/**
+ * Returns true if any past editor history snapshots exist, or false otherwise.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether undo history exists.
+ */
+const hasEditorUndo = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => () => {
+  return select(external_wp_coreData_namespaceObject.store).hasUndo();
+});
+
+/**
+ * Returns true if any future editor history snapshots exist, or false
+ * otherwise.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether redo history exists.
+ */
+const hasEditorRedo = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => () => {
+  return select(external_wp_coreData_namespaceObject.store).hasRedo();
+});
+
+/**
+ * Returns true if the currently edited post is yet to be saved, or false if
+ * the post has been saved.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether the post is new.
+ */
+function isEditedPostNew(state) {
+  return getCurrentPost(state).status === 'auto-draft';
+}
+
+/**
+ * Returns true if content includes unsaved changes, or false otherwise.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {boolean} Whether content includes unsaved changes.
+ */
+function hasChangedContent(state) {
+  const edits = getPostEdits(state);
+  return 'content' in edits;
+}
+
+/**
+ * Returns true if there are unsaved values for the current edit session, or
+ * false if the editing state matches the saved or new post.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether unsaved values exist.
+ */
+const isEditedPostDirty = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
+  // Edits should contain only fields which differ from the saved post (reset
+  // at initial load and save complete). Thus, a non-empty edits state can be
+  // inferred to contain unsaved values.
+  const postType = getCurrentPostType(state);
+  const postId = getCurrentPostId(state);
+  if (select(external_wp_coreData_namespaceObject.store).hasEditsForEntityRecord('postType', postType, postId)) {
+    return true;
+  }
+  return false;
+});
+
+/**
+ * Returns true if there are unsaved edits for entities other than
+ * the editor's post, and false otherwise.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether there are edits or not.
+ */
+const hasNonPostEntityChanges = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
+  const dirtyEntityRecords = select(external_wp_coreData_namespaceObject.store).__experimentalGetDirtyEntityRecords();
+  const {
+    type,
+    id
+  } = getCurrentPost(state);
+  return dirtyEntityRecords.some(entityRecord => entityRecord.kind !== 'postType' || entityRecord.name !== type || entityRecord.key !== id);
+});
+
+/**
+ * Returns true if there are no unsaved values for the current edit session and
+ * if the currently edited post is new (has never been saved before).
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether new post and unsaved values exist.
+ */
+function isCleanNewPost(state) {
+  return !isEditedPostDirty(state) && isEditedPostNew(state);
+}
+
+/**
+ * Returns the post currently being edited in its last known saved state, not
+ * including unsaved edits. Returns an object containing relevant default post
+ * values if the post has not yet been saved.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {Object} Post object.
+ */
+const getCurrentPost = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
+  const postId = getCurrentPostId(state);
+  const postType = getCurrentPostType(state);
+  const post = select(external_wp_coreData_namespaceObject.store).getRawEntityRecord('postType', postType, postId);
+  if (post) {
+    return post;
+  }
+
+  // This exists for compatibility with the previous selector behavior
+  // which would guarantee an object return based on the editor reducer's
+  // default empty object state.
+  return EMPTY_OBJECT;
+});
+
+/**
+ * Returns the post type of the post currently being edited.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {string} Post type.
+ */
+function getCurrentPostType(state) {
+  return state.postType;
+}
+
+/**
+ * Returns the ID of the post currently being edited, or null if the post has
+ * not yet been saved.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {?number} ID of current post.
+ */
+function getCurrentPostId(state) {
+  return state.postId;
+}
+
+/**
+ * Returns the number of revisions of the post currently being edited.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {number} Number of revisions.
+ */
+function getCurrentPostRevisionsCount(state) {
+  var _getCurrentPost$_link;
+  return (_getCurrentPost$_link = getCurrentPost(state)._links?.['version-history']?.[0]?.count) !== null && _getCurrentPost$_link !== void 0 ? _getCurrentPost$_link : 0;
+}
+
+/**
+ * Returns the last revision ID of the post currently being edited,
+ * or null if the post has no revisions.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {?number} ID of the last revision.
+ */
+function getCurrentPostLastRevisionId(state) {
+  var _getCurrentPost$_link2;
+  return (_getCurrentPost$_link2 = getCurrentPost(state)._links?.['predecessor-version']?.[0]?.id) !== null && _getCurrentPost$_link2 !== void 0 ? _getCurrentPost$_link2 : null;
+}
+
+/**
+ * Returns any post values which have been changed in the editor but not yet
+ * been saved.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {Object} Object of key value pairs comprising unsaved edits.
+ */
+const getPostEdits = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
+  const postType = getCurrentPostType(state);
+  const postId = getCurrentPostId(state);
+  return select(external_wp_coreData_namespaceObject.store).getEntityRecordEdits('postType', postType, postId) || EMPTY_OBJECT;
+});
+
+/**
+ * Returns an attribute value of the saved post.
+ *
+ * @param {Object} state         Global application state.
+ * @param {string} attributeName Post attribute name.
+ *
+ * @return {*} Post attribute value.
+ */
+function getCurrentPostAttribute(state, attributeName) {
+  switch (attributeName) {
+    case 'type':
+      return getCurrentPostType(state);
+    case 'id':
+      return getCurrentPostId(state);
+    default:
+      const post = getCurrentPost(state);
+      if (!post.hasOwnProperty(attributeName)) {
+        break;
+      }
+      return getPostRawValue(post[attributeName]);
+  }
+}
+
+/**
+ * Returns a single attribute of the post being edited, preferring the unsaved
+ * edit if one exists, but merging with the attribute value for the last known
+ * saved state of the post (this is needed for some nested attributes like meta).
+ *
+ * @param {Object} state         Global application state.
+ * @param {string} attributeName Post attribute name.
+ *
+ * @return {*} Post attribute value.
+ */
+const getNestedEditedPostProperty = rememo((state, attributeName) => {
+  const edits = getPostEdits(state);
+  if (!edits.hasOwnProperty(attributeName)) {
+    return getCurrentPostAttribute(state, attributeName);
+  }
+  return {
+    ...getCurrentPostAttribute(state, attributeName),
+    ...edits[attributeName]
+  };
+}, (state, attributeName) => [getCurrentPostAttribute(state, attributeName), getPostEdits(state)[attributeName]]);
+
+/**
+ * Returns a single attribute of the post being edited, preferring the unsaved
+ * edit if one exists, but falling back to the attribute for the last known
+ * saved state of the post.
+ *
+ * @param {Object} state         Global application state.
+ * @param {string} attributeName Post attribute name.
+ *
+ * @return {*} Post attribute value.
+ */
+function getEditedPostAttribute(state, attributeName) {
+  // Special cases.
+  switch (attributeName) {
+    case 'content':
+      return getEditedPostContent(state);
+  }
+
+  // Fall back to saved post value if not edited.
+  const edits = getPostEdits(state);
+  if (!edits.hasOwnProperty(attributeName)) {
+    return getCurrentPostAttribute(state, attributeName);
+  }
+
+  // Merge properties are objects which contain only the patch edit in state,
+  // and thus must be merged with the current post attribute.
+  if (EDIT_MERGE_PROPERTIES.has(attributeName)) {
+    return getNestedEditedPostProperty(state, attributeName);
+  }
+  return edits[attributeName];
+}
+
+/**
+ * Returns an attribute value of the current autosave revision for a post, or
+ * null if there is no autosave for the post.
+ *
+ * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )` selector
+ * 			   from the '@wordpress/core-data' package and access properties on the returned
+ * 			   autosave object using getPostRawValue.
+ *
+ * @param {Object} state         Global application state.
+ * @param {string} attributeName Autosave attribute name.
+ *
+ * @return {*} Autosave attribute value.
+ */
+const getAutosaveAttribute = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, attributeName) => {
+  if (!AUTOSAVE_PROPERTIES.includes(attributeName) && attributeName !== 'preview_link') {
+    return;
+  }
+  const postType = getCurrentPostType(state);
+  const postId = getCurrentPostId(state);
+  const currentUserId = select(external_wp_coreData_namespaceObject.store).getCurrentUser()?.id;
+  const autosave = select(external_wp_coreData_namespaceObject.store).getAutosave(postType, postId, currentUserId);
+  if (autosave) {
+    return getPostRawValue(autosave[attributeName]);
+  }
+});
+
+/**
+ * Returns the current visibility of the post being edited, preferring the
+ * unsaved value if different than the saved post. The return value is one of
+ * "private", "password", or "public".
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {string} Post visibility.
+ */
+function getEditedPostVisibility(state) {
+  const status = getEditedPostAttribute(state, 'status');
+  if (status === 'private') {
+    return 'private';
+  }
+  const password = getEditedPostAttribute(state, 'password');
+  if (password) {
+    return 'password';
+  }
+  return 'public';
+}
+
+/**
+ * Returns true if post is pending review.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether current post is pending review.
+ */
+function isCurrentPostPending(state) {
+  return getCurrentPost(state).status === 'pending';
+}
+
+/**
+ * Return true if the current post has already been published.
+ *
+ * @param {Object}  state       Global application state.
+ * @param {Object?} currentPost Explicit current post for bypassing registry selector.
+ *
+ * @return {boolean} Whether the post has been published.
+ */
+function isCurrentPostPublished(state, currentPost) {
+  const post = currentPost || getCurrentPost(state);
+  return ['publish', 'private'].indexOf(post.status) !== -1 || post.status === 'future' && !(0,external_wp_date_namespaceObject.isInTheFuture)(new Date(Number((0,external_wp_date_namespaceObject.getDate)(post.date)) - ONE_MINUTE_IN_MS));
+}
+
+/**
+ * Returns true if post is already scheduled.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether current post is scheduled to be posted.
+ */
+function isCurrentPostScheduled(state) {
+  return getCurrentPost(state).status === 'future' && !isCurrentPostPublished(state);
+}
+
+/**
+ * Return true if the post being edited can be published.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether the post can been published.
+ */
+function isEditedPostPublishable(state) {
+  const post = getCurrentPost(state);
+
+  // TODO: Post being publishable should be superset of condition of post
+  // being saveable. Currently this restriction is imposed at UI.
+  //
+  //  See: <PostPublishButton /> (`isButtonEnabled` assigned by `isSaveable`).
+
+  return isEditedPostDirty(state) || ['publish', 'private', 'future'].indexOf(post.status) === -1;
+}
+
+/**
+ * Returns true if the post can be saved, or false otherwise. A post must
+ * contain a title, an excerpt, or non-empty content to be valid for save.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether the post can be saved.
+ */
+function isEditedPostSaveable(state) {
+  if (isSavingPost(state)) {
+    return false;
+  }
+
+  // TODO: Post should not be saveable if not dirty. Cannot be added here at
+  // this time since posts where meta boxes are present can be saved even if
+  // the post is not dirty. Currently this restriction is imposed at UI, but
+  // should be moved here.
+  //
+  //  See: `isEditedPostPublishable` (includes `isEditedPostDirty` condition)
+  //  See: <PostSavedState /> (`forceIsDirty` prop)
+  //  See: <PostPublishButton /> (`forceIsDirty` prop)
+  //  See: https://github.com/WordPress/gutenberg/pull/4184.
+
+  return !!getEditedPostAttribute(state, 'title') || !!getEditedPostAttribute(state, 'excerpt') || !isEditedPostEmpty(state) || external_wp_element_namespaceObject.Platform.OS === 'native';
+}
+
+/**
+ * Returns true if the edited post has content. A post has content if it has at
+ * least one saveable block or otherwise has a non-empty content property
+ * assigned.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether post has content.
+ */
+const isEditedPostEmpty = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
+  // While the condition of truthy content string is sufficient to determine
+  // emptiness, testing saveable blocks length is a trivial operation. Since
+  // this function can be called frequently, optimize for the fast case as a
+  // condition of the mere existence of blocks. Note that the value of edited
+  // content takes precedent over block content, and must fall through to the
+  // default logic.
+  const postId = getCurrentPostId(state);
+  const postType = getCurrentPostType(state);
+  const record = select(external_wp_coreData_namespaceObject.store).getEditedEntityRecord('postType', postType, postId);
+  if (typeof record.content !== 'function') {
+    return !record.content;
+  }
+  const blocks = getEditedPostAttribute(state, 'blocks');
+  if (blocks.length === 0) {
+    return true;
+  }
+
+  // Pierce the abstraction of the serializer in knowing that blocks are
+  // joined with newlines such that even if every individual block
+  // produces an empty save result, the serialized content is non-empty.
+  if (blocks.length > 1) {
+    return false;
+  }
+
+  // There are two conditions under which the optimization cannot be
+  // assumed, and a fallthrough to getEditedPostContent must occur:
+  //
+  // 1. getBlocksForSerialization has special treatment in omitting a
+  //    single unmodified default block.
+  // 2. Comment delimiters are omitted for a freeform or unregistered
+  //    block in its serialization. The freeform block specifically may
+  //    produce an empty string in its saved output.
+  //
+  // For all other content, the single block is assumed to make a post
+  // non-empty, if only by virtue of its own comment delimiters.
+  const blockName = blocks[0].name;
+  if (blockName !== (0,external_wp_blocks_namespaceObject.getDefaultBlockName)() && blockName !== (0,external_wp_blocks_namespaceObject.getFreeformContentHandlerName)()) {
+    return false;
+  }
+  return !getEditedPostContent(state);
+});
+
+/**
+ * Returns true if the post can be autosaved, or false otherwise.
+ *
+ * @param {Object} state    Global application state.
+ * @param {Object} autosave A raw autosave object from the REST API.
+ *
+ * @return {boolean} Whether the post can be autosaved.
+ */
+const isEditedPostAutosaveable = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
+  // A post must contain a title, an excerpt, or non-empty content to be valid for autosaving.
+  if (!isEditedPostSaveable(state)) {
+    return false;
+  }
+
+  // A post is not autosavable when there is a post autosave lock.
+  if (isPostAutosavingLocked(state)) {
+    return false;
+  }
+  const postType = getCurrentPostType(state);
+  const postId = getCurrentPostId(state);
+  const hasFetchedAutosave = select(external_wp_coreData_namespaceObject.store).hasFetchedAutosaves(postType, postId);
+  const currentUserId = select(external_wp_coreData_namespaceObject.store).getCurrentUser()?.id;
+
+  // Disable reason - this line causes the side-effect of fetching the autosave
+  // via a resolver, moving below the return would result in the autosave never
+  // being fetched.
+  // eslint-disable-next-line @wordpress/no-unused-vars-before-return
+  const autosave = select(external_wp_coreData_namespaceObject.store).getAutosave(postType, postId, currentUserId);
+
+  // If any existing autosaves have not yet been fetched, this function is
+  // unable to determine if the post is autosaveable, so return false.
+  if (!hasFetchedAutosave) {
+    return false;
+  }
+
+  // If we don't already have an autosave, the post is autosaveable.
+  if (!autosave) {
+    return true;
+  }
+
+  // To avoid an expensive content serialization, use the content dirtiness
+  // flag in place of content field comparison against the known autosave.
+  // This is not strictly accurate, and relies on a tolerance toward autosave
+  // request failures for unnecessary saves.
+  if (hasChangedContent(state)) {
+    return true;
+  }
+
+  // If title, excerpt, or meta have changed, the post is autosaveable.
+  return ['title', 'excerpt', 'meta'].some(field => getPostRawValue(autosave[field]) !== getEditedPostAttribute(state, field));
+});
+
+/**
+ * Return true if the post being edited is being scheduled. Preferring the
+ * unsaved status values.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether the post has been published.
+ */
+function isEditedPostBeingScheduled(state) {
+  const date = getEditedPostAttribute(state, 'date');
+  // Offset the date by one minute (network latency).
+  const checkedDate = new Date(Number((0,external_wp_date_namespaceObject.getDate)(date)) - ONE_MINUTE_IN_MS);
+  return (0,external_wp_date_namespaceObject.isInTheFuture)(checkedDate);
+}
+
+/**
+ * Returns whether the current post should be considered to have a "floating"
+ * date (i.e. that it would publish "Immediately" rather than at a set time).
+ *
+ * Unlike in the PHP backend, the REST API returns a full date string for posts
+ * where the 0000-00-00T00:00:00 placeholder is present in the database. To
+ * infer that a post is set to publish "Immediately" we check whether the date
+ * and modified date are the same.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {boolean} Whether the edited post has a floating date value.
+ */
+function isEditedPostDateFloating(state) {
+  const date = getEditedPostAttribute(state, 'date');
+  const modified = getEditedPostAttribute(state, 'modified');
+
+  // This should be the status of the persisted post
+  // It shouldn't use the "edited" status otherwise it breaks the
+  // inferred post data floating status
+  // See https://github.com/WordPress/gutenberg/issues/28083.
+  const status = getCurrentPost(state).status;
+  if (status === 'draft' || status === 'auto-draft' || status === 'pending') {
+    return date === modified || date === null;
+  }
+  return false;
+}
+
+/**
+ * Returns true if the post is currently being deleted, or false otherwise.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {boolean} Whether post is being deleted.
+ */
+function isDeletingPost(state) {
+  return !!state.deleting.pending;
+}
+
+/**
+ * Returns true if the post is currently being saved, or false otherwise.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether post is being saved.
+ */
+function isSavingPost(state) {
+  return !!state.saving.pending;
+}
+
+/**
+ * Returns true if non-post entities are currently being saved, or false otherwise.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether non-post entities are being saved.
+ */
+const isSavingNonPostEntityChanges = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
+  const entitiesBeingSaved = select(external_wp_coreData_namespaceObject.store).__experimentalGetEntitiesBeingSaved();
+  const {
+    type,
+    id
+  } = getCurrentPost(state);
+  return entitiesBeingSaved.some(entityRecord => entityRecord.kind !== 'postType' || entityRecord.name !== type || entityRecord.key !== id);
+});
+
+/**
+ * Returns true if a previous post save was attempted successfully, or false
+ * otherwise.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether the post was saved successfully.
+ */
+const didPostSaveRequestSucceed = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
+  const postType = getCurrentPostType(state);
+  const postId = getCurrentPostId(state);
+  return !select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError('postType', postType, postId);
+});
+
+/**
+ * Returns true if a previous post save was attempted but failed, or false
+ * otherwise.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether the post save failed.
+ */
+const didPostSaveRequestFail = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
+  const postType = getCurrentPostType(state);
+  const postId = getCurrentPostId(state);
+  return !!select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError('postType', postType, postId);
+});
+
+/**
+ * Returns true if the post is autosaving, or false otherwise.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether the post is autosaving.
+ */
+function isAutosavingPost(state) {
+  return isSavingPost(state) && Boolean(state.saving.options?.isAutosave);
+}
+
+/**
+ * Returns true if the post is being previewed, or false otherwise.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether the post is being previewed.
+ */
+function isPreviewingPost(state) {
+  return isSavingPost(state) && Boolean(state.saving.options?.isPreview);
+}
+
+/**
+ * Returns the post preview link
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {string | undefined} Preview Link.
+ */
+function getEditedPostPreviewLink(state) {
+  if (state.saving.pending || isSavingPost(state)) {
+    return;
+  }
+  let previewLink = getAutosaveAttribute(state, 'preview_link');
+  // Fix for issue: https://github.com/WordPress/gutenberg/issues/33616
+  // If the post is draft, ignore the preview link from the autosave record,
+  // because the preview could be a stale autosave if the post was switched from
+  // published to draft.
+  // See: https://github.com/WordPress/gutenberg/pull/37952.
+  if (!previewLink || 'draft' === getCurrentPost(state).status) {
+    previewLink = getEditedPostAttribute(state, 'link');
+    if (previewLink) {
+      previewLink = (0,external_wp_url_namespaceObject.addQueryArgs)(previewLink, {
+        preview: true
+      });
+    }
+  }
+  const featuredImageId = getEditedPostAttribute(state, 'featured_media');
+  if (previewLink && featuredImageId) {
+    return (0,external_wp_url_namespaceObject.addQueryArgs)(previewLink, {
+      _thumbnail_id: featuredImageId
+    });
+  }
+  return previewLink;
+}
+
+/**
+ * Returns a suggested post format for the current post, inferred only if there
+ * is a single block within the post and it is of a type known to match a
+ * default post format. Returns null if the format cannot be determined.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {?string} Suggested post format.
+ */
+function getSuggestedPostFormat(state) {
+  const blocks = getEditorBlocks(state);
+  if (blocks.length > 2) return null;
+  let name;
+  // If there is only one block in the content of the post grab its name
+  // so we can derive a suitable post format from it.
+  if (blocks.length === 1) {
+    name = blocks[0].name;
+    // Check for core/embed `video` and `audio` eligible suggestions.
+    if (name === 'core/embed') {
+      const provider = blocks[0].attributes?.providerNameSlug;
+      if (['youtube', 'vimeo'].includes(provider)) {
+        name = 'core/video';
+      } else if (['spotify', 'soundcloud'].includes(provider)) {
+        name = 'core/audio';
+      }
+    }
+  }
+
+  // If there are two blocks in the content and the last one is a text blocks
+  // grab the name of the first one to also suggest a post format from it.
+  if (blocks.length === 2 && blocks[1].name === 'core/paragraph') {
+    name = blocks[0].name;
+  }
+
+  // We only convert to default post formats in core.
+  switch (name) {
+    case 'core/image':
+      return 'image';
+    case 'core/quote':
+    case 'core/pullquote':
+      return 'quote';
+    case 'core/gallery':
+      return 'gallery';
+    case 'core/video':
+      return 'video';
+    case 'core/audio':
+      return 'audio';
+    default:
+      return null;
+  }
+}
+
+/**
+ * Returns the content of the post being edited.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {string} Post content.
+ */
+const getEditedPostContent = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
+  const postId = getCurrentPostId(state);
+  const postType = getCurrentPostType(state);
+  const record = select(external_wp_coreData_namespaceObject.store).getEditedEntityRecord('postType', postType, postId);
+  if (record) {
+    if (typeof record.content === 'function') {
+      return record.content(record);
+    } else if (record.blocks) {
+      return (0,external_wp_blocks_namespaceObject.__unstableSerializeAndClean)(record.blocks);
+    } else if (record.content) {
+      return record.content;
+    }
+  }
+  return '';
+});
+
+/**
+ * Returns true if the post is being published, or false otherwise.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether post is being published.
+ */
+function isPublishingPost(state) {
+  return isSavingPost(state) && !isCurrentPostPublished(state) && getEditedPostAttribute(state, 'status') === 'publish';
+}
+
+/**
+ * Returns whether the permalink is editable or not.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {boolean} Whether or not the permalink is editable.
+ */
+function isPermalinkEditable(state) {
+  const permalinkTemplate = getEditedPostAttribute(state, 'permalink_template');
+  return PERMALINK_POSTNAME_REGEX.test(permalinkTemplate);
+}
+
+/**
+ * Returns the permalink for the post.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {?string} The permalink, or null if the post is not viewable.
+ */
+function getPermalink(state) {
+  const permalinkParts = getPermalinkParts(state);
+  if (!permalinkParts) {
+    return null;
+  }
+  const {
+    prefix,
+    postName,
+    suffix
+  } = permalinkParts;
+  if (isPermalinkEditable(state)) {
+    return prefix + postName + suffix;
+  }
+  return prefix;
+}
+
+/**
+ * Returns the slug for the post being edited, preferring a manually edited
+ * value if one exists, then a sanitized version of the current post title, and
+ * finally the post ID.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {string} The current slug to be displayed in the editor
+ */
+function getEditedPostSlug(state) {
+  return getEditedPostAttribute(state, 'slug') || (0,external_wp_url_namespaceObject.cleanForSlug)(getEditedPostAttribute(state, 'title')) || getCurrentPostId(state);
+}
+
+/**
+ * Returns the permalink for a post, split into it's three parts: the prefix,
+ * the postName, and the suffix.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {Object} An object containing the prefix, postName, and suffix for
+ *                  the permalink, or null if the post is not viewable.
+ */
+function getPermalinkParts(state) {
+  const permalinkTemplate = getEditedPostAttribute(state, 'permalink_template');
+  if (!permalinkTemplate) {
+    return null;
+  }
+  const postName = getEditedPostAttribute(state, 'slug') || getEditedPostAttribute(state, 'generated_slug');
+  const [prefix, suffix] = permalinkTemplate.split(PERMALINK_POSTNAME_REGEX);
+  return {
+    prefix,
+    postName,
+    suffix
+  };
+}
+
+/**
+ * Returns whether the post is locked.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Is locked.
+ */
+function isPostLocked(state) {
+  return state.postLock.isLocked;
+}
+
+/**
+ * Returns whether post saving is locked.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Is locked.
+ */
+function isPostSavingLocked(state) {
+  return Object.keys(state.postSavingLock).length > 0;
+}
+
+/**
+ * Returns whether post autosaving is locked.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Is locked.
+ */
+function isPostAutosavingLocked(state) {
+  return Object.keys(state.postAutosavingLock).length > 0;
+}
+
+/**
+ * Returns whether the edition of the post has been taken over.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Is post lock takeover.
+ */
+function isPostLockTakeover(state) {
+  return state.postLock.isTakeover;
+}
+
+/**
+ * Returns details about the post lock user.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {Object} A user object.
+ */
+function getPostLockUser(state) {
+  return state.postLock.user;
+}
+
+/**
+ * Returns the active post lock.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {Object} The lock object.
+ */
+function getActivePostLock(state) {
+  return state.postLock.activePostLock;
+}
+
+/**
+ * Returns whether or not the user has the unfiltered_html capability.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {boolean} Whether the user can or can't post unfiltered HTML.
+ */
+function canUserUseUnfilteredHTML(state) {
+  return Boolean(getCurrentPost(state)._links?.hasOwnProperty('wp:action-unfiltered-html'));
+}
+
+/**
+ * Returns whether the pre-publish panel should be shown
+ * or skipped when the user clicks the "publish" button.
+ *
+ * @return {boolean} Whether the pre-publish panel should be shown or not.
+ */
+const isPublishSidebarEnabled = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => () => !!select(external_wp_preferences_namespaceObject.store).get('core/edit-post', 'isPublishSidebarEnabled'));
+
+/**
+ * Return the current block list.
+ *
+ * @param {Object} state
+ * @return {Array} Block list.
+ */
+const getEditorBlocks = rememo(state => {
+  return getEditedPostAttribute(state, 'blocks') || (0,external_wp_blocks_namespaceObject.parse)(getEditedPostContent(state));
+}, state => [getEditedPostAttribute(state, 'blocks'), getEditedPostContent(state)]);
+
+/**
+ * A block selection object.
+ *
+ * @typedef {Object} WPBlockSelection
+ *
+ * @property {string} clientId     A block client ID.
+ * @property {string} attributeKey A block attribute key.
+ * @property {number} offset       An attribute value offset, based on the rich
+ *                                 text value. See `wp.richText.create`.
+ */
+
+/**
+ * Returns the current selection start.
+ *
+ * @param {Object} state
+ * @return {WPBlockSelection} The selection start.
+ *
+ * @deprecated since Gutenberg 10.0.0.
+ */
+function getEditorSelectionStart(state) {
+  external_wp_deprecated_default()("select('core/editor').getEditorSelectionStart", {
+    since: '5.8',
+    alternative: "select('core/editor').getEditorSelection"
+  });
+  return getEditedPostAttribute(state, 'selection')?.selectionStart;
+}
+
+/**
+ * Returns the current selection end.
+ *
+ * @param {Object} state
+ * @return {WPBlockSelection} The selection end.
+ *
+ * @deprecated since Gutenberg 10.0.0.
+ */
+function getEditorSelectionEnd(state) {
+  external_wp_deprecated_default()("select('core/editor').getEditorSelectionStart", {
+    since: '5.8',
+    alternative: "select('core/editor').getEditorSelection"
+  });
+  return getEditedPostAttribute(state, 'selection')?.selectionEnd;
+}
+
+/**
+ * Returns the current selection.
+ *
+ * @param {Object} state
+ * @return {WPBlockSelection} The selection end.
+ */
+function getEditorSelection(state) {
+  return getEditedPostAttribute(state, 'selection');
+}
+
+/**
+ * Is the editor ready
+ *
+ * @param {Object} state
+ * @return {boolean} is Ready.
+ */
+function __unstableIsEditorReady(state) {
+  return state.isReady;
+}
+
+/**
+ * Returns the post editor settings.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {Object} The editor settings object.
+ */
+function getEditorSettings(state) {
+  return state.editorSettings;
+}
+
+/**
+ * Returns the post editor's rendering mode.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {string} Rendering mode.
+ */
+function getRenderingMode(state) {
+  return state.renderingMode;
+}
+
+/*
+ * Backward compatibility
+ */
+
+/**
+ * Returns state object prior to a specified optimist transaction ID, or `null`
+ * if the transaction corresponding to the given ID cannot be found.
+ *
+ * @deprecated since Gutenberg 9.7.0.
+ */
+function getStateBeforeOptimisticTransaction() {
+  external_wp_deprecated_default()("select('core/editor').getStateBeforeOptimisticTransaction", {
+    since: '5.7',
+    hint: 'No state history is kept on this store anymore'
+  });
+  return null;
+}
+/**
+ * Returns true if an optimistic transaction is pending commit, for which the
+ * before state satisfies the given predicate function.
+ *
+ * @deprecated since Gutenberg 9.7.0.
+ */
+function inSomeHistory() {
+  external_wp_deprecated_default()("select('core/editor').inSomeHistory", {
+    since: '5.7',
+    hint: 'No state history is kept on this store anymore'
+  });
+  return false;
+}
+function getBlockEditorSelector(name) {
+  return (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, ...args) => {
+    external_wp_deprecated_default()("`wp.data.select( 'core/editor' )." + name + '`', {
+      since: '5.3',
+      alternative: "`wp.data.select( 'core/block-editor' )." + name + '`',
+      version: '6.2'
+    });
+    return select(external_wp_blockEditor_namespaceObject.store)[name](...args);
+  });
+}
+
+/**
+ * @see getBlockName in core/block-editor store.
+ */
+const getBlockName = getBlockEditorSelector('getBlockName');
+
+/**
+ * @see isBlockValid in core/block-editor store.
+ */
+const isBlockValid = getBlockEditorSelector('isBlockValid');
+
+/**
+ * @see getBlockAttributes in core/block-editor store.
+ */
+const getBlockAttributes = getBlockEditorSelector('getBlockAttributes');
+
+/**
+ * @see getBlock in core/block-editor store.
+ */
+const getBlock = getBlockEditorSelector('getBlock');
+
+/**
+ * @see getBlocks in core/block-editor store.
+ */
+const getBlocks = getBlockEditorSelector('getBlocks');
+
+/**
+ * @see getClientIdsOfDescendants in core/block-editor store.
+ */
+const getClientIdsOfDescendants = getBlockEditorSelector('getClientIdsOfDescendants');
+
+/**
+ * @see getClientIdsWithDescendants in core/block-editor store.
+ */
+const getClientIdsWithDescendants = getBlockEditorSelector('getClientIdsWithDescendants');
+
+/**
+ * @see getGlobalBlockCount in core/block-editor store.
+ */
+const getGlobalBlockCount = getBlockEditorSelector('getGlobalBlockCount');
+
+/**
+ * @see getBlocksByClientId in core/block-editor store.
+ */
+const getBlocksByClientId = getBlockEditorSelector('getBlocksByClientId');
+
+/**
+ * @see getBlockCount in core/block-editor store.
+ */
+const getBlockCount = getBlockEditorSelector('getBlockCount');
+
+/**
+ * @see getBlockSelectionStart in core/block-editor store.
+ */
+const getBlockSelectionStart = getBlockEditorSelector('getBlockSelectionStart');
+
+/**
+ * @see getBlockSelectionEnd in core/block-editor store.
+ */
+const getBlockSelectionEnd = getBlockEditorSelector('getBlockSelectionEnd');
+
+/**
+ * @see getSelectedBlockCount in core/block-editor store.
+ */
+const getSelectedBlockCount = getBlockEditorSelector('getSelectedBlockCount');
+
+/**
+ * @see hasSelectedBlock in core/block-editor store.
+ */
+const hasSelectedBlock = getBlockEditorSelector('hasSelectedBlock');
+
+/**
+ * @see getSelectedBlockClientId in core/block-editor store.
+ */
+const getSelectedBlockClientId = getBlockEditorSelector('getSelectedBlockClientId');
+
+/**
+ * @see getSelectedBlock in core/block-editor store.
+ */
+const getSelectedBlock = getBlockEditorSelector('getSelectedBlock');
+
+/**
+ * @see getBlockRootClientId in core/block-editor store.
+ */
+const getBlockRootClientId = getBlockEditorSelector('getBlockRootClientId');
+
+/**
+ * @see getBlockHierarchyRootClientId in core/block-editor store.
+ */
+const getBlockHierarchyRootClientId = getBlockEditorSelector('getBlockHierarchyRootClientId');
+
+/**
+ * @see getAdjacentBlockClientId in core/block-editor store.
+ */
+const getAdjacentBlockClientId = getBlockEditorSelector('getAdjacentBlockClientId');
+
+/**
+ * @see getPreviousBlockClientId in core/block-editor store.
+ */
+const getPreviousBlockClientId = getBlockEditorSelector('getPreviousBlockClientId');
+
+/**
+ * @see getNextBlockClientId in core/block-editor store.
+ */
+const getNextBlockClientId = getBlockEditorSelector('getNextBlockClientId');
+
+/**
+ * @see getSelectedBlocksInitialCaretPosition in core/block-editor store.
+ */
+const getSelectedBlocksInitialCaretPosition = getBlockEditorSelector('getSelectedBlocksInitialCaretPosition');
+
+/**
+ * @see getMultiSelectedBlockClientIds in core/block-editor store.
+ */
+const getMultiSelectedBlockClientIds = getBlockEditorSelector('getMultiSelectedBlockClientIds');
+
+/**
+ * @see getMultiSelectedBlocks in core/block-editor store.
+ */
+const getMultiSelectedBlocks = getBlockEditorSelector('getMultiSelectedBlocks');
+
+/**
+ * @see getFirstMultiSelectedBlockClientId in core/block-editor store.
+ */
+const getFirstMultiSelectedBlockClientId = getBlockEditorSelector('getFirstMultiSelectedBlockClientId');
+
+/**
+ * @see getLastMultiSelectedBlockClientId in core/block-editor store.
+ */
+const getLastMultiSelectedBlockClientId = getBlockEditorSelector('getLastMultiSelectedBlockClientId');
+
+/**
+ * @see isFirstMultiSelectedBlock in core/block-editor store.
+ */
+const isFirstMultiSelectedBlock = getBlockEditorSelector('isFirstMultiSelectedBlock');
+
+/**
+ * @see isBlockMultiSelected in core/block-editor store.
+ */
+const isBlockMultiSelected = getBlockEditorSelector('isBlockMultiSelected');
+
+/**
+ * @see isAncestorMultiSelected in core/block-editor store.
+ */
+const isAncestorMultiSelected = getBlockEditorSelector('isAncestorMultiSelected');
+
+/**
+ * @see getMultiSelectedBlocksStartClientId in core/block-editor store.
+ */
+const getMultiSelectedBlocksStartClientId = getBlockEditorSelector('getMultiSelectedBlocksStartClientId');
+
+/**
+ * @see getMultiSelectedBlocksEndClientId in core/block-editor store.
+ */
+const getMultiSelectedBlocksEndClientId = getBlockEditorSelector('getMultiSelectedBlocksEndClientId');
+
+/**
+ * @see getBlockOrder in core/block-editor store.
+ */
+const getBlockOrder = getBlockEditorSelector('getBlockOrder');
+
+/**
+ * @see getBlockIndex in core/block-editor store.
+ */
+const getBlockIndex = getBlockEditorSelector('getBlockIndex');
+
+/**
+ * @see isBlockSelected in core/block-editor store.
+ */
+const isBlockSelected = getBlockEditorSelector('isBlockSelected');
+
+/**
+ * @see hasSelectedInnerBlock in core/block-editor store.
+ */
+const hasSelectedInnerBlock = getBlockEditorSelector('hasSelectedInnerBlock');
+
+/**
+ * @see isBlockWithinSelection in core/block-editor store.
+ */
+const isBlockWithinSelection = getBlockEditorSelector('isBlockWithinSelection');
+
+/**
+ * @see hasMultiSelection in core/block-editor store.
+ */
+const hasMultiSelection = getBlockEditorSelector('hasMultiSelection');
+
+/**
+ * @see isMultiSelecting in core/block-editor store.
+ */
+const isMultiSelecting = getBlockEditorSelector('isMultiSelecting');
+
+/**
+ * @see isSelectionEnabled in core/block-editor store.
+ */
+const isSelectionEnabled = getBlockEditorSelector('isSelectionEnabled');
+
+/**
+ * @see getBlockMode in core/block-editor store.
+ */
+const getBlockMode = getBlockEditorSelector('getBlockMode');
+
+/**
+ * @see isTyping in core/block-editor store.
+ */
+const isTyping = getBlockEditorSelector('isTyping');
+
+/**
+ * @see isCaretWithinFormattedText in core/block-editor store.
+ */
+const isCaretWithinFormattedText = getBlockEditorSelector('isCaretWithinFormattedText');
+
+/**
+ * @see getBlockInsertionPoint in core/block-editor store.
+ */
+const getBlockInsertionPoint = getBlockEditorSelector('getBlockInsertionPoint');
+
+/**
+ * @see isBlockInsertionPointVisible in core/block-editor store.
+ */
+const isBlockInsertionPointVisible = getBlockEditorSelector('isBlockInsertionPointVisible');
+
+/**
+ * @see isValidTemplate in core/block-editor store.
+ */
+const isValidTemplate = getBlockEditorSelector('isValidTemplate');
+
+/**
+ * @see getTemplate in core/block-editor store.
+ */
+const getTemplate = getBlockEditorSelector('getTemplate');
+
+/**
+ * @see getTemplateLock in core/block-editor store.
+ */
+const getTemplateLock = getBlockEditorSelector('getTemplateLock');
+
+/**
+ * @see canInsertBlockType in core/block-editor store.
+ */
+const canInsertBlockType = getBlockEditorSelector('canInsertBlockType');
+
+/**
+ * @see getInserterItems in core/block-editor store.
+ */
+const getInserterItems = getBlockEditorSelector('getInserterItems');
+
+/**
+ * @see hasInserterItems in core/block-editor store.
+ */
+const hasInserterItems = getBlockEditorSelector('hasInserterItems');
+
+/**
+ * @see getBlockListSettings in core/block-editor store.
+ */
+const getBlockListSettings = getBlockEditorSelector('getBlockListSettings');
+
+/**
+ * Returns the default template types.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {Object} The template types.
+ */
+function __experimentalGetDefaultTemplateTypes(state) {
+  return getEditorSettings(state)?.defaultTemplateTypes;
+}
+
+/**
+ * Returns the default template part areas.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {Array} The template part areas.
+ */
+const __experimentalGetDefaultTemplatePartAreas = rememo(state => {
+  const areas = getEditorSettings(state)?.defaultTemplatePartAreas || [];
+  return areas?.map(item => {
+    return {
+      ...item,
+      icon: getTemplatePartIcon(item.icon)
+    };
+  });
+}, state => [getEditorSettings(state)?.defaultTemplatePartAreas]);
+
+/**
+ * Returns a default template type searched by slug.
+ *
+ * @param {Object} state Global application state.
+ * @param {string} slug  The template type slug.
+ *
+ * @return {Object} The template type.
+ */
+const __experimentalGetDefaultTemplateType = rememo((state, slug) => {
+  var _Object$values$find;
+  const templateTypes = __experimentalGetDefaultTemplateTypes(state);
+  if (!templateTypes) {
+    return EMPTY_OBJECT;
+  }
+  return (_Object$values$find = Object.values(templateTypes).find(type => type.slug === slug)) !== null && _Object$values$find !== void 0 ? _Object$values$find : EMPTY_OBJECT;
+}, (state, slug) => [__experimentalGetDefaultTemplateTypes(state), slug]);
+
+/**
+ * Given a template entity, return information about it which is ready to be
+ * rendered, such as the title, description, and icon.
+ *
+ * @param {Object} state    Global application state.
+ * @param {Object} template The template for which we need information.
+ * @return {Object} Information about the template, including title, description, and icon.
+ */
+function __experimentalGetTemplateInfo(state, template) {
+  if (!template) {
+    return EMPTY_OBJECT;
+  }
+  const {
+    description,
+    slug,
+    title,
+    area
+  } = template;
+  const {
+    title: defaultTitle,
+    description: defaultDescription
+  } = __experimentalGetDefaultTemplateType(state, slug);
+  const templateTitle = typeof title === 'string' ? title : title?.rendered;
+  const templateDescription = typeof description === 'string' ? description : description?.raw;
+  const templateIcon = __experimentalGetDefaultTemplatePartAreas(state).find(item => area === item.area)?.icon || library_layout;
+  return {
+    title: templateTitle && templateTitle !== slug ? templateTitle : defaultTitle || slug,
+    description: templateDescription || defaultDescription,
+    icon: templateIcon
+  };
+}
+
+/**
+ * Returns a post type label depending on the current post.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {string|undefined} The post type label if available, otherwise undefined.
+ */
+const getPostTypeLabel = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
+  const currentPostType = getCurrentPostType(state);
+  const postType = select(external_wp_coreData_namespaceObject.store).getPostType(currentPostType);
+  // Disable reason: Post type labels object is shaped like this.
+  // eslint-disable-next-line camelcase
+  return postType?.labels?.singular_name;
+});
+
+;// CONCATENATED MODULE: external ["wp","apiFetch"]
+var external_wp_apiFetch_namespaceObject = window["wp"]["apiFetch"];
+var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_namespaceObject);
+;// CONCATENATED MODULE: external ["wp","notices"]
+var external_wp_notices_namespaceObject = window["wp"]["notices"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/store/local-autosave.js
+/**
+ * Function returning a sessionStorage key to set or retrieve a given post's
+ * automatic session backup.
+ *
+ * Keys are crucially prefixed with 'wp-autosave-' so that wp-login.php's
+ * `loggedout` handler can clear sessionStorage of any user-private content.
+ *
+ * @see https://github.com/WordPress/wordpress-develop/blob/6dad32d2aed47e6c0cf2aee8410645f6d7aba6bd/src/wp-login.php#L103
+ *
+ * @param {string}  postId    Post ID.
+ * @param {boolean} isPostNew Whether post new.
+ *
+ * @return {string} sessionStorage key
+ */
+function postKey(postId, isPostNew) {
+  return `wp-autosave-block-editor-post-${isPostNew ? 'auto-draft' : postId}`;
+}
+function localAutosaveGet(postId, isPostNew) {
+  return window.sessionStorage.getItem(postKey(postId, isPostNew));
+}
+function localAutosaveSet(postId, isPostNew, title, content, excerpt) {
+  window.sessionStorage.setItem(postKey(postId, isPostNew), JSON.stringify({
+    post_title: title,
+    content,
+    excerpt
+  }));
+}
+function localAutosaveClear(postId, isPostNew) {
+  window.sessionStorage.removeItem(postKey(postId, isPostNew));
+}
+
+;// CONCATENATED MODULE: external ["wp","i18n"]
+var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/store/utils/notice-builder.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Builds the arguments for a success notification dispatch.
+ *
+ * @param {Object} data Incoming data to build the arguments from.
+ *
+ * @return {Array} Arguments for dispatch. An empty array signals no
+ *                 notification should be sent.
+ */
+function getNotificationArgumentsForSaveSuccess(data) {
+  var _postType$viewable;
+  const {
+    previousPost,
+    post,
+    postType
+  } = data;
+  // Autosaves are neither shown a notice nor redirected.
+  if (data.options?.isAutosave) {
+    return [];
+  }
+  const publishStatus = ['publish', 'private', 'future'];
+  const isPublished = publishStatus.includes(previousPost.status);
+  const willPublish = publishStatus.includes(post.status);
+  const willTrash = post.status === 'trash' && previousPost.status !== 'trash';
+  let noticeMessage;
+  let shouldShowLink = (_postType$viewable = postType?.viewable) !== null && _postType$viewable !== void 0 ? _postType$viewable : false;
+  let isDraft;
+
+  // Always should a notice, which will be spoken for accessibility.
+  if (willTrash) {
+    noticeMessage = postType.labels.item_trashed;
+    shouldShowLink = false;
+  } else if (!isPublished && !willPublish) {
+    // If saving a non-published post, don't show notice.
+    noticeMessage = (0,external_wp_i18n_namespaceObject.__)('Draft saved.');
+    isDraft = true;
+  } else if (isPublished && !willPublish) {
+    // If undoing publish status, show specific notice.
+    noticeMessage = postType.labels.item_reverted_to_draft;
+    shouldShowLink = false;
+  } else if (!isPublished && willPublish) {
+    // If publishing or scheduling a post, show the corresponding
+    // publish message.
+    noticeMessage = {
+      publish: postType.labels.item_published,
+      private: postType.labels.item_published_privately,
+      future: postType.labels.item_scheduled
+    }[post.status];
+  } else {
+    // Generic fallback notice.
+    noticeMessage = postType.labels.item_updated;
+  }
+  const actions = [];
+  if (shouldShowLink) {
+    actions.push({
+      label: isDraft ? (0,external_wp_i18n_namespaceObject.__)('View Preview') : postType.labels.view_item,
+      url: post.link
+    });
+  }
+  return [noticeMessage, {
+    id: SAVE_POST_NOTICE_ID,
+    type: 'snackbar',
+    actions
+  }];
+}
+
+/**
+ * Builds the fail notification arguments for dispatch.
+ *
+ * @param {Object} data Incoming data to build the arguments with.
+ *
+ * @return {Array} Arguments for dispatch. An empty array signals no
+ *                 notification should be sent.
+ */
+function getNotificationArgumentsForSaveFail(data) {
+  const {
+    post,
+    edits,
+    error
+  } = data;
+  if (error && 'rest_autosave_no_changes' === error.code) {
+    // Autosave requested a new autosave, but there were no changes. This shouldn't
+    // result in an error notice for the user.
+    return [];
+  }
+  const publishStatus = ['publish', 'private', 'future'];
+  const isPublished = publishStatus.indexOf(post.status) !== -1;
+  // If the post was being published, we show the corresponding publish error message
+  // Unless we publish an "updating failed" message.
+  const messages = {
+    publish: (0,external_wp_i18n_namespaceObject.__)('Publishing failed.'),
+    private: (0,external_wp_i18n_namespaceObject.__)('Publishing failed.'),
+    future: (0,external_wp_i18n_namespaceObject.__)('Scheduling failed.')
+  };
+  let noticeMessage = !isPublished && publishStatus.indexOf(edits.status) !== -1 ? messages[edits.status] : (0,external_wp_i18n_namespaceObject.__)('Updating failed.');
+
+  // Check if message string contains HTML. Notice text is currently only
+  // supported as plaintext, and stripping the tags may muddle the meaning.
+  if (error.message && !/<\/?[^>]*>/.test(error.message)) {
+    noticeMessage = [noticeMessage, error.message].join(' ');
+  }
+  return [noticeMessage, {
+    id: SAVE_POST_NOTICE_ID
+  }];
+}
+
+/**
+ * Builds the trash fail notification arguments for dispatch.
+ *
+ * @param {Object} data
+ *
+ * @return {Array} Arguments for dispatch.
+ */
+function getNotificationArgumentsForTrashFail(data) {
+  return [data.error.message && data.error.code !== 'unknown_error' ? data.error.message : (0,external_wp_i18n_namespaceObject.__)('Trashing failed'), {
+    id: TRASH_POST_NOTICE_ID
+  }];
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/store/actions.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+/**
+ * Returns an action generator used in signalling that editor has initialized with
+ * the specified post object and editor settings.
+ *
+ * @param {Object} post     Post object.
+ * @param {Object} edits    Initial edited attributes object.
+ * @param {Array?} template Block Template.
+ */
+const setupEditor = (post, edits, template) => ({
+  dispatch
+}) => {
+  dispatch.setupEditorState(post);
+  // Apply a template for new posts only, if exists.
+  const isNewPost = post.status === 'auto-draft';
+  if (isNewPost && template) {
+    // In order to ensure maximum of a single parse during setup, edits are
+    // included as part of editor setup action. Assume edited content as
+    // canonical if provided, falling back to post.
+    let content;
+    if ('content' in edits) {
+      content = edits.content;
+    } else {
+      content = post.content.raw;
+    }
+    let blocks = (0,external_wp_blocks_namespaceObject.parse)(content);
+    blocks = (0,external_wp_blocks_namespaceObject.synchronizeBlocksWithTemplate)(blocks, template);
+    dispatch.resetEditorBlocks(blocks, {
+      __unstableShouldCreateUndoLevel: false
+    });
+  }
+  if (edits && Object.values(edits).some(([key, edit]) => {
+    var _post$key$raw;
+    return edit !== ((_post$key$raw = post[key]?.raw) !== null && _post$key$raw !== void 0 ? _post$key$raw : post[key]);
+  })) {
+    dispatch.editPost(edits);
+  }
+};
+
+/**
+ * Returns an action object signalling that the editor is being destroyed and
+ * that any necessary state or side-effect cleanup should occur.
+ *
+ * @return {Object} Action object.
+ */
+function __experimentalTearDownEditor() {
+  return {
+    type: 'TEAR_DOWN_EDITOR'
+  };
+}
+
+/**
+ * Returns an action object used in signalling that the latest version of the
+ * post has been received, either by initialization or save.
+ *
+ * @deprecated Since WordPress 6.0.
+ */
+function resetPost() {
+  external_wp_deprecated_default()("wp.data.dispatch( 'core/editor' ).resetPost", {
+    since: '6.0',
+    version: '6.3',
+    alternative: 'Initialize the editor with the setupEditorState action'
+  });
+  return {
+    type: 'DO_NOTHING'
+  };
+}
+
+/**
+ * Returns an action object used in signalling that a patch of updates for the
+ * latest version of the post have been received.
+ *
+ * @return {Object} Action object.
+ * @deprecated since Gutenberg 9.7.0.
+ */
+function updatePost() {
+  external_wp_deprecated_default()("wp.data.dispatch( 'core/editor' ).updatePost", {
+    since: '5.7',
+    alternative: 'Use the core entities store instead'
+  });
+  return {
+    type: 'DO_NOTHING'
+  };
+}
+
+/**
+ * Returns an action object used to setup the editor state when first opening
+ * an editor.
+ *
+ * @param {Object} post Post object.
+ *
+ * @return {Object} Action object.
+ */
+function setupEditorState(post) {
+  return {
+    type: 'SETUP_EDITOR_STATE',
+    post
+  };
+}
+
+/**
+ * Returns an action object used in signalling that attributes of the post have
+ * been edited.
+ *
+ * @param {Object} edits   Post attributes to edit.
+ * @param {Object} options Options for the edit.
+ */
+const editPost = (edits, options) => ({
+  select,
+  registry
+}) => {
+  const {
+    id,
+    type
+  } = select.getCurrentPost();
+  registry.dispatch(external_wp_coreData_namespaceObject.store).editEntityRecord('postType', type, id, edits, options);
+};
+
+/**
+ * Action for saving the current post in the editor.
+ *
+ * @param {Object} options
+ */
+const savePost = (options = {}) => async ({
+  select,
+  dispatch,
+  registry
+}) => {
+  if (!select.isEditedPostSaveable()) {
+    return;
+  }
+  const content = select.getEditedPostContent();
+  if (!options.isAutosave) {
+    dispatch.editPost({
+      content
+    }, {
+      undoIgnore: true
+    });
+  }
+  const previousRecord = select.getCurrentPost();
+  const edits = {
+    id: previousRecord.id,
+    ...registry.select(external_wp_coreData_namespaceObject.store).getEntityRecordNonTransientEdits('postType', previousRecord.type, previousRecord.id),
+    content
+  };
+  dispatch({
+    type: 'REQUEST_POST_UPDATE_START',
+    options
+  });
+  await registry.dispatch(external_wp_coreData_namespaceObject.store).saveEntityRecord('postType', previousRecord.type, edits, options);
+  let error = registry.select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError('postType', previousRecord.type, previousRecord.id);
+  if (!error) {
+    await (0,external_wp_hooks_namespaceObject.applyFilters)('editor.__unstableSavePost', Promise.resolve(), options).catch(err => {
+      error = err;
+    });
+  }
+  dispatch({
+    type: 'REQUEST_POST_UPDATE_FINISH',
+    options
+  });
+  if (error) {
+    const args = getNotificationArgumentsForSaveFail({
+      post: previousRecord,
+      edits,
+      error
+    });
+    if (args.length) {
+      registry.dispatch(external_wp_notices_namespaceObject.store).createErrorNotice(...args);
+    }
+  } else {
+    const updatedRecord = select.getCurrentPost();
+    const args = getNotificationArgumentsForSaveSuccess({
+      previousPost: previousRecord,
+      post: updatedRecord,
+      postType: await registry.resolveSelect(external_wp_coreData_namespaceObject.store).getPostType(updatedRecord.type),
+      options
+    });
+    if (args.length) {
+      registry.dispatch(external_wp_notices_namespaceObject.store).createSuccessNotice(...args);
+    }
+    // Make sure that any edits after saving create an undo level and are
+    // considered for change detection.
+    if (!options.isAutosave) {
+      registry.dispatch(external_wp_blockEditor_namespaceObject.store).__unstableMarkLastChangeAsPersistent();
+    }
+  }
+};
+
+/**
+ * Action for refreshing the current post.
+ *
+ * @deprecated Since WordPress 6.0.
+ */
+function refreshPost() {
+  external_wp_deprecated_default()("wp.data.dispatch( 'core/editor' ).refreshPost", {
+    since: '6.0',
+    version: '6.3',
+    alternative: 'Use the core entities store instead'
+  });
+  return {
+    type: 'DO_NOTHING'
+  };
+}
+
+/**
+ * Action for trashing the current post in the editor.
+ */
+const trashPost = () => async ({
+  select,
+  dispatch,
+  registry
+}) => {
+  const postTypeSlug = select.getCurrentPostType();
+  const postType = await registry.resolveSelect(external_wp_coreData_namespaceObject.store).getPostType(postTypeSlug);
+  registry.dispatch(external_wp_notices_namespaceObject.store).removeNotice(TRASH_POST_NOTICE_ID);
+  const {
+    rest_base: restBase,
+    rest_namespace: restNamespace = 'wp/v2'
+  } = postType;
+  dispatch({
+    type: 'REQUEST_POST_DELETE_START'
+  });
+  try {
+    const post = select.getCurrentPost();
+    await external_wp_apiFetch_default()({
+      path: `/${restNamespace}/${restBase}/${post.id}`,
+      method: 'DELETE'
+    });
+    await dispatch.savePost();
+  } catch (error) {
+    registry.dispatch(external_wp_notices_namespaceObject.store).createErrorNotice(...getNotificationArgumentsForTrashFail({
+      error
+    }));
+  }
+  dispatch({
+    type: 'REQUEST_POST_DELETE_FINISH'
+  });
+};
+
+/**
+ * Action that autosaves the current post.  This
+ * includes server-side autosaving (default) and client-side (a.k.a. local)
+ * autosaving (e.g. on the Web, the post might be committed to Session
+ * Storage).
+ *
+ * @param {Object?} options Extra flags to identify the autosave.
+ */
+const autosave = ({
+  local = false,
+  ...options
+} = {}) => async ({
+  select,
+  dispatch
+}) => {
+  if (local) {
+    const post = select.getCurrentPost();
+    const isPostNew = select.isEditedPostNew();
+    const title = select.getEditedPostAttribute('title');
+    const content = select.getEditedPostAttribute('content');
+    const excerpt = select.getEditedPostAttribute('excerpt');
+    localAutosaveSet(post.id, isPostNew, title, content, excerpt);
+  } else {
+    await dispatch.savePost({
+      isAutosave: true,
+      ...options
+    });
+  }
+};
+const __unstableSaveForPreview = ({
+  forceIsAutosaveable
+} = {}) => async ({
+  select,
+  dispatch
+}) => {
+  if ((forceIsAutosaveable || select.isEditedPostAutosaveable()) && !select.isPostLocked()) {
+    const isDraft = ['draft', 'auto-draft'].includes(select.getEditedPostAttribute('status'));
+    if (isDraft) {
+      await dispatch.savePost({
+        isPreview: true
+      });
+    } else {
+      await dispatch.autosave({
+        isPreview: true
+      });
+    }
+  }
+  return select.getEditedPostPreviewLink();
+};
+
+/**
+ * Action that restores last popped state in undo history.
+ */
+const redo = () => ({
+  registry
+}) => {
+  registry.dispatch(external_wp_coreData_namespaceObject.store).redo();
+};
+
+/**
+ * Action that pops a record from undo history and undoes the edit.
+ */
+const undo = () => ({
+  registry
+}) => {
+  registry.dispatch(external_wp_coreData_namespaceObject.store).undo();
+};
+
+/**
+ * Action that creates an undo history record.
+ *
+ * @deprecated Since WordPress 6.0
+ */
+function createUndoLevel() {
+  external_wp_deprecated_default()("wp.data.dispatch( 'core/editor' ).createUndoLevel", {
+    since: '6.0',
+    version: '6.3',
+    alternative: 'Use the core entities store instead'
+  });
+  return {
+    type: 'DO_NOTHING'
+  };
+}
+
+/**
+ * Action that locks the editor.
+ *
+ * @param {Object} lock Details about the post lock status, user, and nonce.
+ * @return {Object} Action object.
+ */
+function updatePostLock(lock) {
+  return {
+    type: 'UPDATE_POST_LOCK',
+    lock
+  };
+}
+
+/**
+ * Enable the publish sidebar.
+ */
+const enablePublishSidebar = () => ({
+  registry
+}) => {
+  registry.dispatch(external_wp_preferences_namespaceObject.store).set('core/edit-post', 'isPublishSidebarEnabled', true);
+};
+
+/**
+ * Disables the publish sidebar.
+ */
+const disablePublishSidebar = () => ({
+  registry
+}) => {
+  registry.dispatch(external_wp_preferences_namespaceObject.store).set('core/edit-post', 'isPublishSidebarEnabled', false);
+};
+
+/**
+ * Action that locks post saving.
+ *
+ * @param {string} lockName The lock name.
+ *
+ * @example
+ * ```
+ * const { subscribe } = wp.data;
+ *
+ * const initialPostStatus = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
+ *
+ * // Only allow publishing posts that are set to a future date.
+ * if ( 'publish' !== initialPostStatus ) {
+ *
+ * 	// Track locking.
+ * 	let locked = false;
+ *
+ * 	// Watch for the publish event.
+ * 	let unssubscribe = subscribe( () => {
+ * 		const currentPostStatus = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
+ * 		if ( 'publish' !== currentPostStatus ) {
+ *
+ * 			// Compare the post date to the current date, lock the post if the date isn't in the future.
+ * 			const postDate = new Date( wp.data.select( 'core/editor' ).getEditedPostAttribute( 'date' ) );
+ * 			const currentDate = new Date();
+ * 			if ( postDate.getTime() <= currentDate.getTime() ) {
+ * 				if ( ! locked ) {
+ * 					locked = true;
+ * 					wp.data.dispatch( 'core/editor' ).lockPostSaving( 'futurelock' );
+ * 				}
+ * 			} else {
+ * 				if ( locked ) {
+ * 					locked = false;
+ * 					wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'futurelock' );
+ * 				}
+ * 			}
+ * 		}
+ * 	} );
+ * }
+ * ```
+ *
+ * @return {Object} Action object
+ */
+function lockPostSaving(lockName) {
+  return {
+    type: 'LOCK_POST_SAVING',
+    lockName
+  };
+}
+
+/**
+ * Action that unlocks post saving.
+ *
+ * @param {string} lockName The lock name.
+ *
+ * @example
+ * ```
+ * // Unlock post saving with the lock key `mylock`:
+ * wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'mylock' );
+ * ```
+ *
+ * @return {Object} Action object
+ */
+function unlockPostSaving(lockName) {
+  return {
+    type: 'UNLOCK_POST_SAVING',
+    lockName
+  };
+}
+
+/**
+ * Action that locks post autosaving.
+ *
+ * @param {string} lockName The lock name.
+ *
+ * @example
+ * ```
+ * // Lock post autosaving with the lock key `mylock`:
+ * wp.data.dispatch( 'core/editor' ).lockPostAutosaving( 'mylock' );
+ * ```
+ *
+ * @return {Object} Action object
+ */
+function lockPostAutosaving(lockName) {
+  return {
+    type: 'LOCK_POST_AUTOSAVING',
+    lockName
+  };
+}
+
+/**
+ * Action that unlocks post autosaving.
+ *
+ * @param {string} lockName The lock name.
+ *
+ * @example
+ * ```
+ * // Unlock post saving with the lock key `mylock`:
+ * wp.data.dispatch( 'core/editor' ).unlockPostAutosaving( 'mylock' );
+ * ```
+ *
+ * @return {Object} Action object
+ */
+function unlockPostAutosaving(lockName) {
+  return {
+    type: 'UNLOCK_POST_AUTOSAVING',
+    lockName
+  };
+}
+
+/**
+ * Returns an action object used to signal that the blocks have been updated.
+ *
+ * @param {Array}   blocks  Block Array.
+ * @param {?Object} options Optional options.
+ */
+const resetEditorBlocks = (blocks, options = {}) => ({
+  select,
+  dispatch,
+  registry
+}) => {
+  const {
+    __unstableShouldCreateUndoLevel,
+    selection
+  } = options;
+  const edits = {
+    blocks,
+    selection
+  };
+  if (__unstableShouldCreateUndoLevel !== false) {
+    const {
+      id,
+      type
+    } = select.getCurrentPost();
+    const noChange = registry.select(external_wp_coreData_namespaceObject.store).getEditedEntityRecord('postType', type, id).blocks === edits.blocks;
+    if (noChange) {
+      registry.dispatch(external_wp_coreData_namespaceObject.store).__unstableCreateUndoLevel('postType', type, id);
+      return;
+    }
+
+    // We create a new function here on every persistent edit
+    // to make sure the edit makes the post dirty and creates
+    // a new undo level.
+    edits.content = ({
+      blocks: blocksForSerialization = []
+    }) => (0,external_wp_blocks_namespaceObject.__unstableSerializeAndClean)(blocksForSerialization);
+  }
+  dispatch.editPost(edits);
+};
+
+/*
+ * Returns an action object used in signalling that the post editor settings have been updated.
+ *
+ * @param {Object} settings Updated settings
+ *
+ * @return {Object} Action object
+ */
+function updateEditorSettings(settings) {
+  return {
+    type: 'UPDATE_EDITOR_SETTINGS',
+    settings
+  };
+}
+
+/**
+ * Returns an action used to set the rendering mode of the post editor. We support multiple rendering modes:
+ *
+ * -   `all`: This is the default mode. It renders the post editor with all the features available. If a template is provided, it's preferred over the post.
+ * -   `template-only`: This mode renders the editor with only the template blocks visible.
+ * -   `post-only`: This mode extracts the post blocks from the template and renders only those. The idea is to allow the user to edit the post/page in isolation without the wrapping template.
+ * -   `template-locked`: This mode renders both the template and the post blocks but the template blocks are locked and can't be edited. The post blocks are editable.
+ *
+ * @param {string} mode Mode (one of 'template-only', 'post-only', 'template-locked' or 'all').
+ */
+const setRenderingMode = mode => ({
+  dispatch,
+  registry
+}) => {
+  registry.dispatch(external_wp_blockEditor_namespaceObject.store).clearSelectedBlock();
+  dispatch({
+    type: 'SET_RENDERING_MODE',
+    mode
+  });
+};
+
+/**
+ * Backward compatibility
+ */
+
+const getBlockEditorAction = name => (...args) => ({
+  registry
+}) => {
+  external_wp_deprecated_default()("`wp.data.dispatch( 'core/editor' )." + name + '`', {
+    since: '5.3',
+    alternative: "`wp.data.dispatch( 'core/block-editor' )." + name + '`',
+    version: '6.2'
+  });
+  registry.dispatch(external_wp_blockEditor_namespaceObject.store)[name](...args);
+};
+
+/**
+ * @see resetBlocks in core/block-editor store.
+ */
+const resetBlocks = getBlockEditorAction('resetBlocks');
+
+/**
+ * @see receiveBlocks in core/block-editor store.
+ */
+const receiveBlocks = getBlockEditorAction('receiveBlocks');
+
+/**
+ * @see updateBlock in core/block-editor store.
+ */
+const updateBlock = getBlockEditorAction('updateBlock');
+
+/**
+ * @see updateBlockAttributes in core/block-editor store.
+ */
+const updateBlockAttributes = getBlockEditorAction('updateBlockAttributes');
+
+/**
+ * @see selectBlock in core/block-editor store.
+ */
+const selectBlock = getBlockEditorAction('selectBlock');
+
+/**
+ * @see startMultiSelect in core/block-editor store.
+ */
+const startMultiSelect = getBlockEditorAction('startMultiSelect');
+
+/**
+ * @see stopMultiSelect in core/block-editor store.
+ */
+const stopMultiSelect = getBlockEditorAction('stopMultiSelect');
+
+/**
+ * @see multiSelect in core/block-editor store.
+ */
+const multiSelect = getBlockEditorAction('multiSelect');
+
+/**
+ * @see clearSelectedBlock in core/block-editor store.
+ */
+const clearSelectedBlock = getBlockEditorAction('clearSelectedBlock');
+
+/**
+ * @see toggleSelection in core/block-editor store.
+ */
+const toggleSelection = getBlockEditorAction('toggleSelection');
+
+/**
+ * @see replaceBlocks in core/block-editor store.
+ */
+const replaceBlocks = getBlockEditorAction('replaceBlocks');
+
+/**
+ * @see replaceBlock in core/block-editor store.
+ */
+const replaceBlock = getBlockEditorAction('replaceBlock');
+
+/**
+ * @see moveBlocksDown in core/block-editor store.
+ */
+const moveBlocksDown = getBlockEditorAction('moveBlocksDown');
+
+/**
+ * @see moveBlocksUp in core/block-editor store.
+ */
+const moveBlocksUp = getBlockEditorAction('moveBlocksUp');
+
+/**
+ * @see moveBlockToPosition in core/block-editor store.
+ */
+const moveBlockToPosition = getBlockEditorAction('moveBlockToPosition');
+
+/**
+ * @see insertBlock in core/block-editor store.
+ */
+const insertBlock = getBlockEditorAction('insertBlock');
+
+/**
+ * @see insertBlocks in core/block-editor store.
+ */
+const insertBlocks = getBlockEditorAction('insertBlocks');
+
+/**
+ * @see showInsertionPoint in core/block-editor store.
+ */
+const showInsertionPoint = getBlockEditorAction('showInsertionPoint');
+
+/**
+ * @see hideInsertionPoint in core/block-editor store.
+ */
+const hideInsertionPoint = getBlockEditorAction('hideInsertionPoint');
+
+/**
+ * @see setTemplateValidity in core/block-editor store.
+ */
+const setTemplateValidity = getBlockEditorAction('setTemplateValidity');
+
+/**
+ * @see synchronizeTemplate in core/block-editor store.
+ */
+const synchronizeTemplate = getBlockEditorAction('synchronizeTemplate');
+
+/**
+ * @see mergeBlocks in core/block-editor store.
+ */
+const mergeBlocks = getBlockEditorAction('mergeBlocks');
+
+/**
+ * @see removeBlocks in core/block-editor store.
+ */
+const removeBlocks = getBlockEditorAction('removeBlocks');
+
+/**
+ * @see removeBlock in core/block-editor store.
+ */
+const removeBlock = getBlockEditorAction('removeBlock');
+
+/**
+ * @see toggleBlockMode in core/block-editor store.
+ */
+const toggleBlockMode = getBlockEditorAction('toggleBlockMode');
+
+/**
+ * @see startTyping in core/block-editor store.
+ */
+const startTyping = getBlockEditorAction('startTyping');
+
+/**
+ * @see stopTyping in core/block-editor store.
+ */
+const stopTyping = getBlockEditorAction('stopTyping');
+
+/**
+ * @see enterFormattedText in core/block-editor store.
+ */
+const enterFormattedText = getBlockEditorAction('enterFormattedText');
+
+/**
+ * @see exitFormattedText in core/block-editor store.
+ */
+const exitFormattedText = getBlockEditorAction('exitFormattedText');
+
+/**
+ * @see insertDefaultBlock in core/block-editor store.
+ */
+const insertDefaultBlock = getBlockEditorAction('insertDefaultBlock');
+
+/**
+ * @see updateBlockListSettings in core/block-editor store.
+ */
+const updateBlockListSettings = getBlockEditorAction('updateBlockListSettings');
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/store/index.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+/**
+ * Post editor data store configuration.
+ *
+ * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#registerStore
+ *
+ * @type {Object}
+ */
+const storeConfig = {
+  reducer: reducer,
+  selectors: selectors_namespaceObject,
+  actions: actions_namespaceObject
+};
+
+/**
+ * Store definition for the editor namespace.
+ *
+ * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
+ *
+ * @type {Object}
+ */
+const store_store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, {
+  ...storeConfig
+});
+(0,external_wp_data_namespaceObject.register)(store_store);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/hooks/custom-sources-backwards-compatibility.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/** @typedef {import('@wordpress/compose').WPHigherOrderComponent} WPHigherOrderComponent */
+/** @typedef {import('@wordpress/blocks').WPBlockSettings} WPBlockSettings */
+
+/**
+ * Object whose keys are the names of block attributes, where each value
+ * represents the meta key to which the block attribute is intended to save.
+ *
+ * @see https://developer.wordpress.org/reference/functions/register_meta/
+ *
+ * @typedef {Object<string,string>} WPMetaAttributeMapping
+ */
+
+/**
+ * Given a mapping of attribute names (meta source attributes) to their
+ * associated meta key, returns a higher order component that overrides its
+ * `attributes` and `setAttributes` props to sync any changes with the edited
+ * post's meta keys.
+ *
+ * @param {WPMetaAttributeMapping} metaAttributes Meta attribute mapping.
+ *
+ * @return {WPHigherOrderComponent} Higher-order component.
+ */
+const createWithMetaAttributeSource = metaAttributes => (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(BlockEdit => ({
+  attributes,
+  setAttributes,
+  ...props
+}) => {
+  const postType = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getCurrentPostType(), []);
+  const [meta, setMeta] = (0,external_wp_coreData_namespaceObject.useEntityProp)('postType', postType, 'meta');
+  const mergedAttributes = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    ...attributes,
+    ...Object.fromEntries(Object.entries(metaAttributes).map(([attributeKey, metaKey]) => [attributeKey, meta[metaKey]]))
+  }), [attributes, meta]);
+  return (0,external_React_.createElement)(BlockEdit, {
+    attributes: mergedAttributes,
+    setAttributes: nextAttributes => {
+      const nextMeta = Object.fromEntries(Object.entries(nextAttributes !== null && nextAttributes !== void 0 ? nextAttributes : {}).filter(
+      // Filter to intersection of keys between the updated
+      // attributes and those with an associated meta key.
+      ([key]) => key in metaAttributes).map(([attributeKey, value]) => [
+      // Rename the keys to the expected meta key name.
+      metaAttributes[attributeKey], value]));
+      if (Object.entries(nextMeta).length) {
+        setMeta(nextMeta);
+      }
+      setAttributes(nextAttributes);
+    },
+    ...props
+  });
+}, 'withMetaAttributeSource');
+
+/**
+ * Filters a registered block's settings to enhance a block's `edit` component
+ * to upgrade meta-sourced attributes to use the post's meta entity property.
+ *
+ * @param {WPBlockSettings} settings Registered block settings.
+ *
+ * @return {WPBlockSettings} Filtered block settings.
+ */
+function shimAttributeSource(settings) {
+  var _settings$attributes;
+  /** @type {WPMetaAttributeMapping} */
+  const metaAttributes = Object.fromEntries(Object.entries((_settings$attributes = settings.attributes) !== null && _settings$attributes !== void 0 ? _settings$attributes : {}).filter(([, {
+    source
+  }]) => source === 'meta').map(([attributeKey, {
+    meta
+  }]) => [attributeKey, meta]));
+  if (Object.entries(metaAttributes).length) {
+    settings.edit = createWithMetaAttributeSource(metaAttributes)(settings.edit);
+  }
+  return settings;
+}
+(0,external_wp_hooks_namespaceObject.addFilter)('blocks.registerBlockType', 'core/editor/custom-sources-backwards-compatibility/shim-attribute-source', shimAttributeSource);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/autocompleters/user.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/** @typedef {import('@wordpress/components').WPCompleter} WPCompleter */
+
+function getUserLabel(user) {
+  const avatar = user.avatar_urls && user.avatar_urls[24] ? (0,external_React_.createElement)("img", {
+    className: "editor-autocompleters__user-avatar",
+    alt: "",
+    src: user.avatar_urls[24]
+  }) : (0,external_React_.createElement)("span", {
+    className: "editor-autocompleters__no-avatar"
+  });
+  return (0,external_React_.createElement)(external_React_.Fragment, null, avatar, (0,external_React_.createElement)("span", {
+    className: "editor-autocompleters__user-name"
+  }, user.name), (0,external_React_.createElement)("span", {
+    className: "editor-autocompleters__user-slug"
+  }, user.slug));
+}
+
+/**
+ * A user mentions completer.
+ *
+ * @type {WPCompleter}
+ */
+/* harmony default export */ var user = ({
+  name: 'users',
+  className: 'editor-autocompleters__user',
+  triggerPrefix: '@',
+  useItems(filterValue) {
+    const users = (0,external_wp_data_namespaceObject.useSelect)(select => {
+      const {
+        getUsers
+      } = select(external_wp_coreData_namespaceObject.store);
+      return getUsers({
+        context: 'view',
+        search: encodeURIComponent(filterValue)
+      });
+    }, [filterValue]);
+    const options = (0,external_wp_element_namespaceObject.useMemo)(() => users ? users.map(user => ({
+      key: `user-${user.slug}`,
+      value: user,
+      label: getUserLabel(user)
+    })) : [], [users]);
+    return [options];
+  },
+  getOptionCompletion(user) {
+    return `@${user.slug}`;
+  }
+});
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/hooks/default-autocompleters.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+function setDefaultCompleters(completers = []) {
+  // Provide copies so filters may directly modify them.
+  completers.push({
+    ...user
+  });
+  return completers;
+}
+(0,external_wp_hooks_namespaceObject.addFilter)('editor.Autocomplete.completers', 'editor/autocompleters/set-default-completers', setDefaultCompleters);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/hooks/index.js
+/**
+ * Internal dependencies
+ */
+
+
+
+;// CONCATENATED MODULE: external ["wp","keyboardShortcuts"]
+var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/global-keyboard-shortcuts/index.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function EditorKeyboardShortcuts() {
+  const {
+    redo,
+    undo,
+    savePost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const {
+    isEditedPostDirty,
+    isPostSavingLocked
+  } = (0,external_wp_data_namespaceObject.useSelect)(store_store);
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/editor/undo', event => {
+    undo();
+    event.preventDefault();
+  });
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/editor/redo', event => {
+    redo();
+    event.preventDefault();
+  });
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/editor/save', event => {
+    event.preventDefault();
+
+    /**
+     * Do not save the post if post saving is locked.
+     */
+    if (isPostSavingLocked()) {
+      return;
+    }
+
+    // TODO: This should be handled in the `savePost` effect in
+    // considering `isSaveable`. See note on `isEditedPostSaveable`
+    // selector about dirtiness and meta-boxes.
+    //
+    // See: `isEditedPostSaveable`
+    if (!isEditedPostDirty()) {
+      return;
+    }
+    savePost();
+  });
+  return null;
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/autocompleters/index.js
+
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/autosave-monitor/index.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * AutosaveMonitor invokes `props.autosave()` within at most `interval` seconds after an unsaved change is detected.
+ *
+ * The logic is straightforward: a check is performed every `props.interval` seconds. If any changes are detected, `props.autosave()` is called.
+ * The time between the change and the autosave varies but is no larger than `props.interval` seconds. Refer to the code below for more details, such as
+ * the specific way of detecting changes.
+ *
+ * There are two caveats:
+ * * If `props.isAutosaveable` happens to be false at a time of checking for changes, the check is retried every second.
+ * * The timer may be disabled by setting `props.disableIntervalChecks` to `true`. In that mode, any change will immediately trigger `props.autosave()`.
+ */
+class AutosaveMonitor extends external_wp_element_namespaceObject.Component {
+  constructor(props) {
+    super(props);
+    this.needsAutosave = !!(props.isDirty && props.isAutosaveable);
+  }
+  componentDidMount() {
+    if (!this.props.disableIntervalChecks) {
+      this.setAutosaveTimer();
+    }
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.disableIntervalChecks) {
+      if (this.props.editsReference !== prevProps.editsReference) {
+        this.props.autosave();
+      }
+      return;
+    }
+    if (this.props.interval !== prevProps.interval) {
+      clearTimeout(this.timerId);
+      this.setAutosaveTimer();
+    }
+    if (!this.props.isDirty) {
+      this.needsAutosave = false;
+      return;
+    }
+    if (this.props.isAutosaving && !prevProps.isAutosaving) {
+      this.needsAutosave = false;
+      return;
+    }
+    if (this.props.editsReference !== prevProps.editsReference) {
+      this.needsAutosave = true;
+    }
+  }
+  componentWillUnmount() {
+    clearTimeout(this.timerId);
+  }
+  setAutosaveTimer(timeout = this.props.interval * 1000) {
+    this.timerId = setTimeout(() => {
+      this.autosaveTimerHandler();
+    }, timeout);
+  }
+  autosaveTimerHandler() {
+    if (!this.props.isAutosaveable) {
+      this.setAutosaveTimer(1000);
+      return;
+    }
+    if (this.needsAutosave) {
+      this.needsAutosave = false;
+      this.props.autosave();
+    }
+    this.setAutosaveTimer();
+  }
+  render() {
+    return null;
+  }
+}
+/* harmony default export */ var autosave_monitor = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)((select, ownProps) => {
+  const {
+    getReferenceByDistinctEdits
+  } = select(external_wp_coreData_namespaceObject.store);
+  const {
+    isEditedPostDirty,
+    isEditedPostAutosaveable,
+    isAutosavingPost,
+    getEditorSettings
+  } = select(store_store);
+  const {
+    interval = getEditorSettings().autosaveInterval
+  } = ownProps;
+  return {
+    editsReference: getReferenceByDistinctEdits(),
+    isDirty: isEditedPostDirty(),
+    isAutosaveable: isEditedPostAutosaveable(),
+    isAutosaving: isAutosavingPost(),
+    interval
+  };
+}), (0,external_wp_data_namespaceObject.withDispatch)((dispatch, ownProps) => ({
+  autosave() {
+    const {
+      autosave = dispatch(store_store).autosave
+    } = ownProps;
+    autosave();
+  }
+}))])(AutosaveMonitor));
+
+;// CONCATENATED MODULE: external ["wp","richText"]
+var external_wp_richText_namespaceObject = window["wp"]["richText"];
+// EXTERNAL MODULE: ./node_modules/classnames/index.js
+var classnames = __webpack_require__(4403);
+var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/document-outline/item.js
+
+/**
+ * External dependencies
+ */
+
+const TableOfContentsItem = ({
+  children,
+  isValid,
+  level,
+  href,
+  onSelect
+}) => (0,external_React_.createElement)("li", {
+  className: classnames_default()('document-outline__item', `is-${level.toLowerCase()}`, {
+    'is-invalid': !isValid
+  })
+}, (0,external_React_.createElement)("a", {
+  href: href,
+  className: "document-outline__button",
+  onClick: onSelect
+}, (0,external_React_.createElement)("span", {
+  className: "document-outline__emdash",
+  "aria-hidden": "true"
+}), (0,external_React_.createElement)("strong", {
+  className: "document-outline__level"
+}, level), (0,external_React_.createElement)("span", {
+  className: "document-outline__item-content"
+}, children)));
+/* harmony default export */ var document_outline_item = (TableOfContentsItem);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/document-outline/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * Module constants
+ */
+const emptyHeadingContent = (0,external_React_.createElement)("em", null, (0,external_wp_i18n_namespaceObject.__)('(Empty heading)'));
+const incorrectLevelContent = [(0,external_React_.createElement)("br", {
+  key: "incorrect-break"
+}), (0,external_React_.createElement)("em", {
+  key: "incorrect-message"
+}, (0,external_wp_i18n_namespaceObject.__)('(Incorrect heading level)'))];
+const singleH1Headings = [(0,external_React_.createElement)("br", {
+  key: "incorrect-break-h1"
+}), (0,external_React_.createElement)("em", {
+  key: "incorrect-message-h1"
+}, (0,external_wp_i18n_namespaceObject.__)('(Your theme may already use a H1 for the post title)'))];
+const multipleH1Headings = [(0,external_React_.createElement)("br", {
+  key: "incorrect-break-multiple-h1"
+}), (0,external_React_.createElement)("em", {
+  key: "incorrect-message-multiple-h1"
+}, (0,external_wp_i18n_namespaceObject.__)('(Multiple H1 headings are not recommended)'))];
+
+/**
+ * Returns an array of heading blocks enhanced with the following properties:
+ * level   - An integer with the heading level.
+ * isEmpty - Flag indicating if the heading has no content.
+ *
+ * @param {?Array} blocks An array of blocks.
+ *
+ * @return {Array} An array of heading blocks enhanced with the properties described above.
+ */
+const computeOutlineHeadings = (blocks = []) => {
+  return blocks.flatMap((block = {}) => {
+    if (block.name === 'core/heading') {
+      return {
+        ...block,
+        level: block.attributes.level,
+        isEmpty: isEmptyHeading(block)
+      };
+    }
+    return computeOutlineHeadings(block.innerBlocks);
+  });
+};
+const isEmptyHeading = heading => !heading.attributes.content || heading.attributes.content.length === 0;
+const DocumentOutline = ({
+  blocks = [],
+  title,
+  onSelect,
+  isTitleSupported,
+  hasOutlineItemsDisabled
+}) => {
+  const headings = computeOutlineHeadings(blocks);
+  const {
+    selectBlock
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
+  if (headings.length < 1) {
+    return null;
+  }
+  let prevHeadingLevel = 1;
+
+  // Not great but it's the simplest way to locate the title right now.
+  const titleNode = document.querySelector('.editor-post-title__input');
+  const hasTitle = isTitleSupported && title && titleNode;
+  const countByLevel = headings.reduce((acc, heading) => ({
+    ...acc,
+    [heading.level]: (acc[heading.level] || 0) + 1
+  }), {});
+  const hasMultipleH1 = countByLevel[1] > 1;
+  return (0,external_React_.createElement)("div", {
+    className: "document-outline"
+  }, (0,external_React_.createElement)("ul", null, hasTitle && (0,external_React_.createElement)(document_outline_item, {
+    level: (0,external_wp_i18n_namespaceObject.__)('Title'),
+    isValid: true,
+    onSelect: onSelect,
+    href: `#${titleNode.id}`,
+    isDisabled: hasOutlineItemsDisabled
+  }, title), headings.map((item, index) => {
+    // Headings remain the same, go up by one, or down by any amount.
+    // Otherwise there are missing levels.
+    const isIncorrectLevel = item.level > prevHeadingLevel + 1;
+    const isValid = !item.isEmpty && !isIncorrectLevel && !!item.level && (item.level !== 1 || !hasMultipleH1 && !hasTitle);
+    prevHeadingLevel = item.level;
+    return (0,external_React_.createElement)(document_outline_item, {
+      key: index,
+      level: `H${item.level}`,
+      isValid: isValid,
+      isDisabled: hasOutlineItemsDisabled,
+      href: `#block-${item.clientId}`,
+      onSelect: () => {
+        selectBlock(item.clientId);
+        onSelect?.();
+      }
+    }, item.isEmpty ? emptyHeadingContent : (0,external_wp_richText_namespaceObject.getTextContent)((0,external_wp_richText_namespaceObject.create)({
+      html: item.attributes.content
+    })), isIncorrectLevel && incorrectLevelContent, item.level === 1 && hasMultipleH1 && multipleH1Headings, hasTitle && item.level === 1 && !hasMultipleH1 && singleH1Headings);
+  })));
+};
+/* harmony default export */ var document_outline = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => {
+  var _postType$supports$ti;
+  const {
+    getBlocks
+  } = select(external_wp_blockEditor_namespaceObject.store);
+  const {
+    getEditedPostAttribute
+  } = select(store_store);
+  const {
+    getPostType
+  } = select(external_wp_coreData_namespaceObject.store);
+  const postType = getPostType(getEditedPostAttribute('type'));
+  return {
+    title: getEditedPostAttribute('title'),
+    blocks: getBlocks(),
+    isTitleSupported: (_postType$supports$ti = postType?.supports?.title) !== null && _postType$supports$ti !== void 0 ? _postType$supports$ti : false
+  };
+}))(DocumentOutline));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/document-outline/check.js
+/**
+ * WordPress dependencies
+ */
+
+
+function DocumentOutlineCheck({
+  blocks,
+  children
+}) {
+  const headings = blocks.filter(block => block.name === 'core/heading');
+  if (headings.length < 1) {
+    return null;
+  }
+  return children;
+}
+/* harmony default export */ var check = ((0,external_wp_data_namespaceObject.withSelect)(select => ({
+  blocks: select(external_wp_blockEditor_namespaceObject.store).getBlocks()
+}))(DocumentOutlineCheck));
+
+;// CONCATENATED MODULE: external ["wp","keycodes"]
+var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/global-keyboard-shortcuts/register-shortcuts.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+function EditorKeyboardShortcutsRegister() {
+  // Registering the shortcuts.
+  const {
+    registerShortcut
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_keyboardShortcuts_namespaceObject.store);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    registerShortcut({
+      name: 'core/editor/save',
+      category: 'global',
+      description: (0,external_wp_i18n_namespaceObject.__)('Save your changes.'),
+      keyCombination: {
+        modifier: 'primary',
+        character: 's'
+      }
+    });
+    registerShortcut({
+      name: 'core/editor/undo',
+      category: 'global',
+      description: (0,external_wp_i18n_namespaceObject.__)('Undo your last changes.'),
+      keyCombination: {
+        modifier: 'primary',
+        character: 'z'
+      }
+    });
+    registerShortcut({
+      name: 'core/editor/redo',
+      category: 'global',
+      description: (0,external_wp_i18n_namespaceObject.__)('Redo your last undo.'),
+      keyCombination: {
+        modifier: 'primaryShift',
+        character: 'z'
+      },
+      // Disable on Apple OS because it conflicts with the browser's
+      // history shortcut. It's a fine alias for both Windows and Linux.
+      // Since there's no conflict for Ctrl+Shift+Z on both Windows and
+      // Linux, we keep it as the default for consistency.
+      aliases: (0,external_wp_keycodes_namespaceObject.isAppleOS)() ? [] : [{
+        modifier: 'primary',
+        character: 'y'
+      }]
+    });
+  }, [registerShortcut]);
+  return (0,external_React_.createElement)(external_wp_blockEditor_namespaceObject.BlockEditorKeyboardShortcuts.Register, null);
+}
+/* harmony default export */ var register_shortcuts = (EditorKeyboardShortcutsRegister);
+
+;// CONCATENATED MODULE: external ["wp","components"]
+var external_wp_components_namespaceObject = window["wp"]["components"];
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/redo.js
+
+/**
+ * WordPress dependencies
+ */
+
+const redo_redo = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M15.6 6.5l-1.1 1 2.9 3.3H8c-.9 0-1.7.3-2.3.9-1.4 1.5-1.4 4.2-1.4 5.6v.2h1.5v-.3c0-1.1 0-3.5 1-4.5.3-.3.7-.5 1.3-.5h9.2L14.5 15l1.1 1.1 4.6-4.6-4.6-5z"
+}));
+/* harmony default export */ var library_redo = (redo_redo);
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/undo.js
+
+/**
+ * WordPress dependencies
+ */
+
+const undo_undo = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M18.3 11.7c-.6-.6-1.4-.9-2.3-.9H6.7l2.9-3.3-1.1-1-4.5 5L8.5 16l1-1-2.7-2.7H16c.5 0 .9.2 1.3.5 1 1 1 3.4 1 4.5v.3h1.5v-.2c0-1.5 0-4.3-1.5-5.7z"
+}));
+/* harmony default export */ var library_undo = (undo_undo);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/editor-history/redo.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function EditorHistoryRedo(props, ref) {
+  const shortcut = (0,external_wp_keycodes_namespaceObject.isAppleOS)() ? external_wp_keycodes_namespaceObject.displayShortcut.primaryShift('z') : external_wp_keycodes_namespaceObject.displayShortcut.primary('y');
+  const hasRedo = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).hasEditorRedo(), []);
+  const {
+    redo
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    ...props,
+    ref: ref,
+    icon: !(0,external_wp_i18n_namespaceObject.isRTL)() ? library_redo : library_undo
+    /* translators: button label text should, if possible, be under 16 characters. */,
+    label: (0,external_wp_i18n_namespaceObject.__)('Redo'),
+    shortcut: shortcut
+    // If there are no redo levels we don't want to actually disable this
+    // button, because it will remove focus for keyboard users.
+    // See: https://github.com/WordPress/gutenberg/issues/3486
+    ,
+    "aria-disabled": !hasRedo,
+    onClick: hasRedo ? redo : undefined,
+    className: "editor-history__redo"
+  });
+}
+/* harmony default export */ var editor_history_redo = ((0,external_wp_element_namespaceObject.forwardRef)(EditorHistoryRedo));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/editor-history/undo.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function EditorHistoryUndo(props, ref) {
+  const hasUndo = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).hasEditorUndo(), []);
+  const {
+    undo
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    ...props,
+    ref: ref,
+    icon: !(0,external_wp_i18n_namespaceObject.isRTL)() ? library_undo : library_redo
+    /* translators: button label text should, if possible, be under 16 characters. */,
+    label: (0,external_wp_i18n_namespaceObject.__)('Undo'),
+    shortcut: external_wp_keycodes_namespaceObject.displayShortcut.primary('z')
+    // If there are no undo levels we don't want to actually disable this
+    // button, because it will remove focus for keyboard users.
+    // See: https://github.com/WordPress/gutenberg/issues/3486
+    ,
+    "aria-disabled": !hasUndo,
+    onClick: hasUndo ? undo : undefined,
+    className: "editor-history__undo"
+  });
+}
+/* harmony default export */ var editor_history_undo = ((0,external_wp_element_namespaceObject.forwardRef)(EditorHistoryUndo));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/template-validation-notice/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+function TemplateValidationNotice({
+  isValid,
+  ...props
+}) {
+  if (isValid) {
+    return null;
+  }
+  const confirmSynchronization = () => {
+    if (
+    // eslint-disable-next-line no-alert
+    window.confirm((0,external_wp_i18n_namespaceObject.__)('Resetting the template may result in loss of content, do you want to continue?'))) {
+      props.synchronizeTemplate();
+    }
+  };
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Notice, {
+    className: "editor-template-validation-notice",
+    isDismissible: false,
+    status: "warning",
+    actions: [{
+      label: (0,external_wp_i18n_namespaceObject.__)('Keep it as is'),
+      onClick: props.resetTemplateValidity
+    }, {
+      label: (0,external_wp_i18n_namespaceObject.__)('Reset the template'),
+      onClick: confirmSynchronization
+    }]
+  }, (0,external_wp_i18n_namespaceObject.__)('The content of your post doesn’t match the template assigned to your post type.'));
+}
+/* harmony default export */ var template_validation_notice = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => ({
+  isValid: select(external_wp_blockEditor_namespaceObject.store).isValidTemplate()
+})), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => {
+  const {
+    setTemplateValidity,
+    synchronizeTemplate
+  } = dispatch(external_wp_blockEditor_namespaceObject.store);
+  return {
+    resetTemplateValidity: () => setTemplateValidity(true),
+    synchronizeTemplate
+  };
+})])(TemplateValidationNotice));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/editor-notices/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function EditorNotices({
+  notices,
+  onRemove
+}) {
+  const dismissibleNotices = notices.filter(({
+    isDismissible,
+    type
+  }) => isDismissible && type === 'default');
+  const nonDismissibleNotices = notices.filter(({
+    isDismissible,
+    type
+  }) => !isDismissible && type === 'default');
+  return (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.NoticeList, {
+    notices: nonDismissibleNotices,
+    className: "components-editor-notices__pinned"
+  }), (0,external_React_.createElement)(external_wp_components_namespaceObject.NoticeList, {
+    notices: dismissibleNotices,
+    className: "components-editor-notices__dismissible",
+    onRemove: onRemove
+  }, (0,external_React_.createElement)(template_validation_notice, null)));
+}
+/* harmony default export */ var editor_notices = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => ({
+  notices: select(external_wp_notices_namespaceObject.store).getNotices()
+})), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => ({
+  onRemove: dispatch(external_wp_notices_namespaceObject.store).removeNotice
+}))])(EditorNotices));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/editor-snackbars/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+function EditorSnackbars() {
+  const notices = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_notices_namespaceObject.store).getNotices(), []);
+  const {
+    removeNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
+  const snackbarNotices = notices.filter(({
+    type
+  }) => type === 'snackbar');
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.SnackbarList, {
+    notices: snackbarNotices,
+    className: "components-editor-notices__snackbar",
+    onRemove: removeNotice
+  });
+}
+
+;// CONCATENATED MODULE: external ["wp","htmlEntities"]
+var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/entities-saved-states/entity-record-item.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function EntityRecordItem({
+  record,
+  checked,
+  onChange
+}) {
+  const {
+    name,
+    kind,
+    title,
+    key
+  } = record;
+
+  // Handle templates that might use default descriptive titles.
+  const entityRecordTitle = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    if ('postType' !== kind || 'wp_template' !== name) {
+      return title;
+    }
+    const template = select(external_wp_coreData_namespaceObject.store).getEditedEntityRecord(kind, name, key);
+    return select(store_store).__experimentalGetTemplateInfo(template).title;
+  }, [name, kind, title, key]);
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.PanelRow, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
+    __nextHasNoMarginBottom: true,
+    label: (0,external_React_.createElement)("strong", null, (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(entityRecordTitle) || (0,external_wp_i18n_namespaceObject.__)('Untitled')),
+    checked: checked,
+    onChange: onChange
+  }));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/entities-saved-states/entity-type-list.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function getEntityDescription(entity, count) {
+  switch (entity) {
+    case 'site':
+      return 1 === count ? (0,external_wp_i18n_namespaceObject.__)('This change will affect your whole site.') : (0,external_wp_i18n_namespaceObject.__)('These changes will affect your whole site.');
+    case 'wp_template':
+      return (0,external_wp_i18n_namespaceObject.__)('This change will affect pages and posts that use this template.');
+    case 'page':
+    case 'post':
+      return (0,external_wp_i18n_namespaceObject.__)('The following content has been modified.');
+  }
+}
+function EntityTypeList({
+  list,
+  unselectedEntities,
+  setUnselectedEntities
+}) {
+  const count = list.length;
+  const firstRecord = list[0];
+  const entityConfig = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).getEntityConfig(firstRecord.kind, firstRecord.name), [firstRecord.kind, firstRecord.name]);
+  const {
+    name
+  } = firstRecord;
+  let entityLabel = entityConfig.label;
+  if (name === 'wp_template_part') {
+    entityLabel = 1 === count ? (0,external_wp_i18n_namespaceObject.__)('Template Part') : (0,external_wp_i18n_namespaceObject.__)('Template Parts');
+  }
+  // Set description based on type of entity.
+  const description = getEntityDescription(name, count);
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.PanelBody, {
+    title: entityLabel,
+    initialOpen: true
+  }, description && (0,external_React_.createElement)(external_wp_components_namespaceObject.PanelRow, null, description), list.map(record => {
+    return (0,external_React_.createElement)(EntityRecordItem, {
+      key: record.key || record.property,
+      record: record,
+      checked: !unselectedEntities.some(elt => elt.kind === record.kind && elt.name === record.name && elt.key === record.key && elt.property === record.property),
+      onChange: value => setUnselectedEntities(record, value)
+    });
+  }));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/entities-saved-states/hooks/use-is-dirty.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+const TRANSLATED_SITE_PROPERTIES = {
+  title: (0,external_wp_i18n_namespaceObject.__)('Title'),
+  description: (0,external_wp_i18n_namespaceObject.__)('Tagline'),
+  site_logo: (0,external_wp_i18n_namespaceObject.__)('Logo'),
+  site_icon: (0,external_wp_i18n_namespaceObject.__)('Icon'),
+  show_on_front: (0,external_wp_i18n_namespaceObject.__)('Show on front'),
+  page_on_front: (0,external_wp_i18n_namespaceObject.__)('Page on front'),
+  posts_per_page: (0,external_wp_i18n_namespaceObject.__)('Maximum posts per page'),
+  default_comment_status: (0,external_wp_i18n_namespaceObject.__)('Allow comments on new posts')
+};
+const useIsDirty = () => {
+  const {
+    editedEntities,
+    siteEdits
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      __experimentalGetDirtyEntityRecords,
+      getEntityRecordEdits
+    } = select(external_wp_coreData_namespaceObject.store);
+    return {
+      editedEntities: __experimentalGetDirtyEntityRecords(),
+      siteEdits: getEntityRecordEdits('root', 'site')
+    };
+  }, []);
+  const dirtyEntityRecords = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    // Remove site object and decouple into its edited pieces.
+    const editedEntitiesWithoutSite = editedEntities.filter(record => !(record.kind === 'root' && record.name === 'site'));
+    const editedSiteEntities = [];
+    for (const property in siteEdits) {
+      editedSiteEntities.push({
+        kind: 'root',
+        name: 'site',
+        title: TRANSLATED_SITE_PROPERTIES[property] || property,
+        property
+      });
+    }
+    return [...editedEntitiesWithoutSite, ...editedSiteEntities];
+  }, [editedEntities, siteEdits]);
+
+  // Unchecked entities to be ignored by save function.
+  const [unselectedEntities, _setUnselectedEntities] = (0,external_wp_element_namespaceObject.useState)([]);
+  const setUnselectedEntities = ({
+    kind,
+    name,
+    key,
+    property
+  }, checked) => {
+    if (checked) {
+      _setUnselectedEntities(unselectedEntities.filter(elt => elt.kind !== kind || elt.name !== name || elt.key !== key || elt.property !== property));
+    } else {
+      _setUnselectedEntities([...unselectedEntities, {
+        kind,
+        name,
+        key,
+        property
+      }]);
+    }
+  };
+  const isDirty = dirtyEntityRecords.length - unselectedEntities.length > 0;
+  return {
+    dirtyEntityRecords,
+    isDirty,
+    setUnselectedEntities,
+    unselectedEntities
+  };
+};
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/entities-saved-states/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const PUBLISH_ON_SAVE_ENTITIES = [{
+  kind: 'postType',
+  name: 'wp_navigation'
+}];
+function identity(values) {
+  return values;
+}
+function EntitiesSavedStates({
+  close
+}) {
+  const isDirtyProps = useIsDirty();
+  return (0,external_React_.createElement)(EntitiesSavedStatesExtensible, {
+    close: close,
+    ...isDirtyProps
+  });
+}
+function EntitiesSavedStatesExtensible({
+  additionalPrompt = undefined,
+  close,
+  onSave = identity,
+  saveEnabled: saveEnabledProp = undefined,
+  saveLabel = (0,external_wp_i18n_namespaceObject.__)('Save'),
+  dirtyEntityRecords,
+  isDirty,
+  setUnselectedEntities,
+  unselectedEntities
+}) {
+  const saveButtonRef = (0,external_wp_element_namespaceObject.useRef)();
+  const {
+    editEntityRecord,
+    saveEditedEntityRecord,
+    __experimentalSaveSpecifiedEntityEdits: saveSpecifiedEntityEdits
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
+  const {
+    __unstableMarkLastChangeAsPersistent
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
+  const {
+    createSuccessNotice,
+    createErrorNotice,
+    removeNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
+
+  // To group entities by type.
+  const partitionedSavables = dirtyEntityRecords.reduce((acc, record) => {
+    const {
+      name
+    } = record;
+    if (!acc[name]) {
+      acc[name] = [];
+    }
+    acc[name].push(record);
+    return acc;
+  }, {});
+
+  // Sort entity groups.
+  const {
+    site: siteSavables,
+    wp_template: templateSavables,
+    wp_template_part: templatePartSavables,
+    ...contentSavables
+  } = partitionedSavables;
+  const sortedPartitionedSavables = [siteSavables, templateSavables, templatePartSavables, ...Object.values(contentSavables)].filter(Array.isArray);
+  const saveEnabled = saveEnabledProp !== null && saveEnabledProp !== void 0 ? saveEnabledProp : isDirty;
+  const {
+    homeUrl
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getUnstableBase // Site index.
+    } = select(external_wp_coreData_namespaceObject.store);
+    return {
+      homeUrl: getUnstableBase()?.home
+    };
+  }, []);
+  const saveCheckedEntities = () => {
+    const saveNoticeId = 'site-editor-save-success';
+    removeNotice(saveNoticeId);
+    const entitiesToSave = dirtyEntityRecords.filter(({
+      kind,
+      name,
+      key,
+      property
+    }) => {
+      return !unselectedEntities.some(elt => elt.kind === kind && elt.name === name && elt.key === key && elt.property === property);
+    });
+    close(entitiesToSave);
+    const siteItemsToSave = [];
+    const pendingSavedRecords = [];
+    entitiesToSave.forEach(({
+      kind,
+      name,
+      key,
+      property
+    }) => {
+      if ('root' === kind && 'site' === name) {
+        siteItemsToSave.push(property);
+      } else {
+        if (PUBLISH_ON_SAVE_ENTITIES.some(typeToPublish => typeToPublish.kind === kind && typeToPublish.name === name)) {
+          editEntityRecord(kind, name, key, {
+            status: 'publish'
+          });
+        }
+        pendingSavedRecords.push(saveEditedEntityRecord(kind, name, key));
+      }
+    });
+    if (siteItemsToSave.length) {
+      pendingSavedRecords.push(saveSpecifiedEntityEdits('root', 'site', undefined, siteItemsToSave));
+    }
+    __unstableMarkLastChangeAsPersistent();
+    Promise.all(pendingSavedRecords).then(values => {
+      return onSave(values);
+    }).then(values => {
+      if (values.some(value => typeof value === 'undefined')) {
+        createErrorNotice((0,external_wp_i18n_namespaceObject.__)('Saving failed.'));
+      } else {
+        createSuccessNotice((0,external_wp_i18n_namespaceObject.__)('Site updated.'), {
+          type: 'snackbar',
+          id: saveNoticeId,
+          actions: [{
+            label: (0,external_wp_i18n_namespaceObject.__)('View site'),
+            url: homeUrl
+          }]
+        });
+      }
+    }).catch(error => createErrorNotice(`${(0,external_wp_i18n_namespaceObject.__)('Saving failed.')} ${error}`));
+  };
+
+  // Explicitly define this with no argument passed.  Using `close` on
+  // its own will use the event object in place of the expected saved entities.
+  const dismissPanel = (0,external_wp_element_namespaceObject.useCallback)(() => close(), [close]);
+  const [saveDialogRef, saveDialogProps] = (0,external_wp_compose_namespaceObject.__experimentalUseDialog)({
+    onClose: () => dismissPanel()
+  });
+  return (0,external_React_.createElement)("div", {
+    ref: saveDialogRef,
+    ...saveDialogProps,
+    className: "entities-saved-states__panel"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Flex, {
+    className: "entities-saved-states__panel-header",
+    gap: 2
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.FlexItem, {
+    isBlock: true,
+    as: external_wp_components_namespaceObject.Button,
+    ref: saveButtonRef,
+    variant: "primary",
+    disabled: !saveEnabled,
+    onClick: saveCheckedEntities,
+    className: "editor-entities-saved-states__save-button"
+  }, saveLabel), (0,external_React_.createElement)(external_wp_components_namespaceObject.FlexItem, {
+    isBlock: true,
+    as: external_wp_components_namespaceObject.Button,
+    variant: "secondary",
+    onClick: dismissPanel
+  }, (0,external_wp_i18n_namespaceObject.__)('Cancel'))), (0,external_React_.createElement)("div", {
+    className: "entities-saved-states__text-prompt"
+  }, (0,external_React_.createElement)("strong", null, (0,external_wp_i18n_namespaceObject.__)('Are you ready to save?')), additionalPrompt, isDirty && (0,external_React_.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('The following changes have been made to your site, templates, and content.'))), sortedPartitionedSavables.map(list => {
+    return (0,external_React_.createElement)(EntityTypeList, {
+      key: list[0].name,
+      list: list,
+      unselectedEntities: unselectedEntities,
+      setUnselectedEntities: setUnselectedEntities
+    });
+  }));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/error-boundary/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function getContent() {
+  try {
+    // While `select` in a component is generally discouraged, it is
+    // used here because it (a) reduces the chance of data loss in the
+    // case of additional errors by performing a direct retrieval and
+    // (b) avoids the performance cost associated with unnecessary
+    // content serialization throughout the lifetime of a non-erroring
+    // application.
+    return (0,external_wp_data_namespaceObject.select)(store_store).getEditedPostContent();
+  } catch (error) {}
+}
+function CopyButton({
+  text,
+  children
+}) {
+  const ref = (0,external_wp_compose_namespaceObject.useCopyToClipboard)(text);
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "secondary",
+    ref: ref
+  }, children);
+}
+class ErrorBoundary extends external_wp_element_namespaceObject.Component {
+  constructor() {
+    super(...arguments);
+    this.state = {
+      error: null
+    };
+  }
+  componentDidCatch(error) {
+    (0,external_wp_hooks_namespaceObject.doAction)('editor.ErrorBoundary.errorLogged', error);
+  }
+  static getDerivedStateFromError(error) {
+    return {
+      error
+    };
+  }
+  render() {
+    const {
+      error
+    } = this.state;
+    if (!error) {
+      return this.props.children;
+    }
+    const actions = [(0,external_React_.createElement)(CopyButton, {
+      key: "copy-post",
+      text: getContent
+    }, (0,external_wp_i18n_namespaceObject.__)('Copy Post Text')), (0,external_React_.createElement)(CopyButton, {
+      key: "copy-error",
+      text: error.stack
+    }, (0,external_wp_i18n_namespaceObject.__)('Copy Error'))];
+    return (0,external_React_.createElement)(external_wp_blockEditor_namespaceObject.Warning, {
+      className: "editor-error-boundary",
+      actions: actions
+    }, (0,external_wp_i18n_namespaceObject.__)('The editor has encountered an unexpected error.'));
+  }
+}
+/* harmony default export */ var error_boundary = (ErrorBoundary);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/local-autosave-monitor/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const requestIdleCallback = window.requestIdleCallback ? window.requestIdleCallback : window.requestAnimationFrame;
+let hasStorageSupport;
+
+/**
+ * Function which returns true if the current environment supports browser
+ * sessionStorage, or false otherwise. The result of this function is cached and
+ * reused in subsequent invocations.
+ */
+const hasSessionStorageSupport = () => {
+  if (hasStorageSupport !== undefined) {
+    return hasStorageSupport;
+  }
+  try {
+    // Private Browsing in Safari 10 and earlier will throw an error when
+    // attempting to set into sessionStorage. The test here is intentional in
+    // causing a thrown error as condition bailing from local autosave.
+    window.sessionStorage.setItem('__wpEditorTestSessionStorage', '');
+    window.sessionStorage.removeItem('__wpEditorTestSessionStorage');
+    hasStorageSupport = true;
+  } catch {
+    hasStorageSupport = false;
+  }
+  return hasStorageSupport;
+};
+
+/**
+ * Custom hook which manages the creation of a notice prompting the user to
+ * restore a local autosave, if one exists.
+ */
+function useAutosaveNotice() {
+  const {
+    postId,
+    isEditedPostNew,
+    hasRemoteAutosave
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
+    postId: select(store_store).getCurrentPostId(),
+    isEditedPostNew: select(store_store).isEditedPostNew(),
+    hasRemoteAutosave: !!select(store_store).getEditorSettings().autosave
+  }), []);
+  const {
+    getEditedPostAttribute
+  } = (0,external_wp_data_namespaceObject.useSelect)(store_store);
+  const {
+    createWarningNotice,
+    removeNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
+  const {
+    editPost,
+    resetEditorBlocks
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    let localAutosave = localAutosaveGet(postId, isEditedPostNew);
+    if (!localAutosave) {
+      return;
+    }
+    try {
+      localAutosave = JSON.parse(localAutosave);
+    } catch {
+      // Not usable if it can't be parsed.
+      return;
+    }
+    const {
+      post_title: title,
+      content,
+      excerpt
+    } = localAutosave;
+    const edits = {
+      title,
+      content,
+      excerpt
+    };
+    {
+      // Only display a notice if there is a difference between what has been
+      // saved and that which is stored in sessionStorage.
+      const hasDifference = Object.keys(edits).some(key => {
+        return edits[key] !== getEditedPostAttribute(key);
+      });
+      if (!hasDifference) {
+        // If there is no difference, it can be safely ejected from storage.
+        localAutosaveClear(postId, isEditedPostNew);
+        return;
+      }
+    }
+    if (hasRemoteAutosave) {
+      return;
+    }
+    const id = 'wpEditorAutosaveRestore';
+    createWarningNotice((0,external_wp_i18n_namespaceObject.__)('The backup of this post in your browser is different from the version below.'), {
+      id,
+      actions: [{
+        label: (0,external_wp_i18n_namespaceObject.__)('Restore the backup'),
+        onClick() {
+          const {
+            content: editsContent,
+            ...editsWithoutContent
+          } = edits;
+          editPost(editsWithoutContent);
+          resetEditorBlocks((0,external_wp_blocks_namespaceObject.parse)(edits.content));
+          removeNotice(id);
+        }
+      }]
+    });
+  }, [isEditedPostNew, postId]);
+}
+
+/**
+ * Custom hook which ejects a local autosave after a successful save occurs.
+ */
+function useAutosavePurge() {
+  const {
+    postId,
+    isEditedPostNew,
+    isDirty,
+    isAutosaving,
+    didError
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
+    postId: select(store_store).getCurrentPostId(),
+    isEditedPostNew: select(store_store).isEditedPostNew(),
+    isDirty: select(store_store).isEditedPostDirty(),
+    isAutosaving: select(store_store).isAutosavingPost(),
+    didError: select(store_store).didPostSaveRequestFail()
+  }), []);
+  const lastIsDirty = (0,external_wp_element_namespaceObject.useRef)(isDirty);
+  const lastIsAutosaving = (0,external_wp_element_namespaceObject.useRef)(isAutosaving);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (!didError && (lastIsAutosaving.current && !isAutosaving || lastIsDirty.current && !isDirty)) {
+      localAutosaveClear(postId, isEditedPostNew);
+    }
+    lastIsDirty.current = isDirty;
+    lastIsAutosaving.current = isAutosaving;
+  }, [isDirty, isAutosaving, didError]);
+
+  // Once the isEditedPostNew changes from true to false, let's clear the auto-draft autosave.
+  const wasEditedPostNew = (0,external_wp_compose_namespaceObject.usePrevious)(isEditedPostNew);
+  const prevPostId = (0,external_wp_compose_namespaceObject.usePrevious)(postId);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (prevPostId === postId && wasEditedPostNew && !isEditedPostNew) {
+      localAutosaveClear(postId, true);
+    }
+  }, [isEditedPostNew, postId]);
+}
+function LocalAutosaveMonitor() {
+  const {
+    autosave
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const deferredAutosave = (0,external_wp_element_namespaceObject.useCallback)(() => {
+    requestIdleCallback(() => autosave({
+      local: true
+    }));
+  }, []);
+  useAutosaveNotice();
+  useAutosavePurge();
+  const localAutosaveInterval = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getEditorSettings().localAutosaveInterval, []);
+  return (0,external_React_.createElement)(autosave_monitor, {
+    interval: localAutosaveInterval,
+    autosave: deferredAutosave
+  });
+}
+/* harmony default export */ var local_autosave_monitor = ((0,external_wp_compose_namespaceObject.ifCondition)(hasSessionStorageSupport)(LocalAutosaveMonitor));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/page-attributes/check.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PageAttributesCheck({
+  children
+}) {
+  const supportsPageAttributes = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEditedPostAttribute
+    } = select(store_store);
+    const {
+      getPostType
+    } = select(external_wp_coreData_namespaceObject.store);
+    const postType = getPostType(getEditedPostAttribute('type'));
+    return !!postType?.supports?.['page-attributes'];
+  }, []);
+
+  // Only render fields if post type supports page attributes or available templates exist.
+  if (!supportsPageAttributes) {
+    return null;
+  }
+  return children;
+}
+/* harmony default export */ var page_attributes_check = (PageAttributesCheck);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-type-support-check/index.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * A component which renders its own children only if the current editor post
+ * type supports one of the given `supportKeys` prop.
+ *
+ * @param {Object}            props             Props.
+ * @param {Element}           props.children    Children to be rendered if post
+ *                                              type supports.
+ * @param {(string|string[])} props.supportKeys String or string array of keys
+ *                                              to test.
+ *
+ * @return {Component} The component to be rendered.
+ */
+function PostTypeSupportCheck({
+  children,
+  supportKeys
+}) {
+  const postType = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEditedPostAttribute
+    } = select(store_store);
+    const {
+      getPostType
+    } = select(external_wp_coreData_namespaceObject.store);
+    return getPostType(getEditedPostAttribute('type'));
+  }, []);
+  let isSupported = true;
+  if (postType) {
+    isSupported = (Array.isArray(supportKeys) ? supportKeys : [supportKeys]).some(key => !!postType.supports[key]);
+  }
+  if (!isSupported) {
+    return null;
+  }
+  return children;
+}
+/* harmony default export */ var post_type_support_check = (PostTypeSupportCheck);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/page-attributes/order.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function PageAttributesOrder() {
+  const order = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _select$getEditedPost;
+    return (_select$getEditedPost = select(store_store).getEditedPostAttribute('menu_order')) !== null && _select$getEditedPost !== void 0 ? _select$getEditedPost : 0;
+  }, []);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const [orderInput, setOrderInput] = (0,external_wp_element_namespaceObject.useState)(null);
+  const setUpdatedOrder = value => {
+    setOrderInput(value);
+    const newOrder = Number(value);
+    if (Number.isInteger(newOrder) && value.trim?.() !== '') {
+      editPost({
+        menu_order: newOrder
+      });
+    }
+  };
+  const value = orderInput !== null && orderInput !== void 0 ? orderInput : order;
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Flex, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.FlexBlock, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.__experimentalNumberControl, {
+    __next40pxDefaultSize: true,
+    label: (0,external_wp_i18n_namespaceObject.__)('Order'),
+    value: value,
+    onChange: setUpdatedOrder,
+    labelPosition: "side",
+    onBlur: () => {
+      setOrderInput(null);
+    }
+  })));
+}
+function PageAttributesOrderWithChecks() {
+  return (0,external_React_.createElement)(post_type_support_check, {
+    supportKeys: "page-attributes"
+  }, (0,external_React_.createElement)(PageAttributesOrder, null));
+}
+
+// EXTERNAL MODULE: ./node_modules/remove-accents/index.js
+var remove_accents = __webpack_require__(4793);
+var remove_accents_default = /*#__PURE__*/__webpack_require__.n(remove_accents);
+;// CONCATENATED MODULE: ./packages/editor/build-module/utils/terms.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Returns terms in a tree form.
+ *
+ * @param {Array} flatTerms Array of terms in flat format.
+ *
+ * @return {Array} Array of terms in tree format.
+ */
+function buildTermsTree(flatTerms) {
+  const flatTermsWithParentAndChildren = flatTerms.map(term => {
+    return {
+      children: [],
+      parent: null,
+      ...term
+    };
+  });
+
+  // All terms should have a `parent` because we're about to index them by it.
+  if (flatTermsWithParentAndChildren.some(({
+    parent
+  }) => parent === null)) {
+    return flatTermsWithParentAndChildren;
+  }
+  const termsByParent = flatTermsWithParentAndChildren.reduce((acc, term) => {
+    const {
+      parent
+    } = term;
+    if (!acc[parent]) {
+      acc[parent] = [];
+    }
+    acc[parent].push(term);
+    return acc;
+  }, {});
+  const fillWithChildren = terms => {
+    return terms.map(term => {
+      const children = termsByParent[term.id];
+      return {
+        ...term,
+        children: children && children.length ? fillWithChildren(children) : []
+      };
+    });
+  };
+  return fillWithChildren(termsByParent['0'] || []);
+}
+const unescapeString = arg => {
+  return (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(arg);
+};
+
+/**
+ * Returns a term object with name unescaped.
+ *
+ * @param {Object} term The term object to unescape.
+ *
+ * @return {Object} Term object with name property unescaped.
+ */
+const unescapeTerm = term => {
+  return {
+    ...term,
+    name: unescapeString(term.name)
+  };
+};
+
+/**
+ * Returns an array of term objects with names unescaped.
+ * The unescape of each term is performed using the unescapeTerm function.
+ *
+ * @param {Object[]} terms Array of term objects to unescape.
+ *
+ * @return {Object[]} Array of term objects unescaped.
+ */
+const unescapeTerms = terms => {
+  return (terms !== null && terms !== void 0 ? terms : []).map(unescapeTerm);
+};
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/page-attributes/parent.js
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function getTitle(post) {
+  return post?.title?.rendered ? (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(post.title.rendered) : `#${post.id} (${(0,external_wp_i18n_namespaceObject.__)('no title')})`;
+}
+const getItemPriority = (name, searchValue) => {
+  const normalizedName = remove_accents_default()(name || '').toLowerCase();
+  const normalizedSearch = remove_accents_default()(searchValue || '').toLowerCase();
+  if (normalizedName === normalizedSearch) {
+    return 0;
+  }
+  if (normalizedName.startsWith(normalizedSearch)) {
+    return normalizedName.length;
+  }
+  return Infinity;
+};
+function PageAttributesParent() {
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const [fieldValue, setFieldValue] = (0,external_wp_element_namespaceObject.useState)(false);
+  const {
+    isHierarchical,
+    parentPostId,
+    parentPostTitle,
+    pageItems
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _pType$hierarchical;
+    const {
+      getPostType,
+      getEntityRecords,
+      getEntityRecord
+    } = select(external_wp_coreData_namespaceObject.store);
+    const {
+      getCurrentPostId,
+      getEditedPostAttribute
+    } = select(store_store);
+    const postTypeSlug = getEditedPostAttribute('type');
+    const pageId = getEditedPostAttribute('parent');
+    const pType = getPostType(postTypeSlug);
+    const postId = getCurrentPostId();
+    const postIsHierarchical = (_pType$hierarchical = pType?.hierarchical) !== null && _pType$hierarchical !== void 0 ? _pType$hierarchical : false;
+    const query = {
+      per_page: 100,
+      exclude: postId,
+      parent_exclude: postId,
+      orderby: 'menu_order',
+      order: 'asc',
+      _fields: 'id,title,parent'
+    };
+
+    // Perform a search when the field is changed.
+    if (!!fieldValue) {
+      query.search = fieldValue;
+    }
+    const parentPost = pageId ? getEntityRecord('postType', postTypeSlug, pageId) : null;
+    return {
+      isHierarchical: postIsHierarchical,
+      parentPostId: pageId,
+      parentPostTitle: parentPost ? getTitle(parentPost) : '',
+      pageItems: postIsHierarchical ? getEntityRecords('postType', postTypeSlug, query) : null
+    };
+  }, [fieldValue]);
+  const parentOptions = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const getOptionsFromTree = (tree, level = 0) => {
+      const mappedNodes = tree.map(treeNode => [{
+        value: treeNode.id,
+        label: '— '.repeat(level) + (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(treeNode.name),
+        rawName: treeNode.name
+      }, ...getOptionsFromTree(treeNode.children || [], level + 1)]);
+      const sortedNodes = mappedNodes.sort(([a], [b]) => {
+        const priorityA = getItemPriority(a.rawName, fieldValue);
+        const priorityB = getItemPriority(b.rawName, fieldValue);
+        return priorityA >= priorityB ? 1 : -1;
+      });
+      return sortedNodes.flat();
+    };
+    if (!pageItems) {
+      return [];
+    }
+    let tree = pageItems.map(item => ({
+      id: item.id,
+      parent: item.parent,
+      name: getTitle(item)
+    }));
+
+    // Only build a hierarchical tree when not searching.
+    if (!fieldValue) {
+      tree = buildTermsTree(tree);
+    }
+    const opts = getOptionsFromTree(tree);
+
+    // Ensure the current parent is in the options list.
+    const optsHasParent = opts.find(item => item.value === parentPostId);
+    if (parentPostTitle && !optsHasParent) {
+      opts.unshift({
+        value: parentPostId,
+        label: parentPostTitle
+      });
+    }
+    return opts;
+  }, [pageItems, fieldValue, parentPostTitle, parentPostId]);
+  if (!isHierarchical) {
+    return null;
+  }
+  /**
+   * Handle user input.
+   *
+   * @param {string} inputValue The current value of the input field.
+   */
+  const handleKeydown = inputValue => {
+    setFieldValue(inputValue);
+  };
+
+  /**
+   * Handle author selection.
+   *
+   * @param {Object} selectedPostId The selected Author.
+   */
+  const handleChange = selectedPostId => {
+    editPost({
+      parent: selectedPostId
+    });
+  };
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.ComboboxControl, {
+    __nextHasNoMarginBottom: true,
+    __next40pxDefaultSize: true,
+    className: "editor-page-attributes__parent",
+    label: (0,external_wp_i18n_namespaceObject.__)('Parent'),
+    value: parentPostId,
+    options: parentOptions,
+    onFilterValueChange: (0,external_wp_compose_namespaceObject.debounce)(handleKeydown, 300),
+    onChange: handleChange
+  });
+}
+/* harmony default export */ var page_attributes_parent = (PageAttributesParent);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-template/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostTemplate() {
+  const {
+    availableTemplates,
+    selectedTemplate,
+    isViewable
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _getPostType$viewable;
+    const {
+      getEditedPostAttribute,
+      getEditorSettings,
+      getCurrentPostType
+    } = select(store_store);
+    const {
+      getPostType
+    } = select(external_wp_coreData_namespaceObject.store);
+    return {
+      selectedTemplate: getEditedPostAttribute('template'),
+      availableTemplates: getEditorSettings().availableTemplates,
+      isViewable: (_getPostType$viewable = getPostType(getCurrentPostType())?.viewable) !== null && _getPostType$viewable !== void 0 ? _getPostType$viewable : false
+    };
+  }, []);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  if (!isViewable || !availableTemplates || !Object.keys(availableTemplates).length) {
+    return null;
+  }
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
+    label: (0,external_wp_i18n_namespaceObject.__)('Template:'),
+    value: selectedTemplate,
+    onChange: templateSlug => {
+      editPost({
+        template: templateSlug || ''
+      });
+    },
+    options: Object.entries(availableTemplates !== null && availableTemplates !== void 0 ? availableTemplates : {}).map(([templateSlug, templateName]) => ({
+      value: templateSlug,
+      label: templateName
+    }))
+  });
+}
+/* harmony default export */ var post_template = (PostTemplate);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/constants.js
+const AUTHORS_QUERY = {
+  who: 'authors',
+  per_page: 50,
+  _fields: 'id,name',
+  context: 'view' // Allows non-admins to perform requests.
+};
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/combobox.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function PostAuthorCombobox() {
+  const [fieldValue, setFieldValue] = (0,external_wp_element_namespaceObject.useState)();
+  const {
+    authorId,
+    isLoading,
+    authors,
+    postAuthor
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getUser,
+      getUsers,
+      isResolving
+    } = select(external_wp_coreData_namespaceObject.store);
+    const {
+      getEditedPostAttribute
+    } = select(store_store);
+    const author = getUser(getEditedPostAttribute('author'), {
+      context: 'view'
+    });
+    const query = {
+      ...AUTHORS_QUERY
+    };
+    if (fieldValue) {
+      query.search = fieldValue;
+    }
+    return {
+      authorId: getEditedPostAttribute('author'),
+      postAuthor: author,
+      authors: getUsers(query),
+      isLoading: isResolving('core', 'getUsers', [query])
+    };
+  }, [fieldValue]);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const authorOptions = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const fetchedAuthors = (authors !== null && authors !== void 0 ? authors : []).map(author => {
+      return {
+        value: author.id,
+        label: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(author.name)
+      };
+    });
+
+    // Ensure the current author is included in the dropdown list.
+    const foundAuthor = fetchedAuthors.findIndex(({
+      value
+    }) => postAuthor?.id === value);
+    if (foundAuthor < 0 && postAuthor) {
+      return [{
+        value: postAuthor.id,
+        label: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(postAuthor.name)
+      }, ...fetchedAuthors];
+    }
+    return fetchedAuthors;
+  }, [authors, postAuthor]);
+
+  /**
+   * Handle author selection.
+   *
+   * @param {number} postAuthorId The selected Author.
+   */
+  const handleSelect = postAuthorId => {
+    if (!postAuthorId) {
+      return;
+    }
+    editPost({
+      author: postAuthorId
+    });
+  };
+
+  /**
+   * Handle user input.
+   *
+   * @param {string} inputValue The current value of the input field.
+   */
+  const handleKeydown = inputValue => {
+    setFieldValue(inputValue);
+  };
+  if (!postAuthor) {
+    return null;
+  }
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.ComboboxControl, {
+    __nextHasNoMarginBottom: true,
+    __next40pxDefaultSize: true,
+    label: (0,external_wp_i18n_namespaceObject.__)('Author'),
+    options: authorOptions,
+    value: authorId,
+    onFilterValueChange: (0,external_wp_compose_namespaceObject.debounce)(handleKeydown, 300),
+    onChange: handleSelect,
+    isLoading: isLoading,
+    allowReset: false
+  });
+}
+/* harmony default export */ var combobox = (PostAuthorCombobox);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/select.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function PostAuthorSelect() {
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const {
+    postAuthor,
+    authors
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    return {
+      postAuthor: select(store_store).getEditedPostAttribute('author'),
+      authors: select(external_wp_coreData_namespaceObject.store).getUsers(AUTHORS_QUERY)
+    };
+  }, []);
+  const authorOptions = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return (authors !== null && authors !== void 0 ? authors : []).map(author => {
+      return {
+        value: author.id,
+        label: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(author.name)
+      };
+    });
+  }, [authors]);
+  const setAuthorId = value => {
+    const author = Number(value);
+    editPost({
+      author
+    });
+  };
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __next40pxDefaultSize: true,
+    __nextHasNoMarginBottom: true,
+    className: "post-author-selector",
+    label: (0,external_wp_i18n_namespaceObject.__)('Author'),
+    options: authorOptions,
+    onChange: setAuthorId,
+    value: postAuthor
+  });
+}
+/* harmony default export */ var post_author_select = (PostAuthorSelect);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const minimumUsersForCombobox = 25;
+function PostAuthor() {
+  const showCombobox = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const authors = select(external_wp_coreData_namespaceObject.store).getUsers(AUTHORS_QUERY);
+    return authors?.length >= minimumUsersForCombobox;
+  }, []);
+  if (showCombobox) {
+    return (0,external_React_.createElement)(combobox, null);
+  }
+  return (0,external_React_.createElement)(post_author_select, null);
+}
+/* harmony default export */ var post_author = (PostAuthor);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/check.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function PostAuthorCheck({
+  children
+}) {
+  const {
+    hasAssignAuthorAction,
+    hasAuthors
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _post$_links$wpActio;
+    const post = select(store_store).getCurrentPost();
+    const authors = select(external_wp_coreData_namespaceObject.store).getUsers(AUTHORS_QUERY);
+    return {
+      hasAssignAuthorAction: (_post$_links$wpActio = post._links?.['wp:action-assign-author']) !== null && _post$_links$wpActio !== void 0 ? _post$_links$wpActio : false,
+      hasAuthors: authors?.length >= 1
+    };
+  }, []);
+  if (!hasAssignAuthorAction || !hasAuthors) {
+    return null;
+  }
+  return (0,external_React_.createElement)(post_type_support_check, {
+    supportKeys: "author"
+  }, children);
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-panel-row/index.js
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+const PostPanelRow = (0,external_wp_element_namespaceObject.forwardRef)(({
+  className,
+  label,
+  children
+}, ref) => {
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    className: classnames_default()('editor-post-panel__row', className),
+    ref: ref
+  }, label && (0,external_React_.createElement)("div", {
+    className: "editor-post-panel__row-label"
+  }, label), (0,external_React_.createElement)("div", {
+    className: "editor-post-panel__row-control"
+  }, children));
+});
+/* harmony default export */ var post_panel_row = (PostPanelRow);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/panel.js
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function panel_PostAuthor() {
+  return (0,external_React_.createElement)(PostAuthorCheck, null, (0,external_React_.createElement)(post_panel_row, {
+    className: "editor-post-author__panel"
+  }, (0,external_React_.createElement)(post_author, null)));
+}
+/* harmony default export */ var panel = (panel_PostAuthor);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-comments/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostComments() {
+  const commentStatus = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _select$getEditedPost;
+    return (_select$getEditedPost = select(store_store).getEditedPostAttribute('comment_status')) !== null && _select$getEditedPost !== void 0 ? _select$getEditedPost : 'open';
+  }, []);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const onToggleComments = () => editPost({
+    comment_status: commentStatus === 'open' ? 'closed' : 'open'
+  });
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
+    __nextHasNoMarginBottom: true,
+    label: (0,external_wp_i18n_namespaceObject.__)('Allow comments'),
+    checked: commentStatus === 'open',
+    onChange: onToggleComments
+  });
+}
+/* harmony default export */ var post_comments = (PostComments);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-excerpt/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostExcerpt() {
+  const excerpt = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getEditedPostAttribute('excerpt'), []);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  return (0,external_React_.createElement)("div", {
+    className: "editor-post-excerpt"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.TextareaControl, {
+    __nextHasNoMarginBottom: true,
+    label: (0,external_wp_i18n_namespaceObject.__)('Write an excerpt (optional)'),
+    className: "editor-post-excerpt__textarea",
+    onChange: value => editPost({
+      excerpt: value
+    }),
+    value: excerpt
+  }), (0,external_React_.createElement)(external_wp_components_namespaceObject.ExternalLink, {
+    href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/documentation/article/page-post-settings-sidebar/#excerpt')
+  }, (0,external_wp_i18n_namespaceObject.__)('Learn more about manual excerpts')));
+}
+/* harmony default export */ var post_excerpt = (PostExcerpt);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-excerpt/check.js
+
+/**
+ * Internal dependencies
+ */
+
+function PostExcerptCheck({
+  children
+}) {
+  return (0,external_React_.createElement)(post_type_support_check, {
+    supportKeys: "excerpt"
+  }, children);
+}
+/* harmony default export */ var post_excerpt_check = (PostExcerptCheck);
+
+;// CONCATENATED MODULE: external ["wp","blob"]
+var external_wp_blob_namespaceObject = window["wp"]["blob"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/theme-support-check/index.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function ThemeSupportCheck({
+  themeSupports,
+  children,
+  postType,
+  supportKeys
+}) {
+  const isSupported = (Array.isArray(supportKeys) ? supportKeys : [supportKeys]).some(key => {
+    var _themeSupports$key;
+    const supported = (_themeSupports$key = themeSupports?.[key]) !== null && _themeSupports$key !== void 0 ? _themeSupports$key : false;
+    // 'post-thumbnails' can be boolean or an array of post types.
+    // In the latter case, we need to verify `postType` exists
+    // within `supported`. If `postType` isn't passed, then the check
+    // should fail.
+    if ('post-thumbnails' === key && Array.isArray(supported)) {
+      return supported.includes(postType);
+    }
+    return supported;
+  });
+  if (!isSupported) {
+    return null;
+  }
+  return children;
+}
+/* harmony default export */ var theme_support_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
+  const {
+    getThemeSupports
+  } = select(external_wp_coreData_namespaceObject.store);
+  const {
+    getEditedPostAttribute
+  } = select(store_store);
+  return {
+    postType: getEditedPostAttribute('type'),
+    themeSupports: getThemeSupports()
+  };
+})(ThemeSupportCheck));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-featured-image/check.js
+
+/**
+ * Internal dependencies
+ */
+
+
+function PostFeaturedImageCheck({
+  children
+}) {
+  return (0,external_React_.createElement)(theme_support_check, {
+    supportKeys: "post-thumbnails"
+  }, (0,external_React_.createElement)(post_type_support_check, {
+    supportKeys: "thumbnail"
+  }, children));
+}
+/* harmony default export */ var post_featured_image_check = (PostFeaturedImageCheck);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-featured-image/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const ALLOWED_MEDIA_TYPES = ['image'];
+
+// Used when labels from post type were not yet loaded or when they are not present.
+const DEFAULT_FEATURE_IMAGE_LABEL = (0,external_wp_i18n_namespaceObject.__)('Featured image');
+const DEFAULT_SET_FEATURE_IMAGE_LABEL = (0,external_wp_i18n_namespaceObject.__)('Set featured image');
+const instructions = (0,external_React_.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('To edit the featured image, you need permission to upload media.'));
+function getMediaDetails(media, postId) {
+  var _media$media_details$, _media$media_details$2;
+  if (!media) {
+    return {};
+  }
+  const defaultSize = (0,external_wp_hooks_namespaceObject.applyFilters)('editor.PostFeaturedImage.imageSize', 'large', media.id, postId);
+  if (defaultSize in ((_media$media_details$ = media?.media_details?.sizes) !== null && _media$media_details$ !== void 0 ? _media$media_details$ : {})) {
+    return {
+      mediaWidth: media.media_details.sizes[defaultSize].width,
+      mediaHeight: media.media_details.sizes[defaultSize].height,
+      mediaSourceUrl: media.media_details.sizes[defaultSize].source_url
+    };
+  }
+
+  // Use fallbackSize when defaultSize is not available.
+  const fallbackSize = (0,external_wp_hooks_namespaceObject.applyFilters)('editor.PostFeaturedImage.imageSize', 'thumbnail', media.id, postId);
+  if (fallbackSize in ((_media$media_details$2 = media?.media_details?.sizes) !== null && _media$media_details$2 !== void 0 ? _media$media_details$2 : {})) {
+    return {
+      mediaWidth: media.media_details.sizes[fallbackSize].width,
+      mediaHeight: media.media_details.sizes[fallbackSize].height,
+      mediaSourceUrl: media.media_details.sizes[fallbackSize].source_url
+    };
+  }
+
+  // Use full image size when fallbackSize and defaultSize are not available.
+  return {
+    mediaWidth: media.media_details.width,
+    mediaHeight: media.media_details.height,
+    mediaSourceUrl: media.source_url
+  };
+}
+function PostFeaturedImage({
+  currentPostId,
+  featuredImageId,
+  onUpdateImage,
+  onRemoveImage,
+  media,
+  postType,
+  noticeUI,
+  noticeOperations
+}) {
+  const toggleRef = (0,external_wp_element_namespaceObject.useRef)();
+  const [isLoading, setIsLoading] = (0,external_wp_element_namespaceObject.useState)(false);
+  const mediaUpload = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    return select(external_wp_blockEditor_namespaceObject.store).getSettings().mediaUpload;
+  }, []);
+  const {
+    mediaWidth,
+    mediaHeight,
+    mediaSourceUrl
+  } = getMediaDetails(media, currentPostId);
+  function onDropFiles(filesList) {
+    mediaUpload({
+      allowedTypes: ['image'],
+      filesList,
+      onFileChange([image]) {
+        if ((0,external_wp_blob_namespaceObject.isBlobURL)(image?.url)) {
+          setIsLoading(true);
+          return;
+        }
+        if (image) {
+          onUpdateImage(image);
+        }
+        setIsLoading(false);
+      },
+      onError(message) {
+        noticeOperations.removeAllNotices();
+        noticeOperations.createErrorNotice(message);
+      }
+    });
+  }
+  return (0,external_React_.createElement)(post_featured_image_check, null, noticeUI, (0,external_React_.createElement)("div", {
+    className: "editor-post-featured-image"
+  }, media && (0,external_React_.createElement)("div", {
+    id: `editor-post-featured-image-${featuredImageId}-describedby`,
+    className: "hidden"
+  }, media.alt_text && (0,external_wp_i18n_namespaceObject.sprintf)(
+  // Translators: %s: The selected image alt text.
+  (0,external_wp_i18n_namespaceObject.__)('Current image: %s'), media.alt_text), !media.alt_text && (0,external_wp_i18n_namespaceObject.sprintf)(
+  // Translators: %s: The selected image filename.
+  (0,external_wp_i18n_namespaceObject.__)('The current image has no alternative text. The file name is: %s'), media.media_details.sizes?.full?.file || media.slug)), (0,external_React_.createElement)(external_wp_blockEditor_namespaceObject.MediaUploadCheck, {
+    fallback: instructions
+  }, (0,external_React_.createElement)(external_wp_blockEditor_namespaceObject.MediaUpload, {
+    title: postType?.labels?.featured_image || DEFAULT_FEATURE_IMAGE_LABEL,
+    onSelect: onUpdateImage,
+    unstableFeaturedImageFlow: true,
+    allowedTypes: ALLOWED_MEDIA_TYPES,
+    modalClass: "editor-post-featured-image__media-modal",
+    render: ({
+      open
+    }) => (0,external_React_.createElement)("div", {
+      className: "editor-post-featured-image__container"
+    }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+      ref: toggleRef,
+      className: !featuredImageId ? 'editor-post-featured-image__toggle' : 'editor-post-featured-image__preview',
+      onClick: open,
+      "aria-label": !featuredImageId ? null : (0,external_wp_i18n_namespaceObject.__)('Edit or replace the image'),
+      "aria-describedby": !featuredImageId ? null : `editor-post-featured-image-${featuredImageId}-describedby`
+    }, !!featuredImageId && media && (0,external_React_.createElement)(external_wp_components_namespaceObject.ResponsiveWrapper, {
+      naturalWidth: mediaWidth,
+      naturalHeight: mediaHeight,
+      isInline: true
+    }, (0,external_React_.createElement)("img", {
+      src: mediaSourceUrl,
+      alt: ""
+    })), isLoading && (0,external_React_.createElement)(external_wp_components_namespaceObject.Spinner, null), !featuredImageId && !isLoading && (postType?.labels?.set_featured_image || DEFAULT_SET_FEATURE_IMAGE_LABEL)), !!featuredImageId && (0,external_React_.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+      className: "editor-post-featured-image__actions"
+    }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+      className: "editor-post-featured-image__action",
+      onClick: open
+      // Prefer that screen readers use the .editor-post-featured-image__preview button.
+      ,
+      "aria-hidden": "true"
+    }, (0,external_wp_i18n_namespaceObject.__)('Replace')), (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+      className: "editor-post-featured-image__action",
+      onClick: () => {
+        onRemoveImage();
+        toggleRef.current.focus();
+      }
+    }, (0,external_wp_i18n_namespaceObject.__)('Remove'))), (0,external_React_.createElement)(external_wp_components_namespaceObject.DropZone, {
+      onFilesDrop: onDropFiles
+    })),
+    value: featuredImageId
+  }))));
+}
+const applyWithSelect = (0,external_wp_data_namespaceObject.withSelect)(select => {
+  const {
+    getMedia,
+    getPostType
+  } = select(external_wp_coreData_namespaceObject.store);
+  const {
+    getCurrentPostId,
+    getEditedPostAttribute
+  } = select(store_store);
+  const featuredImageId = getEditedPostAttribute('featured_media');
+  return {
+    media: featuredImageId ? getMedia(featuredImageId, {
+      context: 'view'
+    }) : null,
+    currentPostId: getCurrentPostId(),
+    postType: getPostType(getEditedPostAttribute('type')),
+    featuredImageId
+  };
+});
+const applyWithDispatch = (0,external_wp_data_namespaceObject.withDispatch)((dispatch, {
+  noticeOperations
+}, {
+  select
+}) => {
+  const {
+    editPost
+  } = dispatch(store_store);
+  return {
+    onUpdateImage(image) {
+      editPost({
+        featured_media: image.id
+      });
+    },
+    onDropImage(filesList) {
+      select(external_wp_blockEditor_namespaceObject.store).getSettings().mediaUpload({
+        allowedTypes: ['image'],
+        filesList,
+        onFileChange([image]) {
+          editPost({
+            featured_media: image.id
+          });
+        },
+        onError(message) {
+          noticeOperations.removeAllNotices();
+          noticeOperations.createErrorNotice(message);
+        }
+      });
+    },
+    onRemoveImage() {
+      editPost({
+        featured_media: 0
+      });
+    }
+  };
+});
+/* harmony default export */ var post_featured_image = ((0,external_wp_compose_namespaceObject.compose)(external_wp_components_namespaceObject.withNotices, applyWithSelect, applyWithDispatch, (0,external_wp_components_namespaceObject.withFilters)('editor.PostFeaturedImage'))(PostFeaturedImage));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-format/check.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function PostFormatCheck({
+  children
+}) {
+  const disablePostFormats = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getEditorSettings().disablePostFormats, []);
+  if (disablePostFormats) {
+    return null;
+  }
+  return (0,external_React_.createElement)(post_type_support_check, {
+    supportKeys: "post-formats"
+  }, children);
+}
+/* harmony default export */ var post_format_check = (PostFormatCheck);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-format/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+// All WP post formats, sorted alphabetically by translated name.
+const POST_FORMATS = [{
+  id: 'aside',
+  caption: (0,external_wp_i18n_namespaceObject.__)('Aside')
+}, {
+  id: 'audio',
+  caption: (0,external_wp_i18n_namespaceObject.__)('Audio')
+}, {
+  id: 'chat',
+  caption: (0,external_wp_i18n_namespaceObject.__)('Chat')
+}, {
+  id: 'gallery',
+  caption: (0,external_wp_i18n_namespaceObject.__)('Gallery')
+}, {
+  id: 'image',
+  caption: (0,external_wp_i18n_namespaceObject.__)('Image')
+}, {
+  id: 'link',
+  caption: (0,external_wp_i18n_namespaceObject.__)('Link')
+}, {
+  id: 'quote',
+  caption: (0,external_wp_i18n_namespaceObject.__)('Quote')
+}, {
+  id: 'standard',
+  caption: (0,external_wp_i18n_namespaceObject.__)('Standard')
+}, {
+  id: 'status',
+  caption: (0,external_wp_i18n_namespaceObject.__)('Status')
+}, {
+  id: 'video',
+  caption: (0,external_wp_i18n_namespaceObject.__)('Video')
+}].sort((a, b) => {
+  const normalizedA = a.caption.toUpperCase();
+  const normalizedB = b.caption.toUpperCase();
+  if (normalizedA < normalizedB) {
+    return -1;
+  }
+  if (normalizedA > normalizedB) {
+    return 1;
+  }
+  return 0;
+});
+function PostFormat() {
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(PostFormat);
+  const postFormatSelectorId = `post-format-selector-${instanceId}`;
+  const {
+    postFormat,
+    suggestedFormat,
+    supportedFormats
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEditedPostAttribute,
+      getSuggestedPostFormat
+    } = select(store_store);
+    const _postFormat = getEditedPostAttribute('format');
+    const themeSupports = select(external_wp_coreData_namespaceObject.store).getThemeSupports();
+    return {
+      postFormat: _postFormat !== null && _postFormat !== void 0 ? _postFormat : 'standard',
+      suggestedFormat: getSuggestedPostFormat(),
+      supportedFormats: themeSupports.formats
+    };
+  }, []);
+  const formats = POST_FORMATS.filter(format => {
+    // Ensure current format is always in the set.
+    // The current format may not be a format supported by the theme.
+    return supportedFormats?.includes(format.id) || postFormat === format.id;
+  });
+  const suggestion = formats.find(format => format.id === suggestedFormat);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const onUpdatePostFormat = format => editPost({
+    format
+  });
+  return (0,external_React_.createElement)(post_format_check, null, (0,external_React_.createElement)("div", {
+    className: "editor-post-format"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
+    label: (0,external_wp_i18n_namespaceObject.__)('Post Format'),
+    value: postFormat,
+    onChange: format => onUpdatePostFormat(format),
+    id: postFormatSelectorId,
+    options: formats.map(format => ({
+      label: format.caption,
+      value: format.id
+    }))
+  }), suggestion && suggestion.id !== postFormat && (0,external_React_.createElement)("p", {
+    className: "editor-post-format__suggestion"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "link",
+    onClick: () => onUpdatePostFormat(suggestion.id)
+  }, (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %s: post format */
+  (0,external_wp_i18n_namespaceObject.__)('Apply suggested format: %s'), suggestion.caption)))));
+}
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/backup.js
+
+/**
+ * WordPress dependencies
+ */
+
+const backup = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M5.5 12h1.75l-2.5 3-2.5-3H4a8 8 0 113.134 6.35l.907-1.194A6.5 6.5 0 105.5 12zm9.53 1.97l-2.28-2.28V8.5a.75.75 0 00-1.5 0V12a.747.747 0 00.218.529l1.282-.84-1.28.842 2.5 2.5a.75.75 0 101.06-1.061z"
+}));
+/* harmony default export */ var library_backup = (backup);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-last-revision/check.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function PostLastRevisionCheck({
+  children
+}) {
+  const {
+    lastRevisionId,
+    revisionsCount
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getCurrentPostLastRevisionId,
+      getCurrentPostRevisionsCount
+    } = select(store_store);
+    return {
+      lastRevisionId: getCurrentPostLastRevisionId(),
+      revisionsCount: getCurrentPostRevisionsCount()
+    };
+  }, []);
+  if (!lastRevisionId || revisionsCount < 2) {
+    return null;
+  }
+  return (0,external_React_.createElement)(post_type_support_check, {
+    supportKeys: "revisions"
+  }, children);
+}
+/* harmony default export */ var post_last_revision_check = (PostLastRevisionCheck);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-last-revision/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function LastRevision() {
+  const {
+    lastRevisionId,
+    revisionsCount
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getCurrentPostLastRevisionId,
+      getCurrentPostRevisionsCount
+    } = select(store_store);
+    return {
+      lastRevisionId: getCurrentPostLastRevisionId(),
+      revisionsCount: getCurrentPostRevisionsCount()
+    };
+  }, []);
+  return (0,external_React_.createElement)(post_last_revision_check, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    href: (0,external_wp_url_namespaceObject.addQueryArgs)('revision.php', {
+      revision: lastRevisionId
+    }),
+    className: "editor-post-last-revision__title",
+    icon: library_backup
+  }, (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %d: number of revisions */
+  (0,external_wp_i18n_namespaceObject._n)('%d Revision', '%d Revisions', revisionsCount), revisionsCount)));
+}
+/* harmony default export */ var post_last_revision = (LastRevision);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-locked-modal/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostLockedModal() {
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(PostLockedModal);
+  const hookName = 'core/editor/post-locked-modal-' + instanceId;
+  const {
+    autosave,
+    updatePostLock
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const {
+    isLocked,
+    isTakeover,
+    user,
+    postId,
+    postLockUtils,
+    activePostLock,
+    postType,
+    previewLink
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      isPostLocked,
+      isPostLockTakeover,
+      getPostLockUser,
+      getCurrentPostId,
+      getActivePostLock,
+      getEditedPostAttribute,
+      getEditedPostPreviewLink,
+      getEditorSettings
+    } = select(store_store);
+    const {
+      getPostType
+    } = select(external_wp_coreData_namespaceObject.store);
+    return {
+      isLocked: isPostLocked(),
+      isTakeover: isPostLockTakeover(),
+      user: getPostLockUser(),
+      postId: getCurrentPostId(),
+      postLockUtils: getEditorSettings().postLockUtils,
+      activePostLock: getActivePostLock(),
+      postType: getPostType(getEditedPostAttribute('type')),
+      previewLink: getEditedPostPreviewLink()
+    };
+  }, []);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    /**
+     * Keep the lock refreshed.
+     *
+     * When the user does not send a heartbeat in a heartbeat-tick
+     * the user is no longer editing and another user can start editing.
+     *
+     * @param {Object} data Data to send in the heartbeat request.
+     */
+    function sendPostLock(data) {
+      if (isLocked) {
+        return;
+      }
+      data['wp-refresh-post-lock'] = {
+        lock: activePostLock,
+        post_id: postId
+      };
+    }
+
+    /**
+     * Refresh post locks: update the lock string or show the dialog if somebody has taken over editing.
+     *
+     * @param {Object} data Data received in the heartbeat request
+     */
+    function receivePostLock(data) {
+      if (!data['wp-refresh-post-lock']) {
+        return;
+      }
+      const received = data['wp-refresh-post-lock'];
+      if (received.lock_error) {
+        // Auto save and display the takeover modal.
+        autosave();
+        updatePostLock({
+          isLocked: true,
+          isTakeover: true,
+          user: {
+            name: received.lock_error.name,
+            avatar: received.lock_error.avatar_src_2x
+          }
+        });
+      } else if (received.new_lock) {
+        updatePostLock({
+          isLocked: false,
+          activePostLock: received.new_lock
+        });
+      }
+    }
+
+    /**
+     * Unlock the post before the window is exited.
+     */
+    function releasePostLock() {
+      if (isLocked || !activePostLock) {
+        return;
+      }
+      const data = new window.FormData();
+      data.append('action', 'wp-remove-post-lock');
+      data.append('_wpnonce', postLockUtils.unlockNonce);
+      data.append('post_ID', postId);
+      data.append('active_post_lock', activePostLock);
+      if (window.navigator.sendBeacon) {
+        window.navigator.sendBeacon(postLockUtils.ajaxUrl, data);
+      } else {
+        const xhr = new window.XMLHttpRequest();
+        xhr.open('POST', postLockUtils.ajaxUrl, false);
+        xhr.send(data);
+      }
+    }
+
+    // Details on these events on the Heartbeat API docs
+    // https://developer.wordpress.org/plugins/javascript/heartbeat-api/
+    (0,external_wp_hooks_namespaceObject.addAction)('heartbeat.send', hookName, sendPostLock);
+    (0,external_wp_hooks_namespaceObject.addAction)('heartbeat.tick', hookName, receivePostLock);
+    window.addEventListener('beforeunload', releasePostLock);
+    return () => {
+      (0,external_wp_hooks_namespaceObject.removeAction)('heartbeat.send', hookName);
+      (0,external_wp_hooks_namespaceObject.removeAction)('heartbeat.tick', hookName);
+      window.removeEventListener('beforeunload', releasePostLock);
+    };
+  }, []);
+  if (!isLocked) {
+    return null;
+  }
+  const userDisplayName = user.name;
+  const userAvatar = user.avatar;
+  const unlockUrl = (0,external_wp_url_namespaceObject.addQueryArgs)('post.php', {
+    'get-post-lock': '1',
+    lockKey: true,
+    post: postId,
+    action: 'edit',
+    _wpnonce: postLockUtils.nonce
+  });
+  const allPostsUrl = (0,external_wp_url_namespaceObject.addQueryArgs)('edit.php', {
+    post_type: postType?.slug
+  });
+  const allPostsLabel = (0,external_wp_i18n_namespaceObject.__)('Exit editor');
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Modal, {
+    title: isTakeover ? (0,external_wp_i18n_namespaceObject.__)('Someone else has taken over this post') : (0,external_wp_i18n_namespaceObject.__)('This post is already being edited'),
+    focusOnMount: true,
+    shouldCloseOnClickOutside: false,
+    shouldCloseOnEsc: false,
+    isDismissible: false,
+    className: "editor-post-locked-modal"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    alignment: "top",
+    spacing: 6
+  }, !!userAvatar && (0,external_React_.createElement)("img", {
+    src: userAvatar,
+    alt: (0,external_wp_i18n_namespaceObject.__)('Avatar'),
+    className: "editor-post-locked-modal__avatar",
+    width: 64,
+    height: 64
+  }), (0,external_React_.createElement)("div", null, !!isTakeover && (0,external_React_.createElement)("p", null, (0,external_wp_element_namespaceObject.createInterpolateElement)(userDisplayName ? (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %s: user's display name */
+  (0,external_wp_i18n_namespaceObject.__)('<strong>%s</strong> now has editing control of this post (<PreviewLink />). Don’t worry, your changes up to this moment have been saved.'), userDisplayName) : (0,external_wp_i18n_namespaceObject.__)('Another user now has editing control of this post (<PreviewLink />). Don’t worry, your changes up to this moment have been saved.'), {
+    strong: (0,external_React_.createElement)("strong", null),
+    PreviewLink: (0,external_React_.createElement)(external_wp_components_namespaceObject.ExternalLink, {
+      href: previewLink
+    }, (0,external_wp_i18n_namespaceObject.__)('preview'))
+  })), !isTakeover && (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)("p", null, (0,external_wp_element_namespaceObject.createInterpolateElement)(userDisplayName ? (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %s: user's display name */
+  (0,external_wp_i18n_namespaceObject.__)('<strong>%s</strong> is currently working on this post (<PreviewLink />), which means you cannot make changes, unless you take over.'), userDisplayName) : (0,external_wp_i18n_namespaceObject.__)('Another user is currently working on this post (<PreviewLink />), which means you cannot make changes, unless you take over.'), {
+    strong: (0,external_React_.createElement)("strong", null),
+    PreviewLink: (0,external_React_.createElement)(external_wp_components_namespaceObject.ExternalLink, {
+      href: previewLink
+    }, (0,external_wp_i18n_namespaceObject.__)('preview'))
+  })), (0,external_React_.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('If you take over, the other user will lose editing control to the post, but their changes will be saved.'))), (0,external_React_.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    className: "editor-post-locked-modal__buttons",
+    justify: "flex-end"
+  }, !isTakeover && (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "tertiary",
+    href: unlockUrl
+  }, (0,external_wp_i18n_namespaceObject.__)('Take over')), (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "primary",
+    href: allPostsUrl
+  }, allPostsLabel)))));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-pending-status/check.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostPendingStatusCheck({
+  children
+}) {
+  const {
+    hasPublishAction,
+    isPublished
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _getCurrentPost$_link;
+    const {
+      isCurrentPostPublished,
+      getCurrentPost
+    } = select(store_store);
+    return {
+      hasPublishAction: (_getCurrentPost$_link = getCurrentPost()._links?.['wp:action-publish']) !== null && _getCurrentPost$_link !== void 0 ? _getCurrentPost$_link : false,
+      isPublished: isCurrentPostPublished()
+    };
+  }, []);
+  if (isPublished || !hasPublishAction) {
+    return null;
+  }
+  return children;
+}
+/* harmony default export */ var post_pending_status_check = (PostPendingStatusCheck);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-pending-status/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function PostPendingStatus() {
+  const status = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getEditedPostAttribute('status'), []);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const togglePendingStatus = () => {
+    const updatedStatus = status === 'pending' ? 'draft' : 'pending';
+    editPost({
+      status: updatedStatus
+    });
+  };
+  return (0,external_React_.createElement)(post_pending_status_check, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
+    __nextHasNoMarginBottom: true,
+    label: (0,external_wp_i18n_namespaceObject.__)('Pending review'),
+    checked: status === 'pending',
+    onChange: togglePendingStatus
+  }));
+}
+/* harmony default export */ var post_pending_status = (PostPendingStatus);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-pingbacks/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostPingbacks() {
+  const pingStatus = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _select$getEditedPost;
+    return (_select$getEditedPost = select(store_store).getEditedPostAttribute('ping_status')) !== null && _select$getEditedPost !== void 0 ? _select$getEditedPost : 'open';
+  }, []);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const onTogglePingback = () => editPost({
+    ping_status: pingStatus === 'open' ? 'closed' : 'open'
+  });
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
+    __nextHasNoMarginBottom: true,
+    label: (0,external_wp_i18n_namespaceObject.__)('Allow pingbacks & trackbacks'),
+    checked: pingStatus === 'open',
+    onChange: onTogglePingback
+  });
+}
+/* harmony default export */ var post_pingbacks = (PostPingbacks);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-preview-button/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function writeInterstitialMessage(targetDocument) {
+  let markup = (0,external_wp_element_namespaceObject.renderToString)((0,external_React_.createElement)("div", {
+    className: "editor-post-preview-button__interstitial-message"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.SVG, {
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 96 96"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Path, {
+    className: "outer",
+    d: "M48 12c19.9 0 36 16.1 36 36S67.9 84 48 84 12 67.9 12 48s16.1-36 36-36",
+    fill: "none"
+  }), (0,external_React_.createElement)(external_wp_components_namespaceObject.Path, {
+    className: "inner",
+    d: "M69.5 46.4c0-3.9-1.4-6.7-2.6-8.8-1.6-2.6-3.1-4.9-3.1-7.5 0-2.9 2.2-5.7 5.4-5.7h.4C63.9 19.2 56.4 16 48 16c-11.2 0-21 5.7-26.7 14.4h2.1c3.3 0 8.5-.4 8.5-.4 1.7-.1 1.9 2.4.2 2.6 0 0-1.7.2-3.7.3L40 67.5l7-20.9L42 33c-1.7-.1-3.3-.3-3.3-.3-1.7-.1-1.5-2.7.2-2.6 0 0 5.3.4 8.4.4 3.3 0 8.5-.4 8.5-.4 1.7-.1 1.9 2.4.2 2.6 0 0-1.7.2-3.7.3l11.5 34.3 3.3-10.4c1.6-4.5 2.4-7.8 2.4-10.5zM16.1 48c0 12.6 7.3 23.5 18 28.7L18.8 35c-1.7 4-2.7 8.4-2.7 13zm32.5 2.8L39 78.6c2.9.8 5.9 1.3 9 1.3 3.7 0 7.3-.6 10.6-1.8-.1-.1-.2-.3-.2-.4l-9.8-26.9zM76.2 36c0 3.2-.6 6.9-2.4 11.4L64 75.6c9.5-5.5 15.9-15.8 15.9-27.6 0-5.5-1.4-10.8-3.9-15.3.1 1 .2 2.1.2 3.3z",
+    fill: "none"
+  })), (0,external_React_.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Generating preview…'))));
+  markup += `
+		<style>
+			body {
+				margin: 0;
+			}
+			.editor-post-preview-button__interstitial-message {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+				width: 100vw;
+			}
+			@-webkit-keyframes paint {
+				0% {
+					stroke-dashoffset: 0;
+				}
+			}
+			@-moz-keyframes paint {
+				0% {
+					stroke-dashoffset: 0;
+				}
+			}
+			@-o-keyframes paint {
+				0% {
+					stroke-dashoffset: 0;
+				}
+			}
+			@keyframes paint {
+				0% {
+					stroke-dashoffset: 0;
+				}
+			}
+			.editor-post-preview-button__interstitial-message svg {
+				width: 192px;
+				height: 192px;
+				stroke: #555d66;
+				stroke-width: 0.75;
+			}
+			.editor-post-preview-button__interstitial-message svg .outer,
+			.editor-post-preview-button__interstitial-message svg .inner {
+				stroke-dasharray: 280;
+				stroke-dashoffset: 280;
+				-webkit-animation: paint 1.5s ease infinite alternate;
+				-moz-animation: paint 1.5s ease infinite alternate;
+				-o-animation: paint 1.5s ease infinite alternate;
+				animation: paint 1.5s ease infinite alternate;
+			}
+			p {
+				text-align: center;
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+			}
+		</style>
+	`;
+
+  /**
+   * Filters the interstitial message shown when generating previews.
+   *
+   * @param {string} markup The preview interstitial markup.
+   */
+  markup = (0,external_wp_hooks_namespaceObject.applyFilters)('editor.PostPreview.interstitialMarkup', markup);
+  targetDocument.write(markup);
+  targetDocument.title = (0,external_wp_i18n_namespaceObject.__)('Generating preview…');
+  targetDocument.close();
+}
+function PostPreviewButton({
+  className,
+  textContent,
+  forceIsAutosaveable,
+  role,
+  onPreview
+}) {
+  const {
+    postId,
+    currentPostLink,
+    previewLink,
+    isSaveable,
+    isViewable
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _postType$viewable;
+    const editor = select(store_store);
+    const core = select(external_wp_coreData_namespaceObject.store);
+    const postType = core.getPostType(editor.getCurrentPostType('type'));
+    return {
+      postId: editor.getCurrentPostId(),
+      currentPostLink: editor.getCurrentPostAttribute('link'),
+      previewLink: editor.getEditedPostPreviewLink(),
+      isSaveable: editor.isEditedPostSaveable(),
+      isViewable: (_postType$viewable = postType?.viewable) !== null && _postType$viewable !== void 0 ? _postType$viewable : false
+    };
+  }, []);
+  const {
+    __unstableSaveForPreview
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  if (!isViewable) {
+    return null;
+  }
+  const targetId = `wp-preview-${postId}`;
+  const openPreviewWindow = async event => {
+    // Our Preview button has its 'href' and 'target' set correctly for a11y
+    // purposes. Unfortunately, though, we can't rely on the default 'click'
+    // handler since sometimes it incorrectly opens a new tab instead of reusing
+    // the existing one.
+    // https://github.com/WordPress/gutenberg/pull/8330
+    event.preventDefault();
+
+    // Open up a Preview tab if needed. This is where we'll show the preview.
+    const previewWindow = window.open('', targetId);
+
+    // Focus the Preview tab. This might not do anything, depending on the browser's
+    // and user's preferences.
+    // https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus
+    previewWindow.focus();
+    writeInterstitialMessage(previewWindow.document);
+    const link = await __unstableSaveForPreview({
+      forceIsAutosaveable
+    });
+    previewWindow.location = link;
+    onPreview?.();
+  };
+
+  // Link to the `?preview=true` URL if we have it, since this lets us see
+  // changes that were autosaved since the post was last published. Otherwise,
+  // just link to the post's URL.
+  const href = previewLink || currentPostLink;
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: !className ? 'tertiary' : undefined,
+    className: className || 'editor-post-preview',
+    href: href,
+    target: targetId,
+    disabled: !isSaveable,
+    onClick: openPreviewWindow,
+    role: role
+  }, textContent || (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_wp_i18n_namespaceObject._x)('Preview', 'imperative verb'), (0,external_React_.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
+    as: "span"
+  }, /* translators: accessibility text */
+  (0,external_wp_i18n_namespaceObject.__)('(opens in a new tab)'))));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-button/label.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PublishButtonLabel({
+  isPublished,
+  isBeingScheduled,
+  isSaving,
+  isPublishing,
+  hasPublishAction,
+  isAutosaving,
+  hasNonPostEntityChanges
+}) {
+  if (isPublishing) {
+    /* translators: button label text should, if possible, be under 16 characters. */
+    return (0,external_wp_i18n_namespaceObject.__)('Publishing…');
+  } else if (isPublished && isSaving && !isAutosaving) {
+    /* translators: button label text should, if possible, be under 16 characters. */
+    return (0,external_wp_i18n_namespaceObject.__)('Updating…');
+  } else if (isBeingScheduled && isSaving && !isAutosaving) {
+    /* translators: button label text should, if possible, be under 16 characters. */
+    return (0,external_wp_i18n_namespaceObject.__)('Scheduling…');
+  }
+  if (!hasPublishAction) {
+    return hasNonPostEntityChanges ? (0,external_wp_i18n_namespaceObject.__)('Submit for Review…') : (0,external_wp_i18n_namespaceObject.__)('Submit for Review');
+  } else if (isPublished) {
+    return hasNonPostEntityChanges ? (0,external_wp_i18n_namespaceObject.__)('Update…') : (0,external_wp_i18n_namespaceObject.__)('Update');
+  } else if (isBeingScheduled) {
+    return hasNonPostEntityChanges ? (0,external_wp_i18n_namespaceObject.__)('Schedule…') : (0,external_wp_i18n_namespaceObject.__)('Schedule');
+  }
+  return (0,external_wp_i18n_namespaceObject.__)('Publish');
+}
+/* harmony default export */ var label = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+  var _getCurrentPost$_link;
+  const {
+    isCurrentPostPublished,
+    isEditedPostBeingScheduled,
+    isSavingPost,
+    isPublishingPost,
+    getCurrentPost,
+    getCurrentPostType,
+    isAutosavingPost
+  } = select(store_store);
+  return {
+    isPublished: isCurrentPostPublished(),
+    isBeingScheduled: isEditedPostBeingScheduled(),
+    isSaving: isSavingPost(),
+    isPublishing: isPublishingPost(),
+    hasPublishAction: (_getCurrentPost$_link = getCurrentPost()._links?.['wp:action-publish']) !== null && _getCurrentPost$_link !== void 0 ? _getCurrentPost$_link : false,
+    postType: getCurrentPostType(),
+    isAutosaving: isAutosavingPost()
+  };
+})])(PublishButtonLabel));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-button/index.js
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const noop = () => {};
+class PostPublishButton extends external_wp_element_namespaceObject.Component {
+  constructor(props) {
+    super(props);
+    this.buttonNode = (0,external_wp_element_namespaceObject.createRef)();
+    this.createOnClick = this.createOnClick.bind(this);
+    this.closeEntitiesSavedStates = this.closeEntitiesSavedStates.bind(this);
+    this.state = {
+      entitiesSavedStatesCallback: false
+    };
+  }
+  componentDidMount() {
+    if (this.props.focusOnMount) {
+      // This timeout is necessary to make sure the `useEffect` hook of
+      // `useFocusReturn` gets the correct element (the button that opens the
+      // PostPublishPanel) otherwise it will get this button.
+      this.timeoutID = setTimeout(() => {
+        this.buttonNode.current.focus();
+      }, 0);
+    }
+  }
+  componentWillUnmount() {
+    clearTimeout(this.timeoutID);
+  }
+  createOnClick(callback) {
+    return (...args) => {
+      const {
+        hasNonPostEntityChanges,
+        setEntitiesSavedStatesCallback
+      } = this.props;
+      // If a post with non-post entities is published, but the user
+      // elects to not save changes to the non-post entities, those
+      // entities will still be dirty when the Publish button is clicked.
+      // We also need to check that the `setEntitiesSavedStatesCallback`
+      // prop was passed. See https://github.com/WordPress/gutenberg/pull/37383
+      if (hasNonPostEntityChanges && setEntitiesSavedStatesCallback) {
+        // The modal for multiple entity saving will open,
+        // hold the callback for saving/publishing the post
+        // so that we can call it if the post entity is checked.
+        this.setState({
+          entitiesSavedStatesCallback: () => callback(...args)
+        });
+
+        // Open the save panel by setting its callback.
+        // To set a function on the useState hook, we must set it
+        // with another function (() => myFunction). Passing the
+        // function on its own will cause an error when called.
+        setEntitiesSavedStatesCallback(() => this.closeEntitiesSavedStates);
+        return noop;
+      }
+      return callback(...args);
+    };
+  }
+  closeEntitiesSavedStates(savedEntities) {
+    const {
+      postType,
+      postId
+    } = this.props;
+    const {
+      entitiesSavedStatesCallback
+    } = this.state;
+    this.setState({
+      entitiesSavedStatesCallback: false
+    }, () => {
+      if (savedEntities && savedEntities.some(elt => elt.kind === 'postType' && elt.name === postType && elt.key === postId)) {
+        // The post entity was checked, call the held callback from `createOnClick`.
+        entitiesSavedStatesCallback();
+      }
+    });
+  }
+  render() {
+    const {
+      forceIsDirty,
+      hasPublishAction,
+      isBeingScheduled,
+      isOpen,
+      isPostSavingLocked,
+      isPublishable,
+      isPublished,
+      isSaveable,
+      isSaving,
+      isAutoSaving,
+      isToggle,
+      onSave,
+      onStatusChange,
+      onSubmit = noop,
+      onToggle,
+      visibility,
+      hasNonPostEntityChanges,
+      isSavingNonPostEntityChanges
+    } = this.props;
+    const isButtonDisabled = (isSaving || !isSaveable || isPostSavingLocked || !isPublishable && !forceIsDirty) && (!hasNonPostEntityChanges || isSavingNonPostEntityChanges);
+    const isToggleDisabled = (isPublished || isSaving || !isSaveable || !isPublishable && !forceIsDirty) && (!hasNonPostEntityChanges || isSavingNonPostEntityChanges);
+    let publishStatus;
+    if (!hasPublishAction) {
+      publishStatus = 'pending';
+    } else if (visibility === 'private') {
+      publishStatus = 'private';
+    } else if (isBeingScheduled) {
+      publishStatus = 'future';
+    } else {
+      publishStatus = 'publish';
+    }
+    const onClickButton = () => {
+      if (isButtonDisabled) {
+        return;
+      }
+      onSubmit();
+      onStatusChange(publishStatus);
+      onSave();
+    };
+    const onClickToggle = () => {
+      if (isToggleDisabled) {
+        return;
+      }
+      onToggle();
+    };
+    const buttonProps = {
+      'aria-disabled': isButtonDisabled,
+      className: 'editor-post-publish-button',
+      isBusy: !isAutoSaving && isSaving,
+      variant: 'primary',
+      onClick: this.createOnClick(onClickButton)
+    };
+    const toggleProps = {
+      'aria-disabled': isToggleDisabled,
+      'aria-expanded': isOpen,
+      className: 'editor-post-publish-panel__toggle',
+      isBusy: isSaving && isPublished,
+      variant: 'primary',
+      onClick: this.createOnClick(onClickToggle)
+    };
+    const toggleChildren = isBeingScheduled ? (0,external_wp_i18n_namespaceObject.__)('Schedule…') : (0,external_wp_i18n_namespaceObject.__)('Publish');
+    const buttonChildren = (0,external_React_.createElement)(label, {
+      hasNonPostEntityChanges: hasNonPostEntityChanges
+    });
+    const componentProps = isToggle ? toggleProps : buttonProps;
+    const componentChildren = isToggle ? toggleChildren : buttonChildren;
+    return (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+      ref: this.buttonNode,
+      ...componentProps,
+      className: classnames_default()(componentProps.className, 'editor-post-publish-button__button', {
+        'has-changes-dot': hasNonPostEntityChanges
+      })
+    }, componentChildren));
+  }
+}
+/* harmony default export */ var post_publish_button = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+  var _getCurrentPost$_link;
+  const {
+    isSavingPost,
+    isAutosavingPost,
+    isEditedPostBeingScheduled,
+    getEditedPostVisibility,
+    isCurrentPostPublished,
+    isEditedPostSaveable,
+    isEditedPostPublishable,
+    isPostSavingLocked,
+    getCurrentPost,
+    getCurrentPostType,
+    getCurrentPostId,
+    hasNonPostEntityChanges,
+    isSavingNonPostEntityChanges
+  } = select(store_store);
+  return {
+    isSaving: isSavingPost(),
+    isAutoSaving: isAutosavingPost(),
+    isBeingScheduled: isEditedPostBeingScheduled(),
+    visibility: getEditedPostVisibility(),
+    isSaveable: isEditedPostSaveable(),
+    isPostSavingLocked: isPostSavingLocked(),
+    isPublishable: isEditedPostPublishable(),
+    isPublished: isCurrentPostPublished(),
+    hasPublishAction: (_getCurrentPost$_link = getCurrentPost()._links?.['wp:action-publish']) !== null && _getCurrentPost$_link !== void 0 ? _getCurrentPost$_link : false,
+    postType: getCurrentPostType(),
+    postId: getCurrentPostId(),
+    hasNonPostEntityChanges: hasNonPostEntityChanges(),
+    isSavingNonPostEntityChanges: isSavingNonPostEntityChanges()
+  };
+}), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => {
+  const {
+    editPost,
+    savePost
+  } = dispatch(store_store);
+  return {
+    onStatusChange: status => editPost({
+      status
+    }, {
+      undoIgnore: true
+    }),
+    onSave: savePost
+  };
+})])(PostPublishButton));
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/close-small.js
+
+/**
+ * WordPress dependencies
+ */
+
+const closeSmall = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"
+}));
+/* harmony default export */ var close_small = (closeSmall);
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/wordpress.js
+
+/**
+ * WordPress dependencies
+ */
+
+const wordpress = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "-2 -2 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M20 10c0-5.51-4.49-10-10-10C4.48 0 0 4.49 0 10c0 5.52 4.48 10 10 10 5.51 0 10-4.48 10-10zM7.78 15.37L4.37 6.22c.55-.02 1.17-.08 1.17-.08.5-.06.44-1.13-.06-1.11 0 0-1.45.11-2.37.11-.18 0-.37 0-.58-.01C4.12 2.69 6.87 1.11 10 1.11c2.33 0 4.45.87 6.05 2.34-.68-.11-1.65.39-1.65 1.58 0 .74.45 1.36.9 2.1.35.61.55 1.36.55 2.46 0 1.49-1.4 5-1.4 5l-3.03-8.37c.54-.02.82-.17.82-.17.5-.05.44-1.25-.06-1.22 0 0-1.44.12-2.38.12-.87 0-2.33-.12-2.33-.12-.5-.03-.56 1.2-.06 1.22l.92.08 1.26 3.41zM17.41 10c.24-.64.74-1.87.43-4.25.7 1.29 1.05 2.71 1.05 4.25 0 3.29-1.73 6.24-4.4 7.78.97-2.59 1.94-5.2 2.92-7.78zM6.1 18.09C3.12 16.65 1.11 13.53 1.11 10c0-1.3.23-2.48.72-3.59C3.25 10.3 4.67 14.2 6.1 18.09zm4.03-6.63l2.58 6.98c-.86.29-1.76.45-2.71.45-.79 0-1.57-.11-2.29-.33.81-2.38 1.62-4.74 2.42-7.1z"
+}));
+/* harmony default export */ var library_wordpress = (wordpress);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-visibility/utils.js
+/**
+ * WordPress dependencies
+ */
+
+const visibilityOptions = {
+  public: {
+    label: (0,external_wp_i18n_namespaceObject.__)('Public'),
+    info: (0,external_wp_i18n_namespaceObject.__)('Visible to everyone.')
+  },
+  private: {
+    label: (0,external_wp_i18n_namespaceObject.__)('Private'),
+    info: (0,external_wp_i18n_namespaceObject.__)('Only visible to site admins and editors.')
+  },
+  password: {
+    label: (0,external_wp_i18n_namespaceObject.__)('Password protected'),
+    info: (0,external_wp_i18n_namespaceObject.__)('Only those with the password can view this post.')
+  }
+};
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-visibility/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function PostVisibility({
+  onClose
+}) {
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(PostVisibility);
+  const {
+    status,
+    visibility,
+    password
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
+    status: select(store_store).getEditedPostAttribute('status'),
+    visibility: select(store_store).getEditedPostVisibility(),
+    password: select(store_store).getEditedPostAttribute('password')
+  }));
+  const {
+    editPost,
+    savePost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const [hasPassword, setHasPassword] = (0,external_wp_element_namespaceObject.useState)(!!password);
+  const [showPrivateConfirmDialog, setShowPrivateConfirmDialog] = (0,external_wp_element_namespaceObject.useState)(false);
+  const setPublic = () => {
+    editPost({
+      status: visibility === 'private' ? 'draft' : status,
+      password: ''
+    });
+    setHasPassword(false);
+  };
+  const setPrivate = () => {
+    setShowPrivateConfirmDialog(true);
+  };
+  const confirmPrivate = () => {
+    editPost({
+      status: 'private',
+      password: ''
+    });
+    setHasPassword(false);
+    setShowPrivateConfirmDialog(false);
+    savePost();
+  };
+  const handleDialogCancel = () => {
+    setShowPrivateConfirmDialog(false);
+  };
+  const setPasswordProtected = () => {
+    editPost({
+      status: visibility === 'private' ? 'draft' : status,
+      password: password || ''
+    });
+    setHasPassword(true);
+  };
+  const updatePassword = event => {
+    editPost({
+      password: event.target.value
+    });
+  };
+  return (0,external_React_.createElement)("div", {
+    className: "editor-post-visibility"
+  }, (0,external_React_.createElement)(external_wp_blockEditor_namespaceObject.__experimentalInspectorPopoverHeader, {
+    title: (0,external_wp_i18n_namespaceObject.__)('Visibility'),
+    help: (0,external_wp_i18n_namespaceObject.__)('Control how this post is viewed.'),
+    onClose: onClose
+  }), (0,external_React_.createElement)("fieldset", {
+    className: "editor-post-visibility__fieldset"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
+    as: "legend"
+  }, (0,external_wp_i18n_namespaceObject.__)('Visibility')), (0,external_React_.createElement)(PostVisibilityChoice, {
+    instanceId: instanceId,
+    value: "public",
+    label: visibilityOptions.public.label,
+    info: visibilityOptions.public.info,
+    checked: visibility === 'public' && !hasPassword,
+    onChange: setPublic
+  }), (0,external_React_.createElement)(PostVisibilityChoice, {
+    instanceId: instanceId,
+    value: "private",
+    label: visibilityOptions.private.label,
+    info: visibilityOptions.private.info,
+    checked: visibility === 'private',
+    onChange: setPrivate
+  }), (0,external_React_.createElement)(PostVisibilityChoice, {
+    instanceId: instanceId,
+    value: "password",
+    label: visibilityOptions.password.label,
+    info: visibilityOptions.password.info,
+    checked: hasPassword,
+    onChange: setPasswordProtected
+  }), hasPassword && (0,external_React_.createElement)("div", {
+    className: "editor-post-visibility__password"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
+    as: "label",
+    htmlFor: `editor-post-visibility__password-input-${instanceId}`
+  }, (0,external_wp_i18n_namespaceObject.__)('Create password')), (0,external_React_.createElement)("input", {
+    className: "editor-post-visibility__password-input",
+    id: `editor-post-visibility__password-input-${instanceId}`,
+    type: "text",
+    onChange: updatePassword,
+    value: password,
+    placeholder: (0,external_wp_i18n_namespaceObject.__)('Use a secure password')
+  }))), (0,external_React_.createElement)(external_wp_components_namespaceObject.__experimentalConfirmDialog, {
+    isOpen: showPrivateConfirmDialog,
+    onConfirm: confirmPrivate,
+    onCancel: handleDialogCancel
+  }, (0,external_wp_i18n_namespaceObject.__)('Would you like to privately publish this post now?')));
+}
+function PostVisibilityChoice({
+  instanceId,
+  value,
+  label,
+  info,
+  ...props
+}) {
+  return (0,external_React_.createElement)("div", {
+    className: "editor-post-visibility__choice"
+  }, (0,external_React_.createElement)("input", {
+    type: "radio",
+    name: `editor-post-visibility__setting-${instanceId}`,
+    value: value,
+    id: `editor-post-${value}-${instanceId}`,
+    "aria-describedby": `editor-post-${value}-${instanceId}-description`,
+    className: "editor-post-visibility__radio",
+    ...props
+  }), (0,external_React_.createElement)("label", {
+    htmlFor: `editor-post-${value}-${instanceId}`,
+    className: "editor-post-visibility__label"
+  }, label), (0,external_React_.createElement)("p", {
+    id: `editor-post-${value}-${instanceId}-description`,
+    className: "editor-post-visibility__info"
+  }, info));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-visibility/label.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function PostVisibilityLabel() {
+  return usePostVisibilityLabel();
+}
+function usePostVisibilityLabel() {
+  const visibility = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getEditedPostVisibility());
+  return visibilityOptions[visibility]?.label;
+}
+
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
+}
+;// CONCATENATED MODULE: ./node_modules/date-fns/esm/_lib/requiredArgs/index.js
+function requiredArgs(required, args) {
+  if (args.length < required) {
+    throw new TypeError(required + ' argument' + (required > 1 ? 's' : '') + ' required, but only ' + args.length + ' present');
+  }
+}
+;// CONCATENATED MODULE: ./node_modules/date-fns/esm/toDate/index.js
+
+
+/**
+ * @name toDate
+ * @category Common Helpers
+ * @summary Convert the given argument to an instance of Date.
+ *
+ * @description
+ * Convert the given argument to an instance of Date.
+ *
+ * If the argument is an instance of Date, the function returns its clone.
+ *
+ * If the argument is a number, it is treated as a timestamp.
+ *
+ * If the argument is none of the above, the function returns Invalid Date.
+ *
+ * **Note**: *all* Date arguments passed to any *date-fns* function is processed by `toDate`.
+ *
+ * @param {Date|Number} argument - the value to convert
+ * @returns {Date} the parsed date in the local time zone
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // Clone the date:
+ * const result = toDate(new Date(2014, 1, 11, 11, 30, 30))
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Convert the timestamp to date:
+ * const result = toDate(1392098430000)
+ * //=> Tue Feb 11 2014 11:30:30
+ */
+function toDate(argument) {
+  requiredArgs(1, arguments);
+  var argStr = Object.prototype.toString.call(argument);
+
+  // Clone the date
+  if (argument instanceof Date || _typeof(argument) === 'object' && argStr === '[object Date]') {
+    // Prevent the date to lose the milliseconds when passed to new Date() in IE10
+    return new Date(argument.getTime());
+  } else if (typeof argument === 'number' || argStr === '[object Number]') {
+    return new Date(argument);
+  } else {
+    if ((typeof argument === 'string' || argStr === '[object String]') && typeof console !== 'undefined') {
+      // eslint-disable-next-line no-console
+      console.warn("Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#string-arguments");
+      // eslint-disable-next-line no-console
+      console.warn(new Error().stack);
+    }
+    return new Date(NaN);
+  }
+}
+;// CONCATENATED MODULE: ./node_modules/date-fns/esm/startOfMonth/index.js
+
+
+/**
+ * @name startOfMonth
+ * @category Month Helpers
+ * @summary Return the start of a month for the given date.
+ *
+ * @description
+ * Return the start of a month for the given date.
+ * The result will be in the local timezone.
+ *
+ * @param {Date|Number} date - the original date
+ * @returns {Date} the start of a month
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // The start of a month for 2 September 2014 11:55:00:
+ * const result = startOfMonth(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+function startOfMonth(dirtyDate) {
+  requiredArgs(1, arguments);
+  var date = toDate(dirtyDate);
+  date.setDate(1);
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+;// CONCATENATED MODULE: ./node_modules/date-fns/esm/endOfMonth/index.js
+
+
+/**
+ * @name endOfMonth
+ * @category Month Helpers
+ * @summary Return the end of a month for the given date.
+ *
+ * @description
+ * Return the end of a month for the given date.
+ * The result will be in the local timezone.
+ *
+ * @param {Date|Number} date - the original date
+ * @returns {Date} the end of a month
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // The end of a month for 2 September 2014 11:55:00:
+ * const result = endOfMonth(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 30 2014 23:59:59.999
+ */
+function endOfMonth(dirtyDate) {
+  requiredArgs(1, arguments);
+  var date = toDate(dirtyDate);
+  var month = date.getMonth();
+  date.setFullYear(date.getFullYear(), month + 1, 0);
+  date.setHours(23, 59, 59, 999);
+  return date;
+}
+;// CONCATENATED MODULE: ./node_modules/date-fns/esm/constants/index.js
+/**
+ * Days in 1 week.
+ *
+ * @name daysInWeek
+ * @constant
+ * @type {number}
+ * @default
+ */
+var daysInWeek = 7;
+
+/**
+ * Days in 1 year
+ * One years equals 365.2425 days according to the formula:
+ *
+ * > Leap year occures every 4 years, except for years that are divisable by 100 and not divisable by 400.
+ * > 1 mean year = (365+1/4-1/100+1/400) days = 365.2425 days
+ *
+ * @name daysInYear
+ * @constant
+ * @type {number}
+ * @default
+ */
+var daysInYear = 365.2425;
+
+/**
+ * Maximum allowed time.
+ *
+ * @name maxTime
+ * @constant
+ * @type {number}
+ * @default
+ */
+var maxTime = Math.pow(10, 8) * 24 * 60 * 60 * 1000;
+
+/**
+ * Milliseconds in 1 minute
+ *
+ * @name millisecondsInMinute
+ * @constant
+ * @type {number}
+ * @default
+ */
+var millisecondsInMinute = 60000;
+
+/**
+ * Milliseconds in 1 hour
+ *
+ * @name millisecondsInHour
+ * @constant
+ * @type {number}
+ * @default
+ */
+var millisecondsInHour = 3600000;
+
+/**
+ * Milliseconds in 1 second
+ *
+ * @name millisecondsInSecond
+ * @constant
+ * @type {number}
+ * @default
+ */
+var millisecondsInSecond = 1000;
+
+/**
+ * Minimum allowed time.
+ *
+ * @name minTime
+ * @constant
+ * @type {number}
+ * @default
+ */
+var minTime = -maxTime;
+
+/**
+ * Minutes in 1 hour
+ *
+ * @name minutesInHour
+ * @constant
+ * @type {number}
+ * @default
+ */
+var minutesInHour = 60;
+
+/**
+ * Months in 1 quarter
+ *
+ * @name monthsInQuarter
+ * @constant
+ * @type {number}
+ * @default
+ */
+var monthsInQuarter = 3;
+
+/**
+ * Months in 1 year
+ *
+ * @name monthsInYear
+ * @constant
+ * @type {number}
+ * @default
+ */
+var monthsInYear = 12;
+
+/**
+ * Quarters in 1 year
+ *
+ * @name quartersInYear
+ * @constant
+ * @type {number}
+ * @default
+ */
+var quartersInYear = 4;
+
+/**
+ * Seconds in 1 hour
+ *
+ * @name secondsInHour
+ * @constant
+ * @type {number}
+ * @default
+ */
+var secondsInHour = 3600;
+
+/**
+ * Seconds in 1 minute
+ *
+ * @name secondsInMinute
+ * @constant
+ * @type {number}
+ * @default
+ */
+var secondsInMinute = 60;
+
+/**
+ * Seconds in 1 day
+ *
+ * @name secondsInDay
+ * @constant
+ * @type {number}
+ * @default
+ */
+var secondsInDay = secondsInHour * 24;
+
+/**
+ * Seconds in 1 week
+ *
+ * @name secondsInWeek
+ * @constant
+ * @type {number}
+ * @default
+ */
+var secondsInWeek = secondsInDay * 7;
+
+/**
+ * Seconds in 1 year
+ *
+ * @name secondsInYear
+ * @constant
+ * @type {number}
+ * @default
+ */
+var secondsInYear = secondsInDay * daysInYear;
+
+/**
+ * Seconds in 1 month
+ *
+ * @name secondsInMonth
+ * @constant
+ * @type {number}
+ * @default
+ */
+var secondsInMonth = secondsInYear / 12;
+
+/**
+ * Seconds in 1 quarter
+ *
+ * @name secondsInQuarter
+ * @constant
+ * @type {number}
+ * @default
+ */
+var secondsInQuarter = secondsInMonth * 3;
+;// CONCATENATED MODULE: ./node_modules/date-fns/esm/_lib/toInteger/index.js
+function toInteger(dirtyNumber) {
+  if (dirtyNumber === null || dirtyNumber === true || dirtyNumber === false) {
+    return NaN;
+  }
+  var number = Number(dirtyNumber);
+  if (isNaN(number)) {
+    return number;
+  }
+  return number < 0 ? Math.ceil(number) : Math.floor(number);
+}
+;// CONCATENATED MODULE: ./node_modules/date-fns/esm/parseISO/index.js
+
+
+
+/**
+ * @name parseISO
+ * @category Common Helpers
+ * @summary Parse ISO string
+ *
+ * @description
+ * Parse the given string in ISO 8601 format and return an instance of Date.
+ *
+ * Function accepts complete ISO 8601 formats as well as partial implementations.
+ * ISO 8601: http://en.wikipedia.org/wiki/ISO_8601
+ *
+ * If the argument isn't a string, the function cannot parse the string or
+ * the values are invalid, it returns Invalid Date.
+ *
+ * @param {String} argument - the value to convert
+ * @param {Object} [options] - an object with options.
+ * @param {0|1|2} [options.additionalDigits=2] - the additional number of digits in the extended year format
+ * @returns {Date} the parsed date in the local time zone
+ * @throws {TypeError} 1 argument required
+ * @throws {RangeError} `options.additionalDigits` must be 0, 1 or 2
+ *
+ * @example
+ * // Convert string '2014-02-11T11:30:30' to date:
+ * const result = parseISO('2014-02-11T11:30:30')
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Convert string '+02014101' to date,
+ * // if the additional number of digits in the extended year format is 1:
+ * const result = parseISO('+02014101', { additionalDigits: 1 })
+ * //=> Fri Apr 11 2014 00:00:00
+ */
+function parseISO(argument, options) {
+  var _options$additionalDi;
+  requiredArgs(1, arguments);
+  var additionalDigits = toInteger((_options$additionalDi = options === null || options === void 0 ? void 0 : options.additionalDigits) !== null && _options$additionalDi !== void 0 ? _options$additionalDi : 2);
+  if (additionalDigits !== 2 && additionalDigits !== 1 && additionalDigits !== 0) {
+    throw new RangeError('additionalDigits must be 0, 1 or 2');
+  }
+  if (!(typeof argument === 'string' || Object.prototype.toString.call(argument) === '[object String]')) {
+    return new Date(NaN);
+  }
+  var dateStrings = splitDateString(argument);
+  var date;
+  if (dateStrings.date) {
+    var parseYearResult = parseYear(dateStrings.date, additionalDigits);
+    date = parseDate(parseYearResult.restDateString, parseYearResult.year);
+  }
+  if (!date || isNaN(date.getTime())) {
+    return new Date(NaN);
+  }
+  var timestamp = date.getTime();
+  var time = 0;
+  var offset;
+  if (dateStrings.time) {
+    time = parseTime(dateStrings.time);
+    if (isNaN(time)) {
+      return new Date(NaN);
+    }
+  }
+  if (dateStrings.timezone) {
+    offset = parseTimezone(dateStrings.timezone);
+    if (isNaN(offset)) {
+      return new Date(NaN);
+    }
+  } else {
+    var dirtyDate = new Date(timestamp + time);
+    // js parsed string assuming it's in UTC timezone
+    // but we need it to be parsed in our timezone
+    // so we use utc values to build date in our timezone.
+    // Year values from 0 to 99 map to the years 1900 to 1999
+    // so set year explicitly with setFullYear.
+    var result = new Date(0);
+    result.setFullYear(dirtyDate.getUTCFullYear(), dirtyDate.getUTCMonth(), dirtyDate.getUTCDate());
+    result.setHours(dirtyDate.getUTCHours(), dirtyDate.getUTCMinutes(), dirtyDate.getUTCSeconds(), dirtyDate.getUTCMilliseconds());
+    return result;
+  }
+  return new Date(timestamp + time + offset);
+}
+var patterns = {
+  dateTimeDelimiter: /[T ]/,
+  timeZoneDelimiter: /[Z ]/i,
+  timezone: /([Z+-].*)$/
+};
+var dateRegex = /^-?(?:(\d{3})|(\d{2})(?:-?(\d{2}))?|W(\d{2})(?:-?(\d{1}))?|)$/;
+var timeRegex = /^(\d{2}(?:[.,]\d*)?)(?::?(\d{2}(?:[.,]\d*)?))?(?::?(\d{2}(?:[.,]\d*)?))?$/;
+var timezoneRegex = /^([+-])(\d{2})(?::?(\d{2}))?$/;
+function splitDateString(dateString) {
+  var dateStrings = {};
+  var array = dateString.split(patterns.dateTimeDelimiter);
+  var timeString;
+
+  // The regex match should only return at maximum two array elements.
+  // [date], [time], or [date, time].
+  if (array.length > 2) {
+    return dateStrings;
+  }
+  if (/:/.test(array[0])) {
+    timeString = array[0];
+  } else {
+    dateStrings.date = array[0];
+    timeString = array[1];
+    if (patterns.timeZoneDelimiter.test(dateStrings.date)) {
+      dateStrings.date = dateString.split(patterns.timeZoneDelimiter)[0];
+      timeString = dateString.substr(dateStrings.date.length, dateString.length);
+    }
+  }
+  if (timeString) {
+    var token = patterns.timezone.exec(timeString);
+    if (token) {
+      dateStrings.time = timeString.replace(token[1], '');
+      dateStrings.timezone = token[1];
+    } else {
+      dateStrings.time = timeString;
+    }
+  }
+  return dateStrings;
+}
+function parseYear(dateString, additionalDigits) {
+  var regex = new RegExp('^(?:(\\d{4}|[+-]\\d{' + (4 + additionalDigits) + '})|(\\d{2}|[+-]\\d{' + (2 + additionalDigits) + '})$)');
+  var captures = dateString.match(regex);
+  // Invalid ISO-formatted year
+  if (!captures) return {
+    year: NaN,
+    restDateString: ''
+  };
+  var year = captures[1] ? parseInt(captures[1]) : null;
+  var century = captures[2] ? parseInt(captures[2]) : null;
+
+  // either year or century is null, not both
+  return {
+    year: century === null ? year : century * 100,
+    restDateString: dateString.slice((captures[1] || captures[2]).length)
+  };
+}
+function parseDate(dateString, year) {
+  // Invalid ISO-formatted year
+  if (year === null) return new Date(NaN);
+  var captures = dateString.match(dateRegex);
+  // Invalid ISO-formatted string
+  if (!captures) return new Date(NaN);
+  var isWeekDate = !!captures[4];
+  var dayOfYear = parseDateUnit(captures[1]);
+  var month = parseDateUnit(captures[2]) - 1;
+  var day = parseDateUnit(captures[3]);
+  var week = parseDateUnit(captures[4]);
+  var dayOfWeek = parseDateUnit(captures[5]) - 1;
+  if (isWeekDate) {
+    if (!validateWeekDate(year, week, dayOfWeek)) {
+      return new Date(NaN);
+    }
+    return dayOfISOWeekYear(year, week, dayOfWeek);
+  } else {
+    var date = new Date(0);
+    if (!validateDate(year, month, day) || !validateDayOfYearDate(year, dayOfYear)) {
+      return new Date(NaN);
+    }
+    date.setUTCFullYear(year, month, Math.max(dayOfYear, day));
+    return date;
+  }
+}
+function parseDateUnit(value) {
+  return value ? parseInt(value) : 1;
+}
+function parseTime(timeString) {
+  var captures = timeString.match(timeRegex);
+  if (!captures) return NaN; // Invalid ISO-formatted time
+
+  var hours = parseTimeUnit(captures[1]);
+  var minutes = parseTimeUnit(captures[2]);
+  var seconds = parseTimeUnit(captures[3]);
+  if (!validateTime(hours, minutes, seconds)) {
+    return NaN;
+  }
+  return hours * millisecondsInHour + minutes * millisecondsInMinute + seconds * 1000;
+}
+function parseTimeUnit(value) {
+  return value && parseFloat(value.replace(',', '.')) || 0;
+}
+function parseTimezone(timezoneString) {
+  if (timezoneString === 'Z') return 0;
+  var captures = timezoneString.match(timezoneRegex);
+  if (!captures) return 0;
+  var sign = captures[1] === '+' ? -1 : 1;
+  var hours = parseInt(captures[2]);
+  var minutes = captures[3] && parseInt(captures[3]) || 0;
+  if (!validateTimezone(hours, minutes)) {
+    return NaN;
+  }
+  return sign * (hours * millisecondsInHour + minutes * millisecondsInMinute);
+}
+function dayOfISOWeekYear(isoWeekYear, week, day) {
+  var date = new Date(0);
+  date.setUTCFullYear(isoWeekYear, 0, 4);
+  var fourthOfJanuaryDay = date.getUTCDay() || 7;
+  var diff = (week - 1) * 7 + day + 1 - fourthOfJanuaryDay;
+  date.setUTCDate(date.getUTCDate() + diff);
+  return date;
+}
+
+// Validation functions
+
+// February is null to handle the leap year (using ||)
+var daysInMonths = [31, null, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+function isLeapYearIndex(year) {
+  return year % 400 === 0 || year % 4 === 0 && year % 100 !== 0;
+}
+function validateDate(year, month, date) {
+  return month >= 0 && month <= 11 && date >= 1 && date <= (daysInMonths[month] || (isLeapYearIndex(year) ? 29 : 28));
+}
+function validateDayOfYearDate(year, dayOfYear) {
+  return dayOfYear >= 1 && dayOfYear <= (isLeapYearIndex(year) ? 366 : 365);
+}
+function validateWeekDate(_year, week, day) {
+  return week >= 1 && week <= 53 && day >= 0 && day <= 6;
+}
+function validateTime(hours, minutes, seconds) {
+  if (hours === 24) {
+    return minutes === 0 && seconds === 0;
+  }
+  return seconds >= 0 && seconds < 60 && minutes >= 0 && minutes < 60 && hours >= 0 && hours < 25;
+}
+function validateTimezone(_hours, minutes) {
+  return minutes >= 0 && minutes <= 59;
+}
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-schedule/index.js
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostSchedule({
+  onClose
+}) {
+  const {
+    postDate,
+    postType
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
+    postDate: select(store_store).getEditedPostAttribute('date'),
+    postType: select(store_store).getCurrentPostType()
+  }), []);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const onUpdateDate = date => editPost({
+    date
+  });
+  const [previewedMonth, setPreviewedMonth] = (0,external_wp_element_namespaceObject.useState)(startOfMonth(new Date(postDate)));
+
+  // Pick up published and schduled site posts.
+  const eventsByPostType = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).getEntityRecords('postType', postType, {
+    status: 'publish,future',
+    after: startOfMonth(previewedMonth).toISOString(),
+    before: endOfMonth(previewedMonth).toISOString(),
+    exclude: [select(store_store).getCurrentPostId()],
+    per_page: 100,
+    _fields: 'id,date'
+  }), [previewedMonth, postType]);
+  const events = (0,external_wp_element_namespaceObject.useMemo)(() => (eventsByPostType || []).map(({
+    date: eventDate
+  }) => ({
+    date: new Date(eventDate)
+  })), [eventsByPostType]);
+  const settings = (0,external_wp_date_namespaceObject.getSettings)();
+
+  // To know if the current timezone is a 12 hour time with look for "a" in the time format
+  // We also make sure this a is not escaped by a "/"
+  const is12HourTime = /a(?!\\)/i.test(settings.formats.time.toLowerCase() // Test only the lower case a.
+  .replace(/\\\\/g, '') // Replace "//" with empty strings.
+  .split('').reverse().join('') // Reverse the string and test for "a" not followed by a slash.
+  );
+
+  return (0,external_React_.createElement)(external_wp_blockEditor_namespaceObject.__experimentalPublishDateTimePicker, {
+    currentDate: postDate,
+    onChange: onUpdateDate,
+    is12Hour: is12HourTime,
+    events: events,
+    onMonthPreviewed: date => setPreviewedMonth(parseISO(date)),
+    onClose: onClose
+  });
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-schedule/label.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostScheduleLabel(props) {
+  return usePostScheduleLabel(props);
+}
+function usePostScheduleLabel({
+  full = false
+} = {}) {
+  const {
+    date,
+    isFloating
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
+    date: select(store_store).getEditedPostAttribute('date'),
+    isFloating: select(store_store).isEditedPostDateFloating()
+  }), []);
+  return full ? getFullPostScheduleLabel(date) : getPostScheduleLabel(date, {
+    isFloating
+  });
+}
+function getFullPostScheduleLabel(dateAttribute) {
+  const date = (0,external_wp_date_namespaceObject.getDate)(dateAttribute);
+  const timezoneAbbreviation = getTimezoneAbbreviation();
+  const formattedDate = (0,external_wp_date_namespaceObject.dateI18n)(
+  // translators: If using a space between 'g:i' and 'a', use a non-breaking space.
+  (0,external_wp_i18n_namespaceObject._x)('F j, Y g:i\xa0a', 'post schedule full date format'), date);
+  return (0,external_wp_i18n_namespaceObject.isRTL)() ? `${timezoneAbbreviation} ${formattedDate}` : `${formattedDate} ${timezoneAbbreviation}`;
+}
+function getPostScheduleLabel(dateAttribute, {
+  isFloating = false,
+  now = new Date()
+} = {}) {
+  if (!dateAttribute || isFloating) {
+    return (0,external_wp_i18n_namespaceObject.__)('Immediately');
+  }
+
+  // If the user timezone does not equal the site timezone then using words
+  // like 'tomorrow' is confusing, so show the full date.
+  if (!isTimezoneSameAsSiteTimezone(now)) {
+    return getFullPostScheduleLabel(dateAttribute);
+  }
+  const date = (0,external_wp_date_namespaceObject.getDate)(dateAttribute);
+  if (isSameDay(date, now)) {
+    return (0,external_wp_i18n_namespaceObject.sprintf)(
+    // translators: %s: Time of day the post is scheduled for.
+    (0,external_wp_i18n_namespaceObject.__)('Today at %s'),
+    // translators: If using a space between 'g:i' and 'a', use a non-breaking space.
+    (0,external_wp_date_namespaceObject.dateI18n)((0,external_wp_i18n_namespaceObject._x)('g:i\xa0a', 'post schedule time format'), date));
+  }
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  if (isSameDay(date, tomorrow)) {
+    return (0,external_wp_i18n_namespaceObject.sprintf)(
+    // translators: %s: Time of day the post is scheduled for.
+    (0,external_wp_i18n_namespaceObject.__)('Tomorrow at %s'),
+    // translators: If using a space between 'g:i' and 'a', use a non-breaking space.
+    (0,external_wp_date_namespaceObject.dateI18n)((0,external_wp_i18n_namespaceObject._x)('g:i\xa0a', 'post schedule time format'), date));
+  }
+  if (date.getFullYear() === now.getFullYear()) {
+    return (0,external_wp_date_namespaceObject.dateI18n)(
+    // translators: If using a space between 'g:i' and 'a', use a non-breaking space.
+    (0,external_wp_i18n_namespaceObject._x)('F j g:i\xa0a', 'post schedule date format without year'), date);
+  }
+  return (0,external_wp_date_namespaceObject.dateI18n)(
+  // translators: Use a non-breaking space between 'g:i' and 'a' if appropriate.
+  (0,external_wp_i18n_namespaceObject._x)('F j, Y g:i\xa0a', 'post schedule full date format'), date);
+}
+function getTimezoneAbbreviation() {
+  const {
+    timezone
+  } = (0,external_wp_date_namespaceObject.getSettings)();
+  if (timezone.abbr && isNaN(Number(timezone.abbr))) {
+    return timezone.abbr;
+  }
+  const symbol = timezone.offset < 0 ? '' : '+';
+  return `UTC${symbol}${timezone.offset}`;
+}
+function isTimezoneSameAsSiteTimezone(date) {
+  const {
+    timezone
+  } = (0,external_wp_date_namespaceObject.getSettings)();
+  const siteOffset = Number(timezone.offset);
+  const dateOffset = -1 * (date.getTimezoneOffset() / 60);
+  return siteOffset === dateOffset;
+}
+function isSameDay(left, right) {
+  return left.getDate() === right.getDate() && left.getMonth() === right.getMonth() && left.getFullYear() === right.getFullYear();
+}
+
+;// CONCATENATED MODULE: external ["wp","a11y"]
+var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/most-used-terms.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+const MIN_MOST_USED_TERMS = 3;
+const DEFAULT_QUERY = {
+  per_page: 10,
+  orderby: 'count',
+  order: 'desc',
+  hide_empty: true,
+  _fields: 'id,name,count',
+  context: 'view'
+};
+function MostUsedTerms({
+  onSelect,
+  taxonomy
+}) {
+  const {
+    _terms,
+    showTerms
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const mostUsedTerms = select(external_wp_coreData_namespaceObject.store).getEntityRecords('taxonomy', taxonomy.slug, DEFAULT_QUERY);
+    return {
+      _terms: mostUsedTerms,
+      showTerms: mostUsedTerms?.length >= MIN_MOST_USED_TERMS
+    };
+  }, [taxonomy.slug]);
+  if (!showTerms) {
+    return null;
+  }
+  const terms = unescapeTerms(_terms);
+  return (0,external_React_.createElement)("div", {
+    className: "editor-post-taxonomies__flat-term-most-used"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.BaseControl.VisualLabel, {
+    as: "h3",
+    className: "editor-post-taxonomies__flat-term-most-used-label"
+  }, taxonomy.labels.most_used), (0,external_React_.createElement)("ul", {
+    role: "list",
+    className: "editor-post-taxonomies__flat-term-most-used-list"
+  }, terms.map(term => (0,external_React_.createElement)("li", {
+    key: term.id
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "link",
+    onClick: () => onSelect(term)
+  }, term.name)))));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/flat-term-selector.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+/**
+ * Shared reference to an empty array for cases where it is important to avoid
+ * returning a new array reference on every invocation.
+ *
+ * @type {Array<any>}
+ */
+const EMPTY_ARRAY = [];
+
+/**
+ * Module constants
+ */
+const MAX_TERMS_SUGGESTIONS = 20;
+const flat_term_selector_DEFAULT_QUERY = {
+  per_page: MAX_TERMS_SUGGESTIONS,
+  _fields: 'id,name',
+  context: 'view'
+};
+const isSameTermName = (termA, termB) => unescapeString(termA).toLowerCase() === unescapeString(termB).toLowerCase();
+const termNamesToIds = (names, terms) => {
+  return names.map(termName => terms.find(term => isSameTermName(term.name, termName)).id);
+};
+function FlatTermSelector({
+  slug
+}) {
+  var _taxonomy$labels$add_, _taxonomy$labels$sing2;
+  const [values, setValues] = (0,external_wp_element_namespaceObject.useState)([]);
+  const [search, setSearch] = (0,external_wp_element_namespaceObject.useState)('');
+  const debouncedSearch = (0,external_wp_compose_namespaceObject.useDebounce)(setSearch, 500);
+  const {
+    terms,
+    termIds,
+    taxonomy,
+    hasAssignAction,
+    hasCreateAction,
+    hasResolvedTerms
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _post$_links, _post$_links2;
+    const {
+      getCurrentPost,
+      getEditedPostAttribute
+    } = select(store_store);
+    const {
+      getEntityRecords,
+      getTaxonomy,
+      hasFinishedResolution
+    } = select(external_wp_coreData_namespaceObject.store);
+    const post = getCurrentPost();
+    const _taxonomy = getTaxonomy(slug);
+    const _termIds = _taxonomy ? getEditedPostAttribute(_taxonomy.rest_base) : EMPTY_ARRAY;
+    const query = {
+      ...flat_term_selector_DEFAULT_QUERY,
+      include: _termIds.join(','),
+      per_page: -1
+    };
+    return {
+      hasCreateAction: _taxonomy ? (_post$_links = post._links?.['wp:action-create-' + _taxonomy.rest_base]) !== null && _post$_links !== void 0 ? _post$_links : false : false,
+      hasAssignAction: _taxonomy ? (_post$_links2 = post._links?.['wp:action-assign-' + _taxonomy.rest_base]) !== null && _post$_links2 !== void 0 ? _post$_links2 : false : false,
+      taxonomy: _taxonomy,
+      termIds: _termIds,
+      terms: _termIds.length ? getEntityRecords('taxonomy', slug, query) : EMPTY_ARRAY,
+      hasResolvedTerms: hasFinishedResolution('getEntityRecords', ['taxonomy', slug, query])
+    };
+  }, [slug]);
+  const {
+    searchResults
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEntityRecords
+    } = select(external_wp_coreData_namespaceObject.store);
+    return {
+      searchResults: !!search ? getEntityRecords('taxonomy', slug, {
+        ...flat_term_selector_DEFAULT_QUERY,
+        search
+      }) : EMPTY_ARRAY
+    };
+  }, [search, slug]);
+
+  // Update terms state only after the selectors are resolved.
+  // We're using this to avoid terms temporarily disappearing on slow networks
+  // while core data makes REST API requests.
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (hasResolvedTerms) {
+      const newValues = (terms !== null && terms !== void 0 ? terms : []).map(term => unescapeString(term.name));
+      setValues(newValues);
+    }
+  }, [terms, hasResolvedTerms]);
+  const suggestions = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return (searchResults !== null && searchResults !== void 0 ? searchResults : []).map(term => unescapeString(term.name));
+  }, [searchResults]);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const {
+    saveEntityRecord
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
+  const {
+    createErrorNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
+  if (!hasAssignAction) {
+    return null;
+  }
+  async function findOrCreateTerm(term) {
+    try {
+      const newTerm = await saveEntityRecord('taxonomy', slug, term, {
+        throwOnError: true
+      });
+      return unescapeTerm(newTerm);
+    } catch (error) {
+      if (error.code !== 'term_exists') {
+        throw error;
+      }
+      return {
+        id: error.data.term_id,
+        name: term.name
+      };
+    }
+  }
+  function onUpdateTerms(newTermIds) {
+    editPost({
+      [taxonomy.rest_base]: newTermIds
+    });
+  }
+  function onChange(termNames) {
+    const availableTerms = [...(terms !== null && terms !== void 0 ? terms : []), ...(searchResults !== null && searchResults !== void 0 ? searchResults : [])];
+    const uniqueTerms = termNames.reduce((acc, name) => {
+      if (!acc.some(n => n.toLowerCase() === name.toLowerCase())) {
+        acc.push(name);
+      }
+      return acc;
+    }, []);
+    const newTermNames = uniqueTerms.filter(termName => !availableTerms.find(term => isSameTermName(term.name, termName)));
+
+    // Optimistically update term values.
+    // The selector will always re-fetch terms later.
+    setValues(uniqueTerms);
+    if (newTermNames.length === 0) {
+      return onUpdateTerms(termNamesToIds(uniqueTerms, availableTerms));
+    }
+    if (!hasCreateAction) {
+      return;
+    }
+    Promise.all(newTermNames.map(termName => findOrCreateTerm({
+      name: termName
+    }))).then(newTerms => {
+      const newAvailableTerms = availableTerms.concat(newTerms);
+      return onUpdateTerms(termNamesToIds(uniqueTerms, newAvailableTerms));
+    }).catch(error => {
+      createErrorNotice(error.message, {
+        type: 'snackbar'
+      });
+    });
+  }
+  function appendTerm(newTerm) {
+    var _taxonomy$labels$sing;
+    if (termIds.includes(newTerm.id)) {
+      return;
+    }
+    const newTermIds = [...termIds, newTerm.id];
+    const defaultName = slug === 'post_tag' ? (0,external_wp_i18n_namespaceObject.__)('Tag') : (0,external_wp_i18n_namespaceObject.__)('Term');
+    const termAddedMessage = (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %s: term name. */
+    (0,external_wp_i18n_namespaceObject._x)('%s added', 'term'), (_taxonomy$labels$sing = taxonomy?.labels?.singular_name) !== null && _taxonomy$labels$sing !== void 0 ? _taxonomy$labels$sing : defaultName);
+    (0,external_wp_a11y_namespaceObject.speak)(termAddedMessage, 'assertive');
+    onUpdateTerms(newTermIds);
+  }
+  const newTermLabel = (_taxonomy$labels$add_ = taxonomy?.labels?.add_new_item) !== null && _taxonomy$labels$add_ !== void 0 ? _taxonomy$labels$add_ : slug === 'post_tag' ? (0,external_wp_i18n_namespaceObject.__)('Add new tag') : (0,external_wp_i18n_namespaceObject.__)('Add new Term');
+  const singularName = (_taxonomy$labels$sing2 = taxonomy?.labels?.singular_name) !== null && _taxonomy$labels$sing2 !== void 0 ? _taxonomy$labels$sing2 : slug === 'post_tag' ? (0,external_wp_i18n_namespaceObject.__)('Tag') : (0,external_wp_i18n_namespaceObject.__)('Term');
+  const termAddedLabel = (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %s: term name. */
+  (0,external_wp_i18n_namespaceObject._x)('%s added', 'term'), singularName);
+  const termRemovedLabel = (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %s: term name. */
+  (0,external_wp_i18n_namespaceObject._x)('%s removed', 'term'), singularName);
+  const removeTermLabel = (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %s: term name. */
+  (0,external_wp_i18n_namespaceObject._x)('Remove %s', 'term'), singularName);
+  return (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.FormTokenField, {
+    __next40pxDefaultSize: true,
+    value: values,
+    suggestions: suggestions,
+    onChange: onChange,
+    onInputChange: debouncedSearch,
+    maxSuggestions: MAX_TERMS_SUGGESTIONS,
+    label: newTermLabel,
+    messages: {
+      added: termAddedLabel,
+      removed: termRemovedLabel,
+      remove: removeTermLabel
+    }
+  }), (0,external_React_.createElement)(MostUsedTerms, {
+    taxonomy: taxonomy,
+    onSelect: appendTerm
+  }));
+}
+/* harmony default export */ var flat_term_selector = ((0,external_wp_components_namespaceObject.withFilters)('editor.PostTaxonomyType')(FlatTermSelector));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/maybe-tags-panel.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const TagsPanel = () => {
+  const panelBodyTitle = [(0,external_wp_i18n_namespaceObject.__)('Suggestion:'), (0,external_React_.createElement)("span", {
+    className: "editor-post-publish-panel__link",
+    key: "label"
+  }, (0,external_wp_i18n_namespaceObject.__)('Add tags'))];
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.PanelBody, {
+    initialOpen: false,
+    title: panelBodyTitle
+  }, (0,external_React_.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Tags help users and search engines navigate your site and find your content. Add a few keywords to describe your post.')), (0,external_React_.createElement)(flat_term_selector, {
+    slug: 'post_tag'
+  }));
+};
+class MaybeTagsPanel extends external_wp_element_namespaceObject.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hadTagsWhenOpeningThePanel: props.hasTags
+    };
+  }
+
+  /*
+   * We only want to show the tag panel if the post didn't have
+   * any tags when the user hit the Publish button.
+   *
+   * We can't use the prop.hasTags because it'll change to true
+   * if the user adds a new tag within the pre-publish panel.
+   * This would force a re-render and a new prop.hasTags check,
+   * hiding this panel and keeping the user from adding
+   * more than one tag.
+   */
+  render() {
+    if (!this.state.hadTagsWhenOpeningThePanel) {
+      return (0,external_React_.createElement)(TagsPanel, null);
+    }
+    return null;
+  }
+}
+/* harmony default export */ var maybe_tags_panel = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => {
+  const postType = select(store_store).getCurrentPostType();
+  const tagsTaxonomy = select(external_wp_coreData_namespaceObject.store).getTaxonomy('post_tag');
+  const tags = tagsTaxonomy && select(store_store).getEditedPostAttribute(tagsTaxonomy.rest_base);
+  return {
+    areTagsFetched: tagsTaxonomy !== undefined,
+    isPostTypeSupported: tagsTaxonomy && tagsTaxonomy.types.some(type => type === postType),
+    hasTags: tags && tags.length
+  };
+}), (0,external_wp_compose_namespaceObject.ifCondition)(({
+  areTagsFetched,
+  isPostTypeSupported
+}) => isPostTypeSupported && areTagsFetched))(MaybeTagsPanel));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/maybe-post-format-panel.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const getSuggestion = (supportedFormats, suggestedPostFormat) => {
+  const formats = POST_FORMATS.filter(format => supportedFormats?.includes(format.id));
+  return formats.find(format => format.id === suggestedPostFormat);
+};
+const PostFormatSuggestion = ({
+  suggestedPostFormat,
+  suggestionText,
+  onUpdatePostFormat
+}) => (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+  variant: "link",
+  onClick: () => onUpdatePostFormat(suggestedPostFormat)
+}, suggestionText);
+function PostFormatPanel() {
+  const {
+    currentPostFormat,
+    suggestion
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _select$getThemeSuppo;
+    const {
+      getEditedPostAttribute,
+      getSuggestedPostFormat
+    } = select(store_store);
+    const supportedFormats = (_select$getThemeSuppo = select(external_wp_coreData_namespaceObject.store).getThemeSupports().formats) !== null && _select$getThemeSuppo !== void 0 ? _select$getThemeSuppo : [];
+    return {
+      currentPostFormat: getEditedPostAttribute('format'),
+      suggestion: getSuggestion(supportedFormats, getSuggestedPostFormat())
+    };
+  }, []);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const onUpdatePostFormat = format => editPost({
+    format
+  });
+  const panelBodyTitle = [(0,external_wp_i18n_namespaceObject.__)('Suggestion:'), (0,external_React_.createElement)("span", {
+    className: "editor-post-publish-panel__link",
+    key: "label"
+  }, (0,external_wp_i18n_namespaceObject.__)('Use a post format'))];
+  if (!suggestion || suggestion.id === currentPostFormat) {
+    return null;
+  }
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.PanelBody, {
+    initialOpen: false,
+    title: panelBodyTitle
+  }, (0,external_React_.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Your theme uses post formats to highlight different kinds of content, like images or videos. Apply a post format to see this special styling.')), (0,external_React_.createElement)("p", null, (0,external_React_.createElement)(PostFormatSuggestion, {
+    onUpdatePostFormat: onUpdatePostFormat,
+    suggestedPostFormat: suggestion.id,
+    suggestionText: (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %s: post format */
+    (0,external_wp_i18n_namespaceObject.__)('Apply the "%1$s" format.'), suggestion.caption)
+  })));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/hierarchical-term-selector.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * Module Constants
+ */
+const hierarchical_term_selector_DEFAULT_QUERY = {
+  per_page: -1,
+  orderby: 'name',
+  order: 'asc',
+  _fields: 'id,name,parent',
+  context: 'view'
+};
+const MIN_TERMS_COUNT_FOR_FILTER = 8;
+const hierarchical_term_selector_EMPTY_ARRAY = [];
+
+/**
+ * Sort Terms by Selected.
+ *
+ * @param {Object[]} termsTree Array of terms in tree format.
+ * @param {number[]} terms     Selected terms.
+ *
+ * @return {Object[]} Sorted array of terms.
+ */
+function sortBySelected(termsTree, terms) {
+  const treeHasSelection = termTree => {
+    if (terms.indexOf(termTree.id) !== -1) {
+      return true;
+    }
+    if (undefined === termTree.children) {
+      return false;
+    }
+    return termTree.children.map(treeHasSelection).filter(child => child).length > 0;
+  };
+  const termOrChildIsSelected = (termA, termB) => {
+    const termASelected = treeHasSelection(termA);
+    const termBSelected = treeHasSelection(termB);
+    if (termASelected === termBSelected) {
+      return 0;
+    }
+    if (termASelected && !termBSelected) {
+      return -1;
+    }
+    if (!termASelected && termBSelected) {
+      return 1;
+    }
+    return 0;
+  };
+  const newTermTree = [...termsTree];
+  newTermTree.sort(termOrChildIsSelected);
+  return newTermTree;
+}
+
+/**
+ * Find term by parent id or name.
+ *
+ * @param {Object[]}      terms  Array of Terms.
+ * @param {number|string} parent id.
+ * @param {string}        name   Term name.
+ * @return {Object} Term object.
+ */
+function findTerm(terms, parent, name) {
+  return terms.find(term => {
+    return (!term.parent && !parent || parseInt(term.parent) === parseInt(parent)) && term.name.toLowerCase() === name.toLowerCase();
+  });
+}
+
+/**
+ * Get filter matcher function.
+ *
+ * @param {string} filterValue Filter value.
+ * @return {(function(Object): (Object|boolean))} Matcher function.
+ */
+function getFilterMatcher(filterValue) {
+  const matchTermsForFilter = originalTerm => {
+    if ('' === filterValue) {
+      return originalTerm;
+    }
+
+    // Shallow clone, because we'll be filtering the term's children and
+    // don't want to modify the original term.
+    const term = {
+      ...originalTerm
+    };
+
+    // Map and filter the children, recursive so we deal with grandchildren
+    // and any deeper levels.
+    if (term.children.length > 0) {
+      term.children = term.children.map(matchTermsForFilter).filter(child => child);
+    }
+
+    // If the term's name contains the filterValue, or it has children
+    // (i.e. some child matched at some point in the tree) then return it.
+    if (-1 !== term.name.toLowerCase().indexOf(filterValue.toLowerCase()) || term.children.length > 0) {
+      return term;
+    }
+
+    // Otherwise, return false. After mapping, the list of terms will need
+    // to have false values filtered out.
+    return false;
+  };
+  return matchTermsForFilter;
+}
+
+/**
+ * Hierarchical term selector.
+ *
+ * @param {Object} props      Component props.
+ * @param {string} props.slug Taxonomy slug.
+ * @return {Element}        Hierarchical term selector component.
+ */
+function HierarchicalTermSelector({
+  slug
+}) {
+  var _taxonomy$labels$sear, _taxonomy$name;
+  const [adding, setAdding] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [formName, setFormName] = (0,external_wp_element_namespaceObject.useState)('');
+  /**
+   * @type {[number|'', Function]}
+   */
+  const [formParent, setFormParent] = (0,external_wp_element_namespaceObject.useState)('');
+  const [showForm, setShowForm] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [filterValue, setFilterValue] = (0,external_wp_element_namespaceObject.useState)('');
+  const [filteredTermsTree, setFilteredTermsTree] = (0,external_wp_element_namespaceObject.useState)([]);
+  const debouncedSpeak = (0,external_wp_compose_namespaceObject.useDebounce)(external_wp_a11y_namespaceObject.speak, 500);
+  const {
+    hasCreateAction,
+    hasAssignAction,
+    terms,
+    loading,
+    availableTerms,
+    taxonomy
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _post$_links, _post$_links2;
+    const {
+      getCurrentPost,
+      getEditedPostAttribute
+    } = select(store_store);
+    const {
+      getTaxonomy,
+      getEntityRecords,
+      isResolving
+    } = select(external_wp_coreData_namespaceObject.store);
+    const _taxonomy = getTaxonomy(slug);
+    const post = getCurrentPost();
+    return {
+      hasCreateAction: _taxonomy ? (_post$_links = post._links?.['wp:action-create-' + _taxonomy.rest_base]) !== null && _post$_links !== void 0 ? _post$_links : false : false,
+      hasAssignAction: _taxonomy ? (_post$_links2 = post._links?.['wp:action-assign-' + _taxonomy.rest_base]) !== null && _post$_links2 !== void 0 ? _post$_links2 : false : false,
+      terms: _taxonomy ? getEditedPostAttribute(_taxonomy.rest_base) : hierarchical_term_selector_EMPTY_ARRAY,
+      loading: isResolving('getEntityRecords', ['taxonomy', slug, hierarchical_term_selector_DEFAULT_QUERY]),
+      availableTerms: getEntityRecords('taxonomy', slug, hierarchical_term_selector_DEFAULT_QUERY) || hierarchical_term_selector_EMPTY_ARRAY,
+      taxonomy: _taxonomy
+    };
+  }, [slug]);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const {
+    saveEntityRecord
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
+  const availableTermsTree = (0,external_wp_element_namespaceObject.useMemo)(() => sortBySelected(buildTermsTree(availableTerms), terms),
+  // Remove `terms` from the dependency list to avoid reordering every time
+  // checking or unchecking a term.
+  [availableTerms]);
+  const {
+    createErrorNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
+  if (!hasAssignAction) {
+    return null;
+  }
+
+  /**
+   * Append new term.
+   *
+   * @param {Object} term Term object.
+   * @return {Promise} A promise that resolves to save term object.
+   */
+  const addTerm = term => {
+    return saveEntityRecord('taxonomy', slug, term, {
+      throwOnError: true
+    });
+  };
+
+  /**
+   * Update terms for post.
+   *
+   * @param {number[]} termIds Term ids.
+   */
+  const onUpdateTerms = termIds => {
+    editPost({
+      [taxonomy.rest_base]: termIds
+    });
+  };
+
+  /**
+   * Handler for checking term.
+   *
+   * @param {number} termId
+   */
+  const onChange = termId => {
+    const hasTerm = terms.includes(termId);
+    const newTerms = hasTerm ? terms.filter(id => id !== termId) : [...terms, termId];
+    onUpdateTerms(newTerms);
+  };
+  const onChangeFormName = value => {
+    setFormName(value);
+  };
+
+  /**
+   * Handler for changing form parent.
+   *
+   * @param {number|''} parentId Parent post id.
+   */
+  const onChangeFormParent = parentId => {
+    setFormParent(parentId);
+  };
+  const onToggleForm = () => {
+    setShowForm(!showForm);
+  };
+  const onAddTerm = async event => {
+    var _taxonomy$labels$sing;
+    event.preventDefault();
+    if (formName === '' || adding) {
+      return;
+    }
+
+    // Check if the term we are adding already exists.
+    const existingTerm = findTerm(availableTerms, formParent, formName);
+    if (existingTerm) {
+      // If the term we are adding exists but is not selected select it.
+      if (!terms.some(term => term === existingTerm.id)) {
+        onUpdateTerms([...terms, existingTerm.id]);
+      }
+      setFormName('');
+      setFormParent('');
+      return;
+    }
+    setAdding(true);
+    let newTerm;
+    try {
+      newTerm = await addTerm({
+        name: formName,
+        parent: formParent ? formParent : undefined
+      });
+    } catch (error) {
+      createErrorNotice(error.message, {
+        type: 'snackbar'
+      });
+      return;
+    }
+    const defaultName = slug === 'category' ? (0,external_wp_i18n_namespaceObject.__)('Category') : (0,external_wp_i18n_namespaceObject.__)('Term');
+    const termAddedMessage = (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %s: taxonomy name */
+    (0,external_wp_i18n_namespaceObject._x)('%s added', 'term'), (_taxonomy$labels$sing = taxonomy?.labels?.singular_name) !== null && _taxonomy$labels$sing !== void 0 ? _taxonomy$labels$sing : defaultName);
+    (0,external_wp_a11y_namespaceObject.speak)(termAddedMessage, 'assertive');
+    setAdding(false);
+    setFormName('');
+    setFormParent('');
+    onUpdateTerms([...terms, newTerm.id]);
+  };
+  const setFilter = value => {
+    const newFilteredTermsTree = availableTermsTree.map(getFilterMatcher(value)).filter(term => term);
+    const getResultCount = termsTree => {
+      let count = 0;
+      for (let i = 0; i < termsTree.length; i++) {
+        count++;
+        if (undefined !== termsTree[i].children) {
+          count += getResultCount(termsTree[i].children);
+        }
+      }
+      return count;
+    };
+    setFilterValue(value);
+    setFilteredTermsTree(newFilteredTermsTree);
+    const resultCount = getResultCount(newFilteredTermsTree);
+    const resultsFoundMessage = (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %d: number of results */
+    (0,external_wp_i18n_namespaceObject._n)('%d result found.', '%d results found.', resultCount), resultCount);
+    debouncedSpeak(resultsFoundMessage, 'assertive');
+  };
+  const renderTerms = renderedTerms => {
+    return renderedTerms.map(term => {
+      return (0,external_React_.createElement)("div", {
+        key: term.id,
+        className: "editor-post-taxonomies__hierarchical-terms-choice"
+      }, (0,external_React_.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
+        __nextHasNoMarginBottom: true,
+        checked: terms.indexOf(term.id) !== -1,
+        onChange: () => {
+          const termId = parseInt(term.id, 10);
+          onChange(termId);
+        },
+        label: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(term.name)
+      }), !!term.children.length && (0,external_React_.createElement)("div", {
+        className: "editor-post-taxonomies__hierarchical-terms-subchoices"
+      }, renderTerms(term.children)));
+    });
+  };
+  const labelWithFallback = (labelProperty, fallbackIsCategory, fallbackIsNotCategory) => {
+    var _taxonomy$labels$labe;
+    return (_taxonomy$labels$labe = taxonomy?.labels?.[labelProperty]) !== null && _taxonomy$labels$labe !== void 0 ? _taxonomy$labels$labe : slug === 'category' ? fallbackIsCategory : fallbackIsNotCategory;
+  };
+  const newTermButtonLabel = labelWithFallback('add_new_item', (0,external_wp_i18n_namespaceObject.__)('Add new category'), (0,external_wp_i18n_namespaceObject.__)('Add new term'));
+  const newTermLabel = labelWithFallback('new_item_name', (0,external_wp_i18n_namespaceObject.__)('Add new category'), (0,external_wp_i18n_namespaceObject.__)('Add new term'));
+  const parentSelectLabel = labelWithFallback('parent_item', (0,external_wp_i18n_namespaceObject.__)('Parent Category'), (0,external_wp_i18n_namespaceObject.__)('Parent Term'));
+  const noParentOption = `— ${parentSelectLabel} —`;
+  const newTermSubmitLabel = newTermButtonLabel;
+  const filterLabel = (_taxonomy$labels$sear = taxonomy?.labels?.search_items) !== null && _taxonomy$labels$sear !== void 0 ? _taxonomy$labels$sear : (0,external_wp_i18n_namespaceObject.__)('Search Terms');
+  const groupLabel = (_taxonomy$name = taxonomy?.name) !== null && _taxonomy$name !== void 0 ? _taxonomy$name : (0,external_wp_i18n_namespaceObject.__)('Terms');
+  const showFilter = availableTerms.length >= MIN_TERMS_COUNT_FOR_FILTER;
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Flex, {
+    direction: "column",
+    gap: "4"
+  }, showFilter && (0,external_React_.createElement)(external_wp_components_namespaceObject.TextControl, {
+    __nextHasNoMarginBottom: true,
+    label: filterLabel,
+    value: filterValue,
+    onChange: setFilter
+  }), (0,external_React_.createElement)("div", {
+    className: "editor-post-taxonomies__hierarchical-terms-list",
+    tabIndex: "0",
+    role: "group",
+    "aria-label": groupLabel
+  }, renderTerms('' !== filterValue ? filteredTermsTree : availableTermsTree)), !loading && hasCreateAction && (0,external_React_.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    onClick: onToggleForm,
+    className: "editor-post-taxonomies__hierarchical-terms-add",
+    "aria-expanded": showForm,
+    variant: "link"
+  }, newTermButtonLabel)), showForm && (0,external_React_.createElement)("form", {
+    onSubmit: onAddTerm
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Flex, {
+    direction: "column",
+    gap: "4"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.TextControl, {
+    __nextHasNoMarginBottom: true,
+    className: "editor-post-taxonomies__hierarchical-terms-input",
+    label: newTermLabel,
+    value: formName,
+    onChange: onChangeFormName,
+    required: true
+  }), !!availableTerms.length && (0,external_React_.createElement)(external_wp_components_namespaceObject.TreeSelect, {
+    __nextHasNoMarginBottom: true,
+    label: parentSelectLabel,
+    noOptionLabel: noParentOption,
+    onChange: onChangeFormParent,
+    selectedId: formParent,
+    tree: availableTermsTree
+  }), (0,external_React_.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "secondary",
+    type: "submit",
+    className: "editor-post-taxonomies__hierarchical-terms-submit"
+  }, newTermSubmitLabel)))));
+}
+/* harmony default export */ var hierarchical_term_selector = ((0,external_wp_components_namespaceObject.withFilters)('editor.PostTaxonomyType')(HierarchicalTermSelector));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/maybe-category-panel.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function MaybeCategoryPanel() {
+  const hasNoCategory = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const postType = select(store_store).getCurrentPostType();
+    const {
+      canUser,
+      getEntityRecord,
+      getTaxonomy
+    } = select(external_wp_coreData_namespaceObject.store);
+    const categoriesTaxonomy = getTaxonomy('category');
+    const defaultCategoryId = canUser('read', 'settings') ? getEntityRecord('root', 'site')?.default_category : undefined;
+    const defaultCategory = defaultCategoryId ? getEntityRecord('taxonomy', 'category', defaultCategoryId) : undefined;
+    const postTypeSupportsCategories = categoriesTaxonomy && categoriesTaxonomy.types.some(type => type === postType);
+    const categories = categoriesTaxonomy && select(store_store).getEditedPostAttribute(categoriesTaxonomy.rest_base);
+
+    // This boolean should return true if everything is loaded
+    // ( categoriesTaxonomy, defaultCategory )
+    // and the post has not been assigned a category different than "uncategorized".
+    return !!categoriesTaxonomy && !!defaultCategory && postTypeSupportsCategories && (categories?.length === 0 || categories?.length === 1 && defaultCategory?.id === categories[0]);
+  }, []);
+  const [shouldShowPanel, setShouldShowPanel] = (0,external_wp_element_namespaceObject.useState)(false);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // We use state to avoid hiding the panel if the user edits the categories
+    // and adds one within the panel itself (while visible).
+    if (hasNoCategory) {
+      setShouldShowPanel(true);
+    }
+  }, [hasNoCategory]);
+  if (!shouldShowPanel) {
+    return null;
+  }
+  const panelBodyTitle = [(0,external_wp_i18n_namespaceObject.__)('Suggestion:'), (0,external_React_.createElement)("span", {
+    className: "editor-post-publish-panel__link",
+    key: "label"
+  }, (0,external_wp_i18n_namespaceObject.__)('Assign a category'))];
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.PanelBody, {
+    initialOpen: false,
+    title: panelBodyTitle
+  }, (0,external_React_.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Categories provide a helpful way to group related posts together and to quickly tell readers what a post is about.')), (0,external_React_.createElement)(hierarchical_term_selector, {
+    slug: "category"
+  }));
+}
+/* harmony default export */ var maybe_category_panel = (MaybeCategoryPanel);
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/upload.js
+
+/**
+ * WordPress dependencies
+ */
+
+const upload = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M18.5 15v3.5H13V6.7l4.5 4.1 1-1.1-6.2-5.8-5.8 5.8 1 1.1 4-4v11.7h-6V15H4v5h16v-5z"
+}));
+/* harmony default export */ var library_upload = (upload);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/maybe-upload-media.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function flattenBlocks(blocks) {
+  const result = [];
+  blocks.forEach(block => {
+    result.push(block);
+    result.push(...flattenBlocks(block.innerBlocks));
+  });
+  return result;
+}
+function Image(block) {
+  const {
+    selectBlock
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.__unstableMotion.img, {
+    tabIndex: 0,
+    role: "button",
+    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Select image block.'),
+    onClick: () => {
+      selectBlock(block.clientId);
+    },
+    onKeyDown: event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        selectBlock(block.clientId);
+        event.preventDefault();
+      }
+    },
+    key: block.clientId,
+    alt: block.attributes.alt,
+    src: block.attributes.url,
+    animate: {
+      opacity: 1
+    },
+    exit: {
+      opacity: 0,
+      scale: 0
+    },
+    style: {
+      width: '36px',
+      height: '36px',
+      objectFit: 'cover',
+      borderRadius: '2px',
+      cursor: 'pointer'
+    },
+    whileHover: {
+      scale: 1.08
+    }
+  });
+}
+function maybe_upload_media_PostFormatPanel() {
+  const [isUploading, setIsUploading] = (0,external_wp_element_namespaceObject.useState)(false);
+  const {
+    editorBlocks,
+    mediaUpload
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
+    editorBlocks: select(store_store).getEditorBlocks(),
+    mediaUpload: select(external_wp_blockEditor_namespaceObject.store).getSettings().mediaUpload
+  }), []);
+  const externalImages = flattenBlocks(editorBlocks).filter(block => block.name === 'core/image' && block.attributes.url && !block.attributes.id);
+  const {
+    updateBlockAttributes
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
+  if (!mediaUpload || !externalImages.length) {
+    return null;
+  }
+  const panelBodyTitle = [(0,external_wp_i18n_namespaceObject.__)('Suggestion:'), (0,external_React_.createElement)("span", {
+    className: "editor-post-publish-panel__link",
+    key: "label"
+  }, (0,external_wp_i18n_namespaceObject.__)('External media'))];
+  function uploadImages() {
+    setIsUploading(true);
+    Promise.all(externalImages.map(image => window.fetch(image.attributes.url.includes('?') ? image.attributes.url : image.attributes.url + '?').then(response => response.blob()).then(blob => new Promise((resolve, reject) => {
+      mediaUpload({
+        filesList: [blob],
+        onFileChange: ([media]) => {
+          if ((0,external_wp_blob_namespaceObject.isBlobURL)(media.url)) {
+            return;
+          }
+          updateBlockAttributes(image.clientId, {
+            id: media.id,
+            url: media.url
+          });
+          resolve();
+        },
+        onError() {
+          reject();
+        }
+      });
+    })))).finally(() => {
+      setIsUploading(false);
+    });
+  }
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.PanelBody, {
+    initialOpen: true,
+    title: panelBodyTitle
+  }, (0,external_React_.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('There are some external images in the post which can be uploaded to the media library. Images coming from different domains may not always display correctly, load slowly for visitors, or be removed unexpectedly.')), (0,external_React_.createElement)("div", {
+    style: {
+      display: 'inline-flex',
+      flexWrap: 'wrap',
+      gap: '8px'
+    }
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.__unstableAnimatePresence, null, externalImages.map(image => {
+    return (0,external_React_.createElement)(Image, {
+      key: image.clientId,
+      ...image
+    });
+  })), isUploading ? (0,external_React_.createElement)(external_wp_components_namespaceObject.Spinner, null) : (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    icon: library_upload,
+    variant: "primary",
+    onClick: uploadImages
+  }, (0,external_wp_i18n_namespaceObject.__)('Upload all'))));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/prepublish.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+
+function PostPublishPanelPrepublish({
+  children
+}) {
+  const {
+    isBeingScheduled,
+    isRequestingSiteIcon,
+    hasPublishAction,
+    siteIconUrl,
+    siteTitle,
+    siteHome
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _getCurrentPost$_link;
+    const {
+      getCurrentPost,
+      isEditedPostBeingScheduled
+    } = select(store_store);
+    const {
+      getEntityRecord,
+      isResolving
+    } = select(external_wp_coreData_namespaceObject.store);
+    const siteData = getEntityRecord('root', '__unstableBase', undefined) || {};
+    return {
+      hasPublishAction: (_getCurrentPost$_link = getCurrentPost()._links?.['wp:action-publish']) !== null && _getCurrentPost$_link !== void 0 ? _getCurrentPost$_link : false,
+      isBeingScheduled: isEditedPostBeingScheduled(),
+      isRequestingSiteIcon: isResolving('getEntityRecord', ['root', '__unstableBase', undefined]),
+      siteIconUrl: siteData.site_icon_url,
+      siteTitle: siteData.name,
+      siteHome: siteData.home && (0,external_wp_url_namespaceObject.filterURLForDisplay)(siteData.home)
+    };
+  }, []);
+  let siteIcon = (0,external_React_.createElement)(external_wp_components_namespaceObject.Icon, {
+    className: "components-site-icon",
+    size: "36px",
+    icon: library_wordpress
+  });
+  if (siteIconUrl) {
+    siteIcon = (0,external_React_.createElement)("img", {
+      alt: (0,external_wp_i18n_namespaceObject.__)('Site Icon'),
+      className: "components-site-icon",
+      src: siteIconUrl
+    });
+  }
+  if (isRequestingSiteIcon) {
+    siteIcon = null;
+  }
+  let prePublishTitle, prePublishBodyText;
+  if (!hasPublishAction) {
+    prePublishTitle = (0,external_wp_i18n_namespaceObject.__)('Are you ready to submit for review?');
+    prePublishBodyText = (0,external_wp_i18n_namespaceObject.__)('When you’re ready, submit your work for review, and an Editor will be able to approve it for you.');
+  } else if (isBeingScheduled) {
+    prePublishTitle = (0,external_wp_i18n_namespaceObject.__)('Are you ready to schedule?');
+    prePublishBodyText = (0,external_wp_i18n_namespaceObject.__)('Your work will be published at the specified date and time.');
+  } else {
+    prePublishTitle = (0,external_wp_i18n_namespaceObject.__)('Are you ready to publish?');
+    prePublishBodyText = (0,external_wp_i18n_namespaceObject.__)('Double-check your settings before publishing.');
+  }
+  return (0,external_React_.createElement)("div", {
+    className: "editor-post-publish-panel__prepublish"
+  }, (0,external_React_.createElement)("div", null, (0,external_React_.createElement)("strong", null, prePublishTitle)), (0,external_React_.createElement)("p", null, prePublishBodyText), (0,external_React_.createElement)("div", {
+    className: "components-site-card"
+  }, siteIcon, (0,external_React_.createElement)("div", {
+    className: "components-site-info"
+  }, (0,external_React_.createElement)("span", {
+    className: "components-site-name"
+  }, (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(siteTitle) || (0,external_wp_i18n_namespaceObject.__)('(Untitled)')), (0,external_React_.createElement)("span", {
+    className: "components-site-home"
+  }, siteHome))), (0,external_React_.createElement)(maybe_upload_media_PostFormatPanel, null), hasPublishAction && (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.PanelBody, {
+    initialOpen: false,
+    title: [(0,external_wp_i18n_namespaceObject.__)('Visibility:'), (0,external_React_.createElement)("span", {
+      className: "editor-post-publish-panel__link",
+      key: "label"
+    }, (0,external_React_.createElement)(PostVisibilityLabel, null))]
+  }, (0,external_React_.createElement)(PostVisibility, null)), (0,external_React_.createElement)(external_wp_components_namespaceObject.PanelBody, {
+    initialOpen: false,
+    title: [(0,external_wp_i18n_namespaceObject.__)('Publish:'), (0,external_React_.createElement)("span", {
+      className: "editor-post-publish-panel__link",
+      key: "label"
+    }, (0,external_React_.createElement)(PostScheduleLabel, null))]
+  }, (0,external_React_.createElement)(PostSchedule, null))), (0,external_React_.createElement)(PostFormatPanel, null), (0,external_React_.createElement)(maybe_tags_panel, null), (0,external_React_.createElement)(maybe_category_panel, null), children);
+}
+/* harmony default export */ var prepublish = (PostPublishPanelPrepublish);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/postpublish.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const POSTNAME = '%postname%';
+const PAGENAME = '%pagename%';
+
+/**
+ * Returns URL for a future post.
+ *
+ * @param {Object} post Post object.
+ *
+ * @return {string} PostPublish URL.
+ */
+
+const getFuturePostUrl = post => {
+  const {
+    slug
+  } = post;
+  if (post.permalink_template.includes(POSTNAME)) {
+    return post.permalink_template.replace(POSTNAME, slug);
+  }
+  if (post.permalink_template.includes(PAGENAME)) {
+    return post.permalink_template.replace(PAGENAME, slug);
+  }
+  return post.permalink_template;
+};
+function postpublish_CopyButton({
+  text,
+  onCopy,
+  children
+}) {
+  const ref = (0,external_wp_compose_namespaceObject.useCopyToClipboard)(text, onCopy);
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "secondary",
+    ref: ref
+  }, children);
+}
+class PostPublishPanelPostpublish extends external_wp_element_namespaceObject.Component {
+  constructor() {
+    super(...arguments);
+    this.state = {
+      showCopyConfirmation: false
+    };
+    this.onCopy = this.onCopy.bind(this);
+    this.onSelectInput = this.onSelectInput.bind(this);
+    this.postLink = (0,external_wp_element_namespaceObject.createRef)();
+  }
+  componentDidMount() {
+    if (this.props.focusOnMount) {
+      this.postLink.current.focus();
+    }
+  }
+  componentWillUnmount() {
+    clearTimeout(this.dismissCopyConfirmation);
+  }
+  onCopy() {
+    this.setState({
+      showCopyConfirmation: true
+    });
+    clearTimeout(this.dismissCopyConfirmation);
+    this.dismissCopyConfirmation = setTimeout(() => {
+      this.setState({
+        showCopyConfirmation: false
+      });
+    }, 4000);
+  }
+  onSelectInput(event) {
+    event.target.select();
+  }
+  render() {
+    const {
+      children,
+      isScheduled,
+      post,
+      postType
+    } = this.props;
+    const postLabel = postType?.labels?.singular_name;
+    const viewPostLabel = postType?.labels?.view_item;
+    const addNewPostLabel = postType?.labels?.add_new_item;
+    const link = post.status === 'future' ? getFuturePostUrl(post) : post.link;
+    const addLink = (0,external_wp_url_namespaceObject.addQueryArgs)('post-new.php', {
+      post_type: post.type
+    });
+    const postPublishNonLinkHeader = isScheduled ? (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_wp_i18n_namespaceObject.__)('is now scheduled. It will go live on'), ' ', (0,external_React_.createElement)(PostScheduleLabel, null), ".") : (0,external_wp_i18n_namespaceObject.__)('is now live.');
+    return (0,external_React_.createElement)("div", {
+      className: "post-publish-panel__postpublish"
+    }, (0,external_React_.createElement)(external_wp_components_namespaceObject.PanelBody, {
+      className: "post-publish-panel__postpublish-header"
+    }, (0,external_React_.createElement)("a", {
+      ref: this.postLink,
+      href: link
+    }, (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(post.title) || (0,external_wp_i18n_namespaceObject.__)('(no title)')), ' ', postPublishNonLinkHeader), (0,external_React_.createElement)(external_wp_components_namespaceObject.PanelBody, null, (0,external_React_.createElement)("p", {
+      className: "post-publish-panel__postpublish-subheader"
+    }, (0,external_React_.createElement)("strong", null, (0,external_wp_i18n_namespaceObject.__)('What’s next?'))), (0,external_React_.createElement)("div", {
+      className: "post-publish-panel__postpublish-post-address-container"
+    }, (0,external_React_.createElement)(external_wp_components_namespaceObject.TextControl, {
+      __nextHasNoMarginBottom: true,
+      className: "post-publish-panel__postpublish-post-address",
+      readOnly: true,
+      label: (0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %s: post type singular name */
+      (0,external_wp_i18n_namespaceObject.__)('%s address'), postLabel),
+      value: (0,external_wp_url_namespaceObject.safeDecodeURIComponent)(link),
+      onFocus: this.onSelectInput
+    }), (0,external_React_.createElement)("div", {
+      className: "post-publish-panel__postpublish-post-address__copy-button-wrap"
+    }, (0,external_React_.createElement)(postpublish_CopyButton, {
+      text: link,
+      onCopy: this.onCopy
+    }, this.state.showCopyConfirmation ? (0,external_wp_i18n_namespaceObject.__)('Copied!') : (0,external_wp_i18n_namespaceObject.__)('Copy')))), (0,external_React_.createElement)("div", {
+      className: "post-publish-panel__postpublish-buttons"
+    }, !isScheduled && (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+      variant: "primary",
+      href: link
+    }, viewPostLabel), (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+      variant: isScheduled ? 'primary' : 'secondary',
+      href: addLink
+    }, addNewPostLabel))), children);
+  }
+}
+/* harmony default export */ var postpublish = ((0,external_wp_data_namespaceObject.withSelect)(select => {
+  const {
+    getEditedPostAttribute,
+    getCurrentPost,
+    isCurrentPostScheduled
+  } = select(store_store);
+  const {
+    getPostType
+  } = select(external_wp_coreData_namespaceObject.store);
+  return {
+    post: getCurrentPost(),
+    postType: getPostType(getEditedPostAttribute('type')),
+    isScheduled: isCurrentPostScheduled()
+  };
+})(PostPublishPanelPostpublish));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+class PostPublishPanel extends external_wp_element_namespaceObject.Component {
+  constructor() {
+    super(...arguments);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  componentDidUpdate(prevProps) {
+    // Automatically collapse the publish sidebar when a post
+    // is published and the user makes an edit.
+    if (prevProps.isPublished && !this.props.isSaving && this.props.isDirty) {
+      this.props.onClose();
+    }
+  }
+  onSubmit() {
+    const {
+      onClose,
+      hasPublishAction,
+      isPostTypeViewable
+    } = this.props;
+    if (!hasPublishAction || !isPostTypeViewable) {
+      onClose();
+    }
+  }
+  render() {
+    const {
+      forceIsDirty,
+      isBeingScheduled,
+      isPublished,
+      isPublishSidebarEnabled,
+      isScheduled,
+      isSaving,
+      isSavingNonPostEntityChanges,
+      onClose,
+      onTogglePublishSidebar,
+      PostPublishExtension,
+      PrePublishExtension,
+      ...additionalProps
+    } = this.props;
+    const {
+      hasPublishAction,
+      isDirty,
+      isPostTypeViewable,
+      ...propsForPanel
+    } = additionalProps;
+    const isPublishedOrScheduled = isPublished || isScheduled && isBeingScheduled;
+    const isPrePublish = !isPublishedOrScheduled && !isSaving;
+    const isPostPublish = isPublishedOrScheduled && !isSaving;
+    return (0,external_React_.createElement)("div", {
+      className: "editor-post-publish-panel",
+      ...propsForPanel
+    }, (0,external_React_.createElement)("div", {
+      className: "editor-post-publish-panel__header"
+    }, isPostPublish ? (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+      onClick: onClose,
+      icon: close_small,
+      label: (0,external_wp_i18n_namespaceObject.__)('Close panel')
+    }) : (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)("div", {
+      className: "editor-post-publish-panel__header-publish-button"
+    }, (0,external_React_.createElement)(post_publish_button, {
+      focusOnMount: true,
+      onSubmit: this.onSubmit,
+      forceIsDirty: forceIsDirty
+    })), (0,external_React_.createElement)("div", {
+      className: "editor-post-publish-panel__header-cancel-button"
+    }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+      disabled: isSavingNonPostEntityChanges,
+      onClick: onClose,
+      variant: "secondary"
+    }, (0,external_wp_i18n_namespaceObject.__)('Cancel'))))), (0,external_React_.createElement)("div", {
+      className: "editor-post-publish-panel__content"
+    }, isPrePublish && (0,external_React_.createElement)(prepublish, null, PrePublishExtension && (0,external_React_.createElement)(PrePublishExtension, null)), isPostPublish && (0,external_React_.createElement)(postpublish, {
+      focusOnMount: true
+    }, PostPublishExtension && (0,external_React_.createElement)(PostPublishExtension, null)), isSaving && (0,external_React_.createElement)(external_wp_components_namespaceObject.Spinner, null)), (0,external_React_.createElement)("div", {
+      className: "editor-post-publish-panel__footer"
+    }, (0,external_React_.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
+      __nextHasNoMarginBottom: true,
+      label: (0,external_wp_i18n_namespaceObject.__)('Always show pre-publish checks.'),
+      checked: isPublishSidebarEnabled,
+      onChange: onTogglePublishSidebar
+    })));
+  }
+}
+/* harmony default export */ var post_publish_panel = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+  var _getCurrentPost$_link;
+  const {
+    getPostType
+  } = select(external_wp_coreData_namespaceObject.store);
+  const {
+    getCurrentPost,
+    getEditedPostAttribute,
+    isCurrentPostPublished,
+    isCurrentPostScheduled,
+    isEditedPostBeingScheduled,
+    isEditedPostDirty,
+    isAutosavingPost,
+    isSavingPost,
+    isSavingNonPostEntityChanges
+  } = select(store_store);
+  const {
+    isPublishSidebarEnabled
+  } = select(store_store);
+  const postType = getPostType(getEditedPostAttribute('type'));
+  return {
+    hasPublishAction: (_getCurrentPost$_link = getCurrentPost()._links?.['wp:action-publish']) !== null && _getCurrentPost$_link !== void 0 ? _getCurrentPost$_link : false,
+    isPostTypeViewable: postType?.viewable,
+    isBeingScheduled: isEditedPostBeingScheduled(),
+    isDirty: isEditedPostDirty(),
+    isPublished: isCurrentPostPublished(),
+    isPublishSidebarEnabled: isPublishSidebarEnabled(),
+    isSaving: isSavingPost() && !isAutosavingPost(),
+    isSavingNonPostEntityChanges: isSavingNonPostEntityChanges(),
+    isScheduled: isCurrentPostScheduled()
+  };
+}), (0,external_wp_data_namespaceObject.withDispatch)((dispatch, {
+  isPublishSidebarEnabled
+}) => {
+  const {
+    disablePublishSidebar,
+    enablePublishSidebar
+  } = dispatch(store_store);
+  return {
+    onTogglePublishSidebar: () => {
+      if (isPublishSidebarEnabled) {
+        disablePublishSidebar();
+      } else {
+        enablePublishSidebar();
+      }
+    }
+  };
+}), external_wp_components_namespaceObject.withFocusReturn, external_wp_components_namespaceObject.withConstrainedTabbing])(PostPublishPanel));
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/cloud-upload.js
+
+/**
+ * WordPress dependencies
+ */
+
+const cloudUpload = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M17.3 10.1c0-2.5-2.1-4.4-4.8-4.4-2.2 0-4.1 1.4-4.6 3.3h-.2C5.7 9 4 10.7 4 12.8c0 2.1 1.7 3.8 3.7 3.8h9c1.8 0 3.2-1.5 3.2-3.3.1-1.6-1.1-2.9-2.6-3.2zm-.5 5.1h-4v-2.4L14 14l1-1-3-3-3 3 1 1 1.2-1.2v2.4H7.7c-1.2 0-2.2-1.1-2.2-2.3s1-2.4 2.2-2.4H9l.3-1.1c.4-1.3 1.7-2.2 3.2-2.2 1.8 0 3.3 1.3 3.3 2.9v1.3l1.3.2c.8.1 1.4.9 1.4 1.8 0 1-.8 1.8-1.7 1.8z"
+}));
+/* harmony default export */ var cloud_upload = (cloudUpload);
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
+/**
+ * WordPress dependencies
+ */
+
+
+/** @typedef {{icon: JSX.Element, size?: number} & import('@wordpress/primitives').SVGProps} IconProps */
+
+/**
+ * Return an SVG icon.
+ *
+ * @param {IconProps}                                 props icon is the SVG component to render
+ *                                                          size is a number specifiying the icon size in pixels
+ *                                                          Other props will be passed to wrapped SVG component
+ * @param {import('react').ForwardedRef<HTMLElement>} ref   The forwarded ref to the SVG element.
+ *
+ * @return {JSX.Element}  Icon component
+ */
+function Icon({
+  icon,
+  size = 24,
+  ...props
+}, ref) {
+  return (0,external_wp_element_namespaceObject.cloneElement)(icon, {
+    width: size,
+    height: size,
+    ...props,
+    ref
+  });
+}
+/* harmony default export */ var icon = ((0,external_wp_element_namespaceObject.forwardRef)(Icon));
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/check.js
+
+/**
+ * WordPress dependencies
+ */
+
+const check_check = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"
+}));
+/* harmony default export */ var library_check = (check_check);
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/cloud.js
+
+/**
+ * WordPress dependencies
+ */
+
+const cloud = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M17.3 10.1c0-2.5-2.1-4.4-4.8-4.4-2.2 0-4.1 1.4-4.6 3.3h-.2C5.7 9 4 10.7 4 12.8c0 2.1 1.7 3.8 3.7 3.8h9c1.8 0 3.2-1.5 3.2-3.3.1-1.6-1.1-2.9-2.6-3.2zm-.5 5.1h-9c-1.2 0-2.2-1.1-2.2-2.3s1-2.4 2.2-2.4h1.3l.3-1.1c.4-1.3 1.7-2.2 3.2-2.2 1.8 0 3.3 1.3 3.3 2.9v1.3l1.3.2c.8.1 1.4.9 1.4 1.8-.1 1-.9 1.8-1.8 1.8z"
+}));
+/* harmony default export */ var library_cloud = (cloud);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-saved-state/index.js
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Component showing whether the post is saved or not and providing save
+ * buttons.
+ *
+ * @param {Object}   props                Component props.
+ * @param {?boolean} props.forceIsDirty   Whether to force the post to be marked
+ *                                        as dirty.
+ * @param {?boolean} props.showIconLabels Whether interface buttons show labels instead of icons
+ * @return {import('react').ComponentType} The component.
+ */
+function PostSavedState({
+  forceIsDirty,
+  showIconLabels = false
+}) {
+  const [forceSavedMessage, setForceSavedMessage] = (0,external_wp_element_namespaceObject.useState)(false);
+  const isLargeViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('small');
+  const {
+    isAutosaving,
+    isDirty,
+    isNew,
+    isPending,
+    isPublished,
+    isSaveable,
+    isSaving,
+    isScheduled,
+    hasPublishAction
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _getCurrentPost$_link;
+    const {
+      isEditedPostNew,
+      isCurrentPostPublished,
+      isCurrentPostScheduled,
+      isEditedPostDirty,
+      isSavingPost,
+      isEditedPostSaveable,
+      getCurrentPost,
+      isAutosavingPost,
+      getEditedPostAttribute
+    } = select(store_store);
+    return {
+      isAutosaving: isAutosavingPost(),
+      isDirty: forceIsDirty || isEditedPostDirty(),
+      isNew: isEditedPostNew(),
+      isPending: 'pending' === getEditedPostAttribute('status'),
+      isPublished: isCurrentPostPublished(),
+      isSaving: isSavingPost(),
+      isSaveable: isEditedPostSaveable(),
+      isScheduled: isCurrentPostScheduled(),
+      hasPublishAction: (_getCurrentPost$_link = getCurrentPost()?._links?.['wp:action-publish']) !== null && _getCurrentPost$_link !== void 0 ? _getCurrentPost$_link : false
+    };
+  }, [forceIsDirty]);
+  const {
+    savePost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const wasSaving = (0,external_wp_compose_namespaceObject.usePrevious)(isSaving);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    let timeoutId;
+    if (wasSaving && !isSaving) {
+      setForceSavedMessage(true);
+      timeoutId = setTimeout(() => {
+        setForceSavedMessage(false);
+      }, 1000);
+    }
+    return () => clearTimeout(timeoutId);
+  }, [isSaving]);
+
+  // Once the post has been submitted for review this button
+  // is not needed for the contributor role.
+  if (!hasPublishAction && isPending) {
+    return null;
+  }
+  if (isPublished || isScheduled) {
+    return null;
+  }
+
+  /* translators: button label text should, if possible, be under 16 characters. */
+  const label = isPending ? (0,external_wp_i18n_namespaceObject.__)('Save as pending') : (0,external_wp_i18n_namespaceObject.__)('Save draft');
+
+  /* translators: button label text should, if possible, be under 16 characters. */
+  const shortLabel = (0,external_wp_i18n_namespaceObject.__)('Save');
+  const isSaved = forceSavedMessage || !isNew && !isDirty;
+  const isSavedState = isSaving || isSaved;
+  const isDisabled = isSaving || isSaved || !isSaveable;
+  let text;
+  if (isSaving) {
+    text = isAutosaving ? (0,external_wp_i18n_namespaceObject.__)('Autosaving') : (0,external_wp_i18n_namespaceObject.__)('Saving');
+  } else if (isSaved) {
+    text = (0,external_wp_i18n_namespaceObject.__)('Saved');
+  } else if (isLargeViewport) {
+    text = label;
+  } else if (showIconLabels) {
+    text = shortLabel;
+  }
+  const buttonAccessibleLabel = text || label;
+
+  /**
+   * The tooltip needs to be enabled only if the button is not disabled. When
+   * relying on the internal Button tooltip functionality, this causes the
+   * resulting `button` element to be always removed and re-added to the DOM,
+   * causing focus loss. An alternative approach to circumvent the issue
+   * is not to use the `label` and `shortcut` props on `Button` (which would
+   * trigger the tooltip), and instead manually wrap the `Button` in a separate
+   * `Tooltip` component.
+   */
+  const tooltipProps = isDisabled ? undefined : {
+    text: buttonAccessibleLabel,
+    shortcut: external_wp_keycodes_namespaceObject.displayShortcut.primary('s')
+  };
+
+  // Use common Button instance for all saved states so that focus is not
+  // lost.
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Tooltip, {
+    ...tooltipProps
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    className: isSaveable || isSaving ? classnames_default()({
+      'editor-post-save-draft': !isSavedState,
+      'editor-post-saved-state': isSavedState,
+      'is-saving': isSaving,
+      'is-autosaving': isAutosaving,
+      'is-saved': isSaved,
+      [(0,external_wp_components_namespaceObject.__unstableGetAnimateClassName)({
+        type: 'loading'
+      })]: isSaving
+    }) : undefined,
+    onClick: isDisabled ? undefined : () => savePost(),
+    variant: "tertiary",
+    icon: isLargeViewport ? undefined : cloud_upload
+    // Make sure the aria-label has always a value, as the default `text` is undefined on small screens.
+    ,
+    "aria-label": buttonAccessibleLabel,
+    "aria-disabled": isDisabled
+  }, isSavedState && (0,external_React_.createElement)(icon, {
+    icon: isSaved ? library_check : library_cloud
+  }), text));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-schedule/check.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostScheduleCheck({
+  hasPublishAction,
+  children
+}) {
+  if (!hasPublishAction) {
+    return null;
+  }
+  return children;
+}
+/* harmony default export */ var post_schedule_check = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+  var _getCurrentPost$_link;
+  const {
+    getCurrentPost,
+    getCurrentPostType
+  } = select(store_store);
+  return {
+    hasPublishAction: (_getCurrentPost$_link = getCurrentPost()._links?.['wp:action-publish']) !== null && _getCurrentPost$_link !== void 0 ? _getCurrentPost$_link : false,
+    postType: getCurrentPostType()
+  };
+})])(PostScheduleCheck));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-schedule/panel.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function PostSchedulePanel() {
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null);
+  // Memoize popoverProps to avoid returning a new object every time.
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    // Anchor the popover to the middle of the entire row so that it doesn't
+    // move around when the label changes.
+    anchor: popoverAnchor,
+    'aria-label': (0,external_wp_i18n_namespaceObject.__)('Change publish date'),
+    placement: 'bottom-end'
+  }), [popoverAnchor]);
+  const label = usePostScheduleLabel();
+  const fullLabel = usePostScheduleLabel({
+    full: true
+  });
+  return (0,external_React_.createElement)(post_schedule_check, null, (0,external_React_.createElement)(post_panel_row, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Publish'),
+    ref: setPopoverAnchor
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Dropdown, {
+    popoverProps: popoverProps,
+    focusOnMount: true,
+    className: "editor-post-schedule__panel-dropdown",
+    contentClassName: "editor-post-schedule__dialog",
+    renderToggle: ({
+      onToggle,
+      isOpen
+    }) => (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+      className: "editor-post-schedule__dialog-toggle",
+      variant: "tertiary",
+      onClick: onToggle,
+      "aria-label": (0,external_wp_i18n_namespaceObject.sprintf)(
+      // translators: %s: Current post date.
+      (0,external_wp_i18n_namespaceObject.__)('Change date: %s'), label),
+      label: fullLabel,
+      showTooltip: true,
+      "aria-expanded": isOpen
+    }, label),
+    renderContent: ({
+      onClose
+    }) => (0,external_React_.createElement)(PostSchedule, {
+      onClose: onClose
+    })
+  })));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-slug/check.js
+
+/**
+ * Internal dependencies
+ */
+
+function PostSlugCheck({
+  children
+}) {
+  return (0,external_React_.createElement)(post_type_support_check, {
+    supportKeys: "slug"
+  }, children);
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-slug/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+class PostSlug extends external_wp_element_namespaceObject.Component {
+  constructor({
+    postSlug,
+    postTitle,
+    postID
+  }) {
+    super(...arguments);
+    this.state = {
+      editedSlug: (0,external_wp_url_namespaceObject.safeDecodeURIComponent)(postSlug) || (0,external_wp_url_namespaceObject.cleanForSlug)(postTitle) || postID
+    };
+    this.setSlug = this.setSlug.bind(this);
+  }
+  setSlug(event) {
+    const {
+      postSlug,
+      onUpdateSlug
+    } = this.props;
+    const {
+      value
+    } = event.target;
+    const editedSlug = (0,external_wp_url_namespaceObject.cleanForSlug)(value);
+    if (editedSlug === postSlug) {
+      return;
+    }
+    onUpdateSlug(editedSlug);
+  }
+  render() {
+    const {
+      editedSlug
+    } = this.state;
+    return (0,external_React_.createElement)(PostSlugCheck, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.TextControl, {
+      __nextHasNoMarginBottom: true,
+      label: (0,external_wp_i18n_namespaceObject.__)('Slug'),
+      autoComplete: "off",
+      spellCheck: "false",
+      value: editedSlug,
+      onChange: slug => this.setState({
+        editedSlug: slug
+      }),
+      onBlur: this.setSlug,
+      className: "editor-post-slug"
+    }));
+  }
+}
+/* harmony default export */ var post_slug = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+  const {
+    getCurrentPost,
+    getEditedPostAttribute
+  } = select(store_store);
+  const {
+    id
+  } = getCurrentPost();
+  return {
+    postSlug: getEditedPostAttribute('slug'),
+    postTitle: getEditedPostAttribute('title'),
+    postID: id
+  };
+}), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => {
+  const {
+    editPost
+  } = dispatch(store_store);
+  return {
+    onUpdateSlug(slug) {
+      editPost({
+        slug
+      });
+    }
+  };
+})])(PostSlug));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-sticky/check.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostStickyCheck({
+  children
+}) {
+  const {
+    hasStickyAction,
+    postType
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _post$_links$wpActio;
+    const post = select(store_store).getCurrentPost();
+    return {
+      hasStickyAction: (_post$_links$wpActio = post._links?.['wp:action-sticky']) !== null && _post$_links$wpActio !== void 0 ? _post$_links$wpActio : false,
+      postType: select(store_store).getCurrentPostType()
+    };
+  }, []);
+  if (postType !== 'post' || !hasStickyAction) {
+    return null;
+  }
+  return children;
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-sticky/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function PostSticky() {
+  const postSticky = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _select$getEditedPost;
+    return (_select$getEditedPost = select(store_store).getEditedPostAttribute('sticky')) !== null && _select$getEditedPost !== void 0 ? _select$getEditedPost : false;
+  }, []);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  return (0,external_React_.createElement)(PostStickyCheck, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
+    __nextHasNoMarginBottom: true,
+    label: (0,external_wp_i18n_namespaceObject.__)('Stick to the top of the blog'),
+    checked: postSticky,
+    onChange: () => editPost({
+      sticky: !postSticky
+    })
+  }));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-switch-to-draft-button/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostSwitchToDraftButton() {
+  const [showConfirmDialog, setShowConfirmDialog] = (0,external_wp_element_namespaceObject.useState)(false);
+  const {
+    editPost,
+    savePost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const {
+    isSaving,
+    isPublished,
+    isScheduled
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      isSavingPost,
+      isCurrentPostPublished,
+      isCurrentPostScheduled
+    } = select(store_store);
+    return {
+      isSaving: isSavingPost(),
+      isPublished: isCurrentPostPublished(),
+      isScheduled: isCurrentPostScheduled()
+    };
+  }, []);
+  const isDisabled = isSaving || !isPublished && !isScheduled;
+  let alertMessage;
+  if (isPublished) {
+    alertMessage = (0,external_wp_i18n_namespaceObject.__)('Are you sure you want to unpublish this post?');
+  } else if (isScheduled) {
+    alertMessage = (0,external_wp_i18n_namespaceObject.__)('Are you sure you want to unschedule this post?');
+  }
+  const handleConfirm = () => {
+    setShowConfirmDialog(false);
+    editPost({
+      status: 'draft'
+    });
+    savePost();
+  };
+  return (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    className: "editor-post-switch-to-draft",
+    onClick: () => {
+      if (!isDisabled) {
+        setShowConfirmDialog(true);
+      }
+    },
+    "aria-disabled": isDisabled,
+    variant: "secondary",
+    style: {
+      flexGrow: '1',
+      justifyContent: 'center'
+    }
+  }, (0,external_wp_i18n_namespaceObject.__)('Switch to draft')), (0,external_React_.createElement)(external_wp_components_namespaceObject.__experimentalConfirmDialog, {
+    isOpen: showConfirmDialog,
+    onConfirm: handleConfirm,
+    onCancel: () => setShowConfirmDialog(false)
+  }, alertMessage));
+}
+
+;// CONCATENATED MODULE: external ["wp","privateApis"]
+var external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/lock-unlock.js
+/**
+ * WordPress dependencies
+ */
+
+const {
+  lock,
+  unlock
+} = (0,external_wp_privateApis_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my theme or plugin will inevitably break in the next version of WordPress.', '@wordpress/editor');
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-sync-status/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const {
+  ReusableBlocksRenameHint
+} = unlock(external_wp_blockEditor_namespaceObject.privateApis);
+function PostSyncStatus() {
+  const {
+    syncStatus,
+    postType
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEditedPostAttribute
+    } = select(store_store);
+    const meta = getEditedPostAttribute('meta');
+
+    // When the post is first created, the top level wp_pattern_sync_status is not set so get meta value instead.
+    const currentSyncStatus = meta?.wp_pattern_sync_status === 'unsynced' ? 'unsynced' : getEditedPostAttribute('wp_pattern_sync_status');
+    return {
+      syncStatus: currentSyncStatus,
+      postType: getEditedPostAttribute('type')
+    };
+  });
+  if (postType !== 'wp_block') {
+    return null;
+  }
+  return (0,external_React_.createElement)(post_panel_row, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Sync status')
+  }, (0,external_React_.createElement)("div", {
+    className: "editor-post-sync-status__value"
+  }, syncStatus === 'unsynced' ? (0,external_wp_i18n_namespaceObject.__)('Not synced') : (0,external_wp_i18n_namespaceObject.__)('Fully synced')));
+}
+function PostSyncStatusModal() {
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const [isModalOpen, setIsModalOpen] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [syncType, setSyncType] = (0,external_wp_element_namespaceObject.useState)(undefined);
+  const {
+    postType,
+    isNewPost
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEditedPostAttribute,
+      isCleanNewPost
+    } = select(store_store);
+    return {
+      postType: getEditedPostAttribute('type'),
+      isNewPost: isCleanNewPost()
+    };
+  }, []);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (isNewPost && postType === 'wp_block') {
+      setIsModalOpen(true);
+    }
+    // We only want the modal to open when the page is first loaded.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const setSyncStatus = () => {
+    editPost({
+      meta: {
+        wp_pattern_sync_status: syncType
+      }
+    });
+  };
+  if (postType !== 'wp_block' || !isNewPost) {
+    return null;
+  }
+  return (0,external_React_.createElement)(external_React_.Fragment, null, isModalOpen && (0,external_React_.createElement)(external_wp_components_namespaceObject.Modal, {
+    title: (0,external_wp_i18n_namespaceObject.__)('Set pattern sync status'),
+    onRequestClose: () => {
+      setIsModalOpen(false);
+    },
+    overlayClassName: "reusable-blocks-menu-items__convert-modal"
+  }, (0,external_React_.createElement)("form", {
+    onSubmit: event => {
+      event.preventDefault();
+      setIsModalOpen(false);
+      setSyncStatus();
+    }
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.__experimentalVStack, {
+    spacing: "5"
+  }, (0,external_React_.createElement)(ReusableBlocksRenameHint, null), (0,external_React_.createElement)(external_wp_components_namespaceObject.ToggleControl, {
+    label: (0,external_wp_i18n_namespaceObject._x)('Synced', 'Option that makes an individual pattern synchronized'),
+    help: (0,external_wp_i18n_namespaceObject.__)('Sync this pattern across multiple locations.'),
+    checked: !syncType,
+    onChange: () => {
+      setSyncType(!syncType ? 'unsynced' : undefined);
+    }
+  }), (0,external_React_.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    justify: "right"
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "primary",
+    type: "submit"
+  }, (0,external_wp_i18n_namespaceObject.__)('Create')))))));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const post_taxonomies_identity = x => x;
+function PostTaxonomies({
+  postType,
+  taxonomies,
+  taxonomyWrapper = post_taxonomies_identity
+}) {
+  const availableTaxonomies = (taxonomies !== null && taxonomies !== void 0 ? taxonomies : []).filter(taxonomy => taxonomy.types.includes(postType));
+  const visibleTaxonomies = availableTaxonomies.filter(
+  // In some circumstances .visibility can end up as undefined so optional chaining operator required.
+  // https://github.com/WordPress/gutenberg/issues/40326
+  taxonomy => taxonomy.visibility?.show_ui);
+  return visibleTaxonomies.map(taxonomy => {
+    const TaxonomyComponent = taxonomy.hierarchical ? hierarchical_term_selector : flat_term_selector;
+    return (0,external_React_.createElement)(external_wp_element_namespaceObject.Fragment, {
+      key: `taxonomy-${taxonomy.slug}`
+    }, taxonomyWrapper((0,external_React_.createElement)(TaxonomyComponent, {
+      slug: taxonomy.slug
+    }), taxonomy));
+  });
+}
+/* harmony default export */ var post_taxonomies = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+  return {
+    postType: select(store_store).getCurrentPostType(),
+    taxonomies: select(external_wp_coreData_namespaceObject.store).getTaxonomies({
+      per_page: -1
+    })
+  };
+})])(PostTaxonomies));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/check.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostTaxonomiesCheck({
+  postType,
+  taxonomies,
+  children
+}) {
+  const hasTaxonomies = taxonomies?.some(taxonomy => taxonomy.types.includes(postType));
+  if (!hasTaxonomies) {
+    return null;
+  }
+  return children;
+}
+/* harmony default export */ var post_taxonomies_check = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+  return {
+    postType: select(store_store).getCurrentPostType(),
+    taxonomies: select(external_wp_coreData_namespaceObject.store).getTaxonomies({
+      per_page: -1
+    })
+  };
+})])(PostTaxonomiesCheck));
+
+// EXTERNAL MODULE: ./node_modules/react-autosize-textarea/lib/index.js
+var lib = __webpack_require__(773);
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-text-editor/index.js
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostTextEditor() {
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(PostTextEditor);
+  const {
+    content,
+    blocks,
+    type,
+    id
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEditedEntityRecord
+    } = select(external_wp_coreData_namespaceObject.store);
+    const {
+      getCurrentPostType,
+      getCurrentPostId
+    } = select(store_store);
+    const _type = getCurrentPostType();
+    const _id = getCurrentPostId();
+    const editedRecord = getEditedEntityRecord('postType', _type, _id);
+    return {
+      content: editedRecord?.content,
+      blocks: editedRecord?.blocks,
+      type: _type,
+      id: _id
+    };
+  }, []);
+  const {
+    editEntityRecord
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
+  // Replicates the logic found in getEditedPostContent().
+  const value = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    if (content instanceof Function) {
+      return content({
+        blocks
+      });
+    } else if (blocks) {
+      // If we have parsed blocks already, they should be our source of truth.
+      // Parsing applies block deprecations and legacy block conversions that
+      // unparsed content will not have.
+      return (0,external_wp_blocks_namespaceObject.__unstableSerializeAndClean)(blocks);
+    }
+    return content;
+  }, [content, blocks]);
+  return (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
+    as: "label",
+    htmlFor: `post-content-${instanceId}`
+  }, (0,external_wp_i18n_namespaceObject.__)('Type text or HTML')), (0,external_React_.createElement)(lib/* default */.Z, {
+    autoComplete: "off",
+    dir: "auto",
+    value: value,
+    onChange: event => {
+      editEntityRecord('postType', type, id, {
+        content: event.target.value,
+        blocks: undefined,
+        selection: undefined
+      });
+    },
+    className: "editor-post-text-editor",
+    id: `post-content-${instanceId}`,
+    placeholder: (0,external_wp_i18n_namespaceObject.__)('Start writing with text or HTML')
+  }));
+}
+
+;// CONCATENATED MODULE: external ["wp","dom"]
+var external_wp_dom_namespaceObject = window["wp"]["dom"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-title/constants.js
+const DEFAULT_CLASSNAMES = 'wp-block wp-block-post-title block-editor-block-list__block editor-post-title editor-post-title__input rich-text';
+const REGEXP_NEWLINES = /[\r\n]+/g;
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-title/use-post-title-focus.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function usePostTitleFocus(forwardedRef) {
+  const ref = (0,external_wp_element_namespaceObject.useRef)();
+  const {
+    isCleanNewPost
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      isCleanNewPost: _isCleanNewPost
+    } = select(store_store);
+    return {
+      isCleanNewPost: _isCleanNewPost()
+    };
+  }, []);
+  (0,external_wp_element_namespaceObject.useImperativeHandle)(forwardedRef, () => ({
+    focus: () => {
+      ref?.current?.focus();
+    }
+  }));
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (!ref.current) {
+      return;
+    }
+    const {
+      defaultView
+    } = ref.current.ownerDocument;
+    const {
+      name,
+      parent
+    } = defaultView;
+    const ownerDocument = name === 'editor-canvas' ? parent.document : defaultView.document;
+    const {
+      activeElement,
+      body
+    } = ownerDocument;
+
+    // Only autofocus the title when the post is entirely empty. This should
+    // only happen for a new post, which means we focus the title on new
+    // post so the author can start typing right away, without needing to
+    // click anything.
+    if (isCleanNewPost && (!activeElement || body === activeElement)) {
+      ref.current.focus();
+    }
+  }, [isCleanNewPost]);
+  return {
+    ref
+  };
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-title/use-post-title.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+function usePostTitle() {
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const {
+    title
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEditedPostAttribute
+    } = select(store_store);
+    return {
+      title: getEditedPostAttribute('title')
+    };
+  }, []);
+  function updateTitle(newTitle) {
+    editPost({
+      title: newTitle
+    });
+  }
+  return {
+    title,
+    setTitle: updateTitle
+  };
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-title/index.js
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+function PostTitle(_, forwardedRef) {
+  const {
+    placeholder,
+    hasFixedToolbar
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEditedPostAttribute
+    } = select(store_store);
+    const {
+      getSettings
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    const {
+      titlePlaceholder,
+      hasFixedToolbar: _hasFixedToolbar
+    } = getSettings();
+    return {
+      title: getEditedPostAttribute('title'),
+      placeholder: titlePlaceholder,
+      hasFixedToolbar: _hasFixedToolbar
+    };
+  }, []);
+  const [isSelected, setIsSelected] = (0,external_wp_element_namespaceObject.useState)(false);
+  const {
+    ref: focusRef
+  } = usePostTitleFocus(forwardedRef);
+  const {
+    title,
+    setTitle: onUpdate
+  } = usePostTitle();
+  const [selection, setSelection] = (0,external_wp_element_namespaceObject.useState)({});
+  const {
+    clearSelectedBlock,
+    insertBlocks,
+    insertDefaultBlock
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
+  function onChange(value) {
+    onUpdate(value.replace(REGEXP_NEWLINES, ' '));
+  }
+  function onInsertBlockAfter(blocks) {
+    insertBlocks(blocks, 0);
+  }
+  function onSelect() {
+    setIsSelected(true);
+    clearSelectedBlock();
+  }
+  function onUnselect() {
+    setIsSelected(false);
+    setSelection({});
+  }
+  function onEnterPress() {
+    insertDefaultBlock(undefined, undefined, 0);
+  }
+  function onKeyDown(event) {
+    if (event.keyCode === external_wp_keycodes_namespaceObject.ENTER) {
+      event.preventDefault();
+      onEnterPress();
+    }
+  }
+  function onPaste(event) {
+    const clipboardData = event.clipboardData;
+    let plainText = '';
+    let html = '';
+
+    // IE11 only supports `Text` as an argument for `getData` and will
+    // otherwise throw an invalid argument error, so we try the standard
+    // arguments first, then fallback to `Text` if they fail.
+    try {
+      plainText = clipboardData.getData('text/plain');
+      html = clipboardData.getData('text/html');
+    } catch (error1) {
+      try {
+        html = clipboardData.getData('Text');
+      } catch (error2) {
+        // Some browsers like UC Browser paste plain text by default and
+        // don't support clipboardData at all, so allow default
+        // behaviour.
+        return;
+      }
+    }
+
+    // Allows us to ask for this information when we get a report.
+    window.console.log('Received HTML:\n\n', html);
+    window.console.log('Received plain text:\n\n', plainText);
+    const content = (0,external_wp_blocks_namespaceObject.pasteHandler)({
+      HTML: html,
+      plainText
+    });
+    event.preventDefault();
+    if (!content.length) {
+      return;
+    }
+    if (typeof content !== 'string') {
+      const [firstBlock] = content;
+      if (!title && (firstBlock.name === 'core/heading' || firstBlock.name === 'core/paragraph')) {
+        // Strip HTML to avoid unwanted HTML being added to the title.
+        // In the majority of cases it is assumed that HTML in the title
+        // is undesirable.
+        const contentNoHTML = (0,external_wp_dom_namespaceObject.__unstableStripHTML)(firstBlock.attributes.content);
+        onUpdate(contentNoHTML);
+        onInsertBlockAfter(content.slice(1));
+      } else {
+        onInsertBlockAfter(content);
+      }
+    } else {
+      const value = {
+        ...(0,external_wp_richText_namespaceObject.create)({
+          html: title
+        }),
+        ...selection
+      };
+
+      // Strip HTML to avoid unwanted HTML being added to the title.
+      // In the majority of cases it is assumed that HTML in the title
+      // is undesirable.
+      const contentNoHTML = (0,external_wp_dom_namespaceObject.__unstableStripHTML)(content);
+      const newValue = (0,external_wp_richText_namespaceObject.insert)(value, (0,external_wp_richText_namespaceObject.create)({
+        html: contentNoHTML
+      }));
+      onUpdate((0,external_wp_richText_namespaceObject.toHTMLString)({
+        value: newValue
+      }));
+      setSelection({
+        start: newValue.start,
+        end: newValue.end
+      });
+    }
+  }
+  const decodedPlaceholder = (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(placeholder) || (0,external_wp_i18n_namespaceObject.__)('Add title');
+  const {
+    ref: richTextRef
+  } = (0,external_wp_richText_namespaceObject.__unstableUseRichText)({
+    value: title,
+    onChange,
+    placeholder: decodedPlaceholder,
+    selectionStart: selection.start,
+    selectionEnd: selection.end,
+    onSelectionChange(newStart, newEnd) {
+      setSelection(sel => {
+        const {
+          start,
+          end
+        } = sel;
+        if (start === newStart && end === newEnd) {
+          return sel;
+        }
+        return {
+          start: newStart,
+          end: newEnd
+        };
+      });
+    },
+    __unstableDisableFormats: false
+  });
+
+  // The wp-block className is important for editor styles.
+  // This same block is used in both the visual and the code editor.
+  const className = classnames_default()(DEFAULT_CLASSNAMES, {
+    'is-selected': isSelected,
+    'has-fixed-toolbar': hasFixedToolbar
+  });
+  return (/* eslint-disable jsx-a11y/heading-has-content, jsx-a11y/no-noninteractive-element-to-interactive-role */
+    (0,external_React_.createElement)(post_type_support_check, {
+      supportKeys: "title"
+    }, (0,external_React_.createElement)("h1", {
+      ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([richTextRef, focusRef]),
+      contentEditable: true,
+      className: className,
+      "aria-label": decodedPlaceholder,
+      role: "textbox",
+      "aria-multiline": "true",
+      onFocus: onSelect,
+      onBlur: onUnselect,
+      onKeyDown: onKeyDown,
+      onKeyPress: onUnselect,
+      onPaste: onPaste
+    }))
+    /* eslint-enable jsx-a11y/heading-has-content, jsx-a11y/no-noninteractive-element-to-interactive-role */
+  );
+}
+
+/* harmony default export */ var post_title = ((0,external_wp_element_namespaceObject.forwardRef)(PostTitle));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-title/post-title-raw.js
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function PostTitleRaw(_, forwardedRef) {
+  const {
+    placeholder,
+    hasFixedToolbar
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getSettings
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    const {
+      titlePlaceholder,
+      hasFixedToolbar: _hasFixedToolbar
+    } = getSettings();
+    return {
+      placeholder: titlePlaceholder,
+      hasFixedToolbar: _hasFixedToolbar
+    };
+  }, []);
+  const [isSelected, setIsSelected] = (0,external_wp_element_namespaceObject.useState)(false);
+  const {
+    title,
+    setTitle: onUpdate
+  } = usePostTitle();
+  const {
+    ref: focusRef
+  } = usePostTitleFocus(forwardedRef);
+  function onChange(value) {
+    onUpdate(value.replace(REGEXP_NEWLINES, ' '));
+  }
+  function onSelect() {
+    setIsSelected(true);
+  }
+  function onUnselect() {
+    setIsSelected(false);
+  }
+
+  // The wp-block className is important for editor styles.
+  // This same block is used in both the visual and the code editor.
+  const className = classnames_default()(DEFAULT_CLASSNAMES, {
+    'is-selected': isSelected,
+    'has-fixed-toolbar': hasFixedToolbar,
+    'is-raw-text': true
+  });
+  const decodedPlaceholder = (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(placeholder) || (0,external_wp_i18n_namespaceObject.__)('Add title');
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.TextareaControl, {
+    ref: focusRef,
+    value: title,
+    onChange: onChange,
+    onFocus: onSelect,
+    onBlur: onUnselect,
+    label: placeholder,
+    className: className,
+    placeholder: decodedPlaceholder,
+    hideLabelFromVision: true,
+    autoComplete: "off",
+    dir: "auto",
+    rows: 1,
+    __nextHasNoMarginBottom: true
+  });
+}
+/* harmony default export */ var post_title_raw = ((0,external_wp_element_namespaceObject.forwardRef)(PostTitleRaw));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-trash/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostTrash() {
+  const {
+    isNew,
+    isDeleting,
+    postId
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const store = select(store_store);
+    return {
+      isNew: store.isEditedPostNew(),
+      isDeleting: store.isDeletingPost(),
+      postId: store.getCurrentPostId()
+    };
+  }, []);
+  const {
+    trashPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const [showConfirmDialog, setShowConfirmDialog] = (0,external_wp_element_namespaceObject.useState)(false);
+  if (isNew || !postId) {
+    return null;
+  }
+  const handleConfirm = () => {
+    setShowConfirmDialog(false);
+    trashPost();
+  };
+  return (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    className: "editor-post-trash",
+    isDestructive: true,
+    variant: "secondary",
+    isBusy: isDeleting,
+    "aria-disabled": isDeleting,
+    onClick: isDeleting ? undefined : () => setShowConfirmDialog(true)
+  }, (0,external_wp_i18n_namespaceObject.__)('Move to trash')), (0,external_React_.createElement)(external_wp_components_namespaceObject.__experimentalConfirmDialog, {
+    isOpen: showConfirmDialog,
+    onConfirm: handleConfirm,
+    onCancel: () => setShowConfirmDialog(false)
+  }, (0,external_wp_i18n_namespaceObject.__)('Are you sure you want to move this post to the trash?')));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-trash/check.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostTrashCheck({
+  isNew,
+  postId,
+  canUserDelete,
+  children
+}) {
+  if (isNew || !postId || !canUserDelete) {
+    return null;
+  }
+  return children;
+}
+/* harmony default export */ var post_trash_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
+  const {
+    isEditedPostNew,
+    getCurrentPostId,
+    getCurrentPostType
+  } = select(store_store);
+  const {
+    getPostType,
+    canUser
+  } = select(external_wp_coreData_namespaceObject.store);
+  const postId = getCurrentPostId();
+  const postType = getPostType(getCurrentPostType());
+  const resource = postType?.rest_base || ''; // eslint-disable-line camelcase
+
+  return {
+    isNew: isEditedPostNew(),
+    postId,
+    canUserDelete: postId && resource ? canUser('delete', resource, postId) : false
+  };
+})(PostTrashCheck));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-url/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostURL({
+  onClose
+}) {
+  const {
+    isEditable,
+    postSlug,
+    viewPostLabel,
+    postLink,
+    permalinkPrefix,
+    permalinkSuffix
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _post$_links$wpActio;
+    const post = select(store_store).getCurrentPost();
+    const postTypeSlug = select(store_store).getCurrentPostType();
+    const postType = select(external_wp_coreData_namespaceObject.store).getPostType(postTypeSlug);
+    const permalinkParts = select(store_store).getPermalinkParts();
+    const hasPublishAction = (_post$_links$wpActio = post?._links?.['wp:action-publish']) !== null && _post$_links$wpActio !== void 0 ? _post$_links$wpActio : false;
+    return {
+      isEditable: select(store_store).isPermalinkEditable() && hasPublishAction,
+      postSlug: (0,external_wp_url_namespaceObject.safeDecodeURIComponent)(select(store_store).getEditedPostSlug()),
+      viewPostLabel: postType?.labels.view_item,
+      postLink: post.link,
+      permalinkPrefix: permalinkParts?.prefix,
+      permalinkSuffix: permalinkParts?.suffix
+    };
+  }, []);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const [forceEmptyField, setForceEmptyField] = (0,external_wp_element_namespaceObject.useState)(false);
+  return (0,external_React_.createElement)("div", {
+    className: "editor-post-url"
+  }, (0,external_React_.createElement)(external_wp_blockEditor_namespaceObject.__experimentalInspectorPopoverHeader, {
+    title: (0,external_wp_i18n_namespaceObject.__)('URL'),
+    onClose: onClose
+  }), isEditable && (0,external_React_.createElement)(external_wp_components_namespaceObject.TextControl, {
+    __nextHasNoMarginBottom: true,
+    label: (0,external_wp_i18n_namespaceObject.__)('Permalink'),
+    value: forceEmptyField ? '' : postSlug,
+    autoComplete: "off",
+    spellCheck: "false",
+    help: (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_wp_i18n_namespaceObject.__)('The last part of the URL.'), ' ', (0,external_React_.createElement)(external_wp_components_namespaceObject.ExternalLink, {
+      href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/documentation/article/page-post-settings-sidebar/#permalink')
+    }, (0,external_wp_i18n_namespaceObject.__)('Learn more.'))),
+    onChange: newValue => {
+      editPost({
+        slug: newValue
+      });
+      // When we delete the field the permalink gets
+      // reverted to the original value.
+      // The forceEmptyField logic allows the user to have
+      // the field temporarily empty while typing.
+      if (!newValue) {
+        if (!forceEmptyField) {
+          setForceEmptyField(true);
+        }
+        return;
+      }
+      if (forceEmptyField) {
+        setForceEmptyField(false);
+      }
+    },
+    onBlur: event => {
+      editPost({
+        slug: (0,external_wp_url_namespaceObject.cleanForSlug)(event.target.value)
+      });
+      if (forceEmptyField) {
+        setForceEmptyField(false);
+      }
+    }
+  }), isEditable && (0,external_React_.createElement)("h3", {
+    className: "editor-post-url__link-label"
+  }, viewPostLabel !== null && viewPostLabel !== void 0 ? viewPostLabel : (0,external_wp_i18n_namespaceObject.__)('View post')), (0,external_React_.createElement)("p", null, (0,external_React_.createElement)(external_wp_components_namespaceObject.ExternalLink, {
+    className: "editor-post-url__link",
+    href: postLink,
+    target: "_blank"
+  }, isEditable ? (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)("span", {
+    className: "editor-post-url__link-prefix"
+  }, permalinkPrefix), (0,external_React_.createElement)("span", {
+    className: "editor-post-url__link-slug"
+  }, postSlug), (0,external_React_.createElement)("span", {
+    className: "editor-post-url__link-suffix"
+  }, permalinkSuffix)) : postLink)));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-url/check.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostURLCheck({
+  children
+}) {
+  const isVisible = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const postTypeSlug = select(store_store).getCurrentPostType();
+    const postType = select(external_wp_coreData_namespaceObject.store).getPostType(postTypeSlug);
+    if (!postType?.viewable) {
+      return false;
+    }
+    const post = select(store_store).getCurrentPost();
+    if (!post.link) {
+      return false;
+    }
+    const permalinkParts = select(store_store).getPermalinkParts();
+    if (!permalinkParts) {
+      return false;
+    }
+    return true;
+  }, []);
+  if (!isVisible) {
+    return null;
+  }
+  return children;
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-url/label.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostURLLabel() {
+  return usePostURLLabel();
+}
+function usePostURLLabel() {
+  const postLink = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getPermalink(), []);
+  return (0,external_wp_url_namespaceObject.filterURLForDisplay)((0,external_wp_url_namespaceObject.safeDecodeURIComponent)(postLink));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-url/panel.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function PostURLPanel() {
+  // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null);
+  // Memoize popoverProps to avoid returning a new object every time.
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    anchor: popoverAnchor,
+    placement: 'bottom-end'
+  }), [popoverAnchor]);
+  return (0,external_React_.createElement)(PostURLCheck, null, (0,external_React_.createElement)(post_panel_row, {
+    label: (0,external_wp_i18n_namespaceObject.__)('URL'),
+    ref: setPopoverAnchor
+  }, (0,external_React_.createElement)(external_wp_components_namespaceObject.Dropdown, {
+    popoverProps: popoverProps,
+    className: "editor-post-url__panel-dropdown",
+    contentClassName: "editor-post-url__panel-dialog",
+    focusOnMount: true,
+    renderToggle: ({
+      isOpen,
+      onToggle
+    }) => (0,external_React_.createElement)(PostURLToggle, {
+      isOpen: isOpen,
+      onClick: onToggle
+    }),
+    renderContent: ({
+      onClose
+    }) => (0,external_React_.createElement)(PostURL, {
+      onClose: onClose
+    })
+  })));
+}
+function PostURLToggle({
+  isOpen,
+  onClick
+}) {
+  const label = usePostURLLabel();
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+    className: "editor-post-url__panel-toggle",
+    variant: "tertiary",
+    "aria-expanded": isOpen
+    // translators: %s: Current post URL.
+    ,
+    "aria-label": (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Change URL: %s'), label),
+    onClick: onClick
+  }, label);
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-visibility/check.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function PostVisibilityCheck({
+  hasPublishAction,
+  render
+}) {
+  const canEdit = hasPublishAction;
+  return render({
+    canEdit
+  });
+}
+/* harmony default export */ var post_visibility_check = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+  var _getCurrentPost$_link;
+  const {
+    getCurrentPost,
+    getCurrentPostType
+  } = select(store_store);
+  return {
+    hasPublishAction: (_getCurrentPost$_link = getCurrentPost()._links?.['wp:action-publish']) !== null && _getCurrentPost$_link !== void 0 ? _getCurrentPost$_link : false,
+    postType: getCurrentPostType()
+  };
+})])(PostVisibilityCheck));
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/info.js
+
+/**
+ * WordPress dependencies
+ */
+
+const info = (0,external_React_.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_React_.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M12 3.2c-4.8 0-8.8 3.9-8.8 8.8 0 4.8 3.9 8.8 8.8 8.8 4.8 0 8.8-3.9 8.8-8.8 0-4.8-4-8.8-8.8-8.8zm0 16c-4 0-7.2-3.3-7.2-7.2C4.8 8 8 4.8 12 4.8s7.2 3.3 7.2 7.2c0 4-3.2 7.2-7.2 7.2zM11 17h2v-6h-2v6zm0-8h2V7h-2v2z"
+}));
+/* harmony default export */ var library_info = (info);
+
+;// CONCATENATED MODULE: external ["wp","wordcount"]
+var external_wp_wordcount_namespaceObject = window["wp"]["wordcount"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/word-count/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function WordCount() {
+  const content = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getEditedPostAttribute('content'), []);
+
+  /*
+   * translators: If your word count is based on single characters (e.g. East Asian characters),
+   * enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
+   * Do not translate into your own language.
+   */
+  const wordCountType = (0,external_wp_i18n_namespaceObject._x)('words', 'Word count type. Do not translate!');
+  return (0,external_React_.createElement)("span", {
+    className: "word-count"
+  }, (0,external_wp_wordcount_namespaceObject.count)(content, wordCountType));
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/time-to-read/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Average reading rate - based on average taken from
+ * https://irisreading.com/average-reading-speed-in-various-languages/
+ * (Characters/minute used for Chinese rather than words).
+ *
+ * @type {number} A rough estimate of the average reading rate across multiple languages.
+ */
+const AVERAGE_READING_RATE = 189;
+function TimeToRead() {
+  const content = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getEditedPostAttribute('content'), []);
+
+  /*
+   * translators: If your word count is based on single characters (e.g. East Asian characters),
+   * enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
+   * Do not translate into your own language.
+   */
+  const wordCountType = (0,external_wp_i18n_namespaceObject._x)('words', 'Word count type. Do not translate!');
+  const minutesToRead = Math.round((0,external_wp_wordcount_namespaceObject.count)(content, wordCountType) / AVERAGE_READING_RATE);
+  const minutesToReadString = minutesToRead === 0 ? (0,external_wp_element_namespaceObject.createInterpolateElement)((0,external_wp_i18n_namespaceObject.__)('<span>< 1</span> minute'), {
+    span: (0,external_React_.createElement)("span", null)
+  }) : (0,external_wp_element_namespaceObject.createInterpolateElement)((0,external_wp_i18n_namespaceObject.sprintf)( /* translators: %s is the number of minutes the post will take to read. */
+  (0,external_wp_i18n_namespaceObject._n)('<span>%d</span> minute', '<span>%d</span> minutes', minutesToRead), minutesToRead), {
+    span: (0,external_React_.createElement)("span", null)
+  });
+  return (0,external_React_.createElement)("span", {
+    className: "time-to-read"
+  }, minutesToReadString);
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/character-count/index.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function CharacterCount() {
+  const content = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getEditedPostAttribute('content'), []);
+  return (0,external_wp_wordcount_namespaceObject.count)(content, 'characters_including_spaces');
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/table-of-contents/panel.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function TableOfContentsPanel({
+  hasOutlineItemsDisabled,
+  onRequestClose
+}) {
+  const {
+    headingCount,
+    paragraphCount,
+    numberOfBlocks
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getGlobalBlockCount
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    return {
+      headingCount: getGlobalBlockCount('core/heading'),
+      paragraphCount: getGlobalBlockCount('core/paragraph'),
+      numberOfBlocks: getGlobalBlockCount()
+    };
+  }, []);
+  return (
+    /*
+     * Disable reason: The `list` ARIA role is redundant but
+     * Safari+VoiceOver won't announce the list otherwise.
+     */
+    /* eslint-disable jsx-a11y/no-redundant-roles */
+    (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)("div", {
+      className: "table-of-contents__wrapper",
+      role: "note",
+      "aria-label": (0,external_wp_i18n_namespaceObject.__)('Document Statistics'),
+      tabIndex: "0"
+    }, (0,external_React_.createElement)("ul", {
+      role: "list",
+      className: "table-of-contents__counts"
+    }, (0,external_React_.createElement)("li", {
+      className: "table-of-contents__count"
+    }, (0,external_wp_i18n_namespaceObject.__)('Words'), (0,external_React_.createElement)(WordCount, null)), (0,external_React_.createElement)("li", {
+      className: "table-of-contents__count"
+    }, (0,external_wp_i18n_namespaceObject.__)('Characters'), (0,external_React_.createElement)("span", {
+      className: "table-of-contents__number"
+    }, (0,external_React_.createElement)(CharacterCount, null))), (0,external_React_.createElement)("li", {
+      className: "table-of-contents__count"
+    }, (0,external_wp_i18n_namespaceObject.__)('Time to read'), (0,external_React_.createElement)(TimeToRead, null)), (0,external_React_.createElement)("li", {
+      className: "table-of-contents__count"
+    }, (0,external_wp_i18n_namespaceObject.__)('Headings'), (0,external_React_.createElement)("span", {
+      className: "table-of-contents__number"
+    }, headingCount)), (0,external_React_.createElement)("li", {
+      className: "table-of-contents__count"
+    }, (0,external_wp_i18n_namespaceObject.__)('Paragraphs'), (0,external_React_.createElement)("span", {
+      className: "table-of-contents__number"
+    }, paragraphCount)), (0,external_React_.createElement)("li", {
+      className: "table-of-contents__count"
+    }, (0,external_wp_i18n_namespaceObject.__)('Blocks'), (0,external_React_.createElement)("span", {
+      className: "table-of-contents__number"
+    }, numberOfBlocks)))), headingCount > 0 && (0,external_React_.createElement)(external_React_.Fragment, null, (0,external_React_.createElement)("hr", null), (0,external_React_.createElement)("h2", {
+      className: "table-of-contents__title"
+    }, (0,external_wp_i18n_namespaceObject.__)('Document Outline')), (0,external_React_.createElement)(document_outline, {
+      onSelect: onRequestClose,
+      hasOutlineItemsDisabled: hasOutlineItemsDisabled
+    })))
+    /* eslint-enable jsx-a11y/no-redundant-roles */
+  );
+}
+
+/* harmony default export */ var table_of_contents_panel = (TableOfContentsPanel);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/table-of-contents/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function TableOfContents({
+  hasOutlineItemsDisabled,
+  repositionDropdown,
+  ...props
+}, ref) {
+  const hasBlocks = (0,external_wp_data_namespaceObject.useSelect)(select => !!select(external_wp_blockEditor_namespaceObject.store).getBlockCount(), []);
+  return (0,external_React_.createElement)(external_wp_components_namespaceObject.Dropdown, {
+    popoverProps: {
+      placement: repositionDropdown ? 'right' : 'bottom'
+    },
+    className: "table-of-contents",
+    contentClassName: "table-of-contents__popover",
+    renderToggle: ({
+      isOpen,
+      onToggle
+    }) => (0,external_React_.createElement)(external_wp_components_namespaceObject.Button, {
+      ...props,
+      ref: ref,
+      onClick: hasBlocks ? onToggle : undefined,
+      icon: library_info,
+      "aria-expanded": isOpen,
+      "aria-haspopup": "true"
+      /* translators: button label text should, if possible, be under 16 characters. */,
+      label: (0,external_wp_i18n_namespaceObject.__)('Details'),
+      tooltipPosition: "bottom",
+      "aria-disabled": !hasBlocks
+    }),
+    renderContent: ({
+      onClose
+    }) => (0,external_React_.createElement)(table_of_contents_panel, {
+      onRequestClose: onClose,
+      hasOutlineItemsDisabled: hasOutlineItemsDisabled
+    })
+  });
+}
+/* harmony default export */ var table_of_contents = ((0,external_wp_element_namespaceObject.forwardRef)(TableOfContents));
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/unsaved-changes-warning/index.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Warns the user if there are unsaved changes before leaving the editor.
+ * Compatible with Post Editor and Site Editor.
+ *
+ * @return {Component} The component.
+ */
+function UnsavedChangesWarning() {
+  const {
+    __experimentalGetDirtyEntityRecords
+  } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_coreData_namespaceObject.store);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    /**
+     * Warns the user if there are unsaved changes before leaving the editor.
+     *
+     * @param {Event} event `beforeunload` event.
+     *
+     * @return {string | undefined} Warning prompt message, if unsaved changes exist.
+     */
+    const warnIfUnsavedChanges = event => {
+      // We need to call the selector directly in the listener to avoid race
+      // conditions with `BrowserURL` where `componentDidUpdate` gets the
+      // new value of `isEditedPostDirty` before this component does,
+      // causing this component to incorrectly think a trashed post is still dirty.
+      const dirtyEntityRecords = __experimentalGetDirtyEntityRecords();
+      if (dirtyEntityRecords.length > 0) {
+        event.returnValue = (0,external_wp_i18n_namespaceObject.__)('You have unsaved changes. If you proceed, they will be lost.');
+        return event.returnValue;
+      }
+    };
+    window.addEventListener('beforeunload', warnIfUnsavedChanges);
+    return () => {
+      window.removeEventListener('beforeunload', warnIfUnsavedChanges);
+    };
+  }, [__experimentalGetDirtyEntityRecords]);
+  return null;
+}
+
+;// CONCATENATED MODULE: external ["wp","patterns"]
+var external_wp_patterns_namespaceObject = window["wp"]["patterns"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/provider/with-registry-provider.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+const withRegistryProvider = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(WrappedComponent => (0,external_wp_data_namespaceObject.withRegistry)(props => {
+  const {
+    useSubRegistry = true,
+    registry,
+    ...additionalProps
+  } = props;
+  if (!useSubRegistry) {
+    return (0,external_React_.createElement)(WrappedComponent, {
+      ...additionalProps
+    });
+  }
+  const [subRegistry, setSubRegistry] = (0,external_wp_element_namespaceObject.useState)(null);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    const newRegistry = (0,external_wp_data_namespaceObject.createRegistry)({
+      'core/block-editor': external_wp_blockEditor_namespaceObject.storeConfig
+    }, registry);
+    newRegistry.registerStore('core/editor', storeConfig);
+    setSubRegistry(newRegistry);
+  }, [registry]);
+  if (!subRegistry) {
+    return null;
+  }
+  return (0,external_React_.createElement)(external_wp_data_namespaceObject.RegistryProvider, {
+    value: subRegistry
+  }, (0,external_React_.createElement)(WrappedComponent, {
+    ...additionalProps
+  }));
+}), 'withRegistryProvider');
+/* harmony default export */ var with_registry_provider = (withRegistryProvider);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/media-categories/index.js
+/**
+ * The `editor` settings here need to be in sync with the corresponding ones in `editor` package.
+ * See `packages/editor/src/components/media-categories/index.js`.
+ *
+ * In the future we could consider creating an Openvese package that can be used in both `editor` and `site-editor`.
+ * The rest of the settings would still need to be in sync though.
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/** @typedef {import('@wordpress/block-editor').InserterMediaRequest} InserterMediaRequest */
+/** @typedef {import('@wordpress/block-editor').InserterMediaItem} InserterMediaItem */
+/** @typedef {import('@wordpress/block-editor').InserterMediaCategory} InserterMediaCategory */
+
+const getExternalLink = (url, text) => `<a ${getExternalLinkAttributes(url)}>${text}</a>`;
+const getExternalLinkAttributes = url => `href="${url}" target="_blank" rel="noreferrer noopener"`;
+const getOpenverseLicense = (license, licenseVersion) => {
+  let licenseName = license.trim();
+  // PDM has no abbreviation
+  if (license !== 'pdm') {
+    licenseName = license.toUpperCase().replace('SAMPLING', 'Sampling');
+  }
+  // If version is known, append version to the name.
+  // The license has to have a version to be valid. Only
+  // PDM (public domain mark) doesn't have a version.
+  if (licenseVersion) {
+    licenseName += ` ${licenseVersion}`;
+  }
+  // For licenses other than public-domain marks, prepend 'CC' to the name.
+  if (!['pdm', 'cc0'].includes(license)) {
+    licenseName = `CC ${licenseName}`;
+  }
+  return licenseName;
+};
+const getOpenverseCaption = item => {
+  const {
+    title,
+    foreign_landing_url: foreignLandingUrl,
+    creator,
+    creator_url: creatorUrl,
+    license,
+    license_version: licenseVersion,
+    license_url: licenseUrl
+  } = item;
+  const fullLicense = getOpenverseLicense(license, licenseVersion);
+  const _creator = (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(creator);
+  let _caption;
+  if (_creator) {
+    _caption = title ? (0,external_wp_i18n_namespaceObject.sprintf)(
+    // translators: %1s: Title of a media work from Openverse; %2s: Name of the work's creator; %3s: Work's licence e.g: "CC0 1.0".
+    (0,external_wp_i18n_namespaceObject._x)('"%1$s" by %2$s/ %3$s', 'caption'), getExternalLink(foreignLandingUrl, (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(title)), creatorUrl ? getExternalLink(creatorUrl, _creator) : _creator, licenseUrl ? getExternalLink(`${licenseUrl}?ref=openverse`, fullLicense) : fullLicense) : (0,external_wp_i18n_namespaceObject.sprintf)(
+    // translators: %1s: Link attributes for a given Openverse media work; %2s: Name of the work's creator; %3s: Works's licence e.g: "CC0 1.0".
+    (0,external_wp_i18n_namespaceObject._x)('<a %1$s>Work</a> by %2$s/ %3$s', 'caption'), getExternalLinkAttributes(foreignLandingUrl), creatorUrl ? getExternalLink(creatorUrl, _creator) : _creator, licenseUrl ? getExternalLink(`${licenseUrl}?ref=openverse`, fullLicense) : fullLicense);
+  } else {
+    _caption = title ? (0,external_wp_i18n_namespaceObject.sprintf)(
+    // translators: %1s: Title of a media work from Openverse; %2s: Work's licence e.g: "CC0 1.0".
+    (0,external_wp_i18n_namespaceObject._x)('"%1$s"/ %2$s', 'caption'), getExternalLink(foreignLandingUrl, (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(title)), licenseUrl ? getExternalLink(`${licenseUrl}?ref=openverse`, fullLicense) : fullLicense) : (0,external_wp_i18n_namespaceObject.sprintf)(
+    // translators: %1s: Link attributes for a given Openverse media work; %2s: Works's licence e.g: "CC0 1.0".
+    (0,external_wp_i18n_namespaceObject._x)('<a %1$s>Work</a>/ %2$s', 'caption'), getExternalLinkAttributes(foreignLandingUrl), licenseUrl ? getExternalLink(`${licenseUrl}?ref=openverse`, fullLicense) : fullLicense);
+  }
+  return _caption.replace(/\s{2}/g, ' ');
+};
+const coreMediaFetch = async (query = {}) => {
+  const mediaItems = await (0,external_wp_data_namespaceObject.resolveSelect)(external_wp_coreData_namespaceObject.store).getMediaItems({
+    ...query,
+    orderBy: !!query?.search ? 'relevance' : 'date'
+  });
+  return mediaItems.map(mediaItem => ({
+    ...mediaItem,
+    alt: mediaItem.alt_text,
+    url: mediaItem.source_url,
+    previewUrl: mediaItem.media_details?.sizes?.medium?.source_url,
+    caption: mediaItem.caption?.raw
+  }));
+};
+
+/** @type {InserterMediaCategory[]} */
+const inserterMediaCategories = [{
+  name: 'images',
+  labels: {
+    name: (0,external_wp_i18n_namespaceObject.__)('Images'),
+    search_items: (0,external_wp_i18n_namespaceObject.__)('Search images')
+  },
+  mediaType: 'image',
+  async fetch(query = {}) {
+    return coreMediaFetch({
+      ...query,
+      media_type: 'image'
+    });
+  }
+}, {
+  name: 'videos',
+  labels: {
+    name: (0,external_wp_i18n_namespaceObject.__)('Videos'),
+    search_items: (0,external_wp_i18n_namespaceObject.__)('Search videos')
+  },
+  mediaType: 'video',
+  async fetch(query = {}) {
+    return coreMediaFetch({
+      ...query,
+      media_type: 'video'
+    });
+  }
+}, {
+  name: 'audio',
+  labels: {
+    name: (0,external_wp_i18n_namespaceObject.__)('Audio'),
+    search_items: (0,external_wp_i18n_namespaceObject.__)('Search audio')
+  },
+  mediaType: 'audio',
+  async fetch(query = {}) {
+    return coreMediaFetch({
+      ...query,
+      media_type: 'audio'
+    });
+  }
+}, {
+  name: 'openverse',
+  labels: {
+    name: (0,external_wp_i18n_namespaceObject.__)('Openverse'),
+    search_items: (0,external_wp_i18n_namespaceObject.__)('Search Openverse')
+  },
+  mediaType: 'image',
+  async fetch(query = {}) {
+    const defaultArgs = {
+      mature: false,
+      excluded_source: 'flickr,inaturalist,wikimedia',
+      license: 'pdm,cc0'
+    };
+    const finalQuery = {
+      ...query,
+      ...defaultArgs
+    };
+    const mapFromInserterMediaRequest = {
+      per_page: 'page_size',
+      search: 'q'
+    };
+    const url = new URL('https://api.openverse.engineering/v1/images/');
+    Object.entries(finalQuery).forEach(([key, value]) => {
+      const queryKey = mapFromInserterMediaRequest[key] || key;
+      url.searchParams.set(queryKey, value);
+    });
+    const response = await window.fetch(url, {
+      headers: {
+        'User-Agent': 'WordPress/inserter-media-fetch'
+      }
+    });
+    const jsonResponse = await response.json();
+    const results = jsonResponse.results;
+    return results.map(result => ({
+      ...result,
+      // This is a temp solution for better titles, until Openverse API
+      // completes the cleaning up of some titles of their upstream data.
+      title: result.title?.toLowerCase().startsWith('file:') ? result.title.slice(5) : result.title,
+      sourceId: result.id,
+      id: undefined,
+      caption: getOpenverseCaption(result),
+      previewUrl: result.thumbnail
+    }));
+  },
+  getReportUrl: ({
+    sourceId
+  }) => `https://wordpress.org/openverse/image/${sourceId}/report/`,
+  isExternalResource: true
+}];
+/* harmony default export */ var media_categories = (inserterMediaCategories);
+
+;// CONCATENATED MODULE: external ["wp","mediaUtils"]
+var external_wp_mediaUtils_namespaceObject = window["wp"]["mediaUtils"];
+;// CONCATENATED MODULE: ./packages/editor/build-module/utils/media-upload/index.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+const media_upload_noop = () => {};
+
+/**
+ * Upload a media file when the file upload button is activated.
+ * Wrapper around mediaUpload() that injects the current post ID.
+ *
+ * @param {Object}   $0                   Parameters object passed to the function.
+ * @param {?Object}  $0.additionalData    Additional data to include in the request.
+ * @param {string}   $0.allowedTypes      Array with the types of media that can be uploaded, if unset all types are allowed.
+ * @param {Array}    $0.filesList         List of files.
+ * @param {?number}  $0.maxUploadFileSize Maximum upload size in bytes allowed for the site.
+ * @param {Function} $0.onError           Function called when an error happens.
+ * @param {Function} $0.onFileChange      Function called each time a file or a temporary representation of the file is available.
+ */
+function mediaUpload({
+  additionalData = {},
+  allowedTypes,
+  filesList,
+  maxUploadFileSize,
+  onError = media_upload_noop,
+  onFileChange
+}) {
+  const {
+    getCurrentPostId,
+    getEditorSettings
+  } = (0,external_wp_data_namespaceObject.select)(store_store);
+  const wpAllowedMimeTypes = getEditorSettings().allowedMimeTypes;
+  maxUploadFileSize = maxUploadFileSize || getEditorSettings().maxUploadFileSize;
+  (0,external_wp_mediaUtils_namespaceObject.uploadMedia)({
+    allowedTypes,
+    filesList,
+    onFileChange,
+    additionalData: {
+      post: getCurrentPostId(),
+      ...additionalData
+    },
+    maxUploadFileSize,
+    onError: ({
+      message
+    }) => onError(message),
+    wpAllowedMimeTypes
+  });
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/provider/use-block-editor-settings.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const EMPTY_BLOCKS_LIST = [];
+const BLOCK_EDITOR_SETTINGS = ['__experimentalBlockDirectory', '__experimentalDiscussionSettings', '__experimentalFeatures', '__experimentalGlobalStylesBaseStyles', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'blockInspectorTabs', 'allowedMimeTypes', 'bodyPlaceholder', 'canLockBlocks', 'capabilities', 'clearBlockSelection', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomSpacingSizes', 'disableCustomGradients', 'disableLayoutStyles', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'enableOpenverseMediaCategory', 'focusMode', 'distractionFree', 'fontSizes', 'gradients', 'generateAnchors', 'hasFixedToolbar', 'hasInlineToolbar', 'isDistractionFree', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'locale', 'maxWidth', 'onUpdateDefaultBlockStyles', 'postContentAttributes', 'postsPerPage', 'readOnly', 'styles', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableHasCustomAppender', '__unstableIsPreviewMode', '__unstableResolvedAssets', '__unstableIsBlockBasedTheme', '__experimentalArchiveTitleTypeLabel', '__experimentalArchiveTitleNameLabel'];
+
+/**
+ * React hook used to compute the block editor settings to use for the post editor.
+ *
+ * @param {Object} settings EditorProvider settings prop.
+ * @param {string} postType Editor root level post type.
+ * @param {string} postId   Editor root level post ID.
+ *
+ * @return {Object} Block Editor Settings.
+ */
+function useBlockEditorSettings(settings, postType, postId) {
+  var _settings$__experimen, _settings$__experimen2;
+  const {
+    reusableBlocks,
+    hasUploadPermissions,
+    canUseUnfilteredHTML,
+    userCanCreatePages,
+    pageOnFront,
+    pageForPosts,
+    userPatternCategories
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _canUser;
+    const isWeb = external_wp_element_namespaceObject.Platform.OS === 'web';
+    const {
+      canUser,
+      getRawEntityRecord,
+      getEntityRecord,
+      getUserPatternCategories,
+      getEntityRecords
+    } = select(external_wp_coreData_namespaceObject.store);
+    const siteSettings = canUser('read', 'settings') ? getEntityRecord('root', 'site') : undefined;
+    return {
+      canUseUnfilteredHTML: getRawEntityRecord('postType', postType, postId)?._links?.hasOwnProperty('wp:action-unfiltered-html'),
+      reusableBlocks: isWeb ? getEntityRecords('postType', 'wp_block', {
+        per_page: -1
+      }) : EMPTY_BLOCKS_LIST,
+      // Reusable blocks are fetched in the native version of this hook.
+      hasUploadPermissions: (_canUser = canUser('create', 'media')) !== null && _canUser !== void 0 ? _canUser : true,
+      userCanCreatePages: canUser('create', 'pages'),
+      pageOnFront: siteSettings?.page_on_front,
+      pageForPosts: siteSettings?.page_for_posts,
+      userPatternCategories: getUserPatternCategories()
+    };
+  }, [postType, postId]);
+  const settingsBlockPatterns = (_settings$__experimen = settings.__experimentalAdditionalBlockPatterns) !== null && _settings$__experimen !== void 0 ? _settings$__experimen :
+  // WP 6.0
+  settings.__experimentalBlockPatterns; // WP 5.9
+  const settingsBlockPatternCategories = (_settings$__experimen2 = settings.__experimentalAdditionalBlockPatternCategories) !== null && _settings$__experimen2 !== void 0 ? _settings$__experimen2 :
+  // WP 6.0
+  settings.__experimentalBlockPatternCategories; // WP 5.9
+
+  const {
+    restBlockPatterns,
+    restBlockPatternCategories
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
+    restBlockPatterns: select(external_wp_coreData_namespaceObject.store).getBlockPatterns(),
+    restBlockPatternCategories: select(external_wp_coreData_namespaceObject.store).getBlockPatternCategories()
+  }), []);
+  const blockPatterns = (0,external_wp_element_namespaceObject.useMemo)(() => [...(settingsBlockPatterns || []), ...(restBlockPatterns || [])].filter((x, index, arr) => index === arr.findIndex(y => x.name === y.name)).filter(({
+    postTypes
+  }) => {
+    return !postTypes || Array.isArray(postTypes) && postTypes.includes(postType);
+  }), [settingsBlockPatterns, restBlockPatterns, postType]);
+  const blockPatternCategories = (0,external_wp_element_namespaceObject.useMemo)(() => [...(settingsBlockPatternCategories || []), ...(restBlockPatternCategories || [])].filter((x, index, arr) => index === arr.findIndex(y => x.name === y.name)), [settingsBlockPatternCategories, restBlockPatternCategories]);
+  const {
+    undo
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const {
+    saveEntityRecord
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
+
+  /**
+   * Creates a Post entity.
+   * This is utilised by the Link UI to allow for on-the-fly creation of Posts/Pages.
+   *
+   * @param {Object} options parameters for the post being created. These mirror those used on 3rd param of saveEntityRecord.
+   * @return {Object} the post type object that was created.
+   */
+  const createPageEntity = (0,external_wp_element_namespaceObject.useCallback)(options => {
+    if (!userCanCreatePages) {
+      return Promise.reject({
+        message: (0,external_wp_i18n_namespaceObject.__)('You do not have permission to create Pages.')
+      });
+    }
+    return saveEntityRecord('postType', 'page', options);
+  }, [saveEntityRecord, userCanCreatePages]);
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    ...Object.fromEntries(Object.entries(settings).filter(([key]) => BLOCK_EDITOR_SETTINGS.includes(key))),
+    mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
+    __experimentalReusableBlocks: reusableBlocks,
+    __experimentalBlockPatterns: blockPatterns,
+    __experimentalBlockPatternCategories: blockPatternCategories,
+    __experimentalUserPatternCategories: userPatternCategories,
+    __experimentalFetchLinkSuggestions: (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings),
+    inserterMediaCategories: media_categories,
+    __experimentalFetchRichUrlData: external_wp_coreData_namespaceObject.__experimentalFetchUrlData,
+    // Todo: This only checks the top level post, not the post within a template or any other entity that can be edited.
+    // This might be better as a generic "canUser" selector.
+    __experimentalCanUserUseUnfilteredHTML: canUseUnfilteredHTML,
+    //Todo: this is only needed for native and should probably be removed.
+    __experimentalUndo: undo,
+    // Check whether we want all site editor frames to have outlines
+    // including the navigation / pattern / parts editors.
+    outlineMode: postType === 'wp_template',
+    // Check these two properties: they were not present in the site editor.
+    __experimentalCreatePageEntity: createPageEntity,
+    __experimentalUserCanCreatePages: userCanCreatePages,
+    pageOnFront,
+    pageForPosts,
+    __experimentalPreferPatternsOnRoot: postType === 'wp_template',
+    templateLock: postType === 'wp_navigation' ? 'insert' : settings.templateLock,
+    template: postType === 'wp_navigation' ? [['core/navigation', {}, []]] : settings.template
+  }), [settings, hasUploadPermissions, reusableBlocks, userPatternCategories, blockPatterns, blockPatternCategories, canUseUnfilteredHTML, undo, createPageEntity, userCanCreatePages, pageOnFront, pageForPosts, postType]);
+}
+/* harmony default export */ var use_block_editor_settings = (useBlockEditorSettings);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/provider/constants.js
+const PAGE_CONTENT_BLOCK_TYPES = ['core/post-title', 'core/post-featured-image', 'core/post-content'];
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/provider/disable-non-page-content-blocks.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+function DisableBlock({
+  clientId
+}) {
+  const isDescendentOfQueryLoop = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getBlockParentsByBlockName
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    return getBlockParentsByBlockName(clientId, 'core/query').length !== 0;
+  }, [clientId]);
+  const mode = isDescendentOfQueryLoop ? undefined : 'contentOnly';
+  const {
+    setBlockEditingMode,
+    unsetBlockEditingMode
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (mode) {
+      setBlockEditingMode(clientId, mode);
+      return () => {
+        unsetBlockEditingMode(clientId);
+      };
+    }
+  }, [clientId, mode, setBlockEditingMode, unsetBlockEditingMode]);
+}
+
+/**
+ * Component that when rendered, makes it so that the site editor allows only
+ * page content to be edited.
+ */
+function DisableNonPageContentBlocks() {
+  (0,external_wp_blockEditor_namespaceObject.useBlockEditingMode)('disabled');
+  const clientIds = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      __experimentalGetGlobalBlocksByName
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    return __experimentalGetGlobalBlocksByName(PAGE_CONTENT_BLOCK_TYPES);
+  }, []);
+  return clientIds.map(clientId => {
+    return (0,external_React_.createElement)(DisableBlock, {
+      key: clientId,
+      clientId: clientId
+    });
+  });
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/provider/index.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+const {
+  ExperimentalBlockEditorProvider
+} = unlock(external_wp_blockEditor_namespaceObject.privateApis);
+const {
+  PatternsMenuItems
+} = unlock(external_wp_patterns_namespaceObject.privateApis);
+const provider_noop = () => {};
+
+/**
+ * For the Navigation block editor, we need to force the block editor to contentOnly for that block.
+ *
+ * Set block editing mode to contentOnly when entering Navigation focus mode.
+ * this ensures that non-content controls on the block will be hidden and thus
+ * the user can focus on editing the Navigation Menu content only.
+ *
+ * @param {string} navigationBlockClientId ClientId.
+ */
+function useForceFocusModeForNavigation(navigationBlockClientId) {
+  const {
+    setBlockEditingMode,
+    unsetBlockEditingMode
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (!navigationBlockClientId) {
+      return;
+    }
+    setBlockEditingMode(navigationBlockClientId, 'contentOnly');
+    return () => {
+      unsetBlockEditingMode(navigationBlockClientId);
+    };
+  }, [navigationBlockClientId, unsetBlockEditingMode, setBlockEditingMode]);
+}
+
+/**
+ * Helper method to extract the post content block types from a template.
+ *
+ * @param {Array} blocks Template blocks.
+ *
+ * @return {Array} Flattened object.
+ */
+function extractPageContentBlockTypesFromTemplateBlocks(blocks) {
+  const result = [];
+  for (let i = 0; i < blocks.length; i++) {
+    // Since the Query Block could contain PAGE_CONTENT_BLOCK_TYPES block types,
+    // we skip it because we only want to render stand-alone page content blocks in the block list.
+    if (blocks[i].name === 'core/query') {
+      continue;
+    }
+    if (PAGE_CONTENT_BLOCK_TYPES.includes(blocks[i].name)) {
+      result.push((0,external_wp_blocks_namespaceObject.createBlock)(blocks[i].name));
+    }
+    if (blocks[i].innerBlocks.length) {
+      result.push(...extractPageContentBlockTypesFromTemplateBlocks(blocks[i].innerBlocks));
+    }
+  }
+  return result;
+}
+
+/**
+ * Depending on the post, template and template mode,
+ * returns the appropriate blocks and change handlers for the block editor provider.
+ *
+ * @param {Array}   post     Block list.
+ * @param {boolean} template Whether the page content has focus (and the surrounding template is inert). If `true` return page content blocks. Default `false`.
+ * @param {string}  mode     Rendering mode.
+ * @return {Array} Block editor props.
+ */
+function useBlockEditorProps(post, template, mode) {
+  const rootLevelPost = mode === 'post-only' || !template ? 'post' : 'template';
+  const [postBlocks, onInput, onChange] = (0,external_wp_coreData_namespaceObject.useEntityBlockEditor)('postType', post.type, {
+    id: post.id
+  });
+  const [templateBlocks, onInputTemplate, onChangeTemplate] = (0,external_wp_coreData_namespaceObject.useEntityBlockEditor)('postType', template?.type, {
+    id: template?.id
+  });
+  const maybeNavigationBlocks = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    if (post.type === 'wp_navigation') {
+      return [(0,external_wp_blocks_namespaceObject.createBlock)('core/navigation', {
+        ref: post.id,
+        // As the parent editor is locked with `templateLock`, the template locking
+        // must be explicitly "unset" on the block itself to allow the user to modify
+        // the block's content.
+        templateLock: false
+      })];
+    }
+  }, [post.type, post.id]);
+  const maybePostOnlyBlocks = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    if (mode === 'post-only') {
+      const postContentBlocks = extractPageContentBlockTypesFromTemplateBlocks(templateBlocks);
+      return [(0,external_wp_blocks_namespaceObject.createBlock)('core/group', {
+        layout: {
+          type: 'constrained'
+        },
+        style: {
+          spacing: {
+            margin: {
+              top: '4em' // Mimics the post editor.
+            }
+          }
+        }
+      }, postContentBlocks.length ? postContentBlocks : [(0,external_wp_blocks_namespaceObject.createBlock)('core/post-title'), (0,external_wp_blocks_namespaceObject.createBlock)('core/post-content')])];
+    }
+  }, [templateBlocks, mode]);
+
+  // It is important that we don't create a new instance of blocks on every change
+  // We should only create a new instance if the blocks them selves change, not a dependency of them.
+  const blocks = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    if (maybeNavigationBlocks) {
+      return maybeNavigationBlocks;
+    }
+    if (maybePostOnlyBlocks) {
+      return maybePostOnlyBlocks;
+    }
+    if (rootLevelPost === 'template') {
+      return templateBlocks;
+    }
+    return postBlocks;
+  }, [maybeNavigationBlocks, maybePostOnlyBlocks, rootLevelPost, templateBlocks, postBlocks]);
+
+  // Handle fallback to postBlocks outside of the above useMemo, to ensure
+  // that constructed block templates that call `createBlock` are not generated
+  // too frequently. This ensures that clientIds are stable.
+  const disableRootLevelChanges = !!template && mode === 'template-locked' || post.type === 'wp_navigation' || mode === 'post-only';
+  const navigationBlockClientId = post.type === 'wp_navigation' && blocks && blocks[0]?.clientId;
+  useForceFocusModeForNavigation(navigationBlockClientId);
+  if (disableRootLevelChanges) {
+    return [blocks, provider_noop, provider_noop];
+  }
+  return [blocks, rootLevelPost === 'post' ? onInput : onInputTemplate, rootLevelPost === 'post' ? onChange : onChangeTemplate];
+}
+const ExperimentalEditorProvider = with_registry_provider(({
+  post,
+  settings,
+  recovery,
+  initialEdits,
+  children,
+  BlockEditorProviderComponent = ExperimentalBlockEditorProvider,
+  __unstableTemplate: template
+}) => {
+  const mode = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getRenderingMode(), []);
+  const shouldRenderTemplate = !!template && mode !== 'post-only';
+  const rootLevelPost = shouldRenderTemplate ? template : post;
+  const defaultBlockContext = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const postContext = rootLevelPost.type !== 'wp_template' || shouldRenderTemplate && mode !== 'template-only' ? {
+      postId: post.id,
+      postType: post.type
+    } : {};
+    return {
+      ...postContext,
+      templateSlug: rootLevelPost.type === 'wp_template' ? rootLevelPost.slug : undefined
+    };
+  }, [mode, post.id, post.type, rootLevelPost.type, rootLevelPost?.slug, shouldRenderTemplate]);
+  const {
+    editorSettings,
+    selection,
+    isReady
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEditorSettings,
+      getEditorSelection,
+      __unstableIsEditorReady
+    } = select(store_store);
+    return {
+      editorSettings: getEditorSettings(),
+      isReady: __unstableIsEditorReady(),
+      selection: getEditorSelection()
+    };
+  }, []);
+  const {
+    id,
+    type
+  } = rootLevelPost;
+  const blockEditorSettings = use_block_editor_settings(editorSettings, type, id);
+  const [blocks, onInput, onChange] = useBlockEditorProps(post, template, mode);
+  const {
+    updatePostLock,
+    setupEditor,
+    updateEditorSettings,
+    __experimentalTearDownEditor
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const {
+    createWarningNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
+
+  // Initialize and tear down the editor.
+  // Ideally this should be synced on each change and not just something you do once.
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    // Assume that we don't need to initialize in the case of an error recovery.
+    if (recovery) {
+      return;
+    }
+    updatePostLock(settings.postLock);
+    setupEditor(post, initialEdits, settings.template);
+    if (settings.autosave) {
+      createWarningNotice((0,external_wp_i18n_namespaceObject.__)('There is an autosave of this post that is more recent than the version below.'), {
+        id: 'autosave-exists',
+        actions: [{
+          label: (0,external_wp_i18n_namespaceObject.__)('View the autosave'),
+          url: settings.autosave.editLink
+        }]
+      });
+    }
+    return () => {
+      __experimentalTearDownEditor();
+    };
+  }, []);
+
+  // Synchronize the editor settings as they change.
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    updateEditorSettings(settings);
+  }, [settings, updateEditorSettings]);
+  if (!isReady) {
+    return null;
+  }
+  return (0,external_React_.createElement)(external_wp_coreData_namespaceObject.EntityProvider, {
+    kind: "root",
+    type: "site"
+  }, (0,external_React_.createElement)(external_wp_coreData_namespaceObject.EntityProvider, {
+    kind: "postType",
+    type: post.type,
+    id: post.id
+  }, (0,external_React_.createElement)(external_wp_blockEditor_namespaceObject.BlockContextProvider, {
+    value: defaultBlockContext
+  }, (0,external_React_.createElement)(BlockEditorProviderComponent, {
+    value: blocks,
+    onChange: onChange,
+    onInput: onInput,
+    selection: selection,
+    settings: blockEditorSettings,
+    useSubRegistry: false
+  }, children, (0,external_React_.createElement)(PatternsMenuItems, null), ['post-only', 'template-locked'].includes(mode) && (0,external_React_.createElement)(DisableNonPageContentBlocks, null)))));
+});
+function EditorProvider(props) {
+  return (0,external_React_.createElement)(ExperimentalEditorProvider, {
+    ...props,
+    BlockEditorProviderComponent: external_wp_blockEditor_namespaceObject.BlockEditorProvider
+  }, props.children);
+}
+/* harmony default export */ var provider = (EditorProvider);
+
+;// CONCATENATED MODULE: external ["wp","serverSideRender"]
+var external_wp_serverSideRender_namespaceObject = window["wp"]["serverSideRender"];
+var external_wp_serverSideRender_default = /*#__PURE__*/__webpack_require__.n(external_wp_serverSideRender_namespaceObject);
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/deprecated.js
+
+// Block Creation Components.
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+function deprecateComponent(name, Wrapped, staticsToHoist = []) {
+  const Component = (0,external_wp_element_namespaceObject.forwardRef)((props, ref) => {
+    external_wp_deprecated_default()('wp.editor.' + name, {
+      since: '5.3',
+      alternative: 'wp.blockEditor.' + name,
+      version: '6.2'
+    });
+    return (0,external_React_.createElement)(Wrapped, {
+      ref: ref,
+      ...props
+    });
+  });
+  staticsToHoist.forEach(staticName => {
+    Component[staticName] = deprecateComponent(name + '.' + staticName, Wrapped[staticName]);
+  });
+  return Component;
+}
+function deprecateFunction(name, func) {
+  return (...args) => {
+    external_wp_deprecated_default()('wp.editor.' + name, {
+      since: '5.3',
+      alternative: 'wp.blockEditor.' + name,
+      version: '6.2'
+    });
+    return func(...args);
+  };
+}
+const RichText = deprecateComponent('RichText', external_wp_blockEditor_namespaceObject.RichText, ['Content']);
+RichText.isEmpty = deprecateFunction('RichText.isEmpty', external_wp_blockEditor_namespaceObject.RichText.isEmpty);
+
+const Autocomplete = deprecateComponent('Autocomplete', external_wp_blockEditor_namespaceObject.Autocomplete);
+const AlignmentToolbar = deprecateComponent('AlignmentToolbar', external_wp_blockEditor_namespaceObject.AlignmentToolbar);
+const BlockAlignmentToolbar = deprecateComponent('BlockAlignmentToolbar', external_wp_blockEditor_namespaceObject.BlockAlignmentToolbar);
+const BlockControls = deprecateComponent('BlockControls', external_wp_blockEditor_namespaceObject.BlockControls, ['Slot']);
+const BlockEdit = deprecateComponent('BlockEdit', external_wp_blockEditor_namespaceObject.BlockEdit);
+const BlockEditorKeyboardShortcuts = deprecateComponent('BlockEditorKeyboardShortcuts', external_wp_blockEditor_namespaceObject.BlockEditorKeyboardShortcuts);
+const BlockFormatControls = deprecateComponent('BlockFormatControls', external_wp_blockEditor_namespaceObject.BlockFormatControls, ['Slot']);
+const BlockIcon = deprecateComponent('BlockIcon', external_wp_blockEditor_namespaceObject.BlockIcon);
+const BlockInspector = deprecateComponent('BlockInspector', external_wp_blockEditor_namespaceObject.BlockInspector);
+const BlockList = deprecateComponent('BlockList', external_wp_blockEditor_namespaceObject.BlockList);
+const BlockMover = deprecateComponent('BlockMover', external_wp_blockEditor_namespaceObject.BlockMover);
+const BlockNavigationDropdown = deprecateComponent('BlockNavigationDropdown', external_wp_blockEditor_namespaceObject.BlockNavigationDropdown);
+const BlockSelectionClearer = deprecateComponent('BlockSelectionClearer', external_wp_blockEditor_namespaceObject.BlockSelectionClearer);
+const BlockSettingsMenu = deprecateComponent('BlockSettingsMenu', external_wp_blockEditor_namespaceObject.BlockSettingsMenu);
+const BlockTitle = deprecateComponent('BlockTitle', external_wp_blockEditor_namespaceObject.BlockTitle);
+const BlockToolbar = deprecateComponent('BlockToolbar', external_wp_blockEditor_namespaceObject.BlockToolbar);
+const ColorPalette = deprecateComponent('ColorPalette', external_wp_blockEditor_namespaceObject.ColorPalette);
+const ContrastChecker = deprecateComponent('ContrastChecker', external_wp_blockEditor_namespaceObject.ContrastChecker);
+const CopyHandler = deprecateComponent('CopyHandler', external_wp_blockEditor_namespaceObject.CopyHandler);
+const DefaultBlockAppender = deprecateComponent('DefaultBlockAppender', external_wp_blockEditor_namespaceObject.DefaultBlockAppender);
+const FontSizePicker = deprecateComponent('FontSizePicker', external_wp_blockEditor_namespaceObject.FontSizePicker);
+const Inserter = deprecateComponent('Inserter', external_wp_blockEditor_namespaceObject.Inserter);
+const InnerBlocks = deprecateComponent('InnerBlocks', external_wp_blockEditor_namespaceObject.InnerBlocks, ['ButtonBlockAppender', 'DefaultBlockAppender', 'Content']);
+const InspectorAdvancedControls = deprecateComponent('InspectorAdvancedControls', external_wp_blockEditor_namespaceObject.InspectorAdvancedControls, ['Slot']);
+const InspectorControls = deprecateComponent('InspectorControls', external_wp_blockEditor_namespaceObject.InspectorControls, ['Slot']);
+const PanelColorSettings = deprecateComponent('PanelColorSettings', external_wp_blockEditor_namespaceObject.PanelColorSettings);
+const PlainText = deprecateComponent('PlainText', external_wp_blockEditor_namespaceObject.PlainText);
+const RichTextShortcut = deprecateComponent('RichTextShortcut', external_wp_blockEditor_namespaceObject.RichTextShortcut);
+const RichTextToolbarButton = deprecateComponent('RichTextToolbarButton', external_wp_blockEditor_namespaceObject.RichTextToolbarButton);
+const __unstableRichTextInputEvent = deprecateComponent('__unstableRichTextInputEvent', external_wp_blockEditor_namespaceObject.__unstableRichTextInputEvent);
+const MediaPlaceholder = deprecateComponent('MediaPlaceholder', external_wp_blockEditor_namespaceObject.MediaPlaceholder);
+const MediaUpload = deprecateComponent('MediaUpload', external_wp_blockEditor_namespaceObject.MediaUpload);
+const MediaUploadCheck = deprecateComponent('MediaUploadCheck', external_wp_blockEditor_namespaceObject.MediaUploadCheck);
+const MultiSelectScrollIntoView = deprecateComponent('MultiSelectScrollIntoView', external_wp_blockEditor_namespaceObject.MultiSelectScrollIntoView);
+const NavigableToolbar = deprecateComponent('NavigableToolbar', external_wp_blockEditor_namespaceObject.NavigableToolbar);
+const ObserveTyping = deprecateComponent('ObserveTyping', external_wp_blockEditor_namespaceObject.ObserveTyping);
+const SkipToSelectedBlock = deprecateComponent('SkipToSelectedBlock', external_wp_blockEditor_namespaceObject.SkipToSelectedBlock);
+const URLInput = deprecateComponent('URLInput', external_wp_blockEditor_namespaceObject.URLInput);
+const URLInputButton = deprecateComponent('URLInputButton', external_wp_blockEditor_namespaceObject.URLInputButton);
+const URLPopover = deprecateComponent('URLPopover', external_wp_blockEditor_namespaceObject.URLPopover);
+const Warning = deprecateComponent('Warning', external_wp_blockEditor_namespaceObject.Warning);
+const WritingFlow = deprecateComponent('WritingFlow', external_wp_blockEditor_namespaceObject.WritingFlow);
+const createCustomColorsHOC = deprecateFunction('createCustomColorsHOC', external_wp_blockEditor_namespaceObject.createCustomColorsHOC);
+const getColorClassName = deprecateFunction('getColorClassName', external_wp_blockEditor_namespaceObject.getColorClassName);
+const getColorObjectByAttributeValues = deprecateFunction('getColorObjectByAttributeValues', external_wp_blockEditor_namespaceObject.getColorObjectByAttributeValues);
+const getColorObjectByColorValue = deprecateFunction('getColorObjectByColorValue', external_wp_blockEditor_namespaceObject.getColorObjectByColorValue);
+const getFontSize = deprecateFunction('getFontSize', external_wp_blockEditor_namespaceObject.getFontSize);
+const getFontSizeClass = deprecateFunction('getFontSizeClass', external_wp_blockEditor_namespaceObject.getFontSizeClass);
+const withColorContext = deprecateFunction('withColorContext', external_wp_blockEditor_namespaceObject.withColorContext);
+const withColors = deprecateFunction('withColors', external_wp_blockEditor_namespaceObject.withColors);
+const withFontSizes = deprecateFunction('withFontSizes', external_wp_blockEditor_namespaceObject.withFontSizes);
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/index.js
+/**
+ * Internal dependencies
+ */
+
+
+// Block Creation Components.
+
+
+// Post Related Components.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// State Related Components.
+
+
+const VisualEditorGlobalKeyboardShortcuts = EditorKeyboardShortcuts;
+const TextEditorGlobalKeyboardShortcuts = EditorKeyboardShortcuts;
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/utils/url.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Performs some basic cleanup of a string for use as a post slug
+ *
+ * This replicates some of what sanitize_title() does in WordPress core, but
+ * is only designed to approximate what the slug will be.
+ *
+ * Converts Latin-1 Supplement and Latin Extended-A letters to basic Latin letters.
+ * Removes combining diacritical marks. Converts whitespace, periods,
+ * and forward slashes to hyphens. Removes any remaining non-word characters
+ * except hyphens and underscores. Converts remaining string to lowercase.
+ * It does not account for octets, HTML entities, or other encoded characters.
+ *
+ * @param {string} string Title or slug to be processed
+ *
+ * @return {string} Processed string
+ */
+function cleanForSlug(string) {
+  external_wp_deprecated_default()('wp.editor.cleanForSlug', {
+    since: '12.7',
+    plugin: 'Gutenberg',
+    alternative: 'wp.url.cleanForSlug'
+  });
+  return (0,external_wp_url_namespaceObject.cleanForSlug)(string);
+}
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/utils/index.js
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/private-apis.js
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+const privateApis = {};
+lock(privateApis, {
+  ExperimentalEditorProvider: ExperimentalEditorProvider,
+  EntitiesSavedStatesExtensible: EntitiesSavedStatesExtensible,
+  PostPanelRow: post_panel_row,
+  // This is a temporary private API while we're updating the site editor to use EditorProvider.
+  useBlockEditorSettings: use_block_editor_settings
+});
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/index.js
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+/*
+ * Backward compatibility
+ */
+
+
+}();
+(window.wp = window.wp || {}).editor = __webpack_exports__;
+/******/ })()
+;

@@ -61,6 +61,7 @@ add_action('mesmerize_customize_register', function ($wp_customize) {
     $wp_customize->get_control('header_image')->priority        = 4;
     $wp_customize->get_setting('header_image')->transport       = 'postMessage';
     $wp_customize->get_setting('header_image_data')->transport  = 'postMessage';
+    $wp_customize->get_setting('background_image')->transport  = 'refresh';
 }, 1, 1);
 
 function mesmerize_inner_header_image_active_callback()

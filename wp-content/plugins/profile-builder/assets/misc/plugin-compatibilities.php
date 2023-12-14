@@ -71,7 +71,7 @@
                 $result = cptch_register_check(new WP_Error());
 
                 if ($result->get_error_message('captcha_error'))
-                    echo '<p class="wppb-error">' . $result->get_error_message('captcha_error') . '</p>';                
+                    echo '<p class="wppb-error">' . esc_html( $result->get_error_message('captcha_error') ) . '</p>';
 
             }
 
@@ -229,7 +229,7 @@
 			$wppb_generalSettings = get_option('wppb_general_settings', 'not_found');
 
 			if( $wppb_generalSettings != 'not_found' ) {
-				if( ! empty( $wppb_generalSettings['adminApproval'] ) && ( $wppb_generalSettings['adminApproval'] == 'yes' ) ) {
+				if( wppb_get_admin_approval_option_value() === 'yes' ) {
 					if( isset( $_REQUEST['edd_login_nonce'] ) ) {
 						if( wp_get_object_terms( $user_id, 'user_status' ) ) {
 							if( isset( $_REQUEST['edd_redirect'] ) ) {
@@ -275,7 +275,7 @@
         }
 
         /****************************************************
-         * Plugin Name: WPML 
+         * Plugin Name: WPML
          * Compatibility with wp_login_form() that wasn't getting the language code in the site url
          ****************************************************/
         add_filter( 'site_url', 'wppb_wpml_login_form_compatibility', 10, 4 );
@@ -333,3 +333,129 @@
             remove_action('secure_auth_redirect', 'secupress_move_login_maybe_deny_login_page', 0);
         }
 
+
+        /****************************************************
+         * Divi Pagebuilder Compatibility
+         * Compatibility with Divi Pagebuilder and content restriction. Basically we try to force a restricted page that was created with the pagebuilder to display as a normal page
+         ****************************************************/
+        if( function_exists('et_setup_theme') ) {
+            add_filter('get_post_metadata', 'wppb_divi_page_builder_compatibility', 100, 4);
+            function wppb_divi_page_builder_compatibility( $metadata, $object_id, $meta_key, $single ){
+                if (!is_admin()) {
+                    if (isset($meta_key) && '_et_pb_use_builder' == $meta_key) {
+                        if (wppb_content_restriction_filter_content('not_restricted', get_post($object_id)) != 'not_restricted') {
+                            return 'off';
+                        }
+                    }
+
+                    if (isset($meta_key) && '_wp_page_template' == $meta_key) {
+                        if (wppb_content_restriction_filter_content('not_restricted', get_post($object_id)) != 'not_restricted') {
+                            return 'default';
+                        }
+                    }
+                }
+
+                // Return original if the check does not pass
+                return $metadata;
+
+            }
+        }
+
+
+        /****************************************************
+         * Plugin Name: xCRUD
+         * Compatibility in terms of preventing jQuery to be loaded twice
+         ****************************************************/
+        if ( class_exists( 'Xcrud_config' ) ){
+            Xcrud_config::$load_jquery = apply_filters( 'wppb_xcrud_jquery_compatibility', false );
+        }
+
+    /****************************************************
+     * Plugin Name: bbPress Messages
+     * Plugin URI: https://wordpress.org/plugins/bbp-messages/
+     * This plugin relies on the 'bbp_template_before_user_profile' hook
+     ****************************************************/
+    if ( function_exists( 'bbp_messages_loaded' ) ){
+        add_action( 'wppb_bbp_template_before_user_profile', 'wppb_bbp_messages_compatibility' );
+        function wppb_bbp_messages_compatibility (){
+            do_action( 'bbp_template_before_user_profile' );
+        }
+    }
+
+	/****************************************************
+	 * Plugin Name: LearnDash LMS
+	 * This plugin hijacks the 'wp_login_failed' hook not allowing the PB login form to show errors
+	 ****************************************************/
+	if ( class_exists( 'Semper_Fi_Module' ) ){
+		add_action( 'wppb_process_login_start', 'wppb_learndash_compatibility_login_start' );
+		function wppb_learndash_compatibility_login_start (){
+			remove_action( 'wp_login_failed', 'learndash_login_failed', 1 );
+		}
+		add_action( 'wppb_process_login_end', 'wppb_learndash_compatibility_login_end' );
+		function wppb_learndash_compatibility_login_end (){
+			add_action( 'wp_login_failed', 'learndash_login_failed', 1, 1 );
+		}
+	}
+
+    /****************************************************
+     * Plugin Name: MailPoet
+     * By default MailPoet disables custom scripts and styles to prevent JavaScript and CSS conflicts with their interface
+     * With these filters we can whitelist our styles and scripts
+     ****************************************************/
+
+    function wppb_mailpoet_conflict_resolver_whitelist_style($styles) {
+        $current_file_path = explode('/',plugin_basename( __FILE__ ));
+        $plugin_name = reset($current_file_path);
+        array_push($styles, $plugin_name);
+        return $styles;
+    }
+    add_filter('mailpoet_conflict_resolver_whitelist_style', 'wppb_mailpoet_conflict_resolver_whitelist_style');
+
+    function wppb_mailpoet_conflict_resolver_whitelist_script($scripts) {
+        $current_file_path = explode('/',plugin_basename( __FILE__ ));
+        $plugin_name = reset($current_file_path);
+        array_push($scripts, $plugin_name);
+        return $scripts;
+    }
+    add_filter('mailpoet_conflict_resolver_whitelist_script', 'wppb_mailpoet_conflict_resolver_whitelist_script');
+
+    /****************************************************
+     * Plugin Name: Advanced Product Fields for Woocommerce
+     * Plugin URI: https://wordpress.org/plugins/advanced-product-fields-for-woocommerce/
+     * When both plugins are activated an '&&' operator from the JS code APF adds to product $content for its Datepicker is encoded
+     ****************************************************/
+    if( function_exists( 'SW_WAPF_PRO_auto_loader' ) ){
+        function wppb_WAPF_compatibility( $content )
+        {
+            $content = str_replace( "&#038;&#038;", "&&", $content );
+            return $content;
+        }
+        add_filter('the_content', 'wppb_WAPF_compatibility', 13, 1);
+    }
+
+    /****************************************************
+     * Plugin Name: WooCommerce
+     * Plugin URI: https://wordpress.org/plugins/woocommerce/
+     * Don't allow WooCommerce to Login User after registration if PB Admin Approval is Active
+     ****************************************************/
+    if( wppb_get_admin_approval_option_value() === 'yes' ) {
+        add_filter( 'woocommerce_registration_auth_new_customer', '__return_false' );
+    }
+
+    /****************************************************
+     * Plugin Name: WooCommerce
+     * Plugin URI: https://wordpress.org/plugins/woocommerce/
+     * Starting with version 7.7 WooCommerce is restricting access to the dashboard through the admin_init hook.
+     * This hook runs on async-upload.php and they disallow the uploading of files from logged out users.
+     * We remove this restriction so that our users can upload files correctly
+     ****************************************************/
+    add_filter( 'woocommerce_prevent_admin_access', 'wppb_woo_admin_access_uploads_compatibility' );
+    function wppb_woo_admin_access_uploads_compatibility( $prevent_access ){
+
+        if( isset( $_REQUEST['wppb_upload'] ) && $_REQUEST['wppb_upload'] == 'true' ){
+            return false;
+        }
+
+        return $prevent_access;
+
+    }

@@ -79,36 +79,56 @@ class TheLib_Html extends TheLib  {
 		if ( ! is_admin() ) {
 			return;
 		}
-
+		$classes = array(
+			'wpmui-pointer-handler',
+			'prepared',
+		);
 		if ( is_array( $args ) ) {
-			if ( isset( $args['target'] ) && ! isset( $args['html_el'] ) ) {
-				$args['html_el'] = $args['target'];
+			if ( ! isset( $args['schema'] ) || 'wp' !== $args['schema'] ) {
+				$classes[] = 'wpmui-pointer';
 			}
-			if ( isset( $args['id'] ) && ! isset( $args['pointer_id'] ) ) {
-				$args['pointer_id'] = $args['id'];
+			$elements = array(
+				'target' => 'html_el',
+				'id' => 'pointer_id',
+				'title' => 'title',
+				'body' => 'body',
+				'classes' => 'classes',
+			);
+			foreach ( $elements as $from => $to ) {
+				if ( isset( $args[ $to ] ) ) {
+					continue;
+				}
+				if ( isset( $args[ $from ] ) ) {
+					$args[ $to ] = $args[ $from ];
+				}
+				if ( empty( $args[ $to ] ) && isset( $$to ) ) {
+					$args[ $to ] = $$to;
+				}
 			}
 			if ( isset( $args['modal'] ) && ! isset( $args['blur'] ) ) {
 				$args['blur'] = $args['modal'];
 			}
-			if ( ! isset( $args['once'] ) ) {
-				$args['once'] = true;
+			$elements = array( 'once', 'modal', 'blur' );
+			foreach ( $elements as $key ) {
+				if ( ! isset( $args[ $key ] ) ) {
+					$args[ $key ] = true;
+				}
 			}
-
 			self::$core->array->equip( $args, 'pointer_id', 'html_el', 'title', 'body', 'once', 'modal', 'blur' );
-
 			extract( $args );
 		} else {
 			$pointer_id = $args;
 			$once = true;
 			$modal = true;
 			$blur = true;
+			$classes[] = 'wpmui-pointer';
 		}
 
 		$once = self::$core->is_true( $once );
 		$modal = self::$core->is_true( $modal );
 		$blur = self::$core->is_true( $blur );
 
-		$this->_add( 'init_pointer', compact( 'pointer_id', 'html_el', 'title', 'body', 'once', 'modal', 'blur' ) );
+		$this->_add( 'init_pointer', compact( 'pointer_id', 'html_el', 'title', 'body', 'once', 'modal', 'blur', 'classes' ) );
 		$this->add_action( 'init', '_init_pointer' );
 
 		return $this;
@@ -239,6 +259,7 @@ class TheLib_Html extends TheLib  {
 	 * @internal
 	 */
 	public function _popup_callback() {
+        error_log('popup');
 		$items = self::_get( 'popup' );
 		self::_clear( 'popup' );
 		$screen_info = get_current_screen();
@@ -254,12 +275,13 @@ class TheLib_Html extends TheLib  {
 			if ( empty( $screen ) || $screen_id == $screen ) {
 				$body = '<div>' . $body . '</div>';
 				echo '<script>jQuery(function(){wpmUi.popup()';
-				printf( '.title( %1$s, %2$s )', json_encode( $title ), $close );
-				printf( '.modal( %1$s, %2$s )', $modal, $persist );
-				printf( '.size( %1$s, %2$s )', json_encode( $width ), json_encode( $height ) );
-				printf( '.set_class( %1$s )', json_encode( $class ) );
-				printf( '.content( %1$s )', json_encode( $body ) );
+				printf( '.title( %1$s, %2$s )', json_encode( esc_attr($title) ), esc_attr($close) );
+				printf( '.modal( %1$s, %2$s )', esc_attr($modal), esc_attr($persist) );
+				printf( '.size( %1$s, %2$s )', json_encode( esc_attr($width) ), json_encode( esc_attr($height) ) );
+				printf( '.set_class( %1$s )', json_encode( esc_attr($class) ) );
+				printf( '.content( %1$s )', json_encode( esc_attr($body) ) );
 				echo '.show();})</script>';
+                
 			}
 		}
 	}
@@ -364,7 +386,7 @@ class TheLib_Html extends TheLib  {
 			if ( $return ) {
 				return $field_args;
 			} else {
-				echo $field_args;
+				CustomSidebars::wp_kses_wf($field_args);
 				return;
 			}
 		}
@@ -475,9 +497,9 @@ class TheLib_Html extends TheLib  {
 			}
 
 			if ( isset( $_POST[ $sticky_key ] ) ) {
-				$value = $_POST[ $sticky_key ];
+				$value = sanitize_text_field($_POST[ $sticky_key ]);
 			} elseif ( isset( $_GET[ $sticky_key ] ) ) {
-				$value = $_GET[ $sticky_key ];
+				$value = sanitize_text_field($_GET[ $sticky_key ]);
 			}
 		}
 
@@ -793,7 +815,7 @@ class TheLib_Html extends TheLib  {
 			esc_attr( $id ),
 			esc_attr( sanitize_title( $name ) ),
 			esc_attr( $value ),
-			$attr
+			esc_html( $attr )
 		);
 		if ( ! empty( $labels->title ) ) {
 			$this->element_desc( $labels );
@@ -824,7 +846,7 @@ class TheLib_Html extends TheLib  {
 			esc_attr( $id ),
 			esc_attr( $name ),
 			esc_attr( $value ),
-			$attr
+			esc_html( $attr )
 		);
 
 		$this->element_hint( $labels );
@@ -847,7 +869,7 @@ class TheLib_Html extends TheLib  {
 			esc_attr( $id ),
 			esc_attr( $name ),
 			esc_textarea( $value ),
-			$attr
+			esc_html( $attr )
 		);
 
 		$this->element_hint( $labels );
@@ -871,8 +893,8 @@ class TheLib_Html extends TheLib  {
 			esc_attr( $id ),
 			esc_attr( $class ),
 			esc_attr( $name ),
-			$attr,
-			$options
+			esc_html( $attr ),
+			esc_html( $options )
 		);
 
 		$this->element_hint( $labels );
@@ -920,9 +942,9 @@ class TheLib_Html extends TheLib  {
 				esc_attr( $key ),
 				esc_attr( $name ),
 				esc_attr( $id ),
-				$item_attr . $checked,
-				$item_text,
-				$radio_desc
+				esc_html( $item_attr . $checked ),
+				esc_html( $item_text ),
+				esc_html( $radio_desc )
 			);
 		}
 
@@ -947,9 +969,9 @@ class TheLib_Html extends TheLib  {
 			// Multiple items in the checkbox list.
 			printf(
 				'<div class="wpmui-checkbox-title">%1$s %2$s</div><div class="wpmui-checkbox-list wpmui-field-input">%3$s',
-				$labels->title,
-				$labels->tooltip,
-				$item_desc
+				esc_html($labels->title),
+				esc_html($labels->tooltip),
+				esc_html($item_desc)
 			);
 			$item_desc = '';
 
@@ -1038,8 +1060,8 @@ class TheLib_Html extends TheLib  {
 				printf(
 					'<label class="wpmui-checkbox-wrapper wpmui-field-label wpmui-no-checkbox %1$s">%2$s %3$s</label>',
 					esc_attr( $item_class ),
-					$item['label'],
-					$item_desc
+					esc_html($item['label']),
+					esc_html($item_desc)
 				);
 			} else {
 				printf(
@@ -1047,10 +1069,10 @@ class TheLib_Html extends TheLib  {
 					esc_attr( $id ),
 					esc_attr( $item_class ),
 					esc_attr( $item['name'] ),
-					$attr . $item['checked'],
-					$item['label'],
-					$item_desc,
-					$item['value']
+					esc_html($attr . $item['checked']),
+					esc_html($item['label']),
+					esc_html($item_desc),
+					esc_html($item['value'])
 				);
 			}
 		}
@@ -1091,10 +1113,10 @@ class TheLib_Html extends TheLib  {
 			esc_attr( $class ),
 			esc_attr( $id ),
 			esc_attr( $name ),
-			$label,
-			$attr,
-			$value,
-			$type
+			esc_html( $label ),
+			esc_html( $attr ),
+			esc_html( $value ),
+			esc_html( $type )
 		);
 
 		$this->element_hint( $labels );
@@ -1116,7 +1138,7 @@ class TheLib_Html extends TheLib  {
 			esc_attr( $name ),
 			esc_url( $value ),
 			esc_attr( $alt ),
-			$attr
+			esc_html( $attr )
 		);
 
 		$this->element_hint( $labels );
@@ -1156,11 +1178,11 @@ class TheLib_Html extends TheLib  {
 		printf(
 			'<div class="wpmui-radio-slider %1$s wpmui-slider-%5$s %7$s" %6$s>%8$s<div class="wpmui-toggle" %2$s>%3$s</div>%4$s%9$s</div>',
 			esc_attr( $turned ),
-			$attr,
-			$link_url,
-			$attr_input,
+			esc_html( $attr ),
+			esc_url( $link_url ),
+			esc_html( $attr_input ),
 			esc_attr( $id ),
-			$read_only,
+			esc_html( $read_only ),
 			esc_attr( $class ),
 			'<span class="before"></span>',
 			'<span class="after"></span>'
@@ -1196,7 +1218,7 @@ class TheLib_Html extends TheLib  {
 				'<div id="%1$s" class="wpmui-no-data wpmui-field-input %2$s">%3$s</div>',
 				esc_attr( $id ),
 				esc_attr( $class ),
-				$empty_text
+				esc_html( $empty_text )
 			);
 		} else {
 			// There are values to select or remove. Display the input elements.
@@ -1211,8 +1233,8 @@ class TheLib_Html extends TheLib  {
 				esc_attr( $id ),
 				esc_attr( $src_class ),
 				esc_attr( $name ),
-				$attr,
-				$options_available
+				esc_html( $attr ),
+				esc_html( $options_available )
 			);
 
 			// Button: Add element from First Select to Second Select.
@@ -1220,7 +1242,7 @@ class TheLib_Html extends TheLib  {
 				'<button id="_src_add_%1$s" class="wpmui-field-input wpmui-tag-button button %2$s" type="button">%3$s</button>',
 				esc_attr( $id ),
 				esc_attr( $src_class ),
-				$button_text
+				esc_html( $button_text )
 			);
 
 			$label_tag = $labels;
@@ -1238,8 +1260,8 @@ class TheLib_Html extends TheLib  {
 				esc_attr( $id ),
 				esc_attr( $class ),
 				esc_attr( $name ),
-				$ajax_data,
-				$options_selected
+				esc_html( $ajax_data ),
+				esc_html( $options_selected )
 			);
 		}
 
@@ -1343,9 +1365,9 @@ class TheLib_Html extends TheLib  {
 			esc_attr( strip_tags( $title ) ),
 			esc_attr( $class ),
 			esc_url( $url ),
-			$label,
-			$attr,
-			$target
+			esc_html( $label ),
+			esc_html( $attr ),
+			esc_html( $target )
 		);
 
 		$this->element_hint( $labels );
@@ -1367,7 +1389,7 @@ class TheLib_Html extends TheLib  {
 			'<%1$s class="%2$s">%3$s</%1$s>',
 			esc_attr( $wrap ),
 			esc_attr( $class ),
-			$code
+			esc_html( $code )
 		);
 
 		$this->element_hint( $labels );
@@ -1437,8 +1459,8 @@ class TheLib_Html extends TheLib  {
 			printf(
 				'<table class="wpmui-html-table %1$s">%2$s%3$s</table>',
 				esc_attr( $class ),
-				'<thead>' . $code_head . '</thead>',
-				'<tbody>' . $code_body . '</tbody>'
+				'<thead>' . esc_html($code_head) . '</thead>',
+				'<tbody>' . esc_html($code_body) . '</tbody>'
 			);
 		}
 
@@ -1549,9 +1571,9 @@ class TheLib_Html extends TheLib  {
 
 		printf(
 			'<%1$s class="wpmui-wrapper wpmui-%2$s-wrapper %3$s">',
-			$tag,
-			$type,
-			$extra_classes
+			esc_html( $tag ),
+			esc_html( $type ),
+			esc_html( $extra_classes )
 		);
 	}
 
@@ -1564,7 +1586,7 @@ class TheLib_Html extends TheLib  {
 	 * @param  string $tag Optional. The tag name, default 'span'
 	 */
 	private function wrap_close( $tag = 'span' ) {
-		printf( '</%1$s>', $tag );
+		printf( '</%1$s>', esc_html( $tag ) );
 	}
 
 	/**
@@ -1578,8 +1600,8 @@ class TheLib_Html extends TheLib  {
 			printf(
 				'<%5$s for="%1$s" class="wpmui-field-label %4$s">%2$s %3$s</%5$s>',
 				esc_attr( $labels->id ),
-				$labels->title,
-				$labels->tooltip_code,
+				esc_html( $labels->title ),
+				esc_html( $labels->tooltip_code ),
 				esc_attr( ' wpmui-label-' . $labels->id . ' ' . $labels->class ),
 				esc_attr( $labels->label_type )
 			);
@@ -1598,7 +1620,7 @@ class TheLib_Html extends TheLib  {
 		if ( ! empty( $labels->desc ) ) {
 			printf(
 				'<label class="wpmui-field-description %2$s" for="%3$s">%1$s</label >',
-				$labels->desc,
+				esc_html( $labels->desc ),
 				esc_attr( 'wpmui-description-' . $labels->id . ' ' . $labels->class ),
 				esc_attr( $labels->id )
 			);
@@ -1607,7 +1629,7 @@ class TheLib_Html extends TheLib  {
 		if ( ! empty( $labels->before ) ) {
 			printf(
 				'<span class="wpmui-label-before">%s</span>',
-				$labels->before
+				esc_html( $labels->before )
 			);
 		}
 	}
@@ -1622,12 +1644,12 @@ class TheLib_Html extends TheLib  {
 		if ( ! empty( $labels->after ) ) {
 			printf(
 				'<span class="wpmui-label-after">%s</span>',
-				$labels->after
+				esc_html( $labels->after )
 			);
 		}
 
 		if ( empty( $labels->title ) ) {
-			echo $labels->tooltip_code;
+			echo esc_html( $labels->tooltip_code );
 		}
 	}
 
@@ -1655,7 +1677,7 @@ class TheLib_Html extends TheLib  {
 		<div class="wpmui-tooltip">
 			<div class="wpmui-tooltip-button">&times;</div>
 			<div class="wpmui-tooltip-content">
-			<?php echo $tip; ?>
+			<?php echo esc_html( $tip ); ?>
 			</div>
 		</div>
 		<?php
@@ -1691,7 +1713,7 @@ class TheLib_Html extends TheLib  {
 			esc_attr( $id ),
 			esc_attr( $name ),
 			esc_attr( $value ),
-			$attr
+			esc_html( $attr )
 		);
 		$this->element_hint( $labels );
 		$this->wrap_close();
@@ -1730,7 +1752,7 @@ class TheLib_Html extends TheLib  {
 			esc_attr( $name ),
 			esc_attr( $value )
 		);
-		echo $content;
+		CustomSidebars::wp_kses_wf( $content );
 		$this->element_hint( $labels );
 	}
 }

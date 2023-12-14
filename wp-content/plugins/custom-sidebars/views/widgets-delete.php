@@ -8,13 +8,13 @@
 
 <div class="wpmui-form">
 	<div>
-	<?php _e(
-		'Please confirm that you want to delete the sidebar <strong class="name"></strong>.', 'custom-sidebars'
+	<?php esc_html_e(
+		'Please confirm that you want to delete this sidebar.', 'custom-sidebars'
 	); ?>
 	</div>
 	<div class="buttons">
-		<button type="button" class="button-link btn-cancel"><?php _e( 'Cancel', 'custom-sidebars' ); ?></button>
-		<button type="button" class="button-primary btn-delete"><?php _e( 'Yes, delete it', 'custom-sidebars' ); ?></button>
+		<button type="button" class="button-link btn-cancel"><?php esc_html_e( 'Cancel', 'custom-sidebars' ); ?></button>
+		<button type="button" class="button-primary btn-delete"><?php esc_html_e( 'Yes, delete it', 'custom-sidebars' ); ?></button>
 <?php wp_nonce_field( 'custom-sidebars-delete-sidebar', '_wp_nonce_cs_delete_sidebar' ); ?>
 	</div>
 </div>

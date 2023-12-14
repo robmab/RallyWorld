@@ -3,12 +3,10 @@
  * UR_Form_Field_Checkbox.
  *
  * @package  UserRegistration/Form
- * @category Admin
- * @author   WPEverest
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly.
 }
 
 /**
@@ -16,8 +14,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class UR_Form_Field_Checkbox extends UR_Form_Field {
 
+	/**
+	 * Instance Variable.
+	 *
+	 * @var [mixed]
+	 */
 	private static $_instance;
 
+	/**
+	 * Get Instance of class.
+	 */
 	public static function get_instance() {
 		// If the single instance hasn't been set, set it now.
 		if ( is_null( self::$_instance ) ) {
@@ -27,45 +33,77 @@ class UR_Form_Field_Checkbox extends UR_Form_Field {
 		return self::$_instance;
 	}
 
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 
-		$this->id = 'user_registration_checkbox';
-		$this->form_id = 1;
+		$this->id                       = 'user_registration_checkbox';
+		$this->form_id                  = 1;
 		$this->registered_fields_config = array(
-			'label' => __( 'Checkbox', 'user-registration' ),
-			'icon' => 'dashicons dashicons-yes',
+			'label' => esc_html__( 'Checkbox', 'user-registration' ),
+			'icon'  => 'ur-icon ur-icon-input-checkbox',
 		);
 
 		$this->field_defaults = array(
-			'default_label' => __( 'Checkbox', 'user-registration' ),
+			'default_label'      => esc_html__( 'Checkbox', 'user-registration' ),
 			'default_field_name' => 'check_box_' . ur_get_random_number(),
+			'default_options'    => array(
+				esc_html__( 'First Choice', 'user-registration' ),
+				esc_html__( 'Second Choice', 'user-registration' ),
+				esc_html__( 'Third Choice', 'user-registration' ),
+			),
 		);
 	}
 
 	/**
-	 * @return string
+	 * Get Registered admin fields.
 	 */
 	public function get_registered_admin_fields() {
 
-		return '<li id="' . $this->id . '_list " class="ur-registered-item draggable" data-field-id="' . $this->id . '"><span class="' . $this->registered_fields_config['icon'] . '"></span>' . $this->registered_fields_config['label'] . '</li>';
+		return '<li id="' . esc_attr( $this->id ) . '_list " class="ur-registered-item draggable" data-field-id="' . esc_attr( $this->id ) . '"><span class="' . esc_attr( $this->registered_fields_config['icon'] ) . '"></span>' . esc_html( $this->registered_fields_config['label'] ) . '</li>';
 	}
 
 	/**
-	 * @param $single_form_field
-	 * @param $form_data
-	 * @param $filter_hook
-	 * @param $form_id
+	 * Validate field.
+	 *
+	 * @param [object] $single_form_field Field Data.
+	 * @param [object] $form_data Form Data.
+	 * @param [string] $filter_hook Hook.
+	 * @param [int]    $form_id Form id.
 	 */
 	public function validation( $single_form_field, $form_data, $filter_hook, $form_id ) {
-		$is_condition_enabled = isset( $single_form_field->advance_setting->enable_conditional_logic ) ? $single_form_field->advance_setting->enable_conditional_logic : '0';
-		$required = isset( $single_form_field->general_setting->required ) ? $single_form_field->general_setting->required : 'no';
-		$field_label = isset( $form_data->label ) ? $form_data->label : '';
-		$value = isset( $form_data->value ) ? $form_data->value : '';
+		// Custom Field Validation here..
 
-		if ( $is_condition_enabled !== '1' && 'yes' == $required && empty( $value ) ) {
-			add_filter( $filter_hook, function ( $msg ) use ( $field_label ) {
-				return __( $field_label . ' is required.', 'user-registration' );
-			});
+		$field_label = $single_form_field->general_setting->field_name;
+		$value       = $form_data->value;
+
+		if ( ! empty( $single_form_field->advance_setting->choice_limit ) ) {
+
+			$checked_count = is_array( $value ) ? count( $value ) : ( ( json_decode( $value ) && ! is_null( $value ) ) ? count( json_decode( $value ) ) : 0 );
+			$limit         = $single_form_field->advance_setting->choice_limit;
+
+			if ( $checked_count > $limit ) {
+				$message = array(
+					/* translators: %s - validation message */
+					$field_label => sprintf( __( 'Only %d options can be selected.', 'user-registration' ), $limit ),
+					'individual' => true,
+				);
+				add_filter(
+					$filter_hook,
+					function ( $msg ) use ( $field_label, $message ) {
+						if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX || ! ur_option_checked( 'user_registration_ajax_form_submission_on_edit_profile', false ) ) {
+							return sprintf( $message[ $field_label ] );
+						} else {
+							wp_send_json_error(
+								array(
+									'message' => $message,
+								)
+							);
+						}
+					}
+				);
+			}
 		}
 	}
 }

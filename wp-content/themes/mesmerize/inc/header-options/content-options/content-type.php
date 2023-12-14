@@ -165,7 +165,7 @@ function mesmerize_front_page_header_media_box_options($section, $prefix, $prior
         'settings'    => 'header_content_image',
         'label'       => esc_html__('Image', 'mesmerize'),
         'section'     => $section,
-        'default'     => get_template_directory_uri() . "/assets/images/media-image-default.jpg",
+        'default'     => apply_filters('mesmerize_assets_url', get_template_directory_uri() , '/') . "/assets/images/media-image-default.jpg",
         'height'      => '600',
         'width'       => '420',
         'flex_height' => true,

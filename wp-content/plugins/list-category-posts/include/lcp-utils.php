@@ -37,4 +37,36 @@ class LcpUtils{
             ($pagination !== 'no')
            );
   }
+
+  public static function lcp_format_customfield($type) {
+    $format = null;
+    switch ($type) {
+      case 'DATETIME':
+        $format = 'c';
+        break;
+      case 'DATE':
+        $format = 'Y-m-d';
+        break;
+      case 'TIME':
+        $format = 'H:i:s';
+    }
+
+    return function($value) use ($format) {
+      // When necessary, format the string, if not
+      // return it as is.
+      if ($format) return date($format, strtotime($value));
+      return $value;
+    };
+  }
+
+  // Adapted from a comment on https://developer.wordpress.org/reference/functions/sanitize_html_class/
+  public static function sanitize_html_classes($classes, $sep = " ") {
+    if(!is_array($classes)) {
+      $classes = explode($sep, $classes);
+    }
+
+    $classes = array_map('sanitize_html_class', $classes);
+
+    return implode(' ', $classes);
+  }
 }

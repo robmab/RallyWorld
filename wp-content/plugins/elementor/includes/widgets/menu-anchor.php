@@ -40,7 +40,7 @@ class Widget_Menu_Anchor extends Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Menu Anchor', 'elementor' );
+		return esc_html__( 'Menu Anchor', 'elementor' );
 	}
 
 	/**
@@ -76,33 +76,44 @@ class Widget_Menu_Anchor extends Widget_Base {
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
 	 *
-	 * @since 1.0.0
+	 * @since 3.1.0
 	 * @access protected
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_anchor',
 			[
-				'label' => __( 'Anchor', 'elementor' ),
-			]
-		);
-
-		$this->add_control(
-			'anchor_description',
-			[
-				'raw' => __( 'This ID will be the CSS ID you will have to use in your own page, Without #.', 'elementor' ),
-				'type' => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-descriptor',
+				'label' => esc_html__( 'Anchor', 'elementor' ),
 			]
 		);
 
 		$this->add_control(
 			'anchor',
 			[
-				'label' => __( 'The ID of Menu Anchor.', 'elementor' ),
+				'label' => esc_html__( 'The ID of Menu Anchor.', 'elementor' ),
 				'type' => Controls_Manager::TEXT,
-				'placeholder' => __( 'For Example: About', 'elementor' ),
+				'ai' => [
+					'active' => false,
+				],
+				'placeholder' => esc_html__( 'For Example: About', 'elementor' ),
+				'description' => esc_html__( 'This ID will be the CSS ID you will have to use in your own page, Without #.', 'elementor' ),
 				'label_block' => true,
+				'dynamic' => [
+					'active' => true,
+				],
+			]
+		);
+
+		$this->add_control(
+			'anchor_note',
+			[
+				'type' => Controls_Manager::RAW_HTML,
+				'raw' => sprintf(
+					/* translators: %s: Accepted chars. */
+					esc_html__( 'Note: The ID link ONLY accepts these chars: %s', 'elementor' ),
+					'`A-Z, a-z, 0-9, _ , -`'
+				),
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 			]
 		);
 
@@ -121,12 +132,12 @@ class Widget_Menu_Anchor extends Widget_Base {
 		$anchor = $this->get_settings_for_display( 'anchor' );
 
 		if ( ! empty( $anchor ) ) {
-			$this->add_render_attribute( 'inner', 'id', $anchor );
+			$this->add_render_attribute( 'inner', 'id', sanitize_html_class( $anchor ) );
 		}
 
 		$this->add_render_attribute( 'inner', 'class', 'elementor-menu-anchor' );
 		?>
-		<div <?php echo $this->get_render_attribute_string( 'inner' ); ?>></div>
+		<div <?php $this->print_render_attribute_string( 'inner' ); ?>></div>
 		<?php
 	}
 
@@ -135,12 +146,18 @@ class Widget_Menu_Anchor extends Widget_Base {
 	 *
 	 * Written as a Backbone JavaScript template and used to generate the live preview.
 	 *
-	 * @since 1.0.0
+	 * @since 2.9.0
 	 * @access protected
 	 */
-	protected function _content_template() {
+	protected function content_template() {
 		?>
 		<div class="elementor-menu-anchor"{{{ settings.anchor ? ' id="' + settings.anchor + '"' : '' }}}></div>
 		<?php
+	}
+
+	protected function on_save( array $settings ) {
+		$settings['anchor'] = sanitize_html_class( $settings['anchor'] );
+
+		return $settings;
 	}
 }

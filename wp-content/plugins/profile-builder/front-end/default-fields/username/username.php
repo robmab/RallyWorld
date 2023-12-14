@@ -1,8 +1,10 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 /* handle field output */
 function wppb_username_handler( $output, $form_location, $field, $user_id, $field_check_errors, $request_data ){	
-	$item_title = apply_filters( 'wppb_'.$form_location.'_username_item_title', wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_title_translation', $field['field-title'] ) );
-	$item_description = wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_description_translation', $field['description'] );
+	$item_title = apply_filters( 'wppb_'.$form_location.'_username_item_title', wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_title_translation', $field['field-title'], true ) );
+	$item_description = wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_description_translation', $field['description'], true );
 	
 	$input_value = ( ( $form_location == 'edit_profile' ) ? get_the_author_meta( 'user_login', $user_id ) : '' );
 	
@@ -22,7 +24,7 @@ function wppb_username_handler( $output, $form_location, $field, $user_id, $fiel
 
         $output = '
 			<label for="username">'.$item_title.$error_mark.'</label>
-			<input class="text-input default_field_username '. apply_filters( 'wppb_fields_extra_css_class', '', $field ) .'" name="username" maxlength="'. apply_filters( 'wppb_maximum_character_length', 70 ) .'" type="text" id="username" value="'. esc_attr( $input_value ) .'" '.$readonly.' '. $extra_attr .'/>';
+			<input class="text-input default_field_username '. apply_filters( 'wppb_fields_extra_css_class', '', $field ) .'" name="username" maxlength="'. apply_filters( 'wppb_maximum_character_length', 70, $field ) .'" type="text" id="username" value="'. esc_attr( $input_value ) .'" '.$readonly.' '. $extra_attr .'/>';
         if( !empty( $item_description ) )
             $output .= '<span class="wppb-description-delimiter">'.$item_description.'</span>';
 	}
@@ -54,7 +56,7 @@ function wppb_check_username_value( $message, $field, $request_data, $form_locat
         }
 
         $wppb_generalSettings = get_option('wppb_general_settings');
-        if ( $wppb_generalSettings['emailConfirmation'] == 'yes'  ){
+        if ( isset($wppb_generalSettings['emailConfirmation']) && $wppb_generalSettings['emailConfirmation'] == 'yes'  ){
 
             if( is_multisite() && $request_data['username'] != preg_replace( '/\s+/', '', $request_data['username'] ) ){
                 return __( 'This username is invalid because it uses illegal characters.', 'profile-builder' ) .'<br/>'. __( 'Please enter a valid username.', 'profile-builder' );
@@ -73,10 +75,12 @@ add_filter( 'wppb_check_form_field_default-username', 'wppb_check_username_value
 
 
 /* handle field save */
-function wppb_userdata_add_username( $userdata, $global_request ){
-	if ( isset( $global_request['username'] ) )
-		$userdata['user_login'] = sanitize_user( trim( $global_request['username'] ) );
+function wppb_userdata_add_username( $userdata, $global_request, $form_args ){
+    if( wppb_field_exists_in_form( 'Default - Username', $form_args ) ) {
+        if (isset($global_request['username']))
+            $userdata['user_login'] = sanitize_user(trim($global_request['username']));
+    }
 
 	return $userdata;
 }
-add_filter( 'wppb_build_userdata', 'wppb_userdata_add_username', 10, 2 );
+add_filter( 'wppb_build_userdata', 'wppb_userdata_add_username', 10, 3 );

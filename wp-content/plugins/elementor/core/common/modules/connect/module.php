@@ -3,14 +3,33 @@ namespace Elementor\Core\Common\Modules\Connect;
 
 use Elementor\Core\Base\Module as BaseModule;
 use Elementor\Core\Common\Modules\Connect\Apps\Base_App;
+use Elementor\Core\Common\Modules\Connect\Apps\Common_App;
 use Elementor\Core\Common\Modules\Connect\Apps\Connect;
+use Elementor\Core\Common\Modules\Connect\Apps\Library;
+use Elementor\Plugin;
+use Elementor\Utils;
+use WP_User_Query;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
 class Module extends BaseModule {
+	const ACCESS_LEVEL_CORE = 0;
+	const ACCESS_LEVEL_PRO = 1;
+	const ACCESS_LEVEL_EXPERT = 20;
 
+	const ACCESS_TIER_FREE = 'free';
+	const ACCESS_TIER_ESSENTIAL = 'essential';
+	const ACCESS_TIER_ESSENTIAL_OCT_2023 = 'essential-oct2023';
+	const ACCESS_TIER_ADVANCED = 'advanced';
+	const ACCESS_TIER_EXPERT = 'expert';
+	const ACCESS_TIER_AGENCY = 'agency';
+
+	/**
+	 * @since 2.3.0
+	 * @access public
+	 */
 	public function get_name() {
 		return 'connect';
 	}
@@ -46,23 +65,28 @@ class Module extends BaseModule {
 
 	protected $admin_page;
 
+	/**
+	 * @since 2.3.0
+	 * @access public
+	 */
 	public function __construct() {
 		$this->registered_apps = [
 			'connect' => Connect::get_class_name(),
+			'library' => Library::get_class_name(),
 		];
 
-		// Note: The priority 11 is for allowing plugins to add their register callback on elementor init.
-		add_action( 'elementor/init', [ $this, 'init' ], 11 );
+		// When using REST API the parent module is construct after the action 'elementor/init'
+		// so this part of code make sure to register the module "apps".
+		if ( did_action( 'elementor/init' ) ) {
+			$this->init();
+		} else {
+			// Note: The priority 11 is for allowing plugins to add their register callback on elementor init.
+			add_action( 'elementor/init', [ $this, 'init' ], 11 );
+		}
 
-		wp_register_script(
-			'elementor-connect',
-			$this->get_js_assets_url( 'connect', '/core/common/modules/connect/assets/js/' ),
-			[
-				'jquery',
-			],
-			ELEMENTOR_VERSION,
-			true
-		);
+		add_filter( 'elementor/tracker/send_tracking_data_params', function ( $params ) {
+			return $this->add_tracking_data( $params );
+		} );
 	}
 
 	/**
@@ -95,11 +119,20 @@ class Module extends BaseModule {
 	}
 
 	/**
+	 * @deprecated 3.1.0
+	 */
+	public function localize_settings() {
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0' );
+
+		return [];
+	}
+
+	/**
 	 * Register app.
 	 *
 	 * Registers an app.
 	 *
-	 * @since  2.3.0
+	 * @since 2.3.0
 	 * @access public
 	 *
 	 * @param string $slug App slug.
@@ -118,7 +151,7 @@ class Module extends BaseModule {
 	 *
 	 * Retrieve the app instance.
 	 *
-	 * @since  2.3.0
+	 * @since 2.3.0
 	 * @access public
 	 *
 	 * @param $slug
@@ -134,19 +167,103 @@ class Module extends BaseModule {
 	}
 
 	/**
+	 * @since 2.3.0
+	 * @access public
 	 * @return Base_App[]
 	 */
 	public function get_apps() {
 		return $this->apps;
 	}
 
+	/**
+	 * @since 2.3.0
+	 * @access public
+	 */
 	public function register_category( $slug, $args ) {
 		$this->categories[ $slug ] = $args;
 		return $this;
 	}
 
+	/**
+	 * @since 2.3.0
+	 * @access public
+	 */
 	public function get_categories() {
 		return $this->categories;
 	}
 
+	/**
+	 * @param string $context Where this subscription plan should be shown.
+	 *
+	 * @return array
+	 */
+	public function get_subscription_plans( $context = '' ) {
+		$base_url = Utils::has_pro() ? 'https://my.elementor.com/upgrade-subscription' : 'https://elementor.com/pro';
+		$promotion_url = $base_url . '/?utm_source=' . $context . '&utm_medium=wp-dash&utm_campaign=gopro';
+
+		return [
+			static::ACCESS_TIER_FREE => [
+				'label' => null,
+				'promotion_url' => null,
+				'color' => null,
+			],
+			static::ACCESS_TIER_ESSENTIAL => [
+				'label' => 'Pro',
+				'promotion_url' => $promotion_url,
+				'color' => '#92003B',
+			],
+			static::ACCESS_TIER_ESSENTIAL_OCT_2023 => [
+				'label' => 'Advanced', // Should be the same label as "Advanced".
+				'promotion_url' => $promotion_url,
+				'color' => '#92003B',
+			],
+			static::ACCESS_TIER_ADVANCED => [
+				'label' => 'Advanced',
+				'promotion_url' => $promotion_url,
+				'color' => '#92003B',
+			],
+			static::ACCESS_TIER_EXPERT => [
+				'label' => 'Expert',
+				'promotion_url' => $promotion_url,
+				'color' => '#92003B',
+			],
+			static::ACCESS_TIER_AGENCY => [
+				'label' => 'Agency',
+				'promotion_url' => $promotion_url,
+				'color' => '#92003B',
+			],
+		];
+	}
+
+	private function add_tracking_data( $params ) {
+		$users = [];
+
+		$users_query = new WP_User_Query( [
+			'count_total' => false, // Disable SQL_CALC_FOUND_ROWS.
+			'meta_query' => [
+				'key' => Common_App::OPTION_CONNECT_COMMON_DATA_KEY,
+				'compare' => 'EXISTS',
+			],
+		] );
+
+		foreach ( $users_query->get_results() as $user ) {
+			$connect_common_data = get_user_option( Common_App::OPTION_CONNECT_COMMON_DATA_KEY, $user->ID );
+
+			if ( $connect_common_data ) {
+				$users [] = [
+					'id' => $user->ID,
+					'email' => $connect_common_data['user']->email,
+					'roles' => implode( ', ', $user->roles ),
+				];
+			}
+		}
+
+		$params['usages'][ $this->get_name() ] = [
+			'site_key' => get_option( Base_App::OPTION_CONNECT_SITE_KEY ),
+			'count' => count( $users ),
+			'users' => $users,
+		];
+
+		return $params;
+	}
 }

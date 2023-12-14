@@ -1,8 +1,10 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 /* handle field output */
 function wppb_last_name_handler( $output, $form_location, $field, $user_id, $field_check_errors, $request_data ){	
-	$item_title = apply_filters( 'wppb_'.$form_location.'_lastname_item_title', wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_title_translation', $field['field-title'] ) );
-	$item_description = wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_description_translation', $field['description'] );
+	$item_title = apply_filters( 'wppb_'.$form_location.'_lastname_item_title', wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_title_translation', $field['field-title'], true ) );
+	$item_description = wppb_icl_t( 'plugin profile-builder-pro', 'default_field_'.$field['id'].'_description_translation', $field['description'], true );
 	$input_value = '';
 	if( $form_location == 'edit_profile' )
 		$input_value = get_the_author_meta( 'last_name', $user_id );
@@ -22,7 +24,7 @@ function wppb_last_name_handler( $output, $form_location, $field, $user_id, $fie
 
         $output = '
 			<label for="last_name">'.$item_title.$error_mark.'</label>
-			<input class="text-input default_field_lastname '. apply_filters( 'wppb_fields_extra_css_class', '', $field ) .'" name="last_name" maxlength="'. apply_filters( 'wppb_maximum_character_length', 70 ) .'" type="text" id="last_name" value="'. esc_attr( wp_unslash( $input_value ) ) .'" '. $extra_attr .'/>';
+			<input class="text-input default_field_lastname '. apply_filters( 'wppb_fields_extra_css_class', '', $field ) .'" name="last_name" maxlength="'. apply_filters( 'wppb_maximum_character_length', 70, $field ) .'" type="text" id="last_name" value="'. esc_attr( wp_unslash( $input_value ) ) .'" '. $extra_attr .'/>';
             if( !empty( $item_description ) )
                 $output .= '<span class="wppb-description-delimiter">'. $item_description .'</span>';
 	}
@@ -46,10 +48,12 @@ add_filter( 'wppb_check_form_field_default-last-name', 'wppb_check_last_name_val
 
 
 /* handle field save */
-function wppb_userdata_add_last_name( $userdata, $global_request ){
-	if ( isset( $global_request['last_name'] ) )
-		$userdata['last_name'] = sanitize_text_field( trim( $global_request['last_name'] ) );
-	
+function wppb_userdata_add_last_name( $userdata, $global_request, $form_args ){
+    if( wppb_field_exists_in_form( 'Default - Last Name', $form_args ) ) {
+        if (isset($global_request['last_name']))
+            $userdata['last_name'] = sanitize_text_field(trim($global_request['last_name']));
+    }
+
 	return $userdata;
 }
-add_filter( 'wppb_build_userdata', 'wppb_userdata_add_last_name', 10, 2 );
+add_filter( 'wppb_build_userdata', 'wppb_userdata_add_last_name', 10, 3 );

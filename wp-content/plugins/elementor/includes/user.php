@@ -24,7 +24,19 @@ class User {
 
 	const INTRODUCTION_KEY = 'elementor_introduction';
 
-	const INTRODUCTION_VERSION = 2;
+	const BETA_TESTER_META_KEY = 'elementor_beta_tester';
+
+	/**
+	 * API URL.
+	 *
+	 * Holds the URL of the Beta Tester Opt-in API.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 *
+	 * @var string API URL.
+	 */
+	const BETA_TESTER_API_URL = 'https://my.elementor.com/api/v1/beta_tester/';
 
 	/**
 	 * Init.
@@ -42,8 +54,14 @@ class User {
 		add_action( 'elementor/ajax/register_actions', [ __CLASS__, 'register_ajax_actions' ] );
 	}
 
+	/**
+	 * @since 2.1.0
+	 * @access public
+	 * @static
+	 */
 	public static function register_ajax_actions( Ajax $ajax ) {
 		$ajax->register_ajax_action( 'introduction_viewed', [ __CLASS__, 'set_introduction_viewed' ] );
+		$ajax->register_ajax_action( 'beta_tester_signup', [ __CLASS__, 'register_as_beta_tester' ] );
 	}
 
 	/**
@@ -66,7 +84,7 @@ class User {
 			return false;
 		}
 
-		if ( 'trash' === get_post_status( $post_id ) ) {
+		if ( 'trash' === get_post_status( $post->ID ) ) {
 			return false;
 		}
 
@@ -81,11 +99,11 @@ class User {
 		}
 
 		$edit_cap = $post_type_object->cap->edit_post;
-		if ( ! current_user_can( $edit_cap, $post_id ) ) {
+		if ( ! current_user_can( $edit_cap, $post->ID ) ) {
 			return false;
 		}
 
-		if ( get_option( 'page_for_posts' ) === $post_id ) {
+		if ( intval( get_option( 'page_for_posts' ) ) === $post->ID ) {
 			return false;
 		}
 
@@ -97,6 +115,7 @@ class User {
 	 *
 	 * Whether the current user role is not excluded by Elementor Settings.
 	 *
+	 * @since 2.1.7
 	 * @access public
 	 * @static
 	 *
@@ -151,13 +170,14 @@ class User {
 	 * Retrieve the list of notices for the current user.
 	 *
 	 * @since 2.0.0
-	 * @access private
+	 * @access public
 	 * @static
 	 *
 	 * @return array A list of user notices.
 	 */
-	private static function get_user_notices() {
-		return get_user_meta( get_current_user_id(), self::ADMIN_NOTICES_KEY, true );
+	public static function get_user_notices() {
+		$notices = get_user_meta( get_current_user_id(), self::ADMIN_NOTICES_KEY, true );
+		return is_array( $notices ) ? $notices : [];
 	}
 
 	/**
@@ -176,11 +196,16 @@ class User {
 	public static function is_user_notice_viewed( $notice_id ) {
 		$notices = self::get_user_notices();
 
-		if ( empty( $notices ) || empty( $notices[ $notice_id ] ) ) {
+		if ( empty( $notices[ $notice_id ] ) ) {
 			return false;
 		}
 
-		return true;
+		// BC: Handles old structure ( `[ 'notice_id' => 'true' ]` ).
+		if ( 'true' === $notices[ $notice_id ] ) {
+			return true;
+		}
+
+		return $notices[ $notice_id ]['is_viewed'] ?? false;
 	}
 
 	/**
@@ -195,19 +220,16 @@ class User {
 	 * @static
 	 */
 	public static function ajax_set_admin_notice_viewed() {
-		if ( empty( $_REQUEST['notice_id'] ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		$notice_id = Utils::get_super_global_value( $_REQUEST, 'notice_id' );
+
+		if ( ! $notice_id ) {
 			wp_die();
 		}
 
-		$notices = self::get_user_notices();
-		if ( empty( $notices ) ) {
-			$notices = [];
-		}
+		self::set_user_notice( $notice_id );
 
-		$notices[ $_REQUEST['notice_id'] ] = 'true';
-		update_user_meta( get_current_user_id(), self::ADMIN_NOTICES_KEY, $notices );
-
-		if ( ! Utils::is_ajax() ) {
+		if ( ! wp_doing_ajax() ) {
 			wp_safe_redirect( admin_url() );
 			die;
 		}
@@ -215,25 +237,105 @@ class User {
 		wp_die();
 	}
 
-	public static function set_introduction_viewed() {
+	/**
+	 * @param $notice_id
+	 * @param $is_viewed
+	 * @param $meta
+	 *
+	 * @return void
+	 */
+	public static function set_user_notice( $notice_id, $is_viewed = true, $meta = null ) {
+		$notices = self::get_user_notices();
+
+		if ( ! is_array( $meta ) ) {
+			$meta = $notices[ $notice_id ]['meta'] ?? [];
+		}
+
+		$notices[ $notice_id ] = [
+			'is_viewed' => $is_viewed,
+			'meta' => $meta,
+		];
+
+		update_user_meta( get_current_user_id(), self::ADMIN_NOTICES_KEY, $notices );
+	}
+
+	/**
+	 * @since 2.1.0
+	 * @access public
+	 * @static
+	 */
+	public static function set_introduction_viewed( array $data ) {
 		$user_introduction_meta = self::get_introduction_meta();
+
+		$user_introduction_meta[ $data['introductionKey'] ] = true;
+
+		update_user_meta( get_current_user_id(), self::INTRODUCTION_KEY, $user_introduction_meta );
+	}
+
+	/**
+	 * @throws \Exception
+	 */
+	public static function register_as_beta_tester( array $data ) {
+		if ( ! current_user_can( 'install_plugins' ) ) {
+			throw new \Exception( __( 'You do not have permissions to install plugins on this site.', 'elementor' ) );
+		}
+
+		update_user_meta( get_current_user_id(), self::BETA_TESTER_META_KEY, true );
+		$response = wp_safe_remote_post(
+			self::BETA_TESTER_API_URL,
+			[
+				'timeout' => 25,
+				'body' => [
+					'api_version' => ELEMENTOR_VERSION,
+					'site_lang' => get_bloginfo( 'language' ),
+					'beta_tester_email' => $data['betaTesterEmail'],
+				],
+			]
+		);
+
+		$response_code = (int) wp_remote_retrieve_response_code( $response );
+
+		if ( 200 === $response_code ) {
+			self::set_introduction_viewed( [
+				'introductionKey' => Beta_Testers::BETA_TESTER_SIGNUP,
+			] );
+		}
+	}
+
+	/**
+	 * @param string $key
+	 *
+	 * @return array|mixed|string
+	 * @since  2.1.0
+	 * @access public
+	 * @static
+	 */
+	public static function get_introduction_meta( $key = '' ) {
+		$user_introduction_meta = get_user_meta( get_current_user_id(), self::INTRODUCTION_KEY, true );
 
 		if ( ! $user_introduction_meta ) {
 			$user_introduction_meta = [];
 		}
 
-		$user_introduction_meta[ self::INTRODUCTION_VERSION ] = true;
+		if ( $key ) {
+			return empty( $user_introduction_meta[ $key ] ) ? '' : $user_introduction_meta[ $key ];
+		}
 
-		update_user_meta( get_current_user_id(), self::INTRODUCTION_KEY, $user_introduction_meta );
+		return $user_introduction_meta;
 	}
 
-	public static function is_should_view_introduction() {
-		$user_introduction_meta = self::get_introduction_meta();
+	/**
+	 * Get a user option with default value as fallback.
+	 *
+	 * @param string $option  - Option key.
+	 * @param int    $user_id - User ID
+	 * @param mixed  $default - Default fallback value.
+	 *
+	 * @return mixed
+	 */
+	public static function get_user_option_with_default( $option, $user_id, $default ) {
+		$value = get_user_option( $option, $user_id );
 
-		return empty( $user_introduction_meta[ self::INTRODUCTION_VERSION ] );
-	}
-
-	private static function get_introduction_meta() {
-		return get_user_meta( get_current_user_id(), self::INTRODUCTION_KEY, true );
+		return ( false === $value ) ? $default : $value;
 	}
 }

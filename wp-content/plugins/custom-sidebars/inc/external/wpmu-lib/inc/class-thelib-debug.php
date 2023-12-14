@@ -251,11 +251,11 @@ class TheLib_Debug extends TheLib  {
 		if ( headers_sent() ) {
 			// HTTP Headers already sent, so add the response as HTML comment.
 			$message = str_replace( '-->', '--/>', $message );
-			printf( "<!-- Debug-Note[%s]: %s -->\n", $Number, $message );
+			printf( "<!-- Debug-Note[%s]: %s -->\n", esc_html( $Number), esc_html( $message ) );
 		} else {
 			// No output was sent yet so add the message to the HTTP headers.
 			$message = str_replace( array( "\n", "\r" ), ' ', $message );
-			header( "X-Debug-Note[$Number]: $message", false );
+			header( "X-Debug-Note[" . esc_html( $Number ) . "]: " . esc_html( $message ), false );
 		}
 	}
 
@@ -296,7 +296,8 @@ class TheLib_Debug extends TheLib  {
 		} else {
 			foreach ( func_get_args() as $param ) {
 				$dump = var_export( $param, true );
-				echo "\r\n" . $dump;
+				echo "\r\n";
+                CustomSidebars::wp_kses_wf( $dump );
 			}
 		}
 
@@ -422,7 +423,7 @@ class TheLib_Debug extends TheLib  {
 		}
 
 		if ( $output ) {
-			echo '' . $trace_str;
+			CustomSidebars::wp_kses_wf( $trace_str );
 		}
 
 		return $trace_str;
@@ -502,7 +503,8 @@ class TheLib_Debug extends TheLib  {
 				$type_label .= ' [' . get_class( $data ) . ']';
 			}
 
-			$last_key = end( (array_keys( $dump_data )) );
+			$keys = array_keys( $dump_data );
+			$last_key = end( $keys );
 			reset( $dump_data );
 
 			foreach ( $dump_data as $key => $value ) {
@@ -626,7 +628,7 @@ class TheLib_Debug extends TheLib  {
 		if ( ! empty( $args['do_collapse'] ) ) {
 			$row_attr = 'style="display:none;"';
 		}
-		echo '<tr class="' . $row_class . '"' . $row_attr . '><td>';
+		echo '<tr class="' . esc_attr($row_class) . '"' . esc_html($row_attr) . '><td>';
 
 		// Property-key, if set.
 		if ( $key === null ) {
@@ -672,23 +674,23 @@ class TheLib_Debug extends TheLib  {
 				$key_style .= 'background:#FDA;';
 			}
 
-			echo '<span class="dev-item dev-item-key" style="' . $key_style . '">[ ' . $prefix . $key . ' ]</span>';
+			echo '<span class="dev-item dev-item-key" style="' . esc_attr($key_style) . '">[ ' . esc_attr($prefix) . esc_attr($key) . ' ]</span>';
 			echo '<span class="dev-item"> => </span>';
 		}
 
 		// Data-Type.
 		if ( ! empty( $args['toggle'] ) ) {
-			echo '<a href="javascript:toggleDisplay(\''. $args['toggle'] . '\',\'' . trim( $row_class . ' ' . $args['toggle'] ) . '\');" class="dev-item dev-toggle-item">';
-			echo '<span style="color:#666666">' . $type . '</span>&nbsp;&nbsp;';
+			echo '<a href="javascript:toggleDisplay(\''. esc_attr($args['toggle']) . '\',\'' . esc_attr(trim( $row_class . ' ' . $args['toggle'] ) ) . '\');" class="dev-item dev-toggle-item">';
+			echo '<span style="color:#666666">' . esc_attr($type) . '</span>&nbsp;&nbsp;';
 			echo '</a>';
 		} else {
-			echo '<span class="dev-item" style="color:#666666">' . $type . '&nbsp;&nbsp;</span>';
+			echo '<span class="dev-item" style="color:#666666">' . esc_attr($type) . '&nbsp;&nbsp;</span>';
 		}
 
 		if ( ! empty( $args['toggle'] ) ) {
 			$collapsed = ! empty( $args['do_collapse_next'] );
 			$toggle_style = 'display: ' . ( $collapsed ? 'inline' : 'none' );
-			echo '<span id="plus' . $args['toggle'] . '" class="plus dev-item" style="' . $toggle_style . '">&nbsp;&#10549;</span>';
+			echo '<span id="plus' . esc_attr($args['toggle']) . '" class="plus dev-item" style="' . esc_attr($toggle_style) . '">&nbsp;&#10549;</span>';
 		}
 
 		// Value.
@@ -697,7 +699,7 @@ class TheLib_Debug extends TheLib  {
 			if ( isset( $args['highlight'] ) ) {
 				$value_style = $args['highlight'];
 			}
-			echo '<span class="dev-item" style="color:' . $type_color . ';' . $value_style . '">' . $value . '</span>';
+			echo '<span class="dev-item" style="color:' . esc_attr($type_color) . ';' . esc_attr($value_style) . '">' . esc_attr($value) . '</span>';
 		}
 
 		echo '</td></tr>';
@@ -772,6 +774,7 @@ class TheLib_Debug extends TheLib  {
 			cursor: default;
 			padding: 0;
 			border: 0;
+			word-break: normal!important;
 		}
 		.wdev-debug .wdev-dump tr:hover td {
 			background-color: #FFF;
@@ -808,6 +811,7 @@ class TheLib_Debug extends TheLib  {
 			padding: 1px 2px !important;
 			font-size: 12px;
 			vertical-align: top;
+			word-break: normal!important;
 		}
 		.wdev-trace {
 			margin: 4px 0 0 0;

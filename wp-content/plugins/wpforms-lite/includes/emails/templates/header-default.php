@@ -2,15 +2,13 @@
 /**
  * Email Header
  *
- * @package    WPForms
- * @author     WPForms
- * @since      1.1.3
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
-*/
+ * @since 1.1.3
+ */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 $header_image     = wpforms_setting( 'email-header-image', false );
 $background_color = wpforms_setting( 'email-background-color', '#e9eaec' );
@@ -240,6 +238,39 @@ $text_direction   = is_rtl() ? 'rtl' : 'ltr';
 				max-width:100% !important;
 				width:100% !important;
 			}
+		}
+		/* Rich Text compatibility - image alignment. */
+		.mcnTextContentContainer table tbody,
+		.mcnTextContentContainer table tbody tr,
+		.mcnTextContentContainer table tbody td {
+			display: block;
+		}
+		.mcnTextContentContainer p::after {
+			content: "";
+			clear: both;
+			display: block;
+		}
+		.mcnTextContentContainer p .alignleft, .mcnTextContentContainer li .alignleft {
+			float: left;
+			margin-right: 16px;
+			margin-top: 8px;
+			margin-bottom: 8px;
+		}
+		.mcnTextContentContainer p .aligncenter, .mcnTextContentContainer li .aligncenter {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.mcnTextContentContainer p .alignright, .mcnTextContentContainer li .alignright {
+			float: right;
+			margin-left: 16px;
+			margin-top: 8px;
+			margin-bottom: 8px;
+		}
+		/* styling lists */
+		.mcnTextContentContainer li {
+			list-style-position: inside;
+			mso-text-indent-alt: 0;
 		}
 	</style>
 </head>

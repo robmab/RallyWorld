@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Everest Forms
- * Plugin URI: https://wpeverest.com/wordpress-plugins/everest-forms/
- * Description: Drag and Drop form builder to easily create contact forms and more.
- * Version: 1.3.3
+ * Plugin URI: https://everestforms.net/
+ * Description: Drag and Drop contact form builder to easily create simple to complex forms for any purpose. Lightweight, Beautiful design, responsive and more.
+ * Version: 2.0.5
  * Author: WPEverest
  * Author URI: https://wpeverest.com
  * Text Domain: everest-forms
@@ -23,7 +23,7 @@ if ( ! defined( 'EVF_PLUGIN_FILE' ) ) {
 
 // Include the main EverestForms class.
 if ( ! class_exists( 'EverestForms' ) ) {
-	include_once dirname( __FILE__ ) . '/includes/class-everest-forms.php';
+	include_once dirname( __FILE__ ) . '/includes/class-everest-forms.php'; // phpcs:ignore
 }
 
 /**

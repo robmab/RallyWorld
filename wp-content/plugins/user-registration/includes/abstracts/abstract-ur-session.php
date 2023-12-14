@@ -1,6 +1,6 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly.
 }
 
 /**
@@ -75,7 +75,7 @@ abstract class UR_Session {
 	public function get( $key, $default = null ) {
 		$key = sanitize_key( $key );
 
-		return isset( $this->_data[ $key ] ) ? maybe_unserialize( $this->_data[ $key ] ) : $default;
+		return isset( $this->_data[ $key ] ) ? ur_maybe_unserialize( $this->_data[ $key ] ) : $default;
 	}
 
 	/**
@@ -87,7 +87,7 @@ abstract class UR_Session {
 	public function set( $key, $value ) {
 		if ( $value !== $this->get( $key ) ) {
 			$this->_data[ sanitize_key( $key ) ] = maybe_serialize( $value );
-			$this->_dirty = true;
+			$this->_dirty                        = true;
 		}
 	}
 

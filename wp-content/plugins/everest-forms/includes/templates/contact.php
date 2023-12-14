@@ -10,9 +10,10 @@
 defined( 'ABSPATH' ) || exit;
 
 $form_title               = isset( $title ) ? sanitize_text_field( $title ) : esc_html__( 'Contact Form', 'everest-forms' );
+$form_name                = isset( $title ) ? '- ' . $title : '';
 $form_template['contact'] = array(
 	'form_field_id' => '1',
-	'form_fields' => array(
+	'form_fields'   => array(
 		'fullname' => array(
 			'id'          => 'fullname',
 			'type'        => 'text',
@@ -23,7 +24,7 @@ $form_template['contact'] = array(
 			'placeholder' => '',
 			'css'         => '',
 		),
-		'email' => array(
+		'email'    => array(
 			'id'            => 'email',
 			'type'          => 'email',
 			'label'         => 'Email',
@@ -34,7 +35,7 @@ $form_template['contact'] = array(
 			'default_value' => '',
 			'css'           => '',
 		),
-		'subject' => array(
+		'subject'  => array(
 			'id'          => 'subject',
 			'type'        => 'text',
 			'label'       => 'Subject',
@@ -44,7 +45,7 @@ $form_template['contact'] = array(
 			'placeholder' => '',
 			'css'         => '',
 		),
-		'message' => array(
+		'message'  => array(
 			'id'          => 'message',
 			'type'        => 'textarea',
 			'label'       => 'Message',
@@ -54,25 +55,31 @@ $form_template['contact'] = array(
 			'css'         => '',
 		),
 	),
-	'settings' => array(
-		'form_title'  => $form_title,
-		'form_desc'   => '',
+	'settings'      => array(
+		'form_title'                         => $form_title,
+		'form_desc'                          => '',
 		'successful_form_submission_message' => get_option( 'everest_forms_successful_form_submission_message', __( 'Thanks for contacting us! We will be in touch with you shortly.', 'everest-forms' ) ),
-		'redirect_to'                        => '0',
+		'redirect_to'                        => 'same',
 		'custom_page'                        => '2',
 		'external_url'                       => '',
 		'layout_class'                       => 'default',
 		'form_class'                         => '',
 		'submit_button_text'                 => get_option( 'everest_forms_form_submit_button_label', __( 'Submit', 'everest-forms' ) ),
-		'email' => array(
-			'evf_to_email'      => get_option( 'admin_email' ),
-			'evf_from_name'     => get_bloginfo( 'name', 'display' ),
-			'evf_from_email'    => get_option( 'admin_email' ),
-			'evf_email_subject' => __( 'New Form Entry', 'everest-forms' ),
-			'evf_email_message' => '{all_fields}',
+		'honeypot'                           => '1',
+		'email'                              => array(
+			'connection_1' => array(
+				'connection_name'   => __( 'Admin Notification', 'everest-forms' ),
+				'evf_to_email'      => '{admin_email}',
+				'evf_from_name'     => get_bloginfo( 'name', 'display' ),
+				'evf_from_email'    => '{admin_email}',
+				'evf_reply_to'      => '{field_id="email"}',
+				/* translators: %s: Form Name */
+				'evf_email_subject' => sprintf( esc_html__( 'New Form Entry %s', 'everest-forms' ), $form_name ),
+				'evf_email_message' => '{all_fields}',
+			),
 		),
 	),
-	'structure' => array(
+	'structure'     => array(
 		'row_1' => array(
 			'grid_1' => array(
 				'fullname',

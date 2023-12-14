@@ -14,15 +14,10 @@ function fitness_hub_register_required_plugins() {
     // Include Acme Demo Setup as recommended
     $plugins = array(
         array(
-            'name'      => esc_html__('Acme Demo Setup','fitness-hub'),
-            'slug'      => 'acme-demo-setup',
+            'name'      => 'Gutentor',
+            'slug'      => 'gutentor',
             'required'  => false,
-        ),
-	    array(
-		    'name'      => esc_html__('Page Builder by SiteOrigin','fitness-hub'),
-		    'slug'      => 'siteorigin-panels',
-		    'required'  => false,
-	    ),
+        )
     );
 	tgmpa( $plugins );
 }
