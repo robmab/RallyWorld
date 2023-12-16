@@ -26,5 +26,5 @@ This Wordpress platform is focused on WRC, Dakar, CrossCountry and RallyCross to
   ![image](https://github.com/robmab/RallyWorld/assets/56076087/00b0a4d1-c640-4ded-9e1d-238d1997c068)
 
 > [!TIP]
-> For more technical information on the web application, in the documents folder there are 2 pdfs describing the details of the construction of the application, as well as the puglins used.
+> For more technical information on the web application, in the documents folder there are 2 pdf's describing the details of the construction of the application, as well as the puglins used.
 
