@@ -1,4 +1,4 @@
-![image](https://github.com/robmab/RallyWorld/assets/56076087/22afa268-84ba-4333-9f2d-3cc72b9b8346)# RallyWorld, online platform for news from the world of rallying.
+# RallyWorld, online platform for news from the world of rallying.
 
 ![RWFIF](https://github.com/robmab/RallyWorld/assets/56076087/509fdccf-d71f-4c9c-85ed-02448ea6d5e2)
 
