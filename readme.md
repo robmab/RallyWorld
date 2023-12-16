@@ -28,3 +28,10 @@ This Wordpress platform is focused on WRC, Dakar, CrossCountry and RallyCross to
 > [!TIP]
 > For more technical information on the web application, in the documents folder there are 2 pdf's describing the details of the construction of the application, as well as the puglins used.
 
+## Technologies
+- Framework
+> Wordpress, PHP
+- Puglins
+> Autooptimize, Code Snippets, Easy Social Icons, **Elementor**, GTranslate, List Category Posts, Profile Builder, Rating Widget, ShortCodes, SiteOrigin CSS, Smart Slider 3, WPForms
+- Main Theme
+> Mesmerize
