@@ -5,4 +5,5 @@
 This Wordpress platform is focused on WRC, Dakar, CrossCountry and RallyCross to see all kind of news, as well as an online shop. Any administrator can manage the website through the Wordpress control panel.
 
 ### Features
-- 
+- **Home** con la presentación de la plataforma de cada una de las **principales secciones** de la web, así como la **tienda** y un **formulario de feedback**
+-
