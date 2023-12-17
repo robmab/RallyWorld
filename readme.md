@@ -32,6 +32,6 @@ This Wordpress platform is focused on WRC, Dakar, CrossCountry and RallyCross to
 - Framework
 > Wordpress, WooCommerce, PHP 
 - Puglins
-> **Elementor**, Autooptimize, Code Snippets, Easy Social Icons, GTranslate, List Category Posts, Profile Builder, Rating Widget, ShortCodes, SiteOrigin CSS, Smart Slider 3, WPForms,
+> **Elementor**, Autooptimize, Code Snippets, Easy Social Icons, GTranslate, List Category Posts, Profile Builder, Rating Widget, ShortCodes, SiteOrigin CSS, Smart Slider 3, WPForms
 - Main Theme
 > Mesmerize
