@@ -16,7 +16,7 @@ This Wordpress platform is focused on WRC, Dakar, CrossCountry and RallyCross to
 - **Multimedia section** of all the videos and photographs taken at the competitions through a carrousel.
 - **Online shop** where you can buy different products related to the motor world, such as jackets, sweatshirts, caps, car accessories, art among others. All these products will be sorted by **popularity** and can be added to the shopping cart for later purchase.
   - The different products will have a description as well as a rating and commenting system.
-    ![image](https://github.com/robmab/RallyWorld/assets/56076087/f4ef819e-c50f-4bdd-8413-53a16f625b31)
+    <br><img src="https://github.com/robmab/RallyWorld/assets/56076087/f4ef819e-c50f-4bdd-8413-53a16f625b31" width=20% height=20%><br>
   - It will have a **wish system** to buy at a later date y un **historial** de las compras realizadas. 
   - You will have a **payment gateway** with automatic login creation in case you are not logged in, via **Paypal**
   - It will also have **search filters** such as average rating, price and novelty, as well as by popularity (default).
