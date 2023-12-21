@@ -20,10 +20,9 @@ This Wordpress platform is focused on WRC, Dakar, CrossCountry and RallyCross to
   - It will have a **wish system** to buy at a later date y un **historial** de las compras realizadas. 
   - You will have a **payment gateway** with automatic login creation in case you are not logged in, via **Paypal**
   - It will also have **search filters** such as average rating, price and novelty, as well as by popularity (default).
-
-  ![image](https://github.com/robmab/RallyWorld/assets/56076087/a88a4b73-7011-4e49-b380-60396f557937)
-  ![image](https://github.com/robmab/RallyWorld/assets/56076087/d62e95f3-506f-4f9a-bed0-fe6ab560460d)
-  ![image](https://github.com/robmab/RallyWorld/assets/56076087/00b0a4d1-c640-4ded-9e1d-238d1997c068)
+  <br><img src="https://github.com/robmab/RallyWorld/assets/56076087/a88a4b73-7011-4e49-b380-60396f557937" width=50% height=50%><br>
+  <br><img src="https://github.com/robmab/RallyWorld/assets/56076087/d62e95f3-506f-4f9a-bed0-fe6ab560460d" width=50% height=50%><br>
+  <br><img src="https://github.com/robmab/RallyWorld/assets/56076087/00b0a4d1-c640-4ded-9e1d-238d1997c068" width=50% height=50%><br>
 
 > [!TIP]
 > For more technical information on the web application, in the documents folder there are 2 pdf's describing the details of the construction of the application, as well as the puglins used.
