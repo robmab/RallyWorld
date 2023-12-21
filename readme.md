@@ -10,7 +10,7 @@ This Wordpress platform is focused on WRC, Dakar, CrossCountry and RallyCross to
 - Each of the news items will have **reference and social media links**. At the administrative level, it has a series of **templates to speed up the creation of these news** items through the **Elementor** puglin
 - Each of the Rally categories (WRC, Dakar, CrossCountry, RallyCross) will have 4 sub-sections:
   - Ranking: Table of the current **ranking of the drivers**, as well as their scores for each of the circuits in their different nationalities.
-  - Calendar: Simple view of the date of upcoming meetings.
+  - Calendar: Simple view of the date of upcoming meetings. 
   - Teams and Drivers: Information fair for all participants and teams.
   - History: Background and creation of each of the categories, as well as great deeds that have taken place so far.
 - **Multimedia section** of all the videos and photographs taken at the competitions through a carrousel.
